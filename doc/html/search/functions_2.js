@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['batch_5fassign_0',['batch_assign',['../d2/de4/namespacedetection__utils_1_1core_1_1target__assigner.html#a8d3571d24057b74962a5e08c912d8145',1,'detection_utils::core::target_assigner']]],
+  ['batch_5fassign_5fconfidences_1',['batch_assign_confidences',['../d2/de4/namespacedetection__utils_1_1core_1_1target__assigner.html#a38051cc741fa2198a014d46f8c5d7e87',1,'detection_utils::core::target_assigner']]],
+  ['batch_5fdecode_2',['batch_decode',['../d2/d1c/namespacedetection__utils_1_1core_1_1box__coder.html#abc3dd015bbcd84aed7102a7c6db8db41',1,'detection_utils::core::box_coder']]],
+  ['batch_5fget_5ftargets_3',['batch_get_targets',['../d2/de4/namespacedetection__utils_1_1core_1_1target__assigner.html#a4c9aabceffa66cd1fe527afe829b768b',1,'detection_utils::core::target_assigner']]],
+  ['batch_5fiou_4',['batch_iou',['../d2/de3/namespacedetection__utils_1_1core_1_1post__processing.html#a612ecf46d8c84ee42d5fb8cce480d2c5',1,'detection_utils::core::post_processing']]],
+  ['batch_5fmulticlass_5fnon_5fmax_5fsuppression_5',['batch_multiclass_non_max_suppression',['../d2/de3/namespacedetection__utils_1_1core_1_1post__processing.html#a766a437a0d89839c4e6828b54205d000',1,'detection_utils::core::post_processing']]],
+  ['batch_5fposition_5fsensitive_5fcrop_5fregions_6',['batch_position_sensitive_crop_regions',['../db/d47/namespacedetection__utils_1_1utils_1_1ops.html#a8dc56974f34bbceff44a4dc9f4dace05',1,'detection_utils::utils::ops']]],
+  ['bbox_5fcutout_7',['bbox_cutout',['../d9/de3/namespacedetection__utils_1_1utils_1_1autoaugment__utils.html#a5ac432a07c8938d29c10809ed35e01d8',1,'detection_utils::utils::autoaugment_utils']]],
+  ['bbox_5fwrapper_8',['bbox_wrapper',['../d9/de3/namespacedetection__utils_1_1utils_1_1autoaugment__utils.html#ab46c93afc0f7139ea82e4473c69d5890',1,'detection_utils::utils::autoaugment_utils']]],
+  ['bfloat16_5fto_5ffloat32_5fnested_9',['bfloat16_to_float32_nested',['../db/d47/namespacedetection__utils_1_1utils_1_1ops.html#ab995660ac802c5af8c902b336a138b2b',1,'detection_utils::utils::ops']]],
+  ['blend_10',['blend',['../d9/de3/namespacedetection__utils_1_1utils_1_1autoaugment__utils.html#a181467e2d34ce3bf6362e4bddfc17132',1,'detection_utils::utils::autoaugment_utils']]],
+  ['boolean_5fmask_11',['boolean_mask',['../d9/da1/namespacedetection__utils_1_1core_1_1box__list__ops.html#ad52cd56fc9dc0a632dd326e489bd1399',1,'detection_utils::core::box_list_ops']]],
+  ['box_5fcoder_12',['box_coder',['../db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner.html#aba5655fc6bb850dddc28f733d0e14737',1,'detection_utils::core::target_assigner::TargetAssigner']]],
+  ['box_5fgrid_5fcoordinate_5fvectors_13',['box_grid_coordinate_vectors',['../d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops.html#a5b3b992126c8aa180645bbdc91ab2ab4',1,'detection_utils::utils::spatial_transform_ops']]],
+  ['box_5flist_5fto_5fbox_5fmask_5flist_14',['box_list_to_box_mask_list',['../d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops.html#a483cf98eda65a9a970b6574cdda19df5',1,'detection_utils::utils::np_box_mask_list_ops']]],
+  ['box_5fvoting_15',['box_voting',['../d9/da1/namespacedetection__utils_1_1core_1_1box__list__ops.html#a6d89634b5541a267c532cd81b4abaf64',1,'detection_utils::core::box_list_ops']]],
+  ['brightness_16',['brightness',['../d9/de3/namespacedetection__utils_1_1utils_1_1autoaugment__utils.html#a304c9b755ff2fc562cffcf75eb27bfa7',1,'detection_utils::utils::autoaugment_utils']]],
+  ['browserutil_17',['BrowserUtil',['../dc/dec/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util.html#ab8c74a7da9d118a16e2fa74a0224c784',1,'com::axellience::resiist::client::utils::gui::BrowserUtil']]],
+  ['build_5fand_5fapply_5fnas_5fpolicy_18',['build_and_apply_nas_policy',['../d9/de3/namespacedetection__utils_1_1utils_1_1autoaugment__utils.html#adace2e7b51efcce5217570032daf61e7',1,'detection_utils::utils::autoaugment_utils']]],
+  ['buildsetnamecmdres_19',['buildSetNameCmdRes',['../d8/d52/classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform.html#ae122ce1266dcb777e46c36679fc73f22',1,'com::axellience::resiist::client::acquisitiontointegration::integration::IntegrationPlatform']]],
+  ['buildsetnamecmdresfordetail_20',['buildSetNameCmdResForDetail',['../d8/d52/classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform.html#ad37d0f24ea9925363e92d515b4f4f774',1,'com::axellience::resiist::client::acquisitiontointegration::integration::IntegrationPlatform']]],
+  ['buildsetnamecmdresfortw_21',['buildSetNameCmdResForTW',['../d8/d52/classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform.html#ad1b071106c8e3b62e0aaae599943685e',1,'com::axellience::resiist::client::acquisitiontointegration::integration::IntegrationPlatform']]],
+  ['bytes_5ffeature_22',['bytes_feature',['../d0/d94/namespacedetection__utils_1_1utils_1_1dataset__util.html#a18bc707404908a5784d60d8e03793d86',1,'detection_utils::utils::dataset_util']]],
+  ['bytes_5flist_5ffeature_23',['bytes_list_feature',['../d0/d94/namespacedetection__utils_1_1utils_1_1dataset__util.html#aceff65b8bc5431ecc23efc53c3b09c3e',1,'detection_utils::utils::dataset_util']]]
+];

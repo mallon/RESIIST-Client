@@ -1,0 +1,233 @@
+\doxysection{box\+\_\+predictor.\+py}
+\hypertarget{box__predictor_8py_source}{}\label{box__predictor_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/box\_predictor.py@{src/main/resources/processing/video/detections/detection\_utils/core/box\_predictor.py}}
+\mbox{\hyperlink{box__predictor_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__predictor}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Box\ predictor\ for\ object\ detectors.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00018}00018\ \textcolor{stringliteral}{Box\ predictors\ are\ classes\ that\ take\ a\ high\ level}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00019}00019\ \textcolor{stringliteral}{image\ feature\ map\ as\ input\ and\ produce\ two\ predictions,}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00020}00020\ \textcolor{stringliteral}{(1)\ a\ tensor\ encoding\ box\ locations,\ and}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00021}00021\ \textcolor{stringliteral}{(2)\ a\ tensor\ encoding\ classes\ for\ each\ box.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00023}00023\ \textcolor{stringliteral}{These\ components\ are\ passed\ directly\ to\ loss\ functions}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00024}00024\ \textcolor{stringliteral}{in\ our\ detection\ models.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00025}00025\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00026}00026\ \textcolor{stringliteral}{These\ modules\ are\ separated\ from\ the\ main\ model\ since\ the\ same}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00027}00027\ \textcolor{stringliteral}{few\ box\ predictor\ architectures\ are\ shared\ across\ many\ models.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00028}00028\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00029}00029\ \textcolor{keyword}{from}\ abc\ \textcolor{keyword}{import}\ abstractmethod}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00030}00030\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00032}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__predictor_ac9242d8d91a115cce750acad79259674}{00032}}\ BOX\_ENCODINGS\ =\ \textcolor{stringliteral}{'box\_encodings'}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00033}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__predictor_a8e4e5ff1f15900d77d28e6c11b83ea7d}{00033}}\ CLASS\_PREDICTIONS\_WITH\_BACKGROUND\ =\ \textcolor{stringliteral}{'class\_predictions\_with\_background'}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00034}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__predictor_aaabe6e97167b4341226b64d9e2fa4ea3}{00034}}\ MASK\_PREDICTIONS\ =\ \textcolor{stringliteral}{'mask\_predictions'}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor}{00037}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor}{BoxPredictor}}(object):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00038}00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}BoxPredictor."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00040}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a92bdb129d2964a950a51c6ae0c0522fd}{00040}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a92bdb129d2964a950a51c6ae0c0522fd}{\_\_init\_\_}}(self,\ is\_training,\ num\_classes):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00041}00041\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ is\_training:\ Indicates\ whether\ the\ BoxPredictor\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{in}\ training\ mode.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00045}00045\ \ \ \ \ \ \ num\_classes:\ number\ of\ classes.\ \ Note\ that\ num\_classes\ *does\ \textcolor{keywordflow}{not}*}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ include\ the\ background\ category,\ so\ \textcolor{keywordflow}{if}\ groundtruth\ labels\ take\ values}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ \{0,\ 1,\ ..,\ K-\/1\},\ num\_classes=K\ (\textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ K+1,\ even\ though\ the}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ assigned\ classification\ targets\ can\ range\ \textcolor{keyword}{from}\ \{0,...\ K\}).}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00049}00049\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00050}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a155030df3855f150718bf012e18b7590}{00050}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a155030df3855f150718bf012e18b7590}{\_is\_training}}\ =\ is\_training}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00051}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a}{00051}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a}{\_num\_classes}}\ =\ num\_classes}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00052}00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ }\textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00054}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a61d2ed976054cb870494b5ed07e2809a}{00054}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a61d2ed976054cb870494b5ed07e2809a}{is\_keras\_model}}(self):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00057}00057\ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00058}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38}{00058}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38}{num\_classes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a}{\_num\_classes}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485}{00061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485}{predict}}(self,\ image\_features,\ num\_predictions\_per\_location,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None,\ **params):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ encoded\ object\ locations\ and\ corresponding\ confidences.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00064}00064\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ Takes\ a\ list\ of\ high\ level\ image\ feature\ maps\ }\textcolor{keyword}{as}\ input\ \textcolor{keywordflow}{and}\ produces\ a\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00066}00066\ \ \ \ \ of\ box\ encodings\ \textcolor{keywordflow}{and}\ a\ list\ of\ \textcolor{keyword}{class\ }scores\ where\ each\ element\ in\ the\ output}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00067}00067\ \ \ \ \ lists\ correspond\ to\ the\ feature\ maps\ \textcolor{keywordflow}{in}\ the\ input\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00069}00069\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00070}00070\ \ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00071}00071\ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ \textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00072}00072\ \ \ \ \ \ \ num\_predictions\_per\_location:\ A\ list\ of\ integers\ representing\ the\ number}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ of\ box\ predictions\ to\ be\ made\ per\ spatial\ location\ \textcolor{keywordflow}{for}\ each\ feature\ map.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00074}00074\ \ \ \ \ \ \ scope:\ Variable\ \textcolor{keywordflow}{and}\ Op\ scope\ name.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00075}00075\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00078}00078\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00079}00079\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00091}00091\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00092}00092\ \ \ \ \ \ \ ValueError:\ If\ length\ of\ \`{}image\_features\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ equal\ to\ length\ of}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \`{}num\_predictions\_per\_location\`{}.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00094}00094\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00095}00095\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ len(image\_features)\ !=\ len(num\_predictions\_per\_location):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00096}00096\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'image\_feature\ and\ num\_predictions\_per\_location\ must\ '}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'be\ of\ same\ length,\ found:\ \{\}\ vs\ \{\}'}.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format(len(image\_features),}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(num\_predictions\_per\_location)))}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}\ scope\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00101}00101\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.variable\_scope(scope):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}{\_predict}}(image\_features,\ num\_predictions\_per\_location,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params)}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}{\_predict}}(image\_features,\ num\_predictions\_per\_location,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params)}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00107}00107\ \ \ \textcolor{comment}{\#\ TODO(rathodv):\ num\_predictions\_per\_location\ could\ be\ moved\ to\ constructor.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00108}00108\ \ \ \textcolor{comment}{\#\ This\ is\ currently\ only\ used\ by\ ConvolutionalBoxPredictor.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00109}00109\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00110}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}{00110}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}{\_predict}}(self,\ image\_features,\ num\_predictions\_per\_location,\ **params):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00111}00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Implementations\ must\ override\ this\ method.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00112}00112\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ }\textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00116}00116\ \ \ \ \ \ \ num\_predictions\_per\_location:\ A\ list\ of\ integers\ representing\ the\ number}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ of\ box\ predictions\ to\ be\ made\ per\ spatial\ location\ \textcolor{keywordflow}{for}\ each\ feature\ map.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00118}00118\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00121}00121\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00122}00122\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00133}00133\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00137}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor}{00137}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor}{KerasBoxPredictor}}(tf.keras.Model):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00138}00138\ \ \ \textcolor{stringliteral}{"{}"{}"{}Keras-\/based\ BoxPredictor."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00140}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_adca1de2fd75423e3745b72f1bafdd150}{00140}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_adca1de2fd75423e3745b72f1bafdd150}{\_\_init\_\_}}(self,\ is\_training,\ num\_classes,\ freeze\_batchnorm,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inplace\_batchnorm\_update,\ name=None):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00142}00142\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00143}00143\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ \ \ \ \ is\_training:\ Indicates\ whether\ the\ BoxPredictor\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{in}\ training\ mode.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00146}00146\ \ \ \ \ \ \ num\_classes:\ number\ of\ classes.\ \ Note\ that\ num\_classes\ *does\ \textcolor{keywordflow}{not}*}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ include\ the\ background\ category,\ so\ \textcolor{keywordflow}{if}\ groundtruth\ labels\ take\ values}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ \{0,\ 1,\ ..,\ K-\/1\},\ num\_classes=K\ (\textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ K+1,\ even\ though\ the}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ assigned\ classification\ targets\ can\ range\ \textcolor{keyword}{from}\ \{0,...\ K\}).}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00150}00150\ \ \ \ \ \ \ freeze\_batchnorm:\ Whether\ to\ freeze\ batch\ norm\ parameters\ during}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ training\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.\ When\ training\ \textcolor{keyword}{with}\ a\ small\ batch\ size\ (e.g.\ 1),\ it\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ desirable\ to\ freeze\ batch\ norm\ update\ \textcolor{keywordflow}{and}\ use\ pretrained\ batch\ norm}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ params.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00154}00154\ \ \ \ \ \ \ inplace\_batchnorm\_update:\ Whether\ to\ update\ batch\ norm\ moving\ average}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ values\ inplace.\ When\ this\ \textcolor{keywordflow}{is}\ false\ train\ op\ must\ add\ a\ control}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ dependency\ on\ tf.graphkeys.UPDATE\_OPS\ collection\ \textcolor{keywordflow}{in}\ order\ to\ update}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ batch\ norm\ statistics.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00158}00158\ \ \ \ \ \ \ name:\ A\ string\ name\ scope\ to\ assign\ to\ the\ model.\ If\ \`{}\textcolor{keywordtype}{None}\`{},\ Keras}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ will\ auto-\/generate\ one\ \textcolor{keyword}{from}\ the\ \textcolor{keyword}{class\ }name.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00160}00160\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ \ \ super(KerasBoxPredictor,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_adca1de2fd75423e3745b72f1bafdd150}{\_\_init\_\_}}(name=name)}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00162}00162\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00163}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_a97a71b6e2283c2ff1b279f40c82b96f3}{00163}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_a97a71b6e2283c2ff1b279f40c82b96f3}{\_is\_training}}\ =\ is\_training}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00164}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_acb111c684ddd3676bd0f78baa9bffd58}{00164}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_acb111c684ddd3676bd0f78baa9bffd58}{\_num\_classes}}\ =\ num\_classes}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00165}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_acffc907bfa765828f054289295bd6972}{00165}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_acffc907bfa765828f054289295bd6972}{\_freeze\_batchnorm}}\ =\ freeze\_batchnorm}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00166}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_aae39be76711085e54d1656db802ad22c}{00166}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_aae39be76711085e54d1656db802ad22c}{\_inplace\_batchnorm\_update}}\ =\ inplace\_batchnorm\_update}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00167}00167\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00168}00168\ \textcolor{stringliteral}{\ \ }\textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00169}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_ae22567fc97f1376866dc60cb3d948ec2}{00169}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_ae22567fc97f1376866dc60cb3d948ec2}{is\_keras\_model}}(self):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00170}00170\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00172}00172\ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00173}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_a67ab6abd23e5c05c67a67895ef829a15}{00173}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_a67ab6abd23e5c05c67a67895ef829a15}{num\_classes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00174}00174\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_acb111c684ddd3676bd0f78baa9bffd58}{\_num\_classes}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00176}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_a802afdd72f3c5850b03727af50c88c19}{00176}}\ \ \ \textcolor{keyword}{def\ }call(self,\ image\_features,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00177}00177\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ encoded\ object\ locations\ and\ corresponding\ confidences.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00178}00178\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00179}00179\ \textcolor{stringliteral}{\ \ \ \ Takes\ a\ list\ of\ high\ level\ image\ feature\ maps\ }\textcolor{keyword}{as}\ input\ \textcolor{keywordflow}{and}\ produces\ a\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00180}00180\ \ \ \ \ of\ box\ encodings\ \textcolor{keywordflow}{and}\ a\ list\ of\ \textcolor{keyword}{class\ }scores\ where\ each\ element\ in\ the\ output}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00181}00181\ \ \ \ \ lists\ correspond\ to\ the\ feature\ maps\ \textcolor{keywordflow}{in}\ the\ input\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00183}00183\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00184}00184\ \ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00185}00185\ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ \textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00186}00186\ \ \ \ \ \ \ **kwargs:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00189}00189\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00190}00190\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00201}00201\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_aaf67bb626b19ba79c16756e031a4cb89}{\_predict}}(image\_features,\ **kwargs)}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00204}00204\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00205}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_aaf67bb626b19ba79c16756e031a4cb89}{00205}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_keras_box_predictor_aaf67bb626b19ba79c16756e031a4cb89}{\_predict}}(self,\ image\_features,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00206}00206\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Implementations\ must\ override\ this\ method.}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00207}00207\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00209}00209\ \textcolor{stringliteral}{\ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ }\textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00211}00211\ \ \ \ \ \ \ **kwargs:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00214}00214\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00215}00215\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00226}00226\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__predictor_8py_source_l00227}00227\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{raise}\ NotImplementedError}
+
+\end{DoxyCode}

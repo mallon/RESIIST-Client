@@ -1,0 +1,27 @@
+\doxysection{detection\+\_\+utils.\+core.\+anchor\+\_\+generator Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1anchor__generator}{}\label{namespacedetection__utils_1_1core_1_1anchor__generator}\index{detection\_utils.core.anchor\_generator@{detection\_utils.core.anchor\_generator}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator}{Anchor\+Generator}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Base anchor generator.
+
+The job of the anchor generator is to create (or load) a collection
+of bounding boxes to be used as anchors.
+
+Generated anchors are assumed to match some convolutional grid or list of grid
+shapes.  For example, we might want to generate anchors matching an 8x8
+feature map and a 4x4 feature map.  If we place 3 anchors per grid location
+on the first feature map and 6 anchors per grid location on the second feature
+map, then 3*8*8 + 6*4*4 = 288 anchors are generated in total.
+
+To support fully convolutional settings, feature map shapes are passed
+dynamically at generation time.  The number of anchors to place at each location
+is static --- implementations of AnchorGenerator must always be able return
+the number of anchors that it uses per location for each feature map.
+\end{DoxyVerb}
+ 

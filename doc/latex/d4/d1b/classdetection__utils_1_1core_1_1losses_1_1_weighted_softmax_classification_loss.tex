@@ -1,0 +1,196 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss}\index{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d3/d8a/classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d9/d88/classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, logit\+\_\+scale=1.\+0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, weights)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c}{\+\_\+logit\+\_\+scale}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Softmax loss function.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00313}{313}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047} 
+\index{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{logit\+\_\+scale = {\ttfamily 1.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  logit_scale: When this value is high, the prediction is "diffused" and
+               when this value is low, the prediction is made peakier.
+               (default 1.0)\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00316}{316}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00316\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ logit\_scale=1.0):}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00318\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00319\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00320\ \textcolor{stringliteral}{\ \ \ \ \ \ logit\_scale:\ When\ this\ value\ }\textcolor{keywordflow}{is}\ high,\ the\ prediction\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{"{}diffused"{}}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ when\ this\ value\ \textcolor{keywordflow}{is}\ low,\ the\ prediction\ \textcolor{keywordflow}{is}\ made\ peakier.}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (default\ 1.0)}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00325\ \textcolor{stringliteral}{\ \ \ \ super(WeightedSoftmaxClassificationLoss,\ self).\_\_init\_\_()}}
+\DoxyCodeLine{00326\ \textcolor{stringliteral}{\ \ \ \ self.\_logit\_scale\ =\ logit\_scale}}
+\DoxyCodeLine{00327\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{d4/d1b/classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{d4/d1b/classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853} 
+\index{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute loss function.
+
+Args:
+  prediction_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing the predicted logits for each class
+  target_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing one-hot encoded classification targets
+  weights: a float tensor of shape, either [batch_size, num_anchors,
+    num_classes] or [batch_size, num_anchors, 1]. If the shape is
+    [batch_size, num_anchors, 1], all the classses are equally weighted.
+
+Returns:
+  loss: a float tensor of shape [batch_size, num_anchors]
+    representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{detection\+\_\+utils.\+core.\+losses.\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00328}{328}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{def\ }\_compute\_loss(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{00330\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00331\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00332\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{00333\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ Returns:}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00344\ \textcolor{stringliteral}{\ \ \ \ weights\ =\ tf.reduce\_mean(weights,\ axis=2)}}
+\DoxyCodeLine{00345\ \textcolor{stringliteral}{\ \ \ \ num\_classes\ =\ prediction\_tensor.get\_shape().as\_list()[-\/1]}}
+\DoxyCodeLine{00346\ \textcolor{stringliteral}{\ \ \ \ prediction\_tensor\ =\ tf.divide(}}
+\DoxyCodeLine{00347\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ prediction\_tensor,\ self.\_logit\_scale,\ name='scale\_logit'})}
+\DoxyCodeLine{00348\ \ \ \ \ per\_row\_cross\_ent\ =\ (tf.nn.softmax\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ labels=tf.reshape(target\_tensor,\ [-\/1,\ num\_classes]),}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ logits=tf.reshape(prediction\_tensor,\ [-\/1,\ num\_classes])))}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(per\_row\_cross\_ent,\ tf.shape(weights))\ *\ weights}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d1b/classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c} 
+\index{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}!\_logit\_scale@{\_logit\_scale}}
+\index{\_logit\_scale@{\_logit\_scale}!detection\_utils.core.losses.WeightedSoftmaxClassificationLoss@{detection\_utils.core.losses.WeightedSoftmaxClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_logit\_scale}{\_logit\_scale}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss.\+\_\+logit\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00326}{326}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,123 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Smooth\+L1\+Localization\+Loss\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test}{}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test}\index{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest@{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Smooth\+L1\+Localization\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{df/d1f/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Smooth\+L1\+Localization\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{d7/db7/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a438d6e1570f1bfec5bff912b742f2c31}{test\+Returns\+Correct\+Loss}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a9f866142c9c894d614b7d92211f26ab8}{test\+Returns\+Correct\+Loss\+With\+Losses\+Mask}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00108}{108}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a438d6e1570f1bfec5bff912b742f2c31}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a438d6e1570f1bfec5bff912b742f2c31} 
+\index{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest@{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest}!testReturnsCorrectLoss@{testReturnsCorrectLoss}}
+\index{testReturnsCorrectLoss@{testReturnsCorrectLoss}!detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest@{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLoss()}{testReturnsCorrectLoss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Smooth\+L1\+Localization\+Loss\+Test.\+test\+Returns\+Correct\+Loss (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00110}{110}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLoss(self):}
+\DoxyCodeLine{00111\ \ \ \ \ batch\_size\ =\ 2}
+\DoxyCodeLine{00112\ \ \ \ \ num\_anchors\ =\ 3}
+\DoxyCodeLine{00113\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{00114\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[2.5,\ 0,\ .4,\ 0],}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 2.5,\ 0,\ .4]],}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.5,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .4,\ 0,\ .9],}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1.5,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00120\ \ \ \ \ target\_tensor\ =\ tf.zeros([batch\_size,\ num\_anchors,\ code\_size])}
+\DoxyCodeLine{00121\ \ \ \ \ weights\ =\ tf.constant([[2,\ 1,\ 1],}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 3,\ 0]],\ tf.float32)}
+\DoxyCodeLine{00123\ \ \ \ \ loss\_op\ =\ losses.WeightedSmoothL1LocalizationLoss()}
+\DoxyCodeLine{00124\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights)}
+\DoxyCodeLine{00125\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ exp\_loss\ =\ 7.695}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00131\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a9f866142c9c894d614b7d92211f26ab8}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_smooth_l1_localization_loss_test_a9f866142c9c894d614b7d92211f26ab8} 
+\index{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest@{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest}!testReturnsCorrectLossWithLossesMask@{testReturnsCorrectLossWithLossesMask}}
+\index{testReturnsCorrectLossWithLossesMask@{testReturnsCorrectLossWithLossesMask}!detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest@{detection\_utils.core.losses\_test.WeightedSmoothL1LocalizationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLossWithLossesMask()}{testReturnsCorrectLossWithLossesMask()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Smooth\+L1\+Localization\+Loss\+Test.\+test\+Returns\+Correct\+Loss\+With\+Losses\+Mask (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00132}{132}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLossWithLossesMask(self):}
+\DoxyCodeLine{00133\ \ \ \ \ batch\_size\ =\ 3}
+\DoxyCodeLine{00134\ \ \ \ \ num\_anchors\ =\ 3}
+\DoxyCodeLine{00135\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{00136\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[2.5,\ 0,\ .4,\ 0],}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 2.5,\ 0,\ .4]],}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.5,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .4,\ 0,\ .9],}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1.5,\ 0]],}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.5,\ 7.,\ 0,\ 0],}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .4,\ 0,\ .9],}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.2,\ 2.2,\ 1.5,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00145\ \ \ \ \ target\_tensor\ =\ tf.zeros([batch\_size,\ num\_anchors,\ code\_size])}
+\DoxyCodeLine{00146\ \ \ \ \ weights\ =\ tf.constant([[2,\ 1,\ 1],}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 3,\ 0],}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [4,\ 3,\ 0]],\ tf.float32)}
+\DoxyCodeLine{00149\ \ \ \ \ losses\_mask\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ tf.bool)}
+\DoxyCodeLine{00150\ \ \ \ \ loss\_op\ =\ losses.WeightedSmoothL1LocalizationLoss()}
+\DoxyCodeLine{00151\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask=losses\_mask)}
+\DoxyCodeLine{00153\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ exp\_loss\ =\ 7.695}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses__test_8py}{losses\+\_\+test.\+py}}\end{DoxyCompactItemize}

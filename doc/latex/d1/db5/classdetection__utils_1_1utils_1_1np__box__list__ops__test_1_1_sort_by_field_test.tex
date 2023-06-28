@@ -1,0 +1,184 @@
+\doxysection{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test}{}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test}\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{db/d21/classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{db/d07/classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a96be5e41647185aa799a338a92a4cc0a}{set\+Up}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_aeec4799224810d455dabfacd516f41a7}{test\+\_\+with\+\_\+invalid\+\_\+field}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a0b3cdbc9fd66d41ed7b5c694820191f0}{test\+\_\+with\+\_\+invalid\+\_\+sorting\+\_\+order}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a672b8aa94b0a86afa1a2cf7c7368eca1}{test\+\_\+with\+\_\+descending\+\_\+sorting}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a7b241e9a1a888f5aed23d9dab4b1fc7f}{test\+\_\+with\+\_\+ascending\+\_\+sorting}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00226}{226}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a96be5e41647185aa799a338a92a4cc0a}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a96be5e41647185aa799a338a92a4cc0a} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!setUp@{setUp}}
+\index{setUp@{setUp}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{setUp()}{setUp()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+set\+Up (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00228}{228}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00228\ \ \ \textcolor{keyword}{def\ }setUp(self):}
+\DoxyCodeLine{00229\ \ \ \ \ boxes\ =\ np.array([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00232\ \ \ \ \ self.boxlist\ =\ np\_box\_list.BoxList(boxes)}
+\DoxyCodeLine{00233\ \ \ \ \ self.boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ np.array([0.5,\ 0.9,\ 0.4],\ dtype=float))}
+\DoxyCodeLine{00234\ \ \ \ \ self.boxlist.add\_field(\textcolor{stringliteral}{'labels'},}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([[0,\ 0,\ 0,\ 1,\ 0],\ [0,\ 1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 1]],}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int))}
+\DoxyCodeLine{00238\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a7b241e9a1a888f5aed23d9dab4b1fc7f}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a7b241e9a1a888f5aed23d9dab4b1fc7f} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!test\_with\_ascending\_sorting@{test\_with\_ascending\_sorting}}
+\index{test\_with\_ascending\_sorting@{test\_with\_ascending\_sorting}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_ascending\_sorting()}{test\_with\_ascending\_sorting()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+test\+\_\+with\+\_\+ascending\+\_\+sorting (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00260}{260}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00260\ \ \ \textcolor{keyword}{def\ }test\_with\_ascending\_sorting(self):}
+\DoxyCodeLine{00261\ \ \ \ \ sorted\_boxlist\ =\ np\_box\_list\_ops.sort\_by\_field(}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ self.boxlist,\ \textcolor{stringliteral}{'scores'},\ np\_box\_list\_ops.SortOrder.ASCEND)}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ expected\_boxes\ =\ np.array([[0.0,\ 0.0,\ 20.0,\ 20.0],}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0],],}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00268\ \ \ \ \ self.assertAllClose(expected\_boxes,\ sorted\_boxlist.get())}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ expected\_scores\ =\ np.array([0.4,\ 0.5,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00271\ \ \ \ \ self.assertAllClose(expected\_scores,\ sorted\_boxlist.get\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a672b8aa94b0a86afa1a2cf7c7368eca1}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a672b8aa94b0a86afa1a2cf7c7368eca1} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!test\_with\_descending\_sorting@{test\_with\_descending\_sorting}}
+\index{test\_with\_descending\_sorting@{test\_with\_descending\_sorting}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_descending\_sorting()}{test\_with\_descending\_sorting()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+test\+\_\+with\+\_\+descending\+\_\+sorting (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00249}{249}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{def\ }test\_with\_descending\_sorting(self):}
+\DoxyCodeLine{00250\ \ \ \ \ sorted\_boxlist\ =\ np\_box\_list\_ops.sort\_by\_field(self.boxlist,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ expected\_boxes\ =\ np.array([[14.0,\ 14.0,\ 15.0,\ 15.0],\ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00255\ \ \ \ \ self.assertAllClose(expected\_boxes,\ sorted\_boxlist.get())}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ expected\_scores\ =\ np.array([0.9,\ 0.5,\ 0.4],\ dtype=float)}
+\DoxyCodeLine{00258\ \ \ \ \ self.assertAllClose(expected\_scores,\ sorted\_boxlist.get\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{00259\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_aeec4799224810d455dabfacd516f41a7}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_aeec4799224810d455dabfacd516f41a7} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!test\_with\_invalid\_field@{test\_with\_invalid\_field}}
+\index{test\_with\_invalid\_field@{test\_with\_invalid\_field}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_invalid\_field()}{test\_with\_invalid\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+test\+\_\+with\+\_\+invalid\+\_\+field (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00239}{239}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{def\ }test\_with\_invalid\_field(self):}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.boxlist,\ \textcolor{stringliteral}{'objectness'})}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.boxlist,\ \textcolor{stringliteral}{'labels'})}
+\DoxyCodeLine{00244\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a0b3cdbc9fd66d41ed7b5c694820191f0}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a0b3cdbc9fd66d41ed7b5c694820191f0} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!test\_with\_invalid\_sorting\_order@{test\_with\_invalid\_sorting\_order}}
+\index{test\_with\_invalid\_sorting\_order@{test\_with\_invalid\_sorting\_order}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_invalid\_sorting\_order()}{test\_with\_invalid\_sorting\_order()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+test\+\_\+with\+\_\+invalid\+\_\+sorting\+\_\+order (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00245}{245}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00245\ \ \ \textcolor{keyword}{def\ }test\_with\_invalid\_sorting\_order(self):}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.boxlist,\ \textcolor{stringliteral}{'scores'},\ \textcolor{stringliteral}{'Descending'})}
+\DoxyCodeLine{00248\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}\label{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56} 
+\index{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}!boxlist@{boxlist}}
+\index{boxlist@{boxlist}!detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest@{detection\_utils.utils.np\_box\_list\_ops\_test.SortByFieldTest}}
+\doxysubsubsection{\texorpdfstring{boxlist}{boxlist}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+Sort\+By\+Field\+Test.\+boxlist}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops__test_8py_source_l00232}{232}} of file \mbox{\hyperlink{np__box__list__ops__test_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{np__box__list__ops__test_8py}{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

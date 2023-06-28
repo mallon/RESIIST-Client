@@ -1,0 +1,93 @@
+\doxysection{json\+\_\+utils.\+py}
+\hypertarget{json__utils_8py_source}{}\label{json__utils_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/json\_utils.py@{src/main/resources/processing/video/detections/detection\_utils/utils/json\_utils.py}}
+\mbox{\hyperlink{json__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Utilities\ for\ dealing\ with\ writing\ json\ strings.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00017}00017\ \textcolor{stringliteral}{json\_utils\ wraps\ json.dump\ and\ json.dumps\ so\ that\ they\ can\ be\ used\ to\ safely}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00018}00018\ \textcolor{stringliteral}{control\ the\ precision\ of\ floats\ when\ writing\ to\ json\ strings\ or\ files.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00019}00019\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00020}00020\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00021}00021\ \textcolor{keyword}{from}\ json\ \textcolor{keyword}{import}\ encoder}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00024}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a29b45c8402bc637a8e21097b56d978da}{00024}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a29b45c8402bc637a8e21097b56d978da}{Dump}}(obj,\ fid,\ float\_digits=-\/1,\ **params):}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00025}00025\ \ \ \textcolor{stringliteral}{"{}"{}"{}Wrapper\ of\ json.dump\ that\ allows\ specifying\ the\ float\ precision\ used.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ obj:\ The\ object\ to\ dump.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ \ \ fid:\ The\ file\ id\ to\ write\ to.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ float\_digits:\ The\ number\ of\ digits\ of\ precision\ when\ writing\ floats\ out.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ \ \ **params:\ Additional\ parameters\ to\ }\textcolor{keywordflow}{pass}\ to\ json.dumps.}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00032}00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ original\_encoder\ =\ encoder.FLOAT\_REPR}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ float\_digits\ >=\ 0:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00035}00035\ \ \ \ \ encoder.FLOAT\_REPR\ =\ \textcolor{keyword}{lambda}\ o:\ format(o,\ \textcolor{stringliteral}{'.\%df'}\ \%\ float\_digits)}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00036}00036\ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00037}00037\ \ \ \ \ json.dump(obj,\ fid,\ **params)}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00038}00038\ \ \ \textcolor{keywordflow}{finally}:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00039}00039\ \ \ \ \ encoder.FLOAT\_REPR\ =\ original\_encoder}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00042}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_ab97a3b96d5729b0e8a9a4bf405d8e74c}{00042}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_ab97a3b96d5729b0e8a9a4bf405d8e74c}{Dumps}}(obj,\ float\_digits=-\/1,\ **params):}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00043}00043\ \ \ \textcolor{stringliteral}{"{}"{}"{}Wrapper\ of\ json.dumps\ that\ allows\ specifying\ the\ float\ precision\ used.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00044}00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ obj:\ The\ object\ to\ dump.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ float\_digits:\ The\ number\ of\ digits\ of\ precision\ when\ writing\ floats\ out.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ **params:\ Additional\ parameters\ to\ }\textcolor{keywordflow}{pass}\ to\ json.dumps.}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00050}00050\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00051}00051\ \ \ \ \ output:\ JSON\ string\ representation\ of\ obj.}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00052}00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ original\_encoder\ =\ encoder.FLOAT\_REPR}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ original\_c\_make\_encoder\ =\ encoder.c\_make\_encoder}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ float\_digits\ >=\ 0:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00056}00056\ \ \ \ \ encoder.FLOAT\_REPR\ =\ \textcolor{keyword}{lambda}\ o:\ format(o,\ \textcolor{stringliteral}{'.\%df'}\ \%\ float\_digits)}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00057}00057\ \ \ \ \ encoder.c\_make\_encoder\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00058}00058\ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00059}00059\ \ \ \ \ output\ =\ json.dumps(obj,\ **params)}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00060}00060\ \ \ \textcolor{keywordflow}{finally}:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00061}00061\ \ \ \ \ encoder.FLOAT\_REPR\ =\ original\_encoder}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00062}00062\ \ \ \ \ encoder.c\_make\_encoder\ =\ original\_c\_make\_encoder}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00064}00064\ \ \ \textcolor{keywordflow}{return}\ output}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00067}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a4268a3895947cc4c24e8156c9980ecd5}{00067}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a4268a3895947cc4c24e8156c9980ecd5}{PrettyParams}}(**params):}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00068}00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ parameters\ for\ use\ with\ Dump\ and\ Dumps\ to\ output\ pretty\ json.}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00069}00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ Example\ usage:}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \`{}\`{}\`{}json\_str\ =\ json\_utils.Dumps(obj,\ **json\_utils.PrettyParams())\`{}\`{}\`{}}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \`{}\`{}\`{}json\_str\ =\ json\_utils.Dumps(}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj,\ **json\_utils.PrettyParams(allow\_nans=}\textcolor{keyword}{False}))\`{}\`{}\`{}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00075}00075\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00076}00076\ \ \ \ \ **params:\ Additional\ params\ to\ \textcolor{keywordflow}{pass}\ to\ json.dump\ \textcolor{keywordflow}{or}\ json.dumps.}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00078}00078\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00079}00079\ \ \ \ \ params:\ Parameters\ that\ are\ compatible\ \textcolor{keyword}{with}\ json\_utils.Dump\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00080}00080\ \ \ \ \ \ \ json\_utils.Dumps.}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00081}00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ params['float\_digits'}]\ =\ 4}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00083}00083\ \ \ params[\textcolor{stringliteral}{'sort\_keys'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00084}00084\ \ \ params[\textcolor{stringliteral}{'indent'}]\ =\ 2}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00085}00085\ \ \ params[\textcolor{stringliteral}{'separators'}]\ =\ (\textcolor{stringliteral}{','},\ \textcolor{stringliteral}{':\ '})}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00086}00086\ \ \ \textcolor{keywordflow}{return}\ params}
+\DoxyCodeLine{\Hypertarget{json__utils_8py_source_l00087}00087\ }
+
+\end{DoxyCode}

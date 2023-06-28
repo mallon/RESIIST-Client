@@ -1,0 +1,50 @@
+\doxysection{Resiis\+Demonstrator\+Video\+Or\+Simulation.\+java}
+\hypertarget{_resiis_demonstrator_video_or_simulation_8java_source}{}\label{_resiis_demonstrator_video_or_simulation_8java_source}\index{src/main/java/com/axellience/resiist/client/entrypoints/ResiisDemonstratorVideoOrSimulation.java@{src/main/java/com/axellience/resiist/client/entrypoints/ResiisDemonstratorVideoOrSimulation.java}}
+\mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.entrypoints;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00003}00003\ \textcolor{keyword}{import}\ org.springframework.boot.autoconfigure.SpringBootApplication;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00004}00004\ \textcolor{keyword}{import}\ org.springframework.boot.builder.SpringApplicationBuilder;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00006}00006\ \textcolor{keyword}{import}\ com.axellience.resiist.client.acquisitiontointegration.AcquisitionToIntegration;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00007}00007\ \textcolor{keyword}{import}\ com.axellience.resiist.client.acquisitiontointegration.acquisition.VideoSource;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00008}00008\ \textcolor{keyword}{import}\ com.axellience.resiist.client.analysis.evaluation.ResilienceRuleDefiner;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00009}00009\ \textcolor{keyword}{import}\ com.axellience.resiist.client.interpretation.InterpretationRuleGenerator;}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00011}00011\ @SpringBootApplication}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00012}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation}{00012}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation}{ResiisDemonstratorVideoOrSimulation}}}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00014}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52}{00014}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52}{main}}(String[]\ args)}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00021}00021\ \ \ \ \ \ \ \ \ SpringApplicationBuilder\ builder\ =}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ SpringApplicationBuilder(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation}{ResiisDemonstratorVideoOrSimulation}}.class);}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00023}00023\ \ \ \ \ \ \ \ \ builder.headless(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00024}00024\ \ \ \ \ \ \ \ \ builder.run(args);}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration}{AcquisitionToIntegration}}\ extractionToIntegrationAsVideo\ =}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration}{AcquisitionToIntegration}}(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1interpretation_1_1_interpretation_rule_generator}{InterpretationRuleGenerator}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1interpretation_1_1_interpretation_rule_generator_a56801798103fe6059380b88f7d79274b}{getInstance}}(),}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1analysis_1_1evaluation_1_1_resilience_rule_definer}{ResilienceRuleDefiner}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1analysis_1_1evaluation_1_1_resilience_rule_definer_a6381ff1e3994757c42b96165e8407bdb}{getInstance}}());}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration_a05093481fe85181a90df0dda5eb8e8d5}{connexionToModelingPlatform}}(\textcolor{stringliteral}{"{}indicator"{}},}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}password"{}},}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\_VosXMFzJEeuFdrwv9XdLnA"{}});}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration_a63943c1726fc11aa0b1963a2b3c83dae}{getModelFromServerAsBinary}}();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration_a1dc08dd842891ed05f9ff77e96e6011a}{integrationConfiguration}}();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration_a25053073e9ca897e336457d015f8e734}{interpretationConfiguration}}();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_acquisition_to_integration_af6993c5610b909c03c19ca49dfc0ac94}{connexionToDataSourcesAsRealTypeSimulation}}();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ extractionToIntegrationAsVideo.connexionToDataSourceAsVideo();}}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.start();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source}{VideoSource}}().start();}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}-\/-\/\ TEST\ -\/-\/"{}});}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00049}00049\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_resiis_demonstrator_video_or_simulation_8java_source_l00050}00050\ \}}
+
+\end{DoxyCode}

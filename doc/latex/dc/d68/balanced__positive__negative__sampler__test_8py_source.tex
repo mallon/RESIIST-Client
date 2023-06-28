@@ -1,0 +1,210 @@
+\doxysection{balanced\+\_\+positive\+\_\+negative\+\_\+sampler\+\_\+test.\+py}
+\hypertarget{balanced__positive__negative__sampler__test_8py_source}{}\label{balanced__positive__negative__sampler__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/balanced\_positive\_negative\_sampler\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/balanced\_positive\_negative\_sampler\_test.py}}
+\mbox{\hyperlink{balanced__positive__negative__sampler__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1balanced__positive__negative__sampler__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.core.balanced\_positive\_negative\_sampler."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00019}00019\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ balanced\_positive\_negative\_sampler}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00022}00022\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ test\_case}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00025}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test}{00025}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test}{BalancedPositiveNegativeSamplerTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00027}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a52b4f58d66ed6c3614d4e59e783ce048}{00027}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a52b4f58d66ed6c3614d4e59e783ce048}{test\_subsample\_all\_examples\_dynamic}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00028}00028\ \ \ \ \ numpy\_labels\ =\ np.random.permutation(300)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00029}00029\ \ \ \ \ indicator\ =\ tf.constant(np.ones(300)\ ==\ 1)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00030}00030\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 200)\ >\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00032}00032\ \ \ \ \ labels\ =\ tf.constant(numpy\_labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00034}00034\ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00036}00036\ \ \ \ \ is\_sampled\ =\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00038}00038\ \ \ \ \ \ \ is\_sampled\ =\ sess.run(is\_sampled)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00039}00039\ \ \ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 64)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00040}00040\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00041}00041\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a86cbe384b468ffd0abc0255f317f76ee}{00044}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a86cbe384b468ffd0abc0255f317f76ee}{test\_subsample\_all\_examples\_static}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00045}00045\ \ \ \ \ numpy\_labels\ =\ np.random.permutation(300)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00046}00046\ \ \ \ \ indicator\ =\ np.array(np.ones(300)\ ==\ 1,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00047}00047\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 200)\ >\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00049}00049\ \ \ \ \ labels\ =\ np.array(numpy\_labels,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(indicator,\ labels):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00052}00052\ \ \ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_static=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00055}00055\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00057}00057\ \ \ \ \ is\_sampled\ =\ self.execute(graph\_fn,\ [indicator,\ labels])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00058}00058\ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 64)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00059}00059\ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00060}00060\ \ \ \ \ self.assertTrue(sum(np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00063}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_ab003a20cd66850235cd361b771f9f22f}{00063}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_ab003a20cd66850235cd361b771f9f22f}{test\_subsample\_selection\_dynamic}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00064}00064\ \ \ \ \ \textcolor{comment}{\#\ Test\ random\ sampling\ when\ only\ some\ examples\ can\ be\ sampled:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00065}00065\ \ \ \ \ \textcolor{comment}{\#\ 100\ samples,\ 20\ positives,\ 10\ positives\ cannot\ be\ sampled}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00066}00066\ \ \ \ \ numpy\_labels\ =\ np.arange(100)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00067}00067\ \ \ \ \ numpy\_indicator\ =\ numpy\_labels\ <\ 90}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00068}00068\ \ \ \ \ indicator\ =\ tf.constant(numpy\_indicator)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00069}00069\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 80)\ >=\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00071}00071\ \ \ \ \ labels\ =\ tf.constant(numpy\_labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00073}00073\ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00075}00075\ \ \ \ \ is\_sampled\ =\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00076}00076\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00077}00077\ \ \ \ \ \ \ is\_sampled\ =\ sess.run(is\_sampled)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00078}00078\ \ \ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 64)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00079}00079\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 10)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00080}00080\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 54)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00082}00082\ \ \ \ \ \ \ self.assertAllEqual(is\_sampled,\ np.logical\_and(is\_sampled,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numpy\_indicator))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00085}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a4ebdb6b5db740e36916e4815d1b7fd80}{00085}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a4ebdb6b5db740e36916e4815d1b7fd80}{test\_subsample\_selection\_static}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00086}00086\ \ \ \ \ \textcolor{comment}{\#\ Test\ random\ sampling\ when\ only\ some\ examples\ can\ be\ sampled:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00087}00087\ \ \ \ \ \textcolor{comment}{\#\ 100\ samples,\ 20\ positives,\ 10\ positives\ cannot\ be\ sampled.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00088}00088\ \ \ \ \ numpy\_labels\ =\ np.arange(100)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00089}00089\ \ \ \ \ numpy\_indicator\ =\ numpy\_labels\ <\ 90}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00090}00090\ \ \ \ \ indicator\ =\ np.array(numpy\_indicator,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00091}00091\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 80)\ >=\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00093}00093\ \ \ \ \ labels\ =\ np.array(numpy\_labels,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(indicator,\ labels):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00096}00096\ \ \ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_static=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00099}00099\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00101}00101\ \ \ \ \ is\_sampled\ =\ self.execute(graph\_fn,\ [indicator,\ labels])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00102}00102\ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 64)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00103}00103\ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 10)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00104}00104\ \ \ \ \ self.assertTrue(sum(np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 54)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00106}00106\ \ \ \ \ self.assertAllEqual(is\_sampled,\ np.logical\_and(is\_sampled,\ numpy\_indicator))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00108}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a094bfc409f93c8171c2a58e93fcfad61}{00108}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a094bfc409f93c8171c2a58e93fcfad61}{test\_subsample\_selection\_larger\_batch\_size\_dynamic}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00109}00109\ \ \ \ \ \textcolor{comment}{\#\ Test\ random\ sampling\ when\ total\ number\ of\ examples\ that\ can\ be\ sampled\ are}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00110}00110\ \ \ \ \ \textcolor{comment}{\#\ less\ than\ batch\ size:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00111}00111\ \ \ \ \ \textcolor{comment}{\#\ 100\ samples,\ 50\ positives,\ 40\ positives\ cannot\ be\ sampled,\ batch\ size\ 64.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00112}00112\ \ \ \ \ numpy\_labels\ =\ np.arange(100)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00113}00113\ \ \ \ \ numpy\_indicator\ =\ numpy\_labels\ <\ 60}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00114}00114\ \ \ \ \ indicator\ =\ tf.constant(numpy\_indicator)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00115}00115\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 50)\ >=\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00117}00117\ \ \ \ \ labels\ =\ tf.constant(numpy\_labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00119}00119\ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00121}00121\ \ \ \ \ is\_sampled\ =\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00122}00122\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00123}00123\ \ \ \ \ \ \ is\_sampled\ =\ sess.run(is\_sampled)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00124}00124\ \ \ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 60)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00125}00125\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 10)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00126}00126\ \ \ \ \ \ \ self.assertTrue(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ sum(np.logical\_and(np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 50)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00128}00128\ \ \ \ \ \ \ self.assertAllEqual(is\_sampled,\ np.logical\_and(is\_sampled,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numpy\_indicator))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00131}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a73a458062f0f3e86388ff3637549fb6d}{00131}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a73a458062f0f3e86388ff3637549fb6d}{test\_subsample\_selection\_larger\_batch\_size\_static}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00132}00132\ \ \ \ \ \textcolor{comment}{\#\ Test\ random\ sampling\ when\ total\ number\ of\ examples\ that\ can\ be\ sampled\ are}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00133}00133\ \ \ \ \ \textcolor{comment}{\#\ less\ than\ batch\ size:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00134}00134\ \ \ \ \ \textcolor{comment}{\#\ 100\ samples,\ 50\ positives,\ 40\ positives\ cannot\ be\ sampled,\ batch\ size\ 64.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00135}00135\ \ \ \ \ \textcolor{comment}{\#\ It\ should\ still\ return\ 64\ samples,\ with\ 4\ of\ them\ that\ couldn't\ have\ been}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00136}00136\ \ \ \ \ \textcolor{comment}{\#\ sampled.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00137}00137\ \ \ \ \ numpy\_labels\ =\ np.arange(100)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00138}00138\ \ \ \ \ numpy\_indicator\ =\ numpy\_labels\ <\ 60}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00139}00139\ \ \ \ \ indicator\ =\ np.array(numpy\_indicator,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00140}00140\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 50)\ >=\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00142}00142\ \ \ \ \ labels\ =\ np.array(numpy\_labels,\ np.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00144}00144\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(indicator,\ labels):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00145}00145\ \ \ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_static=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00148}00148\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00150}00150\ \ \ \ \ is\_sampled\ =\ self.execute(graph\_fn,\ [indicator,\ labels])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00151}00151\ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 64)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00152}00152\ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ >=\ 10)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00153}00153\ \ \ \ \ self.assertTrue(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ sum(np.logical\_and(np.logical\_not(numpy\_labels),\ is\_sampled))\ >=\ 50)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00155}00155\ \ \ \ \ self.assertTrue(sum(np.logical\_and(is\_sampled,\ numpy\_indicator))\ ==\ 60)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00157}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a48db5ca304a7354897044725b8193d82}{00157}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a48db5ca304a7354897044725b8193d82}{test\_subsample\_selection\_no\_batch\_size}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00158}00158\ \ \ \ \ \textcolor{comment}{\#\ Test\ random\ sampling\ when\ only\ some\ examples\ can\ be\ sampled:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00159}00159\ \ \ \ \ \textcolor{comment}{\#\ 1000\ samples,\ 6\ positives\ (5\ can\ be\ sampled).}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00160}00160\ \ \ \ \ numpy\_labels\ =\ np.arange(1000)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00161}00161\ \ \ \ \ numpy\_indicator\ =\ numpy\_labels\ <\ 999}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00162}00162\ \ \ \ \ indicator\ =\ tf.constant(numpy\_indicator)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00163}00163\ \ \ \ \ numpy\_labels\ =\ (numpy\_labels\ -\/\ 994)\ >=\ 0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00165}00165\ \ \ \ \ labels\ =\ tf.constant(numpy\_labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00167}00167\ \ \ \ \ sampler\ =\ (balanced\_positive\_negative\_sampler.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BalancedPositiveNegativeSampler(0.01))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00169}00169\ \ \ \ \ is\_sampled\ =\ sampler.subsample(indicator,\ \textcolor{keywordtype}{None},\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00170}00170\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00171}00171\ \ \ \ \ \ \ is\_sampled\ =\ sess.run(is\_sampled)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00172}00172\ \ \ \ \ \ \ self.assertTrue(sum(is\_sampled)\ ==\ 500)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00173}00173\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(numpy\_labels,\ is\_sampled))\ ==\ 5)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00174}00174\ \ \ \ \ \ \ self.assertTrue(sum(np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ np.logical\_not(numpy\_labels),\ is\_sampled))\ ==\ 495)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00176}00176\ \ \ \ \ \ \ self.assertAllEqual(is\_sampled,\ np.logical\_and(is\_sampled,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numpy\_indicator))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00179}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a6defbf516a56d4aab75ba99b65f50dc9}{00179}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a6defbf516a56d4aab75ba99b65f50dc9}{test\_subsample\_selection\_no\_batch\_size\_static}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00180}00180\ \ \ \ \ labels\ =\ tf.constant([[\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}]])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00181}00181\ \ \ \ \ indicator\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00182}00182\ \ \ \ \ sampler\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{balanced\_positive\_negative\_sampler.BalancedPositiveNegativeSampler}}())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00184}00184\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00185}00185\ \ \ \ \ \ \ sampler.subsample(indicator,\ \textcolor{keywordtype}{None},\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00187}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a7f139f305a57a2f216002465d0484587}{00187}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a7f139f305a57a2f216002465d0484587}{test\_raises\_error\_with\_incorrect\_label\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00188}00188\ \ \ \ \ labels\ =\ tf.constant([[\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}]])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00189}00189\ \ \ \ \ indicator\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00190}00190\ \ \ \ \ sampler\ =\ (balanced\_positive\_negative\_sampler.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BalancedPositiveNegativeSampler())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00192}00192\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00193}00193\ \ \ \ \ \ \ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00195}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a5c37c2447f4699c5f913ca10b0d51dfb}{00195}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler__test_1_1_balanced_positive_negative_sampler_test_a5c37c2447f4699c5f913ca10b0d51dfb}{test\_raises\_error\_with\_incorrect\_indicator\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00196}00196\ \ \ \ \ labels\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00197}00197\ \ \ \ \ indicator\ =\ tf.constant([[\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}]])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00198}00198\ \ \ \ \ sampler\ =\ (balanced\_positive\_negative\_sampler.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BalancedPositiveNegativeSampler())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00201}00201\ \ \ \ \ \ \ sampler.subsample(indicator,\ 64,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00203}00203\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler__test_8py_source_l00204}00204\ \ \ tf.test.main()}
+
+\end{DoxyCode}

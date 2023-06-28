@@ -1,0 +1,98 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Fpn\+Feature\+Levels\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test}\index{detection\_utils.utils.ops\_test.FpnFeatureLevelsTest@{detection\_utils.utils.ops\_test.FpnFeatureLevelsTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Fpn\+Feature\+Levels\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{db/dcb/classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Fpn\+Feature\+Levels\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{db/d68/classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test_a146de0a0f4148e5f44fcdf94287d7ee5}{test\+\_\+correct\+\_\+fpn\+\_\+levels}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01357}{1357}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test_a146de0a0f4148e5f44fcdf94287d7ee5}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test_a146de0a0f4148e5f44fcdf94287d7ee5} 
+\index{detection\_utils.utils.ops\_test.FpnFeatureLevelsTest@{detection\_utils.utils.ops\_test.FpnFeatureLevelsTest}!test\_correct\_fpn\_levels@{test\_correct\_fpn\_levels}}
+\index{test\_correct\_fpn\_levels@{test\_correct\_fpn\_levels}!detection\_utils.utils.ops\_test.FpnFeatureLevelsTest@{detection\_utils.utils.ops\_test.FpnFeatureLevelsTest}}
+\doxysubsubsection{\texorpdfstring{test\_correct\_fpn\_levels()}{test\_correct\_fpn\_levels()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Fpn\+Feature\+Levels\+Test.\+test\+\_\+correct\+\_\+fpn\+\_\+levels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01359}{1359}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01359\ \ \ \textcolor{keyword}{def\ }test\_correct\_fpn\_levels(self):}
+\DoxyCodeLine{01360\ \ \ \ \ image\_size\ =\ 640}
+\DoxyCodeLine{01361\ \ \ \ \ pretraininig\_image\_size\ =\ 224}
+\DoxyCodeLine{01362\ \ \ \ \ image\_ratio\ =\ image\_size\ *\ 1.0\ /\ pretraininig\_image\_size}
+\DoxyCodeLine{01363\ \ \ \ \ boxes\ =\ np.array(}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 111,\ 111],\ \ \textcolor{comment}{\#\ Level\ 0.}}
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 113,\ 113],\ \ \textcolor{comment}{\#\ Level\ 1.}}
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 223,\ 223],\ \ \textcolor{comment}{\#\ Level\ 1.}}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 225,\ 225],\ \ \textcolor{comment}{\#\ Level\ 2.}}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 449,\ 449]\ \ \ \textcolor{comment}{\#\ Level\ 3.}}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ dtype=np.float32)\ /\ image\_size}
+\DoxyCodeLine{01374\ }
+\DoxyCodeLine{01375\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ops.fpn\_feature\_levels(}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \ \ num\_levels=5,\ unit\_scale\_index=2,\ image\_ratio=image\_ratio,}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ \ \ boxes=boxes)}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01380\ \ \ \ \ levels\ =\ self.execute(graph\_fn,\ [boxes])}
+\DoxyCodeLine{01381\ \ \ \ \ self.assertAllEqual([[0,\ 1,\ 1,\ 2,\ 3]],\ levels)}
+\DoxyCodeLine{01382\ }
+\DoxyCodeLine{01383\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d1f/classdetection__utils_1_1utils_1_1ops__test_1_1_fpn_feature_levels_test_a146de0a0f4148e5f44fcdf94287d7ee5_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

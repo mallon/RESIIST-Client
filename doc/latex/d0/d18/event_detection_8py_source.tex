@@ -1,0 +1,104 @@
+\doxysection{event\+Detection.\+py}
+\hypertarget{event_detection_8py_source}{}\label{event_detection_8py_source}\index{src/main/resources/processing/video/detections/event\_detection/eventDetection.py@{src/main/resources/processing/video/detections/event\_detection/eventDetection.py}}
+\mbox{\hyperlink{event_detection_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00001}\mbox{\hyperlink{namespaceevent_detection}{00001}}\ \textcolor{comment}{\#!/usr/bin/env\ python}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00002}00002\ \textcolor{comment}{\#\ coding:\ utf-\/8}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00003}00003\ \textcolor{keyword}{from}\ tensorflow.keras.models\ \textcolor{keyword}{import}\ load\_model}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00004}00004\ \textcolor{keyword}{import}\ tensorflow.compat.v1\ \textcolor{keyword}{as}\ tensorflow}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00005}00005\ tensorflow.disable\_v2\_behavior()}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00006}00006\ \textcolor{keyword}{from}\ pyimagesearch\ \textcolor{keyword}{import}\ config}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00007}00007\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ deque}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00008}00008\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00009}00009\ \textcolor{keyword}{from}\ multiprocessing\ \textcolor{keyword}{import}\ Process}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00010}00010\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00011}00011\ \textcolor{keyword}{import}\ threading}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00012}00012\ \textcolor{keyword}{import}\ cv2}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00013}00013\ \textcolor{keyword}{import}\ socket}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00014}00014\ \textcolor{keyword}{import}\ imutils}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00015}00015\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00016}00016\ \textcolor{keyword}{from}\ tensorflow.python.framework.test\_ops\ \textcolor{keyword}{import}\ none}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00018}00018\ \textcolor{keyword}{import}\ logging;}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00019}00019\ logging.disable(logging.INFO);}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00020}00020\ logging.disable(logging.DEBUG);}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00021}00021\ \textcolor{comment}{\#logging.disable(logging.CRITICAL);}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00022}00022\ logging.disable(logging.WARNING);}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00023}00023\ \textcolor{comment}{\#logging.disable(logging.ERROR);}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00025}00025\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00026}00026\ os.environ[\textcolor{stringliteral}{'TF\_CPP\_MIN\_LOG\_LEVEL'}]\ =\ \textcolor{stringliteral}{'2'}\ \ \textcolor{comment}{\#\ or\ any\ \{'0',\ '1',\ '2'\}}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00027}00027\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00028}00028\ \ \ \textcolor{comment}{\#Level\ |\ Level\ for\ Humans\ |\ Level\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00029}00029\ \ \textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00030}00030\ \ \ \textcolor{comment}{\#0\ \ \ \ \ |\ DEBUG\ \ \ \ \ \ \ \ \ \ \ \ |\ [Default]\ Print\ all\ messages\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00031}00031\ \ \ \textcolor{comment}{\#1\ \ \ \ \ |\ INFO\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ messages\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00032}00032\ \ \ \textcolor{comment}{\#2\ \ \ \ \ |\ WARNING\ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ \&\ WARNING\ messages\ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00033}00033\ \ \ \textcolor{comment}{\#3\ \ \ \ \ |\ ERROR\ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ all\ messages\ \ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00035}\mbox{\hyperlink{namespaceevent_detection_a7c2d68f65101a468e0b64a18b542911f}{00035}}\ INTEGRATION\_NETWORK\_ADRESS\ =\ \textcolor{stringliteral}{'127.0.0.1'}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00036}\mbox{\hyperlink{namespaceevent_detection_a3144303b85efb4a975cd84682e58c87d}{00036}}\ INTEGRATION\_NETWORK\_PORT\ =\ 8081}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00038}\mbox{\hyperlink{namespaceevent_detection_a392d54b44e5f1d829e1fa6b8b67961da}{00038}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceevent_detection_a392d54b44e5f1d829e1fa6b8b67961da}{startDetection}}(frameToAnalyse,\ objectNameToDetectList,\ allElementIds):}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00039}00039\ \ \ \ \ print(\textcolor{stringliteral}{"{}Starting\ event\ detection..."{}})}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00040}00040\ \ \ \ \ \textcolor{comment}{\#\ load\ the\ trained\ model\ from\ disk}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00041}00041\ \ \ \ \ tensorflow.keras.backend.clear\_session()}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00042}00042\ \ \ \ \ model\ =\ load\_model(config.MODEL\_PATH)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00044}00044\ \ \ \ \ \textcolor{comment}{\#\ initialize\ the\ predictions\ queue}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00045}00045\ \ \ \ \ Q\ =\ deque(maxlen=128)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00047}00047\ \ \ \ \ (W,\ H)\ =\ (\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00048}00048\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00049}00049\ \ \ \ \ \textcolor{comment}{\#for\ frameToAnalyse\ in\ copiedFrames:\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00050}00050\ \ \ \ \ \textcolor{comment}{\#\ if\ the\ frame\ dimensions\ are\ empty,\ grab\ them}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{if}\ W\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ H\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ (H,\ W)\ =\ frameToAnalyse.shape[:2]}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00054}00054\ \ \ \ \ \textcolor{comment}{\#\ clone\ the\ output\ frame,\ then\ convert\ it\ from\ BGR\ to\ RGB}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00055}00055\ \ \ \ \ \textcolor{comment}{\#\ ordering\ and\ resize\ the\ frame\ to\ a\ fixed\ 224x224}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00056}00056\ \ \ \ \ frameToAnalyse\ =\ cv2.cvtColor(frameToAnalyse,\ cv2.COLOR\_BGR2RGB)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00057}00057\ \ \ \ \ frameToAnalyse\ =\ cv2.resize(frameToAnalyse,\ (224,\ 224))}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00058}00058\ \ \ \ \ frameToAnalyse\ =\ frameToAnalyse.astype(\textcolor{stringliteral}{"{}float32"{}})}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00059}00059\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00060}00060\ \ \ \ \ \textcolor{comment}{\#\ make\ predictions\ on\ the\ frame\ and\ then\ update\ the\ predictions}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00061}00061\ \ \ \ \ \textcolor{comment}{\#\ queue}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00062}00062\ \ \ \ \ expandedFrame\ =\ np.expand\_dims(frameToAnalyse,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00063}00063\ \ \ \ \ preds\ =\ model.predict(expandedFrame)[0]}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00064}00064\ \ \ \ \ Q.append(preds)\ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00066}00066\ \ \ \ \ \textcolor{comment}{\#\ perform\ prediction\ averaging\ over\ the\ current\ history\ of}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00067}00067\ \ \ \ \ \textcolor{comment}{\#\ previous\ predictions}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00068}00068\ \ \ \ \ results\ =\ np.array(Q).mean(axis=0)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00069}00069\ \ \ \ \ i\ =\ np.argmax(results)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00070}00070\ \ \ \ \ label\ =\ config.CLASSES[i]}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}\ label\ \textcolor{keywordflow}{in}\ (objectNameToDetectList)\ :\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Proba.\ :\ "{}}\ +\ str(np.max(results)))}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ draw\ the\ activity\ on\ the\ output\ frame}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{global}\ text}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ text\ =\ \textcolor{stringliteral}{"{}\{\}"{}}.format(label)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(text)],\ text,\ \textcolor{stringliteral}{"{}1"{}}]}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(label\_crit\_value)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Event\ recognized:\ "{}}\ +\ label)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ msg\ =\ label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ our\_socket.close()}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{event_detection_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}

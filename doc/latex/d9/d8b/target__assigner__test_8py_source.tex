@@ -1,0 +1,1238 @@
+\doxysection{target\+\_\+assigner\+\_\+test.\+py}
+\hypertarget{target__assigner__test_8py_source}{}\label{target__assigner__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/target\_assigner\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/target\_assigner\_test.py}}
+\mbox{\hyperlink{target__assigner__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.core.target\_assigner."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00017}00017\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.box\_coders\ \textcolor{keyword}{import}\ keypoint\_box\_coder}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.box\_coders\ \textcolor{keyword}{import}\ mean\_stddev\_box\_coder}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00022}00022\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00023}00023\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ region\_similarity\_calculator}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00024}00024\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00025}00025\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ target\_assigner\ \textcolor{keyword}{as}\ targetassigner}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection.matchers\ \textcolor{keyword}{import}\ argmax\_matcher}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00027}00027\ \textcolor{keyword}{from}\ object\_detection.matchers\ \textcolor{keyword}{import}\ bipartite\_matcher}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00028}00028\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ test\_case}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test}{00031}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test}{TargetAssignerTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00033}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_aa1344a6c6242352793f8725ef04efca3}{00033}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_aa1344a6c6242352793f8725ef04efca3}{test\_assign\_agnostic}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00035}00035\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00036}00036\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00038}00038\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00039}00039\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00041}00041\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00042}00042\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00043}00043\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,\ groundtruth\_boxlist,\ unmatched\_class\_label=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00045}00045\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00046}00046\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00048}00048\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00051}00051\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00054}00054\ \ \ \ \ exp\_cls\_targets\ =\ [[1],\ [1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00055}00055\ \ \ \ \ exp\_cls\_weights\ =\ [[1],\ [1],\ [1]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00056}00056\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00059}00059\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00061}00061\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00062}00062\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00064}00064\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00065}00065\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00066}00066\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00067}00067\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00068}00068\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00069}00069\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00070}00070\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00071}00071\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00073}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_af8f8b345140264045c3340383122ec87}{00073}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_af8f8b345140264045c3340383122ec87}{test\_assign\_class\_agnostic\_with\_ignored\_matches}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00074}00074\ \ \ \ \ \textcolor{comment}{\#\ Note:\ test\ is\ very\ similar\ to\ above.\ The\ third\ box\ matched\ with\ an\ IOU}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00075}00075\ \ \ \ \ \textcolor{comment}{\#\ of\ 0.35,\ which\ is\ between\ the\ matched\ and\ unmatched\ threshold.\ This\ means}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00076}00076\ \ \ \ \ \textcolor{comment}{\#\ That\ like\ above\ the\ expected\ classification\ targets\ are\ [1,\ 1,\ 0].}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00077}00077\ \ \ \ \ \textcolor{comment}{\#\ Unlike\ above,\ the\ third\ target\ is\ ignored\ and\ therefore\ expected}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00078}00078\ \ \ \ \ \textcolor{comment}{\#\ classification\ weights\ are\ [1,\ 1,\ 0].}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00080}00080\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00081}00081\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.3)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00083}00083\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00084}00084\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00086}00086\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00087}00087\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00088}00088\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,\ groundtruth\_boxlist,\ unmatched\_class\_label=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00090}00090\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00091}00091\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00093}00093\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.5,\ .9,\ 1.0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00096}00096\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00098}00098\ \ \ \ \ exp\_cls\_targets\ =\ [[1],\ [1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00099}00099\ \ \ \ \ exp\_cls\_weights\ =\ [[1],\ [1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00100}00100\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00103}00103\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00104}00104\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00105}00105\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00107}00107\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00108}00108\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00109}00109\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00110}00110\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00111}00111\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00112}00112\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00113}00113\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00114}00114\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00116}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3a85348b3b53f4339fc6f5adbdd837e7}{00116}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3a85348b3b53f4339fc6f5adbdd837e7}{test\_assign\_agnostic\_with\_keypoints}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00117}00117\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00119}00119\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00120}00120\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00122}00122\ \ \ \ \ \ \ box\_coder\ =\ keypoint\_box\_coder.KeypointBoxCoder(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ num\_keypoints=6,\ scale\_factors=[10.0,\ 10.0,\ 5.0,\ 5.0])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00124}00124\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00126}00126\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00127}00127\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00128}00128\ \ \ \ \ \ \ groundtruth\_boxlist.add\_field(fields.BoxListFields.keypoints,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00130}00130\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,\ groundtruth\_boxlist,\ unmatched\_class\_label=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00132}00132\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00133}00133\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00135}00135\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.5,\ .9,\ 1.0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00138}00138\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.45,\ 0.45,\ 0.95,\ 0.95]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00141}00141\ \ \ \ \ groundtruth\_keypoints\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ [[[0.1,\ 0.2],\ [0.1,\ 0.3],\ [0.2,\ 0.2],\ [0.2,\ 0.2],\ [0.1,\ 0.1],\ [0.9,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ [[0,\ 0.3],\ [0.2,\ 0.4],\ [0.5,\ 0.6],\ [0,\ 0.6],\ [0.8,\ 0.2],\ [0.2,\ 0.4]]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00145}00145\ \ \ \ \ exp\_cls\_targets\ =\ [[1],\ [1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00146}00146\ \ \ \ \ exp\_cls\_weights\ =\ [[1],\ [1],\ [1]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00147}00147\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0,\ -\/3,\ -\/1,\ -\/3,\ 1,\ -\/1,\ -\/1,\ -\/1,\ -\/1,\ -\/3,\ -\/3,\ 13,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ -\/1,\ 0,\ 0,\ -\/15,\ -\/9,\ -\/11,\ -\/7,\ -\/5,\ -\/3,\ -\/15,\ -\/3,\ 1,\ -\/11,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/11,\ -\/7],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00152}00152\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00153}00153\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00154}00154\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [anchor\_means,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_corners,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00157}00157\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00158}00158\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00159}00159\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00160}00160\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00161}00161\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00162}00162\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00163}00163\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00164}00164\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00166}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a63c4d0b32b74d6ca98006cd897ef675e}{00166}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a63c4d0b32b74d6ca98006cd897ef675e}{test\_assign\_class\_agnostic\_with\_keypoints\_and\_ignored\_matches}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00167}00167\ \ \ \ \ \textcolor{comment}{\#\ Note:\ test\ is\ very\ similar\ to\ above.\ The\ third\ box\ matched\ with\ an\ IOU}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00168}00168\ \ \ \ \ \textcolor{comment}{\#\ of\ 0.35,\ which\ is\ between\ the\ matched\ and\ unmatched\ threshold.\ This\ means}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00169}00169\ \ \ \ \ \textcolor{comment}{\#\ That\ like\ above\ the\ expected\ classification\ targets\ are\ [1,\ 1,\ 0].}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00170}00170\ \ \ \ \ \textcolor{comment}{\#\ Unlike\ above,\ the\ third\ target\ is\ ignored\ and\ therefore\ expected}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00171}00171\ \ \ \ \ \textcolor{comment}{\#\ classification\ weights\ are\ [1,\ 1,\ 0].}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00172}00172\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00174}00174\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00175}00175\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00177}00177\ \ \ \ \ \ \ box\_coder\ =\ keypoint\_box\_coder.KeypointBoxCoder(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ num\_keypoints=6,\ scale\_factors=[10.0,\ 10.0,\ 5.0,\ 5.0])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00179}00179\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00181}00181\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00182}00182\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00183}00183\ \ \ \ \ \ \ groundtruth\_boxlist.add\_field(fields.BoxListFields.keypoints,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00185}00185\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,\ groundtruth\_boxlist,\ unmatched\_class\_label=\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00187}00187\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00188}00188\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00190}00190\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.5,\ .9,\ 1.0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00193}00193\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.45,\ 0.45,\ 0.95,\ 0.95]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00196}00196\ \ \ \ \ groundtruth\_keypoints\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ [[[0.1,\ 0.2],\ [0.1,\ 0.3],\ [0.2,\ 0.2],\ [0.2,\ 0.2],\ [0.1,\ 0.1],\ [0.9,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ [[0,\ 0.3],\ [0.2,\ 0.4],\ [0.5,\ 0.6],\ [0,\ 0.6],\ [0.8,\ 0.2],\ [0.2,\ 0.4]]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00200}00200\ \ \ \ \ exp\_cls\_targets\ =\ [[1],\ [1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00201}00201\ \ \ \ \ exp\_cls\_weights\ =\ [[1],\ [1],\ [1]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00202}00202\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0,\ -\/3,\ -\/1,\ -\/3,\ 1,\ -\/1,\ -\/1,\ -\/1,\ -\/1,\ -\/3,\ -\/3,\ 13,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ -\/1,\ 0,\ 0,\ -\/15,\ -\/9,\ -\/11,\ -\/7,\ -\/5,\ -\/3,\ -\/15,\ -\/3,\ 1,\ -\/11,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/11,\ -\/7],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00207}00207\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00208}00208\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00209}00209\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [anchor\_means,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_corners,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00212}00212\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00213}00213\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00214}00214\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00215}00215\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00216}00216\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00217}00217\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00218}00218\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00219}00219\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00221}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a9afdc1e863a656aa81c5c395e010206e}{00221}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a9afdc1e863a656aa81c5c395e010206e}{test\_assign\_multiclass}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00223}00223\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00224}00224\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00225}00225\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00227}00227\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00228}00228\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00229}00229\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00232}00232\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00233}00233\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00234}00234\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00239}00239\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00240}00240\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00242}00242\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ 1.0,\ .25]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00246}00246\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ .95,\ .27]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00249}00249\ \ \ \ \ groundtruth\_labels\ =\ np.array([[0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00253}00253\ \ \ \ \ exp\_cls\_targets\ =\ [[0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00257}00257\ \ \ \ \ exp\_cls\_weights\ =\ [[1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00261}00261\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/.5,\ .2]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00265}00265\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0,\ 1]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00267}00267\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00268}00268\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00270}00270\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00271}00271\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00272}00272\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00273}00273\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00274}00274\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00275}00275\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00276}00276\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00277}00277\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00279}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a59046544ed6b1a8bf63717f850efe55a}{00279}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a59046544ed6b1a8bf63717f850efe55a}{test\_assign\_multiclass\_with\_groundtruth\_weights}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00281}00281\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00283}00283\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00284}00284\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00286}00286\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00287}00287\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00288}00288\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00291}00291\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00292}00292\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00293}00293\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights=groundtruth\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00299}00299\ \ \ \ \ \ \ (\_,\ cls\_weights,\ \_,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00300}00300\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_weights,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00302}00302\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ 1.0,\ .25]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00306}00306\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ .95,\ .27]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00309}00309\ \ \ \ \ groundtruth\_labels\ =\ np.array([[0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00312}00312\ \ \ \ \ groundtruth\_weights\ =\ np.array([0.3,\ 0.,\ 0.5],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00314}00314\ \ \ \ \ \textcolor{comment}{\#\ background\ class\ gets\ weight\ of\ 1.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00315}00315\ \ \ \ \ exp\_cls\_weights\ =\ [[0.3,\ 0.3,\ 0.3,\ 0.3,\ 0.3,\ 0.3,\ 0.3],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5,\ 0.5,\ 0.5,\ 0.5]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00319}00319\ \ \ \ \ exp\_reg\_weights\ =\ [0.3,\ 0.,\ 0.,\ 0.5]\ \ \textcolor{comment}{\#\ background\ class\ gets\ weight\ of\ 0.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00321}00321\ \ \ \ \ (cls\_weights\_out,\ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ groundtruth\_weights}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00324}00324\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00325}00325\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00326}00326\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00328}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3b80543978c56844bacf91d2443e6679}{00328}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3b80543978c56844bacf91d2443e6679}{test\_assign\_multidimensional\_class\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00330}00330\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00331}00331\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00332}00332\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00334}00334\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00336}00336\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([[0,\ 0],\ [0,\ 0]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00337}00337\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00340}00340\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00341}00341\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00342}00342\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00347}00347\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00348}00348\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00350}00350\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ 1.0,\ .25]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00354}00354\ \ \ \ \ groundtruth\_box\_corners\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ .95,\ .27]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00358}00358\ \ \ \ \ groundtruth\_labels\ =\ np.array([[[0,\ 1],\ [1,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0],\ [0,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1],\ [1,\ .5]]],\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00362}00362\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1],\ [1,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0],\ [0,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0],\ [0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1],\ [1,\ .5]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00366}00366\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1],\ [1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1],\ [1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1],\ [1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1],\ [1,\ 1]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00370}00370\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/.5,\ .2]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00374}00374\ \ \ \ \ exp\_reg\_weights\ =\ [1,\ 1,\ 0,\ 1]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00375}00375\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00376}00376\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00377}00377\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00378}00378\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00379}00379\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00380}00380\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00381}00381\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00382}00382\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00383}00383\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00384}00384\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00385}00385\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00387}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_acad1311008b49c08356646e67ff153e2}{00387}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_acad1311008b49c08356646e67ff153e2}{test\_assign\_empty\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00389}00389\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00390}00390\ \ \ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00391}00391\ \ \ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00393}00393\ \ \ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00394}00394\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([0,\ 0,\ 0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00395}00395\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00396}00396\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00397}00397\ \ \ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00399}00399\ \ \ \ \ \ \ result\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00404}00404\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,\ \_)\ =\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00405}00405\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00407}00407\ \ \ \ \ groundtruth\_box\_corners\ =\ np.zeros((0,\ 4),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00408}00408\ \ \ \ \ groundtruth\_labels\ =\ np.zeros((0,\ 3),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00409}00409\ \ \ \ \ anchor\_means\ =\ np.array([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ 1.0,\ .25]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00414}00414\ \ \ \ \ exp\_cls\_targets\ =\ [[0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00418}00418\ \ \ \ \ exp\_cls\_weights\ =\ [[1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00422}00422\ \ \ \ \ exp\_reg\_targets\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00426}00426\ \ \ \ \ exp\_reg\_weights\ =\ [0,\ 0,\ 0,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00427}00427\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00428}00428\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00429}00429\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners,\ groundtruth\_labels])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00430}00430\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00431}00431\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00432}00432\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00433}00433\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00434}00434\ \ \ \ \ self.assertEquals(cls\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00435}00435\ \ \ \ \ self.assertEquals(cls\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00436}00436\ \ \ \ \ self.assertEquals(reg\_targets\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00437}00437\ \ \ \ \ self.assertEquals(reg\_weights\_out.dtype,\ np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00439}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3db198040d4f91d02006d772baaa5d79}{00439}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a3db198040d4f91d02006d772baaa5d79}{test\_raises\_error\_on\_incompatible\_groundtruth\_boxes\_and\_labels}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00440}00440\ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity}{region\_similarity\_calculator.NegSqDistSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00441}00441\ \ \ \ \ matcher\ =\ bipartite\_matcher.GreedyBipartiteMatcher()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00442}00442\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00443}00443\ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00444}00444\ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00445}00445\ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00447}00447\ \ \ \ \ prior\_means\ =\ tf.constant([[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1.0,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.5,\ .5,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ 1.0,\ .25]])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00451}00451\ \ \ \ \ priors\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(prior\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00453}00453\ \ \ \ \ box\_corners\ =\ [[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ .95,\ .27]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00457}00457\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(box\_corners))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00458}00458\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00459}00459\ \ \ \ \ groundtruth\_labels\ =\ tf.constant([[0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00462}00462\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(ValueError,\ \textcolor{stringliteral}{'Unequal\ shapes'}):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00463}00463\ \ \ \ \ \ \ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ priors,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00469}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a2109fb602dcd15a92add46960ab53b5c}{00469}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_target_assigner_test_a2109fb602dcd15a92add46960ab53b5c}{test\_raises\_error\_on\_invalid\_groundtruth\_labels}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00470}00470\ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity}{region\_similarity\_calculator.NegSqDistSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00471}00471\ \ \ \ \ matcher\ =\ bipartite\_matcher.GreedyBipartiteMatcher()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00472}00472\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=1.0)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00473}00473\ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([[0,\ 0],\ [0,\ 0],\ [0,\ 0]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00474}00474\ \ \ \ \ target\_assigner\ =\ targetassigner.TargetAssigner(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00477}00477\ \ \ \ \ prior\_means\ =\ tf.constant([[0.0,\ 0.0,\ 0.5,\ 0.5]])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00478}00478\ \ \ \ \ priors\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(prior\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00479}00479\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00480}00480\ \ \ \ \ box\_corners\ =\ [[0.0,\ 0.0,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.9,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ 0,\ .95,\ .27]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00483}00483\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(box\_corners))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00484}00484\ \ \ \ \ groundtruth\_labels\ =\ tf.constant([[[0,\ 1],\ [1,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00485}00485\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00486}00486\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00487}00487\ \ \ \ \ \ \ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ priors,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00494}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test}{00494}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test}{BatchTargetAssignerTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00496}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{00496}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00497}00497\ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00498}00498\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00500}00500\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00501}00501\ \ \ \ \ \textcolor{keywordflow}{return}\ targetassigner.TargetAssigner(similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00502}00502\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00503}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_af53b2f294bbb21d24adec21eac9bc40c}{00503}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_af53b2f294bbb21d24adec21eac9bc40c}{test\_batch\_assign\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00505}00505\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00506}00506\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00507}00507\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00508}00508\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00509}00509\ \ \ \ \ \ \ gt\_class\_targets\ =\ [\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00510}00510\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00511}00511\ \ \ \ \ \ \ agnostic\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00512}00512\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00513}00513\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ agnostic\_target\_assigner,\ anchors\_boxlist,\ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00516}00516\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00518}00518\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00519}00519\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00522}00522\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00527}00527\ \ \ \ \ exp\_cls\_targets\ =\ [[[1],\ [0],\ [0],\ [0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0],\ [1],\ [1],\ [0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00529}00529\ \ \ \ \ exp\_cls\_weights\ =\ [[[1],\ [1],\ [1],\ [1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1],\ [1],\ [1],\ [1]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00531}00531\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00539}00539\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00542}00542\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00543}00543\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00545}00545\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00546}00546\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00547}00547\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00548}00548\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00550}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a3a3d8eaa9a8bd6a229fc9177537387ab}{00550}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a3a3d8eaa9a8bd6a229fc9177537387ab}{test\_batch\_assign\_multiclass\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00552}00552\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00554}00554\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00555}00555\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00556}00556\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00557}00557\ \ \ \ \ \ \ gt\_class\_targets\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00558}00558\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00559}00559\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00560}00560\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00561}00561\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00562}00562\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00563}00563\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,\ anchors\_boxlist,\ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_targets,\ unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00566}00566\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00568}00568\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00569}00569\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00572}00572\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00573}00573\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00576}00576\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00577}00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00580}00580\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00588}00588\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00596}00596\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00604}00604\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00607}00607\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00608}00608\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00610}00610\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00611}00611\ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00612}00612\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00613}00613\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00614}00614\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00615}00615\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00616}00616\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00617}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a1d8aa65b3a914a617dd364d9400c3f3c}{00617}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a1d8aa65b3a914a617dd364d9400c3f3c}{test\_batch\_assign\_multiclass\_targets\_with\_padded\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00618}00618\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00619}00619\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00622}00622\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00623}00623\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00624}00624\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00625}00625\ \ \ \ \ \ \ gt\_class\_targets\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00626}00626\ \ \ \ \ \ \ gt\_weights\ =\ [groundtruth\_weights1,\ groundtruth\_weights2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00627}00627\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00628}00628\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00629}00629\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00630}00630\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00631}00631\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00632}00632\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,\ anchors\_boxlist,\ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_targets,\ unmatched\_class\_label,\ gt\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00635}00635\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00636}00636\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00637}00637\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.,\ 0.]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00639}00639\ \ \ \ \ groundtruth\_weights1\ =\ np.array([1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00640}00640\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00642}00642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00643}00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00644}00644\ \ \ \ \ groundtruth\_weights2\ =\ np.array([1,\ 1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00645}00645\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00646}00646\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00647}00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00649}00649\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00650}00650\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00651}00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00652}00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00655}00655\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00656}00656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00657}00657\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00658}00658\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00659}00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00660}00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00661}00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00662}00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00663}00663\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00671}00671\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00679}00679\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00682}00682\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00683}00683\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00684}00684\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00685}00685\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00686}00686\ \ \ \ \ \ \ \ \ \ groundtruth\_weights2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00687}00687\ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00688}00688\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00689}00689\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00690}00690\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00691}00691\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00692}00692\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00693}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_af0b5fce466f3d74f8a957d12603a9af9}{00693}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_af0b5fce466f3d74f8a957d12603a9af9}{test\_batch\_assign\_multidimensional\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00694}00694\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00695}00695\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00697}00697\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00698}00698\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00699}00699\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00700}00700\ \ \ \ \ \ \ gt\_class\_targets\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00701}00701\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00702}00702\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00703}00703\ \ \ \ \ \ \ target\_dimensions\ =\ (2,\ 3)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00704}00704\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant(np.zeros(target\_dimensions),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00705}00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00706}00706\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00707}00707\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,\ anchors\_boxlist,\ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_targets,\ unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00710}00710\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00712}00712\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00713}00713\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00716}00716\ \ \ \ \ class\_targets1\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00717}00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00718}00718\ \ \ \ \ class\_targets2\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00721}00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00722}00722\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00723}00723\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00725}00725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00727}00727\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00728}00728\ \ \ \ \ exp\_cls\_targets\ =\ [[[[0.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00729}00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 0.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00730}00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 0.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00731}00731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 0.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 0.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00735}00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.]]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00736}00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[0.,\ 0.,\ 0.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00738}00738\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00739}00739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 0.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00742}00742\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 0.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.]]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00744}00744\ \ \ \ \ exp\_cls\_weights\ =\ [[[[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00752}00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00755}00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00756}00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00757}00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00758}00758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.,\ 1.,\ 1.]]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00760}00760\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00764}00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00768}00768\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00770}00770\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00771}00771\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00772}00772\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00773}00773\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00774}00774\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00775}00775\ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00776}00776\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00777}00777\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00778}00778\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00779}00779\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00780}00780\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00781}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_adc653771b76de6398f98054c4b798baf}{00781}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_adc653771b76de6398f98054c4b798baf}{test\_batch\_assign\_empty\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00782}00782\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00783}00783\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_targets):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00784}00784\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00785}00785\ \ \ \ \ \ \ gt\_box\_batch\ =\ [groundtruth\_boxlist]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00786}00786\ \ \ \ \ \ \ gt\_class\_targets\_batch\ =\ [gt\_class\_targets]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00787}00787\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00788}00788\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00789}00789\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assigner_test_a74fb84675de06323d8490b788b4e9ae5}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00790}00790\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00791}00791\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00792}00792\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00793}00793\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00794}00794\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,\ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00795}00795\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,\ gt\_class\_targets\_batch,\ unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00796}00796\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00797}00797\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00798}00798\ \ \ \ \ groundtruth\_box\_corners\ =\ np.zeros((0,\ 4),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00799}00799\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00800}00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00801}00801\ \ \ \ \ exp\_cls\_targets\ =\ [[[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00802}00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00803}00803\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00804}00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00805}00805\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00806}00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00807}00807\ \ \ \ \ exp\_reg\_weights\ =\ [[0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00808}00808\ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00809}00809\ \ \ \ \ pad\ =\ 1}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00810}00810\ \ \ \ \ gt\_class\_targets\ =\ np.zeros((0,\ num\_classes\ +\ pad),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00811}00811\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00812}00812\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00813}00813\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00814}00814\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_targets])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00815}00815\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00816}00816\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00817}00817\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00818}00818\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00819}00819\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00820}00820\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00821}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test}{00821}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test}{BatchGetTargetsTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00822}00822\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00823}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768}{00823}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768}{test\_scalar\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00824}00824\ \ \ \ \ batch\_match\ =\ np.array([[1,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/2,\ -\/1,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00826}00826\ \ \ \ \ groundtruth\_tensors\_list\ =\ np.array([[11,\ 12],\ [13,\ 14]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00827}00827\ \ \ \ \ groundtruth\_weights\_list\ =\ np.array([[1.0,\ 1.0],\ [1.0,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00829}00829\ \ \ \ \ unmatched\_value\ =\ np.array(99,\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00830}00830\ \ \ \ \ unmatched\_weight\ =\ np.array(0.0,\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00831}00831\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00832}00832\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(batch\_match,\ groundtruth\_tensors\_list,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00833}00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list,\ unmatched\_value,\ unmatched\_weight):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00834}00834\ \ \ \ \ \ \ targets,\ weights\ =\ targetassigner.batch\_get\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00835}00835\ \ \ \ \ \ \ \ \ \ \ batch\_match,\ tf.unstack(groundtruth\_tensors\_list),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ tf.unstack(groundtruth\_weights\_list),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00838}00838\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (targets,\ weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00839}00839\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00840}00840\ \ \ \ \ (targets\_np,\ weights\_np)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00841}00841\ \ \ \ \ \ \ \ \ batch\_match,\ groundtruth\_tensors\_list,\ groundtruth\_weights\_list,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00842}00842\ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00843}00843\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00844}00844\ \ \ \ \ self.assertAllEqual([[12,\ 11,\ 12],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00845}00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [99,\ 99,\ 14]],\ targets\_np)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00846}00846\ \ \ \ \ self.assertAllClose([[1.0,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00847}00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5]],\ weights\_np)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00848}00848\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00849}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec}{00849}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec}{test\_1d\_targets}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00850}00850\ \ \ \ \ batch\_match\ =\ np.array([[1,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00851}00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/2,\ -\/1,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00852}00852\ \ \ \ \ groundtruth\_tensors\_list\ =\ np.array([[[11,\ 12],\ [12,\ 13]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00853}00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[13,\ 14],\ [14,\ 15]]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00854}00854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00855}00855\ \ \ \ \ groundtruth\_weights\_list\ =\ np.array([[1.0,\ 1.0],\ [1.0,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00856}00856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00857}00857\ \ \ \ \ unmatched\_value\ =\ np.array([99,\ 99],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00858}00858\ \ \ \ \ unmatched\_weight\ =\ np.array(0.0,\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00860}00860\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(batch\_match,\ groundtruth\_tensors\_list,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00861}00861\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list,\ unmatched\_value,\ unmatched\_weight):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00862}00862\ \ \ \ \ \ \ targets,\ weights\ =\ targetassigner.batch\_get\_targets(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00863}00863\ \ \ \ \ \ \ \ \ \ \ batch\_match,\ tf.unstack(groundtruth\_tensors\_list),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00864}00864\ \ \ \ \ \ \ \ \ \ \ tf.unstack(groundtruth\_weights\_list),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00865}00865\ \ \ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00866}00866\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (targets,\ weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00867}00867\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00868}00868\ \ \ \ \ (targets\_np,\ weights\_np)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00869}00869\ \ \ \ \ \ \ \ \ batch\_match,\ groundtruth\_tensors\_list,\ groundtruth\_weights\_list,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00870}00870\ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00871}00871\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00872}00872\ \ \ \ \ self.assertAllClose([[[12,\ 13],\ [11,\ 12],\ [12,\ 13]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00873}00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[99,\ 99],\ [99,\ 99],\ [14,\ 15]]],\ targets\_np)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00874}00874\ \ \ \ \ self.assertAllClose([[1.0,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00875}00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5]],\ weights\_np)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00876}00876\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00877}00877\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00878}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test}{00878}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test}{BatchTargetAssignConfidencesTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00879}00879\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00880}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{00880}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00881}00881\ \ \ \ \ similarity\_calc\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{region\_similarity\_calculator.IouSimilarity}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00882}00882\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00883}00883\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00884}00884\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00885}00885\ \ \ \ \ \textcolor{keywordflow}{return}\ targetassigner.TargetAssigner(similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00886}00886\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00887}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19}{00887}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19}{test\_batch\_assign\_empty\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00888}00888\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00889}00889\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_confidences):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00890}00890\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_box\_corners)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00891}00891\ \ \ \ \ \ \ gt\_box\_batch\ =\ [groundtruth\_boxlist]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00892}00892\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [gt\_class\_confidences]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00893}00893\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00894}00894\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00895}00895\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00896}00896\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00897}00897\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00898}00898\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00899}00899\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00900}00900\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00901}00901\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00902}00902\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00903}00903\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00904}00904\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00905}00905\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00906}00906\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00907}00907\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00908}00908\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00909}00909\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00910}00910\ \ \ \ \ groundtruth\_box\_corners\ =\ np.zeros((0,\ 4),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00911}00911\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00912}00912\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00913}00913\ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00914}00914\ \ \ \ \ pad\ =\ 1}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00915}00915\ \ \ \ \ gt\_class\_confidences\ =\ np.zeros((0,\ num\_classes\ +\ pad),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00916}00916\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00917}00917\ \ \ \ \ exp\_cls\_targets\ =\ [[[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00918}00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00919}00919\ \ \ \ \ exp\_cls\_weights\ =\ [[[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00920}00920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00921}00921\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00922}00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00923}00923\ \ \ \ \ exp\_reg\_weights\ =\ [[0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00924}00924\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00925}00925\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00926}00926\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00927}00927\ \ \ \ \ \ \ \ \ \ graph\_fn,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00928}00928\ \ \ \ \ \ \ \ \ \ [anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_confidences])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00929}00929\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00930}00930\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00931}00931\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00932}00932\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00933}00933\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00934}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3}{00934}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3}{test\_batch\_assign\_confidences\_agnostic}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00935}00935\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00936}00936\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00937}00937\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00938}00938\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00939}00939\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00940}00940\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00941}00941\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00942}00942\ \ \ \ \ \ \ agnostic\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00943}00943\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00944}00944\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00945}00945\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00946}00946\ \ \ \ \ \ \ \ \ \ \ \ agnostic\_target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00947}00947\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00948}00948\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00949}00949\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00950}00950\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00951}00951\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00952}00952\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00953}00953\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00954}00954\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00955}00955\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00956}00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00957}00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00958}00958\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00959}00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00960}00960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00961}00961\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00962}00962\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00963}00963\ \ \ \ \ exp\_cls\_targets\ =\ [[[1],\ [0],\ [0],\ [0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0],\ [1],\ [1],\ [0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00965}00965\ \ \ \ \ exp\_cls\_weights\ =\ [[[1],\ [0.5],\ [0.5],\ [0.5]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00966}00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5],\ [1],\ [1],\ [0.5]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00967}00967\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00968}00968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00969}00969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00970}00970\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00971}00971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00973}00973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00974}00974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00975}00975\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00976}00976\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00977}00977\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00978}00978\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00979}00979\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00980}00980\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00981}00981\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00982}00982\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00983}00983\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00984}00984\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00985}00985\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00986}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea}{00986}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea}{test\_batch\_assign\_confidences\_multiclass}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00987}00987\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00988}00988\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00989}00989\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00990}00990\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00991}00991\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00992}00992\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00993}00993\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00994}00994\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00995}00995\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00996}00996\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00997}00997\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00998}00998\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l00999}00999\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01000}01000\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01001}01001\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01002}01002\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01003}01003\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01004}01004\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01005}01005\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01006}01006\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01007}01007\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01008}01008\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01009}01009\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01010}01010\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01011}01011\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01012}01012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01013}01013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01014}01014\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01015}01015\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01016}01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01017}01017\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01018}01018\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01019}01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01020}01020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01021}01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01022}01022\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01024}01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01025}01025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01027}01027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01029}01029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01030}01030\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01031}01031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01032}01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01033}01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01034}01034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01035}01035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0.5,\ 0.5,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01036}01036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01037}01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01038}01038\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01039}01039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01040}01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01041}01041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01042}01042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01043}01043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01044}01044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01045}01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01046}01046\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01047}01047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01048}01048\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01049}01049\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01050}01050\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01051}01051\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01052}01052\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01053}01053\ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01054}01054\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01055}01055\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01056}01056\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01057}01057\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01058}01058\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01059}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c}{01059}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c}{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01060}01060\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01061}01061\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01063}01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01064}01064\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01065}01065\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01066}01066\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01067}01067\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01068}01068\ \ \ \ \ \ \ gt\_weights\ =\ [groundtruth\_weights1,\ groundtruth\_weights2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01069}01069\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01070}01070\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01071}01071\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01072}01072\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01073}01073\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01074}01074\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01075}01075\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01076}01076\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01077}01077\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01078}01078\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01079}01079\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01080}01080\ \ \ \ \ \ \ \ \ \ \ \ gt\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01081}01081\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01082}01082\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01083}01083\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01084}01084\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01085}01085\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01086}01086\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01087}01087\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01088}01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.,\ 0.]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01089}01089\ \ \ \ \ groundtruth\_weights1\ =\ np.array([1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01090}01090\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01091}01091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01092}01092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01093}01093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01094}01094\ \ \ \ \ groundtruth\_weights2\ =\ np.array([1,\ 1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01095}01095\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01096}01096\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01097}01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01098}01098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01099}01099\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01100}01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01101}01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01102}01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01103}01103\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01104}01104\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01105}01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01106}01106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01107}01107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01108}01108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01109}01109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01110}01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01111}01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01112}01112\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01113}01113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01114}01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01115}01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01116}01116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01117}01117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0.5,\ 0.5,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01118}01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01119}01119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01120}01120\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01121}01121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01122}01122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01123}01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01124}01124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01125}01125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01126}01126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01127}01127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01128}01128\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01129}01129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01130}01130\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01131}01131\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01132}01132\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01133}01133\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01134}01134\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01135}01135\ \ \ \ \ \ \ \ \ \ groundtruth\_weights2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01136}01136\ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01137}01137\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01138}01138\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01139}01139\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01140}01140\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01141}01141\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01142}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f}{01142}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f}{test\_batch\_assign\_confidences\_multidimensional}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01143}01143\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01144}01144\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01145}01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01146}01146\ \ \ \ \ \ \ box\_list1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist1)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01147}01147\ \ \ \ \ \ \ box\_list2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(groundtruth\_boxlist2)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01148}01148\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01149}01149\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01150}01150\ \ \ \ \ \ \ anchors\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(anchor\_means)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01151}01151\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\_get\_target\_assigner}}()}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01152}01152\ \ \ \ \ \ \ target\_dimensions\ =\ (2,\ 3)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01153}01153\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant(np.zeros(target\_dimensions),}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01154}01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01155}01155\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01156}01156\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01157}01157\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01158}01158\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01159}01159\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01160}01160\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01161}01161\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01162}01162\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01163}01163\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01164}01164\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01165}01165\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01166}01166\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01167}01167\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01168}01168\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01169}01169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01170}01170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01171}01171\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01172}01172\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01173}01173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01174}01174\ \ \ \ \ class\_targets1\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01175}01175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01176}01176\ \ \ \ \ class\_targets2\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01177}01177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01178}01178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01179}01179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01180}01180\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01181}01181\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01182}01182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01183}01183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01184}01184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01185}01185\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01186}01186\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01187}01187\ \ \ \ \ \ \ \_,\ \_,\ \_,\ \_\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01188}01188\ \ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01189}01189\ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01190}01190\ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01191}01191\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01192}01192\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01193}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test}{01193}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test}{CreateTargetAssignerTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01194}01194\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01195}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test_a7cf0f3a9dbcc62570932f89457390cc0}{01195}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test_a7cf0f3a9dbcc62570932f89457390cc0}{test\_create\_target\_assigner}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01196}01196\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ that\ named\ constructor\ gives\ working\ target\ assigners.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01197}01197\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01198}01198\ \textcolor{stringliteral}{\ \ \ \ TODO(rathodv):\ Make\ this\ test\ more\ general.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01199}01199\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01200}01200\ \textcolor{stringliteral}{\ \ \ \ corners\ =\ [[0.0,\ 0.0,\ 1.0,\ 1.0]]}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01201}01201\ \textcolor{stringliteral}{\ \ \ \ groundtruth\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(corners))}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01202}01202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01203}01203\ \textcolor{stringliteral}{\ \ \ \ priors\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(corners))}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01204}01204\ \textcolor{stringliteral}{\ \ \ \ multibox\_ta\ =\ (targetassigner}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01205}01205\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner('Multibox'},\ stage=\textcolor{stringliteral}{'proposal'}))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01206}01206\ \ \ \ \ multibox\_ta.assign(priors,\ groundtruth)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01207}01207\ \ \ \ \ \textcolor{comment}{\#\ No\ tests\ on\ output,\ as\ that\ may\ vary\ arbitrarily\ as\ new\ target\ assigners}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01208}01208\ \ \ \ \ \textcolor{comment}{\#\ are\ added.\ As\ long\ as\ it\ is\ constructed\ correctly\ and\ runs\ without\ errors,}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01209}01209\ \ \ \ \ \textcolor{comment}{\#\ tests\ on\ the\ individual\ assigners\ cover\ correctness\ of\ the\ assignments.}}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01210}01210\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01211}01211\ \ \ \ \ anchors\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(corners))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01212}01212\ \ \ \ \ faster\_rcnn\_proposals\_ta\ =\ (targetassigner}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01213}01213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FasterRCNN'},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01214}01214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'proposal'}))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01215}01215\ \ \ \ \ faster\_rcnn\_proposals\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01216}01216\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01217}01217\ \ \ \ \ fast\_rcnn\_ta\ =\ (targetassigner}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01218}01218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FastRCNN'}))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01219}01219\ \ \ \ \ fast\_rcnn\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01220}01220\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01221}01221\ \ \ \ \ faster\_rcnn\_detection\_ta\ =\ (targetassigner}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01222}01222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FasterRCNN'},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01223}01223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'detection'}))}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01224}01224\ \ \ \ \ faster\_rcnn\_detection\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01225}01225\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01226}01226\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01227}01227\ \ \ \ \ \ \ targetassigner.create\_target\_assigner(\textcolor{stringliteral}{'InvalidDetector'},}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01228}01228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'invalid\_stage'})}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01229}01229\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01230}01230\ }
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01231}01231\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{target__assigner__test_8py_source_l01232}01232\ \ \ tf.test.main()}
+
+\end{DoxyCode}

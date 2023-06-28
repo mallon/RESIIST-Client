@@ -1,0 +1,1114 @@
+\doxysection{box\+\_\+list\+\_\+ops\+\_\+test.\+py}
+\hypertarget{box__list__ops__test_8py_source}{}\label{box__list__ops__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/box\_list\_ops\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/box\_list\_ops\_test.py}}
+\mbox{\hyperlink{box__list__ops__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__list__ops__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.core.box\_list\_ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00017}00017\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00022}00022\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ test\_case}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00025}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test}{00025}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test}{BoxListOpsTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00026}00026\ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ common\ bounding\ box\ operations."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00028}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae936889b01e04fb66ee7ba293ca33fce}{00028}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae936889b01e04fb66ee7ba293ca33fce}{test\_area}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00029}00029\ \ \ \ \ corners\ =\ tf.constant([[0.0,\ 0.0,\ 10.0,\ 20.0],\ [1.0,\ 2.0,\ 3.0,\ 4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00030}00030\ \ \ \ \ exp\_output\ =\ [200.0,\ 4.0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00031}00031\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00032}00032\ \ \ \ \ areas\ =\ box\_list\_ops.area(boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00034}00034\ \ \ \ \ \ \ areas\_output\ =\ sess.run(areas)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00035}00035\ \ \ \ \ \ \ self.assertAllClose(areas\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_adbfce015e1fdfa64d8d7c3a6aeb5d2fc}{00037}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_adbfce015e1fdfa64d8d7c3a6aeb5d2fc}{test\_height\_width}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00038}00038\ \ \ \ \ corners\ =\ tf.constant([[0.0,\ 0.0,\ 10.0,\ 20.0],\ [1.0,\ 2.0,\ 3.0,\ 4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00039}00039\ \ \ \ \ exp\_output\_heights\ =\ [10.,\ 2.]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00040}00040\ \ \ \ \ exp\_output\_widths\ =\ [20.,\ 2.]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00041}00041\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00042}00042\ \ \ \ \ heights,\ widths\ =\ box\_list\_ops.height\_width(boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00044}00044\ \ \ \ \ \ \ output\_heights,\ output\_widths\ =\ sess.run([heights,\ widths])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00045}00045\ \ \ \ \ \ \ self.assertAllClose(output\_heights,\ exp\_output\_heights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00046}00046\ \ \ \ \ \ \ self.assertAllClose(output\_widths,\ exp\_output\_widths)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00048}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a97552cec9785199b4520fe7ff66f4a3e}{00048}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a97552cec9785199b4520fe7ff66f4a3e}{test\_scale}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00049}00049\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 100,\ 200],\ [50,\ 120,\ 100,\ 140]],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00051}00051\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00052}00052\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.constant([[1],\ [2]]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00054}00054\ \ \ \ \ y\_scale\ =\ tf.constant(1.0/100)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00055}00055\ \ \ \ \ x\_scale\ =\ tf.constant(1.0/200)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00056}00056\ \ \ \ \ scaled\_boxes\ =\ box\_list\_ops.scale(boxes,\ y\_scale,\ x\_scale)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00057}00057\ \ \ \ \ exp\_output\ =\ [[0,\ 0,\ 1,\ 1],\ [0.5,\ 0.6,\ 1.0,\ 0.7]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00059}00059\ \ \ \ \ \ \ scaled\_corners\_out\ =\ sess.run(scaled\_boxes.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00060}00060\ \ \ \ \ \ \ self.assertAllClose(scaled\_corners\_out,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00061}00061\ \ \ \ \ \ \ extra\_data\_out\ =\ sess.run(scaled\_boxes.get\_field(\textcolor{stringliteral}{'extra\_data'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00062}00062\ \ \ \ \ \ \ self.assertAllEqual(extra\_data\_out,\ [[1],\ [2]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00064}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a0f3cc6a2a78e77986b79a8277fef012d}{00064}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a0f3cc6a2a78e77986b79a8277fef012d}{test\_clip\_to\_window\_filter\_boxes\_which\_fall\_outside\_the\_window}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00065}00065\ \ \ \ \ \ \ self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00066}00066\ \ \ \ \ window\ =\ tf.constant([0,\ 0,\ 9,\ 14],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00067}00067\ \ \ \ \ corners\ =\ tf.constant([[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.0,\ -\/2.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100.0,\ -\/100.0,\ 300.0,\ 600.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/10.0,\ -\/10.0,\ -\/9.0,\ -\/9.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00073}00073\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00074}00074\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.constant([[1],\ [2],\ [3],\ [4],\ [5],\ [6]]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00075}00075\ \ \ \ \ exp\_output\ =\ [[5.0,\ 5.0,\ 6.0,\ 6.0],\ [0.0,\ 0.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],\ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00078}00078\ \ \ \ \ pruned\ =\ box\_list\_ops.clip\_to\_window(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ boxes,\ window,\ filter\_nonoverlapping=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00080}00080\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00081}00081\ \ \ \ \ \ \ pruned\_output\ =\ sess.run(pruned.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00082}00082\ \ \ \ \ \ \ self.assertAllClose(pruned\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00083}00083\ \ \ \ \ \ \ extra\_data\_out\ =\ sess.run(pruned.get\_field(\textcolor{stringliteral}{'extra\_data'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00084}00084\ \ \ \ \ \ \ self.assertAllEqual(extra\_data\_out,\ [[1],\ [2],\ [3],\ [4],\ [5]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_abbba321cc3c02f0385b3efe11940238b}{00086}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_abbba321cc3c02f0385b3efe11940238b}{test\_clip\_to\_window\_without\_filtering\_boxes\_which\_fall\_outside\_the\_window}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00087}00087\ \ \ \ \ \ \ self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00088}00088\ \ \ \ \ window\ =\ tf.constant([0,\ 0,\ 9,\ 14],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00089}00089\ \ \ \ \ corners\ =\ tf.constant([[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.0,\ -\/2.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100.0,\ -\/100.0,\ 300.0,\ 600.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/10.0,\ -\/10.0,\ -\/9.0,\ -\/9.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00095}00095\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00096}00096\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.constant([[1],\ [2],\ [3],\ [4],\ [5],\ [6]]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00097}00097\ \ \ \ \ exp\_output\ =\ [[5.0,\ 5.0,\ 6.0,\ 6.0],\ [0.0,\ 0.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],\ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],\ [0.0,\ 0.0,\ 0.0,\ 0.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00100}00100\ \ \ \ \ pruned\ =\ box\_list\_ops.clip\_to\_window(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ boxes,\ window,\ filter\_nonoverlapping=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00102}00102\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00103}00103\ \ \ \ \ \ \ pruned\_output\ =\ sess.run(pruned.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00104}00104\ \ \ \ \ \ \ self.assertAllClose(pruned\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00105}00105\ \ \ \ \ \ \ extra\_data\_out\ =\ sess.run(pruned.get\_field(\textcolor{stringliteral}{'extra\_data'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00106}00106\ \ \ \ \ \ \ self.assertAllEqual(extra\_data\_out,\ [[1],\ [2],\ [3],\ [4],\ [5],\ [6]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00108}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae56c3d5c8887ddce0f77f2ac43ae95d2}{00108}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae56c3d5c8887ddce0f77f2ac43ae95d2}{test\_prune\_outside\_window\_filters\_boxes\_which\_fall\_outside\_the\_window}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00109}00109\ \ \ \ \ \ \ self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00110}00110\ \ \ \ \ window\ =\ tf.constant([0,\ 0,\ 9,\ 14],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00111}00111\ \ \ \ \ corners\ =\ tf.constant([[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.0,\ -\/2.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/10.0,\ -\/10.0,\ -\/9.0,\ -\/9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100.0,\ -\/100.0,\ 300.0,\ 600.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00117}00117\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00118}00118\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.constant([[1],\ [2],\ [3],\ [4],\ [5],\ [6]]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00119}00119\ \ \ \ \ exp\_output\ =\ [[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00122}00122\ \ \ \ \ pruned,\ keep\_indices\ =\ box\_list\_ops.prune\_outside\_window(boxes,\ window)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00123}00123\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00124}00124\ \ \ \ \ \ \ pruned\_output\ =\ sess.run(pruned.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00125}00125\ \ \ \ \ \ \ self.assertAllClose(pruned\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00126}00126\ \ \ \ \ \ \ keep\_indices\_out\ =\ sess.run(keep\_indices)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00127}00127\ \ \ \ \ \ \ self.assertAllEqual(keep\_indices\_out,\ [0,\ 2,\ 3])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00128}00128\ \ \ \ \ \ \ extra\_data\_out\ =\ sess.run(pruned.get\_field(\textcolor{stringliteral}{'extra\_data'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00129}00129\ \ \ \ \ \ \ self.assertAllEqual(extra\_data\_out,\ [[1],\ [3],\ [4]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00131}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ab1377175b668a1e2f6a381012f1afc97}{00131}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ab1377175b668a1e2f6a381012f1afc97}{test\_prune\_completely\_outside\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00132}00132\ \ \ \ \ window\ =\ tf.constant([0,\ 0,\ 9,\ 14],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00133}00133\ \ \ \ \ corners\ =\ tf.constant([[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.0,\ -\/2.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/10.0,\ -\/10.0,\ -\/9.0,\ -\/9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100.0,\ -\/100.0,\ 300.0,\ 600.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00139}00139\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00140}00140\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.constant([[1],\ [2],\ [3],\ [4],\ [5],\ [6]]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00141}00141\ \ \ \ \ exp\_output\ =\ [[5.0,\ 5.0,\ 6.0,\ 6.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.0,\ -\/2.0,\ 4.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 9.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 9.0,\ 14.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100.0,\ -\/100.0,\ 300.0,\ 600.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00146}00146\ \ \ \ \ pruned,\ keep\_indices\ =\ box\_list\_ops.prune\_completely\_outside\_window(boxes,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ window)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00148}00148\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00149}00149\ \ \ \ \ \ \ pruned\_output\ =\ sess.run(pruned.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00150}00150\ \ \ \ \ \ \ self.assertAllClose(pruned\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00151}00151\ \ \ \ \ \ \ keep\_indices\_out\ =\ sess.run(keep\_indices)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00152}00152\ \ \ \ \ \ \ self.assertAllEqual(keep\_indices\_out,\ [0,\ 1,\ 2,\ 3,\ 5])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00153}00153\ \ \ \ \ \ \ extra\_data\_out\ =\ sess.run(pruned.get\_field(\textcolor{stringliteral}{'extra\_data'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00154}00154\ \ \ \ \ \ \ self.assertAllEqual(extra\_data\_out,\ [[1],\ [2],\ [3],\ [4],\ [6]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00156}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a0c8db2cfee61f27f422737d8689f0f72}{00156}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a0c8db2cfee61f27f422737d8689f0f72}{test\_prune\_completely\_outside\_window\_with\_empty\_boxlist}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00157}00157\ \ \ \ \ window\ =\ tf.constant([0,\ 0,\ 9,\ 14],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00158}00158\ \ \ \ \ corners\ =\ tf.zeros(shape=[0,\ 4],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00159}00159\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00160}00160\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'extra\_data'},\ tf.zeros(shape=[0],\ dtype=tf.int32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00161}00161\ \ \ \ \ pruned,\ keep\_indices\ =\ box\_list\_ops.prune\_completely\_outside\_window(boxes,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ window)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00163}00163\ \ \ \ \ pruned\_boxes\ =\ pruned.get()}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00164}00164\ \ \ \ \ extra\ =\ pruned.get\_field(\textcolor{stringliteral}{'extra\_data'})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00166}00166\ \ \ \ \ exp\_pruned\_boxes\ =\ np.zeros(shape=[0,\ 4],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00167}00167\ \ \ \ \ exp\_extra\ =\ np.zeros(shape=[0],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00168}00168\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00169}00169\ \ \ \ \ \ \ pruned\_boxes\_out,\ keep\_indices\_out,\ extra\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ [pruned\_boxes,\ keep\_indices,\ extra])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00171}00171\ \ \ \ \ \ \ self.assertAllClose(exp\_pruned\_boxes,\ pruned\_boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00172}00172\ \ \ \ \ \ \ self.assertAllEqual([],\ keep\_indices\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00173}00173\ \ \ \ \ \ \ self.assertAllEqual(exp\_extra,\ extra\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00175}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a64a3d77925c974d2c99b388fe0e5e099}{00175}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a64a3d77925c974d2c99b388fe0e5e099}{test\_intersection}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00176}00176\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00177}00177\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00179}00179\ \ \ \ \ exp\_output\ =\ [[2.0,\ 0.0,\ 6.0],\ [1.0,\ 0.0,\ 5.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00180}00180\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00181}00181\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00182}00182\ \ \ \ \ intersect\ =\ box\_list\_ops.intersection(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00183}00183\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00184}00184\ \ \ \ \ \ \ intersect\_output\ =\ sess.run(intersect)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00185}00185\ \ \ \ \ \ \ self.assertAllClose(intersect\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00187}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a4fb3593d46c97025085724dd5ffb6f3e}{00187}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a4fb3593d46c97025085724dd5ffb6f3e}{test\_matched\_intersection}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00188}00188\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00189}00189\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00190}00190\ \ \ \ \ exp\_output\ =\ [2.0,\ 0.0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00191}00191\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00192}00192\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00193}00193\ \ \ \ \ intersect\ =\ box\_list\_ops.matched\_intersection(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00194}00194\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00195}00195\ \ \ \ \ \ \ intersect\_output\ =\ sess.run(intersect)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00196}00196\ \ \ \ \ \ \ self.assertAllClose(intersect\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00198}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a5501c4eb4a0b995abd4e2133b1c66cbf}{00198}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a5501c4eb4a0b995abd4e2133b1c66cbf}{test\_iou}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00199}00199\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00200}00200\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00202}00202\ \ \ \ \ exp\_output\ =\ [[2.0\ /\ 16.0,\ 0,\ 6.0\ /\ 400.0],\ [1.0\ /\ 16.0,\ 0.0,\ 5.0\ /\ 400.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00203}00203\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00204}00204\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00205}00205\ \ \ \ \ iou\ =\ box\_list\_ops.iou(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00206}00206\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00207}00207\ \ \ \ \ \ \ iou\_output\ =\ sess.run(iou)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00208}00208\ \ \ \ \ \ \ self.assertAllClose(iou\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00210}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a1fa762f1077696f2fca12f59b3d06229}{00210}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a1fa762f1077696f2fca12f59b3d06229}{test\_matched\_iou}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00211}00211\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00212}00212\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00213}00213\ \ \ \ \ exp\_output\ =\ [2.0\ /\ 16.0,\ 0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00214}00214\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00215}00215\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00216}00216\ \ \ \ \ iou\ =\ box\_list\_ops.matched\_iou(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00217}00217\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00218}00218\ \ \ \ \ \ \ iou\_output\ =\ sess.run(iou)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00219}00219\ \ \ \ \ \ \ self.assertAllClose(iou\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00221}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a29bf82d5cc1cb28e53ffe4d9a3195b6f}{00221}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a29bf82d5cc1cb28e53ffe4d9a3195b6f}{test\_iouworks\_on\_empty\_inputs}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00222}00222\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00223}00223\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00225}00225\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00226}00226\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00227}00227\ \ \ \ \ boxes\_empty\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.zeros((0,\ 4)))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00228}00228\ \ \ \ \ iou\_empty\_1\ =\ box\_list\_ops.iou(boxes1,\ boxes\_empty)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00229}00229\ \ \ \ \ iou\_empty\_2\ =\ box\_list\_ops.iou(boxes\_empty,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00230}00230\ \ \ \ \ iou\_empty\_3\ =\ box\_list\_ops.iou(boxes\_empty,\ boxes\_empty)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00231}00231\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00232}00232\ \ \ \ \ \ \ iou\_output\_1,\ iou\_output\_2,\ iou\_output\_3\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ [iou\_empty\_1,\ iou\_empty\_2,\ iou\_empty\_3])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00234}00234\ \ \ \ \ \ \ self.assertAllEqual(iou\_output\_1.shape,\ (2,\ 0))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00235}00235\ \ \ \ \ \ \ self.assertAllEqual(iou\_output\_2.shape,\ (0,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00236}00236\ \ \ \ \ \ \ self.assertAllEqual(iou\_output\_3.shape,\ (0,\ 0))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00238}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a2e4e592f797bb41aa690e626c5a3cf34}{00238}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a2e4e592f797bb41aa690e626c5a3cf34}{test\_ioa}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00239}00239\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00240}00240\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00242}00242\ \ \ \ \ exp\_output\_1\ =\ [[2.0\ /\ 12.0,\ 0,\ 6.0\ /\ 400.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0\ /\ 12.0,\ 0.0,\ 5.0\ /\ 400.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00244}00244\ \ \ \ \ exp\_output\_2\ =\ [[2.0\ /\ 6.0,\ 1.0\ /\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [6.0\ /\ 6.0,\ 5.0\ /\ 5.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00247}00247\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00248}00248\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00249}00249\ \ \ \ \ ioa\_1\ =\ box\_list\_ops.ioa(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00250}00250\ \ \ \ \ ioa\_2\ =\ box\_list\_ops.ioa(boxes2,\ boxes1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00251}00251\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00252}00252\ \ \ \ \ \ \ ioa\_output\_1,\ ioa\_output\_2\ =\ sess.run([ioa\_1,\ ioa\_2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00253}00253\ \ \ \ \ \ \ self.assertAllClose(ioa\_output\_1,\ exp\_output\_1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00254}00254\ \ \ \ \ \ \ self.assertAllClose(ioa\_output\_2,\ exp\_output\_2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00256}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a56abc788455adc6ae33006e7777103a2}{00256}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a56abc788455adc6ae33006e7777103a2}{test\_prune\_non\_overlapping\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00257}00257\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00258}00258\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00260}00260\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00261}00261\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00262}00262\ \ \ \ \ minoverlap\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00264}00264\ \ \ \ \ exp\_output\_1\ =\ boxes1}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00265}00265\ \ \ \ \ exp\_output\_2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(0.0,\ shape=[0,\ 4]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00266}00266\ \ \ \ \ output\_1,\ keep\_indices\_1\ =\ box\_list\_ops.prune\_non\_overlapping\_boxes(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ boxes1,\ boxes2,\ min\_overlap=minoverlap)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00268}00268\ \ \ \ \ output\_2,\ keep\_indices\_2\ =\ box\_list\_ops.prune\_non\_overlapping\_boxes(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ boxes2,\ boxes1,\ min\_overlap=minoverlap)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00270}00270\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00271}00271\ \ \ \ \ \ \ (output\_1\_,\ keep\_indices\_1\_,\ output\_2\_,\ keep\_indices\_2\_,\ exp\_output\_1\_,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00272}00272\ \ \ \ \ \ \ \ exp\_output\_2\_)\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ [output\_1.get(),\ keep\_indices\_1,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ output\_2.get(),\ keep\_indices\_2,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ exp\_output\_1.get(),\ exp\_output\_2.get()])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00276}00276\ \ \ \ \ \ \ self.assertAllClose(output\_1\_,\ exp\_output\_1\_)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00277}00277\ \ \ \ \ \ \ self.assertAllClose(output\_2\_,\ exp\_output\_2\_)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00278}00278\ \ \ \ \ \ \ self.assertAllEqual(keep\_indices\_1\_,\ [0,\ 1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00279}00279\ \ \ \ \ \ \ self.assertAllEqual(keep\_indices\_2\_,\ [])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00281}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_abeca622c05ace9f2b78399d6aa5f1913}{00281}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_abeca622c05ace9f2b78399d6aa5f1913}{test\_prune\_small\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00282}00282\ \ \ \ \ boxes\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5.0,\ 6.0,\ 10.0,\ 7.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00287}00287\ \ \ \ \ exp\_boxes\ =\ [[3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00289}00289\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00290}00290\ \ \ \ \ pruned\_boxes\ =\ box\_list\_ops.prune\_small\_boxes(boxes,\ 3)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00291}00291\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00292}00292\ \ \ \ \ \ \ pruned\_boxes\ =\ sess.run(pruned\_boxes.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00293}00293\ \ \ \ \ \ \ self.assertAllEqual(pruned\_boxes,\ exp\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00295}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a006262ec3d9d3a1493a041adf9a05dc1}{00295}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a006262ec3d9d3a1493a041adf9a05dc1}{test\_prune\_small\_boxes\_prunes\_boxes\_with\_negative\_side}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00296}00296\ \ \ \ \ boxes\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5.0,\ 6.0,\ 10.0,\ 7.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 1.5,\ 7.0],\ \ \textcolor{comment}{\#\ negative\ height}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2.0,\ 3.0,\ 5.0,\ 1.7]])\ \ \textcolor{comment}{\#\ negative\ width}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00303}00303\ \ \ \ \ exp\_boxes\ =\ [[3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00305}00305\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00306}00306\ \ \ \ \ pruned\_boxes\ =\ box\_list\_ops.prune\_small\_boxes(boxes,\ 3)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00307}00307\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00308}00308\ \ \ \ \ \ \ pruned\_boxes\ =\ sess.run(pruned\_boxes.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00309}00309\ \ \ \ \ \ \ self.assertAllEqual(pruned\_boxes,\ exp\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00311}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a82d0828a2a3b66c446edec78ca1662a2}{00311}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a82d0828a2a3b66c446edec78ca1662a2}{test\_change\_coordinate\_frame}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00312}00312\ \ \ \ \ corners\ =\ tf.constant([[0.25,\ 0.5,\ 0.75,\ 0.75],\ [0.5,\ 0.0,\ 1.0,\ 1.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00313}00313\ \ \ \ \ window\ =\ tf.constant([0.25,\ 0.25,\ 0.75,\ 0.75])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00314}00314\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00316}00316\ \ \ \ \ expected\_corners\ =\ tf.constant([[0,\ 0.5,\ 1.0,\ 1.0],\ [0.5,\ -\/0.5,\ 1.5,\ 1.5]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00317}00317\ \ \ \ \ expected\_boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(expected\_corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00318}00318\ \ \ \ \ output\ =\ box\_list\_ops.change\_coordinate\_frame(boxes,\ window)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00320}00320\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00321}00321\ \ \ \ \ \ \ output\_,\ expected\_boxes\_\ =\ sess.run([output.get(),\ expected\_boxes.get()])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00322}00322\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_boxes\_)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00324}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a03c965a76401f667a96df10a9e59189b}{00324}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a03c965a76401f667a96df10a9e59189b}{test\_ioaworks\_on\_empty\_inputs}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00325}00325\ \ \ \ \ corners1\ =\ tf.constant([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00326}00326\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00328}00328\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00329}00329\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00330}00330\ \ \ \ \ boxes\_empty\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.zeros((0,\ 4)))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00331}00331\ \ \ \ \ ioa\_empty\_1\ =\ box\_list\_ops.ioa(boxes1,\ boxes\_empty)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00332}00332\ \ \ \ \ ioa\_empty\_2\ =\ box\_list\_ops.ioa(boxes\_empty,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00333}00333\ \ \ \ \ ioa\_empty\_3\ =\ box\_list\_ops.ioa(boxes\_empty,\ boxes\_empty)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00334}00334\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00335}00335\ \ \ \ \ \ \ ioa\_output\_1,\ ioa\_output\_2,\ ioa\_output\_3\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ [ioa\_empty\_1,\ ioa\_empty\_2,\ ioa\_empty\_3])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00337}00337\ \ \ \ \ \ \ self.assertAllEqual(ioa\_output\_1.shape,\ (2,\ 0))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00338}00338\ \ \ \ \ \ \ self.assertAllEqual(ioa\_output\_2.shape,\ (0,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00339}00339\ \ \ \ \ \ \ self.assertAllEqual(ioa\_output\_3.shape,\ (0,\ 0))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00341}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a181efd1498ce145a48979eae9565cc9b}{00341}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a181efd1498ce145a48979eae9565cc9b}{test\_pairwise\_distances}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00342}00342\ \ \ \ \ corners1\ =\ tf.constant([[0.0,\ 0.0,\ 0.0,\ 0.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0,\ 1.0,\ 0.0,\ 2.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00344}00344\ \ \ \ \ corners2\ =\ tf.constant([[3.0,\ 4.0,\ 1.0,\ 0.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/4.0,\ 0.0,\ 0.0,\ 3.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.0,\ 0.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00347}00347\ \ \ \ \ exp\_output\ =\ [[26,\ 25,\ 0],\ [18,\ 27,\ 6]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00348}00348\ \ \ \ \ boxes1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00349}00349\ \ \ \ \ boxes2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00350}00350\ \ \ \ \ dist\_matrix\ =\ box\_list\_ops.sq\_dist(boxes1,\ boxes2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00351}00351\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00352}00352\ \ \ \ \ \ \ dist\_output\ =\ sess.run(dist\_matrix)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00353}00353\ \ \ \ \ \ \ self.assertAllClose(dist\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00355}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_aa630e3cda502f49e8fa5c61151a0fdd7}{00355}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_aa630e3cda502f49e8fa5c61151a0fdd7}{test\_boolean\_mask}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00356}00356\ \ \ \ \ corners\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00358}00358\ \ \ \ \ indicator\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00359}00359\ \ \ \ \ expected\_subset\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00360}00360\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00361}00361\ \ \ \ \ subset\ =\ box\_list\_ops.boolean\_mask(boxes,\ indicator)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00362}00362\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00363}00363\ \ \ \ \ \ \ subset\_output\ =\ sess.run(subset.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00364}00364\ \ \ \ \ \ \ self.assertAllClose(subset\_output,\ expected\_subset)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00366}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae76ba897fc10b6ef5c60017b51ce3a4c}{00366}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ae76ba897fc10b6ef5c60017b51ce3a4c}{test\_static\_boolean\_mask\_with\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00368}00368\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(corners,\ weights,\ indicator):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00369}00369\ \ \ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00370}00370\ \ \ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00371}00371\ \ \ \ \ \ \ subset\ =\ box\_list\_ops.boolean\_mask(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ indicator,\ [\textcolor{stringliteral}{'weights'}],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ use\_static\_shapes=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ indicator\_sum=3)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00376}00376\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (subset.get\_field(\textcolor{stringliteral}{'boxes'}),\ subset.get\_field(\textcolor{stringliteral}{'weights'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00378}00378\ \ \ \ \ corners\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00381}00381\ \ \ \ \ indicator\ =\ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=np.bool)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00382}00382\ \ \ \ \ weights\ =\ np.array([[.1],\ [.3],\ [.5],\ [.7],\ [.9]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00383}00383\ \ \ \ \ result\_boxes,\ result\_weights\ =\ self.execute(graph\_fn,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [corners,\ weights,\ indicator])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00385}00385\ \ \ \ \ expected\_boxes\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00386}00386\ \ \ \ \ expected\_weights\ =\ [[.1],\ [.5],\ [.9]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00388}00388\ \ \ \ \ self.assertAllClose(result\_boxes,\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00389}00389\ \ \ \ \ self.assertAllClose(result\_weights,\ expected\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00391}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a7f5355b8c7e094a492f589096a92eb1a}{00391}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a7f5355b8c7e094a492f589096a92eb1a}{test\_dynamic\_boolean\_mask\_with\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00392}00392\ \ \ \ \ corners\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 4])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00393}00393\ \ \ \ \ indicator\ =\ tf.placeholder(tf.bool,\ [\textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00394}00394\ \ \ \ \ weights\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00395}00395\ \ \ \ \ expected\_subset\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00396}00396\ \ \ \ \ expected\_weights\ =\ [[.1],\ [.5],\ [.9]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00398}00398\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00399}00399\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00400}00400\ \ \ \ \ subset\ =\ box\_list\_ops.boolean\_mask(boxes,\ indicator,\ [\textcolor{stringliteral}{'weights'}])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00401}00401\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00402}00402\ \ \ \ \ \ \ subset\_output,\ weights\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ [subset.get(),\ subset.get\_field(\textcolor{stringliteral}{'weights'})],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ corners:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]]),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indicator:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}]).astype(np.bool),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([[.1],\ [.3],\ [.5],\ [.7],\ [.9]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00413}00413\ \ \ \ \ \ \ self.assertAllClose(subset\_output,\ expected\_subset)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00414}00414\ \ \ \ \ \ \ self.assertAllClose(weights\_output,\ expected\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00416}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad7f0c8585ef93354ba233cf51af34d6f}{00416}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad7f0c8585ef93354ba233cf51af34d6f}{test\_gather}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00417}00417\ \ \ \ \ corners\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00419}00419\ \ \ \ \ indices\ =\ tf.constant([0,\ 2,\ 4],\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00420}00420\ \ \ \ \ expected\_subset\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00421}00421\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00422}00422\ \ \ \ \ subset\ =\ box\_list\_ops.gather(boxes,\ indices)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00423}00423\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00424}00424\ \ \ \ \ \ \ subset\_output\ =\ sess.run(subset.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00425}00425\ \ \ \ \ \ \ self.assertAllClose(subset\_output,\ expected\_subset)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00427}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a6c8a28d3ef0574d4ecc2e7eec43a1f02}{00427}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a6c8a28d3ef0574d4ecc2e7eec43a1f02}{test\_static\_gather\_with\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00429}00429\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(corners,\ weights,\ indices):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00430}00430\ \ \ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00431}00431\ \ \ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00432}00432\ \ \ \ \ \ \ subset\ =\ box\_list\_ops.gather(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ boxes,\ indices,\ [\textcolor{stringliteral}{'weights'}],\ use\_static\_shapes=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00434}00434\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (subset.get\_field(\textcolor{stringliteral}{'boxes'}),\ subset.get\_field(\textcolor{stringliteral}{'weights'}))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00435}00435\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00436}00436\ \ \ \ \ corners\ =\ np.array([4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ *\ [4.0]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00438}00438\ \ \ \ \ weights\ =\ np.array([[.1],\ [.3],\ [.5],\ [.7],\ [.9]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00439}00439\ \ \ \ \ indices\ =\ np.array([0,\ 2,\ 4],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00441}00441\ \ \ \ \ result\_boxes,\ result\_weights\ =\ self.execute(graph\_fn,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [corners,\ weights,\ indices])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00443}00443\ \ \ \ \ expected\_boxes\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00444}00444\ \ \ \ \ expected\_weights\ =\ [[.1],\ [.5],\ [.9]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00445}00445\ \ \ \ \ self.assertAllClose(result\_boxes,\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00446}00446\ \ \ \ \ self.assertAllClose(result\_weights,\ expected\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00448}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ac2b75b65c4d286ece0ce5eff21aef638}{00448}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ac2b75b65c4d286ece0ce5eff21aef638}{test\_dynamic\_gather\_with\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00449}00449\ \ \ \ \ corners\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 4])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00450}00450\ \ \ \ \ indices\ =\ tf.placeholder(tf.int32,\ [\textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00451}00451\ \ \ \ \ weights\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00452}00452\ \ \ \ \ expected\_subset\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00453}00453\ \ \ \ \ expected\_weights\ =\ [[.1],\ [.5],\ [.9]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00455}00455\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00456}00456\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00457}00457\ \ \ \ \ subset\ =\ box\_list\_ops.gather(boxes,\ indices,\ [\textcolor{stringliteral}{'weights'}],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_static\_shapes=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00459}00459\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00460}00460\ \ \ \ \ \ \ subset\_output,\ weights\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ [subset.get(),\ subset.get\_field(\textcolor{stringliteral}{'weights'})],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ corners:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]]),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indices:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([0,\ 2,\ 4]).astype(np.int32),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([[.1],\ [.3],\ [.5],\ [.7],\ [.9]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00471}00471\ \ \ \ \ \ \ self.assertAllClose(subset\_output,\ expected\_subset)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00472}00472\ \ \ \ \ \ \ self.assertAllClose(weights\_output,\ expected\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00474}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_aab1c2e3eb273c6922343409aac9bcae4}{00474}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_aab1c2e3eb273c6922343409aac9bcae4}{test\_gather\_with\_invalid\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00475}00475\ \ \ \ \ corners\ =\ tf.constant([4\ *\ [0.0],\ 4\ *\ [1.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00476}00476\ \ \ \ \ indices\ =\ tf.constant([0,\ 1],\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00477}00477\ \ \ \ \ weights\ =\ tf.constant([[.1],\ [.3]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00479}00479\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00480}00480\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00481}00481\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00482}00482\ \ \ \ \ \ \ box\_list\_ops.gather(boxes,\ indices,\ [\textcolor{stringliteral}{'foo'},\ \textcolor{stringliteral}{'bar'}])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00483}00483\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00484}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad2434a5a64bc3223658b5ae72b537ba4}{00484}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad2434a5a64bc3223658b5ae72b537ba4}{test\_gather\_with\_invalid\_inputs}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00485}00485\ \ \ \ \ corners\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00486}00486\ \ \ \ \ \ \ \ \ [4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00487}00487\ \ \ \ \ indices\_float32\ =\ tf.constant([0,\ 2,\ 4],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00488}00488\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00489}00489\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00490}00490\ \ \ \ \ \ \ \_\ =\ box\_list\_ops.gather(boxes,\ indices\_float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00491}00491\ \ \ \ \ indices\_2d\ =\ tf.constant([[0,\ 2,\ 4]],\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00492}00492\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00493}00493\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00494}00494\ \ \ \ \ \ \ \_\ =\ box\_list\_ops.gather(boxes,\ indices\_2d)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00496}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_af548b5a076852da3c468a9c4662ce587}{00496}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_af548b5a076852da3c468a9c4662ce587}{test\_gather\_with\_dynamic\_indexing}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00497}00497\ \ \ \ \ corners\ =\ tf.constant([4\ *\ [0.0],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *\ [3.0],\ 4\ *\ [4.0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00499}00499\ \ \ \ \ weights\ =\ tf.constant([.5,\ .3,\ .7,\ .1,\ .9],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00500}00500\ \ \ \ \ indices\ =\ tf.reshape(tf.where(tf.greater(weights,\ 0.4)),\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00501}00501\ \ \ \ \ expected\_subset\ =\ [4\ *\ [0.0],\ 4\ *\ [2.0],\ 4\ *\ [4.0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00502}00502\ \ \ \ \ expected\_weights\ =\ [.5,\ .7,\ .9]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00503}00503\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00504}00504\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00505}00505\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00506}00506\ \ \ \ \ subset\ =\ box\_list\_ops.gather(boxes,\ indices,\ [\textcolor{stringliteral}{'weights'}])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00507}00507\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00508}00508\ \ \ \ \ \ \ subset\_output,\ weights\_output\ =\ sess.run([subset.get(),\ subset.get\_field(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'weights'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00510}00510\ \ \ \ \ \ \ self.assertAllClose(subset\_output,\ expected\_subset)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00511}00511\ \ \ \ \ \ \ self.assertAllClose(weights\_output,\ expected\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00513}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ab7b5cbde5e0ad22eb4fe745b696779b3}{00513}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ab7b5cbde5e0ad22eb4fe745b696779b3}{test\_sort\_by\_field\_ascending\_order}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00514}00514\ \ \ \ \ exp\_corners\ =\ [[0,\ 0,\ 1,\ 1],\ [0,\ 0.1,\ 1,\ 1.1],\ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],\ [0,\ 10.1,\ 1,\ 11.1],\ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00516}00516\ \ \ \ \ exp\_scores\ =\ [.95,\ .9,\ .75,\ .6,\ .5,\ .3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00517}00517\ \ \ \ \ exp\_weights\ =\ [.2,\ .45,\ .6,\ .75,\ .8,\ .92]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00518}00518\ \ \ \ \ shuffle\ =\ [2,\ 4,\ 0,\ 5,\ 1,\ 3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00519}00519\ \ \ \ \ corners\ =\ tf.constant([exp\_corners[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00520}00520\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00521}00521\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ [exp\_scores[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00523}00523\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ [exp\_weights[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00525}00525\ \ \ \ \ sort\_by\_weight\ =\ box\_list\_ops.sort\_by\_field(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'weights'},}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ order=box\_list\_ops.SortOrder.ascend)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00529}00529\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00530}00530\ \ \ \ \ \ \ corners\_out,\ scores\_out,\ weights\_out\ =\ sess.run([}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ sort\_by\_weight.get(),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ sort\_by\_weight.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ sort\_by\_weight.get\_field(\textcolor{stringliteral}{'weights'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00534}00534\ \ \ \ \ \ \ self.assertAllClose(corners\_out,\ exp\_corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00535}00535\ \ \ \ \ \ \ self.assertAllClose(scores\_out,\ exp\_scores)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00536}00536\ \ \ \ \ \ \ self.assertAllClose(weights\_out,\ exp\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00537}00537\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00538}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a7e4a456473e5460f9a15e82560322d25}{00538}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a7e4a456473e5460f9a15e82560322d25}{test\_sort\_by\_field\_descending\_order}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00539}00539\ \ \ \ \ exp\_corners\ =\ [[0,\ 0,\ 1,\ 1],\ [0,\ 0.1,\ 1,\ 1.1],\ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],\ [0,\ 10.1,\ 1,\ 11.1],\ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00541}00541\ \ \ \ \ exp\_scores\ =\ [.95,\ .9,\ .75,\ .6,\ .5,\ .3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00542}00542\ \ \ \ \ exp\_weights\ =\ [.2,\ .45,\ .6,\ .75,\ .8,\ .92]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00543}00543\ \ \ \ \ shuffle\ =\ [2,\ 4,\ 0,\ 5,\ 1,\ 3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00545}00545\ \ \ \ \ corners\ =\ tf.constant([exp\_corners[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00546}00546\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00547}00547\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ [exp\_scores[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00549}00549\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ [exp\_weights[i]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ shuffle],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00552}00552\ \ \ \ \ sort\_by\_score\ =\ box\_list\_ops.sort\_by\_field(boxes,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00553}00553\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00554}00554\ \ \ \ \ \ \ corners\_out,\ scores\_out,\ weights\_out\ =\ sess.run([sort\_by\_score.get(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00555}00555\ \ \ \ \ \ \ ),\ sort\_by\_score.get\_field(\textcolor{stringliteral}{'scores'}),\ sort\_by\_score.get\_field(\textcolor{stringliteral}{'weights'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00556}00556\ \ \ \ \ \ \ self.assertAllClose(corners\_out,\ exp\_corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00557}00557\ \ \ \ \ \ \ self.assertAllClose(scores\_out,\ exp\_scores)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00558}00558\ \ \ \ \ \ \ self.assertAllClose(weights\_out,\ exp\_weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00560}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a926bc292d5d5edefd2777451c6850576}{00560}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a926bc292d5d5edefd2777451c6850576}{test\_sort\_by\_field\_invalid\_inputs}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00561}00561\ \ \ \ \ corners\ =\ tf.constant([4\ *\ [0.0],\ 4\ *\ [0.5],\ 4\ *\ [1.0],\ 4\ *\ [2.0],\ 4\ *}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3.0],\ 4\ *\ [4.0]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00563}00563\ \ \ \ \ misc\ =\ tf.constant([[.95,\ .9],\ [.5,\ .3]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00564}00564\ \ \ \ \ weights\ =\ tf.constant([.1,\ .2],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00565}00565\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00566}00566\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'misc'},\ misc)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00567}00567\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'weights'},\ weights)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00569}00569\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00570}00570\ \ \ \ \ \ \ box\_list\_ops.sort\_by\_field(boxes,\ \textcolor{stringliteral}{'area'})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00571}00571\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00572}00572\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00573}00573\ \ \ \ \ \ \ box\_list\_ops.sort\_by\_field(boxes,\ \textcolor{stringliteral}{'misc'})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00574}00574\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00575}00575\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00576}00576\ \ \ \ \ \ \ box\_list\_ops.sort\_by\_field(boxes,\ \textcolor{stringliteral}{'weights'})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00577}00577\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00578}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a3f8b6219176e671398fdcb2b95ad4f54}{00578}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a3f8b6219176e671398fdcb2b95ad4f54}{test\_visualize\_boxes\_in\_image}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00579}00579\ \ \ \ \ image\ =\ tf.zeros((6,\ 4,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00580}00580\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 5,\ 3],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 3,\ 2]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00582}00582\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00583}00583\ \ \ \ \ image\_and\_boxes\ =\ box\_list\_ops.visualize\_boxes\_in\_image(image,\ boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00584}00584\ \ \ \ \ image\_and\_boxes\_bw\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ tf.greater(tf.reduce\_sum(image\_and\_boxes,\ 2),\ 0.0),\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00586}00586\ \ \ \ \ exp\_result\ =\ [[1,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00592}00592\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00593}00593\ \ \ \ \ \ \ output\ =\ sess.run(image\_and\_boxes\_bw)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00594}00594\ \ \ \ \ \ \ self.assertAllEqual(output.astype(int),\ exp\_result)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00595}00595\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00596}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ace016282962a6ce71a4ccb08d3aafc6c}{00596}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ace016282962a6ce71a4ccb08d3aafc6c}{test\_filter\_field\_value\_equals}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00597}00597\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00603}00603\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00604}00604\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'classes'},\ tf.constant([1,\ 2,\ 1,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00605}00605\ \ \ \ \ exp\_output1\ =\ [[0,\ 0,\ 1,\ 1],\ [0,\ -\/0.1,\ 1,\ 0.9],\ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00606}00606\ \ \ \ \ exp\_output2\ =\ [[0,\ 0.1,\ 1,\ 1.1],\ [0,\ 10,\ 1,\ 11],\ [0,\ 10.1,\ 1,\ 11.1]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00607}00607\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00608}00608\ \ \ \ \ filtered\_boxes1\ =\ box\_list\_ops.filter\_field\_value\_equals(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ boxes,\ \textcolor{stringliteral}{'classes'},\ 1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00610}00610\ \ \ \ \ filtered\_boxes2\ =\ box\_list\_ops.filter\_field\_value\_equals(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00611}00611\ \ \ \ \ \ \ \ \ boxes,\ \textcolor{stringliteral}{'classes'},\ 2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00612}00612\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00613}00613\ \ \ \ \ \ \ filtered\_output1,\ filtered\_output2\ =\ sess.run([filtered\_boxes1.get(),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filtered\_boxes2.get()])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00615}00615\ \ \ \ \ \ \ self.assertAllClose(filtered\_output1,\ exp\_output1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00616}00616\ \ \ \ \ \ \ self.assertAllClose(filtered\_output2,\ exp\_output2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00617}00617\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00618}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a15208ae79d024312ee96aa93f2eb39d6}{00618}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a15208ae79d024312ee96aa93f2eb39d6}{test\_filter\_greater\_than}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00619}00619\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00624}00624\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00625}00625\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00626}00626\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.1,\ .75,\ .9,\ .5,\ .5,\ .8]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00627}00627\ \ \ \ \ thresh\ =\ .6}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00628}00628\ \ \ \ \ exp\_output\ =\ [[0,\ 0.1,\ 1,\ 1.1],\ [0,\ -\/0.1,\ 1,\ 0.9],\ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00629}00629\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00630}00630\ \ \ \ \ filtered\_boxes\ =\ box\_list\_ops.filter\_greater\_than(boxes,\ thresh)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00631}00631\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00632}00632\ \ \ \ \ \ \ filtered\_output\ =\ sess.run(filtered\_boxes.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00633}00633\ \ \ \ \ \ \ self.assertAllClose(filtered\_output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00634}00634\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00635}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a9c9982b330ee7384a4d4a5c69b010d67}{00635}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a9c9982b330ee7384a4d4a5c69b010d67}{test\_clip\_box\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00636}00636\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00637}00637\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8],\ [0.2,\ 0.2,\ 0.3,\ 0.3]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00639}00639\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'classes'},\ tf.constant([0,\ 0,\ 1,\ 1]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00640}00640\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.65,\ 0.3,\ 0.2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00641}00641\ \ \ \ \ num\_boxes\ =\ 2}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00642}00642\ \ \ \ \ clipped\_boxlist\ =\ box\_list\_ops.pad\_or\_clip\_box\_list(boxlist,\ num\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00644}00644\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00645}00645\ \ \ \ \ expected\_classes\ =\ [0,\ 0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00646}00646\ \ \ \ \ expected\_scores\ =\ [0.75,\ 0.65]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00647}00647\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00648}00648\ \ \ \ \ \ \ boxes\_out,\ classes\_out,\ scores\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ [clipped\_boxlist.get(),\ clipped\_boxlist.get\_field(\textcolor{stringliteral}{'classes'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ clipped\_boxlist.get\_field(\textcolor{stringliteral}{'scores'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00652}00652\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00653}00653\ \ \ \ \ \ \ self.assertAllEqual(expected\_classes,\ classes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00654}00654\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00655}00655\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00656}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_af6af6bf0e7a017badeba95dccceeefec}{00656}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_af6af6bf0e7a017badeba95dccceeefec}{test\_pad\_box\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00657}00657\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00658}00658\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00659}00659\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'classes'},\ tf.constant([0,\ 1]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00660}00660\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00661}00661\ \ \ \ \ num\_boxes\ =\ 4}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00662}00662\ \ \ \ \ padded\_boxlist\ =\ box\_list\_ops.pad\_or\_clip\_box\_list(boxlist,\ num\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00663}00663\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00664}00664\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00666}00666\ \ \ \ \ expected\_classes\ =\ [0,\ 1,\ 0,\ 0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00667}00667\ \ \ \ \ expected\_scores\ =\ [0.75,\ 0.2,\ 0,\ 0]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00668}00668\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00669}00669\ \ \ \ \ \ \ boxes\_out,\ classes\_out,\ scores\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ [padded\_boxlist.get(),\ padded\_boxlist.get\_field(\textcolor{stringliteral}{'classes'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ padded\_boxlist.get\_field(\textcolor{stringliteral}{'scores'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00672}00672\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00673}00673\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00674}00674\ \ \ \ \ \ \ self.assertAllEqual(expected\_classes,\ classes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00675}00675\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00676}00676\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00677}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a449452ceebb08d83644d0019d1052f9f}{00677}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a449452ceebb08d83644d0019d1052f9f}{test\_select\_random\_box}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00678}00678\ \ \ \ \ boxes\ =\ [[0.,\ 0.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 1.,\ 2.,\ 3.],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 2.,\ 3.,\ 4.]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00682}00682\ \ \ \ \ corners\ =\ tf.constant(boxes,\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00683}00683\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00684}00684\ \ \ \ \ random\_bbox,\ valid\ =\ box\_list\_ops.select\_random\_box(boxlist)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00685}00685\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00686}00686\ \ \ \ \ \ \ random\_bbox\_out,\ valid\_out\ =\ sess.run([random\_bbox,\ valid])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00687}00687\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00688}00688\ \ \ \ \ norm\_small\ =\ any(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00689}00689\ \ \ \ \ \ \ \ \ [np.linalg.norm(random\_bbox\_out\ -\/\ box)\ <\ 1e-\/6\ \textcolor{keywordflow}{for}\ box\ \textcolor{keywordflow}{in}\ boxes])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00690}00690\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00691}00691\ \ \ \ \ self.assertTrue(norm\_small)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00692}00692\ \ \ \ \ self.assertTrue(valid\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00693}00693\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00694}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad057e25c539118a6f46272b87382a8e5}{00694}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ad057e25c539118a6f46272b87382a8e5}{test\_select\_random\_box\_with\_empty\_boxlist}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00695}00695\ \ \ \ \ corners\ =\ tf.constant([],\ shape=[0,\ 4],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00696}00696\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00697}00697\ \ \ \ \ random\_bbox,\ valid\ =\ box\_list\_ops.select\_random\_box(boxlist)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00698}00698\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00699}00699\ \ \ \ \ \ \ random\_bbox\_out,\ valid\_out\ =\ sess.run([random\_bbox,\ valid])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00700}00700\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00701}00701\ \ \ \ \ expected\_bbox\_out\ =\ np.array([[-\/1.,\ -\/1.,\ -\/1.,\ -\/1.]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00702}00702\ \ \ \ \ self.assertAllEqual(expected\_bbox\_out,\ random\_bbox\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00703}00703\ \ \ \ \ self.assertFalse(valid\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00704}00704\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00705}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ac6e6d563199f579ba23b640637eff225}{00705}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_ac6e6d563199f579ba23b640637eff225}{test\_get\_minimal\_coverage\_box}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00706}00706\ \ \ \ \ boxes\ =\ [[0.,\ 0.,\ 1.,\ 1.],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00707}00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1.,\ 1.,\ 2.,\ 3.],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 2.,\ 3.,\ 4.]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00709}00709\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00710}00710\ \ \ \ \ expected\_coverage\_box\ =\ [[-\/1.,\ 0.,\ 3.,\ 4.]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00712}00712\ \ \ \ \ corners\ =\ tf.constant(boxes,\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00713}00713\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00714}00714\ \ \ \ \ coverage\_box\ =\ box\_list\_ops.get\_minimal\_coverage\_box(boxlist)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00715}00715\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00716}00716\ \ \ \ \ \ \ coverage\_box\_out\ =\ sess.run(coverage\_box)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00718}00718\ \ \ \ \ self.assertAllClose(expected\_coverage\_box,\ coverage\_box\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00719}00719\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00720}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a29d8b5f9a24930bc1c59a2c36ade3824}{00720}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_list_ops_test_a29d8b5f9a24930bc1c59a2c36ade3824}{test\_get\_minimal\_coverage\_box\_with\_empty\_boxlist}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00721}00721\ \ \ \ \ corners\ =\ tf.constant([],\ shape=[0,\ 4],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00722}00722\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00723}00723\ \ \ \ \ coverage\_box\ =\ box\_list\_ops.get\_minimal\_coverage\_box(boxlist)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00724}00724\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00725}00725\ \ \ \ \ \ \ coverage\_box\_out\ =\ sess.run(coverage\_box)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00726}00726\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00727}00727\ \ \ \ \ self.assertAllClose([[0.0,\ 0.0,\ 1.0,\ 1.0]],\ coverage\_box\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00728}00728\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00729}00729\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00730}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test}{00730}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test}{ConcatenateTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00731}00731\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00732}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_afcc694e0af36d08c23131773492eadcb}{00732}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_afcc694e0af36d08c23131773492eadcb}{test\_invalid\_input\_box\_list\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00733}00733\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00734}00734\ \ \ \ \ \ \ box\_list\_ops.concatenate(\textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00735}00735\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00736}00736\ \ \ \ \ \ \ box\_list\_ops.concatenate([])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00737}00737\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00738}00738\ \ \ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 0,\ 0]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00739}00739\ \ \ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00740}00740\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist,\ 2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00741}00741\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00742}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_aebce819fe0da7d7b0df20c4dabe60957}{00742}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_aebce819fe0da7d7b0df20c4dabe60957}{test\_concatenate\_with\_missing\_fields}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00743}00743\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00744}00744\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00745}00745\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00746}00746\ \ \ \ \ boxlist1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00747}00747\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00748}00748\ \ \ \ \ boxlist2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00749}00749\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00750}00750\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00751}00751\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00752}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a755559bcc5e5c98032ba1aa807403099}{00752}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a755559bcc5e5c98032ba1aa807403099}{test\_concatenate\_with\_incompatible\_field\_shapes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00753}00753\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00754}00754\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00755}00755\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00756}00756\ \ \ \ \ scores2\ =\ tf.constant([[1.0,\ 1.0],\ [2.1,\ 3.2]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00757}00757\ \ \ \ \ boxlist1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00758}00758\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00759}00759\ \ \ \ \ boxlist2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00760}00760\ \ \ \ \ boxlist2.add\_field(\textcolor{stringliteral}{'scores'},\ scores2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00761}00761\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00762}00762\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00763}00763\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00764}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a1fa68e24c1a5b4f044488e0e6648931f}{00764}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a1fa68e24c1a5b4f044488e0e6648931f}{test\_concatenate\_is\_correct}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00765}00765\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00766}00766\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00767}00767\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8],\ [1,\ 0,\ 5,\ 10]],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00769}00769\ \ \ \ \ scores2\ =\ tf.constant([1.0,\ 2.1,\ 5.6])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00770}00770\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00771}00771\ \ \ \ \ exp\_corners\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 2,\ 3,\ 4],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00773}00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 3,\ 1,\ 6],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00774}00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 4,\ 3,\ 8],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00775}00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 5,\ 10]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00776}00776\ \ \ \ \ exp\_scores\ =\ [1.0,\ 2.1,\ 1.0,\ 2.1,\ 5.6]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00777}00777\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00778}00778\ \ \ \ \ boxlist1\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00779}00779\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00780}00780\ \ \ \ \ boxlist2\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00781}00781\ \ \ \ \ boxlist2.add\_field(\textcolor{stringliteral}{'scores'},\ scores2)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00782}00782\ \ \ \ \ result\ =\ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00783}00783\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00784}00784\ \ \ \ \ \ \ corners\_output,\ scores\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00785}00785\ \ \ \ \ \ \ \ \ \ \ [result.get(),\ result.get\_field(\textcolor{stringliteral}{'scores'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00786}00786\ \ \ \ \ \ \ self.assertAllClose(corners\_output,\ exp\_corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00787}00787\ \ \ \ \ \ \ self.assertAllClose(scores\_output,\ exp\_scores)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00788}00788\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00789}00789\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00790}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test}{00790}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test}{NonMaxSuppressionTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00791}00791\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00792}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a5b3543f7c8da124cf2c7ba8f45655fdc}{00792}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a5b3543f7c8da124cf2c7ba8f45655fdc}{test\_select\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00793}00793\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00794}00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00795}00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00796}00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00797}00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00798}00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00799}00799\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00800}00800\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00801}00801\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00802}00802\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00803}00803\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00804}00804\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00805}00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00806}00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00807}00807\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00808}00808\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00809}00809\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00810}00810\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00811}00811\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00812}00812\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00813}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a44c963cfa7f0173311a4c7fabc595ee7}{00813}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a44c963cfa7f0173311a4c7fabc595ee7}{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00814}00814\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00815}00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00816}00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00820}00820\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00821}00821\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00822}00822\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00823}00823\ \ \ \ \ max\_output\_size\ =\ 2}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00824}00824\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00825}00825\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00827}00827\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00828}00828\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00829}00829\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00830}00830\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00831}00831\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00832}00832\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00833}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_ad3d83bfb8ab9cb658b865fdae3e1a9ab}{00833}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_ad3d83bfb8ab9cb658b865fdae3e1a9ab}{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00834}00834\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00835}00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00838}00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00839}00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00840}00840\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00841}00841\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00842}00842\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00843}00843\ \ \ \ \ max\_output\_size\ =\ 30}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00844}00844\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00845}00845\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00846}00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00847}00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00848}00848\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00849}00849\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00850}00850\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00851}00851\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00852}00852\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00853}00853\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00854}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a99042519bd04562a9ecc39c1eeee0958}{00854}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a99042519bd04562a9ecc39c1eeee0958}{test\_select\_single\_box}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00855}00855\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00856}00856\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00857}00857\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00858}00858\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00859}00859\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00860}00860\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00861}00861\ \ \ \ \ exp\_nms\ =\ [[0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00862}00862\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00863}00863\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00864}00864\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00865}00865\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00866}00866\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00867}00867\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00868}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_afc4d6f480e9f85309be241f24b472133}{00868}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_afc4d6f480e9f85309be241f24b472133}{test\_select\_from\_ten\_identical\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00869}00869\ \ \ \ \ corners\ =\ tf.constant(10\ *\ [[0,\ 0,\ 1,\ 1]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00870}00870\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00871}00871\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant(10\ *\ [.9]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00872}00872\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00873}00873\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00874}00874\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00875}00875\ \ \ \ \ exp\_nms\ =\ [[0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00876}00876\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00877}00877\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00878}00878\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00879}00879\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00880}00880\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00881}00881\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00882}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a2dd9ebe4b9600cdc11aefeb93883a488}{00882}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a2dd9ebe4b9600cdc11aefeb93883a488}{test\_copy\_extra\_fields}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00883}00883\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00884}00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00885}00885\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(corners)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00886}00886\ \ \ \ \ tensor1\ =\ np.array([[1],\ [4]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00887}00887\ \ \ \ \ tensor2\ =\ np.array([[1,\ 1],\ [2,\ 2]])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00888}00888\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'tensor1'},\ tf.constant(tensor1))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00889}00889\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'tensor2'},\ tf.constant(tensor2))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00890}00890\ \ \ \ \ new\_boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant([[0,\ 0,\ 10,\ 10],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00891}00891\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 3,\ 5,\ 5]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00892}00892\ \ \ \ \ new\_boxes\ =\ box\_list\_ops.\_copy\_extra\_fields(new\_boxes,\ boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00893}00893\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00894}00894\ \ \ \ \ \ \ self.assertAllClose(tensor1,\ sess.run(new\_boxes.get\_field(\textcolor{stringliteral}{'tensor1'})))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00895}00895\ \ \ \ \ \ \ self.assertAllClose(tensor2,\ sess.run(new\_boxes.get\_field(\textcolor{stringliteral}{'tensor2'})))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00896}00896\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00897}00897\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00898}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test}{00898}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test}{CoordinatesConversionTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00899}00899\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00900}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_aa1cb805812f5c8fc462653af9a22759c}{00900}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_aa1cb805812f5c8fc462653af9a22759c}{test\_to\_normalized\_coordinates}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00901}00901\ \ \ \ \ coordinates\ =\ tf.constant([[0,\ 0,\ 100,\ 100],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00902}00902\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [25,\ 25,\ 75,\ 75]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00903}00903\ \ \ \ \ img\ =\ tf.ones((128,\ 100,\ 100,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00904}00904\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00905}00905\ \ \ \ \ normalized\_boxlist\ =\ box\_list\_ops.to\_normalized\_coordinates(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00906}00906\ \ \ \ \ \ \ \ \ boxlist,\ tf.shape(img)[1],\ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00907}00907\ \ \ \ \ expected\_boxes\ =\ [[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00908}00908\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00909}00909\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00910}00910\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00911}00911\ \ \ \ \ \ \ normalized\_boxes\ =\ sess.run(normalized\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00912}00912\ \ \ \ \ \ \ self.assertAllClose(normalized\_boxes,\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00913}00913\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00914}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a5bfeb92431b76de551a79cfb5dc63ca3}{00914}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a5bfeb92431b76de551a79cfb5dc63ca3}{test\_to\_normalized\_coordinates\_already\_normalized}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00915}00915\ \ \ \ \ coordinates\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00916}00916\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00917}00917\ \ \ \ \ img\ =\ tf.ones((128,\ 100,\ 100,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00918}00918\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00919}00919\ \ \ \ \ normalized\_boxlist\ =\ box\_list\_ops.to\_normalized\_coordinates(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00920}00920\ \ \ \ \ \ \ \ \ boxlist,\ tf.shape(img)[1],\ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00921}00921\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00922}00922\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00923}00923\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'assertion\ failed'}):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00924}00924\ \ \ \ \ \ \ \ \ sess.run(normalized\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00925}00925\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00926}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_af39dc9b611e1424002583816b2695a20}{00926}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_af39dc9b611e1424002583816b2695a20}{test\_to\_absolute\_coordinates}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00927}00927\ \ \ \ \ coordinates\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00928}00928\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00929}00929\ \ \ \ \ img\ =\ tf.ones((128,\ 100,\ 100,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00930}00930\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00931}00931\ \ \ \ \ absolute\_boxlist\ =\ box\_list\_ops.to\_absolute\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00932}00932\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00933}00933\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00934}00934\ \ \ \ \ expected\_boxes\ =\ [[0,\ 0,\ 100,\ 100],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00935}00935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [25,\ 25,\ 75,\ 75]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00936}00936\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00937}00937\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00938}00938\ \ \ \ \ \ \ absolute\_boxes\ =\ sess.run(absolute\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00939}00939\ \ \ \ \ \ \ self.assertAllClose(absolute\_boxes,\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00940}00940\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00941}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a77fcfa1732657735415cc4995ca9eafa}{00941}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a77fcfa1732657735415cc4995ca9eafa}{test\_to\_absolute\_coordinates\_already\_abolute}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00942}00942\ \ \ \ \ coordinates\ =\ tf.constant([[0,\ 0,\ 100,\ 100],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00943}00943\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [25,\ 25,\ 75,\ 75]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00944}00944\ \ \ \ \ img\ =\ tf.ones((128,\ 100,\ 100,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00945}00945\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00946}00946\ \ \ \ \ absolute\_boxlist\ =\ box\_list\_ops.to\_absolute\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00947}00947\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00948}00948\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00949}00949\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00950}00950\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00951}00951\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'assertion\ failed'}):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00952}00952\ \ \ \ \ \ \ \ \ sess.run(absolute\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00953}00953\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00954}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a1d5c63e139a93f3bbbe659e826855bd4}{00954}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a1d5c63e139a93f3bbbe659e826855bd4}{test\_convert\_to\_normalized\_and\_back}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00955}00955\ \ \ \ \ coordinates\ =\ np.random.uniform(size=(100,\ 4))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00956}00956\ \ \ \ \ coordinates\ =\ np.round(np.sort(coordinates)\ *\ 200)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00957}00957\ \ \ \ \ coordinates[:,\ 2:4]\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00958}00958\ \ \ \ \ coordinates[99,\ :]\ =\ [0,\ 0,\ 201,\ 201]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00959}00959\ \ \ \ \ img\ =\ tf.ones((128,\ 202,\ 202,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00960}00960\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00961}00961\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(coordinates,\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00962}00962\ \ \ \ \ boxlist\ =\ box\_list\_ops.to\_normalized\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00963}00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00965}00965\ \ \ \ \ boxlist\ =\ box\_list\_ops.to\_absolute\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00966}00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00967}00967\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00968}00968\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00969}00969\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00970}00970\ \ \ \ \ \ \ out\ =\ sess.run(boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00971}00971\ \ \ \ \ \ \ self.assertAllClose(out,\ coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00972}00972\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00973}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_accef4b93bde4ea88a5920e301c00c2a8}{00973}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_accef4b93bde4ea88a5920e301c00c2a8}{test\_convert\_to\_absolute\_and\_back}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00974}00974\ \ \ \ \ coordinates\ =\ np.random.uniform(size=(100,\ 4))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00975}00975\ \ \ \ \ coordinates\ =\ np.sort(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00976}00976\ \ \ \ \ coordinates[99,\ :]\ =\ [0,\ 0,\ 1,\ 1]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00977}00977\ \ \ \ \ img\ =\ tf.ones((128,\ 202,\ 202,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00978}00978\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00979}00979\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant(coordinates,\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00980}00980\ \ \ \ \ boxlist\ =\ box\_list\_ops.to\_absolute\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00981}00981\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00982}00982\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00983}00983\ \ \ \ \ boxlist\ =\ box\_list\_ops.to\_normalized\_coordinates(boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00984}00984\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00985}00985\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(img)[2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00986}00986\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00987}00987\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00988}00988\ \ \ \ \ \ \ out\ =\ sess.run(boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00989}00989\ \ \ \ \ \ \ self.assertAllClose(out,\ coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00990}00990\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00991}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a2f6e469de777c05a4a22b223cff78a0e}{00991}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_coordinates_conversion_test_a2f6e469de777c05a4a22b223cff78a0e}{test\_to\_absolute\_coordinates\_maximum\_coordinate\_check}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00992}00992\ \ \ \ \ coordinates\ =\ tf.constant([[0,\ 0,\ 1.2,\ 1.2],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00993}00993\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00994}00994\ \ \ \ \ img\ =\ tf.ones((128,\ 100,\ 100,\ 3))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00995}00995\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(coordinates)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00996}00996\ \ \ \ \ absolute\_boxlist\ =\ box\_list\_ops.to\_absolute\_coordinates(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00997}00997\ \ \ \ \ \ \ \ \ boxlist,}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00998}00998\ \ \ \ \ \ \ \ \ tf.shape(img)[1],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l00999}00999\ \ \ \ \ \ \ \ \ tf.shape(img)[2],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01000}01000\ \ \ \ \ \ \ \ \ maximum\_normalized\_coordinate=1.1)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01001}01001\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01002}01002\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01003}01003\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'assertion\ failed'}):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01004}01004\ \ \ \ \ \ \ \ \ sess.run(absolute\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01005}01005\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01006}01006\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01007}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test}{01007}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test}{BoxRefinementTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01008}01008\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01009}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_abdb5578e7d9546d3469b779e87d81b54}{01009}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_abdb5578e7d9546d3469b779e87d81b54}{test\_box\_voting}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01010}01010\ \ \ \ \ candidates\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01011}01011\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01012}01012\ \ \ \ \ candidates.add\_field(\textcolor{stringliteral}{'ExtraField'},\ tf.constant([1,\ 2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01013}01013\ \ \ \ \ pool\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01014}01014\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01015}01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01016}01016\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01017}01017\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01018}01018\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01019}01019\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01020}01020\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01021}01021\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01022}01022\ \ \ \ \ \ \ \ \ \ \ [averaged\_boxes.get(),\ averaged\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ \ averaged\_boxes.get\_field(\textcolor{stringliteral}{'ExtraField'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01024}01024\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01025}01025\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01026}01026\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01027}01027\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [1,\ 2])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01028}01028\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01029}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a8607875560de2f886101b86013ff624b}{01029}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a8607875560de2f886101b86013ff624b}{test\_box\_voting\_fails\_with\_negative\_scores}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01030}01030\ \ \ \ \ candidates\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01031}01031\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01032}01032\ \ \ \ \ pool\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01033}01033\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([-\/0.2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01034}01034\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01035}01035\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01036}01036\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01037}01037\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'Scores\ must\ be\ non\ negative'}):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01038}01038\ \ \ \ \ \ \ \ \ sess.run([averaged\_boxes.get()])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01039}01039\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01040}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a349ddd65131639ae5bb50d036221cfd3}{01040}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a349ddd65131639ae5bb50d036221cfd3}{test\_box\_voting\_fails\_when\_unmatched}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01041}01041\ \ \ \ \ candidates\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01042}01042\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01043}01043\ \ \ \ \ pool\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.constant([[0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01044}01044\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01045}01045\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01046}01046\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01047}01047\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01048}01048\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'Each\ box\ in\ selected\_boxes\ must\ match\ '}}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01049}01049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'with\ at\ least\ one\ box\ in\ pool\_boxes.'}):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01050}01050\ \ \ \ \ \ \ \ \ sess.run([averaged\_boxes.get()])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01051}01051\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01052}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac73d7d28e95a312bcdf0feb9b9926918}{01052}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac73d7d28e95a312bcdf0feb9b9926918}{test\_refine\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01053}01053\ \ \ \ \ pool\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01054}01054\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01055}01055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01056}01056\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'ExtraField'},\ tf.constant([1,\ 2,\ 3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01057}01057\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01058}01058\ \ \ \ \ refined\_boxes\ =\ box\_list\_ops.refine\_boxes(pool,\ 0.5,\ 10)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01059}01059\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01060}01060\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01061}01061\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01062}01062\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01063}01063\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01064}01064\ \ \ \ \ \ \ \ \ \ \ [refined\_boxes.get(),\ refined\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01065}01065\ \ \ \ \ \ \ \ \ \ \ \ refined\_boxes.get\_field(\textcolor{stringliteral}{'ExtraField'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01066}01066\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01067}01067\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01068}01068\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01069}01069\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [1,\ 3])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01070}01070\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01071}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ade0ec5deb1c1af02cf7b1a9ce62eb4ac}{01071}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ade0ec5deb1c1af02cf7b1a9ce62eb4ac}{test\_refine\_boxes\_multi\_class}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01072}01072\ \ \ \ \ pool\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01073}01073\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01074}01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8],\ [0.2,\ 0.2,\ 0.3,\ 0.3]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01075}01075\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'classes'},\ tf.constant([0,\ 0,\ 1,\ 1]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01076}01076\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3,\ 0.2]))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01077}01077\ \ \ \ \ refined\_boxes\ =\ box\_list\_ops.refine\_boxes\_multi\_class(pool,\ 3,\ 0.5,\ 10)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01078}01078\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01079}01079\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01080}01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.2,\ 0.2,\ 0.3,\ 0.3]]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01081}01081\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3,\ 0.2]}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01082}01082\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01083}01083\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01084}01084\ \ \ \ \ \ \ \ \ \ \ [refined\_boxes.get(),\ refined\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01085}01085\ \ \ \ \ \ \ \ \ \ \ \ refined\_boxes.get\_field(\textcolor{stringliteral}{'classes'})])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01086}01086\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01087}01087\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01088}01088\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01089}01089\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [0,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01090}01090\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01091}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac2046466abe9686d64a7b478850f4f53}{01091}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac2046466abe9686d64a7b478850f4f53}{test\_sample\_boxes\_by\_jittering}}(self):}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01092}01092\ \ \ \ \ boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01093}01093\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01094}01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01095}01095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01096}01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.2,\ 0.2,\ 0.3,\ 0.3]],\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01097}01097\ \ \ \ \ sampled\_boxes\ =\ box\_list\_ops.sample\_boxes\_by\_jittering(}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01098}01098\ \ \ \ \ \ \ \ \ boxlist=boxes,\ num\_boxes\_to\_sample=10)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01099}01099\ \ \ \ \ iou\ =\ box\_list\_ops.iou(boxes,\ sampled\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01100}01100\ \ \ \ \ iou\_max\ =\ tf.reduce\_max(iou,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01101}01101\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01102}01102\ \ \ \ \ \ \ (np\_sampled\_boxes,\ np\_iou\_max)\ =\ sess.run([sampled\_boxes.get(),\ iou\_max])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01103}01103\ \ \ \ \ \ \ self.assertAllEqual(np\_sampled\_boxes.shape,\ [10,\ 4])}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01104}01104\ \ \ \ \ \ \ self.assertAllGreater(np\_iou\_max,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01105}01105\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01106}01106\ }
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01107}01107\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{box__list__ops__test_8py_source_l01108}01108\ \ \ tf.test.main()}
+
+\end{DoxyCode}

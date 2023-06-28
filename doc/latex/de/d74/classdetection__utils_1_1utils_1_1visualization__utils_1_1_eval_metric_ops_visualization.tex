@@ -1,0 +1,447 @@
+\doxysection{detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization}{}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization}\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d0/d7b/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{d7/d07/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a10e3b6af6ff5b2fbcd310f64d1da110a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, category\+\_\+index, max\+\_\+examples\+\_\+to\+\_\+draw=5, max\+\_\+boxes\+\_\+to\+\_\+draw=20, min\+\_\+score\+\_\+thresh=0.\+2, use\+\_\+normalized\+\_\+coordinates=True, summary\+\_\+name\+\_\+prefix=\textquotesingle{}evaluation\+\_\+image\textquotesingle{})
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f}{clear}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}{add\+\_\+images}} (self, images)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d}{get\+\_\+estimator\+\_\+eval\+\_\+metric\+\_\+ops}} (self, eval\+\_\+dict)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8}{images\+\_\+from\+\_\+evaluation\+\_\+dict}} (self, eval\+\_\+dict)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9}{\+\_\+category\+\_\+index}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\+\_\+max\+\_\+examples\+\_\+to\+\_\+draw}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c}{\+\_\+max\+\_\+boxes\+\_\+to\+\_\+draw}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358}{\+\_\+min\+\_\+score\+\_\+thresh}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c}{\+\_\+use\+\_\+normalized\+\_\+coordinates}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9}{\+\_\+summary\+\_\+name\+\_\+prefix}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\+\_\+images}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class responsible for visualizations during evaluation.
+
+Currently, summary images are not run during evaluation. One way to produce
+evaluation images in Tensorboard is to provide tf.summary.image strings as
+`value_ops` in tf.estimator.EstimatorSpec's `eval_metric_ops`. This class is
+responsible for accruing images (with overlaid detections and groundtruth)
+and returning a dictionary that can be passed to `eval_metric_ops`.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00903}{903}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a10e3b6af6ff5b2fbcd310f64d1da110a}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a10e3b6af6ff5b2fbcd310f64d1da110a} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{category\+\_\+index,  }\item[{}]{max\+\_\+examples\+\_\+to\+\_\+draw = {\ttfamily 5},  }\item[{}]{max\+\_\+boxes\+\_\+to\+\_\+draw = {\ttfamily 20},  }\item[{}]{min\+\_\+score\+\_\+thresh = {\ttfamily 0.2},  }\item[{}]{use\+\_\+normalized\+\_\+coordinates = {\ttfamily True},  }\item[{}]{summary\+\_\+name\+\_\+prefix = {\ttfamily \textquotesingle{}evaluation\+\_\+image\textquotesingle{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates an EvalMetricOpsVisualization.
+
+Args:
+  category_index: A category index (dictionary) produced from a labelmap.
+  max_examples_to_draw: The maximum number of example summaries to produce.
+  max_boxes_to_draw: The maximum number of boxes to draw for detections.
+  min_score_thresh: The minimum score threshold for showing detections.
+  use_normalized_coordinates: Whether to assume boxes and kepoints are in
+    normalized coordinates (as opposed to absolute coordiantes).
+    Default is True.
+  summary_name_prefix: A string prefix for each image summary.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_acfc99b8f011f91efc18ff8093cc4bdf7}{detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Visualize\+Single\+Frame\+Detections}}.
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00913}{913}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ summary\_name\_prefix=\textcolor{stringliteral}{'evaluation\_image'}):}
+\DoxyCodeLine{00920\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ an\ EvalMetricOpsVisualization.}}
+\DoxyCodeLine{00921\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00922\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00923\ \textcolor{stringliteral}{\ \ \ \ \ \ category\_index:\ A\ category\ index\ (dictionary)\ produced\ }\textcolor{keyword}{from}\ a\ labelmap.}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ max\_examples\_to\_draw:\ The\ maximum\ number\ of\ example\ summaries\ to\ produce.}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ max\_boxes\_to\_draw:\ The\ maximum\ number\ of\ boxes\ to\ draw\ \textcolor{keywordflow}{for}\ detections.}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ min\_score\_thresh:\ The\ minimum\ score\ threshold\ \textcolor{keywordflow}{for}\ showing\ detections.}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ use\_normalized\_coordinates:\ Whether\ to\ assume\ boxes\ \textcolor{keywordflow}{and}\ kepoints\ are\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ normalized\ coordinates\ (\textcolor{keyword}{as}\ opposed\ to\ absolute\ coordiantes).}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ Default\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ summary\_name\_prefix:\ A\ string\ prefix\ \textcolor{keywordflow}{for}\ each\ image\ summary.}
+\DoxyCodeLine{00931\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00932\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00933\ \textcolor{stringliteral}{\ \ \ \ self.\_category\_index\ =\ category\_index}}
+\DoxyCodeLine{00934\ \textcolor{stringliteral}{\ \ \ \ self.\_max\_examples\_to\_draw\ =\ max\_examples\_to\_draw}}
+\DoxyCodeLine{00935\ \textcolor{stringliteral}{\ \ \ \ self.\_max\_boxes\_to\_draw\ =\ max\_boxes\_to\_draw}}
+\DoxyCodeLine{00936\ \textcolor{stringliteral}{\ \ \ \ self.\_min\_score\_thresh\ =\ min\_score\_thresh}}
+\DoxyCodeLine{00937\ \textcolor{stringliteral}{\ \ \ \ self.\_use\_normalized\_coordinates\ =\ use\_normalized\_coordinates}}
+\DoxyCodeLine{00938\ \textcolor{stringliteral}{\ \ \ \ self.\_summary\_name\_prefix\ =\ summary\_name\_prefix}}
+\DoxyCodeLine{00939\ \textcolor{stringliteral}{\ \ \ \ self.\_images\ =\ []}}
+\DoxyCodeLine{00940\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!add\_images@{add\_images}}
+\index{add\_images@{add\_images}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{add\_images()}{add\_images()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+add\+\_\+images (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{images }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Store a list of images, each with shape [1, H, W, C].\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00944}{944}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00944\ \ \ \textcolor{keyword}{def\ }add\_images(self,\ images):}
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Store\ a\ list\ of\ images,\ each\ with\ shape\ [1,\ H,\ W,\ C]."{}"{}"{}}}
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\_images)\ >=\ self.\_max\_examples\_to\_draw:}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \ \ \ \ \textcolor{comment}{\#\ Store\ images\ and\ clip\ list\ if\ necessary.}}
+\DoxyCodeLine{00950\ \ \ \ \ self.\_images.extend(images)}
+\DoxyCodeLine{00951\ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\_images)\ >\ self.\_max\_examples\_to\_draw:}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ self.\_images[self.\_max\_examples\_to\_draw:]\ =\ []}
+\DoxyCodeLine{00953\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d74/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!clear@{clear}}
+\index{clear@{clear}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+clear (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00941}{941}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00941\ \ \ \textcolor{keyword}{def\ }clear(self):}
+\DoxyCodeLine{00942\ \ \ \ \ self.\_images\ =\ []}
+\DoxyCodeLine{00943\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d74/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!get\_estimator\_eval\_metric\_ops@{get\_estimator\_eval\_metric\_ops}}
+\index{get\_estimator\_eval\_metric\_ops@{get\_estimator\_eval\_metric\_ops}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{get\_estimator\_eval\_metric\_ops()}{get\_estimator\_eval\_metric\_ops()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+get\+\_\+estimator\+\_\+eval\+\_\+metric\+\_\+ops (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{eval\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns metric ops for use in tf.estimator.EstimatorSpec.
+
+Args:
+  eval_dict: A dictionary that holds an image, groundtruth, and detections
+    for a batched example. Note that, we use only the first example for
+    visualization. See eval_util.result_dict_for_batched_example() for a
+    convenient method for constructing such a dictionary. The dictionary
+    contains
+    fields.InputDataFields.original_image: [batch_size, H, W, 3] image.
+    fields.InputDataFields.original_image_spatial_shape: [batch_size, 2]
+      tensor containing the size of the original image.
+    fields.InputDataFields.true_image_shape: [batch_size, 3]
+      tensor containing the spatial size of the upadded original image.
+    fields.InputDataFields.groundtruth_boxes - [batch_size, num_boxes, 4]
+      float32 tensor with groundtruth boxes in range [0.0, 1.0].
+    fields.InputDataFields.groundtruth_classes - [batch_size, num_boxes]
+      int64 tensor with 1-indexed groundtruth classes.
+    fields.InputDataFields.groundtruth_instance_masks - (optional)
+      [batch_size, num_boxes, H, W] int64 tensor with instance masks.
+    fields.DetectionResultFields.detection_boxes - [batch_size,
+      max_num_boxes, 4] float32 tensor with detection boxes in range [0.0,
+      1.0].
+    fields.DetectionResultFields.detection_classes - [batch_size,
+      max_num_boxes] int64 tensor with 1-indexed detection classes.
+    fields.DetectionResultFields.detection_scores - [batch_size,
+      max_num_boxes] float32 tensor with detection scores.
+    fields.DetectionResultFields.detection_masks - (optional) [batch_size,
+      max_num_boxes, H, W] float32 tensor of binarized masks.
+    fields.DetectionResultFields.detection_keypoints - (optional)
+      [batch_size, max_num_boxes, num_keypoints, 2] float32 tensor with
+      keypoints.
+
+Returns:
+  A dictionary of image summary names to tuple of (value_op, update_op). The
+  `update_op` is the same for all items in the dictionary, and is
+  responsible for saving a single side-by-side image with detections and
+  groundtruth. Each `value_op` holds the tf.summary.image string for a given
+  image.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00954}{954}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00954\ \ \ \textcolor{keyword}{def\ }get\_estimator\_eval\_metric\_ops(self,\ eval\_dict):}
+\DoxyCodeLine{00955\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ metric\ ops\ for\ use\ in\ tf.estimator.EstimatorSpec.}}
+\DoxyCodeLine{00956\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00957\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00958\ \textcolor{stringliteral}{\ \ \ \ \ \ eval\_dict:\ A\ dictionary\ that\ holds\ an\ image,\ groundtruth,\ }\textcolor{keywordflow}{and}\ detections}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ a\ batched\ example.\ Note\ that,\ we\ use\ only\ the\ first\ example\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ visualization.\ See\ eval\_util.result\_dict\_for\_batched\_example()\ \textcolor{keywordflow}{for}\ a}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ convenient\ method\ \textcolor{keywordflow}{for}\ constructing\ such\ a\ dictionary.\ The\ dictionary}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ contains}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ fields.InputDataFields.original\_image:\ [batch\_size,\ H,\ W,\ 3]\ image.}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ fields.InputDataFields.original\_image\_spatial\_shape:\ [batch\_size,\ 2]}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ the\ size\ of\ the\ original\ image.}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ fields.InputDataFields.true\_image\_shape:\ [batch\_size,\ 3]}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ the\ spatial\ size\ of\ the\ upadded\ original\ image.}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes\ -\/\ [batch\_size,\ num\_boxes,\ 4]}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ float32\ tensor\ \textcolor{keyword}{with}\ groundtruth\ boxes\ \textcolor{keywordflow}{in}\ range\ [0.0,\ 1.0].}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes\ -\/\ [batch\_size,\ num\_boxes]}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ int64\ tensor\ \textcolor{keyword}{with}\ 1-\/indexed\ groundtruth\ classes.}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks\ -\/\ (optional)}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ H,\ W]\ int64\ tensor\ \textcolor{keyword}{with}\ instance\ masks.}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_boxes\ -\/\ [batch\_size,}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes,\ 4]\ float32\ tensor\ \textcolor{keyword}{with}\ detection\ boxes\ \textcolor{keywordflow}{in}\ range\ [0.0,}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ 1.0].}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_classes\ -\/\ [batch\_size,}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes]\ int64\ tensor\ \textcolor{keyword}{with}\ 1-\/indexed\ detection\ classes.}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_scores\ -\/\ [batch\_size,}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes]\ float32\ tensor\ \textcolor{keyword}{with}\ detection\ scores.}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_masks\ -\/\ (optional)\ [batch\_size,}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes,\ H,\ W]\ float32\ tensor\ of\ binarized\ masks.}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_keypoints\ -\/\ (optional)}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ max\_num\_boxes,\ num\_keypoints,\ 2]\ float32\ tensor\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ keypoints.}
+\DoxyCodeLine{00986\ }
+\DoxyCodeLine{00987\ \ \ \ \ Returns:}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ A\ dictionary\ of\ image\ summary\ names\ to\ tuple\ of\ (value\_op,\ update\_op).\ The}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \`{}update\_op\`{}\ \textcolor{keywordflow}{is}\ the\ same\ \textcolor{keywordflow}{for}\ all\ items\ \textcolor{keywordflow}{in}\ the\ dictionary,\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ responsible\ \textcolor{keywordflow}{for}\ saving\ a\ single\ side-\/by-\/side\ image\ \textcolor{keyword}{with}\ detections\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ groundtruth.\ Each\ \`{}value\_op\`{}\ holds\ the\ tf.summary.image\ string\ \textcolor{keywordflow}{for}\ a\ given}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ image.}
+\DoxyCodeLine{00993\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00994\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\_max\_examples\_to\_draw\ ==\ 0:}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\}}
+\DoxyCodeLine{00996\ \ \ \ \ images\ =\ self.images\_from\_evaluation\_dict(eval\_dict)}
+\DoxyCodeLine{00997\ }
+\DoxyCodeLine{00998\ \ \ \ \ \textcolor{keyword}{def\ }get\_images():}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ images,\ padded\ to\ self.\_max\_images\_to\_draw."{}"{}"{}}}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ images\ =\ self.\_images}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ len(images)\ <\ self.\_max\_examples\_to\_draw:}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ images.append(np.array(0,\ dtype=np.uint8))}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ self.clear()}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ images}
+\DoxyCodeLine{01005\ }
+\DoxyCodeLine{01006\ \ \ \ \ \textcolor{keyword}{def\ }image\_summary\_or\_default\_string(summary\_name,\ image):}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ image\ summaries\ for\ non-\/padded\ elements."{}"{}"{}}}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cond(}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ tf.equal(tf.size(tf.shape(image)),\ 4),}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.summary.image(summary\_name,\ image),}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.constant(\textcolor{stringliteral}{''}))}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01013\ \ \ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ update\_op\ =\ self.add\_images([[images[0]]])}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ image\_tensors\ =\ get\_images()}
+\DoxyCodeLine{01016\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ update\_op\ =\ tf.py\_func(self.add\_images,\ [[images[0]]],\ [])}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ image\_tensors\ =\ tf.py\_func(}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ get\_images,\ [],\ [tf.uint8]\ *\ self.\_max\_examples\_to\_draw)}
+\DoxyCodeLine{01020\ \ \ \ \ eval\_metric\_ops\ =\ \{\}}
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ image\ \textcolor{keywordflow}{in}\ enumerate(image\_tensors):}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ summary\_name\ =\ self.\_summary\_name\_prefix\ +\ \textcolor{stringliteral}{'/'}\ +\ str(i)}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ value\_op\ =\ image\_summary\_or\_default\_string(summary\_name,\ image)}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ eval\_metric\_ops[summary\_name]\ =\ (value\_op,\ update\_op)}
+\DoxyCodeLine{01025\ \ \ \ \ \textcolor{keywordflow}{return}\ eval\_metric\_ops}
+\DoxyCodeLine{01026\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d74/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!images\_from\_evaluation\_dict@{images\_from\_evaluation\_dict}}
+\index{images\_from\_evaluation\_dict@{images\_from\_evaluation\_dict}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{images\_from\_evaluation\_dict()}{images\_from\_evaluation\_dict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+images\+\_\+from\+\_\+evaluation\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{eval\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Converts evaluation dictionary into a list of image tensors.
+
+To be overridden by implementations.
+
+Args:
+  eval_dict: A dictionary with all the necessary information for producing
+    visualizations.
+
+Returns:
+  A list of [1, H, W, C] uint8 tensors.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a296e28f10b1a31fe35c301e0b0fd9f3d}{detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Visualize\+Single\+Frame\+Detections}}.
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l01028}{1028}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01028\ \ \ \textcolor{keyword}{def\ }images\_from\_evaluation\_dict(self,\ eval\_dict):}
+\DoxyCodeLine{01029\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ evaluation\ dictionary\ into\ a\ list\ of\ image\ tensors.}}
+\DoxyCodeLine{01030\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{01031\ \textcolor{stringliteral}{\ \ \ \ To\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{01032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{01033\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{01034\ \textcolor{stringliteral}{\ \ \ \ \ \ eval\_dict:\ A\ dictionary\ }\textcolor{keyword}{with}\ all\ the\ necessary\ information\ \textcolor{keywordflow}{for}\ producing}
+\DoxyCodeLine{01035\ \ \ \ \ \ \ \ \ visualizations.}
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \ \ \ \ Returns:}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ A\ list\ of\ [1,\ H,\ W,\ C]\ uint8\ tensors.}
+\DoxyCodeLine{01039\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{01040\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{raise}\ NotImplementedError}
+\DoxyCodeLine{01041\ }
+\DoxyCodeLine{01042\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d74/classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_category\_index@{\_category\_index}}
+\index{\_category\_index@{\_category\_index}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_category\_index}{\_category\_index}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+category\+\_\+index\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00933}{933}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_images@{\_images}}
+\index{\_images@{\_images}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_images}{\_images}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+images\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00939}{939}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_max\_boxes\_to\_draw@{\_max\_boxes\_to\_draw}}
+\index{\_max\_boxes\_to\_draw@{\_max\_boxes\_to\_draw}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_max\_boxes\_to\_draw}{\_max\_boxes\_to\_draw}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+max\+\_\+boxes\+\_\+to\+\_\+draw\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00935}{935}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_max\_examples\_to\_draw@{\_max\_examples\_to\_draw}}
+\index{\_max\_examples\_to\_draw@{\_max\_examples\_to\_draw}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_max\_examples\_to\_draw}{\_max\_examples\_to\_draw}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+max\+\_\+examples\+\_\+to\+\_\+draw\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00934}{934}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_min\_score\_thresh@{\_min\_score\_thresh}}
+\index{\_min\_score\_thresh@{\_min\_score\_thresh}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_min\_score\_thresh}{\_min\_score\_thresh}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+min\+\_\+score\+\_\+thresh\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00936}{936}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_summary\_name\_prefix@{\_summary\_name\_prefix}}
+\index{\_summary\_name\_prefix@{\_summary\_name\_prefix}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_summary\_name\_prefix}{\_summary\_name\_prefix}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+summary\+\_\+name\+\_\+prefix\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00938}{938}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c}\label{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c} 
+\index{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}!\_use\_normalized\_coordinates@{\_use\_normalized\_coordinates}}
+\index{\_use\_normalized\_coordinates@{\_use\_normalized\_coordinates}!detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization@{detection\_utils.utils.visualization\_utils.EvalMetricOpsVisualization}}
+\doxysubsubsection{\texorpdfstring{\_use\_normalized\_coordinates}{\_use\_normalized\_coordinates}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+visualization\+\_\+utils.\+Eval\+Metric\+Ops\+Visualization.\+\_\+use\+\_\+normalized\+\_\+coordinates\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{visualization__utils_8py_source_l00937}{937}} of file \mbox{\hyperlink{visualization__utils_8py_source}{visualization\+\_\+utils.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{visualization__utils_8py}{visualization\+\_\+utils.\+py}}\end{DoxyCompactItemize}

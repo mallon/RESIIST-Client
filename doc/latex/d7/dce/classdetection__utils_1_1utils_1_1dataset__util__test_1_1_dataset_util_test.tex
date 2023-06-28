@@ -1,0 +1,66 @@
+\doxysection{detection\+\_\+utils.\+utils.\+dataset\+\_\+util\+\_\+test.\+Dataset\+Util\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test}{}\label{classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test}\index{detection\_utils.utils.dataset\_util\_test.DatasetUtilTest@{detection\_utils.utils.dataset\_util\_test.DatasetUtilTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+dataset\+\_\+util\+\_\+test.\+Dataset\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d2/da4/classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+dataset\+\_\+util\+\_\+test.\+Dataset\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d1/d31/classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test_a490d382949638ca1d54098e17e6b997a}{test\+\_\+read\+\_\+examples\+\_\+list}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{dataset__util__test_8py_source_l00028}{28}} of file \mbox{\hyperlink{dataset__util__test_8py_source}{dataset\+\_\+util\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test_a490d382949638ca1d54098e17e6b997a}\label{classdetection__utils_1_1utils_1_1dataset__util__test_1_1_dataset_util_test_a490d382949638ca1d54098e17e6b997a} 
+\index{detection\_utils.utils.dataset\_util\_test.DatasetUtilTest@{detection\_utils.utils.dataset\_util\_test.DatasetUtilTest}!test\_read\_examples\_list@{test\_read\_examples\_list}}
+\index{test\_read\_examples\_list@{test\_read\_examples\_list}!detection\_utils.utils.dataset\_util\_test.DatasetUtilTest@{detection\_utils.utils.dataset\_util\_test.DatasetUtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_read\_examples\_list()}{test\_read\_examples\_list()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util\+\_\+test.\+Dataset\+Util\+Test.\+test\+\_\+read\+\_\+examples\+\_\+list (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util__test_8py_source_l00030}{30}} of file \mbox{\hyperlink{dataset__util__test_8py_source}{dataset\+\_\+util\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{def\ }test\_read\_examples\_list(self):}
+\DoxyCodeLine{00031\ \ \ \ \ example\_list\_data\ =\ \textcolor{stringliteral}{"{}"{}"{}example1\ 1\(\backslash\)nexample2\ 2"{}"{}"{}}}
+\DoxyCodeLine{00032\ \ \ \ \ example\_list\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'examples.txt'})}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.Open(example\_list\_path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ f.write(example\_list\_data)}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ examples\ =\ dataset\_util.read\_examples\_list(example\_list\_path)}
+\DoxyCodeLine{00037\ \ \ \ \ self.assertListEqual([\textcolor{stringliteral}{'example1'},\ \textcolor{stringliteral}{'example2'}],\ examples)}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{dataset__util__test_8py}{dataset\+\_\+util\+\_\+test.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,428 @@
+\doxysection{detections Namespace Reference}
+\hypertarget{namespacedetections}{}\label{namespacedetections}\index{detections@{detections}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b}{start\+Behavior\+Detection}} (\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}}, all\+Obj\+To\+Detects, all\+Element\+Ids)
+\item 
+\mbox{\hyperlink{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6}{start\+Detection}} (\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{frame\+To\+Analyse}}, algo\+Name\+To\+Execute, all\+Obj\+To\+Detects, all\+Element\+Ids)
+\item 
+\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{send\+Frames\+To\+Behavior\+Algorithm}} (\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}})
+\item 
+\mbox{\hyperlink{namespacedetections_a6917a78cb6d1299857b272f5bd586591}{send\+One\+Frame\+To\+All\+Detection\+Algorithms}} (\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{frame\+To\+Analyse}})
+\item 
+\mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{terminate\+Processes}} (\mbox{\hyperlink{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}{limit\+Proc}})
+\item 
+\mbox{\hyperlink{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}{is\+Sending\+Time}} (current\+Time, \mbox{\hyperlink{namespacedetections_a9b3df615426b761043a21fb4a881995b}{last\+Recorded\+Time}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} \mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} = os.\+getcwd() + \"{}/src/main/resources\"{}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} \mbox{\hyperlink{namespacedetections_af87216e9b589869603857aae5f16a750}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} = \mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacedetections_a32fcc3604ec776316184c329cf666f00}{ap}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacedetections_a913273f41d4dddb8cf2171009d65322c}{type}}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}}
+\item 
+\mbox{\hyperlink{namespacedetections_ad5766c576b3f9c2106cd1fc6cead4875}{default}}
+\item 
+\mbox{\hyperlink{namespacedetections_a7d91735a98897e3aa27a52e625b26f9f}{help}}
+\item 
+\mbox{\hyperlink{namespacedetections_a704f0985bb3e1309a5c7efc92829950e}{required}}
+\item 
+\mbox{\hyperlink{namespacedetections_a56dc11d5add23fd22fc535a41dab3b6c}{True}}
+\item 
+\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}} = vars(ap.\+parse\+\_\+args())
+\item 
+list \mbox{\hyperlink{namespacedetections_aed0f79a0aa29ee02171e506a01af2afc}{process\+List}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedetections_aa37ace92a7df8533b732aad826fe7794}{cap}} = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)
+\item 
+\mbox{\hyperlink{namespacedetections_a1f629c390eb4565160535f5baa80f8d2}{delay}} = int(1000/cap.\+get(cv2.\+CAP\+\_\+\+PROP\+\_\+\+FPS))
+\item 
+list \mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedetections_a9b3df615426b761043a21fb4a881995b}{last\+Recorded\+Time}} = time.\+time()
+\item 
+\mbox{\hyperlink{namespacedetections_a5fad01f7e7b6f7c93d0894c9e900d54b}{curren\+Time}} = time.\+time()
+\item 
+int \mbox{\hyperlink{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}{limit\+Proc}} = 3
+\item 
+\mbox{\hyperlink{namespacedetections_aa77ab94646a328a653f0fe172adb4c42}{ret}}
+\item 
+\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{frame\+To\+Analyse}}
+\item 
+\mbox{\hyperlink{namespacedetections_ad57d0c74028aa3337beaf81fb63339f5}{process}} = Process(target=\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{send\+Frames\+To\+Behavior\+Algorithm}}, \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}=(\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}},))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}\label{namespacedetections_a82c60b70e8c0654f5fd081d400a21826} 
+\index{detections@{detections}!isSendingTime@{isSendingTime}}
+\index{isSendingTime@{isSendingTime}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{isSendingTime()}{isSendingTime()}}
+{\footnotesize\ttfamily detections.\+is\+Sending\+Time (\begin{DoxyParamCaption}\item[{}]{current\+Time,  }\item[{}]{last\+Recorded\+Time }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00104}{104}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \textcolor{keyword}{def\ }isSendingTime(currentTime,\ lastRecordedTime):}
+\DoxyCodeLine{00105\ \ \ \ \ frequencies\ =\ ast.literal\_eval(args[\textcolor{stringliteral}{"{}frequencies"{}}])}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{for}\ frequency\ \textcolor{keywordflow}{in}\ frequencies:}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currenTime\ -\/\ lastRecordedTime\ >=\ int(frequency)):}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00109\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}\label{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7} 
+\index{detections@{detections}!sendFramesToBehaviorAlgorithm@{sendFramesToBehaviorAlgorithm}}
+\index{sendFramesToBehaviorAlgorithm@{sendFramesToBehaviorAlgorithm}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{sendFramesToBehaviorAlgorithm()}{sendFramesToBehaviorAlgorithm()}}
+{\footnotesize\ttfamily detections.\+send\+Frames\+To\+Behavior\+Algorithm (\begin{DoxyParamCaption}\item[{}]{frames\+For\+Activity\+Detection }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00071}{71}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \textcolor{keyword}{def\ }sendFramesToBehaviorAlgorithm(framesForActivityDetection):}
+\DoxyCodeLine{00072\ \ \ \ \ limitProc\ =\ 3}
+\DoxyCodeLine{00073\ \ \ \ \ terminateProcesses(limitProc)}
+\DoxyCodeLine{00074\ \ \ \ \ elementObjectMap\ =\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].get(\textcolor{stringliteral}{"{}behaviorDetection"{}})}
+\DoxyCodeLine{00075\ \ \ \ \ allElementIds\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}ELEMENT\_IDENTIFIERS"{}})}
+\DoxyCodeLine{00076\ \ \ \ \ allObjToDetects\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}OBJECTS\_TO\_DETECT"{}})}
+\DoxyCodeLine{00077\ \ \ \ \ process\ =\ Process(target=startBehaviorDetection,\ args=(framesForActivityDetection,\ allObjToDetects,\ allElementIds))}
+\DoxyCodeLine{00078\ \ \ \ \ process.start()}
+\DoxyCodeLine{00079\ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{00080\ \ \ \ \ gc.collect()}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d52/namespacedetections_a59d567b1014d084d0b1df41f7b3589f7_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetections_a6917a78cb6d1299857b272f5bd586591}\label{namespacedetections_a6917a78cb6d1299857b272f5bd586591} 
+\index{detections@{detections}!sendOneFrameToAllDetectionAlgorithms@{sendOneFrameToAllDetectionAlgorithms}}
+\index{sendOneFrameToAllDetectionAlgorithms@{sendOneFrameToAllDetectionAlgorithms}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{sendOneFrameToAllDetectionAlgorithms()}{sendOneFrameToAllDetectionAlgorithms()}}
+{\footnotesize\ttfamily detections.\+send\+One\+Frame\+To\+All\+Detection\+Algorithms (\begin{DoxyParamCaption}\item[{}]{frame\+To\+Analyse }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00082}{82}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \textcolor{keyword}{def\ }sendOneFrameToAllDetectionAlgorithms(frameToAnalyse):}
+\DoxyCodeLine{00083\ \ \ \ \ limitProc\ =\ 3}
+\DoxyCodeLine{00084\ \ \ \ \ terminateProcesses(limitProc)}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{for}\ algoNameToExecute\ \textcolor{keywordflow}{in}\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].keys():}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#if\ (algoNameToExecute\ ==\ "{}eventDetection"{}):}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (algoNameToExecute\ !=\ \textcolor{stringliteral}{"{}behaviorDetection"{}}):}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ elementObjectMap\ =\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].get(algoNameToExecute)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ allElementIds\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}ELEMENT\_IDENTIFIERS"{}})}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ allObjToDetects\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}OBJECTS\_TO\_DETECT"{}})}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ process\ =\ Process(target=startDetection,\ args=(frameToAnalyse,\ algoNameToExecute,\ allObjToDetects,\ allElementIds))}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ process.start()}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ gc.collect()}
+\DoxyCodeLine{00095\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d52/namespacedetections_a6917a78cb6d1299857b272f5bd586591_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b}\label{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b} 
+\index{detections@{detections}!startBehaviorDetection@{startBehaviorDetection}}
+\index{startBehaviorDetection@{startBehaviorDetection}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{startBehaviorDetection()}{startBehaviorDetection()}}
+{\footnotesize\ttfamily detections.\+start\+Behavior\+Detection (\begin{DoxyParamCaption}\item[{}]{frames\+For\+Activity\+Detection,  }\item[{}]{all\+Obj\+To\+Detects,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00056}{56}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \textcolor{keyword}{def\ }startBehaviorDetection(framesForActivityDetection,\ allObjToDetects,\ allElementIds):}
+\DoxyCodeLine{00057\ \ \ \ \ copiedFrames\ =\ copy.copy(framesForActivityDetection)\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ module\ =\ importlib.import\_module(\textcolor{stringliteral}{"{}behaviorDetection"{}})}
+\DoxyCodeLine{00059\ \ \ \ \ method\_to\_call\ =\ getattr(module,\ \textcolor{stringliteral}{'startDetection'})}
+\DoxyCodeLine{00060\ \ \ \ \ method\_to\_call(copiedFrames,\ allObjToDetects,\ allElementIds)}
+\DoxyCodeLine{00061\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6}\label{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6} 
+\index{detections@{detections}!startDetection@{startDetection}}
+\index{startDetection@{startDetection}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{startDetection()}{startDetection()}}
+{\footnotesize\ttfamily detections.\+start\+Detection (\begin{DoxyParamCaption}\item[{}]{frame\+To\+Analyse,  }\item[{}]{algo\+Name\+To\+Execute,  }\item[{}]{all\+Obj\+To\+Detects,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00062}{62}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \textcolor{keyword}{def\ }startDetection(frameToAnalyse,\ algoNameToExecute,\ allObjToDetects,\ allElementIds):}
+\DoxyCodeLine{00063\ \ \ \ \ print(\textcolor{stringliteral}{'Algo\ to\ execute\ :'}\ +\ algoNameToExecute)}
+\DoxyCodeLine{00064\ \ \ \ \ print(\textcolor{stringliteral}{'Objects\ to\ detect\ :'}\ +\ (\textcolor{stringliteral}{',\ '}.join(allObjToDetects)))}
+\DoxyCodeLine{00065\ \ \ \ \ print(\textcolor{stringliteral}{'Element\ IDs\ :'}\ +\ (\textcolor{stringliteral}{',\ '}.join(allElementIds)))}
+\DoxyCodeLine{00066\ \ \ \ \ copiedFrame\ =\ \ copy.copy(frameToAnalyse)\ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ module\ =\ importlib.import\_module(algoNameToExecute)}
+\DoxyCodeLine{00068\ \ \ \ \ method\_to\_call\ =\ getattr(module,\ \textcolor{stringliteral}{'startDetection'})}
+\DoxyCodeLine{00069\ \ \ \ \ method\_to\_call(copiedFrame,\ allObjToDetects,\ allElementIds)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}\label{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f} 
+\index{detections@{detections}!terminateProcesses@{terminateProcesses}}
+\index{terminateProcesses@{terminateProcesses}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{terminateProcesses()}{terminateProcesses()}}
+{\footnotesize\ttfamily detections.\+terminate\+Processes (\begin{DoxyParamCaption}\item[{}]{limit\+Proc }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00096}{96}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00096\ \textcolor{keyword}{def\ }terminateProcesses(limitProc):}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{global}\ processList}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (len(processList)\ >=\ limitProc):}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ process\ \textcolor{keywordflow}{in}\ processList:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ process.terminate()}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ processList\ =\ []}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ gc.collect()}
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d52/namespacedetections_a1cf7055d09e428873fdb178398ae6a2f_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetections_a32fcc3604ec776316184c329cf666f00}\label{namespacedetections_a32fcc3604ec776316184c329cf666f00} 
+\index{detections@{detections}!ap@{ap}}
+\index{ap@{ap}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{ap}{ap}}
+{\footnotesize\ttfamily detections.\+ap = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00045}{45}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}\label{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa} 
+\index{detections@{detections}!args@{args}}
+\index{args@{args}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily detections.\+args = vars(ap.\+parse\+\_\+args())}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00052}{52}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_aa37ace92a7df8533b732aad826fe7794}\label{namespacedetections_aa37ace92a7df8533b732aad826fe7794} 
+\index{detections@{detections}!cap@{cap}}
+\index{cap@{cap}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{cap}{cap}}
+{\footnotesize\ttfamily detections.\+cap = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00110}{110}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}\label{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254} 
+\index{detections@{detections}!CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}}
+\index{CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_PYTHON\_PATH}{CURRENT\_PYTHON\_PATH}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} detections.\+CURRENT\+\_\+\+PYTHON\+\_\+\+PATH = os.\+getcwd() + \"{}/src/main/resources\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00020}{20}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a5fad01f7e7b6f7c93d0894c9e900d54b}\label{namespacedetections_a5fad01f7e7b6f7c93d0894c9e900d54b} 
+\index{detections@{detections}!currenTime@{currenTime}}
+\index{currenTime@{currenTime}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{currenTime}{currenTime}}
+{\footnotesize\ttfamily detections.\+curren\+Time = time.\+time()}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00117}{117}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_ad5766c576b3f9c2106cd1fc6cead4875}\label{namespacedetections_ad5766c576b3f9c2106cd1fc6cead4875} 
+\index{detections@{detections}!default@{default}}
+\index{default@{default}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily detections.\+default}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00046}{46}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a1f629c390eb4565160535f5baa80f8d2}\label{namespacedetections_a1f629c390eb4565160535f5baa80f8d2} 
+\index{detections@{detections}!delay@{delay}}
+\index{delay@{delay}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{delay}{delay}}
+{\footnotesize\ttfamily detections.\+delay = int(1000/cap.\+get(cv2.\+CAP\+\_\+\+PROP\+\_\+\+FPS))}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00111}{111}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_af87216e9b589869603857aae5f16a750}\label{namespacedetections_af87216e9b589869603857aae5f16a750} 
+\index{detections@{detections}!EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+\index{EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{EXTRACTION\_TO\_INTEGRATION\_PATH}{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} detections.\+EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH = \mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00021}{21}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}\label{namespacedetections_a92f638194f35a40fda1a3d2864d801fd} 
+\index{detections@{detections}!framesForActivityDetection@{framesForActivityDetection}}
+\index{framesForActivityDetection@{framesForActivityDetection}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{framesForActivityDetection}{framesForActivityDetection}}
+{\footnotesize\ttfamily list detections.\+frames\+For\+Activity\+Detection = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00113}{113}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}\label{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb} 
+\index{detections@{detections}!frameToAnalyse@{frameToAnalyse}}
+\index{frameToAnalyse@{frameToAnalyse}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{frameToAnalyse}{frameToAnalyse}}
+{\footnotesize\ttfamily detections.\+frame\+To\+Analyse}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00121}{121}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a7d91735a98897e3aa27a52e625b26f9f}\label{namespacedetections_a7d91735a98897e3aa27a52e625b26f9f} 
+\index{detections@{detections}!help@{help}}
+\index{help@{help}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{help}{help}}
+{\footnotesize\ttfamily detections.\+help}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00047}{47}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a9b3df615426b761043a21fb4a881995b}\label{namespacedetections_a9b3df615426b761043a21fb4a881995b} 
+\index{detections@{detections}!lastRecordedTime@{lastRecordedTime}}
+\index{lastRecordedTime@{lastRecordedTime}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{lastRecordedTime}{lastRecordedTime}}
+{\footnotesize\ttfamily detections.\+last\+Recorded\+Time = time.\+time()}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00114}{114}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}\label{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd} 
+\index{detections@{detections}!limitProc@{limitProc}}
+\index{limitProc@{limitProc}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{limitProc}{limitProc}}
+{\footnotesize\ttfamily int detections.\+limit\+Proc = 3}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00118}{118}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_ad57d0c74028aa3337beaf81fb63339f5}\label{namespacedetections_ad57d0c74028aa3337beaf81fb63339f5} 
+\index{detections@{detections}!process@{process}}
+\index{process@{process}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{process}{process}}
+{\footnotesize\ttfamily detections.\+process = Process(target=\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{send\+Frames\+To\+Behavior\+Algorithm}}, \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}=(\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}},))}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00129}{129}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_aed0f79a0aa29ee02171e506a01af2afc}\label{namespacedetections_aed0f79a0aa29ee02171e506a01af2afc} 
+\index{detections@{detections}!processList@{processList}}
+\index{processList@{processList}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{processList}{processList}}
+{\footnotesize\ttfamily list detections.\+process\+List = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00054}{54}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a704f0985bb3e1309a5c7efc92829950e}\label{namespacedetections_a704f0985bb3e1309a5c7efc92829950e} 
+\index{detections@{detections}!required@{required}}
+\index{required@{required}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{required}{required}}
+{\footnotesize\ttfamily detections.\+required}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00048}{48}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_aa77ab94646a328a653f0fe172adb4c42}\label{namespacedetections_aa77ab94646a328a653f0fe172adb4c42} 
+\index{detections@{detections}!ret@{ret}}
+\index{ret@{ret}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{ret}{ret}}
+{\footnotesize\ttfamily detections.\+ret}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00121}{121}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}\label{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab} 
+\index{detections@{detections}!str@{str}}
+\index{str@{str}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily detections.\+str}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00046}{46}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a56dc11d5add23fd22fc535a41dab3b6c}\label{namespacedetections_a56dc11d5add23fd22fc535a41dab3b6c} 
+\index{detections@{detections}!True@{True}}
+\index{True@{True}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{True}{True}}
+{\footnotesize\ttfamily detections.\+True}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00050}{50}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+
+\Hypertarget{namespacedetections_a913273f41d4dddb8cf2171009d65322c}\label{namespacedetections_a913273f41d4dddb8cf2171009d65322c} 
+\index{detections@{detections}!type@{type}}
+\index{type@{type}!detections@{detections}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily detections.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{detections_8py_source_l00046}{46}} of file \mbox{\hyperlink{detections_8py_source}{detections.\+py}}.
+

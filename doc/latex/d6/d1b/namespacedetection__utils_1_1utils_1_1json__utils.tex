@@ -1,0 +1,160 @@
+\doxysection{detection\+\_\+utils.\+utils.\+json\+\_\+utils Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1json__utils}{}\label{namespacedetection__utils_1_1utils_1_1json__utils}\index{detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a29b45c8402bc637a8e21097b56d978da}{Dump}} (obj, fid, float\+\_\+digits=-\/1, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_ab97a3b96d5729b0e8a9a4bf405d8e74c}{Dumps}} (obj, float\+\_\+digits=-\/1, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils_a4268a3895947cc4c24e8156c9980ecd5}{Pretty\+Params}} (\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utilities for dealing with writing json strings.
+
+json_utils wraps json.dump and json.dumps so that they can be used to safely
+control the precision of floats when writing to json strings or files.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1json__utils_a29b45c8402bc637a8e21097b56d978da}\label{namespacedetection__utils_1_1utils_1_1json__utils_a29b45c8402bc637a8e21097b56d978da} 
+\index{detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}!Dump@{Dump}}
+\index{Dump@{Dump}!detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}}
+\doxysubsubsection{\texorpdfstring{Dump()}{Dump()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+json\+\_\+utils.\+Dump (\begin{DoxyParamCaption}\item[{}]{obj,  }\item[{}]{fid,  }\item[{}]{float\+\_\+digits = {\ttfamily -\/1},  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper of json.dump that allows specifying the float precision used.
+
+Args:
+  obj: The object to dump.
+  fid: The file id to write to.
+  float_digits: The number of digits of precision when writing floats out.
+  **params: Additional parameters to pass to json.dumps.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{json__utils_8py_source_l00024}{24}} of file \mbox{\hyperlink{json__utils_8py_source}{json\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \textcolor{keyword}{def\ }Dump(obj,\ fid,\ float\_digits=-\/1,\ **params):}
+\DoxyCodeLine{00025\ \ \ \textcolor{stringliteral}{"{}"{}"{}Wrapper\ of\ json.dump\ that\ allows\ specifying\ the\ float\ precision\ used.}}
+\DoxyCodeLine{00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ obj:\ The\ object\ to\ dump.}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ \ \ fid:\ The\ file\ id\ to\ write\ to.}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ float\_digits:\ The\ number\ of\ digits\ of\ precision\ when\ writing\ floats\ out.}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ **params:\ Additional\ parameters\ to\ }\textcolor{keywordflow}{pass}\ to\ json.dumps.}
+\DoxyCodeLine{00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ original\_encoder\ =\ encoder.FLOAT\_REPR}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ float\_digits\ >=\ 0:}
+\DoxyCodeLine{00035\ \ \ \ \ encoder.FLOAT\_REPR\ =\ \textcolor{keyword}{lambda}\ o:\ format(o,\ \textcolor{stringliteral}{'.\%df'}\ \%\ float\_digits)}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00037\ \ \ \ \ json.dump(obj,\ fid,\ **params)}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{finally}:}
+\DoxyCodeLine{00039\ \ \ \ \ encoder.FLOAT\_REPR\ =\ original\_encoder}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1json__utils_ab97a3b96d5729b0e8a9a4bf405d8e74c}\label{namespacedetection__utils_1_1utils_1_1json__utils_ab97a3b96d5729b0e8a9a4bf405d8e74c} 
+\index{detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}!Dumps@{Dumps}}
+\index{Dumps@{Dumps}!detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}}
+\doxysubsubsection{\texorpdfstring{Dumps()}{Dumps()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+json\+\_\+utils.\+Dumps (\begin{DoxyParamCaption}\item[{}]{obj,  }\item[{}]{float\+\_\+digits = {\ttfamily -\/1},  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrapper of json.dumps that allows specifying the float precision used.
+
+Args:
+  obj: The object to dump.
+  float_digits: The number of digits of precision when writing floats out.
+  **params: Additional parameters to pass to json.dumps.
+
+Returns:
+  output: JSON string representation of obj.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{json__utils_8py_source_l00042}{42}} of file \mbox{\hyperlink{json__utils_8py_source}{json\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \textcolor{keyword}{def\ }Dumps(obj,\ float\_digits=-\/1,\ **params):}
+\DoxyCodeLine{00043\ \ \ \textcolor{stringliteral}{"{}"{}"{}Wrapper\ of\ json.dumps\ that\ allows\ specifying\ the\ float\ precision\ used.}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ obj:\ The\ object\ to\ dump.}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ float\_digits:\ The\ number\ of\ digits\ of\ precision\ when\ writing\ floats\ out.}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ **params:\ Additional\ parameters\ to\ }\textcolor{keywordflow}{pass}\ to\ json.dumps.}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ Returns:}
+\DoxyCodeLine{00051\ \ \ \ \ output:\ JSON\ string\ representation\ of\ obj.}
+\DoxyCodeLine{00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ original\_encoder\ =\ encoder.FLOAT\_REPR}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ original\_c\_make\_encoder\ =\ encoder.c\_make\_encoder}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ float\_digits\ >=\ 0:}
+\DoxyCodeLine{00056\ \ \ \ \ encoder.FLOAT\_REPR\ =\ \textcolor{keyword}{lambda}\ o:\ format(o,\ \textcolor{stringliteral}{'.\%df'}\ \%\ float\_digits)}
+\DoxyCodeLine{00057\ \ \ \ \ encoder.c\_make\_encoder\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00059\ \ \ \ \ output\ =\ json.dumps(obj,\ **params)}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordflow}{finally}:}
+\DoxyCodeLine{00061\ \ \ \ \ encoder.FLOAT\_REPR\ =\ original\_encoder}
+\DoxyCodeLine{00062\ \ \ \ \ encoder.c\_make\_encoder\ =\ original\_c\_make\_encoder}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{return}\ output}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1json__utils_a4268a3895947cc4c24e8156c9980ecd5}\label{namespacedetection__utils_1_1utils_1_1json__utils_a4268a3895947cc4c24e8156c9980ecd5} 
+\index{detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}!PrettyParams@{PrettyParams}}
+\index{PrettyParams@{PrettyParams}!detection\_utils.utils.json\_utils@{detection\_utils.utils.json\_utils}}
+\doxysubsubsection{\texorpdfstring{PrettyParams()}{PrettyParams()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+json\+\_\+utils.\+Pretty\+Params (\begin{DoxyParamCaption}\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns parameters for use with Dump and Dumps to output pretty json.
+
+Example usage:
+  ```json_str = json_utils.Dumps(obj, **json_utils.PrettyParams())```
+  ```json_str = json_utils.Dumps(
+                    obj, **json_utils.PrettyParams(allow_nans=False))```
+
+Args:
+  **params: Additional params to pass to json.dump or json.dumps.
+
+Returns:
+  params: Parameters that are compatible with json_utils.Dump and
+    json_utils.Dumps.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{json__utils_8py_source_l00067}{67}} of file \mbox{\hyperlink{json__utils_8py_source}{json\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \textcolor{keyword}{def\ }PrettyParams(**params):}
+\DoxyCodeLine{00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ parameters\ for\ use\ with\ Dump\ and\ Dumps\ to\ output\ pretty\ json.}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ Example\ usage:}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ \ \ \`{}\`{}\`{}json\_str\ =\ json\_utils.Dumps(obj,\ **json\_utils.PrettyParams())\`{}\`{}\`{}}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ \`{}\`{}\`{}json\_str\ =\ json\_utils.Dumps(}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ obj,\ **json\_utils.PrettyParams(allow\_nans=}\textcolor{keyword}{False}))\`{}\`{}\`{}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ Args:}
+\DoxyCodeLine{00076\ \ \ \ \ **params:\ Additional\ params\ to\ \textcolor{keywordflow}{pass}\ to\ json.dump\ \textcolor{keywordflow}{or}\ json.dumps.}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ Returns:}
+\DoxyCodeLine{00079\ \ \ \ \ params:\ Parameters\ that\ are\ compatible\ \textcolor{keyword}{with}\ json\_utils.Dump\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ json\_utils.Dumps.}
+\DoxyCodeLine{00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{\ \ params['float\_digits'}]\ =\ 4}
+\DoxyCodeLine{00083\ \ \ params[\textcolor{stringliteral}{'sort\_keys'}]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00084\ \ \ params[\textcolor{stringliteral}{'indent'}]\ =\ 2}
+\DoxyCodeLine{00085\ \ \ params[\textcolor{stringliteral}{'separators'}]\ =\ (\textcolor{stringliteral}{','},\ \textcolor{stringliteral}{':\ '})}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordflow}{return}\ params}
+\DoxyCodeLine{00087\ }
+
+\end{DoxyCode}

@@ -1,0 +1,98 @@
+\doxysection{model\+\_\+util.\+py}
+\hypertarget{model__util_8py_source}{}\label{model__util_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/model\_util.py@{src/main/resources/processing/video/detections/detection\_utils/utils/model\_util.py}}
+\mbox{\hyperlink{model__util_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1model__util}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2019\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Utility\ functions\ for\ manipulating\ Keras\ models."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00022}00022\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00025}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1model__util_a5403fa1ee5f3cea5dec4d68933d75285}{00025}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1model__util_a5403fa1ee5f3cea5dec4d68933d75285}{extract\_submodel}}(model,\ inputs,\ outputs,\ name=None):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00026}00026\ \ \ \textcolor{stringliteral}{"{}"{}"{}Extracts\ a\ section\ of\ a\ Keras\ model\ into\ a\ new\ model.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00027}00027\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ This\ method\ walks\ an\ existing\ model\ }\textcolor{keyword}{from}\ the\ specified\ outputs\ back\ to\ the}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00029}00029\ \ \ specified\ inputs\ \textcolor{keywordflow}{in}\ order\ to\ construct\ a\ new\ model\ containing\ only\ a\ portion}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00030}00030\ \ \ of\ the\ old\ model,\ \textcolor{keywordflow}{while}\ sharing\ the\ layers\ \textcolor{keywordflow}{and}\ weights\ \textcolor{keyword}{with}\ the\ original}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00031}00031\ \ \ model.}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00033}00033\ \ \ WARNING:\ This\ method\ does\ \textcolor{keywordflow}{not}\ work\ \textcolor{keywordflow}{for}\ submodels\ containing\ layers\ that\ have}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00034}00034\ \ \ been\ used\ multiple\ times\ \textcolor{keywordflow}{in}\ the\ original\ model,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{in}\ other\ models\ beyond}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00035}00035\ \ \ the\ original\ model.\ (E.g.\ does\ \textcolor{keywordflow}{not}\ work\ \textcolor{keywordflow}{for}\ submodels\ that\ contain\ layers\ that}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00036}00036\ \ \ use\ shared\ weights).\ This\ also\ means\ that\ multiple\ overlapping\ submodels}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00037}00037\ \ \ cannot\ be\ extracted\ \textcolor{keyword}{from}\ the\ same\ model.}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00039}00039\ \ \ It\ also\ relies\ on\ recursion\ \textcolor{keywordflow}{and}\ will\ hit\ python\textcolor{stringliteral}{'s\ recursion\ limit\ for\ large}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ submodels.}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00041}00041\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ model:\ The\ existing\ Keras\ model\ this\ method\ extracts\ a\ submodel\ }\textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00044}00044\ \ \ \ \ inputs:\ The\ layer\ inputs\ \textcolor{keywordflow}{in}\ the\ existing\ model\ that\ start\ the\ submodel}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00045}00045\ \ \ \ \ outputs:\ The\ layer\ outputs\ \textcolor{keywordflow}{in}\ the\ existing\ model\ that\ should\ be\ output\ by}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00046}00046\ \ \ \ \ \ \ the\ submodel}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00047}00047\ \ \ \ \ name:\ The\ name\ \textcolor{keywordflow}{for}\ the\ extracted\ model}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00049}00049\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00050}00050\ \ \ \ \ The\ extracted\ submodel\ specified\ by\ the\ given\ inputs\ \textcolor{keywordflow}{and}\ outputs}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00051}00051\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ output\_to\_layer\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ output\_to\_layer\_input\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ layer\ \textcolor{keywordflow}{in}\ model.layers:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00055}00055\ \ \ \ \ layer\_output\ =\ layer.output}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00056}00056\ \ \ \ \ layer\_inputs\ =\ layer.input}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00057}00057\ \ \ \ \ output\_to\_layer[layer\_output]\ =\ layer}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00058}00058\ \ \ \ \ output\_to\_layer\_input[layer\_output]\ =\ layer\_inputs}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00060}00060\ \ \ model\_inputs\_dict\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00061}00061\ \ \ memoized\_results\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00063}00063\ \ \ \textcolor{comment}{\#\ Relies\ on\ recursion,\ very\ low\ limit\ in\ python}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00064}00064\ \ \ \textcolor{keyword}{def\ }\_recurse\_in\_model(tensor):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Walk\ the\ existing\ model\ recursively\ to\ copy\ a\ submodel."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{in}\ memoized\_results:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00067}00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ memoized\_results[tensor]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (tensor\ ==\ inputs)\ \textcolor{keywordflow}{or}\ (isinstance(inputs,\ list)\ \textcolor{keywordflow}{and}\ tensor\ \textcolor{keywordflow}{in}\ inputs):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00069}00069\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ model\_inputs\_dict:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ model\_inputs\_dict[tensor]\ =\ tf.keras.layers.Input(tensor=tensor)}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00071}00071\ \ \ \ \ \ \ out\ =\ model\_inputs\_dict[tensor]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00073}00073\ \ \ \ \ \ \ cur\_inputs\ =\ output\_to\_layer\_input[tensor]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00074}00074\ \ \ \ \ \ \ cur\_layer\ =\ output\_to\_layer[tensor]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00075}00075\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(cur\_inputs,\ list):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ out\ =\ cur\_layer([\_recurse\_in\_model(inp)\ \textcolor{keywordflow}{for}\ inp\ \textcolor{keywordflow}{in}\ cur\_inputs])}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00077}00077\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ out\ =\ cur\_layer(\_recurse\_in\_model(cur\_inputs))}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00079}00079\ \ \ \ \ memoized\_results[tensor]\ =\ out}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00082}00082\ \ \ \textcolor{keywordflow}{if}\ isinstance(outputs,\ list):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00083}00083\ \ \ \ \ model\_outputs\ =\ [\_recurse\_in\_model(tensor)\ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ outputs]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00084}00084\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00085}00085\ \ \ \ \ model\_outputs\ =\ \_recurse\_in\_model(outputs)}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00087}00087\ \ \ \textcolor{keywordflow}{if}\ isinstance(inputs,\ list):}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00088}00088\ \ \ \ \ model\_inputs\ =\ [model\_inputs\_dict[tensor]\ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00089}00089\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00090}00090\ \ \ \ \ model\_inputs\ =\ model\_inputs\_dict[inputs]}
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{model__util_8py_source_l00092}00092\ \ \ \textcolor{keywordflow}{return}\ tf.keras.Model(inputs=model\_inputs,\ outputs=model\_outputs,\ name=name)}
+
+\end{DoxyCode}

@@ -1,0 +1,118 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder}{}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder}\index{detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{d6/dfe/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{da/dbb/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a4829206467fbc93e04f8b8c61a62efab}{code\+\_\+size}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d}{\+\_\+encode}} (self, boxes, anchors)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7}{\+\_\+decode}} (self, rel\+\_\+codes, anchors)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Simple `difference` BoxCoder.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00037}{37}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7} 
+\index{detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}!\_decode@{\_decode}}
+\index{\_decode@{\_decode}!detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}}
+\doxysubsubsection{\texorpdfstring{\_decode()}{\_decode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder.\+\_\+decode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{rel\+\_\+codes,  }\item[{}]{anchors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00047}{47}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{def\ }\_decode(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_list.BoxList(rel\_codes\ +\ anchors.get())}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/de9/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d} 
+\index{detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}!\_encode@{\_encode}}
+\index{\_encode@{\_encode}!detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}}
+\doxysubsubsection{\texorpdfstring{\_encode()}{\_encode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder.\+\_\+encode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{boxes,  }\item[{}]{anchors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00044}{44}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{def\ }\_encode(self,\ boxes,\ anchors):}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ boxes.get()\ -\/\ anchors.get()}
+\DoxyCodeLine{00046\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/de9/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a4829206467fbc93e04f8b8c61a62efab}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a4829206467fbc93e04f8b8c61a62efab} 
+\index{detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}!code\_size@{code\_size}}
+\index{code\_size@{code\_size}!detection\_utils.utils.test\_utils.MockBoxCoder@{detection\_utils.utils.test\_utils.MockBoxCoder}}
+\doxysubsubsection{\texorpdfstring{code\_size()}{code\_size()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Box\+Coder.\+code\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00041}{41}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{def\ }code\_size(self):}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ 4}
+\DoxyCodeLine{00043\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{test__utils_8py}{test\+\_\+utils.\+py}}\end{DoxyCompactItemize}

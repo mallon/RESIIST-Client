@@ -1,0 +1,62 @@
+\doxysection{Amd3\+Application.\+java}
+\hypertarget{_amd3_application_8java_source}{}\label{_amd3_application_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/Amd3Application.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/Amd3Application.java}}
+\mbox{\hyperlink{_amd3_application_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct}{00001}}\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.struct;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.File;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.springframework.boot.CommandLineRunner;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.springframework.boot.SpringApplication;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.springframework.boot.autoconfigure.SpringBootApplication;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.springframework.boot.context.properties.EnableConfigurationProperties;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.springframework.context.annotation.Bean;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.springframework.context.annotation.ComponentScan;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00012}00012\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.storage.StorageProperties;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00013}00013\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.storage.StorageService;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00015}00015\ @EnableConfigurationProperties(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_properties}{StorageProperties}}.class)}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00016}00016\ @ComponentScan(\{\textcolor{stringliteral}{"{}com.axellience.resiist.client.decisionmaking.amd3.struct"{}},}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}com.axellience.resiist.client.decisionmaking.amd3.storage"{}}\})}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00018}00018\ @ComponentScan(basePackages\ =\ \{\textcolor{stringliteral}{"{}com.axellience.resiist.client.decisionmaking.amd3.struct.controller"{}}\})}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00019}00019\ @SpringBootApplication}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00020}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application}{00020}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application}{Amd3Application}}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00021}00021\ \{}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00022}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a17c7e11c0b952fb50002595afbecf49f}{00022}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \ \ \ \ \ \ \ isCSVImported\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00023}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a05c5a1b78f0e4d613ec1dd9e17302e6d}{00023}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a05c5a1b78f0e4d613ec1dd9e17302e6d}{storageService}};}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00025}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a58c45d13c4bb159fc598f90ac1d546d5}{00025}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a58c45d13c4bb159fc598f90ac1d546d5}{main}}(String[]\ args)}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00026}00026\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ SpringApplication.run(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application}{Amd3Application}}.class,\ args);}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00030}00030\ \ \ \ \ @Bean}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00031}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a57994fa550652ee9745879e273698845}{00031}}\ \ \ \ \ CommandLineRunner\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a57994fa550652ee9745879e273698845}{init}}(\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ storageService)}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (args)\ -\/>}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ Amd3Application.storageService\ =\ storageService;}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ storageService.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_af0470eaab090d38202a19192449ba567}{deleteAll}}();}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ storageService.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a35960c46127d550f025b7113985c0e71}{init}}();}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (args.length\ >\ 0)}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ storageService.init(args);}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (storageService.isAlreadyImported())}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ isCSVImported\ =\ true;}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00047}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a7cb4857b83d8bf059df8cd535462cafa}{00047}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1_amd3_application_a7cb4857b83d8bf059df8cd535462cafa}{setCsvFile}}(File\ csvDecisionFile)}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00048}00048\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ String[]\ args\ =\ \{csvDecisionFile.getAbsolutePath()\};}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ storageService.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a35960c46127d550f025b7113985c0e71}{init}}(args);}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (storageService.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a3b89c0edc3eb3096040041b6908893df}{isAlreadyImported}}())}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ isCSVImported\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_amd3_application_8java_source_l00056}00056\ \}}
+
+\end{DoxyCode}

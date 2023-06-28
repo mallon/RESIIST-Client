@@ -1,0 +1,66 @@
+\doxysection{OLSTrend\+Line.\+java}
+\hypertarget{_o_l_s_trend_line_8java_source}{}\label{_o_l_s_trend_line_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/OLSTrendLine.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/OLSTrendLine.java}}
+\mbox{\hyperlink{_o_l_s_trend_line_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.basicfunction;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.util.Arrays;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.apache.commons.math3.linear.MatrixUtils;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.apache.commons.math3.linear.RealMatrix;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00009}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line}{00009}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{abstract}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line}{OLSTrendLine}}\ \textcolor{keyword}{implements}\ \mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_trend_line}{TrendLine}}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00011}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a7634c16f31df7f448454debd4adeeba4}{00011}}\ \ \ \ \ RealMatrix\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a7634c16f31df7f448454debd4adeeba4}{coef}}\ =\ \textcolor{keyword}{null};\ \textcolor{comment}{//\ will\ hold\ prediction\ coefs\ once\ we\ get\ values}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00013}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ad18d5fd490d897ca4b556c61ddf2aad3}{00013}}\ \ \ \ \ \textcolor{keyword}{protected}\ \textcolor{keyword}{abstract}\ \textcolor{keywordtype}{double}[]\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ad18d5fd490d897ca4b556c61ddf2aad3}{xVector}}(\textcolor{keywordtype}{double}\ x);\ \textcolor{comment}{//\ create\ vector\ of\ values}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ from\ x}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00016}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a0dac2863d636250ca4dc4bf13cffb443}{00016}}\ \ \ \ \ \textcolor{keyword}{protected}\ \textcolor{keyword}{abstract}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a0dac2863d636250ca4dc4bf13cffb443}{logY}}();\ \textcolor{comment}{//\ set\ true\ to\ predict\ log\ of\ y\ (note:\ y}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ must\ be\ positive)}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00019}00019\ \ \ \ \ @Override}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00020}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a78160ee3199d24d43ce3cdefd3668724}{00020}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a78160ee3199d24d43ce3cdefd3668724}{setValues}}(\textcolor{keywordtype}{double}[]\ y,\ \textcolor{keywordtype}{double}[]\ x)}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00021}00021\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x.length\ !=\ y.length)\ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ IllegalArgumentException(String.format(\textcolor{stringliteral}{"{}The\ numbers\ of\ y\ and\ x\ values\ must\ be\ equal\ (\%d\ !=\ \%d)"{}},}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y.length,}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.length));}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00026}00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[][]\ xData\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[x.length][];}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ x.length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ implementation\ determines\ how\ to\ produce\ a\ vector\ of}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ predictors\ from\ a\ single\ x}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ xData[i]\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ad18d5fd490d897ca4b556c61ddf2aad3}{xVector}}(x[i]);}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a0dac2863d636250ca4dc4bf13cffb443}{logY}}())\ \{\ \textcolor{comment}{//\ in\ some\ models\ we\ are\ predicting\ ln\ y,\ so\ we\ replace}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ each\ y\ with\ ln\ y}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ Arrays.copyOf(y,\ y.length);\ \textcolor{comment}{//\ user\ might\ not\ be\ finished\ with}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ array\ we\ were\ given}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ x.length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i]\ =\ Math.log(y[i]);}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ OLSMultipleLinearRegression\ ols\ =\ \textcolor{keyword}{new}\ OLSMultipleLinearRegression();}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ ols.setNoIntercept(\textcolor{keyword}{true});\ \textcolor{comment}{//\ let\ the\ implementation\ include\ a\ constant}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ xVector\ if\ desired}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ ols.newSampleData(y,\ xData);\ \textcolor{comment}{//\ provide\ the\ data\ to\ the\ model}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a7634c16f31df7f448454debd4adeeba4}{coef}}\ =\ MatrixUtils.createColumnRealMatrix(ols.estimateRegressionParameters());\ \textcolor{comment}{//\ get}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ our}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ coefs}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00050}00050\ \ \ \ \ @Override}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00051}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ab88648fe4add426783ec6b45f724b803}{00051}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ab88648fe4add426783ec6b45f724b803}{predict}}(\textcolor{keywordtype}{double}\ x)}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ yhat\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a7634c16f31df7f448454debd4adeeba4}{coef}}.preMultiply(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_ad18d5fd490d897ca4b556c61ddf2aad3}{xVector}}(x))[0];\ \textcolor{comment}{//\ apply\ coefs\ to\ xVector}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_o_l_s_trend_line_a0dac2863d636250ca4dc4bf13cffb443}{logY}}())}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ yhat\ =\ (Math.exp(yhat));\ \textcolor{comment}{//\ if\ we\ predicted\ ln\ y,\ we\ still\ need\ to}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ y}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ yhat;}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_o_l_s_trend_line_8java_source_l00060}00060\ \}}
+
+\end{DoxyCode}

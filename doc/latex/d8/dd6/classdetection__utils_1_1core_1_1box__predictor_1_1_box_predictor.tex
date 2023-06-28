@@ -1,0 +1,336 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor}{}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor}\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{da/d32/classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{dc/dbf/classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a92bdb129d2964a950a51c6ae0c0522fd}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, is\+\_\+training, \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38}{num\+\_\+classes}})
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a61d2ed976054cb870494b5ed07e2809a}{is\+\_\+keras\+\_\+model}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38}{num\+\_\+classes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485}{predict}} (self, image\+\_\+features, num\+\_\+predictions\+\_\+per\+\_\+location, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}{\+\_\+predict}} (self, image\+\_\+features, num\+\_\+predictions\+\_\+per\+\_\+location, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a155030df3855f150718bf012e18b7590}{\+\_\+is\+\_\+training}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a}{\+\_\+num\+\_\+classes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}BoxPredictor.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00037}{37}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a92bdb129d2964a950a51c6ae0c0522fd}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a92bdb129d2964a950a51c6ae0c0522fd} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{is\+\_\+training,  }\item[{}]{num\+\_\+classes }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  is_training: Indicates whether the BoxPredictor is in training mode.
+  num_classes: number of classes.  Note that num_classes *does not*
+    include the background category, so if groundtruth labels take values
+    in {0, 1, .., K-1}, num_classes=K (and not K+1, even though the
+    assigned classification targets can range from {0,... K}).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00040}{40}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ is\_training,\ num\_classes):}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ is\_training:\ Indicates\ whether\ the\ BoxPredictor\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{in}\ training\ mode.}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ num\_classes:\ number\ of\ classes.\ \ Note\ that\ num\_classes\ *does\ \textcolor{keywordflow}{not}*}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ include\ the\ background\ category,\ so\ \textcolor{keywordflow}{if}\ groundtruth\ labels\ take\ values}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ \{0,\ 1,\ ..,\ K-\/1\},\ num\_classes=K\ (\textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ K+1,\ even\ though\ the}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ assigned\ classification\ targets\ can\ range\ \textcolor{keyword}{from}\ \{0,...\ K\}).}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ \ \ self.\_is\_training\ =\ is\_training}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ self.\_num\_classes\ =\ num\_classes}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!\_predict@{\_predict}}
+\index{\_predict@{\_predict}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{\_predict()}{\_predict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+\_\+predict (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image\+\_\+features,  }\item[{}]{num\+\_\+predictions\+\_\+per\+\_\+location,  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Implementations must override this method.
+
+Args:
+  image_features: A list of float tensors of shape [batch_size, height_i,
+    width_i, channels_i] containing features for a batch of images.
+  num_predictions_per_location: A list of integers representing the number
+    of box predictions to be made per spatial location for each feature map.
+  **params: Additional keyword arguments for specific implementations of
+          BoxPredictor.
+
+Returns:
+  A dictionary containing at least the following tensors.
+    box_encodings: A list of float tensors. Each entry in the list
+      corresponds to a feature map in the input `image_features` list. All
+      tensors in the list have one of the two following shapes:
+      a. [batch_size, num_anchors_i, q, code_size] representing the location
+        of the objects, where q is 1 or the number of classes.
+      b. [batch_size, num_anchors_i, code_size].
+    class_predictions_with_background: A list of float tensors of shape
+      [batch_size, num_anchors_i, num_classes + 1] representing the class
+      predictions for the proposals. Each entry in the list corresponds to a
+      feature map in the input `image_features` list.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00110}{110}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{def\ }\_predict(self,\ image\_features,\ num\_predictions\_per\_location,\ **params):}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Implementations\ must\ override\ this\ method.}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00113\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{\ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ }\textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ num\_predictions\_per\_location:\ A\ list\ of\ integers\ representing\ the\ number}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ of\ box\ predictions\ to\ be\ made\ per\ spatial\ location\ \textcolor{keywordflow}{for}\ each\ feature\ map.}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ Returns:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd6/classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7eb0fa413c78afc7cfa938b98d66524_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a61d2ed976054cb870494b5ed07e2809a}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a61d2ed976054cb870494b5ed07e2809a} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!is\_keras\_model@{is\_keras\_model}}
+\index{is\_keras\_model@{is\_keras\_model}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{is\_keras\_model()}{is\_keras\_model()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+is\+\_\+keras\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00054}{54}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{def\ }is\_keras\_model(self):}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!num\_classes@{num\_classes}}
+\index{num\_classes@{num\_classes}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{num\_classes()}{num\_classes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+num\+\_\+classes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00058}{58}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{def\ }num\_classes(self):}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_num\_classes}
+\DoxyCodeLine{00060\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd6/classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_ad7e41a7b418cc8a54b19330b1fed4d38_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!predict@{predict}}
+\index{predict@{predict}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+predict (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image\+\_\+features,  }\item[{}]{num\+\_\+predictions\+\_\+per\+\_\+location,  }\item[{}]{scope = {\ttfamily None},  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes encoded object locations and corresponding confidences.
+
+Takes a list of high level image feature maps as input and produces a list
+of box encodings and a list of class scores where each element in the output
+lists correspond to the feature maps in the input list.
+
+Args:
+  image_features: A list of float tensors of shape [batch_size, height_i,
+  width_i, channels_i] containing features for a batch of images.
+  num_predictions_per_location: A list of integers representing the number
+    of box predictions to be made per spatial location for each feature map.
+  scope: Variable and Op scope name.
+  **params: Additional keyword arguments for specific implementations of
+          BoxPredictor.
+
+Returns:
+  A dictionary containing at least the following tensors.
+    box_encodings: A list of float tensors. Each entry in the list
+      corresponds to a feature map in the input `image_features` list. All
+      tensors in the list have one of the two following shapes:
+      a. [batch_size, num_anchors_i, q, code_size] representing the location
+        of the objects, where q is 1 or the number of classes.
+      b. [batch_size, num_anchors_i, code_size].
+    class_predictions_with_background: A list of float tensors of shape
+      [batch_size, num_anchors_i, num_classes + 1] representing the class
+      predictions for the proposals. Each entry in the list corresponds to a
+      feature map in the input `image_features` list.
+
+Raises:
+  ValueError: If length of `image_features` is not equal to length of
+    `num_predictions_per_location`.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00061}{61}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{keywordtype}{None},\ **params):}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ encoded\ object\ locations\ and\ corresponding\ confidences.}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ Takes\ a\ list\ of\ high\ level\ image\ feature\ maps\ }\textcolor{keyword}{as}\ input\ \textcolor{keywordflow}{and}\ produces\ a\ list}
+\DoxyCodeLine{00066\ \ \ \ \ of\ box\ encodings\ \textcolor{keywordflow}{and}\ a\ list\ of\ \textcolor{keyword}{class\ }scores\ where\ each\ element\ in\ the\ output}
+\DoxyCodeLine{00067\ \ \ \ \ lists\ correspond\ to\ the\ feature\ maps\ \textcolor{keywordflow}{in}\ the\ input\ list.}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ Args:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ image\_features:\ A\ list\ of\ float\ tensors\ of\ shape\ [batch\_size,\ height\_i,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ width\_i,\ channels\_i]\ containing\ features\ \textcolor{keywordflow}{for}\ a\ batch\ of\ images.}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ num\_predictions\_per\_location:\ A\ list\ of\ integers\ representing\ the\ number}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ of\ box\ predictions\ to\ be\ made\ per\ spatial\ location\ \textcolor{keywordflow}{for}\ each\ feature\ map.}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ scope:\ Variable\ \textcolor{keywordflow}{and}\ Op\ scope\ name.}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BoxPredictor.}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ Returns:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ A\ dictionary\ containing\ at\ least\ the\ following\ tensors.}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ box\_encodings:\ A\ list\ of\ float\ tensors.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ corresponds\ to\ a\ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.\ All}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ tensors\ \textcolor{keywordflow}{in}\ the\ list\ have\ one\ of\ the\ two\ following\ shapes:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ a.\ [batch\_size,\ num\_anchors\_i,\ q,\ code\_size]\ representing\ the\ location}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ objects,\ where\ q\ \textcolor{keywordflow}{is}\ 1\ \textcolor{keywordflow}{or}\ the\ number\ of\ classes.}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ b.\ [batch\_size,\ num\_anchors\_i,\ code\_size].}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ class\_predictions\_with\_background:\ A\ list\ of\ float\ tensors\ of\ shape}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors\_i,\ num\_classes\ +\ 1]\ representing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ predictions\ \textcolor{keywordflow}{for}\ the\ proposals.\ Each\ entry\ \textcolor{keywordflow}{in}\ the\ list\ corresponds\ to\ a}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ feature\ map\ \textcolor{keywordflow}{in}\ the\ input\ \`{}image\_features\`{}\ list.}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ Raises:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ ValueError:\ If\ length\ of\ \`{}image\_features\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ equal\ to\ length\ of}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \`{}num\_predictions\_per\_location\`{}.}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00095\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ len(image\_features)\ !=\ len(num\_predictions\_per\_location):}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'image\_feature\ and\ num\_predictions\_per\_location\ must\ '}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'be\ of\ same\ length,\ found:\ \{\}\ vs\ \{\}'}.}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ format(len(image\_features),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len(num\_predictions\_per\_location)))}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{if}\ scope\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.variable\_scope(scope):}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_predict(image\_features,\ num\_predictions\_per\_location,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params)}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_predict(image\_features,\ num\_predictions\_per\_location,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params)}
+\DoxyCodeLine{00106\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd6/classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a9856aa18532050546fd1b46b2a752485_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a155030df3855f150718bf012e18b7590}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_a155030df3855f150718bf012e18b7590} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!\_is\_training@{\_is\_training}}
+\index{\_is\_training@{\_is\_training}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{\_is\_training}{\_is\_training}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+\_\+is\+\_\+training\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00050}{50}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a}\label{classdetection__utils_1_1core_1_1box__predictor_1_1_box_predictor_aad0ce35993562219bf13349560573b4a} 
+\index{detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}!\_num\_classes@{\_num\_classes}}
+\index{\_num\_classes@{\_num\_classes}!detection\_utils.core.box\_predictor.BoxPredictor@{detection\_utils.core.box\_predictor.BoxPredictor}}
+\doxysubsubsection{\texorpdfstring{\_num\_classes}{\_num\_classes}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+predictor.\+Box\+Predictor.\+\_\+num\+\_\+classes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{box__predictor_8py_source_l00051}{51}} of file \mbox{\hyperlink{box__predictor_8py_source}{box\+\_\+predictor.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__predictor_8py}{box\+\_\+predictor.\+py}}\end{DoxyCompactItemize}

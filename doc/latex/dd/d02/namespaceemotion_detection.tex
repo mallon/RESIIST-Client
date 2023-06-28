@@ -1,0 +1,134 @@
+\doxysection{emotion\+Detection Namespace Reference}
+\hypertarget{namespaceemotion_detection}{}\label{namespaceemotion_detection}\index{emotionDetection@{emotionDetection}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceemotion_detection_a423d5da2cc0eb3b2f720c6fb6ba9c346}{start\+Detection}} (frame, object\+Name\+To\+Detect\+List, all\+Element\+Ids)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespaceemotion_detection_aa47a030fa3a17672a8b1259d12d4cab0}{label}} = \"{}\"{}
+\item 
+list \mbox{\hyperlink{namespaceemotion_detection_a831ef72f48797bba37558493c5409357}{EMOTIONS}} = \mbox{[}\"{}Angry\"{}, \"{}Disgust\"{}, \"{}Fear\"{}, \"{}Happy\"{}, \"{}Sad\"{}, \"{}Surprise\"{}, \"{}Neutral\"{}\mbox{]}
+\item 
+str \mbox{\hyperlink{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} = os.\+getcwd() + \"{}/src/main/resources\"{}
+\item 
+str \mbox{\hyperlink{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} = \mbox{\hyperlink{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespaceemotion_detection_a0cbd9894176cdba33da3af3a20cffdef}{detection\+\_\+model\+\_\+path}} = \mbox{\hyperlink{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \"{}/emotion\+\_\+detection/haarcascade\+\_\+frontalface\+\_\+default.\+xml\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceemotion_detection_a423d5da2cc0eb3b2f720c6fb6ba9c346}\label{namespaceemotion_detection_a423d5da2cc0eb3b2f720c6fb6ba9c346} 
+\index{emotionDetection@{emotionDetection}!startDetection@{startDetection}}
+\index{startDetection@{startDetection}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{startDetection()}{startDetection()}}
+{\footnotesize\ttfamily emotion\+Detection.\+start\+Detection (\begin{DoxyParamCaption}\item[{}]{frame,  }\item[{}]{object\+Name\+To\+Detect\+List,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00042}{42}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \textcolor{keyword}{def\ }startDetection(frame,\ objectNameToDetectList,\ allElementIds):}
+\DoxyCodeLine{00043\ \ \ \ \ tensorflow.keras.backend.clear\_session()}
+\DoxyCodeLine{00044\ \ \ \ \ face\_detection\ =\ cv2.CascadeClassifier(detection\_model\_path)}
+\DoxyCodeLine{00045\ \ \ \ \ model\ =\ load\_model(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{"{}emotion\_detection/fer2013\_big\_XCEPTION.54-\/0.66.hdf5"{}})}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ frame\ =\ imutils.resize(frame,width=800)}
+\DoxyCodeLine{00048\ \ \ \ \ gray\ =\ cv2.cvtColor(frame,\ cv2.COLOR\_BGR2GRAY)}
+\DoxyCodeLine{00049\ \ \ \ \ faces\ =\ face\_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE\_SCALE\_IMAGE)}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ len(faces)\ >\ 0:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ faces\ =\ sorted(faces,\ reverse=\textcolor{keyword}{True},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ key=\textcolor{keyword}{lambda}\ x:\ (x[2]\ -\/\ x[0])\ *\ (x[3]\ -\/\ x[1]))[0]}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ (X,\ Y,\ W,\ H)\ =\ faces}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ facial\ =\ gray[Y:Y\ +\ H,\ X:X\ +\ W]}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ facial\ =\ cv2.resize(facial,\ (64,\ 64))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ facial\ =\ facial.astype(\textcolor{stringliteral}{"{}float"{}})\ /\ 255.0}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ facial\ =\ img\_to\_array(facial)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ facial\ =\ np.expand\_dims(facial,\ axis=0)\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ preds\ =\ model.predict(facial)[0]}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ label\ =\ EMOTIONS[preds.argmax()]}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ label\ \textcolor{keywordflow}{in}\ objectNameToDetectList:}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(label)],\ label,\ \textcolor{stringliteral}{"{}1"{}}]}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(label\_crit\_value)}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Emotion\ recognized:\ "{}}\ +\ label\_crit\_value\_string)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket.connect(\ (\textcolor{stringliteral}{'127.0.0.1'},\ 8081)\ )\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket.close()}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f}\label{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f} 
+\index{emotionDetection@{emotionDetection}!CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}}
+\index{CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_PYTHON\_PATH}{CURRENT\_PYTHON\_PATH}}
+{\footnotesize\ttfamily str emotion\+Detection.\+CURRENT\+\_\+\+PYTHON\+\_\+\+PATH = os.\+getcwd() + \"{}/src/main/resources\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00038}{38}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+
+\Hypertarget{namespaceemotion_detection_a0cbd9894176cdba33da3af3a20cffdef}\label{namespaceemotion_detection_a0cbd9894176cdba33da3af3a20cffdef} 
+\index{emotionDetection@{emotionDetection}!detection\_model\_path@{detection\_model\_path}}
+\index{detection\_model\_path@{detection\_model\_path}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{detection\_model\_path}{detection\_model\_path}}
+{\footnotesize\ttfamily str emotion\+Detection.\+detection\+\_\+model\+\_\+path = \mbox{\hyperlink{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \"{}/emotion\+\_\+detection/haarcascade\+\_\+frontalface\+\_\+default.\+xml\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00040}{40}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+
+\Hypertarget{namespaceemotion_detection_a831ef72f48797bba37558493c5409357}\label{namespaceemotion_detection_a831ef72f48797bba37558493c5409357} 
+\index{emotionDetection@{emotionDetection}!EMOTIONS@{EMOTIONS}}
+\index{EMOTIONS@{EMOTIONS}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{EMOTIONS}{EMOTIONS}}
+{\footnotesize\ttfamily list emotion\+Detection.\+EMOTIONS = \mbox{[}\"{}Angry\"{}, \"{}Disgust\"{}, \"{}Fear\"{}, \"{}Happy\"{}, \"{}Sad\"{}, \"{}Surprise\"{}, \"{}Neutral\"{}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00035}{35}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+
+\Hypertarget{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca}\label{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca} 
+\index{emotionDetection@{emotionDetection}!EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+\index{EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{EXTRACTION\_TO\_INTEGRATION\_PATH}{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+{\footnotesize\ttfamily str emotion\+Detection.\+EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH = \mbox{\hyperlink{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00039}{39}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+
+\Hypertarget{namespaceemotion_detection_aa47a030fa3a17672a8b1259d12d4cab0}\label{namespaceemotion_detection_aa47a030fa3a17672a8b1259d12d4cab0} 
+\index{emotionDetection@{emotionDetection}!label@{label}}
+\index{label@{label}!emotionDetection@{emotionDetection}}
+\doxysubsubsection{\texorpdfstring{label}{label}}
+{\footnotesize\ttfamily str emotion\+Detection.\+label = \"{}\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{emotion_detection_8py_source_l00033}{33}} of file \mbox{\hyperlink{emotion_detection_8py_source}{emotion\+Detection.\+py}}.
+

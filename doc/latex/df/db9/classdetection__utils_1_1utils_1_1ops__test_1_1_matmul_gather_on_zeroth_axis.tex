@@ -1,0 +1,198 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis}\index{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{d4/dfa/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{df/d90/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a5e51c9c101ee325b32e41f357d5b554e}{test\+\_\+gather\+\_\+2d}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a18a210d7abd53ad55937113ff123fff6}{test\+\_\+gather\+\_\+3d}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a8574d32a73f1e1a5b1045cb326947ecd}{test\+\_\+gather\+\_\+with\+\_\+many\+\_\+indices}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a050c27e6f96f9f0130995ba346456e09}{test\+\_\+gather\+\_\+with\+\_\+dynamic\+\_\+shape\+\_\+input}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01294}{1294}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a5e51c9c101ee325b32e41f357d5b554e}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a5e51c9c101ee325b32e41f357d5b554e} 
+\index{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}!test\_gather\_2d@{test\_gather\_2d}}
+\index{test\_gather\_2d@{test\_gather\_2d}!detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}}
+\doxysubsubsection{\texorpdfstring{test\_gather\_2d()}{test\_gather\_2d()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis.\+test\+\_\+gather\+\_\+2d (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01296}{1296}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01296\ \ \ \textcolor{keyword}{def\ }test\_gather\_2d(self):}
+\DoxyCodeLine{01297\ }
+\DoxyCodeLine{01298\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(params,\ indices):}
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ops.matmul\_gather\_on\_zeroth\_axis(params,\ indices)}
+\DoxyCodeLine{01300\ }
+\DoxyCodeLine{01301\ \ \ \ \ params\ =\ np.array([[1,\ 2,\ 3,\ 4],}
+\DoxyCodeLine{01302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 6,\ 7,\ 8],}
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 10,\ 11,\ 12],}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01305\ \ \ \ \ indices\ =\ np.array([2,\ 2,\ 1],\ dtype=np.int32)}
+\DoxyCodeLine{01306\ \ \ \ \ expected\_output\ =\ np.array([[9,\ 10,\ 11,\ 12],\ [9,\ 10,\ 11,\ 12],\ [5,\ 6,\ 7,\ 8]])}
+\DoxyCodeLine{01307\ \ \ \ \ gather\_output\ =\ self.execute(graph\_fn,\ [params,\ indices])}
+\DoxyCodeLine{01308\ \ \ \ \ self.assertAllClose(gather\_output,\ expected\_output)}
+\DoxyCodeLine{01309\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/db9/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a5e51c9c101ee325b32e41f357d5b554e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a18a210d7abd53ad55937113ff123fff6}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a18a210d7abd53ad55937113ff123fff6} 
+\index{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}!test\_gather\_3d@{test\_gather\_3d}}
+\index{test\_gather\_3d@{test\_gather\_3d}!detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}}
+\doxysubsubsection{\texorpdfstring{test\_gather\_3d()}{test\_gather\_3d()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis.\+test\+\_\+gather\+\_\+3d (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01310}{1310}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01310\ \ \ \textcolor{keyword}{def\ }test\_gather\_3d(self):}
+\DoxyCodeLine{01311\ }
+\DoxyCodeLine{01312\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(params,\ indices):}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ops.matmul\_gather\_on\_zeroth\_axis(params,\ indices)}
+\DoxyCodeLine{01314\ }
+\DoxyCodeLine{01315\ \ \ \ \ params\ =\ np.array([[[1,\ 2],\ [3,\ 4]],}
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ 6],\ [7,\ 8]],}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[9,\ 10],\ [11,\ 12]],}
+\DoxyCodeLine{01318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1],\ [0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{01319\ \ \ \ \ indices\ =\ np.array([0,\ 3,\ 1],\ dtype=np.int32)}
+\DoxyCodeLine{01320\ \ \ \ \ expected\_output\ =\ np.array([[[1,\ 2],\ [3,\ 4]],}
+\DoxyCodeLine{01321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1],\ [0,\ 0]],}
+\DoxyCodeLine{01322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ 6],\ [7,\ 8]]])}
+\DoxyCodeLine{01323\ \ \ \ \ gather\_output\ =\ self.execute(graph\_fn,\ [params,\ indices])}
+\DoxyCodeLine{01324\ \ \ \ \ self.assertAllClose(gather\_output,\ expected\_output)}
+\DoxyCodeLine{01325\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/db9/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a18a210d7abd53ad55937113ff123fff6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a050c27e6f96f9f0130995ba346456e09}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a050c27e6f96f9f0130995ba346456e09} 
+\index{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}!test\_gather\_with\_dynamic\_shape\_input@{test\_gather\_with\_dynamic\_shape\_input}}
+\index{test\_gather\_with\_dynamic\_shape\_input@{test\_gather\_with\_dynamic\_shape\_input}!detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}}
+\doxysubsubsection{\texorpdfstring{test\_gather\_with\_dynamic\_shape\_input()}{test\_gather\_with\_dynamic\_shape\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis.\+test\+\_\+gather\+\_\+with\+\_\+dynamic\+\_\+shape\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01340}{1340}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01340\ \ \ \textcolor{keyword}{def\ }test\_gather\_with\_dynamic\_shape\_input(self):}
+\DoxyCodeLine{01341\ \ \ \ \ params\_placeholder\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None},\ 4])}
+\DoxyCodeLine{01342\ \ \ \ \ indices\_placeholder\ =\ tf.placeholder(tf.int32,\ shape=[\textcolor{keywordtype}{None}])}
+\DoxyCodeLine{01343\ \ \ \ \ gather\_result\ =\ ops.matmul\_gather\_on\_zeroth\_axis(}
+\DoxyCodeLine{01344\ \ \ \ \ \ \ \ \ params\_placeholder,\ indices\_placeholder)}
+\DoxyCodeLine{01345\ \ \ \ \ params\ =\ np.array([[1,\ 2,\ 3,\ 4],}
+\DoxyCodeLine{01346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 6,\ 7,\ 8],}
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 10,\ 11,\ 12],}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01349\ \ \ \ \ indices\ =\ np.array([0,\ 0,\ 0,\ 0,\ 0,\ 0])}
+\DoxyCodeLine{01350\ \ \ \ \ expected\_output\ =\ np.array(6*[[1,\ 2,\ 3,\ 4]])}
+\DoxyCodeLine{01351\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01352\ \ \ \ \ \ \ gather\_output\ =\ sess.run(gather\_result,\ feed\_dict=\{}
+\DoxyCodeLine{01353\ \ \ \ \ \ \ \ \ \ \ params\_placeholder:\ params,\ indices\_placeholder:\ indices\})}
+\DoxyCodeLine{01354\ \ \ \ \ \ \ self.assertAllClose(gather\_output,\ expected\_output)}
+\DoxyCodeLine{01355\ }
+\DoxyCodeLine{01356\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a8574d32a73f1e1a5b1045cb326947ecd}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a8574d32a73f1e1a5b1045cb326947ecd} 
+\index{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}!test\_gather\_with\_many\_indices@{test\_gather\_with\_many\_indices}}
+\index{test\_gather\_with\_many\_indices@{test\_gather\_with\_many\_indices}!detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis@{detection\_utils.utils.ops\_test.MatmulGatherOnZerothAxis}}
+\doxysubsubsection{\texorpdfstring{test\_gather\_with\_many\_indices()}{test\_gather\_with\_many\_indices()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Matmul\+Gather\+On\+Zeroth\+Axis.\+test\+\_\+gather\+\_\+with\+\_\+many\+\_\+indices (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01326}{1326}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01326\ \ \ \textcolor{keyword}{def\ }test\_gather\_with\_many\_indices(self):}
+\DoxyCodeLine{01327\ }
+\DoxyCodeLine{01328\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(params,\ indices):}
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ops.matmul\_gather\_on\_zeroth\_axis(params,\ indices)}
+\DoxyCodeLine{01330\ }
+\DoxyCodeLine{01331\ \ \ \ \ params\ =\ np.array([[1,\ 2,\ 3,\ 4],}
+\DoxyCodeLine{01332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 6,\ 7,\ 8],}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 10,\ 11,\ 12],}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01335\ \ \ \ \ indices\ =\ np.array([0,\ 0,\ 0,\ 0,\ 0,\ 0],\ dtype=np.int32)}
+\DoxyCodeLine{01336\ \ \ \ \ expected\_output\ =\ np.array(6*[[1,\ 2,\ 3,\ 4]])}
+\DoxyCodeLine{01337\ \ \ \ \ gather\_output\ =\ self.execute(graph\_fn,\ [params,\ indices])}
+\DoxyCodeLine{01338\ \ \ \ \ self.assertAllClose(gather\_output,\ expected\_output)}
+\DoxyCodeLine{01339\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/db9/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis_a8574d32a73f1e1a5b1045cb326947ecd_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

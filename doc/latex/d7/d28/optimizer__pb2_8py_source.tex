@@ -1,0 +1,633 @@
+\doxysection{optimizer\+\_\+pb2.\+py}
+\hypertarget{optimizer__pb2_8py_source}{}\label{optimizer__pb2_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/protos/optimizer\_pb2.py@{src/main/resources/processing/video/detections/detection\_utils/protos/optimizer\_pb2.py}}
+\mbox{\hyperlink{optimizer__pb2_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2}{00001}}\ \textcolor{comment}{\#\ -\/*-\/\ coding:\ utf-\/8\ -\/*-\/}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00002}00002\ \textcolor{comment}{\#\ Generated\ by\ the\ protocol\ buffer\ compiler.\ \ DO\ NOT\ EDIT!}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00003}00003\ \textcolor{comment}{\#\ source:\ object\_detection/protos/optimizer.proto}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00005}00005\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00006}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_aea0c29fd6fe23ca3915629f690a891ff}{00006}}\ \_b=sys.version\_info[0]<3\ \textcolor{keywordflow}{and}\ (\textcolor{keyword}{lambda}\ x:x)\ \textcolor{keywordflow}{or}\ (\textcolor{keyword}{lambda}\ x:x.encode(\textcolor{stringliteral}{'latin1'}))}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00007}00007\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ descriptor\ \textcolor{keyword}{as}\ \_descriptor}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00008}00008\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ message\ \textcolor{keyword}{as}\ \_message}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00009}00009\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ reflection\ \textcolor{keyword}{as}\ \_reflection}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00010}00010\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ symbol\_database\ \textcolor{keyword}{as}\ \_symbol\_database}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00011}00011\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(imports)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00013}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_aeecff36f6fa4d66dc828360feda776cc}{00013}}\ \_sym\_db\ =\ \_symbol\_database.Default()}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00018}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a6e9a216e057a122112e9a7ace94a1cd9}{00018}}\ DESCRIPTOR\ =\ \_descriptor.FileDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00019}00019\ \ \ name=\textcolor{stringliteral}{'object\_detection/protos/optimizer.proto'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00020}00020\ \ \ package=\textcolor{stringliteral}{'object\_detection.protos'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00021}00021\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00022}00022\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00023}00023\ \ \ serialized\_pb=\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_aea0c29fd6fe23ca3915629f690a891ff}{\_b}}(\textcolor{stringliteral}{'\(\backslash\)n\(\backslash\)'object\_detection/protos/optimizer.proto\(\backslash\)x12\(\backslash\)x17object\_detection.protos\(\backslash\)"{}\(\backslash\)xb5\(\backslash\)x02\(\backslash\)n\(\backslash\)tOptimizer\(\backslash\)x12G\(\backslash\)n\(\backslash\)x12rms\_prop\_optimizer\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32).object\_detection.protos.RMSPropOptimizerH\(\backslash\)x00\(\backslash\)x12H\(\backslash\)n\(\backslash\)x12momentum\_optimizer\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32*.object\_detection.protos.MomentumOptimizerH\(\backslash\)x00\(\backslash\)x12@\(\backslash\)n\(\backslash\)x0e\(\backslash\)x61\(\backslash\)x64\(\backslash\)x61m\_optimizer\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\&.object\_detection.protos.AdamOptimizerH\(\backslash\)x00\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x12use\_moving\_average\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x04true\(\backslash\)x12\$\(\backslash\)n\(\backslash\)x14moving\_average\_decay\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x06\(\backslash\)x30.9999B\(\backslash\)x0b\(\backslash\)n\(\backslash\)toptimizer\(\backslash\)"{}\(\backslash\)x9f\(\backslash\)x01\(\backslash\)n\(\backslash\)x10RMSPropOptimizer\(\backslash\)x12<\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\%.object\_detection.protos.LearningRate\(\backslash\)x12\%\(\backslash\)n\(\backslash\)x18momentum\_optimizer\_value\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.9\(\backslash\)x12\(\backslash\)x12\(\backslash\)n\(\backslash\)x05\(\backslash\)x64\(\backslash\)x65\(\backslash\)x63\(\backslash\)x61y\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.9\(\backslash\)x12\(\backslash\)x12\(\backslash\)n\(\backslash\)x07\(\backslash\)x65psilon\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)"{}x\(\backslash\)n\(\backslash\)x11MomentumOptimizer\(\backslash\)x12<\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\%.object\_detection.protos.LearningRate\(\backslash\)x12\%\(\backslash\)n\(\backslash\)x18momentum\_optimizer\_value\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.9\(\backslash\)"{}M\(\backslash\)n\(\backslash\)rAdamOptimizer\(\backslash\)x12<\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\%.object\_detection.protos.LearningRate\(\backslash\)"{}\(\backslash\)x80\(\backslash\)x03\(\backslash\)n\(\backslash\)x0cLearningRate\(\backslash\)x12O\(\backslash\)n\(\backslash\)x16\(\backslash\)x63onstant\_learning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32-\/.object\_detection.protos.ConstantLearningRateH\(\backslash\)x00\(\backslash\)x12`\(\backslash\)n\(\backslash\)x1f\(\backslash\)x65xponential\_decay\_learning\_rate\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x35.object\_detection.protos.ExponentialDecayLearningRateH\(\backslash\)x00\(\backslash\)x12T\(\backslash\)n\(\backslash\)x19manual\_step\_learning\_rate\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32/.object\_detection.protos.ManualStepLearningRateH\(\backslash\)x00\(\backslash\)x12V\(\backslash\)n\(\backslash\)x1a\(\backslash\)x63osine\_decay\_learning\_rate\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x30.object\_detection.protos.CosineDecayLearningRateH\(\backslash\)x00\(\backslash\)x42\(\backslash\)x0f\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)"{}4\(\backslash\)n\(\backslash\)x14\(\backslash\)x43onstantLearningRate\(\backslash\)x12\(\backslash\)x1c\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x05\(\backslash\)x30.002\(\backslash\)"{}\(\backslash\)xef\(\backslash\)x01\(\backslash\)n\(\backslash\)x1c\(\backslash\)x45xponentialDecayLearningRate\(\backslash\)x12\$\(\backslash\)n\(\backslash\)x15initial\_learning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x05\(\backslash\)x30.002\(\backslash\)x12\(\backslash\)x1c\(\backslash\)n\(\backslash\)x0b\(\backslash\)x64\(\backslash\)x65\(\backslash\)x63\(\backslash\)x61y\_steps\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)r:\(\backslash\)x07\(\backslash\)x34\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x12\(\backslash\)x1a\(\backslash\)n\(\backslash\)x0c\(\backslash\)x64\(\backslash\)x65\(\backslash\)x63\(\backslash\)x61y\_factor\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x04\(\backslash\)x30.95\(\backslash\)x12\(\backslash\)x17\(\backslash\)n\(\backslash\)tstaircase\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x04true\(\backslash\)x12\(\backslash\)x1f\(\backslash\)n\(\backslash\)x14\(\backslash\)x62urnin\_learning\_rate\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12\(\backslash\)x17\(\backslash\)n\(\backslash\)x0c\(\backslash\)x62urnin\_steps\(\backslash\)x18\(\backslash\)x06\ \(\backslash\)x01(\(\backslash\)r:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12\(\backslash\)x1c\(\backslash\)n\(\backslash\)x11min\_learning\_rate\(\backslash\)x18\(\backslash\)x07\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x30\(\backslash\)"{}\(\backslash\)xf1\(\backslash\)x01\(\backslash\)n\(\backslash\)x16ManualStepLearningRate\(\backslash\)x12\$\(\backslash\)n\(\backslash\)x15initial\_learning\_rate\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x05\(\backslash\)x30.002\(\backslash\)x12V\(\backslash\)n\(\backslash\)x08schedule\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x03(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x44.object\_detection.protos.ManualStepLearningRate.LearningRateSchedule\(\backslash\)x12\(\backslash\)x15\(\backslash\)n\(\backslash\)x06warmup\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x1a\(\backslash\)x42\(\backslash\)n\(\backslash\)x14LearningRateSchedule\(\backslash\)x12\(\backslash\)x0c\(\backslash\)n\(\backslash\)x04step\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)r\(\backslash\)x12\(\backslash\)x1c\(\backslash\)n\(\backslash\)rlearning\_rate\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x05\(\backslash\)x30.002\(\backslash\)"{}\(\backslash\)xbe\(\backslash\)x01\(\backslash\)n\(\backslash\)x17\(\backslash\)x43osineDecayLearningRate\(\backslash\)x12!\(\backslash\)n\(\backslash\)x12learning\_rate\_base\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x05\(\backslash\)x30.002\(\backslash\)x12\(\backslash\)x1c\(\backslash\)n\(\backslash\)x0btotal\_steps\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)r:\(\backslash\)x07\(\backslash\)x34\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x12\$\(\backslash\)n\(\backslash\)x14warmup\_learning\_rate\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x06\(\backslash\)x30.0002\(\backslash\)x12\(\backslash\)x1b\(\backslash\)n\(\backslash\)x0cwarmup\_steps\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)r:\(\backslash\)x05\(\backslash\)x31\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x30\(\backslash\)x12\(\backslash\)x1f\(\backslash\)n\(\backslash\)x14hold\_base\_rate\_steps\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)r:\(\backslash\)x01\(\backslash\)x30'})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00024}00024\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00029}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a95dc84edce2bdd8d6a3d7a9b99dbe870}{00029}}\ \_OPTIMIZER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00030}00030\ \ \ name=\textcolor{stringliteral}{'Optimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00031}00031\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00032}00032\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00033}00033\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00034}00034\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00035}00035\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00036}00036\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00037}00037\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'rms\_prop\_optimizer'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.rms\_prop\_optimizer'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00038}00038\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00039}00039\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00040}00040\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00041}00041\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00042}00042\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00043}00043\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00044}00044\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'momentum\_optimizer'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.momentum\_optimizer'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00045}00045\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00046}00046\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00047}00047\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00048}00048\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00049}00049\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00050}00050\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00051}00051\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'adam\_optimizer'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.adam\_optimizer'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00052}00052\ \ \ \ \ \ \ number=3,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00053}00053\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00054}00054\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00055}00055\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00056}00056\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00057}00057\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00058}00058\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_moving\_average'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.use\_moving\_average'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00059}00059\ \ \ \ \ \ \ number=4,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00060}00060\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00061}00061\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00062}00062\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00063}00063\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00064}00064\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00065}00065\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'moving\_average\_decay'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.moving\_average\_decay'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00066}00066\ \ \ \ \ \ \ number=5,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00067}00067\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.9999),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00068}00068\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00069}00069\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00070}00070\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00071}00071\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00072}00072\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00073}00073\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00074}00074\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00075}00075\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00076}00076\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00077}00077\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00078}00078\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00079}00079\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00080}00080\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00081}00081\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00082}00082\ \ \ \ \ \_descriptor.OneofDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00083}00083\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'optimizer'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Optimizer.optimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00084}00084\ \ \ \ \ \ \ index=0,\ containing\_type=\textcolor{keywordtype}{None},\ fields=[]),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00085}00085\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00086}00086\ \ \ serialized\_start=69,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00087}00087\ \ \ serialized\_end=378,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00088}00088\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00091}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_af5eec37c92c5bc2ff8c267eb008785d0}{00091}}\ \_RMSPROPOPTIMIZER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00092}00092\ \ \ name=\textcolor{stringliteral}{'RMSPropOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00093}00093\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RMSPropOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00094}00094\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00095}00095\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00096}00096\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00097}00097\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00098}00098\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00099}00099\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RMSPropOptimizer.learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00100}00100\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00101}00101\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00102}00102\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00103}00103\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00104}00104\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00105}00105\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00106}00106\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'momentum\_optimizer\_value'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RMSPropOptimizer.momentum\_optimizer\_value'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00107}00107\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00108}00108\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.9),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00109}00109\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00110}00110\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00111}00111\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00112}00112\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00113}00113\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'decay'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RMSPropOptimizer.decay'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00114}00114\ \ \ \ \ \ \ number=3,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00115}00115\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.9),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00116}00116\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00117}00117\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00118}00118\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00119}00119\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00120}00120\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'epsilon'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RMSPropOptimizer.epsilon'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00121}00121\ \ \ \ \ \ \ number=4,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00122}00122\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00123}00123\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00124}00124\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00125}00125\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00126}00126\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00127}00127\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00128}00128\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00129}00129\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00130}00130\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00131}00131\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00132}00132\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00133}00133\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00134}00134\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00135}00135\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00136}00136\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00137}00137\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00138}00138\ \ \ serialized\_start=381,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00139}00139\ \ \ serialized\_end=540,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00140}00140\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00143}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a3a8477147c840ec4a47738b20c23c37f}{00143}}\ \_MOMENTUMOPTIMIZER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00144}00144\ \ \ name=\textcolor{stringliteral}{'MomentumOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00145}00145\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.MomentumOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00146}00146\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00147}00147\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00148}00148\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00149}00149\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00150}00150\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00151}00151\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.MomentumOptimizer.learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00152}00152\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00153}00153\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00154}00154\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00155}00155\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00156}00156\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00157}00157\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00158}00158\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'momentum\_optimizer\_value'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.MomentumOptimizer.momentum\_optimizer\_value'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00159}00159\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00160}00160\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.9),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00161}00161\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00162}00162\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00163}00163\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00164}00164\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00165}00165\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00166}00166\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00167}00167\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00168}00168\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00169}00169\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00170}00170\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00171}00171\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00172}00172\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00173}00173\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00174}00174\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00175}00175\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00176}00176\ \ \ serialized\_start=542,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00177}00177\ \ \ serialized\_end=662,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00178}00178\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00181}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a2b3d70c4cea1d25935b54beb56e30d7b}{00181}}\ \_ADAMOPTIMIZER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00182}00182\ \ \ name=\textcolor{stringliteral}{'AdamOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00183}00183\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.AdamOptimizer'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00184}00184\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00185}00185\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00186}00186\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00187}00187\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00188}00188\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00189}00189\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.AdamOptimizer.learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00190}00190\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00191}00191\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00192}00192\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00193}00193\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00194}00194\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00195}00195\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00196}00196\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00197}00197\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00198}00198\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00199}00199\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00200}00200\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00201}00201\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00202}00202\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00203}00203\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00204}00204\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00205}00205\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00206}00206\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00207}00207\ \ \ serialized\_start=664,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00208}00208\ \ \ serialized\_end=741,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00209}00209\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00212}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_afccb026b4a282cea198ea560781639f5}{00212}}\ \_LEARNINGRATE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00213}00213\ \ \ name=\textcolor{stringliteral}{'LearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00214}00214\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00215}00215\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00216}00216\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00217}00217\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00218}00218\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00219}00219\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00220}00220\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'constant\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate.constant\_learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00221}00221\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00222}00222\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00223}00223\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00224}00224\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00225}00225\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00226}00226\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00227}00227\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'exponential\_decay\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate.exponential\_decay\_learning\_rate'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00228}00228\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00229}00229\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00230}00230\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00231}00231\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00232}00232\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00233}00233\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00234}00234\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'manual\_step\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate.manual\_step\_learning\_rate'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00235}00235\ \ \ \ \ \ \ number=3,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00236}00236\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00237}00237\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00238}00238\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00239}00239\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00240}00240\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00241}00241\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'cosine\_decay\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate.cosine\_decay\_learning\_rate'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00242}00242\ \ \ \ \ \ \ number=4,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00243}00243\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00244}00244\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00245}00245\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00246}00246\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00247}00247\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00248}00248\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00249}00249\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00250}00250\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00251}00251\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00252}00252\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00253}00253\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00254}00254\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00255}00255\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00256}00256\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00257}00257\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00258}00258\ \ \ \ \ \_descriptor.OneofDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00259}00259\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LearningRate.learning\_rate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00260}00260\ \ \ \ \ \ \ index=0,\ containing\_type=\textcolor{keywordtype}{None},\ fields=[]),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00261}00261\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00262}00262\ \ \ serialized\_start=744,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00263}00263\ \ \ serialized\_end=1128,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00264}00264\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00267}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a5258b6cb13352d06fe75e942cd38a3b0}{00267}}\ \_CONSTANTLEARNINGRATE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00268}00268\ \ \ name=\textcolor{stringliteral}{'ConstantLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00269}00269\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ConstantLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00270}00270\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00271}00271\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00272}00272\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00273}00273\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00274}00274\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00275}00275\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ConstantLearningRate.learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00276}00276\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00277}00277\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00278}00278\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00279}00279\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00280}00280\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00281}00281\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00282}00282\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00283}00283\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00284}00284\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00285}00285\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00286}00286\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00287}00287\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00288}00288\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00289}00289\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00290}00290\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00291}00291\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00292}00292\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00293}00293\ \ \ serialized\_start=1130,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00294}00294\ \ \ serialized\_end=1182,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00295}00295\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00298}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_acb5d3fd9544acbd823a18797cdcf21ab}{00298}}\ \_EXPONENTIALDECAYLEARNINGRATE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00299}00299\ \ \ name=\textcolor{stringliteral}{'ExponentialDecayLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00300}00300\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00301}00301\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00302}00302\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00303}00303\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00304}00304\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00305}00305\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00306}00306\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'initial\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.initial\_learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00307}00307\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00308}00308\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00309}00309\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00310}00310\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00311}00311\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00312}00312\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00313}00313\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'decay\_steps'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.decay\_steps'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00314}00314\ \ \ \ \ \ \ number=2,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00315}00315\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=4000000,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00316}00316\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00317}00317\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00318}00318\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00319}00319\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00320}00320\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'decay\_factor'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.decay\_factor'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00321}00321\ \ \ \ \ \ \ number=3,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00322}00322\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.95),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00323}00323\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00324}00324\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00325}00325\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00326}00326\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00327}00327\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'staircase'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.staircase'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00328}00328\ \ \ \ \ \ \ number=4,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00329}00329\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00330}00330\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00331}00331\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00332}00332\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00333}00333\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00334}00334\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'burnin\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.burnin\_learning\_rate'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00335}00335\ \ \ \ \ \ \ number=5,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00336}00336\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00337}00337\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00338}00338\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00339}00339\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00340}00340\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00341}00341\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'burnin\_steps'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.burnin\_steps'},\ index=5,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00342}00342\ \ \ \ \ \ \ number=6,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00343}00343\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00344}00344\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00345}00345\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00346}00346\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00347}00347\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00348}00348\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'min\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ExponentialDecayLearningRate.min\_learning\_rate'},\ index=6,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00349}00349\ \ \ \ \ \ \ number=7,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00350}00350\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00351}00351\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00352}00352\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00353}00353\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00354}00354\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00355}00355\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00356}00356\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00357}00357\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00358}00358\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00359}00359\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00360}00360\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00361}00361\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00362}00362\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00363}00363\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00364}00364\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00365}00365\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00366}00366\ \ \ serialized\_start=1185,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00367}00367\ \ \ serialized\_end=1424,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00368}00368\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00370}00370\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00371}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a96bf136d293a3cfe1b179198008d6907}{00371}}\ \_MANUALSTEPLEARNINGRATE\_LEARNINGRATESCHEDULE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00372}00372\ \ \ name=\textcolor{stringliteral}{'LearningRateSchedule'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00373}00373\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.LearningRateSchedule'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00374}00374\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00375}00375\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00376}00376\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00377}00377\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00378}00378\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00379}00379\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'step'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.LearningRateSchedule.step'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00380}00380\ \ \ \ \ \ \ number=1,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00381}00381\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00382}00382\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00383}00383\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00384}00384\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00385}00385\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00386}00386\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.LearningRateSchedule.learning\_rate'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00387}00387\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00388}00388\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00389}00389\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00390}00390\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00391}00391\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00392}00392\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00393}00393\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00394}00394\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00395}00395\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00396}00396\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00397}00397\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00398}00398\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00399}00399\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00400}00400\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00401}00401\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00402}00402\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00403}00403\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00404}00404\ \ \ serialized\_start=1602,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00405}00405\ \ \ serialized\_end=1668,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00406}00406\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00407}00407\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00408}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a7ed8b6676144122897f3784a64f773e4}{00408}}\ \_MANUALSTEPLEARNINGRATE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00409}00409\ \ \ name=\textcolor{stringliteral}{'ManualStepLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00410}00410\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00411}00411\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00412}00412\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00413}00413\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00414}00414\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00415}00415\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00416}00416\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'initial\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.initial\_learning\_rate'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00417}00417\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00418}00418\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00419}00419\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00420}00420\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00421}00421\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00422}00422\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00423}00423\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'schedule'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.schedule'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00424}00424\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00425}00425\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00426}00426\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00427}00427\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00428}00428\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00429}00429\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00430}00430\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'warmup'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ManualStepLearningRate.warmup'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00431}00431\ \ \ \ \ \ \ number=3,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00432}00432\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00433}00433\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00434}00434\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00435}00435\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00436}00436\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00437}00437\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00438}00438\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00439}00439\ \ \ nested\_types=[\_MANUALSTEPLEARNINGRATE\_LEARNINGRATESCHEDULE,\ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00440}00440\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00441}00441\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00442}00442\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00443}00443\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00444}00444\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00445}00445\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00446}00446\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00447}00447\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00448}00448\ \ \ serialized\_start=1427,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00449}00449\ \ \ serialized\_end=1668,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00450}00450\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00453}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a167eccb074bd60bf14efd03ca15e0159}{00453}}\ \_COSINEDECAYLEARNINGRATE\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00454}00454\ \ \ name=\textcolor{stringliteral}{'CosineDecayLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00455}00455\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00456}00456\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00457}00457\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00458}00458\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00459}00459\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00460}00460\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00461}00461\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate\_base'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate.learning\_rate\_base'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00462}00462\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00463}00463\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00464}00464\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00465}00465\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00466}00466\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00467}00467\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00468}00468\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'total\_steps'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate.total\_steps'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00469}00469\ \ \ \ \ \ \ number=2,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00470}00470\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=4000000,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00471}00471\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00472}00472\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00473}00473\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00474}00474\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00475}00475\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'warmup\_learning\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate.warmup\_learning\_rate'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00476}00476\ \ \ \ \ \ \ number=3,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00477}00477\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.0002),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00478}00478\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00479}00479\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00480}00480\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00481}00481\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00482}00482\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'warmup\_steps'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate.warmup\_steps'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00483}00483\ \ \ \ \ \ \ number=4,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00484}00484\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=10000,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00485}00485\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00486}00486\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00487}00487\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00488}00488\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00489}00489\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'hold\_base\_rate\_steps'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.CosineDecayLearningRate.hold\_base\_rate\_steps'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00490}00490\ \ \ \ \ \ \ number=5,\ type=13,\ cpp\_type=3,\ label=1,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00491}00491\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00492}00492\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00493}00493\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00494}00494\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00495}00495\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00496}00496\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00497}00497\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00498}00498\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00499}00499\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00500}00500\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00501}00501\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00502}00502\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00503}00503\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00504}00504\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00505}00505\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00506}00506\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00507}00507\ \ \ serialized\_start=1671,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00508}00508\ \ \ serialized\_end=1861,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00509}00509\ )}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00511}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_ae224d2deceab0f4a0ae8a71c47f6bba6}{00511}}\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'rms\_prop\_optimizer'}].message\_type\ =\ \_RMSPROPOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00512}00512\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'momentum\_optimizer'}].message\_type\ =\ \_MOMENTUMOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00513}00513\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'adam\_optimizer'}].message\_type\ =\ \_ADAMOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00514}00514\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00515}00515\ \ \ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'rms\_prop\_optimizer'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00516}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_abdfd2848bca857de084b3890672bbc46}{00516}}\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'rms\_prop\_optimizer'}].containing\_oneof\ =\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00517}00517\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00518}00518\ \ \ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'momentum\_optimizer'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00519}00519\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'momentum\_optimizer'}].containing\_oneof\ =\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00520}00520\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00521}00521\ \ \ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'adam\_optimizer'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00522}00522\ \_OPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'adam\_optimizer'}].containing\_oneof\ =\ \_OPTIMIZER.oneofs\_by\_name[\textcolor{stringliteral}{'optimizer'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00523}00523\ \_RMSPROPOPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].message\_type\ =\ \_LEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00524}00524\ \_MOMENTUMOPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].message\_type\ =\ \_LEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00525}00525\ \_ADAMOPTIMIZER.fields\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].message\_type\ =\ \_LEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00526}00526\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'constant\_learning\_rate'}].message\_type\ =\ \_CONSTANTLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00527}00527\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'exponential\_decay\_learning\_rate'}].message\_type\ =\ \_EXPONENTIALDECAYLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00528}00528\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'manual\_step\_learning\_rate'}].message\_type\ =\ \_MANUALSTEPLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00529}00529\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'cosine\_decay\_learning\_rate'}].message\_type\ =\ \_COSINEDECAYLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00530}00530\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00531}00531\ \ \ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'constant\_learning\_rate'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00532}00532\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'constant\_learning\_rate'}].containing\_oneof\ =\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00533}00533\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00534}00534\ \ \ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'exponential\_decay\_learning\_rate'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00535}00535\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'exponential\_decay\_learning\_rate'}].containing\_oneof\ =\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00536}00536\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00537}00537\ \ \ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'manual\_step\_learning\_rate'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00538}00538\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'manual\_step\_learning\_rate'}].containing\_oneof\ =\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00539}00539\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00540}00540\ \ \ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'cosine\_decay\_learning\_rate'}])}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00541}00541\ \_LEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'cosine\_decay\_learning\_rate'}].containing\_oneof\ =\ \_LEARNINGRATE.oneofs\_by\_name[\textcolor{stringliteral}{'learning\_rate'}]}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00542}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_ab7ba8a9890039d97b17ddc00a553e19b}{00542}}\ \_MANUALSTEPLEARNINGRATE\_LEARNINGRATESCHEDULE.containing\_type\ =\ \_MANUALSTEPLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00543}00543\ \_MANUALSTEPLEARNINGRATE.fields\_by\_name[\textcolor{stringliteral}{'schedule'}].message\_type\ =\ \_MANUALSTEPLEARNINGRATE\_LEARNINGRATESCHEDULE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00544}00544\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'Optimizer'}]\ =\ \_OPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00545}00545\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'RMSPropOptimizer'}]\ =\ \_RMSPROPOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00546}00546\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'MomentumOptimizer'}]\ =\ \_MOMENTUMOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00547}00547\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'AdamOptimizer'}]\ =\ \_ADAMOPTIMIZER}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00548}00548\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'LearningRate'}]\ =\ \_LEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00549}00549\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'ConstantLearningRate'}]\ =\ \_CONSTANTLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00550}00550\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'ExponentialDecayLearningRate'}]\ =\ \_EXPONENTIALDECAYLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00551}00551\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'ManualStepLearningRate'}]\ =\ \_MANUALSTEPLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00552}00552\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'CosineDecayLearningRate'}]\ =\ \_COSINEDECAYLEARNINGRATE}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00553}00553\ \_sym\_db.RegisterFileDescriptor(DESCRIPTOR)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00555}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_ab1086d8869ddd82139c77efad0c0b7b3}{00555}}\ Optimizer\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'Optimizer'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00556}00556\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_OPTIMIZER,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00557}00557\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00558}00558\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.Optimizer)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00559}00559\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00560}00560\ \_sym\_db.RegisterMessage(Optimizer)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00562}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_ae3b8b9c77eefe44f22090447d5c28257}{00562}}\ RMSPropOptimizer\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'RMSPropOptimizer'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00563}00563\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_RMSPROPOPTIMIZER,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00564}00564\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00565}00565\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.RMSPropOptimizer)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00566}00566\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00567}00567\ \_sym\_db.RegisterMessage(RMSPropOptimizer)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00569}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a7ec5ab3b31a023d59ea9fdca792d1a93}{00569}}\ MomentumOptimizer\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'MomentumOptimizer'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00570}00570\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_MOMENTUMOPTIMIZER,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00571}00571\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00572}00572\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.MomentumOptimizer)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00573}00573\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00574}00574\ \_sym\_db.RegisterMessage(MomentumOptimizer)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00576}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a05ad0c7285f4562d5f0b0c1ca15b5b36}{00576}}\ AdamOptimizer\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'AdamOptimizer'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00577}00577\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_ADAMOPTIMIZER,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00578}00578\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00579}00579\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.AdamOptimizer)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00580}00580\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00581}00581\ \_sym\_db.RegisterMessage(AdamOptimizer)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00583}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a7016dce95ae912127f60695ff157a4b5}{00583}}\ LearningRate\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'LearningRate'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00584}00584\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_LEARNINGRATE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00585}00585\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00586}00586\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.LearningRate)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00587}00587\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00588}00588\ \_sym\_db.RegisterMessage(LearningRate)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00589}00589\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00590}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a451e5b444dafbddf3137008cee2c684a}{00590}}\ ConstantLearningRate\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'ConstantLearningRate'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00591}00591\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_CONSTANTLEARNINGRATE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00592}00592\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00593}00593\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.ConstantLearningRate)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00594}00594\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00595}00595\ \_sym\_db.RegisterMessage(ConstantLearningRate)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00597}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_a64bba7f078f3b983a1c89eee0d4811b2}{00597}}\ ExponentialDecayLearningRate\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'ExponentialDecayLearningRate'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00598}00598\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_EXPONENTIALDECAYLEARNINGRATE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00599}00599\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00600}00600\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.ExponentialDecayLearningRate)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00601}00601\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00602}00602\ \_sym\_db.RegisterMessage(ExponentialDecayLearningRate)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00604}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_ac0ca6e3ae688f6a5ec9f66e6d9490893}{00604}}\ ManualStepLearningRate\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'ManualStepLearningRate'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00605}00605\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00606}00606\ \ \ \textcolor{stringliteral}{'LearningRateSchedule'}\ :\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'LearningRateSchedule'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00607}00607\ \ \ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_MANUALSTEPLEARNINGRATE\_LEARNINGRATESCHEDULE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00608}00608\ \ \ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00609}00609\ \ \ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.ManualStepLearningRate.LearningRateSchedule)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00610}00610\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00611}00611\ \ \ ,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00612}00612\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_MANUALSTEPLEARNINGRATE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00613}00613\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00614}00614\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.ManualStepLearningRate)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00615}00615\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00616}00616\ \_sym\_db.RegisterMessage(ManualStepLearningRate)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00617}00617\ \_sym\_db.RegisterMessage(ManualStepLearningRate.LearningRateSchedule)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00618}00618\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00619}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1optimizer__pb2_aa587df15b7786d114d7bc7a333b3780e}{00619}}\ CosineDecayLearningRate\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'CosineDecayLearningRate'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00620}00620\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_COSINEDECAYLEARNINGRATE,}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00621}00621\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.optimizer\_pb2'}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00622}00622\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.CosineDecayLearningRate)}}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00623}00623\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00624}00624\ \_sym\_db.RegisterMessage(CosineDecayLearningRate)}
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00625}00625\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00626}00626\ }
+\DoxyCodeLine{\Hypertarget{optimizer__pb2_8py_source_l00627}00627\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(module\_scope)}}
+
+\end{DoxyCode}

@@ -1,0 +1,1102 @@
+\doxysection{ops.\+py}
+\hypertarget{ops_8py_source}{}\label{ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/ops.py@{src/main/resources/processing/video/detections/detection\_utils/utils/ops.py}}
+\mbox{\hyperlink{ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}A\ module\ for\ helper\ tensorflow\ ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00021}00021\ \textcolor{keyword}{import}\ collections}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00022}00022\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00023}00023\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00025}00025\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00026}00026\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00027}00027\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00029}00029\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1core}{detection\_utils.core}}\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00030}00030\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ shape\_utils}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00031}00031\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ spatial\_transform\_ops\ \textcolor{keyword}{as}\ spatial\_ops}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00032}00032\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ static\_shape}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00035}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a33f64e9ecb63a23af0c998ebb402c533}{00035}}\ matmul\_crop\_and\_resize\ =\ spatial\_ops.matmul\_crop\_and\_resize}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00036}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af020a014cef7a2230e195b6b6a02e88f}{00036}}\ multilevel\_roi\_align\ =\ spatial\_ops.multilevel\_roi\_align}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00037}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a3c7872f0750bfae89334d4e6073caabf}{00037}}\ native\_crop\_and\_resize\ =\ spatial\_ops.native\_crop\_and\_resize}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00040}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a361f89dc99c799c108b569851f420be2}{00040}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a361f89dc99c799c108b569851f420be2}{expanded\_shape}}(orig\_shape,\ start\_dim,\ num\_dims):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00041}00041\ \ \ \textcolor{stringliteral}{"{}"{}"{}Inserts\ multiple\ ones\ into\ a\ shape\ vector.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ Inserts\ an\ all-\/1\ vector\ of\ length\ num\_dims\ at\ position\ start\_dim\ into\ a\ shape.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ Can\ be\ combined\ }\textcolor{keyword}{with}\ tf.reshape\ to\ generalize\ tf.expand\_dims.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00046}00046\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00047}00047\ \ \ \ \ orig\_shape:\ the\ shape\ into\ which\ the\ all-\/1\ vector\ \textcolor{keywordflow}{is}\ added\ (int32\ vector)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00048}00048\ \ \ \ \ start\_dim:\ insertion\ position\ (int\ scalar)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00049}00049\ \ \ \ \ num\_dims:\ length\ of\ the\ inserted\ all-\/1\ vector\ (int\ scalar)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00050}00050\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00051}00051\ \ \ \ \ An\ int32\ vector\ of\ length\ tf.size(orig\_shape)\ +\ num\_dims.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00052}00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'ExpandedShape'}):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00054}00054\ \ \ \ \ start\_dim\ =\ tf.expand\_dims(start\_dim,\ 0)\ \ \textcolor{comment}{\#\ scalar\ to\ rank-\/1}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00055}00055\ \ \ \ \ before\ =\ tf.slice(orig\_shape,\ [0],\ start\_dim)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00056}00056\ \ \ \ \ add\_shape\ =\ tf.ones(tf.reshape(num\_dims,\ [1]),\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00057}00057\ \ \ \ \ after\ =\ tf.slice(orig\_shape,\ start\_dim,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00058}00058\ \ \ \ \ new\_shape\ =\ tf.concat([before,\ add\_shape,\ after],\ 0)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_shape}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00062}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_adc866ef74c28004b32df8315d34c8805}{00062}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_adc866ef74c28004b32df8315d34c8805}{normalized\_to\_image\_coordinates}}(normalized\_boxes,\ image\_shape,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=32):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00064}00064\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ a\ batch\ of\ boxes\ from\ normal\ to\ image\ coordinates.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00065}00065\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ normalized\_boxes:\ a\ tensor\ of\ shape\ [}\textcolor{keywordtype}{None},\ num\_boxes,\ 4]\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00068}00068\ \ \ \ \ \ \ normalized\ coordinates.\ The\ dtype\ of\ this\ tensor\ must\ support\ tf.mul.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00069}00069\ \ \ \ \ image\_shape:\ a\ tensor\ of\ shape\ [4]\ containing\ the\ image\ shape,\ \textcolor{keyword}{with}\ same}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00070}00070\ \ \ \ \ \ \ dtype\ \textcolor{keyword}{as}\ \`{}normalized\_boxes\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00071}00071\ \ \ \ \ parallel\_iterations:\ parallelism\ \textcolor{keywordflow}{for}\ the\ map\_fn\ op.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00073}00073\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00074}00074\ \ \ \ \ absolute\_boxes:\ a\ tensor\ of\ shape\ [\textcolor{keywordtype}{None},\ num\_boxes,\ 4]\ containing}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00075}00075\ \ \ \ \ \ \ the\ boxes\ \textcolor{keywordflow}{in}\ image\ coordinates,\ \textcolor{keyword}{with}\ same}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00076}00076\ \ \ \ \ \ \ dtype\ \textcolor{keyword}{as}\ \`{}normalized\_boxes\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00077}00077\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ x\_scale\ =\ tf.cast(image\_shape[2],\ normalized\_boxes.dtype)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ y\_scale\ =\ tf.cast(image\_shape[1],\ normalized\_boxes.dtype)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\_to\_absolute\_coordinates(normalized\_boxes):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00081}00081\ \ \ \ \ y\_min,\ x\_min,\ y\_max,\ x\_max\ =\ tf.split(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ value=normalized\_boxes,\ num\_or\_size\_splits=4,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00083}00083\ \ \ \ \ y\_min\ =\ y\_scale\ *\ y\_min}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00084}00084\ \ \ \ \ y\_max\ =\ y\_scale\ *\ y\_max}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00085}00085\ \ \ \ \ x\_min\ =\ x\_scale\ *\ x\_min}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00086}00086\ \ \ \ \ x\_max\ =\ x\_scale\ *\ x\_max}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00087}00087\ \ \ \ \ scaled\_boxes\ =\ tf.concat([y\_min,\ x\_min,\ y\_max,\ x\_max],\ 1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ scaled\_boxes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00090}00090\ \ \ absolute\_boxes\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00091}00091\ \ \ \ \ \ \ \_to\_absolute\_coordinates,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00092}00092\ \ \ \ \ \ \ elems=(normalized\_boxes),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00093}00093\ \ \ \ \ \ \ dtype=normalized\_boxes.dtype,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00094}00094\ \ \ \ \ \ \ parallel\_iterations=parallel\_iterations,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00095}00095\ \ \ \ \ \ \ back\_prop=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00096}00096\ \ \ \textcolor{keywordflow}{return}\ absolute\_boxes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00099}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af311e77e054cb389029fd2e4a40c2955}{00099}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af311e77e054cb389029fd2e4a40c2955}{meshgrid}}(x,\ y):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00100}00100\ \ \ \textcolor{stringliteral}{"{}"{}"{}Tiles\ the\ contents\ of\ x\ and\ y\ into\ a\ pair\ of\ grids.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00101}00101\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ Multidimensional\ analog\ of\ numpy.meshgrid,\ giving\ the\ same\ behavior\ }\textcolor{keywordflow}{if}\ x\ \textcolor{keywordflow}{and}\ y}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00103}00103\ \ \ are\ vectors.\ Generally,\ this\ will\ give:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00105}00105\ \ \ xgrid(i1,\ ...,\ i\_m,\ j\_1,\ ...,\ j\_n)\ =\ x(j\_1,\ ...,\ j\_n)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00106}00106\ \ \ ygrid(i1,\ ...,\ i\_m,\ j\_1,\ ...,\ j\_n)\ =\ y(i\_1,\ ...,\ i\_m)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00108}00108\ \ \ Keep\ \textcolor{keywordflow}{in}\ mind\ that\ the\ order\ of\ the\ arguments\ \textcolor{keywordflow}{and}\ outputs\ \textcolor{keywordflow}{is}\ reverse\ relative}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00109}00109\ \ \ to\ the\ order\ of\ the\ indices\ they\ go\ into,\ done\ \textcolor{keywordflow}{for}\ compatibility\ \textcolor{keyword}{with}\ numpy.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00110}00110\ \ \ The\ output\ tensors\ have\ the\ same\ shapes.\ \ Specifically:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00112}00112\ \ \ xgrid.get\_shape()\ =\ y.get\_shape().concatenate(x.get\_shape())}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00113}00113\ \ \ ygrid.get\_shape()\ =\ y.get\_shape().concatenate(x.get\_shape())}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00115}00115\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00116}00116\ \ \ \ \ x:\ A\ tensor\ of\ arbitrary\ shape\ \textcolor{keywordflow}{and}\ rank.\ xgrid\ will\ contain\ these\ values}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00117}00117\ \ \ \ \ \ \ \ varying\ \textcolor{keywordflow}{in}\ its\ last\ dimensions.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00118}00118\ \ \ \ \ y:\ A\ tensor\ of\ arbitrary\ shape\ \textcolor{keywordflow}{and}\ rank.\ ygrid\ will\ contain\ these\ values}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00119}00119\ \ \ \ \ \ \ \ varying\ \textcolor{keywordflow}{in}\ its\ first\ dimensions.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00120}00120\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00121}00121\ \ \ \ \ A\ tuple\ of\ tensors\ (xgrid,\ ygrid).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00122}00122\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'Meshgrid'}):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00124}00124\ \ \ \ \ x\ =\ tf.convert\_to\_tensor(x)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00125}00125\ \ \ \ \ y\ =\ tf.convert\_to\_tensor(y)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00126}00126\ \ \ \ \ x\_exp\_shape\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a361f89dc99c799c108b569851f420be2}{expanded\_shape}}(tf.shape(x),\ 0,\ tf.rank(y))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00127}00127\ \ \ \ \ y\_exp\_shape\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a361f89dc99c799c108b569851f420be2}{expanded\_shape}}(tf.shape(y),\ tf.rank(y),\ tf.rank(x))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00129}00129\ \ \ \ \ xgrid\ =\ tf.tile(tf.reshape(x,\ x\_exp\_shape),\ y\_exp\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00130}00130\ \ \ \ \ ygrid\ =\ tf.tile(tf.reshape(y,\ y\_exp\_shape),\ x\_exp\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00131}00131\ \ \ \ \ new\_shape\ =\ y.get\_shape().concatenate(x.get\_shape())}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00132}00132\ \ \ \ \ xgrid.set\_shape(new\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00133}00133\ \ \ \ \ ygrid.set\_shape(new\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{return}\ xgrid,\ ygrid}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00138}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a516b301f1397988c4021aec757b16d2d}{00138}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a516b301f1397988c4021aec757b16d2d}{fixed\_padding}}(inputs,\ kernel\_size,\ rate=1):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00139}00139\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pads\ the\ input\ along\ the\ spatial\ dimensions\ independently\ of\ input\ size.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00140}00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00142}00142\ \textcolor{stringliteral}{\ \ \ \ inputs:\ A\ tensor\ of\ size\ [batch,\ height\_in,\ width\_in,\ channels].}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ \ \ kernel\_size:\ The\ kernel\ to\ be\ used\ }\textcolor{keywordflow}{in}\ the\ conv2d\ \textcolor{keywordflow}{or}\ max\_pool2d\ operation.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Should\ be\ a\ positive\ integer.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00145}00145\ \ \ \ \ rate:\ An\ integer,\ rate\ \textcolor{keywordflow}{for}\ atrous\ convolution.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00147}00147\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00148}00148\ \ \ \ \ output:\ A\ tensor\ of\ size\ [batch,\ height\_out,\ width\_out,\ channels]\ \textcolor{keyword}{with}\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00149}00149\ \ \ \ \ \ \ input,\ either\ intact\ (\textcolor{keywordflow}{if}\ kernel\_size\ ==\ 1)\ \textcolor{keywordflow}{or}\ padded\ (\textcolor{keywordflow}{if}\ kernel\_size\ >\ 1).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00150}00150\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ kernel\_size\_effective\ =\ kernel\_size\ +\ (kernel\_size\ -\/\ 1)\ *\ (rate\ -\/\ 1)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ pad\_total\ =\ kernel\_size\_effective\ -\/\ 1}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ pad\_beg\ =\ pad\_total\ //\ 2}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ pad\_end\ =\ pad\_total\ -\/\ pad\_beg}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ padded\_inputs\ =\ tf.pad(inputs,\ [[0,\ 0],\ [pad\_beg,\ pad\_end],}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [pad\_beg,\ pad\_end],\ [0,\ 0]])}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ padded\_inputs}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00160}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_afcdac23eebee9bb6a17790afbdf223d9}{00160}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_afcdac23eebee9bb6a17790afbdf223d9}{pad\_to\_multiple}}(tensor,\ multiple):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00161}00161\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ tensor\ zero\ padded\ to\ the\ specified\ multiple.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00162}00162\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00163}00163\ \textcolor{stringliteral}{\ \ Appends\ 0s\ to\ the\ end\ of\ the\ first\ }\textcolor{keywordflow}{and}\ second\ dimension\ (height\ \textcolor{keywordflow}{and}\ width)\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00164}00164\ \ \ the\ tensor\ until\ both\ dimensions\ are\ a\ multiple\ of\ the\ input\ argument}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00165}00165\ \ \ \textcolor{stringliteral}{'multiple'}.\ E.g.\ given\ an\ input\ tensor\ of\ shape\ [1,\ 3,\ 5,\ 1]\ \textcolor{keywordflow}{and}\ an\ input}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00166}00166\ \ \ multiple\ of\ 4,\ PadToMultiple\ will\ append\ 0s\ so\ that\ the\ resulting\ tensor\ will}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00167}00167\ \ \ be\ of\ shape\ [1,\ 4,\ 8,\ 1].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00169}00169\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00170}00170\ \ \ \ \ tensor:\ rank\ 4\ float32\ tensor,\ where}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ tensor\ -\/>\ [batch\_size,\ height,\ width,\ channels].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00172}00172\ \ \ \ \ multiple:\ the\ multiple\ to\ pad\ to.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00174}00174\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00175}00175\ \ \ \ \ padded\_tensor:\ the\ tensor\ zero\ padded\ to\ the\ specified\ multiple.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00176}00176\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00177}00177\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ multiple\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{return}\ tensor}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00180}00180\ \ \ tensor\_shape\ =\ tensor.get\_shape()}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00181}00181\ \ \ batch\_size\ =\ static\_shape.get\_batch\_size(tensor\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00182}00182\ \ \ tensor\_height\ =\ static\_shape.get\_height(tensor\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00183}00183\ \ \ tensor\_width\ =\ static\_shape.get\_width(tensor\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00184}00184\ \ \ tensor\_depth\ =\ static\_shape.get\_depth(tensor\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00186}00186\ \ \ \textcolor{keywordflow}{if}\ batch\_size\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00187}00187\ \ \ \ \ batch\_size\ =\ tf.shape(tensor)[0]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00189}00189\ \ \ \textcolor{keywordflow}{if}\ tensor\_height\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00190}00190\ \ \ \ \ tensor\_height\ =\ tf.shape(tensor)[1]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00191}00191\ \ \ \ \ padded\_tensor\_height\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ tf.ceil(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(tensor\_height,\ dtype=tf.float32)\ /}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(multiple,\ dtype=tf.float32)),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ dtype=tf.int32)\ *\ multiple}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00196}00196\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00197}00197\ \ \ \ \ padded\_tensor\_height\ =\ int(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ math.ceil(float(tensor\_height)\ /\ multiple)\ *\ multiple)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00200}00200\ \ \ \textcolor{keywordflow}{if}\ tensor\_width\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00201}00201\ \ \ \ \ tensor\_width\ =\ tf.shape(tensor)[2]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00202}00202\ \ \ \ \ padded\_tensor\_width\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ tf.ceil(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(tensor\_width,\ dtype=tf.float32)\ /}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(multiple,\ dtype=tf.float32)),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ dtype=tf.int32)\ *\ multiple}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00207}00207\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00208}00208\ \ \ \ \ padded\_tensor\_width\ =\ int(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ math.ceil(float(tensor\_width)\ /\ multiple)\ *\ multiple)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00211}00211\ \ \ \textcolor{keywordflow}{if}\ tensor\_depth\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00212}00212\ \ \ \ \ tensor\_depth\ =\ tf.shape(tensor)[3]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00214}00214\ \ \ \textcolor{comment}{\#\ Use\ tf.concat\ instead\ of\ tf.pad\ to\ preserve\ static\ shape}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00215}00215\ \ \ \textcolor{keywordflow}{if}\ padded\_tensor\_height\ !=\ tensor\_height:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00216}00216\ \ \ \ \ height\_pad\ =\ tf.zeros([}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ batch\_size,\ padded\_tensor\_height\ -\/\ tensor\_height,\ tensor\_width,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ tensor\_depth}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00219}00219\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00220}00220\ \ \ \ \ tensor\ =\ tf.concat([tensor,\ height\_pad],\ 1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00221}00221\ \ \ \textcolor{keywordflow}{if}\ padded\_tensor\_width\ !=\ tensor\_width:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00222}00222\ \ \ \ \ width\_pad\ =\ tf.zeros([}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ batch\_size,\ padded\_tensor\_height,\ padded\_tensor\_width\ -\/\ tensor\_width,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ tensor\_depth}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00225}00225\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00226}00226\ \ \ \ \ tensor\ =\ tf.concat([tensor,\ width\_pad],\ 2)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00228}00228\ \ \ \textcolor{keywordflow}{return}\ tensor}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00231}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_afe923c1879971de61ca2630119d56287}{00231}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_afe923c1879971de61ca2630119d56287}{padded\_one\_hot\_encoding}}(indices,\ depth,\ left\_pad):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00232}00232\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ zero\ padded\ one-\/hot\ tensor.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00233}00233\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00234}00234\ \textcolor{stringliteral}{\ \ This\ function\ converts\ a\ sparse\ representation\ of\ indices\ (e.g.,\ [4])\ to\ a}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00235}00235\ \textcolor{stringliteral}{\ \ zero\ padded\ one-\/hot\ representation\ (e.g.,\ [0,\ 0,\ 0,\ 0,\ 1]\ }\textcolor{keyword}{with}\ depth\ =\ 4\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00236}00236\ \ \ left\_pad\ =\ 1).\ If\ \`{}indices\`{}\ \textcolor{keywordflow}{is}\ empty,\ the\ result\ will\ simply\ be\ a\ tensor\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00237}00237\ \ \ shape\ (0,\ depth\ +\ left\_pad).\ If\ depth\ =\ 0,\ then\ this\ function\ just\ returns}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00238}00238\ \ \ \`{}\textcolor{keywordtype}{None}\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00240}00240\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00241}00241\ \ \ \ \ indices:\ an\ integer\ tensor\ of\ shape\ [num\_indices].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00242}00242\ \ \ \ \ depth:\ depth\ \textcolor{keywordflow}{for}\ the\ one-\/hot\ tensor\ (integer).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00243}00243\ \ \ \ \ left\_pad:\ number\ of\ zeros\ to\ left\ pad\ the\ one-\/hot\ tensor\ \textcolor{keyword}{with}\ (integer).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00245}00245\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00246}00246\ \ \ \ \ padded\_onehot:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ (num\_indices,\ depth\ +\ left\_pad).\ Returns}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00247}00247\ \ \ \ \ \ \ \`{}\textcolor{keywordtype}{None}\`{}\ \textcolor{keywordflow}{if}\ the\ depth\ \textcolor{keywordflow}{is}\ zero.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00249}00249\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00250}00250\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}indices\`{}\ does\ \textcolor{keywordflow}{not}\ have\ rank\ 1\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ \`{}left\_pad\`{}\ \textcolor{keywordflow}{or}\ \`{}depth\ are}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00251}00251\ \ \ \ \ \ \ either\ negative\ \textcolor{keywordflow}{or}\ non-\/integers.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00253}00253\ \ \ TODO(rathodv):\ add\ runtime\ checks\ \textcolor{keywordflow}{for}\ depth\ \textcolor{keywordflow}{and}\ indices.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00254}00254\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00255}00255\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ depth\ <\ 0\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ isinstance(depth,\ six.integer\_types):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00256}00256\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}depth`\ must\ be\ a\ non-\/negative\ integer.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00257}00257\ \ \ \textcolor{keywordflow}{if}\ left\_pad\ <\ 0\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ isinstance(left\_pad,\ six.integer\_types):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}left\_pad`\ must\ be\ a\ non-\/negative\ integer.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00259}00259\ \ \ \textcolor{keywordflow}{if}\ depth\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00260}00260\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00262}00262\ \ \ rank\ =\ len(indices.get\_shape().as\_list())}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00263}00263\ \ \ \textcolor{keywordflow}{if}\ rank\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00264}00264\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}indices`\ must\ have\ rank\ 1,\ but\ has\ rank=\%s'}\ \%\ rank)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00266}00266\ \ \ \textcolor{keyword}{def\ }one\_hot\_and\_pad():}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00267}00267\ \ \ \ \ one\_hot\ =\ tf.cast(tf.one\_hot(tf.cast(indices,\ tf.int64),\ depth,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ on\_value=1,\ off\_value=0),\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.pad(one\_hot,\ [[0,\ 0],\ [left\_pad,\ 0]],\ mode=\textcolor{stringliteral}{'CONSTANT'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00270}00270\ \ \ result\ =\ tf.cond(tf.greater(tf.size(indices),\ 0),\ one\_hot\_and\_pad,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.zeros((depth\ +\ left\_pad,\ 0)))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00272}00272\ \ \ \textcolor{keywordflow}{return}\ tf.reshape(result,\ [-\/1,\ depth\ +\ left\_pad])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00275}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_addc98bd6fb2ea843a7e291c1f4f761d2}{00275}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_addc98bd6fb2ea843a7e291c1f4f761d2}{dense\_to\_sparse\_boxes}}(dense\_locations,\ dense\_num\_boxes,\ num\_classes):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00276}00276\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ bounding\ boxes\ from\ dense\ to\ sparse\ form.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00277}00277\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00279}00279\ \textcolor{stringliteral}{\ \ \ \ dense\_locations:\ \ a\ [max\_num\_boxes,\ 4]\ tensor\ }\textcolor{keywordflow}{in}\ which\ only\ the\ first\ k\ rows}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00280}00280\ \ \ \ \ \ \ are\ valid\ bounding\ box\ location\ coordinates,\ where\ k\ \textcolor{keywordflow}{is}\ the\ sum\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00281}00281\ \ \ \ \ \ \ elements\ \textcolor{keywordflow}{in}\ dense\_num\_boxes.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00282}00282\ \ \ \ \ dense\_num\_boxes:\ a\ [max\_num\_classes]\ tensor\ indicating\ the\ counts\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00283}00283\ \ \ \ \ \ \ \ various\ bounding\ box\ classes\ e.g.\ [1,\ 0,\ 0,\ 2]\ means\ that\ the\ first}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00284}00284\ \ \ \ \ \ \ \ bounding\ box\ \textcolor{keywordflow}{is}\ of\ \textcolor{keyword}{class\ }0\ \textcolor{keywordflow}{and}\ the\ second\ \textcolor{keywordflow}{and}\ third\ bounding\ boxes\ are}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00285}00285\ \ \ \ \ \ \ \ of\ \textcolor{keyword}{class\ }3.\ The\ sum\ of\ elements\ \textcolor{keywordflow}{in}\ this\ tensor\ \textcolor{keywordflow}{is}\ the\ number\ of\ valid}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00286}00286\ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00287}00287\ \ \ \ \ num\_classes:\ number\ of\ classes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00289}00289\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00290}00290\ \ \ \ \ box\_locations:\ a\ [num\_boxes,\ 4]\ tensor\ containing\ only\ valid\ bounding}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00291}00291\ \ \ \ \ \ \ \ boxes\ (i.e.\ the\ first\ num\_boxes\ rows\ of\ dense\_locations)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00292}00292\ \ \ \ \ box\_classes:\ a\ [num\_boxes]\ tensor\ containing\ the\ classes\ of\ each\ bounding}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00293}00293\ \ \ \ \ \ \ \ box\ (e.g.\ dense\_num\_boxes\ =\ [1,\ 0,\ 0,\ 2]\ =>\ box\_classes\ =\ [0,\ 3,\ 3]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00294}00294\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00295}00295\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00296}00296\ \textcolor{stringliteral}{\ \ num\_valid\_boxes\ =\ tf.reduce\_sum(dense\_num\_boxes)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00297}00297\ \textcolor{stringliteral}{\ \ box\_locations\ =\ tf.slice(dense\_locations,}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00298}00298\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant([0,\ 0]),\ tf.stack([num\_valid\_boxes,\ 4]))}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00299}00299\ \textcolor{stringliteral}{\ \ tiled\_classes\ =\ [tf.tile([i],\ tf.expand\_dims(dense\_num\_boxes[i],\ 0))}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00300}00300\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_classes)]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00301}00301\ \ \ box\_classes\ =\ tf.concat(tiled\_classes,\ 0)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00302}00302\ \ \ box\_locations.set\_shape([\textcolor{keywordtype}{None},\ 4])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00303}00303\ \ \ \textcolor{keywordflow}{return}\ box\_locations,\ box\_classes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00306}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a9fad235f916265ec93571df2b5269b46}{00306}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a9fad235f916265ec93571df2b5269b46}{indices\_to\_dense\_vector}}(indices,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indices\_value=1.,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00311}00311\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ dense\ vector\ with\ indices\ set\ to\ specific\ value\ and\ rest\ to\ zeros.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00312}00312\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00313}00313\ \textcolor{stringliteral}{\ \ This\ function\ exists\ because\ it\ }\textcolor{keywordflow}{is}\ unclear\ \textcolor{keywordflow}{if}\ it\ \textcolor{keywordflow}{is}\ safe\ to\ use}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00314}00314\ \ \ \ \ tf.sparse\_to\_dense(indices,\ [size],\ 1,\ validate\_indices=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00315}00315\ \ \ \textcolor{keyword}{with}\ indices\ which\ are\ \textcolor{keywordflow}{not}\ ordered.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00316}00316\ \ \ This\ function\ accepts\ a\ dynamic\ size\ (e.g.\ tf.shape(tensor)[0])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00318}00318\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00319}00319\ \ \ \ \ indices:\ 1d\ Tensor\ \textcolor{keyword}{with}\ integer\ indices\ which\ are\ to\ be\ set\ to}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ indices\_values.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00321}00321\ \ \ \ \ size:\ scalar\ \textcolor{keyword}{with}\ size\ (integer)\ of\ output\ Tensor.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00322}00322\ \ \ \ \ indices\_value:\ values\ of\ elements\ specified\ by\ indices\ \textcolor{keywordflow}{in}\ the\ output\ vector}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00323}00323\ \ \ \ \ default\_value:\ values\ of\ other\ elements\ \textcolor{keywordflow}{in}\ the\ output\ vector.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00324}00324\ \ \ \ \ dtype:\ data\ type.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00326}00326\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00327}00327\ \ \ \ \ dense\ 1D\ Tensor\ of\ shape\ [size]\ \textcolor{keyword}{with}\ indices\ set\ to\ indices\_values\ \textcolor{keywordflow}{and}\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00328}00328\ \ \ \ \ \ \ \ \ rest\ set\ to\ default\_value.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00329}00329\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00330}00330\ \textcolor{stringliteral}{\ \ size\ =\ tf.cast(size,\ dtype=tf.int32)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00331}00331\ \textcolor{stringliteral}{\ \ zeros\ =\ tf.ones([size],\ dtype=dtype)\ *\ default\_value}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ values\ =\ tf.ones\_like(indices,\ dtype=dtype)\ *\ indices\_value}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00333}00333\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00334}00334\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.dynamic\_stitch([tf.range(size),\ tf.cast(indices,\ dtype=tf.int32)],}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [zeros,\ values])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00338}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a8c5e626e71f1d4e2bf1a4693b1035984}{00338}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a8c5e626e71f1d4e2bf1a4693b1035984}{reduce\_sum\_trailing\_dimensions}}(tensor,\ ndims):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00339}00339\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ sum\ across\ all\ dimensions\ following\ first\ \`{}ndims\`{}\ dimensions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00340}00340\ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(tensor,\ axis=tuple(range(ndims,\ tensor.shape.ndims)))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00343}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{00343}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{retain\_groundtruth}}(tensor\_dict,\ valid\_indices):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00344}00344\ \ \ \textcolor{stringliteral}{"{}"{}"{}Retains\ groundtruth\ by\ valid\ indices.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00345}00345\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00346}00346\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00347}00347\ \textcolor{stringliteral}{\ \ \ \ tensor\_dict:\ a\ dictionary\ of\ following\ groundtruth\ tensors\ -\/}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00348}00348\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00349}00349\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00350}00350\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00351}00351\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoints}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00352}00352\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00353}00353\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00354}00354\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_area}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00355}00355\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00356}00356\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_difficult}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00357}00357\ \textcolor{stringliteral}{\ \ \ \ valid\_indices:\ a\ tensor\ }\textcolor{keyword}{with}\ valid\ indices\ \textcolor{keywordflow}{for}\ the\ box-\/level\ groundtruth.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00359}00359\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00360}00360\ \ \ \ \ a\ dictionary\ of\ tensors\ containing\ only\ the\ groundtruth\ \textcolor{keywordflow}{for}\ valid\_indices.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00362}00362\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00363}00363\ \ \ \ \ ValueError:\ If\ the\ shape\ of\ valid\_indices\ \textcolor{keywordflow}{is}\ invalid.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00364}00364\ \ \ \ \ ValueError:\ field\ fields.InputDataFields.groundtruth\_boxes\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00365}00365\ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ present\ \textcolor{keywordflow}{in}\ tensor\_dict.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00366}00366\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00367}00367\ \textcolor{stringliteral}{\ \ input\_shape\ =\ valid\_indices.get\_shape().as\_list()}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00368}00368\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (len(input\_shape)\ ==\ 1\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ (len(input\_shape)\ ==\ 2\ \textcolor{keywordflow}{and}\ input\_shape[1]\ ==\ 1)):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00370}00370\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ shape\ of\ valid\_indices\ is\ invalid.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00371}00371\ \ \ valid\_indices\ =\ tf.reshape(valid\_indices,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00372}00372\ \ \ valid\_dict\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00373}00373\ \ \ \textcolor{keywordflow}{if}\ fields.InputDataFields.groundtruth\_boxes\ \textcolor{keywordflow}{in}\ tensor\_dict:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00374}00374\ \ \ \ \ \textcolor{comment}{\#\ Prevents\ reshape\ failure\ when\ num\_boxes\ is\ 0.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00375}00375\ \ \ \ \ num\_boxes\ =\ tf.maximum(tf.shape(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00376}00376\ \ \ \ \ \ \ \ \ tensor\_dict[fields.InputDataFields.groundtruth\_boxes])[0],\ 1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00377}00377\ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ tensor\_dict:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00378}00378\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoints,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoint\_visibilities,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks]:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ valid\_dict[key]\ =\ tf.gather(tensor\_dict[key],\ valid\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00385}00385\ \ \ \ \ \ \ \textcolor{comment}{\#\ Input\ decoder\ returns\ empty\ tensor\ when\ these\ fields\ are\ not\ provided.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00386}00386\ \ \ \ \ \ \ \textcolor{comment}{\#\ Needs\ to\ reshape\ into\ [num\_boxes,\ -\/1]\ for\ tf.gather()\ to\ work.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00387}00387\ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_is\_crowd,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_difficult,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types]:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ valid\_dict[key]\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ tf.gather(tf.reshape(tensor\_dict[key],\ [num\_boxes,\ -\/1]),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valid\_indices),\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00394}00394\ \ \ \ \ \ \ \textcolor{comment}{\#\ Fields\ that\ are\ not\ associated\ with\ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00395}00395\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ valid\_dict[key]\ =\ tensor\_dict[key]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00397}00397\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00398}00398\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\%s\ not\ present\ in\ input\ tensor\ dict.'}\ \%\ (}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00399}00399\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00400}00400\ \ \ \textcolor{keywordflow}{return}\ valid\_dict}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00403}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae6ecd4d38671df8c284d9a856f1d603f}{00403}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae6ecd4d38671df8c284d9a856f1d603f}{retain\_groundtruth\_with\_positive\_classes}}(tensor\_dict):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00404}00404\ \ \ \textcolor{stringliteral}{"{}"{}"{}Retains\ only\ groundtruth\ with\ positive\ class\ ids.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00405}00405\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00406}00406\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00407}00407\ \textcolor{stringliteral}{\ \ \ \ tensor\_dict:\ a\ dictionary\ of\ following\ groundtruth\ tensors\ -\/}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00408}00408\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00409}00409\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00410}00410\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00411}00411\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoints}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00412}00412\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00413}00413\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00414}00414\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_area}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00415}00415\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00416}00416\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_difficult}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00417}00417\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00418}00418\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00419}00419\ \textcolor{stringliteral}{\ \ \ \ a\ dictionary\ of\ tensors\ containing\ only\ the\ groundtruth\ }\textcolor{keyword}{with}\ positive}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00420}00420\ \ \ \ \ classes.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00422}00422\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00423}00423\ \ \ \ \ ValueError:\ If\ groundtruth\_classes\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ tensor\_dict.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00424}00424\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00425}00425\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields.InputDataFields.groundtruth\_classes\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ tensor\_dict:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00426}00426\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}groundtruth\ classes`\ not\ in\ tensor\_dict.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00427}00427\ \ \ keep\_indices\ =\ tf.where(tf.greater(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00428}00428\ \ \ \ \ \ \ tensor\_dict[fields.InputDataFields.groundtruth\_classes],\ 0))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00429}00429\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{retain\_groundtruth}}(tensor\_dict,\ keep\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00432}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae9ea79fd4a604caa7430abce7d10bcef}{00432}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae9ea79fd4a604caa7430abce7d10bcef}{replace\_nan\_groundtruth\_label\_scores\_with\_ones}}(label\_scores):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00433}00433\ \ \ \textcolor{stringliteral}{"{}"{}"{}Replaces\ nan\ label\ scores\ with\ 1.0.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00434}00434\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00435}00435\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00436}00436\ \textcolor{stringliteral}{\ \ \ \ label\_scores:\ a\ tensor\ containing\ object\ annoation\ label\ scores.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00437}00437\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00438}00438\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00439}00439\ \textcolor{stringliteral}{\ \ \ \ a\ tensor\ where\ NaN\ label\ scores\ have\ been\ replaced\ by\ ones.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00440}00440\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00441}00441\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.where(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00442}00442\ \ \ \ \ \ \ tf.is\_nan(label\_scores),\ tf.ones(tf.shape(label\_scores)),\ label\_scores)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00445}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a14259559c91fbe3753ef93fd614eebd8}{00445}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a14259559c91fbe3753ef93fd614eebd8}{filter\_groundtruth\_with\_crowd\_boxes}}(tensor\_dict):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00446}00446\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filters\ out\ groundtruth\ with\ boxes\ corresponding\ to\ crowd.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00447}00447\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00448}00448\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00449}00449\ \textcolor{stringliteral}{\ \ \ \ tensor\_dict:\ a\ dictionary\ of\ following\ groundtruth\ tensors\ -\/}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00450}00450\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00451}00451\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00452}00452\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00453}00453\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoints}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00454}00454\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00455}00455\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00456}00456\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_area}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00457}00457\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00458}00458\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00459}00459\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00460}00460\ \textcolor{stringliteral}{\ \ \ \ a\ dictionary\ of\ tensors\ containing\ only\ the\ groundtruth\ that\ have\ bounding}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00461}00461\ \textcolor{stringliteral}{\ \ \ \ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00462}00462\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00463}00463\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields.InputDataFields.groundtruth\_is\_crowd\ \textcolor{keywordflow}{in}\ tensor\_dict:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00464}00464\ \ \ \ \ is\_crowd\ =\ tensor\_dict[fields.InputDataFields.groundtruth\_is\_crowd]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00465}00465\ \ \ \ \ is\_not\_crowd\ =\ tf.logical\_not(is\_crowd)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00466}00466\ \ \ \ \ is\_not\_crowd\_indices\ =\ tf.where(is\_not\_crowd)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00467}00467\ \ \ \ \ tensor\_dict\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{retain\_groundtruth}}(tensor\_dict,\ is\_not\_crowd\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00468}00468\ \ \ \textcolor{keywordflow}{return}\ tensor\_dict}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00471}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a9caa9fbd25912b008f9dfbe9ca636567}{00471}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a9caa9fbd25912b008f9dfbe9ca636567}{filter\_groundtruth\_with\_nan\_box\_coordinates}}(tensor\_dict):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00472}00472\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filters\ out\ groundtruth\ with\ no\ bounding\ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00473}00473\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00474}00474\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00475}00475\ \textcolor{stringliteral}{\ \ \ \ tensor\_dict:\ a\ dictionary\ of\ following\ groundtruth\ tensors\ -\/}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00476}00476\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00477}00477\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00478}00478\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00479}00479\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_keypoints}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00480}00480\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00481}00481\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00482}00482\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_area}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00483}00483\ \textcolor{stringliteral}{\ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00484}00484\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00485}00485\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00486}00486\ \textcolor{stringliteral}{\ \ \ \ a\ dictionary\ of\ tensors\ containing\ only\ the\ groundtruth\ that\ have\ bounding}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00487}00487\ \textcolor{stringliteral}{\ \ \ \ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00488}00488\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00489}00489\ \textcolor{stringliteral}{\ \ groundtruth\_boxes\ =\ tensor\_dict[fields.InputDataFields.groundtruth\_boxes]}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00490}00490\ \textcolor{stringliteral}{\ \ nan\_indicator\_vector\ =\ tf.greater(tf.reduce\_sum(tf.cast(}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00491}00491\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.is\_nan(groundtruth\_boxes),\ dtype=tf.int32),\ reduction\_indices=[1]),\ 0)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00492}00492\ \textcolor{stringliteral}{\ \ valid\_indicator\_vector\ =\ tf.logical\_not(nan\_indicator\_vector)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00493}00493\ \textcolor{stringliteral}{\ \ valid\_indices\ =\ tf.where(valid\_indicator\_vector)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00494}00494\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00495}00495\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{retain\_groundtruth}}(tensor\_dict,\ valid\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00497}00497\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00498}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a391c9d74117ad32ba170f1df7be9efc9}{00498}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a391c9d74117ad32ba170f1df7be9efc9}{filter\_unrecognized\_classes}}(tensor\_dict):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00499}00499\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filters\ out\ class\ labels\ that\ are\ not\ unrecognized\ by\ the\ labelmap.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00500}00500\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00501}00501\ \textcolor{stringliteral}{\ \ Decoder\ would\ parse\ unrecognized\ classes\ (}\textcolor{keywordflow}{not}\ included\ \textcolor{keywordflow}{in}\ the\ labelmap)\ to}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00502}00502\ \ \ a\ label\ of\ value\ -\/1.\ Such\ targets\ are\ unecessary\ \textcolor{keywordflow}{for}\ training,\ \textcolor{keywordflow}{and}\ causes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00503}00503\ \ \ issue\ \textcolor{keywordflow}{for}\ evaluation,\ due\ to\ labeling\ mapping\ logic.\ This\ function\ filters}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00504}00504\ \ \ those\ labels\ out\ \textcolor{keywordflow}{for}\ both\ training\ \textcolor{keywordflow}{and}\ evaluation.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00506}00506\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00507}00507\ \ \ \ \ tensor\_dict:\ dictionary\ containing\ input\ tensors\ keyed\ by}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00508}00508\ \ \ \ \ \ \ fields.InputDataFields.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00510}00510\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00511}00511\ \ \ \ \ A\ dictionary\ keyed\ by\ fields.InputDataFields\ containing\ the\ tensors}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00512}00512\ \ \ \ \ obtained\ after\ applying\ the\ filtering.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00514}00514\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00515}00515\ \ \ \ \ ValueError:\ If\ groundtruth\_classes\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ tensor\_dict.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00516}00516\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00517}00517\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields.InputDataFields.groundtruth\_classes\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ tensor\_dict:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00518}00518\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}groundtruth\ classes`\ not\ in\ tensor\_dict.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00519}00519\ \ \ \textcolor{comment}{\#\ Refer\ to\ tf\_example\_decoder\ for\ how\ unrecognized\ labels\ are\ handled.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00520}00520\ \ \ unrecognized\_label\ =\ -\/1}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00521}00521\ \ \ recognized\_indices\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00522}00522\ \ \ \ \ \ \ tf.greater(tensor\_dict[fields.InputDataFields.groundtruth\_classes],}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unrecognized\_label))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00525}00525\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_af4c44e343c3cb222937eb3e496ce68e6}{retain\_groundtruth}}(tensor\_dict,\ recognized\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00527}00527\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00528}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a427d2293178f37f8f3030837d3813b65}{00528}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a427d2293178f37f8f3030837d3813b65}{normalize\_to\_target}}(inputs,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00529}00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_norm\_value,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ epsilon=1e-\/7,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trainable=True,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope='NormalizeToTarget',}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ summarize=True):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00535}00535\ \ \ \textcolor{stringliteral}{"{}"{}"{}L2\ normalizes\ the\ inputs\ across\ the\ specified\ dimension\ to\ a\ target\ norm.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00536}00536\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00537}00537\ \textcolor{stringliteral}{\ \ This\ op\ implements\ the\ L2\ Normalization\ layer\ introduced\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00538}00538\ \ \ Liu,\ Wei,\ et\ al.\ \textcolor{stringliteral}{"{}SSD:\ Single\ Shot\ MultiBox\ Detector."{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00539}00539\ \ \ \textcolor{keywordflow}{and}\ Liu,\ Wei,\ Andrew\ Rabinovich,\ \textcolor{keywordflow}{and}\ Alexander\ C.\ Berg.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00540}00540\ \ \ \textcolor{stringliteral}{"{}Parsenet:\ Looking\ wider\ to\ see\ better."{}}\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{is}\ useful\ \textcolor{keywordflow}{for}\ bringing}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00541}00541\ \ \ activations\ \textcolor{keyword}{from}\ multiple\ layers\ \textcolor{keywordflow}{in}\ a\ convnet\ to\ a\ standard\ scale.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00543}00543\ \ \ Note\ that\ the\ rank\ of\ \`{}inputs\`{}\ must\ be\ known\ \textcolor{keywordflow}{and}\ the\ dimension\ to\ which}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00544}00544\ \ \ normalization\ \textcolor{keywordflow}{is}\ to\ be\ applied\ should\ be\ statically\ defined.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00545}00545\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00546}00546\ \ \ TODO(jonathanhuang):\ Add\ option\ to\ scale\ by\ L2\ norm\ of\ the\ entire\ input.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00547}00547\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00548}00548\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00549}00549\ \ \ \ \ inputs:\ A\ \`{}Tensor\`{}\ of\ arbitrary\ size.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00550}00550\ \ \ \ \ target\_norm\_value:\ A\ float\ value\ that\ specifies\ an\ initial\ target\ norm\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00551}00551\ \ \ \ \ \ \ a\ list\ of\ floats\ (whose\ length\ must\ be\ equal\ to\ the\ depth\ along\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00552}00552\ \ \ \ \ \ \ dimension\ to\ be\ normalized)\ specifying\ a\ per-\/dimension\ multiplier}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00553}00553\ \ \ \ \ \ \ after\ normalization.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00554}00554\ \ \ \ \ dim:\ The\ dimension\ along\ which\ the\ input\ \textcolor{keywordflow}{is}\ normalized.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00555}00555\ \ \ \ \ epsilon:\ A\ small\ value\ to\ add\ to\ the\ inputs\ to\ avoid\ dividing\ by\ zero.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00556}00556\ \ \ \ \ trainable:\ Whether\ the\ norm\ \textcolor{keywordflow}{is}\ trainable\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00557}00557\ \ \ \ \ scope:\ Optional\ scope\ \textcolor{keywordflow}{for}\ variable\_scope.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00558}00558\ \ \ \ \ summarize:\ Whether\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ to\ add\ a\ tensorflow\ summary\ \textcolor{keywordflow}{for}\ the\ op.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00560}00560\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00561}00561\ \ \ \ \ The\ input\ tensor\ normalized\ to\ the\ specified\ target\ norm.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00562}00562\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00563}00563\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00564}00564\ \ \ \ \ ValueError:\ If\ dim\ \textcolor{keywordflow}{is}\ smaller\ than\ the\ number\ of\ dimensions\ \textcolor{keywordflow}{in}\ \textcolor{stringliteral}{'inputs'}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00565}00565\ \ \ \ \ ValueError:\ If\ target\_norm\_value\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ float\ \textcolor{keywordflow}{or}\ a\ list\ of\ floats\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00566}00566\ \ \ \ \ \ \ length\ equal\ to\ the\ depth\ along\ the\ dimension\ to\ be\ normalized.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00567}00567\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00568}00568\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.variable\_scope(scope,\ \textcolor{stringliteral}{'NormalizeToTarget'},\ [inputs]):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00569}00569\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ inputs.get\_shape():}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00570}00570\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ input\ rank\ must\ be\ known.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00571}00571\ \ \ \ \ input\_shape\ =\ inputs.get\_shape().as\_list()}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00572}00572\ \ \ \ \ input\_rank\ =\ len(input\_shape)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00573}00573\ \ \ \ \ \textcolor{keywordflow}{if}\ dim\ <\ 0\ \textcolor{keywordflow}{or}\ dim\ >=\ input\_rank:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00574}00574\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00575}00575\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dim\ must\ be\ non-\/negative\ but\ smaller\ than\ the\ input\ rank.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00576}00576\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ input\_shape[dim]:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00577}00577\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ shape\ should\ be\ statically\ defined\ along\ '}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'the\ specified\ dimension.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00579}00579\ \ \ \ \ depth\ =\ input\_shape[dim]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00580}00580\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (isinstance(target\_norm\_value,\ float)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ (isinstance(target\_norm\_value,\ list)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ len(target\_norm\_value)\ ==\ depth)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ all([isinstance(val,\ float)\ \textcolor{keywordflow}{for}\ val\ \textcolor{keywordflow}{in}\ target\_norm\_value])):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00584}00584\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'target\_norm\_value\ must\ be\ a\ float\ or\ a\ list\ of\ floats\ '}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'with\ length\ equal\ to\ the\ depth\ along\ the\ dimension\ to\ '}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'be\ normalized.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00587}00587\ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(target\_norm\_value,\ float):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00588}00588\ \ \ \ \ \ \ initial\_norm\ =\ depth\ *\ [target\_norm\_value]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00589}00589\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00590}00590\ \ \ \ \ \ \ initial\_norm\ =\ target\_norm\_value}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00591}00591\ \ \ \ \ target\_norm\ =\ tf.contrib.framework.model\_variable(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00592}00592\ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weights'},\ dtype=tf.float32,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ initializer=tf.constant(initial\_norm,\ dtype=tf.float32),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00594}00594\ \ \ \ \ \ \ \ \ trainable=trainable)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00595}00595\ \ \ \ \ \textcolor{keywordflow}{if}\ summarize:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00596}00596\ \ \ \ \ \ \ mean\ =\ tf.reduce\_mean(target\_norm)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00597}00597\ \ \ \ \ \ \ tf.summary.scalar(tf.get\_variable\_scope().name,\ mean)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00598}00598\ \ \ \ \ lengths\ =\ epsilon\ +\ tf.sqrt(tf.reduce\_sum(tf.square(inputs),\ dim,\ \textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00599}00599\ \ \ \ \ mult\_shape\ =\ input\_rank*[1]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00600}00600\ \ \ \ \ mult\_shape[dim]\ =\ depth}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00601}00601\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(target\_norm,\ mult\_shape)\ *\ tf.truediv(inputs,\ lengths)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00602}00602\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00604}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a8dc56974f34bbceff44a4dc9f4dace05}{00604}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a8dc56974f34bbceff44a4dc9f4dace05}{batch\_position\_sensitive\_crop\_regions}}(images,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00606}00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_spatial\_bins,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ global\_pool,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=64):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00610}00610\ \ \ \textcolor{stringliteral}{"{}"{}"{}Position\ sensitive\ crop\ with\ batches\ of\ images\ and\ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00611}00611\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00612}00612\ \textcolor{stringliteral}{\ \ This\ op\ }\textcolor{keywordflow}{is}\ exactly\ like\ \`{}position\_sensitive\_crop\_regions\`{}\ below\ but\ operates}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00613}00613\ \ \ on\ batches\ of\ images\ \textcolor{keywordflow}{and}\ boxes.\ See\ \`{}position\_sensitive\_crop\_regions\`{}\ function}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00614}00614\ \ \ below\ \textcolor{keywordflow}{for}\ the\ operation\ applied\ per\ batch\ element.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00615}00615\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00616}00616\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00617}00617\ \ \ \ \ images:\ A\ \`{}Tensor\`{}.\ Must\ be\ one\ of\ the\ following\ types:\ \`{}uint8\`{},\ \`{}int8\`{},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00618}00618\ \ \ \ \ \ \ \`{}int16\`{},\ \`{}int32\`{},\ \`{}int64\`{},\ \`{}half\`{},\ \`{}float32\`{},\ \`{}float64\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00619}00619\ \ \ \ \ \ \ A\ 4-\/D\ tensor\ of\ shape\ \`{}[batch,\ image\_height,\ image\_width,\ depth]\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00620}00620\ \ \ \ \ \ \ Both\ \`{}image\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}image\_width\`{}\ need\ to\ be\ positive.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00621}00621\ \ \ \ \ boxes:\ A\ \`{}Tensor\`{}\ of\ type\ \`{}float32\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00622}00622\ \ \ \ \ \ \ A\ 3-\/D\ tensor\ of\ shape\ \`{}[batch,\ num\_boxes,\ 4]\`{}.\ Each\ box\ \textcolor{keywordflow}{is}\ specified\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00623}00623\ \ \ \ \ \ \ normalized\ coordinates\ \`{}[y1,\ x1,\ y2,\ x2]\`{}.\ A\ normalized\ coordinate\ value}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00624}00624\ \ \ \ \ \ \ of\ \`{}y\`{}\ \textcolor{keywordflow}{is}\ mapped\ to\ the\ image\ coordinate\ at\ \`{}y\ *\ (image\_height\ -\/\ 1)\`{},\ so}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00625}00625\ \ \ \ \ \ \ \textcolor{keyword}{as}\ the\ \`{}[0,\ 1]\`{}\ interval\ of\ normalized\ image\ height\ \textcolor{keywordflow}{is}\ mapped\ to}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00626}00626\ \ \ \ \ \ \ \`{}[0,\ image\_height\ -\/\ 1]\ \textcolor{keywordflow}{in}\ image\ height\ coordinates.\ We\ do\ allow\ y1\ >\ y2,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00627}00627\ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ which\ case\ the\ sampled\ crop\ \textcolor{keywordflow}{is}\ an\ up-\/down\ flipped\ version\ of\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00628}00628\ \ \ \ \ \ \ original\ image.\ The\ width\ dimension\ \textcolor{keywordflow}{is}\ treated\ similarly.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00629}00629\ \ \ \ \ crop\_size:\ See\ \`{}position\_sensitive\_crop\_regions\`{}\ below.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00630}00630\ \ \ \ \ num\_spatial\_bins:\ See\ \`{}position\_sensitive\_crop\_regions\`{}\ below.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00631}00631\ \ \ \ \ global\_pool:\ See\ \`{}position\_sensitive\_crop\_regions\`{}\ below.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00632}00632\ \ \ \ \ parallel\_iterations:\ Number\ of\ batch\ items\ to\ process\ \textcolor{keywordflow}{in}\ parallel.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00634}00634\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00635}00635\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00636}00636\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\_position\_sensitive\_crop\_fn(inputs):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00637}00637\ \ \ \ \ images,\ boxes\ =\ inputs}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00638}00638\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a674b91c79c0575b09d5b79114912a8fa}{position\_sensitive\_crop\_regions}}(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00639}00639\ \ \ \ \ \ \ \ \ images,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00640}00640\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00641}00641\ \ \ \ \ \ \ \ \ crop\_size=crop\_size,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00642}00642\ \ \ \ \ \ \ \ \ num\_spatial\_bins=num\_spatial\_bins,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00643}00643\ \ \ \ \ \ \ \ \ global\_pool=global\_pool)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00644}00644\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00645}00645\ \ \ \textcolor{keywordflow}{return}\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00646}00646\ \ \ \ \ \ \ \_position\_sensitive\_crop\_fn,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00647}00647\ \ \ \ \ \ \ elems=[images,\ boxes],}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00648}00648\ \ \ \ \ \ \ dtype=tf.float32,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00649}00649\ \ \ \ \ \ \ parallel\_iterations=parallel\_iterations)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00650}00650\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00652}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a674b91c79c0575b09d5b79114912a8fa}{00652}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a674b91c79c0575b09d5b79114912a8fa}{position\_sensitive\_crop\_regions}}(image,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00655}00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_spatial\_bins,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00656}00656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ global\_pool):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00657}00657\ \ \ \textcolor{stringliteral}{"{}"{}"{}Position-\/sensitive\ crop\ and\ pool\ rectangular\ regions\ from\ a\ feature\ grid.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00658}00658\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00659}00659\ \textcolor{stringliteral}{\ \ The\ output\ crops\ are\ split\ into\ \`{}spatial\_bins\_y\`{}\ vertical\ bins}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00660}00660\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{and}\ \`{}spatial\_bins\_x\`{}\ horizontal\ bins.\ For\ each\ intersection\ of\ a\ vertical}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00661}00661\ \ \ \textcolor{keywordflow}{and}\ a\ horizontal\ bin\ the\ output\ values\ are\ gathered\ by\ performing}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00662}00662\ \ \ \`{}tf.image.crop\_and\_resize\`{}\ (bilinear\ resampling)\ on\ a\ a\ separate\ subset\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00663}00663\ \ \ channels\ of\ the\ image.\ This\ reduces\ \`{}depth\`{}\ by\ a\ factor\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00664}00664\ \ \ \`{}(spatial\_bins\_y\ *\ spatial\_bins\_x)\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00666}00666\ \ \ When\ global\_pool\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True},\ this\ function\ implements\ a\ differentiable\ version}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00667}00667\ \ \ of\ position-\/sensitive\ RoI\ pooling\ used\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00668}00668\ \ \ [R-\/FCN\ detection\ system](https://arxiv.org/abs/1605.06409).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00669}00669\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00670}00670\ \ \ When\ global\_pool\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{False},\ this\ function\ implements\ a\ differentiable\ version}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00671}00671\ \ \ of\ position-\/sensitive\ assembling\ operation\ used\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00672}00672\ \ \ [instance\ FCN](https://arxiv.org/abs/1603.08678).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00673}00673\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00674}00674\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00675}00675\ \ \ \ \ image:\ A\ \`{}Tensor\`{}.\ Must\ be\ one\ of\ the\ following\ types:\ \`{}uint8\`{},\ \`{}int8\`{},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00676}00676\ \ \ \ \ \ \ \`{}int16\`{},\ \`{}int32\`{},\ \`{}int64\`{},\ \`{}half\`{},\ \`{}float32\`{},\ \`{}float64\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00677}00677\ \ \ \ \ \ \ A\ 3-\/D\ tensor\ of\ shape\ \`{}[image\_height,\ image\_width,\ depth]\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00678}00678\ \ \ \ \ \ \ Both\ \`{}image\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}image\_width\`{}\ need\ to\ be\ positive.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00679}00679\ \ \ \ \ boxes:\ A\ \`{}Tensor\`{}\ of\ type\ \`{}float32\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00680}00680\ \ \ \ \ \ \ A\ 2-\/D\ tensor\ of\ shape\ \`{}[num\_boxes,\ 4]\`{}.\ Each\ box\ \textcolor{keywordflow}{is}\ specified\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00681}00681\ \ \ \ \ \ \ normalized\ coordinates\ \`{}[y1,\ x1,\ y2,\ x2]\`{}.\ A\ normalized\ coordinate\ value}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00682}00682\ \ \ \ \ \ \ of\ \`{}y\`{}\ \textcolor{keywordflow}{is}\ mapped\ to\ the\ image\ coordinate\ at\ \`{}y\ *\ (image\_height\ -\/\ 1)\`{},\ so}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00683}00683\ \ \ \ \ \ \ \textcolor{keyword}{as}\ the\ \`{}[0,\ 1]\`{}\ interval\ of\ normalized\ image\ height\ \textcolor{keywordflow}{is}\ mapped\ to}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00684}00684\ \ \ \ \ \ \ \`{}[0,\ image\_height\ -\/\ 1]\ \textcolor{keywordflow}{in}\ image\ height\ coordinates.\ We\ do\ allow\ y1\ >\ y2,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00685}00685\ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ which\ case\ the\ sampled\ crop\ \textcolor{keywordflow}{is}\ an\ up-\/down\ flipped\ version\ of\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00686}00686\ \ \ \ \ \ \ original\ image.\ The\ width\ dimension\ \textcolor{keywordflow}{is}\ treated\ similarly.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00687}00687\ \ \ \ \ crop\_size:\ A\ list\ of\ two\ integers\ \`{}[crop\_height,\ crop\_width]\`{}.\ All}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00688}00688\ \ \ \ \ \ \ cropped\ image\ patches\ are\ resized\ to\ this\ size.\ The\ aspect\ ratio\ of\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00689}00689\ \ \ \ \ \ \ image\ content\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ preserved.\ Both\ \`{}crop\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}crop\_width\`{}\ need}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00690}00690\ \ \ \ \ \ \ to\ be\ positive.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00691}00691\ \ \ \ \ num\_spatial\_bins:\ A\ list\ of\ two\ integers\ \`{}[spatial\_bins\_y,\ spatial\_bins\_x]\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00692}00692\ \ \ \ \ \ \ Represents\ the\ number\ of\ position-\/sensitive\ bins\ \textcolor{keywordflow}{in}\ y\ \textcolor{keywordflow}{and}\ x\ directions.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00693}00693\ \ \ \ \ \ \ Both\ values\ should\ be\ >=\ 1.\ \`{}crop\_height\`{}\ should\ be\ divisible\ by}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00694}00694\ \ \ \ \ \ \ \`{}spatial\_bins\_y\`{},\ \textcolor{keywordflow}{and}\ similarly\ \textcolor{keywordflow}{for}\ width.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00695}00695\ \ \ \ \ \ \ The\ number\ of\ image\ channels\ should\ be\ divisible\ by}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00696}00696\ \ \ \ \ \ \ (spatial\_bins\_y\ *\ spatial\_bins\_x).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00697}00697\ \ \ \ \ \ \ Suggested\ value\ \textcolor{keyword}{from}\ R-\/FCN\ paper:\ [3,\ 3].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00698}00698\ \ \ \ \ global\_pool:\ A\ boolean\ variable.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00699}00699\ \ \ \ \ \ \ If\ \textcolor{keyword}{True},\ we\ perform\ average\ \textcolor{keyword}{global}\ pooling\ on\ the\ features\ assembled\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00700}00700\ \ \ \ \ \ \ \ \ the\ position-\/sensitive\ score\ maps.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00701}00701\ \ \ \ \ \ \ If\ \textcolor{keyword}{False},\ we\ keep\ the\ position-\/pooled\ features\ without\ \textcolor{keyword}{global}\ pooling}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00702}00702\ \ \ \ \ \ \ \ \ over\ the\ spatial\ coordinates.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00703}00703\ \ \ \ \ \ \ Note\ that\ using\ global\_pool=\textcolor{keyword}{True}\ \textcolor{keywordflow}{is}\ equivalent\ to\ but\ more\ efficient\ than}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00704}00704\ \ \ \ \ \ \ \ \ running\ the\ function\ \textcolor{keyword}{with}\ global\_pool=\textcolor{keyword}{False}\ \textcolor{keywordflow}{and}\ then\ performing\ \textcolor{keyword}{global}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00705}00705\ \ \ \ \ \ \ \ \ average\ pooling.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00706}00706\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00707}00707\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00708}00708\ \ \ \ \ position\_sensitive\_features:\ A\ 4-\/D\ tensor\ of\ shape}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00709}00709\ \ \ \ \ \ \ \`{}[num\_boxes,\ K,\ K,\ crop\_channels]\`{},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00710}00710\ \ \ \ \ \ \ where\ \`{}crop\_channels\ =\ depth\ /\ (spatial\_bins\_y\ *\ spatial\_bins\_x)\`{},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00711}00711\ \ \ \ \ \ \ where\ K\ =\ 1\ when\ global\_pool\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}\ (Average-\/pooled\ cropped\ regions),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00712}00712\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ K\ =\ crop\_size\ when\ global\_pool\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{False}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00713}00713\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00714}00714\ \ \ \ \ ValueError:\ Raised\ \textcolor{keywordflow}{in}\ four\ situations:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00715}00715\ \ \ \ \ \ \ \`{}num\_spatial\_bins\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ >=\ 1;}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00716}00716\ \ \ \ \ \ \ \`{}num\_spatial\_bins\`{}\ does\ \textcolor{keywordflow}{not}\ divide\ \`{}crop\_size\`{};}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00717}00717\ \ \ \ \ \ \ \`{}(spatial\_bins\_y*spatial\_bins\_x)\`{}\ does\ \textcolor{keywordflow}{not}\ divide\ \`{}depth\`{};}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00718}00718\ \ \ \ \ \ \ \`{}bin\_crop\_size\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ square\ when\ global\_pool=\textcolor{keyword}{False}\ due\ to\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00719}00719\ \ \ \ \ \ \ \ \ constraint\ \textcolor{keywordflow}{in}\ function\ space\_to\_depth.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00720}00720\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00721}00721\ \textcolor{stringliteral}{\ \ total\_bins\ =\ 1}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00722}00722\ \textcolor{stringliteral}{\ \ bin\_crop\_size\ =\ []}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00723}00723\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00724}00724\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ (num\_bins,\ crop\_dim)\ \textcolor{keywordflow}{in}\ zip(num\_spatial\_bins,\ crop\_size):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00725}00725\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_bins\ <\ 1:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00726}00726\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'num\_spatial\_bins\ should\ be\ >=\ 1'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00727}00727\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00728}00728\ \ \ \ \ \textcolor{keywordflow}{if}\ crop\_dim\ \%\ num\_bins\ !=\ 0:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00729}00729\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'crop\_size\ should\ be\ divisible\ by\ num\_spatial\_bins'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00730}00730\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00731}00731\ \ \ \ \ total\_bins\ *=\ num\_bins}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00732}00732\ \ \ \ \ bin\_crop\_size.append(crop\_dim\ //\ num\_bins)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00733}00733\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00734}00734\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ global\_pool\ \textcolor{keywordflow}{and}\ bin\_crop\_size[0]\ !=\ bin\_crop\_size[1]:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00735}00735\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Only\ support\ square\ bin\ crop\ size\ for\ now.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00736}00736\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00737}00737\ \ \ ymin,\ xmin,\ ymax,\ xmax\ =\ tf.unstack(boxes,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00738}00738\ \ \ spatial\_bins\_y,\ spatial\_bins\_x\ =\ num\_spatial\_bins}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00739}00739\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00740}00740\ \ \ \textcolor{comment}{\#\ Split\ each\ box\ into\ spatial\_bins\_y\ *\ spatial\_bins\_x\ bins.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00741}00741\ \ \ position\_sensitive\_boxes\ =\ []}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00742}00742\ \ \ \textcolor{keywordflow}{for}\ bin\_y\ \textcolor{keywordflow}{in}\ range(spatial\_bins\_y):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00743}00743\ \ \ \ \ step\_y\ =\ (ymax\ -\/\ ymin)\ /\ spatial\_bins\_y}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00744}00744\ \ \ \ \ \textcolor{keywordflow}{for}\ bin\_x\ \textcolor{keywordflow}{in}\ range(spatial\_bins\_x):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00745}00745\ \ \ \ \ \ \ step\_x\ =\ (xmax\ -\/\ xmin)\ /\ spatial\_bins\_x}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00746}00746\ \ \ \ \ \ \ box\_coordinates\ =\ [ymin\ +\ bin\_y\ *\ step\_y,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmin\ +\ bin\_x\ *\ step\_x,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymin\ +\ (bin\_y\ +\ 1)\ *\ step\_y,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmin\ +\ (bin\_x\ +\ 1)\ *\ step\_x,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00751}00751\ \ \ \ \ \ \ position\_sensitive\_boxes.append(tf.stack(box\_coordinates,\ axis=1))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00752}00752\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00753}00753\ \ \ image\_splits\ =\ tf.split(value=image,\ num\_or\_size\_splits=total\_bins,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00754}00754\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00755}00755\ \ \ image\_crops\ =\ []}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00756}00756\ \ \ \textcolor{keywordflow}{for}\ (split,\ box)\ \textcolor{keywordflow}{in}\ zip(image\_splits,\ position\_sensitive\_boxes):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00757}00757\ \ \ \ \ \textcolor{keywordflow}{if}\ split.shape.is\_fully\_defined()\ \textcolor{keywordflow}{and}\ box.shape.is\_fully\_defined():}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00758}00758\ \ \ \ \ \ \ crop\ =\ tf.squeeze(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a33f64e9ecb63a23af0c998ebb402c533}{matmul\_crop\_and\_resize}}(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(split,\ axis=0),\ tf.expand\_dims(box,\ axis=0),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bin\_crop\_size),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00763}00763\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00764}00764\ \ \ \ \ \ \ crop\ =\ tf.image.crop\_and\_resize(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(split,\ 0),\ box,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ tf.zeros(tf.shape(boxes)[0],\ dtype=tf.int32),\ bin\_crop\_size)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00767}00767\ \ \ \ \ image\_crops.append(crop)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00768}00768\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00769}00769\ \ \ \textcolor{keywordflow}{if}\ global\_pool:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00770}00770\ \ \ \ \ \textcolor{comment}{\#\ Average\ over\ all\ bins.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00771}00771\ \ \ \ \ position\_sensitive\_features\ =\ tf.add\_n(image\_crops)\ /\ len(image\_crops)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00772}00772\ \ \ \ \ \textcolor{comment}{\#\ Then\ average\ over\ spatial\ positions\ within\ the\ bins.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00773}00773\ \ \ \ \ position\_sensitive\_features\ =\ tf.reduce\_mean(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00774}00774\ \ \ \ \ \ \ \ \ position\_sensitive\_features,\ [1,\ 2],\ keepdims=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00775}00775\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00776}00776\ \ \ \ \ \textcolor{comment}{\#\ Reorder\ height/width\ to\ depth\ channel.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00777}00777\ \ \ \ \ block\_size\ =\ bin\_crop\_size[0]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00778}00778\ \ \ \ \ \textcolor{keywordflow}{if}\ block\_size\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00779}00779\ \ \ \ \ \ \ image\_crops\ =\ [tf.space\_to\_depth(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00780}00780\ \ \ \ \ \ \ \ \ \ \ crop,\ block\_size=block\_size)\ \textcolor{keywordflow}{for}\ crop\ \textcolor{keywordflow}{in}\ image\_crops]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00781}00781\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00782}00782\ \ \ \ \ \textcolor{comment}{\#\ Pack\ image\_crops\ so\ that\ first\ dimension\ is\ for\ position-\/senstive\ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00783}00783\ \ \ \ \ position\_sensitive\_features\ =\ tf.stack(image\_crops,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00784}00784\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00785}00785\ \ \ \ \ \textcolor{comment}{\#\ Unroll\ the\ position-\/sensitive\ boxes\ to\ spatial\ positions.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00786}00786\ \ \ \ \ position\_sensitive\_features\ =\ tf.squeeze(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00787}00787\ \ \ \ \ \ \ \ \ tf.batch\_to\_space\_nd(position\_sensitive\_features,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00788}00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ block\_shape=[1]\ +\ num\_spatial\_bins,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00789}00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crops=tf.zeros((3,\ 2),\ dtype=tf.int32)),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00790}00790\ \ \ \ \ \ \ \ \ axis=[0])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00791}00791\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00792}00792\ \ \ \ \ \textcolor{comment}{\#\ Reorder\ back\ the\ depth\ channel.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00793}00793\ \ \ \ \ \textcolor{keywordflow}{if}\ block\_size\ >=\ 2:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00794}00794\ \ \ \ \ \ \ position\_sensitive\_features\ =\ tf.depth\_to\_space(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00795}00795\ \ \ \ \ \ \ \ \ \ \ position\_sensitive\_features,\ block\_size=block\_size)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00796}00796\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00797}00797\ \ \ \textcolor{keywordflow}{return}\ position\_sensitive\_features}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00798}00798\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00799}00799\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00800}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae862e7f24dbb83f231c678895bfdf766}{00800}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ae862e7f24dbb83f231c678895bfdf766}{reframe\_box\_masks\_to\_image\_masks}}(box\_masks,\ boxes,\ image\_height,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_width):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00802}00802\ \ \ \textcolor{stringliteral}{"{}"{}"{}Transforms\ the\ box\ masks\ back\ to\ full\ image\ masks.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00803}00803\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00804}00804\ \textcolor{stringliteral}{\ \ Embeds\ masks\ }\textcolor{keywordflow}{in}\ bounding\ boxes\ of\ larger\ masks\ whose\ shapes\ correspond\ to}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00805}00805\ \ \ image\ shape.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00806}00806\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00807}00807\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00808}00808\ \ \ \ \ box\_masks:\ A\ tf.float32\ tensor\ of\ size\ [num\_masks,\ mask\_height,\ mask\_width].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00809}00809\ \ \ \ \ boxes:\ A\ tf.float32\ tensor\ of\ size\ [num\_masks,\ 4]\ containing\ the\ box}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00810}00810\ \ \ \ \ \ \ \ \ \ \ \ corners.\ Row\ i\ contains\ [ymin,\ xmin,\ ymax,\ xmax]\ of\ the\ box}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ corresponding\ to\ mask\ i.\ Note\ that\ the\ box\ corners\ are\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00812}00812\ \ \ \ \ \ \ \ \ \ \ \ normalized\ coordinates.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00813}00813\ \ \ \ \ image\_height:\ Image\ height.\ The\ output\ mask\ will\ have\ the\ same\ height\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ image\ height.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00815}00815\ \ \ \ \ image\_width:\ Image\ width.\ The\ output\ mask\ will\ have\ the\ same\ width\ \textcolor{keyword}{as}\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00816}00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\ width.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00817}00817\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00818}00818\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00819}00819\ \ \ \ \ A\ tf.float32\ tensor\ of\ size\ [num\_masks,\ image\_height,\ image\_width].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00820}00820\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00821}00821\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ TODO(rathodv):\ Make\ this\ a\ public\ function.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00822}00822\ \ \ \textcolor{keyword}{def\ }reframe\_box\_masks\_to\_image\_masks\_default():}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00823}00823\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}The\ default\ function\ when\ there\ are\ more\ than\ 0\ box\ masks."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00824}00824\ \ \ \ \ \textcolor{keyword}{def\ }transform\_boxes\_relative\_to\_boxes(boxes,\ reference\_boxes):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00825}00825\ \ \ \ \ \ \ boxes\ =\ tf.reshape(boxes,\ [-\/1,\ 2,\ 2])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00826}00826\ \ \ \ \ \ \ min\_corner\ =\ tf.expand\_dims(reference\_boxes[:,\ 0:2],\ 1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00827}00827\ \ \ \ \ \ \ max\_corner\ =\ tf.expand\_dims(reference\_boxes[:,\ 2:4],\ 1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00828}00828\ \ \ \ \ \ \ transformed\_boxes\ =\ (boxes\ -\/\ min\_corner)\ /\ (max\_corner\ -\/\ min\_corner)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00829}00829\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(transformed\_boxes,\ [-\/1,\ 4])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00830}00830\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00831}00831\ \ \ \ \ box\_masks\_expanded\ =\ tf.expand\_dims(box\_masks,\ axis=3)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00832}00832\ \ \ \ \ num\_boxes\ =\ tf.shape(box\_masks\_expanded)[0]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00833}00833\ \ \ \ \ unit\_boxes\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00834}00834\ \ \ \ \ \ \ \ \ [tf.zeros([num\_boxes,\ 2]),\ tf.ones([num\_boxes,\ 2])],\ axis=1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00835}00835\ \ \ \ \ reverse\_boxes\ =\ transform\_boxes\_relative\_to\_boxes(unit\_boxes,\ boxes)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00836}00836\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.image.crop\_and\_resize(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00837}00837\ \ \ \ \ \ \ \ \ image=box\_masks\_expanded,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00838}00838\ \ \ \ \ \ \ \ \ boxes=reverse\_boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00839}00839\ \ \ \ \ \ \ \ \ box\_ind=tf.range(num\_boxes),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00840}00840\ \ \ \ \ \ \ \ \ crop\_size=[image\_height,\ image\_width],}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00841}00841\ \ \ \ \ \ \ \ \ extrapolation\_value=0.0)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00842}00842\ \ \ image\_masks\ =\ tf.cond(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00843}00843\ \ \ \ \ \ \ tf.shape(box\_masks)[0]\ >\ 0,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00844}00844\ \ \ \ \ \ \ reframe\_box\_masks\_to\_image\_masks\_default,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00845}00845\ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.zeros([0,\ image\_height,\ image\_width,\ 1],\ dtype=tf.float32))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00846}00846\ \ \ \textcolor{keywordflow}{return}\ tf.squeeze(image\_masks,\ axis=3)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00847}00847\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00848}00848\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00849}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_aa05d5979ad4881e4f972be53d5b4200d}{00849}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_aa05d5979ad4881e4f972be53d5b4200d}{merge\_boxes\_with\_multiple\_labels}}(boxes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00850}00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ classes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00851}00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ confidences,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00852}00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_classes,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00853}00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ quantization\_bins=10000):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00854}00854\ \ \ \textcolor{stringliteral}{"{}"{}"{}Merges\ boxes\ with\ same\ coordinates\ and\ returns\ K-\/hot\ encoded\ classes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00855}00855\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00856}00856\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00857}00857\ \textcolor{stringliteral}{\ \ \ \ boxes:\ A\ tf.float32\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes.\ Only}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00858}00858\ \ \ \ \ \ \ normalized\ coordinates\ are\ allowed.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00859}00859\ \ \ \ \ classes:\ A\ tf.int32\ tensor\ \textcolor{keyword}{with}\ shape\ [N]\ holding\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00860}00860\ \ \ \ \ \ \ The\ \textcolor{keyword}{class\ }index\ starts\ at\ 0.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00861}00861\ \ \ \ \ confidences:\ A\ tf.float32\ tensor\ \textcolor{keyword}{with}\ shape\ [N]\ holding\ \textcolor{keyword}{class\ }confidences.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00862}00862\ \ \ \ \ num\_classes:\ total\ number\ of\ classes\ to\ use\ \textcolor{keywordflow}{for}\ K-\/hot\ encoding.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00863}00863\ \ \ \ \ quantization\_bins:\ the\ number\ of\ bins\ used\ to\ quantize\ the\ box\ coordinate.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00864}00864\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00865}00865\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00866}00866\ \ \ \ \ merged\_boxes:\ A\ tf.float32\ tensor\ \textcolor{keyword}{with}\ shape\ [N\textcolor{stringliteral}{',\ 4]\ holding\ boxes,}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00867}00867\ \textcolor{stringliteral}{\ \ \ \ \ \ where\ N'\ <=\ N.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00868}00868\ \textcolor{stringliteral}{\ \ \ \ class\_encodings:\ A\ tf.int32\ tensor\ }\textcolor{keyword}{with}\ shape\ [N\textcolor{stringliteral}{',\ num\_classes]\ holding}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00869}00869\ \textcolor{stringliteral}{\ \ \ \ \ \ K-\/hot\ encodings\ }\textcolor{keywordflow}{for}\ the\ merged\ boxes.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00870}00870\ \ \ \ \ confidence\_encodings:\ A\ tf.float32\ tensor\ \textcolor{keyword}{with}\ shape\ [N\textcolor{stringliteral}{',\ num\_classes]}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00871}00871\ \textcolor{stringliteral}{\ \ \ \ \ \ holding\ encodings\ of\ confidences\ }\textcolor{keywordflow}{for}\ the\ merged\ boxes.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00872}00872\ \ \ \ \ merged\_box\_indices:\ A\ tf.int32\ tensor\ \textcolor{keyword}{with}\ shape\ [N\textcolor{stringliteral}{']\ holding\ original}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00873}00873\ \textcolor{stringliteral}{\ \ \ \ \ \ indices\ of\ the\ boxes.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00874}00874\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00875}00875\ \textcolor{stringliteral}{\ \ boxes\_shape\ =\ tf.shape(boxes)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00876}00876\ \textcolor{stringliteral}{\ \ classes\_shape\ =\ tf.shape(classes)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00877}00877\ \textcolor{stringliteral}{\ \ confidences\_shape\ =\ tf.shape(confidences)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00878}00878\ \textcolor{stringliteral}{\ \ box\_class\_shape\_assert\ =\ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00879}00879\ \textcolor{stringliteral}{\ \ \ \ \ \ boxes\_shape,\ classes\_shape)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00880}00880\ \textcolor{stringliteral}{\ \ box\_confidence\_shape\_assert\ =\ (}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00881}00881\ \textcolor{stringliteral}{\ \ \ \ \ \ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00882}00882\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ boxes\_shape,\ confidences\_shape))}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00883}00883\ \textcolor{stringliteral}{\ \ box\_dimension\_assert\ =\ tf.assert\_equal(boxes\_shape[1],\ 4)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00884}00884\ \textcolor{stringliteral}{\ \ box\_normalized\_assert\ =\ shape\_utils.assert\_box\_normalized(boxes)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00885}00885\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00886}00886\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.control\_dependencies(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00887}00887\ \ \ \ \ \ \ [box\_class\_shape\_assert,\ box\_confidence\_shape\_assert,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00888}00888\ \ \ \ \ \ \ \ box\_dimension\_assert,\ box\_normalized\_assert]):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00889}00889\ \ \ \ \ quantized\_boxes\ =\ tf.to\_int64(boxes\ *\ (quantization\_bins\ -\/\ 1))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00890}00890\ \ \ \ \ ymin,\ xmin,\ ymax,\ xmax\ =\ tf.unstack(quantized\_boxes,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00891}00891\ \ \ \ \ hashcodes\ =\ (}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00892}00892\ \ \ \ \ \ \ \ \ ymin\ +}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00893}00893\ \ \ \ \ \ \ \ \ xmin\ *\ quantization\_bins\ +}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00894}00894\ \ \ \ \ \ \ \ \ ymax\ *\ quantization\_bins\ *\ quantization\_bins\ +}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00895}00895\ \ \ \ \ \ \ \ \ xmax\ *\ quantization\_bins\ *\ quantization\_bins\ *\ quantization\_bins)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00896}00896\ \ \ \ \ unique\_hashcodes,\ unique\_indices\ =\ tf.unique(hashcodes)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00897}00897\ \ \ \ \ num\_boxes\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00898}00898\ \ \ \ \ num\_unique\_boxes\ =\ tf.shape(unique\_hashcodes)[0]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00899}00899\ \ \ \ \ merged\_box\_indices\ =\ tf.unsorted\_segment\_min(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00900}00900\ \ \ \ \ \ \ \ \ tf.range(num\_boxes),\ unique\_indices,\ num\_unique\_boxes)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00901}00901\ \ \ \ \ merged\_boxes\ =\ tf.gather(boxes,\ merged\_box\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00902}00902\ \ \ \ \ unique\_indices\ =\ tf.to\_int64(unique\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00903}00903\ \ \ \ \ classes\ =\ tf.to\_int64(classes)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00904}00904\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00905}00905\ \ \ \ \ \textcolor{keyword}{def\ }map\_box\_encodings(i):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00906}00906\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Produces\ box\ K-\/hot\ and\ score\ encodings\ for\ each\ class\ index."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00907}00907\ \ \ \ \ \ \ box\_mask\ =\ tf.equal(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00908}00908\ \ \ \ \ \ \ \ \ \ \ unique\_indices,\ i\ *\ tf.ones(num\_boxes,\ dtype=tf.int64))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00909}00909\ \ \ \ \ \ \ box\_mask\ =\ tf.reshape(box\_mask,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00910}00910\ \ \ \ \ \ \ box\_indices\ =\ tf.boolean\_mask(classes,\ box\_mask)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00911}00911\ \ \ \ \ \ \ box\_confidences\ =\ tf.boolean\_mask(confidences,\ box\_mask)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00912}00912\ \ \ \ \ \ \ box\_class\_encodings\ =\ tf.sparse\_to\_dense(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00913}00913\ \ \ \ \ \ \ \ \ \ \ box\_indices,\ [num\_classes],\ tf.constant(1,\ dtype=tf.int64),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00914}00914\ \ \ \ \ \ \ \ \ \ \ validate\_indices=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00915}00915\ \ \ \ \ \ \ box\_confidence\_encodings\ =\ tf.sparse\_to\_dense(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00916}00916\ \ \ \ \ \ \ \ \ \ \ box\_indices,\ [num\_classes],\ box\_confidences,\ validate\_indices=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00917}00917\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ box\_class\_encodings,\ box\_confidence\_encodings}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00918}00918\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00919}00919\ \ \ \ \ \textcolor{comment}{\#\ Important\ to\ avoid\ int32\ here\ since\ there\ is\ no\ GPU\ kernel\ for\ int32.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00920}00920\ \ \ \ \ \textcolor{comment}{\#\ int64\ and\ float32\ are\ fine.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00921}00921\ \ \ \ \ class\_encodings,\ confidence\_encodings\ =\ tf.map\_fn(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00922}00922\ \ \ \ \ \ \ \ \ map\_box\_encodings,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00923}00923\ \ \ \ \ \ \ \ \ tf.range(tf.to\_int64(num\_unique\_boxes)),}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00924}00924\ \ \ \ \ \ \ \ \ back\_prop=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00925}00925\ \ \ \ \ \ \ \ \ dtype=(tf.int64,\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00926}00926\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00927}00927\ \ \ \ \ merged\_boxes\ =\ tf.reshape(merged\_boxes,\ [-\/1,\ 4])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00928}00928\ \ \ \ \ class\_encodings\ =\ tf.cast(class\_encodings,\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00929}00929\ \ \ \ \ class\_encodings\ =\ tf.reshape(class\_encodings,\ [-\/1,\ num\_classes])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00930}00930\ \ \ \ \ confidence\_encodings\ =\ tf.reshape(confidence\_encodings,\ [-\/1,\ num\_classes])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00931}00931\ \ \ \ \ merged\_box\_indices\ =\ tf.reshape(merged\_box\_indices,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00932}00932\ \ \ \ \ \textcolor{keywordflow}{return}\ (merged\_boxes,\ class\_encodings,\ confidence\_encodings,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00933}00933\ \ \ \ \ \ \ \ \ \ \ \ \ merged\_box\_indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00934}00934\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00935}00935\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00936}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_adc950a7496c9cea7a96d5fe6acd77d82}{00936}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_adc950a7496c9cea7a96d5fe6acd77d82}{nearest\_neighbor\_upsampling}}(input\_tensor,\ scale=None,\ height\_scale=None,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00937}00937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width\_scale=None):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00938}00938\ \ \ \textcolor{stringliteral}{"{}"{}"{}Nearest\ neighbor\ upsampling\ implementation.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00939}00939\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00940}00940\ \textcolor{stringliteral}{\ \ Nearest\ neighbor\ upsampling\ function\ that\ maps\ input\ tensor\ }\textcolor{keyword}{with}\ shape}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00941}00941\ \ \ [batch\_size,\ height,\ width,\ channels]\ to\ [batch\_size,\ height\ *\ scale}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00942}00942\ \ \ ,\ width\ *\ scale,\ channels].\ This\ implementation\ only\ uses\ reshape\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00943}00943\ \ \ broadcasting\ to\ make\ it\ TPU\ compatible.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00944}00944\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00945}00945\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00946}00946\ \ \ \ \ input\_tensor:\ A\ float32\ tensor\ of\ size\ [batch,\ height\_in,\ width\_in,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00947}00947\ \ \ \ \ \ \ channels].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00948}00948\ \ \ \ \ scale:\ An\ integer\ multiple\ to\ scale\ resolution\ of\ input\ data\ \textcolor{keywordflow}{in}\ both\ height}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00949}00949\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ width\ dimensions.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00950}00950\ \ \ \ \ height\_scale:\ An\ integer\ multiple\ to\ scale\ the\ height\ of\ input\ image.\ This}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00951}00951\ \ \ \ \ \ \ option\ when\ provided\ overrides\ \`{}scale\`{}\ option.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00952}00952\ \ \ \ \ width\_scale:\ An\ integer\ multiple\ to\ scale\ the\ width\ of\ input\ image.\ This}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00953}00953\ \ \ \ \ \ \ option\ when\ provided\ overrides\ \`{}scale\`{}\ option.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00954}00954\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00955}00955\ \ \ \ \ data\_up:\ A\ float32\ tensor\ of\ size}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00956}00956\ \ \ \ \ \ \ [batch,\ height\_in*scale,\ width\_in*scale,\ channels].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00957}00957\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00958}00958\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00959}00959\ \ \ \ \ ValueError:\ If\ both\ scale\ \textcolor{keywordflow}{and}\ height\_scale\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ both\ scale\ \textcolor{keywordflow}{and}\ width\_scale}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00960}00960\ \ \ \ \ \ \ are\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00961}00961\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00962}00962\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ scale\ \textcolor{keywordflow}{and}\ (height\_scale\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ width\_scale\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00963}00963\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Provide\ either\ \`{}scale`\ or\ \`{}height\_scale`\ and'}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\ \`{}width\_scale`.'})}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00965}00965\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'nearest\_neighbor\_upsampling'}):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00966}00966\ \ \ \ \ h\_scale\ =\ scale\ \textcolor{keywordflow}{if}\ height\_scale\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ height\_scale}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00967}00967\ \ \ \ \ w\_scale\ =\ scale\ \textcolor{keywordflow}{if}\ width\_scale\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ width\_scale}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00968}00968\ \ \ \ \ (batch\_size,\ height,\ width,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00969}00969\ \ \ \ \ \ channels)\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(input\_tensor)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00970}00970\ \ \ \ \ output\_tensor\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00971}00971\ \ \ \ \ \ \ \ \ input\_tensor,\ [batch\_size,\ height,\ 1,\ width,\ 1,\ channels])\ *\ tf.ones(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ h\_scale,\ 1,\ w\_scale,\ 1],\ dtype=input\_tensor.dtype)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00973}00973\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(output\_tensor,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00974}00974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ height\ *\ h\_scale,\ width\ *\ w\_scale,\ channels])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00975}00975\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00976}00976\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00977}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a6323da655ab0d0f545c213c5b0382b7f}{00977}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a6323da655ab0d0f545c213c5b0382b7f}{matmul\_gather\_on\_zeroth\_axis}}(params,\ indices,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00978}00978\ \ \ \textcolor{stringliteral}{"{}"{}"{}Matrix\ multiplication\ based\ implementation\ of\ tf.gather\ on\ zeroth\ axis.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00979}00979\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00980}00980\ \textcolor{stringliteral}{\ \ TODO(rathodv,\ jonathanhuang):\ enable\ sparse\ matmul\ option.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00981}00981\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00982}00982\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00983}00983\ \textcolor{stringliteral}{\ \ \ \ params:\ A\ float32\ Tensor.\ The\ tensor\ }\textcolor{keyword}{from}\ which\ to\ gather\ values.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00984}00984\ \ \ \ \ \ \ Must\ be\ at\ least\ rank\ 1.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00985}00985\ \ \ \ \ indices:\ A\ Tensor.\ Must\ be\ one\ of\ the\ following\ types:\ int32,\ int64.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00986}00986\ \ \ \ \ \ \ Must\ be\ \textcolor{keywordflow}{in}\ range\ [0,\ params.shape[0])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00987}00987\ \ \ \ \ scope:\ A\ name\ \textcolor{keywordflow}{for}\ the\ operation\ (optional).}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00988}00988\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00989}00989\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00990}00990\ \ \ \ \ A\ Tensor.\ Has\ the\ same\ type\ \textcolor{keyword}{as}\ params.\ Values\ \textcolor{keyword}{from}\ params\ gathered}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00991}00991\ \ \ \ \ \textcolor{keyword}{from}\ indices\ given\ by\ indices,\ \textcolor{keyword}{with}\ shape\ indices.shape\ +\ params.shape[1:].}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00992}00992\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00993}00993\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MatMulGather'}):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00994}00994\ \ \ \ \ params\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(params)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00995}00995\ \ \ \ \ indices\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(indices)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00996}00996\ \ \ \ \ params2d\ =\ tf.reshape(params,\ [params\_shape[0],\ -\/1])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00997}00997\ \ \ \ \ indicator\_matrix\ =\ tf.one\_hot(indices,\ params\_shape[0])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00998}00998\ \ \ \ \ gathered\_result\_flattened\ =\ tf.matmul(indicator\_matrix,\ params2d)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l00999}00999\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(gathered\_result\_flattened,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01000}01000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack(indices\_shape\ +\ params\_shape[1:]))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01001}01001\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01002}01002\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01003}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a140f2d38716d4f6f82081e7a6dfc38c7}{01003}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a140f2d38716d4f6f82081e7a6dfc38c7}{fpn\_feature\_levels}}(num\_levels,\ unit\_scale\_index,\ image\_ratio,\ boxes):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01004}01004\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ fpn\ feature\ level\ for\ each\ box\ based\ on\ its\ area.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01005}01005\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01006}01006\ \textcolor{stringliteral}{\ \ See\ section\ 4.2\ of\ https://arxiv.org/pdf/1612.03144.pdf\ }\textcolor{keywordflow}{for}\ details.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01007}01007\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01008}01008\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01009}01009\ \ \ \ \ num\_levels:\ An\ integer\ indicating\ the\ number\ of\ feature\ levels\ to\ crop\ boxes}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01010}01010\ \ \ \ \ \ \ \textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01011}01011\ \ \ \ \ unit\_scale\_index:\ An\ 0-\/based\ integer\ indicating\ the\ index\ of\ feature\ map}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01012}01012\ \ \ \ \ \ \ which\ most\ closely\ matches\ the\ resolution\ of\ the\ pretrained\ model.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01013}01013\ \ \ \ \ image\_ratio:\ A\ float\ indicating\ the\ ratio\ of\ input\ image\ area\ to\ pretraining}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01014}01014\ \ \ \ \ \ \ image\ area.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01015}01015\ \ \ \ \ boxes:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ 4]\ containing\ boxes\ of\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01016}01016\ \ \ \ \ \ \ form\ [ymin,\ xmin,\ ymax,\ xmax]\ \textcolor{keywordflow}{in}\ normalized\ coordinates.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01017}01017\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01018}01018\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01019}01019\ \ \ \ \ An\ int32\ tensor\ of\ shape\ [batch\_size,\ num\_boxes]\ containing\ feature\ indices.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01020}01020\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01021}01021\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{assert}\ num\_levels\ >\ 0,\ (}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01022}01022\ \ \ \ \ \ \ \textcolor{stringliteral}{'\`{}num\_levels`\ must\ be\ >\ 0.\ Found\ \{\}'}.format(num\_levels))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01023}01023\ \ \ \textcolor{keyword}{assert}\ unit\_scale\_index\ <\ num\_levels\ \textcolor{keywordflow}{and}\ unit\_scale\_index\ >=\ 0,\ (}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01024}01024\ \ \ \ \ \ \ \textcolor{stringliteral}{'\`{}unit\_scale\_index`\ must\ be\ in\ [0,\ \{\}).\ Found\ \{\}.'}.format(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01025}01025\ \ \ \ \ \ \ \ \ \ \ num\_levels,\ unit\_scale\_index))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01026}01026\ \ \ box\_height\_width\ =\ boxes[:,\ :,\ 2:4]\ -\/\ boxes[:,\ :,\ 0:2]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01027}01027\ \ \ areas\_sqrt\ =\ tf.sqrt(tf.reduce\_prod(box\_height\_width,\ axis=2))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01028}01028\ \ \ log\_2\ =\ tf.cast(tf.log(2.0),\ dtype=boxes.dtype)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01029}01029\ \ \ levels\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01030}01030\ \ \ \ \ \ \ tf.floordiv(tf.log(areas\_sqrt\ *\ image\_ratio),\ log\_2)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01031}01031\ \ \ \ \ \ \ +}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01032}01032\ \ \ \ \ \ \ unit\_scale\_index,}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01033}01033\ \ \ \ \ \ \ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01034}01034\ \ \ levels\ =\ tf.maximum(0,\ tf.minimum(num\_levels\ -\/\ 1,\ levels))}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01035}01035\ \ \ \textcolor{keywordflow}{return}\ levels}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01036}01036\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01037}01037\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01038}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ab995660ac802c5af8c902b336a138b2b}{01038}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ab995660ac802c5af8c902b336a138b2b}{bfloat16\_to\_float32\_nested}}(tensor\_nested):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01039}01039\ \ \ \textcolor{stringliteral}{"{}"{}"{}Convert\ float32\ tensors\ in\ a\ nested\ structure\ to\ bfloat16.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01040}01040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01041}01041\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01042}01042\ \textcolor{stringliteral}{\ \ \ \ tensor\_nested:\ A\ Python\ dict,\ values\ being\ Tensor\ }\textcolor{keywordflow}{or}\ Python\ list/tuple\ of}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01043}01043\ \ \ \ \ \ \ Tensor.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01044}01044\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01045}01045\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01046}01046\ \ \ \ \ A\ Python\ dict\ \textcolor{keyword}{with}\ the\ same\ structure\ \textcolor{keyword}{as}\ \`{}tensor\_dict\`{},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01047}01047\ \ \ \ \ \textcolor{keyword}{with}\ all\ bfloat16\ tensors\ converted\ to\ float32.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01048}01048\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01049}01049\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(tensor\_nested,\ tf.Tensor):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01050}01050\ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\_nested.dtype\ ==\ tf.bfloat16:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01051}01051\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cast(tensor\_nested,\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01052}01052\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01053}01053\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tensor\_nested}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01054}01054\ \ \ \textcolor{keywordflow}{elif}\ isinstance(tensor\_nested,\ (list,\ tuple)):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01055}01055\ \ \ \ \ out\_tensor\_dict\ =\ [\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ab995660ac802c5af8c902b336a138b2b}{bfloat16\_to\_float32\_nested}}(t)\ \textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ tensor\_nested]}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01056}01056\ \ \ \textcolor{keywordflow}{elif}\ isinstance(tensor\_nested,\ dict):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01057}01057\ \ \ \ \ out\_tensor\_dict\ =\ \{}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01058}01058\ \ \ \ \ \ \ \ \ k:\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_ab995660ac802c5af8c902b336a138b2b}{bfloat16\_to\_float32\_nested}}(v)\ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ tensor\_nested.items()}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01059}01059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01060}01060\ \ \ \textcolor{keywordflow}{return}\ out\_tensor\_dict}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01061}01061\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01062}01062\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01063}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a4f2f992f354f09d7235817f9787a6454}{01063}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a4f2f992f354f09d7235817f9787a6454}{gather\_with\_padding\_values}}(input\_tensor,\ indices,\ padding\_value):}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01064}01064\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gathers\ elements\ from\ tensor\ and\ pads\ \`{}padding\_value\`{}\ for\ ignore\ indices.}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01065}01065\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01066}01066\ \textcolor{stringliteral}{\ \ Gathers\ elements\ }\textcolor{keyword}{from}\ \`{}input\_tensor\`{}\ based\ on\ \`{}indices\`{}.\ If\ there\ are\ ignore}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01067}01067\ \ \ indices\ (which\ are\ \textcolor{stringliteral}{"{}-\/1"{}}s)\ \textcolor{keywordflow}{in}\ \`{}indices\`{},\ \`{}padding\_value\`{}\ will\ be\ gathered\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01068}01068\ \ \ those\ positions.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01069}01069\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01070}01070\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01071}01071\ \ \ \ \ input\_tensor:\ A\ N-\/D\ tensor\ of\ shape\ [M,\ d\_1,\ d\_2\ ..\ d\_(N-\/1)]\ to\ gather}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01072}01072\ \ \ \ \ \ \ values\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01073}01073\ \ \ \ \ indices:\ A\ 1-\/D\ tensor\ \textcolor{keywordflow}{in}\ which\ each\ element\ \textcolor{keywordflow}{is}\ either\ an\ index\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01074}01074\ \ \ \ \ \ \ first\ dimension\ of\ input\_tensor\ \textcolor{keywordflow}{or}\ -\/1.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01075}01075\ \ \ \ \ padding\_value:\ A\ (N-\/1)-\/D\ tensor\ of\ shape\ [d\_1,\ d\_2\ ..\ d\_(N-\/1)]\ which\ will\ be}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01076}01076\ \ \ \ \ \ \ used\ \textcolor{keyword}{as}\ gathered\ value\ \textcolor{keywordflow}{for}\ each\ ignore\ index\ \textcolor{keywordflow}{in}\ \`{}indices\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01077}01077\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01078}01078\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01079}01079\ \ \ \ \ gathered\_tensor:\ A\ tensor\ of\ shape\ [L,\ d\_1,\ d\_2\ ..\ d\_(N-\/1)]\ containing}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01080}01080\ \ \ \ \ \ \ values\ gathered\ \textcolor{keyword}{from}\ input\_tensor.\ The\ first\ dimension\ L\ \textcolor{keywordflow}{is}\ equal\ to\ the}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01081}01081\ \ \ \ \ \ \ length\ of\ \`{}indices\`{}.}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01082}01082\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01083}01083\ \textcolor{stringliteral}{\ \ padding\_value\ =\ tf.expand\_dims(padding\_value,\ axis=0)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01084}01084\ \textcolor{stringliteral}{\ \ input\_tensor\ =\ tf.concat([padding\_value,\ input\_tensor],\ axis=0)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01085}01085\ \textcolor{stringliteral}{\ \ gather\_indices\ =\ indices\ +\ 1}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01086}01086\ \textcolor{stringliteral}{\ \ gathered\_tensor\ =\ tf.gather(input\_tensor,\ gather\_indices)}}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01087}01087\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ gathered\_tensor}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01088}01088\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01089}01089\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01090}01090\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01091}01091\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01092}01092\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01093}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1ops_a82ed092503588fcc71b43646a1100dac}{01093}}\ EqualizationLossConfig\ =\ collections.namedtuple(\textcolor{stringliteral}{'EqualizationLossConfig'},}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01094}01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'weight'},\ \textcolor{stringliteral}{'exclude\_prefixes'}])}
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01095}01095\ }
+\DoxyCodeLine{\Hypertarget{ops_8py_source_l01096}01096\ }
+
+\end{DoxyCode}

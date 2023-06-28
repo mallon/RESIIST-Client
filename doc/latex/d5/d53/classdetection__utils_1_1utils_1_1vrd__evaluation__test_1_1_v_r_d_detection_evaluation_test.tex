@@ -1,0 +1,139 @@
+\doxysection{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation\+\_\+test.\+VRDDetection\+Evaluation\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test}{}\label{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test}\index{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest@{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation\+\_\+test.\+VRDDetection\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{d2/d57/classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation\+\_\+test.\+VRDDetection\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{dc/d70/classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_af606e56011973cc268c66175a05158f3}{set\+Up}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_a1513d91402a5e6c65f3a09813f6b61aa}{vrd\+\_\+eval}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation__test_8py_source_l00193}{193}} of file \mbox{\hyperlink{vrd__evaluation__test_8py_source}{vrd\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_af606e56011973cc268c66175a05158f3}\label{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_af606e56011973cc268c66175a05158f3} 
+\index{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest@{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest}!setUp@{setUp}}
+\index{setUp@{setUp}!detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest@{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest}}
+\doxysubsubsection{\texorpdfstring{setUp()}{setUp()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation\+\_\+test.\+VRDDetection\+Evaluation\+Test.\+set\+Up (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation__test_8py_source_l00195}{195}} of file \mbox{\hyperlink{vrd__evaluation__test_8py_source}{vrd\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{def\ }setUp(self):}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ self.vrd\_eval\ =\ vrd\_evaluation.\_VRDDetectionEvaluation(}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ matching\_iou\_threshold=0.5)}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00201\ \ \ \ \ groundtruth\_box\_tuples1\ =\ np.array(}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ [([0,\ 0,\ 1,\ 1],\ [1,\ 1,\ 2,\ 2]),\ ([0,\ 0,\ 1,\ 1],\ [1,\ 2,\ 2,\ 3])],}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ dtype=vrd\_evaluation.vrd\_box\_data\_type)}
+\DoxyCodeLine{00204\ \ \ \ \ groundtruth\_class\_tuples1\ =\ np.array(}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ [(1,\ 2,\ 3),\ (1,\ 4,\ 3)],\ dtype=vrd\_evaluation.label\_data\_type)}
+\DoxyCodeLine{00206\ \ \ \ \ self.vrd\_eval.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ image\_key1,\ groundtruth\_box\_tuples1,\ groundtruth\_class\_tuples1)}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00210\ \ \ \ \ groundtruth\_box\_tuples2\ =\ np.array(}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ [([0,\ 0,\ 1,\ 1],\ [1,\ 1,\ 2,\ 2])],\ dtype=vrd\_evaluation.vrd\_box\_data\_type)}
+\DoxyCodeLine{00212\ \ \ \ \ groundtruth\_class\_tuples2\ =\ np.array(}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ [(1,\ 4,\ 3)],\ dtype=vrd\_evaluation.label\_data\_type)}
+\DoxyCodeLine{00214\ \ \ \ \ self.vrd\_eval.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ image\_key2,\ groundtruth\_box\_tuples2,\ groundtruth\_class\_tuples2)}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00218\ \ \ \ \ groundtruth\_box\_tuples3\ =\ np.array(}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ [([0,\ 0,\ 1,\ 1],\ [1,\ 1,\ 2,\ 2])],\ dtype=vrd\_evaluation.vrd\_box\_data\_type)}
+\DoxyCodeLine{00220\ \ \ \ \ groundtruth\_class\_tuples3\ =\ np.array(}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ [(1,\ 2,\ 4)],\ dtype=vrd\_evaluation.label\_data\_type)}
+\DoxyCodeLine{00222\ \ \ \ \ self.vrd\_eval.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ image\_key3,\ groundtruth\_box\_tuples3,\ groundtruth\_class\_tuples3)}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00226\ \ \ \ \ detected\_box\_tuples\ =\ np.array(}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ [([0,\ 0.3,\ 1,\ 1],\ [1.1,\ 1,\ 2,\ 2]),\ ([0,\ 0,\ 1,\ 1],\ [1,\ 1,\ 2,\ 2])],}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ dtype=vrd\_evaluation.vrd\_box\_data\_type)}
+\DoxyCodeLine{00229\ \ \ \ \ detected\_class\_tuples\ =\ np.array(}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ [(1,\ 2,\ 3),\ (1,\ 2,\ 3)],\ dtype=vrd\_evaluation.label\_data\_type)}
+\DoxyCodeLine{00231\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8],\ dtype=float)}
+\DoxyCodeLine{00232\ \ \ \ \ self.vrd\_eval.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ image\_key,\ detected\_box\_tuples,\ detected\_scores,\ detected\_class\_tuples)}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ metrics\ =\ self.vrd\_eval.evaluate()}
+\DoxyCodeLine{00236\ \ \ \ \ expected\_weighted\_average\_precision\ =\ 0.25}
+\DoxyCodeLine{00237\ \ \ \ \ expected\_mean\_average\_precision\ =\ 0.16666666666666}
+\DoxyCodeLine{00238\ \ \ \ \ expected\_precision\ =\ np.array([1.,\ 0.5],\ dtype=float)}
+\DoxyCodeLine{00239\ \ \ \ \ expected\_recall\ =\ np.array([0.25,\ 0.25],\ dtype=float)}
+\DoxyCodeLine{00240\ \ \ \ \ expected\_recall\_50\ =\ 0.25}
+\DoxyCodeLine{00241\ \ \ \ \ expected\_recall\_100\ =\ 0.25}
+\DoxyCodeLine{00242\ \ \ \ \ expected\_median\_rank\_50\ =\ 0}
+\DoxyCodeLine{00243\ \ \ \ \ expected\_median\_rank\_100\ =\ 0}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ self.assertAlmostEqual(expected\_weighted\_average\_precision,}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ metrics.weighted\_average\_precision)}
+\DoxyCodeLine{00247\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_average\_precision,}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ metrics.mean\_average\_precision)}
+\DoxyCodeLine{00249\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_average\_precision,}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ metrics.mean\_average\_precision)}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ self.assertAllClose(expected\_precision,\ metrics.precisions)}
+\DoxyCodeLine{00253\ \ \ \ \ self.assertAllClose(expected\_recall,\ metrics.recalls)}
+\DoxyCodeLine{00254\ \ \ \ \ self.assertAlmostEqual(expected\_recall\_50,\ metrics.recall\_50)}
+\DoxyCodeLine{00255\ \ \ \ \ self.assertAlmostEqual(expected\_recall\_100,\ metrics.recall\_100)}
+\DoxyCodeLine{00256\ \ \ \ \ self.assertAlmostEqual(expected\_median\_rank\_50,\ metrics.median\_rank\_50)}
+\DoxyCodeLine{00257\ \ \ \ \ self.assertAlmostEqual(expected\_median\_rank\_100,\ metrics.median\_rank\_100)}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_a1513d91402a5e6c65f3a09813f6b61aa}\label{classdetection__utils_1_1utils_1_1vrd__evaluation__test_1_1_v_r_d_detection_evaluation_test_a1513d91402a5e6c65f3a09813f6b61aa} 
+\index{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest@{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest}!vrd\_eval@{vrd\_eval}}
+\index{vrd\_eval@{vrd\_eval}!detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest@{detection\_utils.utils.vrd\_evaluation\_test.VRDDetectionEvaluationTest}}
+\doxysubsubsection{\texorpdfstring{vrd\_eval}{vrd\_eval}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation\+\_\+test.\+VRDDetection\+Evaluation\+Test.\+vrd\+\_\+eval}
+
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation__test_8py_source_l00197}{197}} of file \mbox{\hyperlink{vrd__evaluation__test_8py_source}{vrd\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{vrd__evaluation__test_8py}{vrd\+\_\+evaluation\+\_\+test.\+py}}\end{DoxyCompactItemize}

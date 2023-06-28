@@ -1,0 +1,87 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Nan\+Box\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test}\index{detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Nan\+Box\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{d4/dae/classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Nan\+Box\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{df/d42/classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test_a1c70774039624e3cb5c6d620798b2a85}{test\+\_\+filter\+\_\+groundtruth\+\_\+with\+\_\+nan\+\_\+box\+\_\+coordinates}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00689}{689}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test_a1c70774039624e3cb5c6d620798b2a85}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_nan_box_test_a1c70774039624e3cb5c6d620798b2a85} 
+\index{detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest}!test\_filter\_groundtruth\_with\_nan\_box\_coordinates@{test\_filter\_groundtruth\_with\_nan\_box\_coordinates}}
+\index{test\_filter\_groundtruth\_with\_nan\_box\_coordinates@{test\_filter\_groundtruth\_with\_nan\_box\_coordinates}!detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithNanBoxTest}}
+\doxysubsubsection{\texorpdfstring{test\_filter\_groundtruth\_with\_nan\_box\_coordinates()}{test\_filter\_groundtruth\_with\_nan\_box\_coordinates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Nan\+Box\+Test.\+test\+\_\+filter\+\_\+groundtruth\+\_\+with\+\_\+nan\+\_\+box\+\_\+coordinates (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00691}{691}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00691\ \ \ \textcolor{keyword}{def\ }test\_filter\_groundtruth\_with\_nan\_box\_coordinates(self):}
+\DoxyCodeLine{00692\ \ \ \ \ input\_tensors\ =\ \{}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ [[np.nan,\ np.nan,\ np.nan,\ np.nan],\ [0.2,\ 0.4,\ 0.1,\ 0.8]],}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ [1,\ 2],}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ [\textcolor{keyword}{False},\ \textcolor{keyword}{True}],}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ [100.0,\ 238.7],}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ [0.5,\ 0.99],}
+\DoxyCodeLine{00699\ \ \ \ \ \}}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ expected\_tensors\ =\ \{}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:\ [[0.2,\ 0.4,\ 0.1,\ 0.8]],}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ [2],}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ [\textcolor{keyword}{True}],}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ [238.7],}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ [0.99],}
+\DoxyCodeLine{00707\ \ \ \ \ \}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \ \ \ \ output\_tensors\ =\ ops.filter\_groundtruth\_with\_nan\_box\_coordinates(}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ input\_tensors)}
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ output\_tensors\ =\ sess.run(output\_tensors)}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_boxes,}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area,}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences]:}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ self.assertAllClose(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_classes,}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd]:}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ self.assertAllEqual(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

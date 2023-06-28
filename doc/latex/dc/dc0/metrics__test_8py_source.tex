@@ -1,0 +1,153 @@
+\doxysection{metrics\+\_\+test.\+py}
+\hypertarget{metrics__test_8py_source}{}\label{metrics__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/metrics\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/metrics\_test.py}}
+\mbox{\hyperlink{metrics__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.metrics."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00021}00021\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00024}00024\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ metrics}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00027}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test}{00027}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test}{MetricsTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00029}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ad3f5ee863952a3edc8b4830113b1f517}{00029}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ad3f5ee863952a3edc8b4830113b1f517}{test\_compute\_cor\_loc}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00030}00030\ \ \ \ \ num\_gt\_imgs\_per\_class\ =\ np.array([100,\ 1,\ 5,\ 1,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00031}00031\ \ \ \ \ num\_images\_correctly\_detected\_per\_class\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ [10,\ 0,\ 1,\ 0,\ 0],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00033}00033\ \ \ \ \ corloc\ =\ metrics.compute\_cor\_loc(num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00035}00035\ \ \ \ \ expected\_corloc\ =\ np.array([0.1,\ 0,\ 0.2,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00036}00036\ \ \ \ \ self.assertTrue(np.allclose(corloc,\ expected\_corloc))}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00038}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_acbbe270393c6d3404988991b8a4fa6ba}{00038}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_acbbe270393c6d3404988991b8a4fa6ba}{test\_compute\_cor\_loc\_nans}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00039}00039\ \ \ \ \ num\_gt\_imgs\_per\_class\ =\ np.array([100,\ 0,\ 0,\ 1,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00040}00040\ \ \ \ \ num\_images\_correctly\_detected\_per\_class\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ [10,\ 0,\ 1,\ 0,\ 0],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00042}00042\ \ \ \ \ corloc\ =\ metrics.compute\_cor\_loc(num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00044}00044\ \ \ \ \ expected\_corloc\ =\ np.array([0.1,\ np.nan,\ np.nan,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00045}00045\ \ \ \ \ self.assertAllClose(corloc,\ expected\_corloc)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00047}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0c209f4ddc8302398067586fd6ed64d2}{00047}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0c209f4ddc8302398067586fd6ed64d2}{test\_compute\_precision\_recall}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00048}00048\ \ \ \ \ num\_gt\ =\ 10}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00049}00049\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00050}00050\ \ \ \ \ labels\ =\ np.array([0,\ 1,\ 1,\ 0,\ 0,\ 1],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00051}00051\ \ \ \ \ labels\_float\_type\ =\ np.array([0,\ 1,\ 1,\ 0,\ 0,\ 1],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00052}00052\ \ \ \ \ accumulated\_tp\_count\ =\ np.array([0,\ 1,\ 1,\ 2,\ 2,\ 3],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00053}00053\ \ \ \ \ expected\_precision\ =\ accumulated\_tp\_count\ /\ np.array([1,\ 2,\ 3,\ 4,\ 5,\ 6])}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00054}00054\ \ \ \ \ expected\_recall\ =\ accumulated\_tp\_count\ /\ num\_gt}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00056}00056\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(scores,\ labels,\ num\_gt)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00057}00057\ \ \ \ \ precision\_float\_type,\ recall\_float\_type\ =\ metrics.compute\_precision\_recall(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ scores,\ labels\_float\_type,\ num\_gt)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00060}00060\ \ \ \ \ self.assertAllClose(precision,\ expected\_precision)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00061}00061\ \ \ \ \ self.assertAllClose(recall,\ expected\_recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00062}00062\ \ \ \ \ self.assertAllClose(precision\_float\_type,\ expected\_precision)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00063}00063\ \ \ \ \ self.assertAllClose(recall\_float\_type,\ expected\_recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00065}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_afdd7f4999a5badd038a2655ff0f193c7}{00065}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_afdd7f4999a5badd038a2655ff0f193c7}{test\_compute\_precision\_recall\_float}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00066}00066\ \ \ \ \ num\_gt\ =\ 10}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00067}00067\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00068}00068\ \ \ \ \ labels\_float\ =\ np.array([0,\ 1,\ 1,\ 0.5,\ 0,\ 1],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00069}00069\ \ \ \ \ expected\_precision\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ [0.,\ 0.5,\ 0.33333333,\ 0.5,\ 0.55555556,\ 0.63636364],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00071}00071\ \ \ \ \ expected\_recall\ =\ np.array([0.,\ 0.1,\ 0.1,\ 0.2,\ 0.25,\ 0.35],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00072}00072\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ scores,\ labels\_float,\ num\_gt)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00074}00074\ \ \ \ \ self.assertAllClose(precision,\ expected\_precision)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00075}00075\ \ \ \ \ self.assertAllClose(recall,\ expected\_recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00077}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0dc62a69b571b041724d131603682902}{00077}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0dc62a69b571b041724d131603682902}{test\_compute\_average\_precision}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00078}00078\ \ \ \ \ precision\ =\ np.array([0.8,\ 0.76,\ 0.9,\ 0.65,\ 0.7,\ 0.5,\ 0.55,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00079}00079\ \ \ \ \ recall\ =\ np.array([0.3,\ 0.3,\ 0.4,\ 0.4,\ 0.45,\ 0.45,\ 0.5,\ 0.5],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00080}00080\ \ \ \ \ processed\_precision\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ [0.9,\ 0.9,\ 0.9,\ 0.7,\ 0.7,\ 0.55,\ 0.55,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00082}00082\ \ \ \ \ recall\_interval\ =\ np.array([0.3,\ 0,\ 0.1,\ 0,\ 0.05,\ 0,\ 0.05,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00083}00083\ \ \ \ \ expected\_mean\_ap\ =\ np.sum(recall\_interval\ *\ processed\_precision)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00084}00084\ \ \ \ \ mean\_ap\ =\ metrics.compute\_average\_precision(precision,\ recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00085}00085\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_ap,\ mean\_ap)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00087}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a66dc7fc915fe615e80980c92fadabc8b}{00087}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a66dc7fc915fe615e80980c92fadabc8b}{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00088}00088\ \ \ \ \ num\_gt\ =\ 0}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00089}00089\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00090}00090\ \ \ \ \ labels\ =\ np.array([0,\ 0,\ 0,\ 0,\ 0,\ 0],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00091}00091\ \ \ \ \ expected\_precision\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00092}00092\ \ \ \ \ expected\_recall\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00093}00093\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(scores,\ labels,\ num\_gt)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00094}00094\ \ \ \ \ self.assertEquals(precision,\ expected\_precision)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00095}00095\ \ \ \ \ self.assertEquals(recall,\ expected\_recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00096}00096\ \ \ \ \ ap\ =\ metrics.compute\_average\_precision(precision,\ recall)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00097}00097\ \ \ \ \ self.assertTrue(np.isnan(ap))}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00099}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ae079512414660928b17f2d07bcf9cc07}{00099}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ae079512414660928b17f2d07bcf9cc07}{test\_compute\_recall\_at\_k}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00100}00100\ \ \ \ \ num\_gt\ =\ 4}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00101}00101\ \ \ \ \ tp\_fp\ =\ [}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ np.array([1,\ 0,\ 0],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ np.array([0,\ 1],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ np.array([0,\ 0,\ 0,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00105}00105\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00106}00106\ \ \ \ \ tp\_fp\_bool\ =\ [}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=bool),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00110}00110\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00112}00112\ \ \ \ \ recall\_1\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 1)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00113}00113\ \ \ \ \ recall\_3\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 3)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00114}00114\ \ \ \ \ recall\_5\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00116}00116\ \ \ \ \ recall\_3\_bool\ =\ metrics.compute\_recall\_at\_k(tp\_fp\_bool,\ num\_gt,\ 3)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00118}00118\ \ \ \ \ self.assertAlmostEqual(recall\_1,\ 0.25)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00119}00119\ \ \ \ \ self.assertAlmostEqual(recall\_3,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00120}00120\ \ \ \ \ self.assertAlmostEqual(recall\_3\_bool,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00121}00121\ \ \ \ \ self.assertAlmostEqual(recall\_5,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00123}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a9434b0ba76f91b229b6ac89b6009f2d4}{00123}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a9434b0ba76f91b229b6ac89b6009f2d4}{test\_compute\_median\_rank\_at\_k}}(self):}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00124}00124\ \ \ \ \ tp\_fp\ =\ [}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ np.array([1,\ 0,\ 0],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ np.array([0,\ 0.1],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ np.array([0,\ 0,\ 0,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00128}00128\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00129}00129\ \ \ \ \ tp\_fp\_bool\ =\ [}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=bool),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00133}00133\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00135}00135\ \ \ \ \ median\_ranks\_1\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 1)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00136}00136\ \ \ \ \ median\_ranks\_3\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 3)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00137}00137\ \ \ \ \ median\_ranks\_5\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00138}00138\ \ \ \ \ median\_ranks\_3\_bool\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp\_bool,\ 3)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00140}00140\ \ \ \ \ self.assertEquals(median\_ranks\_1,\ 0)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00141}00141\ \ \ \ \ self.assertEquals(median\_ranks\_3,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00142}00142\ \ \ \ \ self.assertEquals(median\_ranks\_3\_bool,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00143}00143\ \ \ \ \ self.assertEquals(median\_ranks\_5,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00146}00146\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{metrics__test_8py_source_l00147}00147\ \ \ tf.test.main()}
+
+\end{DoxyCode}

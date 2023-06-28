@@ -1,0 +1,276 @@
+\doxysection{matcher.\+py}
+\hypertarget{matcher_8py_source}{}\label{matcher_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/matcher.py@{src/main/resources/processing/video/detections/detection\_utils/core/matcher.py}}
+\mbox{\hyperlink{matcher_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1matcher}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Matcher\ interface\ and\ Match\ class.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00018}00018\ \textcolor{stringliteral}{This\ module\ defines\ the\ Matcher\ interface\ and\ the\ Match\ object.\ The\ job\ of\ the}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00019}00019\ \textcolor{stringliteral}{matcher\ is\ to\ match\ row\ and\ column\ indices\ based\ on\ the\ similarity\ matrix\ and}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00020}00020\ \textcolor{stringliteral}{other\ optional\ parameters.\ Each\ column\ is\ matched\ to\ at\ most\ one\ row.\ There}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00021}00021\ \textcolor{stringliteral}{are\ three\ possibilities\ for\ the\ matching:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00023}00023\ \textcolor{stringliteral}{1)\ match:\ A\ column\ matches\ a\ row.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00024}00024\ \textcolor{stringliteral}{2)\ no\_match:\ A\ column\ does\ not\ match\ any\ row.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00025}00025\ \textcolor{stringliteral}{3)\ ignore:\ A\ column\ that\ is\ neither\ 'match'\ nor\ no\_match.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00027}00027\ \textcolor{stringliteral}{The\ ignore\ case\ is\ regularly\ encountered\ in\ object\ detection:\ when\ an\ anchor\ has}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00028}00028\ \textcolor{stringliteral}{a\ relatively\ small\ overlap\ with\ a\ ground-\/truth\ box,\ one\ neither\ wants\ to}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00029}00029\ \textcolor{stringliteral}{consider\ this\ box\ a\ positive\ example\ (match)\ nor\ a\ negative\ example\ (no\ match).}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00030}00030\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00031}00031\ \textcolor{stringliteral}{The\ Match\ class\ is\ used\ to\ store\ the\ match\ results\ and\ it\ provides\ simple\ apis}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00032}00032\ \textcolor{stringliteral}{to\ query\ the\ results.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00033}00033\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00034}00034\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00035}00035\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00036}00036\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00038}00038\ \textcolor{keyword}{import}\ abc}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00039}00039\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00040}00040\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00042}00042\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ ops}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00045}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{00045}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{Match}}(object):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00046}00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ store\ results\ from\ the\ matcher.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00047}00047\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keyword}{class\ }is\ used\ to\ store\ the\ results\ from\ the\ \mbox{\hyperlink{namespacematcher}{matcher}}.\ It\ provides}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00049}00049\ \ \ convenient\ methods\ to\ query\ the\ matching\ results.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00050}00050\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00051}00051\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00052}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9ab574b0a85a06f9b9efe62bb32c40b4}{00052}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9ab574b0a85a06f9b9efe62bb32c40b4}{\_\_init\_\_}}(self,\ match\_results,\ use\_matmul\_gather=False):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00053}00053\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ Match\ object.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00054}00054\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ \ \ match\_results:\ Integer\ tensor\ of\ shape\ [N]\ }\textcolor{keyword}{with}\ (1)\ match\_results[i]>=0,}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ meaning\ that\ column\ i\ \textcolor{keywordflow}{is}\ matched\ \textcolor{keyword}{with}\ row\ match\_results[i].}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ (2)\ match\_results[i]=-\/1,\ meaning\ that\ column\ i\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ matched.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ (3)\ match\_results[i]=-\/2,\ meaning\ that\ column\ i\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00060}00060\ \ \ \ \ \ \ use\_matmul\_gather:\ Use\ matrix\ multiplication\ based\ gather\ instead\ of}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ standard\ tf.gather.\ (Default:\ \textcolor{keyword}{False}).}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00063}00063\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00064}00064\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ match\_results\ does\ \textcolor{keywordflow}{not}\ have\ rank\ 1\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ an}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ integer\ int32\ scalar\ tensor}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00066}00066\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ match\_results.shape.ndims\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00068}00068\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_results\ should\ have\ rank\ 1'})}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}\ match\_results.dtype\ !=\ tf.int32:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00070}00070\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_results\ should\ be\ an\ int32\ or\ int64\ scalar\ '}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'tensor'})}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00072}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{00072}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}}\ =\ match\_results}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00073}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad4bb9cb2f9fa43f31824b4f9c6658053}{00073}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad4bb9cb2f9fa43f31824b4f9c6658053}{\_gather\_op}}\ =\ tf.gather}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_matmul\_gather:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00075}00075\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad4bb9cb2f9fa43f31824b4f9c6658053}{\_gather\_op}}\ =\ ops.matmul\_gather\_on\_zeroth\_axis}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00077}00077\ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00078}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_abacae924bc5b319f4d69f68e8ac3210e}{00078}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_abacae924bc5b319f4d69f68e8ac3210e}{match\_results}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00079}00079\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}The\ accessor\ for\ match\ results.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00080}00080\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ \ \ the\ tensor\ which\ encodes\ the\ match\ results.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad0e00c92f0f4d7df4e555669b10b95b6}{00086}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad0e00c92f0f4d7df4e555669b10b95b6}{matched\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00087}00087\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ match\ to\ some\ row.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ The\ indices\ returned\ by\ this\ op\ are\ always\ sorted\ }\textcolor{keywordflow}{in}\ increasing\ order.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00091}00091\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00092}00092\ \ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ \textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00093}00093\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(tf.where(tf.greater(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ -\/1)))}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00096}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adc5da2c742497fe90c1e23010bc3bc0a}{00096}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adc5da2c742497fe90c1e23010bc3bc0a}{matched\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00097}00097\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ are\ matched.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00098}00098\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ }\textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00101}00101\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.greater\_equal(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ 0)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00104}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a1b56a95f18d95aef8ae2a2ae1e78bf3a}{00104}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a1b56a95f18d95aef8ae2a2ae1e78bf3a}{num\_matched\_columns}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00105}00105\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ number\ (int32\ scalar\ tensor)\ of\ matched\ columns."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.size(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad0e00c92f0f4d7df4e555669b10b95b6}{matched\_column\_indices}}())}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00108}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a66f5c2b841ad06a8a51ad420030f9a7f}{00108}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a66f5c2b841ad06a8a51ad420030f9a7f}{unmatched\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00109}00109\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ do\ not\ match\ any\ row.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00110}00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ The\ indices\ returned\ by\ this\ op\ are\ always\ sorted\ }\textcolor{keywordflow}{in}\ increasing\ order.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00113}00113\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00114}00114\ \ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ \textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00115}00115\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(tf.where(tf.equal(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ -\/1)))}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00118}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a6b39e719d51f87567fd924989e7eb622}{00118}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a6b39e719d51f87567fd924989e7eb622}{unmatched\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00119}00119\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ are\ unmatched.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00120}00120\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ }\textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00123}00123\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.equal(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ -\/1)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00126}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a5d7516a1d20c23a6345f92896e327558}{00126}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a5d7516a1d20c23a6345f92896e327558}{num\_unmatched\_columns}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00127}00127\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ number\ (int32\ scalar\ tensor)\ of\ unmatched\ columns."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.size(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a66f5c2b841ad06a8a51ad420030f9a7f}{unmatched\_column\_indices}}())}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9fc318a87dccaebd5726af332739deea}{00130}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9fc318a87dccaebd5726af332739deea}{ignored\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00131}00131\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ are\ ignored\ (neither\ Matched\ nor\ Unmatched).}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00132}00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ The\ indices\ returned\ by\ this\ op\ are\ always\ sorted\ }\textcolor{keywordflow}{in}\ increasing\ order.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00135}00135\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00136}00136\ \ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ \textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00137}00137\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(tf.where(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adececce3ac8d2eb4defed3ad37286f4c}{ignored\_column\_indicator}}()))}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00140}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adececce3ac8d2eb4defed3ad37286f4c}{00140}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adececce3ac8d2eb4defed3ad37286f4c}{ignored\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00141}00141\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ boolean\ column\ indicator\ where\ True\ means\ the\ colum\ is\ ignored.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00142}00142\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ \ \ column\_indicator:\ boolean\ vector\ which\ }\textcolor{keywordflow}{is}\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{for}\ all\ ignored\ column}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00145}00145\ \ \ \ \ \ \ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00146}00146\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.equal(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ -\/2)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00149}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a29210a465cfdc3bcfb2480ce7ee6c9bd}{00149}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a29210a465cfdc3bcfb2480ce7ee6c9bd}{num\_ignored\_columns}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00150}00150\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ number\ (int32\ scalar\ tensor)\ of\ matched\ columns."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.size(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9fc318a87dccaebd5726af332739deea}{ignored\_column\_indices}}())}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00153}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a98731dd7395bc005cf27905235ad378a}{00153}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a98731dd7395bc005cf27905235ad378a}{unmatched\_or\_ignored\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00154}00154\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ column\ indices\ that\ are\ unmatched\ or\ ignored.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00155}00155\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ The\ indices\ returned\ by\ this\ op\ are\ always\ sorted\ }\textcolor{keywordflow}{in}\ increasing\ order.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00158}00158\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00159}00159\ \ \ \ \ \ \ column\_indices:\ int32\ tensor\ of\ shape\ [K]\ \textcolor{keyword}{with}\ column\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00160}00160\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(tf.where(tf.greater(0,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}})))}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00163}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a78623a1e95914d2ca789b5d2d5bfc59c}{00163}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a78623a1e95914d2ca789b5d2d5bfc59c}{matched\_row\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00164}00164\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ row\ indices\ that\ match\ some\ column.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00165}00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ \ \ The\ indices\ returned\ by\ this\ op\ are\ ordered\ so\ }\textcolor{keyword}{as}\ to\ be\ \textcolor{keywordflow}{in}\ correspondence}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00167}00167\ \ \ \ \ \textcolor{keyword}{with}\ the\ output\ of\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adc5da2c742497fe90c1e23010bc3bc0a}{matched\_column\_indicator}}().\ \ For\ example\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00168}00168\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_adc5da2c742497fe90c1e23010bc3bc0a}{matched\_column\_indicator}}()\ \textcolor{keywordflow}{is}\ [0,2],\ \textcolor{keywordflow}{and}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a78623a1e95914d2ca789b5d2d5bfc59c}{matched\_row\_indices}}()\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00169}00169\ \ \ \ \ [7,\ 3],\ then\ we\ know\ that\ column\ 0\ was\ matched\ to\ row\ 7\ \textcolor{keywordflow}{and}\ column\ 2\ was}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00170}00170\ \ \ \ \ matched\ to\ row\ 3.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00172}00172\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00173}00173\ \ \ \ \ \ \ row\_indices:\ int32\ tensor\ of\ shape\ [K]\ \textcolor{keyword}{with}\ row\ indices.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00174}00174\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00175}00175\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad4bb9cb2f9fa43f31824b4f9c6658053}{\_gather\_op}}(tf.cast(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_af917103969e3453fe07f09524eebe70f}{\_match\_results}},\ dtype=tf.float32),}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad0e00c92f0f4d7df4e555669b10b95b6}{matched\_column\_indices}}()))}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00179}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9b9ad38e2ad5eedfbf814bd3db96e863}{00179}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a9b9ad38e2ad5eedfbf814bd3db96e863}{num\_matched\_rows}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00180}00180\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ number\ (int32\ scalar\ tensor)\ of\ matched\ rows."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00181}00181\ \ \ \ \ unique\_rows,\ \_\ =\ tf.unique(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a78623a1e95914d2ca789b5d2d5bfc59c}{matched\_row\_indices}}())}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.size(unique\_rows)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00184}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{00184}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_a254c3ab5fb0cebb76cd73dbbd21e90ef}{\_reshape\_and\_cast}}(self,\ t):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00185}00185\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cast(tf.reshape(t,\ [-\/1]),\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00187}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ae0e168af13add11a8de38f8940dbdbde}{00187}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ae0e168af13add11a8de38f8940dbdbde}{gather\_based\_on\_match}}(self,\ input\_tensor,\ unmatched\_value,}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ignored\_value):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00189}00189\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Gathers\ elements\ from\ \`{}input\_tensor\`{}\ based\ on\ match\ results.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00190}00190\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ \ \ For\ columns\ that\ are\ matched\ to\ a\ row,\ gathered\_tensor[col]\ }\textcolor{keywordflow}{is}\ set\ to}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00192}00192\ \ \ \ \ input\_tensor[match\_results[col]].\ For\ columns\ that\ are\ unmatched,}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00193}00193\ \ \ \ \ gathered\_tensor[col]\ \textcolor{keywordflow}{is}\ set\ to\ unmatched\_value.\ Finally,\ \textcolor{keywordflow}{for}\ columns\ that}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00194}00194\ \ \ \ \ are\ ignored\ gathered\_tensor[col]\ \textcolor{keywordflow}{is}\ set\ to\ ignored\_value.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00196}00196\ \ \ \ \ Note\ that\ the\ input\_tensor.shape[1:]\ must\ match\ \textcolor{keyword}{with}\ unmatched\_value.shape}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{and}\ ignored\_value.shape}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00199}00199\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00200}00200\ \ \ \ \ \ \ input\_tensor:\ Tensor\ to\ gather\ values\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00201}00201\ \ \ \ \ \ \ unmatched\_value:\ Constant\ tensor\ value\ \textcolor{keywordflow}{for}\ unmatched\ columns.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00202}00202\ \ \ \ \ \ \ ignored\_value:\ Constant\ tensor\ value\ \textcolor{keywordflow}{for}\ ignored\ columns.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00204}00204\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00205}00205\ \ \ \ \ \ \ gathered\_tensor:\ A\ tensor\ containing\ values\ gathered\ \textcolor{keyword}{from}\ input\_tensor.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ The\ shape\ of\ the\ gathered\ tensor\ \textcolor{keywordflow}{is}\ [match\_results.shape[0]]\ +}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ input\_tensor.shape[1:].}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00208}00208\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00209}00209\ \textcolor{stringliteral}{\ \ \ \ input\_tensor\ =\ tf.concat(}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ [tf.stack([ignored\_value,\ unmatched\_value]),}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ input\_tensor],}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ axis=0)}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00213}00213\ \textcolor{stringliteral}{\ \ \ \ gather\_indices\ =\ tf.maximum(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_abacae924bc5b319f4d69f68e8ac3210e}{match\_results}}\ +\ 2,\ 0)}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00214}00214\ \textcolor{stringliteral}{\ \ \ \ gathered\_tensor\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match_ad4bb9cb2f9fa43f31824b4f9c6658053}{\_gather\_op}}(input\_tensor,\ gather\_indices)}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00215}00215\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ gathered\_tensor}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00218}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher}{00218}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher}{Matcher}}(six.with\_metaclass(abc.ABCMeta,\ object)):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00219}00219\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ base\ class\ for\ matcher.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00220}00220\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00221}00221\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00222}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a4b4a603730d9d61cba9a3954fe2b350e}{00222}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a4b4a603730d9d61cba9a3954fe2b350e}{\_\_init\_\_}}(self,\ use\_matmul\_gather=False):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00223}00223\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ Matcher.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00224}00224\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00225}00225\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00226}00226\ \textcolor{stringliteral}{\ \ \ \ \ \ use\_matmul\_gather:\ Force\ constructed\ match\ objects\ to\ use\ matrix}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00227}00227\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ multiplication\ based\ gather\ instead\ of\ standard\ tf.gather.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00228}00228\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (Default:\ }\textcolor{keyword}{False}).}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00229}00229\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00230}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b}{00230}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b}{\_use\_matmul\_gather}}\ =\ use\_matmul\_gather}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00231}00231\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00232}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21}{00232}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21}{match}}(self,\ similarity\_matrix,\ valid\_rows=None,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00233}00233\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ matches\ among\ row\ and\ column\ indices\ and\ returns\ the\ result.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00234}00234\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00235}00235\ \textcolor{stringliteral}{\ \ \ \ Computes\ matches\ among\ the\ row\ }\textcolor{keywordflow}{and}\ column\ indices\ based\ on\ the\ similarity}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00236}00236\ \ \ \ \ matrix\ \textcolor{keywordflow}{and}\ optional\ arguments.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00238}00238\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00239}00239\ \ \ \ \ \ \ similarity\_matrix:\ Float\ tensor\ of\ shape\ [N,\ M]\ \textcolor{keyword}{with}\ pairwise\ similarity}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ where\ higher\ value\ means\ more\ similar.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00241}00241\ \ \ \ \ \ \ valid\_rows:\ A\ boolean\ tensor\ of\ shape\ [N]\ indicating\ the\ rows\ that\ are}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ valid\ \textcolor{keywordflow}{for}\ matching.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00243}00243\ \ \ \ \ \ \ scope:\ Op\ scope\ name.\ Defaults\ to\ \textcolor{stringliteral}{'Match'}\ \textcolor{keywordflow}{if}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00245}00245\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00246}00246\ \ \ \ \ \ \ A\ Match\ object\ \textcolor{keyword}{with}\ the\ results\ of\ matching.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00247}00247\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00248}00248\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Match'})\ \textcolor{keyword}{as}\ scope:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00249}00249\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ valid\_rows\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ valid\_rows\ =\ tf.ones(tf.shape(similarity\_matrix)[0],\ dtype=tf.bool)}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00251}00251\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{Match}}(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60}{\_match}}(similarity\_matrix,\ valid\_rows),}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b}{\_use\_matmul\_gather}})}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00254}00254\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00255}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60}{00255}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60}{\_match}}(self,\ similarity\_matrix,\ valid\_rows):}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00256}00256\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00257}00257\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00258}00258\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00259}00259\ \textcolor{stringliteral}{\ \ \ \ \ \ similarity\_matrix:\ Float\ tensor\ of\ shape\ [N,\ M]\ }\textcolor{keyword}{with}\ pairwise\ similarity}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ where\ higher\ value\ means\ more\ similar.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00261}00261\ \ \ \ \ \ \ valid\_rows:\ A\ boolean\ tensor\ of\ shape\ [N]\ indicating\ the\ rows\ that\ are}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ valid\ \textcolor{keywordflow}{for}\ matching.}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00263}00263\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00264}00264\ \ \ \ \ \ \ match\_results:\ Integer\ tensor\ of\ shape\ [M]:\ match\_results[i]>=0\ means}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ that\ column\ i\ \textcolor{keywordflow}{is}\ matched\ to\ row\ match\_results[i],\ match\_results[i]=-\/1}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ means\ that\ the\ column\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ matched.\ match\_results[i]=-\/2\ means\ that}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ the\ column\ \textcolor{keywordflow}{is}\ ignored\ (usually\ this\ happens\ when\ there\ \textcolor{keywordflow}{is}\ a\ very\ weak}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ match\ which\ one\ neither\ wants\ \textcolor{keyword}{as}\ positive\ nor\ negative\ example).}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00269}00269\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher_8py_source_l00270}00270\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+
+\end{DoxyCode}

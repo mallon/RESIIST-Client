@@ -1,0 +1,500 @@
+\doxysection{detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test}{}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test}\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{d5/dd7/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{df/d68/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19}{test\+\_\+batch\+\_\+assign\+\_\+empty\+\_\+groundtruth}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3}{test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+agnostic}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea}{test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multiclass}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c}{test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multiclass\+\_\+with\+\_\+padded\+\_\+groundtruth}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f}{test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multidimensional}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}{\+\_\+get\+\_\+target\+\_\+assigner}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00878}{878}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!\_get\_target\_assigner@{\_get\_target\_assigner}}
+\index{\_get\_target\_assigner@{\_get\_target\_assigner}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{\_get\_target\_assigner()}{\_get\_target\_assigner()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+\_\+get\+\_\+target\+\_\+assigner (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00880}{880}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00880\ \ \ \textcolor{keyword}{def\ }\_get\_target\_assigner(self):}
+\DoxyCodeLine{00881\ \ \ \ \ similarity\_calc\ =\ region\_similarity\_calculator.IouSimilarity()}
+\DoxyCodeLine{00882\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.5)}
+\DoxyCodeLine{00884\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder(stddev=0.1)}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{keywordflow}{return}\ targetassigner.TargetAssigner(similarity\_calc,\ matcher,\ box\_coder)}
+\DoxyCodeLine{00886\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a1fbbf76907b67f77d8fb50905d988292_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!test\_batch\_assign\_confidences\_agnostic@{test\_batch\_assign\_confidences\_agnostic}}
+\index{test\_batch\_assign\_confidences\_agnostic@{test\_batch\_assign\_confidences\_agnostic}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_assign\_confidences\_agnostic()}{test\_batch\_assign\_confidences\_agnostic()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+agnostic (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00934}{934}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00934\ \ \ \textcolor{keyword}{def\ }test\_batch\_assign\_confidences\_agnostic(self):}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2):}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ box\_list1\ =\ box\_list.BoxList(groundtruth\_boxlist1)}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ box\_list2\ =\ box\_list.BoxList(groundtruth\_boxlist2)}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}]}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ anchors\_boxlist\ =\ box\_list.BoxList(anchor\_means)}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ agnostic\_target\_assigner\ =\ self.\_get\_target\_assigner()}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ agnostic\_target\_assigner,}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{False},}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{00953\ }
+\DoxyCodeLine{00954\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{00955\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{00958\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{00962\ }
+\DoxyCodeLine{00963\ \ \ \ \ exp\_cls\_targets\ =\ [[[1],\ [0],\ [0],\ [0]],}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0],\ [1],\ [1],\ [0]]]}
+\DoxyCodeLine{00965\ \ \ \ \ exp\_cls\_weights\ =\ [[[1],\ [0.5],\ [0.5],\ [0.5]],}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5],\ [1],\ [1],\ [0.5]]]}
+\DoxyCodeLine{00967\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.15789001,\ -\/0.01500003,\ 0.57889998,\ -\/1.15799987],}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{00975\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0]]}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{00979\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2])}
+\DoxyCodeLine{00981\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{00982\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{00983\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{00984\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{00985\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a0918ea141ce761f607596b6ffb1690e3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!test\_batch\_assign\_confidences\_multiclass@{test\_batch\_assign\_confidences\_multiclass}}
+\index{test\_batch\_assign\_confidences\_multiclass@{test\_batch\_assign\_confidences\_multiclass}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_assign\_confidences\_multiclass()}{test\_batch\_assign\_confidences\_multiclass()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multiclass (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00986}{986}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00986\ \ \ \textcolor{keyword}{def\ }test\_batch\_assign\_confidences\_multiclass(self):}
+\DoxyCodeLine{00987\ }
+\DoxyCodeLine{00988\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ box\_list1\ =\ box\_list.BoxList(groundtruth\_boxlist1)}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ box\_list2\ =\ box\_list.BoxList(groundtruth\_boxlist2)}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{00993\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ anchors\_boxlist\ =\ box\_list.BoxList(anchor\_means)}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\_get\_target\_assigner()}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01010\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{01011\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{01014\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01015\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01017\ }
+\DoxyCodeLine{01018\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{01022\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{01030\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0.5,\ 0.5,\ 1],}
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1,\ 0.5],}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{01038\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{01046\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]]}
+\DoxyCodeLine{01048\ }
+\DoxyCodeLine{01049\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{01050\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{01053\ \ \ \ \ \ ])}
+\DoxyCodeLine{01054\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{01055\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{01056\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{01057\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{01058\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a2805302d649c640318572be7ca1c11ea_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth@{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth}}
+\index{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth@{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth()}{test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multiclass\+\_\+with\+\_\+padded\+\_\+groundtruth (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l01059}{1059}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01059\ \ \ \textcolor{keyword}{def\ }test\_batch\_assign\_confidences\_multiclass\_with\_padded\_groundtruth(self):}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights2):}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ box\_list1\ =\ box\_list.BoxList(groundtruth\_boxlist1)}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ box\_list2\ =\ box\_list.BoxList(groundtruth\_boxlist2)}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ gt\_weights\ =\ [groundtruth\_weights1,\ groundtruth\_weights2]}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ anchors\_boxlist\ =\ box\_list.BoxList(anchor\_means)}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\_get\_target\_assigner()}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ gt\_weights,}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{01086\ }
+\DoxyCodeLine{01087\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2],}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 0.,\ 0.]],\ dtype=np.float32)}
+\DoxyCodeLine{01089\ \ \ \ \ groundtruth\_weights1\ =\ np.array([1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{01090\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842],}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{01094\ \ \ \ \ groundtruth\_weights2\ =\ np.array([1,\ 1,\ 0],\ dtype=np.float32)}
+\DoxyCodeLine{01095\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01096\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1,\ 0],}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01099\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ \ \ \ \ exp\_cls\_targets\ =\ [[[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{01112\ \ \ \ \ exp\_cls\_weights\ =\ [[[1,\ 1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0.5,\ 0.5,\ 1],}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 1,\ 0.5],}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{01120\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ -\/0.5,\ -\/0.5],}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,],],}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 0,\ 0,],}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.01231521,\ 0,\ 0],}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{01128\ \ \ \ \ exp\_reg\_weights\ =\ [[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]]}
+\DoxyCodeLine{01130\ }
+\DoxyCodeLine{01131\ \ \ \ \ (cls\_targets\_out,\ cls\_weights\_out,\ reg\_targets\_out,}
+\DoxyCodeLine{01132\ \ \ \ \ \ reg\_weights\_out)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2,\ groundtruth\_weights1,}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \ groundtruth\_weights2}
+\DoxyCodeLine{01136\ \ \ \ \ \ ])}
+\DoxyCodeLine{01137\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{01138\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{01139\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{01140\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{01141\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_afb54b19ba634dc67d6b6d11d2af5d15c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!test\_batch\_assign\_confidences\_multidimensional@{test\_batch\_assign\_confidences\_multidimensional}}
+\index{test\_batch\_assign\_confidences\_multidimensional@{test\_batch\_assign\_confidences\_multidimensional}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_assign\_confidences\_multidimensional()}{test\_batch\_assign\_confidences\_multidimensional()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+test\+\_\+batch\+\_\+assign\+\_\+confidences\+\_\+multidimensional (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l01142}{1142}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01142\ \ \ \textcolor{keyword}{def\ }test\_batch\_assign\_confidences\_multidimensional(self):}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01144\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2):}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ box\_list1\ =\ box\_list.BoxList(groundtruth\_boxlist1)}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ box\_list2\ =\ box\_list.BoxList(groundtruth\_boxlist2)}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ gt\_box\_batch\ =\ [box\_list1,\ box\_list2]}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [class\_targets1,\ class\_targets2]}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ anchors\_boxlist\ =\ box\_list.BoxList(anchor\_means)}
+\DoxyCodeLine{01151\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\_get\_target\_assigner()}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ target\_dimensions\ =\ (2,\ 3)}
+\DoxyCodeLine{01153\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant(np.zeros(target\_dimensions),}
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{01156\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{01166\ }
+\DoxyCodeLine{01167\ \ \ \ \ groundtruth\_boxlist1\ =\ np.array([[0.,\ 0.,\ 0.2,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{01168\ \ \ \ \ groundtruth\_boxlist2\ =\ np.array([[0,\ 0.25123152,\ 1,\ 1],}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.015789,\ 0.0985,\ 0.55789,\ 0.3842]],}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{01171\ \ \ \ \ class\_targets1\ =\ np.array([[0,\ 1,\ 0,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01172\ \ \ \ \ class\_targets2\ =\ np.array([[0,\ 0,\ 0,\ 1],}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0]],\ dtype=np.float32)}
+\DoxyCodeLine{01174\ \ \ \ \ class\_targets1\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{01176\ \ \ \ \ class\_targets2\ =\ np.array([[[0,\ 1,\ 1],}
+\DoxyCodeLine{01177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0]],}
+\DoxyCodeLine{01178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{01180\ }
+\DoxyCodeLine{01181\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1],}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .1,\ .5,\ .5],}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.75,\ .75,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \_,\ \_,\ \_,\ \_\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \ \ anchor\_means,\ groundtruth\_boxlist1,\ groundtruth\_boxlist2,}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \ \ class\_targets1,\ class\_targets2}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ ])}
+\DoxyCodeLine{01191\ }
+\DoxyCodeLine{01192\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a6c608814537e374b37452d444251935f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19} 
+\index{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}!test\_batch\_assign\_empty\_groundtruth@{test\_batch\_assign\_empty\_groundtruth}}
+\index{test\_batch\_assign\_empty\_groundtruth@{test\_batch\_assign\_empty\_groundtruth}!detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest@{detection\_utils.core.target\_assigner\_test.BatchTargetAssignConfidencesTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_assign\_empty\_groundtruth()}{test\_batch\_assign\_empty\_groundtruth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Target\+Assign\+Confidences\+Test.\+test\+\_\+batch\+\_\+assign\+\_\+empty\+\_\+groundtruth (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00887}{887}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00887\ \ \ \textcolor{keyword}{def\ }test\_batch\_assign\_empty\_groundtruth(self):}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_confidences):}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ groundtruth\_boxlist\ =\ box\_list.BoxList(groundtruth\_box\_corners)}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ gt\_box\_batch\ =\ [groundtruth\_boxlist]}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ gt\_class\_confidences\_batch\ =\ [gt\_class\_confidences]}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ anchors\_boxlist\ =\ box\_list.BoxList(anchor\_means)}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \ \ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ implicit\_class\_weight\ =\ 0.5}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([1]\ +\ num\_classes\ *\ [0],\ tf.float32)}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ multiclass\_target\_assigner\ =\ self.\_get\_target\_assigner()}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \_)\ =\ targetassigner.batch\_assign\_confidences(}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ multiclass\_target\_assigner,}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ anchors\_boxlist,}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=unmatched\_class\_label,}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=\textcolor{keyword}{True},}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=implicit\_class\_weight)}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights)}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \ \ \ \ groundtruth\_box\_corners\ =\ np.zeros((0,\ 4),\ dtype=np.float32)}
+\DoxyCodeLine{00911\ \ \ \ \ anchor\_means\ =\ np.array([[0,\ 0,\ .25,\ .25],}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ .25,\ 1,\ 1]],\ dtype=np.float32)}
+\DoxyCodeLine{00913\ \ \ \ \ num\_classes\ =\ 3}
+\DoxyCodeLine{00914\ \ \ \ \ pad\ =\ 1}
+\DoxyCodeLine{00915\ \ \ \ \ gt\_class\_confidences\ =\ np.zeros((0,\ num\_classes\ +\ pad),\ dtype=np.float32)}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \ \ \ \ exp\_cls\_targets\ =\ [[[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{00919\ \ \ \ \ exp\_cls\_weights\ =\ [[[0.5,\ 0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5,\ 0.5]]]}
+\DoxyCodeLine{00921\ \ \ \ \ exp\_reg\_targets\ =\ [[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]]}
+\DoxyCodeLine{00923\ \ \ \ \ exp\_reg\_weights\ =\ [[0,\ 0]]}
+\DoxyCodeLine{00924\ }
+\DoxyCodeLine{00925\ \ \ \ \ (cls\_targets\_out,}
+\DoxyCodeLine{00926\ \ \ \ \ \ cls\_weights\_out,\ reg\_targets\_out,\ reg\_weights\_out)\ =\ self.execute(}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \ graph\_fn,}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ [anchor\_means,\ groundtruth\_box\_corners,\ gt\_class\_confidences])}
+\DoxyCodeLine{00929\ \ \ \ \ self.assertAllClose(cls\_targets\_out,\ exp\_cls\_targets)}
+\DoxyCodeLine{00930\ \ \ \ \ self.assertAllClose(cls\_weights\_out,\ exp\_cls\_weights)}
+\DoxyCodeLine{00931\ \ \ \ \ self.assertAllClose(reg\_targets\_out,\ exp\_reg\_targets)}
+\DoxyCodeLine{00932\ \ \ \ \ self.assertAllClose(reg\_weights\_out,\ exp\_reg\_weights)}
+\DoxyCodeLine{00933\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d0d/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_target_assign_confidences_test_a40b602c84994f90990fd39744319be19_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{target__assigner__test_8py}{target\+\_\+assigner\+\_\+test.\+py}}\end{DoxyCompactItemize}

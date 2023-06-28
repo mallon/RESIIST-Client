@@ -1,0 +1,381 @@
+\doxysection{model.\+py}
+\hypertarget{model_8py_source}{}\label{model_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/model.py@{src/main/resources/processing/video/detections/detection\_utils/core/model.py}}
+\mbox{\hyperlink{model_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1model}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Abstract\ detection\ model.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00017}00017\ \textcolor{stringliteral}{This\ file\ defines\ a\ generic\ base\ class\ for\ detection\ models.\ \ Programs\ that\ are}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00018}00018\ \textcolor{stringliteral}{designed\ to\ work\ }\textcolor{keyword}{with}\ arbitrary\ detection\ models\ should\ only\ depend\ on\ this}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00019}00019\ \textcolor{keyword}{class}.\ \ We\ intend\ \textcolor{keywordflow}{for}\ the\ functions\ \textcolor{keywordflow}{in}\ this\ \textcolor{keyword}{class\ }to\ follow\ tensor-\/\textcolor{keywordflow}{in}/tensor-\/out}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00020}00020\ design,\ thus\ all\ functions\ have\ tensors\ \textcolor{keywordflow}{or}\ lists/dictionaries\ holding\ tensors\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00021}00021\ inputs\ \textcolor{keywordflow}{and}\ outputs.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00023}00023\ Abstractly,\ detection\ models\ predict\ output\ tensors\ given\ input\ images}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00024}00024\ which\ can\ be\ passed\ to\ a\ loss\ function\ at\ training\ time\ \textcolor{keywordflow}{or}\ passed\ to\ a}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00025}00025\ postprocessing\ function\ at\ eval\ time.\ \ The\ computation\ graphs\ at\ a\ high\ level}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00026}00026\ consequently\ look\ \textcolor{keyword}{as}\ follows:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00028}00028\ Training\ time:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00029}00029\ inputs\ (images\ tensor)\ -\/>\ preprocess\ -\/>\ predict\ -\/>\ loss\ -\/>\ outputs\ (loss\ tensor)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00031}00031\ Evaluation\ time:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00032}00032\ inputs\ (images\ tensor)\ -\/>\ preprocess\ -\/>\ predict\ -\/>\ postprocess}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00033}00033\ \ -\/>\ outputs\ (boxes\ tensor,\ scores\ tensor,\ classes\ tensor,\ num\_detections\ tensor)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00035}00035\ DetectionModels\ must\ thus\ implement\ four\ functions\ (1)\ preprocess,\ (2)\ predict,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00036}00036\ (3)\ postprocess\ \textcolor{keywordflow}{and}\ (4)\ loss.\ \ DetectionModels\ should\ make\ no\ assumptions\ about}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00037}00037\ the\ input\ size\ \textcolor{keywordflow}{or}\ aspect\ ratio\ -\/-\/-\/\ they\ are\ responsible\ \textcolor{keywordflow}{for}\ doing\ any}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00038}00038\ resize/reshaping\ necessary\ (see\ docstring\ \textcolor{keywordflow}{for}\ the\ preprocess\ function).}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00039}00039\ Output\ classes\ are\ always\ integers\ \textcolor{keywordflow}{in}\ the\ range\ [0,\ num\_classes).\ \ Any\ mapping}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00040}00040\ of\ these\ integers\ to\ semantic\ labels\ \textcolor{keywordflow}{is}\ to\ be\ handled\ outside\ of\ this\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00042}00042\ Images\ are\ resized\ \textcolor{keywordflow}{in}\ the\ \`{}preprocess\`{}\ method.\ All\ of\ \`{}preprocess\`{},\ \`{}predict\`{},}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00043}00043\ \textcolor{keywordflow}{and}\ \`{}postprocess\`{}\ should\ be\ reentrant.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00045}00045\ The\ \`{}preprocess\`{}\ method\ runs\ \`{}image\_resizer\_fn\`{}\ that\ returns\ resized\_images\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00046}00046\ \`{}true\_image\_shapes\`{}.\ Since\ \`{}image\_resizer\_fn\`{}\ can\ pad\ the\ images\ \textcolor{keyword}{with}\ zeros,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00047}00047\ true\_image\_shapes\ indicate\ the\ slices\ that\ contain\ the\ image\ without\ padding.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00048}00048\ This\ \textcolor{keywordflow}{is}\ useful\ \textcolor{keywordflow}{for}\ padding\ images\ to\ be\ a\ fixed\ size\ \textcolor{keywordflow}{for}\ batching.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00050}00050\ The\ \`{}postprocess\`{}\ method\ uses\ the\ true\ image\ shapes\ to\ clip\ predictions\ that\ lie}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00051}00051\ outside\ of\ images.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00053}00053\ By\ default,\ DetectionModels\ produce\ bounding\ box\ detections;\ However,\ we\ support}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00054}00054\ a\ handful\ of\ auxiliary\ annotations\ associated\ \textcolor{keyword}{with}\ each\ bounding\ box,\ namely,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00055}00055\ instance\ masks\ \textcolor{keywordflow}{and}\ keypoints.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00056}00056\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00057}00057\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00058}00058\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00059}00059\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00060}00060\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00061}00061\ \textcolor{stringliteral}{import\ abc}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00062}00062\ \textcolor{stringliteral}{import\ six}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00063}00063\ \textcolor{stringliteral}{import\ tensorflow\ as\ tf}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00064}00064\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00065}00065\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ standard\_fields\ as\ fields}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00066}00066\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00067}00067\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00068}00068\ \textcolor{stringliteral}{\#\ If\ using\ a\ new\ enough\ version\ of\ TensorFlow,\ detection\ models\ should\ be\ a}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00069}00069\ \textcolor{stringliteral}{\#\ tf\ module\ or\ keras\ model\ for\ tracking.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00070}00070\ \textcolor{stringliteral}{try:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00071}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1model_a1da944dd12ab5fb958190a9fbc6693a6}{00071}}\ \textcolor{stringliteral}{\ \ \_BaseClass\ =\ tf.Module}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00072}00072\ \textcolor{stringliteral}{}\textcolor{keywordflow}{except}\ AttributeError:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00073}00073\ \ \ \_BaseClass\ =\ object}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00076}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model}{00076}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model}{DetectionModel}}(six.with\_metaclass(abc.ABCMeta,\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1model_a1da944dd12ab5fb958190a9fbc6693a6}{\_BaseClass}})):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00077}00077\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ base\ class\ for\ detection\ models.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00078}00078\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ Extends\ tf.Module\ to\ guarantee\ variable\ tracking.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00081}00081\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00082}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ab10992ad5e898a16d27ddd5b809faee5}{00082}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ab10992ad5e898a16d27ddd5b809faee5}{\_\_init\_\_}}(self,\ num\_classes):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00083}00083\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00084}00084\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_classes:\ number\ of\ classes.\ \ Note\ that\ num\_classes\ *does\ }\textcolor{keywordflow}{not}*\ include}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00087}00087\ \ \ \ \ \ \ background\ categories\ that\ might\ be\ implicitly\ predicted\ \textcolor{keywordflow}{in}\ various}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00088}00088\ \ \ \ \ \ \ implementations.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00089}00089\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00090}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175}{00090}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175}{\_num\_classes}}\ =\ num\_classes}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00091}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{00091}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00092}00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ }\textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00094}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b}{00094}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b}{num\_classes}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175}{\_num\_classes}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00097}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a759b5cf4e13319f98ed13aa74f6671a4}{00097}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a759b5cf4e13319f98ed13aa74f6671a4}{groundtruth\_lists}}(self,\ field):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00098}00098\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Access\ list\ of\ groundtruth\ tensors.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00099}00099\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ key,\ options\ are}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.\{boxes,classes,masks,keypoints\}\ }\textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00105}00105\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00106}00106\ \ \ \ \ \ \ a\ list\ of\ tensors\ holding\ groundtruth\ information\ (see\ also}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00107}00107\ \ \ \ \ \ \ provide\_groundtruth\ function\ below),\ \textcolor{keyword}{with}\ one\ entry\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00108}00108\ \ \ \ \ \ \ batch.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00109}00109\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00110}00110\ \ \ \ \ \ \ RuntimeError:\ \textcolor{keywordflow}{if}\ the\ field\ has\ \textcolor{keywordflow}{not}\ been\ provided\ via\ provide\_groundtruth.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00111}00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ field\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00113}00113\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(\textcolor{stringliteral}{'Groundtruth\ tensor\ \{\}\ has\ not\ been\ provided'}.format(}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ field))}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[field]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00117}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac95a060842fa8ce3ccabf7f2d98b54ef}{00117}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac95a060842fa8ce3ccabf7f2d98b54ef}{groundtruth\_has\_field}}(self,\ field):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00118}00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Determines\ whether\ the\ groundtruth\ includes\ the\ given\ field.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00119}00119\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ key,\ options\ are}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.\{boxes,classes,masks,keypoints\}\ }\textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00125}00125\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00126}00126\ \ \ \ \ \ \ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ the\ groundtruth\ includes\ the\ given\ field,\ \textcolor{keyword}{False}\ otherwise.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00127}00127\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ field\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00130}00130\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00131}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_aa9b65d22e193818e75df46a3a7b264c4}{00131}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_aa9b65d22e193818e75df46a3a7b264c4}{preprocess}}(self,\ inputs):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00132}00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Input\ preprocessing.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00133}00133\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ To\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00135}00135\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ This\ function\ }\textcolor{keywordflow}{is}\ responsible\ \textcolor{keywordflow}{for}\ any\ scaling/shifting\ of\ input\ values\ that}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{is}\ necessary\ prior\ to\ running\ the\ detector\ on\ an\ input\ image.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00138}00138\ \ \ \ \ It\ \textcolor{keywordflow}{is}\ also\ responsible\ \textcolor{keywordflow}{for}\ any\ resizing,\ padding\ that\ might\ be\ necessary}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00139}00139\ \ \ \ \ \textcolor{keyword}{as}\ images\ are\ assumed\ to\ arrive\ \textcolor{keywordflow}{in}\ arbitrary\ sizes.\ \ While\ this\ function}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00140}00140\ \ \ \ \ could\ conceivably\ be\ part\ of\ the\ predict\ method\ (below),\ it\ \textcolor{keywordflow}{is}\ often}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00141}00141\ \ \ \ \ convenient\ to\ keep\ these\ separate\ -\/-\/-\/\ \textcolor{keywordflow}{for}\ example,\ we\ may\ want\ to\ preprocess}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00142}00142\ \ \ \ \ on\ one\ device,\ place\ onto\ a\ queue,\ \textcolor{keywordflow}{and}\ let\ another\ device\ (e.g.,\ the\ GPU)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00143}00143\ \ \ \ \ handle\ prediction.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00145}00145\ \ \ \ \ A\ few\ important\ notes\ about\ the\ preprocess\ function:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00146}00146\ \ \ \ \ +\ We\ assume\ that\ this\ operation\ does\ \textcolor{keywordflow}{not}\ have\ any\ trainable\ variables\ nor}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00147}00147\ \ \ \ \ does\ it\ affect\ the\ groundtruth\ annotations\ \textcolor{keywordflow}{in}\ any\ way\ (thus\ data}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00148}00148\ \ \ \ \ augmentation\ operations\ such\ \textcolor{keyword}{as}\ random\ cropping\ should\ be\ performed}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00149}00149\ \ \ \ \ externally).}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00150}00150\ \ \ \ \ +\ There\ \textcolor{keywordflow}{is}\ no\ assumption\ that\ the\ batchsize\ \textcolor{keywordflow}{in}\ this\ function\ \textcolor{keywordflow}{is}\ the\ same\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00151}00151\ \ \ \ \ the\ batch\ size\ \textcolor{keywordflow}{in}\ the\ predict\ function.\ \ In\ fact,\ we\ recommend\ calling\ the}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00152}00152\ \ \ \ \ preprocess\ function\ prior\ to\ calling\ any\ batching\ operations\ (which\ should}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00153}00153\ \ \ \ \ happen\ outside\ of\ the\ model)\ \textcolor{keywordflow}{and}\ thus\ assuming\ that\ batch\ sizes\ are\ equal}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00154}00154\ \ \ \ \ to\ 1\ \textcolor{keywordflow}{in}\ the\ preprocess\ function.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00155}00155\ \ \ \ \ +\ There\ \textcolor{keywordflow}{is}\ also\ no\ explicit\ assumption\ that\ the\ output\ resolutions}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00156}00156\ \ \ \ \ must\ be\ fixed\ across\ inputs\ -\/-\/-\/\ this\ \textcolor{keywordflow}{is}\ to\ support\ \textcolor{stringliteral}{"{}fully\ convolutional"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00157}00157\ \ \ \ \ settings\ \textcolor{keywordflow}{in}\ which\ input\ images\ can\ have\ different\ shapes/resolutions.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00159}00159\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00160}00160\ \ \ \ \ \ \ inputs:\ a\ [batch,\ height\_in,\ width\_in,\ channels]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ representing\ a\ batch\ of\ images\ \textcolor{keyword}{with}\ values\ between\ 0\ \textcolor{keywordflow}{and}\ 255.0.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00163}00163\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00164}00164\ \ \ \ \ \ \ preprocessed\_inputs:\ a\ [batch,\ height\_out,\ width\_out,\ channels]\ float32}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ tensor\ representing\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00166}00166\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00170}00170\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00173}00173\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00174}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ae647e2a9e493d01d2c54c9aeaa72050c}{00174}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ae647e2a9e493d01d2c54c9aeaa72050c}{predict}}(self,\ preprocessed\_inputs,\ true\_image\_shapes):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00175}00175\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Predict\ prediction\ tensors\ from\ inputs\ tensor.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00176}00176\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00177}00177\ \textcolor{stringliteral}{\ \ \ \ Outputs\ of\ this\ function\ can\ be\ passed\ to\ loss\ }\textcolor{keywordflow}{or}\ postprocess\ functions.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00179}00179\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00180}00180\ \ \ \ \ \ \ preprocessed\_inputs:\ a\ [batch,\ height,\ width,\ channels]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ representing\ a\ batch\ of\ images.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00182}00182\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00187}00187\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00188}00188\ \ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ prediction\ tensors\ to\ be}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ passed\ to\ the\ Loss\ \textcolor{keywordflow}{or}\ Postprocess\ functions.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00190}00190\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00193}00193\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00194}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a0602750e218163cc6898056ee4666394}{00194}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a0602750e218163cc6898056ee4666394}{postprocess}}(self,\ prediction\_dict,\ true\_image\_shapes,\ **params):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00195}00195\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convert\ predicted\ output\ tensors\ to\ final\ detections.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00196}00196\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00197}00197\ \textcolor{stringliteral}{\ \ \ \ This\ stage\ typically\ performs\ a\ few\ things\ such\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00198}00198\ \ \ \ \ *\ Non-\/Max\ Suppression\ to\ remove\ overlapping\ detection\ boxes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00199}00199\ \ \ \ \ *\ Score\ conversion\ \textcolor{keywordflow}{and}\ background\ \textcolor{keyword}{class\ }removal.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00201}00201\ \ \ \ \ Outputs\ adhere\ to\ the\ following\ conventions:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00202}00202\ \ \ \ \ *\ Classes\ are\ integers\ \textcolor{keywordflow}{in}\ [0,\ num\_classes);\ background\ classes\ are\ removed}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00203}00203\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ the\ first\ non-\/background\ \textcolor{keyword}{class\ }is\ mapped\ to\ 0.\ If\ the\ model\ produces}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00204}00204\ \ \ \ \ \ \ \textcolor{keyword}{class}-\/agnostic\ detections,\ then\ no\ output\ \textcolor{keywordflow}{is}\ produced\ \textcolor{keywordflow}{for}\ classes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00205}00205\ \ \ \ \ *\ Boxes\ are\ to\ be\ interpreted\ \textcolor{keyword}{as}\ being\ \textcolor{keywordflow}{in}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00206}00206\ \ \ \ \ \ \ format\ \textcolor{keywordflow}{and}\ normalized\ relative\ to\ the\ image\ window.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00207}00207\ \ \ \ \ *\ \`{}num\_detections\`{}\ \textcolor{keywordflow}{is}\ provided\ \textcolor{keywordflow}{for}\ settings\ where\ detections\ are\ padded\ to\ a}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00208}00208\ \ \ \ \ \ \ fixed\ number\ of\ boxes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00209}00209\ \ \ \ \ *\ We\ do\ \textcolor{keywordflow}{not}\ specifically\ assume\ any\ kind\ of\ probabilistic\ interpretation}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00210}00210\ \ \ \ \ \ \ of\ the\ scores\ -\/-\/-\/\ the\ only\ important\ thing\ \textcolor{keywordflow}{is}\ their\ relative\ ordering.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00211}00211\ \ \ \ \ \ \ Thus\ implementations\ of\ the\ postprocess\ function\ are\ free\ to\ output}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00212}00212\ \ \ \ \ \ \ logits,\ probabilities,\ calibrated\ probabilities,\ \textcolor{keywordflow}{or}\ anything\ \textcolor{keywordflow}{else}.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00214}00214\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00215}00215\ \ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ prediction\ tensors.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00216}00216\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00220}00220\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ DetectionModel.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00223}00223\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00224}00224\ \ \ \ \ \ \ detections:\ a\ dictionary\ containing\ the\ following\ fields}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ detection\_boxes:\ [batch,\ max\_detections,\ 4]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ detection\_scores:\ [batch,\ max\_detections]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ detection\_classes:\ [batch,\ max\_detections]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ (If\ a\ model\ \textcolor{keywordflow}{is}\ producing\ \textcolor{keyword}{class}-\/agnostic\ detections,\ this\ field\ may\ be}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ missing)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ instance\_masks:\ [batch,\ max\_detections,\ image\_height,\ image\_width]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ (optional)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ keypoints:\ [batch,\ max\_detections,\ num\_keypoints,\ 2]\ (optional)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ num\_detections:\ [batch]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ In\ addition\ to\ the\ above\ fields\ this\ stage\ also\ outputs\ the\ following}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ raw\ tensors:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ raw\_detection\_boxes:\ [batch,\ total\_detections,\ 4]\ tensor\ containing}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ all\ detection\ boxes\ \textcolor{keyword}{from}\ \`{}prediction\_dict\`{}\ \textcolor{keywordflow}{in}\ the\ format}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ [ymin,\ xmin,\ ymax,\ xmax]\ \textcolor{keywordflow}{and}\ normalized\ co-\/ordinates.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ raw\_detection\_scores:\ [batch,\ total\_detections,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ num\_classes\_with\_background]\ tensor\ of\ \textcolor{keyword}{class\ }score\ logits\ for}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ raw\ detection\ boxes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00244}00244\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00245}00245\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00247}00247\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00248}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a4a3c58003dcb9dfbbb498cfaaffe1f3a}{00248}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a4a3c58003dcb9dfbbb498cfaaffe1f3a}{loss}}(self,\ prediction\_dict,\ true\_image\_shapes):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00249}00249\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ scalar\ loss\ tensors\ with\ respect\ to\ provided\ groundtruth.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00250}00250\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00251}00251\ \textcolor{stringliteral}{\ \ \ \ Calling\ this\ function\ requires\ that\ groundtruth\ tensors\ have\ been}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00252}00252\ \textcolor{stringliteral}{\ \ \ \ provided\ via\ the\ provide\_groundtruth\ function.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00253}00253\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00254}00254\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00255}00255\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ predicted\ tensors}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00261}00261\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00262}00262\ \ \ \ \ \ \ a\ dictionary\ mapping\ strings\ (loss\ names)\ to\ scalar\ tensors\ representing}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ loss\ values.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00264}00264\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00265}00265\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00267}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a064598d25a6d0deb83e257969f23c9f6}{00267}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a064598d25a6d0deb83e257969f23c9f6}{provide\_groundtruth}}(self,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes\_list,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_classes\_list,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks\_list=None,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints\_list=None,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list=None,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_confidences\_list=None,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_crowd\_list=None,}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_annotated\_list=None):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00276}00276\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Provide\ groundtruth\ tensors.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00277}00277\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00279}00279\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes\_list:\ a\ list\ of\ 2-\/D\ tf.float32\ tensors\ of\ shape}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00280}00280\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ [num\_boxes,\ 4]\ containing\ coordinates\ of\ the\ groundtruth\ boxes.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00281}00281\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ Groundtruth\ boxes\ are\ provided\ }\textcolor{keywordflow}{in}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ format\ \textcolor{keywordflow}{and}\ assumed\ to\ be\ normalized\ \textcolor{keywordflow}{and}\ clipped}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ relative\ to\ the\ image\ window\ \textcolor{keyword}{with}\ y\_min\ <=\ y\_max\ \textcolor{keywordflow}{and}\ x\_min\ <=\ x\_max.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00284}00284\ \ \ \ \ \ \ groundtruth\_classes\_list:\ a\ list\ of\ 2-\/D\ tf.float32\ one-\/hot\ (\textcolor{keywordflow}{or}\ k-\/hot)}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ tensors\ of\ shape\ [num\_boxes,\ num\_classes]\ containing\ the\ \textcolor{keyword}{class\ }targets}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ the\ 0th\ index\ assumed\ to\ map\ to\ the\ first\ non-\/background\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00287}00287\ \ \ \ \ \ \ groundtruth\_masks\_list:\ a\ list\ of\ 3-\/D\ tf.float32\ tensors\ of}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ shape\ [num\_boxes,\ height\_in,\ width\_in]\ containing\ instance}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ masks\ \textcolor{keyword}{with}\ values\ \textcolor{keywordflow}{in}\ \{0,\ 1\}.\ \ If\ \textcolor{keywordtype}{None},\ no\ masks\ are\ provided.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ Mask\ resolution\ \`{}height\_in\`{}x\`{}width\_in\`{}\ must\ agree\ \textcolor{keyword}{with}\ the\ resolution}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ of\ the\ input\ image\ tensor\ provided\ to\ the\ \`{}preprocess\`{}\ function.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00292}00292\ \ \ \ \ \ \ groundtruth\_keypoints\_list:\ a\ list\ of\ 3-\/D\ tf.float32\ tensors\ of}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ shape\ [num\_boxes,\ num\_keypoints,\ 2]\ containing\ keypoints.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ Keypoints\ are\ assumed\ to\ be\ provided\ \textcolor{keywordflow}{in}\ normalized\ coordinates\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ missing\ keypoints\ should\ be\ encoded\ \textcolor{keyword}{as}\ NaN.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00296}00296\ \ \ \ \ \ \ groundtruth\_weights\_list:\ A\ list\ of\ 1-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ [num\_boxes]\ containing\ weights\ \textcolor{keywordflow}{for}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00298}00298\ \ \ \ \ \ \ groundtruth\_confidences\_list:\ A\ list\ of\ 2-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ [num\_boxes,\ num\_classes]\ containing\ \textcolor{keyword}{class\ }confidences\ for\ groundtruth}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ boxes.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00301}00301\ \ \ \ \ \ \ groundtruth\_is\_crowd\_list:\ A\ list\ of\ 1-\/D\ tf.bool\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ [num\_boxes]\ containing\ is\_crowd\ annotations}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00303}00303\ \ \ \ \ \ \ is\_annotated\_list:\ A\ list\ of\ scalar\ tf.bool\ tensors\ indicating\ whether}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ images\ have\ been\ labeled\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00305}00305\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00306}00306\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[fields.BoxListFields.boxes]\ =\ groundtruth\_boxes\_list}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00307}00307\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00308}00308\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.classes]\ =\ groundtruth\_classes\_list}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00309}00309\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ groundtruth\_weights\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00310}00310\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[fields.BoxListFields.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights]\ =\ groundtruth\_weights\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00312}00312\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_confidences\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00313}00313\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[fields.BoxListFields.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ confidences]\ =\ groundtruth\_confidences\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00315}00315\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_masks\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00316}00316\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.masks]\ =\ groundtruth\_masks\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00318}00318\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_keypoints\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00319}00319\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.keypoints]\ =\ groundtruth\_keypoints\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_is\_crowd\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00322}00322\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.is\_crowd]\ =\ groundtruth\_is\_crowd\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00324}00324\ \ \ \ \ \textcolor{keywordflow}{if}\ is\_annotated\_list:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00325}00325\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\_groundtruth\_lists}}[}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated]\ =\ is\_annotated\_list}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00328}00328\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00329}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a85265bb7b71f082a833fefd28a47fe55}{00329}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a85265bb7b71f082a833fefd28a47fe55}{regularization\_losses}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00330}00330\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ regularization\ losses\ for\ this\ model.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00331}00331\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ list\ of\ regularization\ losses\ }\textcolor{keywordflow}{for}\ this\ model\ that\ the\ estimator}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00333}00333\ \ \ \ \ needs\ to\ use\ during\ training/optimization.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00335}00335\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00336}00336\ \ \ \ \ \ \ A\ list\ of\ regularization\ loss\ tensors.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00337}00337\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00338}00338\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00340}00340\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00341}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a64aba744ec1c5495784e42fe041d71a0}{00341}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a64aba744ec1c5495784e42fe041d71a0}{restore\_map}}(self,\ fine\_tune\_checkpoint\_type='detection'):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00342}00342\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ map\ of\ variables\ to\ load\ from\ a\ foreign\ checkpoint.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00343}00343\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00344}00344\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ map\ of\ variable\ names\ to\ load\ }\textcolor{keyword}{from}\ a\ checkpoint\ to\ variables\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00345}00345\ \ \ \ \ the\ model\ graph.\ This\ enables\ the\ model\ to\ initialize\ based\ on\ weights\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00346}00346\ \ \ \ \ another\ task.\ For\ example,\ the\ feature\ extractor\ variables\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00347}00347\ \ \ \ \ classification\ model\ can\ be\ used\ to\ bootstrap\ training\ of\ an\ object}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00348}00348\ \ \ \ \ detector.\ When\ loading\ \textcolor{keyword}{from}\ an\ object\ detection\ model,\ the\ checkpoint\ model}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00349}00349\ \ \ \ \ should\ have\ the\ same\ parameters\ \textcolor{keyword}{as}\ this\ detection\ model\ \textcolor{keyword}{with}\ exception\ of}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00350}00350\ \ \ \ \ the\ num\_classes\ parameter.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00352}00352\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00353}00353\ \ \ \ \ \ \ fine\_tune\_checkpoint\_type:\ whether\ to\ restore\ \textcolor{keyword}{from}\ a\ full\ detection}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ checkpoint\ (\textcolor{keyword}{with}\ compatible\ variable\ names)\ \textcolor{keywordflow}{or}\ to\ restore\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ classification\ checkpoint\ \textcolor{keywordflow}{for}\ initialization\ prior\ to\ training.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ Valid\ values:\ \`{}detection\`{},\ \`{}classification\`{}.\ Default\ \textcolor{stringliteral}{'detection'}.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00358}00358\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00359}00359\ \ \ \ \ \ \ A\ dict\ mapping\ variable\ names\ (to\ load\ \textcolor{keyword}{from}\ a\ checkpoint)\ to\ variables\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00360}00360\ \ \ \ \ \ \ the\ model\ graph.}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00361}00361\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00362}00362\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00364}00364\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00365}\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a61ccd8a44ce48eb27c970254188f452d}{00365}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a61ccd8a44ce48eb27c970254188f452d}{updates}}(self):}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00366}00366\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ update\ operators\ for\ this\ model.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00367}00367\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00368}00368\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ list\ of\ update\ operators\ }\textcolor{keywordflow}{for}\ this\ model\ that\ must\ be\ executed\ at}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00369}00369\ \ \ \ \ each\ training\ step.\ The\ estimator\textcolor{stringliteral}{'s\ train\ op\ needs\ to\ have\ a\ control}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00370}00370\ \textcolor{stringliteral}{\ \ \ \ dependency\ on\ these\ updates.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00371}00371\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00372}00372\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00373}00373\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ update\ operators.}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00374}00374\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{model_8py_source_l00375}00375\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+
+\end{DoxyCode}

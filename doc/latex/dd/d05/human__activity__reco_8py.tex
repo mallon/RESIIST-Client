@@ -1,0 +1,48 @@
+\doxysection{src/main/resources/processing/video/detections/behavior\+\_\+detection/human-\/activity-\/recognition/human\+\_\+activity\+\_\+reco.py File Reference}
+\hypertarget{human__activity__reco_8py}{}\label{human__activity__reco_8py}\index{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco.py@{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehuman__activity__reco}{human\+\_\+activity\+\_\+reco}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4f7892f4d930a84bc3b58401c499f2fc}{human\+\_\+activity\+\_\+reco.\+ap}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a8c74acac80e00fcf80273bdd77cc4a68}{human\+\_\+activity\+\_\+reco.\+required}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a98bbb4e580341d1cc59b3627a4acd7ab}{human\+\_\+activity\+\_\+reco.\+help}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a2ea2ff5afca7082f03b68aac2485e0e6}{human\+\_\+activity\+\_\+reco.\+type}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a190f3d6745a63cb6b8f664a4fffdec53}{human\+\_\+activity\+\_\+reco.\+str}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_aed21c739bf8d6863390b918d2111a0fa}{human\+\_\+activity\+\_\+reco.\+default}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{human\+\_\+activity\+\_\+reco.\+args}} = vars(ap.\+parse\+\_\+args())
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}{human\+\_\+activity\+\_\+reco.\+CLASSES}} = open(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}classes\"{}\mbox{]}).read().strip().split(\"{}\textbackslash{}n\"{})
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_a31660bec2442e4cda7ec34a929a31200}{human\+\_\+activity\+\_\+reco.\+SAMPLE\+\_\+\+DURATION}} = 16
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_a1fe1b8078b4e0593b086d45007a95013}{human\+\_\+activity\+\_\+reco.\+SAMPLE\+\_\+\+SIZE}} = 112
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_af7476f6ecce29d30f57012d7d93e57c6}{human\+\_\+activity\+\_\+reco.\+net}} = cv2.\+dnn.\+read\+Net(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}model\"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4ec38f8a561ea70176772dcfc016f9ce}{human\+\_\+activity\+\_\+reco.\+vs}} = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)
+\item 
+list \mbox{\hyperlink{namespacehuman__activity__reco_a3c0f8fe119b7d8e1dd5610b05d290043}{human\+\_\+activity\+\_\+reco.\+frames}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4f45635761355260c1888fb9af93e986}{human\+\_\+activity\+\_\+reco.\+grabbed}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a49dbaf951ff34a236ed076fb86e5bdca}{human\+\_\+activity\+\_\+reco.\+frame}} = imutils.\+resize(frame, width=400)
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a195b3a63ffd85ad87d5eb0aa41e36c00}{human\+\_\+activity\+\_\+reco.\+blob}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}{human\+\_\+activity\+\_\+reco.\+outputs}} = net.\+forward()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a27764ab58a5f9791071262c4392ebb02}{human\+\_\+activity\+\_\+reco.\+label}} = \mbox{\hyperlink{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}{CLASSES}}\mbox{[}np.\+argmax(\mbox{\hyperlink{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}{outputs}})\mbox{]}
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_ad6a21fa3154b10da8c4de8db3c4320f9}{human\+\_\+activity\+\_\+reco.\+key}} = cv2.\+wait\+Key(1) \& 0x\+FF
+\end{DoxyCompactItemize}

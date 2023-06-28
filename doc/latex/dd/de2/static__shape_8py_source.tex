@@ -1,0 +1,96 @@
+\doxysection{static\+\_\+shape.\+py}
+\hypertarget{static__shape_8py_source}{}\label{static__shape_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/static\_shape.py@{src/main/resources/processing/video/detections/detection\_utils/utils/static\_shape.py}}
+\mbox{\hyperlink{static__shape_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Helper\ functions\ to\ access\ TensorShape\ values.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00018}00018\ \textcolor{stringliteral}{The\ rank\ 4\ tensor\_shape\ must\ be\ of\ the\ form\ [batch\_size,\ height,\ width,\ depth].}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00019}00019\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00021}00021\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00022}00022\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00026}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{00026}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\_dim\_as\_int}}(dim):}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00027}00027\ \ \ \textcolor{stringliteral}{"{}"{}"{}Utility\ to\ get\ v1\ or\ v2\ TensorShape\ dim\ as\ an\ int.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ dim:\ The\ TensorShape\ dimension\ to\ get\ }\textcolor{keyword}{as}\ an\ int}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00032}00032\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ an\ int.}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00034}00034\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{return}\ dim.value}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00037}00037\ \ \ \textcolor{keywordflow}{except}\ AttributeError:}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{return}\ dim}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00041}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1}{00041}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1}{get\_batch\_size}}(tensor\_shape):}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00042}00042\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ batch\ size\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00043}00043\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00046}00046\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ batch\ size\ of\ the\ tensor.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\_dim\_as\_int}}(tensor\_shape[0])}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00054}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35}{00054}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35}{get\_height}}(tensor\_shape):}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00055}00055\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ height\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00056}00056\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00059}00059\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ height\ of\ the\ tensor.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\_dim\_as\_int}}(tensor\_shape[1])}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00067}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944}{00067}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944}{get\_width}}(tensor\_shape):}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00068}00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ width\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00069}00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00072}00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ width\ of\ the\ tensor.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\_dim\_as\_int}}(tensor\_shape[2])}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00080}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d}{00080}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d}{get\_depth}}(tensor\_shape):}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00081}00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ depth\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00082}00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00085}00085\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ depth\ of\ the\ tensor.}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{\Hypertarget{static__shape_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\_dim\_as\_int}}(tensor\_shape[3])}
+
+\end{DoxyCode}

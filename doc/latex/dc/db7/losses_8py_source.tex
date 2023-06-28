@@ -1,0 +1,692 @@
+\doxysection{losses.\+py}
+\hypertarget{losses_8py_source}{}\label{losses_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/losses.py@{src/main/resources/processing/video/detections/detection\_utils/core/losses.py}}
+\mbox{\hyperlink{losses_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1losses}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Classification\ and\ regression\ loss\ functions\ for\ object\ detection.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00018}00018\ \textcolor{stringliteral}{Localization\ losses:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00019}00019\ \textcolor{stringliteral}{\ *\ WeightedL2LocalizationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00020}00020\ \textcolor{stringliteral}{\ *\ WeightedSmoothL1LocalizationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00021}00021\ \textcolor{stringliteral}{\ *\ WeightedIOULocalizationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00023}00023\ \textcolor{stringliteral}{Classification\ losses:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00024}00024\ \textcolor{stringliteral}{\ *\ WeightedSigmoidClassificationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00025}00025\ \textcolor{stringliteral}{\ *\ WeightedSoftmaxClassificationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00026}00026\ \textcolor{stringliteral}{\ *\ WeightedSoftmaxClassificationAgainstLogitsLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00027}00027\ \textcolor{stringliteral}{\ *\ BootstrappedSigmoidClassificationLoss}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00028}00028\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00029}00029\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00030}00030\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00031}00031\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00033}00033\ \textcolor{keyword}{import}\ abc}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00034}00034\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00035}00035\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00037}00037\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00038}00038\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00039}00039\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ ops}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00041}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1losses_afe2746c0d27ec9406c33d4596bacef9d}{00041}}\ slim\ =\ tf.contrib.slim}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{00044}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}(six.with\_metaclass(abc.ABCMeta,\ object)):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00045}00045\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ base\ class\ for\ loss\ functions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00047}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{00047}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\_\_call\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ignore\_nan\_targets=False,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask=None,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Call\ the\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00055}00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ predicted\ quantities.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]\ representing}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ regression\ }\textcolor{keywordflow}{or}\ classification\ targets.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00061}00061\ \ \ \ \ \ \ ignore\_nan\_targets:\ whether\ to\ ignore\ nan\ targets\ \textcolor{keywordflow}{in}\ the\ loss\ computation.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ E.g.\ can\ be\ used\ \textcolor{keywordflow}{if}\ the\ target\ tensor\ \textcolor{keywordflow}{is}\ missing\ groundtruth\ data\ that}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ shouldn\textcolor{stringliteral}{'t\ be\ factored\ into\ the\ loss.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ \ \ losses\_mask:\ A\ [batch]\ boolean\ tensor\ that\ indicates\ whether\ losses\ should}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ be\ applied\ to\ individual\ images\ }\textcolor{keywordflow}{in}\ the\ batch.\ For\ elements\ that}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ are\ \textcolor{keyword}{False},\ corresponding\ prediction,\ target,\ \textcolor{keywordflow}{and}\ weight\ tensors\ will\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ contribute\ to\ loss\ computation.\ If\ \textcolor{keywordtype}{None},\ no\ filtering\ will\ take\ place}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ prior\ to\ loss\ computation.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00069}00069\ \ \ \ \ \ \ scope:\ Op\ scope\ name.\ Defaults\ to\ \textcolor{stringliteral}{'Loss'}\ \textcolor{keywordflow}{if}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00070}00070\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ Loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00073}00073\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00074}00074\ \ \ \ \ \ \ loss:\ a\ tensor\ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00075}00075\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Loss'},}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [prediction\_tensor,\ target\_tensor,\ params])\ \textcolor{keyword}{as}\ scope:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00078}00078\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ignore\_nan\_targets:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ target\_tensor\ =\ tf.where(tf.is\_nan(target\_tensor),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_tensor)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00082}00082\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ losses\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ tensor\_multiplier\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\_get\_loss\_multiplier\_for\_tensor}}(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ prediction\_tensor\ *=\ tensor\_multiplier}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ target\_tensor\ *=\ tensor\_multiplier}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'weights'}\ \textcolor{keywordflow}{in}\ params:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}]\ =\ tf.convert\_to\_tensor(params[\textcolor{stringliteral}{'weights'}])}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ weights\_multiplier\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\_get\_loss\_multiplier\_for\_tensor}}(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}],}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}]\ *=\ weights\_multiplier}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00095}00095\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\_compute\_loss}}(prediction\_tensor,\ target\_tensor,\ **params)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00097}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{00097}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\_get\_loss\_multiplier\_for\_tensor}}(self,\ tensor,\ losses\_mask):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00098}00098\ \ \ \ \ loss\_multiplier\_shape\ =\ tf.stack([-\/1]\ +\ [1]\ *\ (len(tensor.shape)\ -\/\ 1))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cast(tf.reshape(losses\_mask,\ loss\_multiplier\_shape),\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00101}00101\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00102}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{00102}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ **params):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00103}00103\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00104}00104\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ a\ tensor\ representing\ predicted\ quantities}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ a\ tensor\ representing\ regression\ }\textcolor{keywordflow}{or}\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00108}00108\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ Loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00111}00111\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00112}00112\ \ \ \ \ \ \ loss:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]\ containing\ the\ loss\ per}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ anchor}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00114}00114\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00118}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_l2_localization_loss}{00118}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_l2_localization_loss}{WeightedL2LocalizationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00119}00119\ \ \ \textcolor{stringliteral}{"{}"{}"{}L2\ localization\ loss\ function\ with\ anchorwise\ output\ support.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00120}00120\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ Loss[b,a]\ =\ .5\ *\ ||weights[b,a]\ *\ (prediction[b,a,:]\ -\/\ target[b,a,:])||\string^2}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00123}00123\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00124}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_l2_localization_loss_aaee905ead7ab9ffd710cdcfee0ffed81}{00124}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_l2_localization_loss_aaee905ead7ab9ffd710cdcfee0ffed81}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00125}00125\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00126}00126\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ (encoded)\ predicted\ locations\ of\ objects.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ regression\ targets}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00133}00133\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ tensor}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ \ \ weighted\_diff\ =\ (prediction\_tensor\ -\/\ target\_tensor)\ *\ tf.expand\_dims(}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00139}00139\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ weights,\ 2)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00140}00140\ \textcolor{stringliteral}{\ \ \ \ square\_diff\ =\ 0.5\ *\ tf.square(weighted\_diff)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.reduce\_sum(square\_diff,\ 2)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00144}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss}{00144}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss}{WeightedSmoothL1LocalizationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00145}00145\ \ \ \textcolor{stringliteral}{"{}"{}"{}Smooth\ L1\ localization\ loss\ function\ aka\ Huber\ Loss..}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00146}00146\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ The\ smooth\ L1\_loss\ }\textcolor{keywordflow}{is}\ defined\ elementwise\ \textcolor{keyword}{as}\ .5\ x\string^2\ \textcolor{keywordflow}{if}\ |x|\ <=\ delta\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00148}00148\ \ \ delta\ *\ (|x|-\/\ 0.5*delta)\ otherwise,\ where\ x\ \textcolor{keywordflow}{is}\ the\ difference\ between}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00149}00149\ \ \ predictions\ \textcolor{keywordflow}{and}\ target.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00151}00151\ \ \ See\ also\ Equation\ (3)\ \textcolor{keywordflow}{in}\ the\ Fast\ R-\/CNN\ paper\ by\ Ross\ Girshick\ (ICCV\ 2015)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00152}00152\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00153}00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00154}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d}{00154}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d}{\_\_init\_\_}}(self,\ delta=1.0):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00155}00155\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00156}00156\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00158}00158\ \textcolor{stringliteral}{\ \ \ \ \ \ delta:\ delta\ }\textcolor{keywordflow}{for}\ smooth\ L1\ loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00159}00159\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00160}00160\ \textcolor{stringliteral}{\ \ \ \ super(WeightedSmoothL1LocalizationLoss,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00161}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0}{00161}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0}{\_delta}}\ =\ delta}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00162}00162\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00163}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432}{00163}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00164}00164\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00165}00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00167}00167\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00168}00168\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ (encoded)\ predicted\ locations\ of\ objects.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00169}00169\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00170}00170\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ regression\ targets}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00172}00172\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00173}00173\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ tensor}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00175}00175\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00176}00176\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00177}00177\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.reduce\_sum(tf.losses.huber\_loss(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ target\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ delta=self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0}{\_delta}},}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ weights=tf.expand\_dims(weights,\ axis=2),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ loss\_collection=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ reduction=tf.losses.Reduction.NONE}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00184}00184\ \ \ \ \ ),\ axis=2)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00187}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss}{00187}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss}{WeightedIOULocalizationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00188}00188\ \ \ \textcolor{stringliteral}{"{}"{}"{}IOU\ localization\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00189}00189\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00190}00190\ \textcolor{stringliteral}{\ \ Sums\ the\ IOU\ }\textcolor{keywordflow}{for}\ corresponding\ pairs\ of\ predicted/groundtruth\ boxes}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00191}00191\ \ \ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{for}\ each\ pair\ assign\ a\ loss\ of\ 1\ -\/\ IOU.\ \ We\ then\ compute\ a\ weighted}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00192}00192\ \ \ sum\ over\ all\ pairs\ which\ \textcolor{keywordflow}{is}\ returned\ \textcolor{keyword}{as}\ the\ total\ loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00193}00193\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00194}00194\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00195}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3}{00195}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00196}00196\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00197}00197\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00198}00198\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00199}00199\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ 4]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00200}00200\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ decoded\ predicted\ boxes}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00201}00201\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ 4]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ decoded\ target\ boxes}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00204}00204\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ tensor}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00207}00207\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00209}00209\ \textcolor{stringliteral}{\ \ \ \ predicted\_boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.reshape(prediction\_tensor,\ [-\/1,\ 4]))}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ target\_boxes\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(tf.reshape(target\_tensor,\ [-\/1,\ 4]))}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ per\_anchor\_iou\_loss\ =\ 1.0\ -\/\ box\_list\_ops.matched\_iou(predicted\_boxes,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_boxes)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00213}00213\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.reshape(weights,\ [-\/1])\ *\ per\_anchor\_iou\_loss}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00216}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss}{00216}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss}{WeightedSigmoidClassificationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00217}00217\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sigmoid\ cross\ entropy\ classification\ loss\ function."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00219}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb}{00219}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb}{\_compute\_loss}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_indices=None):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00224}00224\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00225}00225\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00226}00226\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00227}00227\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00228}00228\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00229}00229\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00231}00231\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00234}00234\ \ \ \ \ \ \ class\_indices:\ (Optional)\ A\ 1-\/D\ integer\ tensor\ of\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ If\ provided,\ computes\ loss\ only\ \textcolor{keywordflow}{for}\ the\ specified\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00237}00237\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00238}00238\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ num\_classes]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00240}00240\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00241}00241\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ class\_indices\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00242}00242\ \ \ \ \ \ \ weights\ *=\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ ops.indices\_to\_dense\_vector(class\_indices,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(prediction\_tensor)[2]),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ -\/1])}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00246}00246\ \ \ \ \ per\_entry\_cross\_ent\ =\ (tf.nn.sigmoid\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ labels=target\_tensor,\ logits=prediction\_tensor))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{return}\ per\_entry\_cross\_ent\ *\ weights}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00251}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss}{00251}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss}{SigmoidFocalClassificationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00252}00252\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sigmoid\ focal\ cross\ entropy\ loss.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00253}00253\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00254}00254\ \textcolor{stringliteral}{\ \ Focal\ loss\ down-\/weights\ well\ classified\ examples\ }\textcolor{keywordflow}{and}\ focusses\ on\ the\ hard}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00255}00255\ \ \ examples.\ See\ https://arxiv.org/pdf/1708.02002.pdf\ \textcolor{keywordflow}{for}\ the\ loss\ definition.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00256}00256\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00257}00257\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00258}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_acc5e74c93eb3c34dd4370bc1c6a7b23f}{00258}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_acc5e74c93eb3c34dd4370bc1c6a7b23f}{\_\_init\_\_}}(self,\ gamma=2.0,\ alpha=0.25):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00259}00259\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00260}00260\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00261}00261\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00262}00262\ \textcolor{stringliteral}{\ \ \ \ \ \ gamma:\ exponent\ of\ the\ modulating\ factor\ (1\ -\/\ p\_t)\ \string^\ gamma.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00263}00263\ \textcolor{stringliteral}{\ \ \ \ \ \ alpha:\ optional\ alpha\ weighting\ factor\ to\ balance\ positives\ vs\ negatives.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00264}00264\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00265}00265\ \textcolor{stringliteral}{\ \ \ \ super(SigmoidFocalClassificationLoss,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_acc5e74c93eb3c34dd4370bc1c6a7b23f}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00266}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_ae7a2f9c1c0913c37e806e7ad3487d0a4}{00266}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_ae7a2f9c1c0913c37e806e7ad3487d0a4}{\_alpha}}\ =\ alpha}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00267}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_a8fabfd8883d2be73deb91513ac7ab456}{00267}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_a8fabfd8883d2be73deb91513ac7ab456}{\_gamma}}\ =\ gamma}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00268}00268\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00269}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_abd4817631560e14e14c853c01c069732}{00269}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_abd4817631560e14e14c853c01c069732}{\_compute\_loss}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_tensor,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_indices=None):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00274}00274\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00275}00275\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00277}00277\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00279}00279\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00281}00281\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00284}00284\ \ \ \ \ \ \ class\_indices:\ (Optional)\ A\ 1-\/D\ integer\ tensor\ of\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ If\ provided,\ computes\ loss\ only\ \textcolor{keywordflow}{for}\ the\ specified\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00287}00287\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00288}00288\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ num\_classes]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00290}00290\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00291}00291\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ class\_indices\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00292}00292\ \ \ \ \ \ \ weights\ *=\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ ops.indices\_to\_dense\_vector(class\_indices,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(prediction\_tensor)[2]),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ -\/1])}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00296}00296\ \ \ \ \ per\_entry\_cross\_ent\ =\ (tf.nn.sigmoid\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ labels=target\_tensor,\ logits=prediction\_tensor))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00298}00298\ \ \ \ \ prediction\_probabilities\ =\ tf.sigmoid(prediction\_tensor)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00299}00299\ \ \ \ \ p\_t\ =\ ((target\_tensor\ *\ prediction\_probabilities)\ +}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ ((1\ -\/\ target\_tensor)\ *\ (1\ -\/\ prediction\_probabilities)))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00301}00301\ \ \ \ \ modulating\_factor\ =\ 1.0}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00302}00302\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_a8fabfd8883d2be73deb91513ac7ab456}{\_gamma}}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00303}00303\ \ \ \ \ \ \ modulating\_factor\ =\ tf.pow(1.0\ -\/\ p\_t,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_a8fabfd8883d2be73deb91513ac7ab456}{\_gamma}})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00304}00304\ \ \ \ \ alpha\_weight\_factor\ =\ 1.0}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00305}00305\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_ae7a2f9c1c0913c37e806e7ad3487d0a4}{\_alpha}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00306}00306\ \ \ \ \ \ \ alpha\_weight\_factor\ =\ (target\_tensor\ *\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_ae7a2f9c1c0913c37e806e7ad3487d0a4}{\_alpha}}\ +}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1\ -\/\ target\_tensor)\ *\ (1\ -\/\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_ae7a2f9c1c0913c37e806e7ad3487d0a4}{\_alpha}}))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00308}00308\ \ \ \ \ focal\_cross\_entropy\_loss\ =\ (modulating\_factor\ *\ alpha\_weight\_factor\ *}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_entry\_cross\_ent)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00310}00310\ \ \ \ \ \textcolor{keywordflow}{return}\ focal\_cross\_entropy\_loss\ *\ weights}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00313}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss}{00313}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss}{WeightedSoftmaxClassificationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00314}00314\ \ \ \textcolor{stringliteral}{"{}"{}"{}Softmax\ loss\ function."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00316}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047}{00316}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047}{\_\_init\_\_}}(self,\ logit\_scale=1.0):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00317}00317\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00318}00318\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00319}00319\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00320}00320\ \textcolor{stringliteral}{\ \ \ \ \ \ logit\_scale:\ When\ this\ value\ }\textcolor{keywordflow}{is}\ high,\ the\ prediction\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{"{}diffused"{}}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ when\ this\ value\ \textcolor{keywordflow}{is}\ low,\ the\ prediction\ \textcolor{keywordflow}{is}\ made\ peakier.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (default\ 1.0)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00324}00324\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00325}00325\ \textcolor{stringliteral}{\ \ \ \ super(WeightedSoftmaxClassificationLoss,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a24408057d3ced7f7f55949e8da83a047}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00326}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c}{00326}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c}{\_logit\_scale}}\ =\ logit\_scale}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00327}00327\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00328}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853}{00328}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00329}00329\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00330}00330\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00331}00331\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00333}00333\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00334}00334\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00336}00336\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00340}00340\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00341}00341\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00343}00343\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00344}00344\ \textcolor{stringliteral}{\ \ \ \ weights\ =\ tf.reduce\_mean(weights,\ axis=2)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00345}00345\ \textcolor{stringliteral}{\ \ \ \ num\_classes\ =\ prediction\_tensor.get\_shape().as\_list()[-\/1]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00346}00346\ \textcolor{stringliteral}{\ \ \ \ prediction\_tensor\ =\ tf.divide(}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00347}00347\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ prediction\_tensor,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a404314a3aab27fc9dcb2dbc25851b56c}{\_logit\_scale}},\ name='scale\_logit'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00348}00348\ \ \ \ \ per\_row\_cross\_ent\ =\ (tf.nn.softmax\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ labels=tf.reshape(target\_tensor,\ [-\/1,\ num\_classes]),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00350}00350\ \ \ \ \ \ \ \ \ logits=tf.reshape(prediction\_tensor,\ [-\/1,\ num\_classes])))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00351}00351\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(per\_row\_cross\_ent,\ tf.shape(weights))\ *\ weights}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00354}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss}{00354}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss}{WeightedSoftmaxClassificationAgainstLogitsLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00355}00355\ \ \ \textcolor{stringliteral}{"{}"{}"{}Softmax\ loss\ function\ against\ logits.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00356}00356\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00357}00357\ \textcolor{stringliteral}{\ \ \ Targets\ are\ expected\ to\ be\ provided\ }\textcolor{keywordflow}{in}\ logits\ space\ instead\ of\ \textcolor{stringliteral}{"{}one\ hot"{}}\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00358}00358\ \ \ \ \textcolor{stringliteral}{"{}probability\ distribution"{}}\ space.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00359}00359\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00360}00360\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00361}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a8b44b227d04e7dd1b8e6079342a535fa}{00361}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a8b44b227d04e7dd1b8e6079342a535fa}{\_\_init\_\_}}(self,\ logit\_scale=1.0):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00362}00362\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00363}00363\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00364}00364\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00365}00365\ \textcolor{stringliteral}{\ \ \ \ \ \ logit\_scale:\ When\ this\ value\ }\textcolor{keywordflow}{is}\ high,\ the\ target\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{"{}diffused"{}}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ when\ this\ value\ \textcolor{keywordflow}{is}\ low,\ the\ target\ \textcolor{keywordflow}{is}\ made\ peakier.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (default\ 1.0)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00369}00369\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00370}00370\ \textcolor{stringliteral}{\ \ \ \ super(WeightedSoftmaxClassificationAgainstLogitsLoss,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a8b44b227d04e7dd1b8e6079342a535fa}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00371}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a90b59234980cf95e5139fc5e2f00843e}{00371}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a90b59234980cf95e5139fc5e2f00843e}{\_logit\_scale}}\ =\ logit\_scale}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00372}00372\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00373}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a7fb6902c62d6a331ae8dd5521b6a1089}{00373}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a7fb6902c62d6a331ae8dd5521b6a1089}{\_scale\_and\_softmax\_logits}}(self,\ logits):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00374}00374\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Scale\ logits\ then\ apply\ softmax."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00375}00375\ \ \ \ \ scaled\_logits\ =\ tf.divide(logits,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a90b59234980cf95e5139fc5e2f00843e}{\_logit\_scale}},\ name=\textcolor{stringliteral}{'scale\_logits'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00376}00376\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.nn.softmax(scaled\_logits,\ name=\textcolor{stringliteral}{'convert\_scores'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00378}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a34c03e1dffb28a11c360679afedec8e4}{00378}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a34c03e1dffb28a11c360679afedec8e4}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00379}00379\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00380}00380\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00381}00381\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00382}00382\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00383}00383\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00384}00384\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ logit\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00386}00386\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00390}00390\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00391}00391\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00393}00393\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00394}00394\ \textcolor{stringliteral}{\ \ \ \ weights\ =\ tf.reduce\_mean(weights,\ axis=2)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00395}00395\ \textcolor{stringliteral}{\ \ \ \ num\_classes\ =\ prediction\_tensor.get\_shape().as\_list()[-\/1]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00396}00396\ \textcolor{stringliteral}{\ \ \ \ target\_tensor\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a7fb6902c62d6a331ae8dd5521b6a1089}{\_scale\_and\_softmax\_logits}}(target\_tensor)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00397}00397\ \textcolor{stringliteral}{\ \ \ \ prediction\_tensor\ =\ tf.divide(prediction\_tensor,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a90b59234980cf95e5139fc5e2f00843e}{\_logit\_scale}},}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00398}00398\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name='scale\_logits'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00400}00400\ \ \ \ \ per\_row\_cross\_ent\ =\ (tf.nn.softmax\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ labels=tf.reshape(target\_tensor,\ [-\/1,\ num\_classes]),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ logits=tf.reshape(prediction\_tensor,\ [-\/1,\ num\_classes])))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00403}00403\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(per\_row\_cross\_ent,\ tf.shape(weights))\ *\ weights}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00406}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss}{00406}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss}{BootstrappedSigmoidClassificationLoss}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{Loss}}):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00407}00407\ \ \ \textcolor{stringliteral}{"{}"{}"{}Bootstrapped\ sigmoid\ cross\ entropy\ classification\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00408}00408\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00409}00409\ \textcolor{stringliteral}{\ \ This\ loss\ uses\ a\ convex\ combination\ of\ training\ labels\ }\textcolor{keywordflow}{and}\ the\ current\ model\textcolor{stringliteral}{'s}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00410}00410\ \textcolor{stringliteral}{\ \ predictions\ }\textcolor{keyword}{as}\ training\ targets\ \textcolor{keywordflow}{in}\ the\ classification\ loss.\ The\ idea\ \textcolor{keywordflow}{is}\ that}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00411}00411\ \ \ \textcolor{keyword}{as}\ the\ model\ improves\ over\ time,\ its\ predictions\ can\ be\ trusted\ more\ \textcolor{keywordflow}{and}\ we}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00412}00412\ \ \ can\ use\ these\ predictions\ to\ mitigate\ the\ damage\ of\ noisy/incorrect\ labels,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00413}00413\ \ \ because\ incorrect\ labels\ are\ likely\ to\ be\ eventually\ highly\ inconsistent\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00414}00414\ \ \ other\ stimuli\ predicted\ to\ have\ the\ same\ label\ by\ the\ model.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00416}00416\ \ \ In\ \textcolor{stringliteral}{"{}soft"{}}\ bootstrapping,\ we\ use\ all\ predicted\ \textcolor{keyword}{class\ }probabilities,\ whereas\ in}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00417}00417\ \ \ \textcolor{stringliteral}{"{}hard"{}}\ bootstrapping,\ we\ use\ the\ single\ \textcolor{keyword}{class\ }favored\ by\ the\ model.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00419}00419\ \ \ See\ also\ Training\ Deep\ Neural\ Networks\ On\ Noisy\ Labels\ \textcolor{keyword}{with}\ Bootstrapping\ by}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00420}00420\ \ \ Reed\ et\ al.\ (ICLR\ 2015).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00421}00421\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00422}00422\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00423}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f}{00423}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f}{\_\_init\_\_}}(self,\ alpha,\ bootstrap\_type='soft'):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00424}00424\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00425}00425\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00426}00426\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00427}00427\ \textcolor{stringliteral}{\ \ \ \ \ \ alpha:\ a\ float32\ scalar\ tensor\ between\ 0\ }\textcolor{keywordflow}{and}\ 1\ representing\ interpolation}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00428}00428\ \ \ \ \ \ \ \ \ weight}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00429}00429\ \ \ \ \ \ \ bootstrap\_type:\ set\ to\ either\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'soft'}\ (default)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00431}00431\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00432}00432\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ bootstrap\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ either\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'soft'}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00433}00433\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00434}00434\ \textcolor{stringliteral}{\ \ \ \ super(BootstrappedSigmoidClassificationLoss,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00435}00435\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ bootstrap\_type\ !=\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{and}\ bootstrap\_type\ !=\ \textcolor{stringliteral}{'soft'}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00436}00436\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unrecognized\ bootstrap\_type:\ must\ be\ one\ of\ '}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\(\backslash\)'hard\(\backslash\)'\ or\ \(\backslash\)'soft.\(\backslash\)''})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00438}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{00438}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\_alpha}}\ =\ alpha}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00439}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543}{00439}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543}{\_bootstrap\_type}}\ =\ bootstrap\_type}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00441}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c}{00441}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c}{\_compute\_loss}}(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00442}00442\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00443}00443\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00444}00444\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00445}00445\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00446}00446\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00447}00447\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00449}00449\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00451}00451\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00453}00453\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00454}00454\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ num\_classes]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00456}00456\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00457}00457\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543}{\_bootstrap\_type}}\ ==\ \textcolor{stringliteral}{'soft'}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00458}00458\ \ \ \ \ \ \ bootstrap\_target\_tensor\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\_alpha}}\ *\ target\_tensor\ +\ (}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ 1.0\ -\/\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\_alpha}})\ *\ tf.sigmoid(prediction\_tensor)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00460}00460\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00461}00461\ \ \ \ \ \ \ bootstrap\_target\_tensor\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\_alpha}}\ *\ target\_tensor\ +\ (}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ 1.0\ -\/\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\_alpha}})\ *\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.sigmoid(prediction\_tensor)\ >\ 0.5,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00464}00464\ \ \ \ \ per\_entry\_cross\_ent\ =\ (tf.nn.sigmoid\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00465}00465\ \ \ \ \ \ \ \ \ labels=bootstrap\_target\_tensor,\ logits=prediction\_tensor))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00466}00466\ \ \ \ \ \textcolor{keywordflow}{return}\ per\_entry\_cross\_ent\ *\ weights}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00469}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner}{00469}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner}{HardExampleMiner}}(object):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00470}00470\ \ \ \textcolor{stringliteral}{"{}"{}"{}Hard\ example\ mining\ for\ regions\ in\ a\ list\ of\ images.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00471}00471\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00472}00472\ \textcolor{stringliteral}{\ \ Implements\ hard\ example\ mining\ to\ select\ a\ subset\ of\ regions\ to\ be}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00473}00473\ \textcolor{stringliteral}{\ \ back-\/propagated.\ For\ each\ image,\ selects\ the\ regions\ }\textcolor{keyword}{with}\ highest\ losses,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00474}00474\ \ \ subject\ to\ the\ condition\ that\ a\ newly\ selected\ region\ cannot\ have}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00475}00475\ \ \ an\ IOU\ >\ iou\_threshold\ \textcolor{keyword}{with}\ any\ of\ the\ previously\ selected\ regions.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00476}00476\ \ \ This\ can\ be\ achieved\ by\ re-\/using\ a\ greedy\ non-\/maximum\ suppression\ algorithm.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00477}00477\ \ \ A\ constraint\ on\ the\ number\ of\ negatives\ mined\ per\ positive\ region\ can\ also\ be}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00478}00478\ \ \ enforced.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00479}00479\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00480}00480\ \ \ Reference\ papers:\ \textcolor{stringliteral}{"{}Training\ Region-\/based\ Object\ Detectors\ with\ Online}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00481}00481\ \textcolor{stringliteral}{\ \ Hard\ Example\ Mining"{}\ (CVPR\ 2016)\ by\ Srivastava\ et\ al.,\ and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00482}00482\ \textcolor{stringliteral}{\ \ "{}SSD:\ Single\ Shot\ MultiBox\ Detector"{}}\ (ECCV\ 2016)\ by\ Liu\ et\ al.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00483}00483\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00484}00484\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00485}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a4714a733ae4075fe0201c4ae524c893b}{00485}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a4714a733ae4075fe0201c4ae524c893b}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_hard\_examples=64,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=0.7,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loss\_type='both',}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=0.05,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loc\_loss\_weight=0.06,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_negatives\_per\_positive=None,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_negatives\_per\_image=0):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00493}00493\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00494}00494\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00495}00495\ \textcolor{stringliteral}{\ \ \ \ The\ hard\ example\ mining\ implemented\ by\ this\ }\textcolor{keyword}{class\ }can\ replicate\ the\ behavior}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00496}00496\ \ \ \ \ \textcolor{keywordflow}{in}\ the\ two\ aforementioned\ papers\ (Srivastava\ et\ al.,\ \textcolor{keywordflow}{and}\ Liu\ et\ al).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00497}00497\ \ \ \ \ To\ replicate\ the\ A2\ paper\ (Srivastava\ et\ al),\ num\_hard\_examples\ \textcolor{keywordflow}{is}\ set}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00498}00498\ \ \ \ \ to\ a\ fixed\ parameter\ (64\ by\ default)\ \textcolor{keywordflow}{and}\ iou\_threshold\ \textcolor{keywordflow}{is}\ set\ to\ .7\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00499}00499\ \ \ \ \ running\ non-\/max-\/suppression\ the\ predicted\ boxes\ prior\ to\ hard\ mining.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00500}00500\ \ \ \ \ In\ order\ to\ replicate\ the\ SSD\ paper\ (Liu\ et\ al),\ num\_hard\_examples\ should}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00501}00501\ \ \ \ \ be\ set\ to\ \textcolor{keywordtype}{None},\ max\_negatives\_per\_positive\ should\ be\ 3\ \textcolor{keywordflow}{and}\ iou\_threshold}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00502}00502\ \ \ \ \ should\ be\ 1.0\ (\textcolor{keywordflow}{in}\ order\ to\ effectively\ turn\ off\ NMS).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00503}00503\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00504}00504\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00505}00505\ \ \ \ \ \ \ num\_hard\_examples:\ maximum\ number\ of\ hard\ examples\ to\ be}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00506}00506\ \ \ \ \ \ \ \ \ selected\ per\ image\ (prior\ to\ enforcing\ max\ negative\ to\ positive\ ratio}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ constraint).\ \ If\ set\ to\ \textcolor{keywordtype}{None},\ all\ examples\ obtained\ after\ NMS\ are}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ considered.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00509}00509\ \ \ \ \ \ \ iou\_threshold:\ minimum\ intersection\ over\ union\ \textcolor{keywordflow}{for}\ an\ example}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00510}00510\ \ \ \ \ \ \ \ \ to\ be\ discarded\ during\ NMS.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00511}00511\ \ \ \ \ \ \ loss\_type:\ use\ only\ classification\ losses\ (\textcolor{stringliteral}{'cls'},\ default),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00512}00512\ \ \ \ \ \ \ \ \ localization\ losses\ (\textcolor{stringliteral}{'loc'})\ \textcolor{keywordflow}{or}\ both\ losses\ (\textcolor{stringliteral}{'both'}).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00513}00513\ \ \ \ \ \ \ \ \ In\ the\ last\ case,\ cls\_loss\_weight\ \textcolor{keywordflow}{and}\ loc\_loss\_weight\ are\ used\ to}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ compute\ weighted\ sum\ of\ the\ two\ losses.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00515}00515\ \ \ \ \ \ \ cls\_loss\_weight:\ weight\ \textcolor{keywordflow}{for}\ classification\ loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00516}00516\ \ \ \ \ \ \ loc\_loss\_weight:\ weight\ \textcolor{keywordflow}{for}\ location\ loss.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00517}00517\ \ \ \ \ \ \ max\_negatives\_per\_positive:\ maximum\ number\ of\ negatives\ to\ retain\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ each\ positive\ anchor.\ By\ default,\ num\_negatives\_per\_positive\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00519}00519\ \ \ \ \ \ \ \ \ which\ means\ that\ we\ do\ \textcolor{keywordflow}{not}\ enforce\ a\ prespecified\ negative:positive}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ ratio.\ \ Note\ also\ that\ num\_negatives\_per\_positives\ can\ be\ a\ float}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ (\textcolor{keywordflow}{and}\ will\ be\ converted\ to\ be\ a\ float\ even\ \textcolor{keywordflow}{if}\ it\ \textcolor{keywordflow}{is}\ passed\ \textcolor{keywordflow}{in}\ otherwise).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00522}00522\ \ \ \ \ \ \ min\_negatives\_per\_image:\ minimum\ number\ of\ negative\ anchors\ to\ sample\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ a\ given\ image.\ Setting\ this\ to\ a\ positive\ number\ allows\ sampling}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ negatives\ \textcolor{keywordflow}{in}\ an\ image\ without\ any\ positive\ anchors\ \textcolor{keywordflow}{and}\ thus\ \textcolor{keywordflow}{not}\ biased}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ towards\ at\ least\ one\ detection\ per\ image.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00526}00526\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00527}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}{00527}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}{\_num\_hard\_examples}}\ =\ num\_hard\_examples}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00528}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b}{00528}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b}{\_iou\_threshold}}\ =\ iou\_threshold}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00529}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}{00529}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}{\_loss\_type}}\ =\ loss\_type}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00530}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a}{00530}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a}{\_cls\_loss\_weight}}\ =\ cls\_loss\_weight}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00531}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57}{00531}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57}{\_loc\_loss\_weight}}\ =\ loc\_loss\_weight}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00532}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{00532}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}\ =\ max\_negatives\_per\_positive}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00533}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af}{00533}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af}{\_min\_negatives\_per\_image}}\ =\ min\_negatives\_per\_image}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00534}00534\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00535}00535\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}\ =\ float(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00536}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{00536}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{\_num\_positives\_list}}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00537}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{00537}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{\_num\_negatives\_list}}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00538}00538\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00539}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f}{00539}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f}{\_\_call\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ location\_losses,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00541}00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cls\_losses,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match\_list=None):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00544}00544\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ localization\ and\ classification\ losses\ after\ hard\ mining.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00545}00545\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00546}00546\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00547}00547\ \textcolor{stringliteral}{\ \ \ \ \ \ location\_losses:\ a\ float\ tensor\ of\ shape\ [num\_images,\ num\_anchors]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00548}00548\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ anchorwise\ localization\ losses.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00549}00549\ \textcolor{stringliteral}{\ \ \ \ \ \ cls\_losses:\ a\ float\ tensor\ of\ shape\ [num\_images,\ num\_anchors]}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00550}00550\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ anchorwise\ classification\ losses.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00551}00551\ \textcolor{stringliteral}{\ \ \ \ \ \ decoded\_boxlist\_list:\ a\ list\ of\ decoded\ BoxList\ representing\ location}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00552}00552\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ predictions\ }\textcolor{keywordflow}{for}\ each\ image.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00553}00553\ \ \ \ \ \ \ match\_list:\ an\ optional\ list\ of\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ objects\ encoding\ the\ match}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00554}00554\ \ \ \ \ \ \ \ \ between\ anchors\ \textcolor{keywordflow}{and}\ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ each\ image\ of\ the\ batch,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00555}00555\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ rows\ of\ the\ Match\ objects\ corresponding\ to\ groundtruth\ boxes}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ columns\ corresponding\ to\ anchors.\ \ Match\ objects\ \textcolor{keywordflow}{in}\ match\_list\ are}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00557}00557\ \ \ \ \ \ \ \ \ used\ to\ reference\ which\ anchors\ are\ positive,\ negative\ \textcolor{keywordflow}{or}\ ignored.\ \ If}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00558}00558\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}\ exists,\ these\ are\ then\ used\ to\ enforce}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00559}00559\ \ \ \ \ \ \ \ \ a\ prespecified\ negative\ to\ positive\ ratio.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00560}00560\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00561}00561\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00562}00562\ \ \ \ \ \ \ mined\_location\_loss:\ a\ float\ scalar\ \textcolor{keyword}{with}\ sum\ of\ localization\ losses\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ selected\ hard\ examples.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00564}00564\ \ \ \ \ \ \ mined\_cls\_loss:\ a\ float\ scalar\ \textcolor{keyword}{with}\ sum\ of\ classification\ losses\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ selected\ hard\ examples.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00566}00566\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00567}00567\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ location\_losses,\ cls\_losses\ \textcolor{keywordflow}{and}\ decoded\_boxlist\_list\ do}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00568}00568\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ have\ compatible\ shapes\ (i.e.,\ they\ must\ correspond\ to\ the\ same}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00569}00569\ \ \ \ \ \ \ \ \ number\ of\ images).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00570}00570\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ match\_list\ \textcolor{keywordflow}{is}\ specified\ but\ its\ length\ does\ \textcolor{keywordflow}{not}\ match}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00571}00571\ \ \ \ \ \ \ \ \ len(decoded\_boxlist\_list).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00572}00572\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00573}00573\ \textcolor{stringliteral}{\ \ \ \ mined\_location\_losses\ =\ []}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00574}00574\ \textcolor{stringliteral}{\ \ \ \ mined\_cls\_losses\ =\ []}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00575}00575\ \textcolor{stringliteral}{\ \ \ \ location\_losses\ =\ tf.unstack(location\_losses)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00576}00576\ \textcolor{stringliteral}{\ \ \ \ cls\_losses\ =\ tf.unstack(cls\_losses)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00577}00577\ \textcolor{stringliteral}{\ \ \ \ num\_images\ =\ len(decoded\_boxlist\_list)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00578}00578\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ match\_list:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00579}00579\ \ \ \ \ \ \ match\_list\ =\ num\_images\ *\ [\textcolor{keywordtype}{None}]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00580}00580\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ len(location\_losses)\ ==\ len(decoded\_boxlist\_list)\ ==\ len(cls\_losses):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00581}00581\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'location\_losses,\ cls\_losses\ and\ decoded\_boxlist\_list\ '}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'do\ not\ have\ compatible\ shapes.'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00583}00583\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(match\_list,\ list):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00584}00584\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_list\ must\ be\ a\ list.'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00585}00585\ \ \ \ \ \textcolor{keywordflow}{if}\ len(match\_list)\ !=\ len(decoded\_boxlist\_list):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00586}00586\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_list\ must\ either\ be\ None\ or\ have\ '}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'length=len(decoded\_boxlist\_list).'})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00588}00588\ \ \ \ \ num\_positives\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00589}00589\ \ \ \ \ num\_negatives\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00590}00590\ \ \ \ \ \textcolor{keywordflow}{for}\ ind,\ detection\_boxlist\ \textcolor{keywordflow}{in}\ enumerate(decoded\_boxlist\_list):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00591}00591\ \ \ \ \ \ \ box\_locations\ =\ detection\_boxlist.get()}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00592}00592\ \ \ \ \ \ \ match\ =\ match\_list[ind]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00593}00593\ \ \ \ \ \ \ image\_losses\ =\ cls\_losses[ind]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00594}00594\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}{\_loss\_type}}\ ==\ \textcolor{stringliteral}{'loc'}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00595}00595\ \ \ \ \ \ \ \ \ image\_losses\ =\ location\_losses[ind]}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00596}00596\ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}{\_loss\_type}}\ ==\ \textcolor{stringliteral}{'both'}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00597}00597\ \ \ \ \ \ \ \ \ image\_losses\ *=\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a}{\_cls\_loss\_weight}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ image\_losses\ +=\ location\_losses[ind]\ *\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57}{\_loc\_loss\_weight}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00599}00599\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}{\_num\_hard\_examples}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ num\_hard\_examples\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}{\_num\_hard\_examples}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00601}00601\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ num\_hard\_examples\ =\ detection\_boxlist.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00603}00603\ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00604}00604\ \ \ \ \ \ \ \ \ \ \ box\_locations,\ image\_losses,\ num\_hard\_examples,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b}{\_iou\_threshold}})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00605}00605\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ match:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00606}00606\ \ \ \ \ \ \ \ \ (selected\_indices,\ num\_positives,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00607}00607\ \ \ \ \ \ \ \ \ \ num\_negatives)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48}{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio}}(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices,\ match,\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}},}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af}{\_min\_negatives\_per\_image}})}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00610}00610\ \ \ \ \ \ \ \ \ num\_positives\_list.append(num\_positives)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00611}00611\ \ \ \ \ \ \ \ \ num\_negatives\_list.append(num\_negatives)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00612}00612\ \ \ \ \ \ \ mined\_location\_losses.append(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_sum(tf.gather(location\_losses[ind],\ selected\_indices)))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00614}00614\ \ \ \ \ \ \ mined\_cls\_losses.append(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_sum(tf.gather(cls\_losses[ind],\ selected\_indices)))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00616}00616\ \ \ \ \ location\_loss\ =\ tf.reduce\_sum(tf.stack(mined\_location\_losses))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00617}00617\ \ \ \ \ cls\_loss\ =\ tf.reduce\_sum(tf.stack(mined\_cls\_losses))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00618}00618\ \ \ \ \ \textcolor{keywordflow}{if}\ match\ \textcolor{keywordflow}{and}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\_max\_negatives\_per\_positive}}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00619}00619\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{\_num\_positives\_list}}\ =\ num\_positives\_list}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00620}00620\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{\_num\_negatives\_list}}\ =\ num\_negatives\_list}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00621}00621\ \ \ \ \ \textcolor{keywordflow}{return}\ (location\_loss,\ cls\_loss)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00622}00622\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00623}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a5102f1118d6088014302904479ff3f81}{00623}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a5102f1118d6088014302904479ff3f81}{summarize}}(self):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00624}00624\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Summarize\ the\ number\ of\ positives\ and\ negatives\ after\ mining."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00625}00625\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{\_num\_positives\_list}}\ \textcolor{keywordflow}{and}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{\_num\_negatives\_list}}:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00626}00626\ \ \ \ \ \ \ avg\_num\_positives\ =\ tf.reduce\_mean(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00627}00627\ \ \ \ \ \ \ \ \ \ \ tf.cast(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{\_num\_positives\_list}},\ dtype=tf.float32))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00628}00628\ \ \ \ \ \ \ avg\_num\_negatives\ =\ tf.reduce\_mean(}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00629}00629\ \ \ \ \ \ \ \ \ \ \ tf.cast(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{\_num\_negatives\_list}},\ dtype=tf.float32))}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00630}00630\ \ \ \ \ \ \ tf.summary.scalar(\textcolor{stringliteral}{'HardExampleMiner/NumPositives'},\ avg\_num\_positives)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00631}00631\ \ \ \ \ \ \ tf.summary.scalar(\textcolor{stringliteral}{'HardExampleMiner/NumNegatives'},\ avg\_num\_negatives)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00632}00632\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00633}\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48}{00633}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48}{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio}}(self,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indices,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00635}00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_negatives\_per\_positive,}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_negatives\_per\_image=0):}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00638}00638\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Subsample\ a\ collection\ of\ selected\ indices\ to\ a\ desired\ neg:pos\ ratio.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00639}00639\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00640}00640\ \textcolor{stringliteral}{\ \ \ \ This\ function\ takes\ a\ subset\ of\ M\ indices\ (indexing\ into\ a\ large\ anchor}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00641}00641\ \textcolor{stringliteral}{\ \ \ \ collection\ of\ N\ anchors\ where\ M<N)\ which\ are\ labeled\ }\textcolor{keyword}{as}\ positive/negative}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00642}00642\ \ \ \ \ via\ a\ Match\ object\ (matched\ indices\ are\ positive,\ unmatched\ indices}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00643}00643\ \ \ \ \ are\ negative).\ \ It\ returns\ a\ subset\ of\ the\ provided\ indices\ retaining\ all}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00644}00644\ \ \ \ \ positives\ \textcolor{keyword}{as}\ well\ \textcolor{keyword}{as}\ up\ to\ the\ first\ K\ negatives,\ where:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00645}00645\ \ \ \ \ \ \ K=floor(num\_negative\_per\_positive\ *\ num\_positives).}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00646}00646\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00647}00647\ \ \ \ \ For\ example,\ \textcolor{keywordflow}{if}\ indices=[2,\ 4,\ 5,\ 7,\ 9,\ 10]\ (indexing\ into\ 12\ anchors),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00648}00648\ \ \ \ \ \textcolor{keyword}{with}\ positives=[2,\ 5]\ \textcolor{keywordflow}{and}\ negatives=[4,\ 7,\ 9,\ 10]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00649}00649\ \ \ \ \ num\_negatives\_per\_positive=1,\ then\ the\ returned\ subset\ of\ indices}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00650}00650\ \ \ \ \ \textcolor{keywordflow}{is}\ [2,\ 4,\ 5,\ 7].}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00652}00652\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00653}00653\ \ \ \ \ \ \ indices:\ An\ integer\ tensor\ of\ shape\ [M]\ representing\ a\ collection}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00654}00654\ \ \ \ \ \ \ \ \ of\ selected\ anchor\ indices}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00655}00655\ \ \ \ \ \ \ match:\ A\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ object\ encoding\ the\ match\ between\ anchors\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00656}00656\ \ \ \ \ \ \ \ \ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ a\ given\ image,\ \textcolor{keyword}{with}\ rows\ of\ the\ Match\ objects}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00657}00657\ \ \ \ \ \ \ \ \ corresponding\ to\ groundtruth\ boxes\ \textcolor{keywordflow}{and}\ columns\ corresponding\ to\ anchors.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00658}00658\ \ \ \ \ \ \ max\_negatives\_per\_positive:\ (float)\ maximum\ number\ of\ negatives\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00659}00659\ \ \ \ \ \ \ \ \ each\ positive\ anchor.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00660}00660\ \ \ \ \ \ \ min\_negatives\_per\_image:\ minimum\ number\ of\ negative\ anchors\ \textcolor{keywordflow}{for}\ a\ given}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00661}00661\ \ \ \ \ \ \ \ \ image.\ Allow\ sampling\ negatives\ \textcolor{keywordflow}{in}\ image\ without\ any\ positive\ anchors.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00662}00662\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00663}00663\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00664}00664\ \ \ \ \ \ \ selected\_indices:\ An\ integer\ tensor\ of\ shape\ [M\textcolor{stringliteral}{']\ representing\ a}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00665}00665\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ collection\ of\ selected\ anchor\ indices\ }\textcolor{keyword}{with}\ M\textcolor{stringliteral}{'\ <=\ M.}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00666}00666\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_positives:\ An\ integer\ tensor\ representing\ the\ number\ of\ positive}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00667}00667\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ examples\ }\textcolor{keywordflow}{in}\ selected\ set\ of\ indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00668}00668\ \ \ \ \ \ \ num\_negatives:\ An\ integer\ tensor\ representing\ the\ number\ of\ negative}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00669}00669\ \ \ \ \ \ \ \ \ examples\ \textcolor{keywordflow}{in}\ selected\ set\ of\ indices.}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00670}00670\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00671}00671\ \textcolor{stringliteral}{\ \ \ \ positives\_indicator\ =\ tf.gather(match.matched\_column\_indicator(),\ indices)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00672}00672\ \textcolor{stringliteral}{\ \ \ \ negatives\_indicator\ =\ tf.gather(match.unmatched\_column\_indicator(),\ indices)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00673}00673\ \textcolor{stringliteral}{\ \ \ \ num\_positives\ =\ tf.reduce\_sum(tf.cast(positives\_indicator,\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00674}00674\ \textcolor{stringliteral}{\ \ \ \ max\_negatives\ =\ tf.maximum(}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00675}00675\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ min\_negatives\_per\_image,}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00676}00676\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.cast(max\_negatives\_per\_positive\ *}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00677}00677\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(num\_positives,\ dtype=tf.float32),\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00678}00678\ \textcolor{stringliteral}{\ \ \ \ topk\_negatives\_indicator\ =\ tf.less\_equal(}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00679}00679\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.cumsum(tf.cast(negatives\_indicator,\ dtype=tf.int32)),\ max\_negatives)}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00680}00680\ \textcolor{stringliteral}{\ \ \ \ subsampled\_selection\_indices\ =\ tf.where(}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00681}00681\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.logical\_or(positives\_indicator,\ topk\_negatives\_indicator))}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00682}00682\ \textcolor{stringliteral}{\ \ \ \ num\_negatives\ =\ tf.size(subsampled\_selection\_indices)\ -\/\ num\_positives}}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00683}00683\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ (tf.reshape(tf.gather(indices,\ subsampled\_selection\_indices),\ [-\/1]),}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00684}00684\ \ \ \ \ \ \ \ \ \ \ \ \ num\_positives,\ num\_negatives)}
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00685}00685\ }
+\DoxyCodeLine{\Hypertarget{losses_8py_source_l00686}00686\ }
+
+\end{DoxyCode}

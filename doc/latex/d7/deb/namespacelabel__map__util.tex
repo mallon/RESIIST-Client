@@ -1,0 +1,568 @@
+\doxysection{label\+\_\+map\+\_\+util Namespace Reference}
+\hypertarget{namespacelabel__map__util}{}\label{namespacelabel__map__util}\index{label\_map\_util@{label\_map\_util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc}{\+\_\+validate\+\_\+label\+\_\+map}} (label\+\_\+map)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf}{create\+\_\+category\+\_\+index}} (categories)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab}{get\+\_\+max\+\_\+label\+\_\+map\+\_\+index}} (label\+\_\+map)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b}{convert\+\_\+label\+\_\+map\+\_\+to\+\_\+categories}} (label\+\_\+map, max\+\_\+num\+\_\+classes, use\+\_\+display\+\_\+name=True)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}{load\+\_\+labelmap}} (path)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462}{get\+\_\+label\+\_\+map\+\_\+dict}} (label\+\_\+map\+\_\+path, use\+\_\+display\+\_\+name=False, fill\+\_\+in\+\_\+gaps\+\_\+and\+\_\+background=False)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9}{create\+\_\+categories\+\_\+from\+\_\+labelmap}} (label\+\_\+map\+\_\+path, use\+\_\+display\+\_\+name=True)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}{create\+\_\+category\+\_\+index\+\_\+from\+\_\+labelmap}} (label\+\_\+map\+\_\+path, use\+\_\+display\+\_\+name=True)
+\item 
+\mbox{\hyperlink{namespacelabel__map__util_a648715c744d4263522c9d628ead2607b}{create\+\_\+class\+\_\+agnostic\+\_\+category\+\_\+index}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Label map utility functions.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc}\label{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc} 
+\index{label\_map\_util@{label\_map\_util}!\_validate\_label\_map@{\_validate\_label\_map}}
+\index{\_validate\_label\_map@{\_validate\_label\_map}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{\_validate\_label\_map()}{\_validate\_label\_map()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+\_\+validate\+\_\+label\+\_\+map (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Checks if a label map is valid.
+
+Args:
+  label_map: StringIntLabelMap to validate.
+
+Raises:
+  ValueError: if label map is invalid.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00030}{30}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \textcolor{keyword}{def\ }\_validate\_label\_map(label\_map):}
+\DoxyCodeLine{00031\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ if\ a\ label\ map\ is\ valid.}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ label\_map:\ StringIntLabelMap\ to\ validate.}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ label\ map\ \textcolor{keywordflow}{is}\ invalid.}
+\DoxyCodeLine{00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{if}\ item.id\ <\ 0:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Label\ map\ ids\ should\ be\ >=\ 0.'})}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (item.id\ ==\ 0\ \textcolor{keywordflow}{and}\ item.name\ !=\ \textcolor{stringliteral}{'background'}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ item.display\_name\ !=\ \textcolor{stringliteral}{'background'}):}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Label\ map\ id\ 0\ is\ reserved\ for\ the\ background\ label'})}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b}\label{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b} 
+\index{label\_map\_util@{label\_map\_util}!convert\_label\_map\_to\_categories@{convert\_label\_map\_to\_categories}}
+\index{convert\_label\_map\_to\_categories@{convert\_label\_map\_to\_categories}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{convert\_label\_map\_to\_categories()}{convert\_label\_map\_to\_categories()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+convert\+\_\+label\+\_\+map\+\_\+to\+\_\+categories (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map,  }\item[{}]{max\+\_\+num\+\_\+classes,  }\item[{}]{use\+\_\+display\+\_\+name = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given label map proto returns categories list compatible with eval.
+
+This function converts label map proto and returns a list of dicts, each of
+which  has the following keys:
+  'id': (required) an integer id uniquely identifying this category.
+  'name': (required) string representing category name
+    e.g., 'cat', 'dog', 'pizza'.
+We only allow class into the list if its id-label_id_offset is
+between 0 (inclusive) and max_num_classes (exclusive).
+If there are several items mapping to the same id in the label map,
+we will only keep the first one in the categories list.
+
+Args:
+  label_map: a StringIntLabelMapProto or None.  If None, a default categories
+    list is created with max_num_classes categories.
+  max_num_classes: maximum number of (consecutive) label indices to include.
+  use_display_name: (boolean) choose whether to load 'display_name' field as
+    category name.  If False or if the display_name field does not exist, uses
+    'name' field as category names instead.
+
+Returns:
+  categories: a list of dictionaries representing all possible categories.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00078}{78}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_display\_name=\textcolor{keyword}{True}):}
+\DoxyCodeLine{00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}Given\ label\ map\ proto\ returns\ categories\ list\ compatible\ with\ eval.}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ This\ function\ converts\ label\ map\ proto\ }\textcolor{keywordflow}{and}\ returns\ a\ list\ of\ dicts,\ each\ of}
+\DoxyCodeLine{00084\ \ \ which\ \ has\ the\ following\ keys:}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{stringliteral}{'id'}:\ (required)\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{stringliteral}{'name'}:\ (required)\ string\ representing\ category\ name}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'},\ \textcolor{stringliteral}{'pizza'}.}
+\DoxyCodeLine{00088\ \ \ We\ only\ allow\ \textcolor{keyword}{class\ }into\ the\ list\ if\ its\ id-\/label\_id\_offset\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00089\ \ \ between\ 0\ (inclusive)\ \textcolor{keywordflow}{and}\ max\_num\_classes\ (exclusive).}
+\DoxyCodeLine{00090\ \ \ If\ there\ are\ several\ items\ mapping\ to\ the\ same\ id\ \textcolor{keywordflow}{in}\ the\ label\ map,}
+\DoxyCodeLine{00091\ \ \ we\ will\ only\ keep\ the\ first\ one\ \textcolor{keywordflow}{in}\ the\ categories\ list.}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ Args:}
+\DoxyCodeLine{00094\ \ \ \ \ label\_map:\ a\ StringIntLabelMapProto\ \textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}.\ \ If\ \textcolor{keywordtype}{None},\ a\ default\ categories}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ list\ \textcolor{keywordflow}{is}\ created\ \textcolor{keyword}{with}\ max\_num\_classes\ categories.}
+\DoxyCodeLine{00096\ \ \ \ \ max\_num\_classes:\ maximum\ number\ of\ (consecutive)\ label\ indices\ to\ include.}
+\DoxyCodeLine{00097\ \ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ \textcolor{stringliteral}{'display\_name'}\ field\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,\ uses}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ Returns:}
+\DoxyCodeLine{00102\ \ \ \ \ categories:\ a\ list\ of\ dictionaries\ representing\ all\ possible\ categories.}
+\DoxyCodeLine{00103\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{\ \ categories\ =\ []}}
+\DoxyCodeLine{00105\ \textcolor{stringliteral}{\ \ list\_of\_ids\_already\_added\ =\ []}}
+\DoxyCodeLine{00106\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ label\_map:}
+\DoxyCodeLine{00107\ \ \ \ \ label\_id\_offset\ =\ 1}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{for}\ class\_id\ \textcolor{keywordflow}{in}\ range(max\_num\_classes):}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ categories.append(\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ class\_id\ +\ label\_id\_offset,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'category\_\{\}'}.format(class\_id\ +\ label\_id\_offset)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ categories}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <\ item.id\ <=\ max\_num\_classes:}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ logging.info(}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Ignore\ item\ \%d\ since\ it\ falls\ outside\ of\ requested\ '}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label\ range.'},\ item.id)}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_display\_name\ \textcolor{keywordflow}{and}\ item.HasField(\textcolor{stringliteral}{'display\_name'}):}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ name\ =\ item.display\_name}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ name\ =\ item.name}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{if}\ item.id\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ list\_of\_ids\_already\_added:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ list\_of\_ids\_already\_added.append(item.id)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ categories.append(\{\textcolor{stringliteral}{'id'}:\ item.id,\ \textcolor{stringliteral}{'name'}:\ name\})}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{return}\ categories}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9}\label{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9} 
+\index{label\_map\_util@{label\_map\_util}!create\_categories\_from\_labelmap@{create\_categories\_from\_labelmap}}
+\index{create\_categories\_from\_labelmap@{create\_categories\_from\_labelmap}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{create\_categories\_from\_labelmap()}{create\_categories\_from\_labelmap()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+create\+\_\+categories\+\_\+from\+\_\+labelmap (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map\+\_\+path,  }\item[{}]{use\+\_\+display\+\_\+name = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Reads a label map and returns categories list compatible with eval.
+
+This function converts label map proto and returns a list of dicts, each of
+which  has the following keys:
+  'id': an integer id uniquely identifying this category.
+  'name': string representing category name e.g., 'cat', 'dog'.
+
+Args:
+  label_map_path: Path to `StringIntLabelMap` proto text file.
+  use_display_name: (boolean) choose whether to load 'display_name' field
+    as category name.  If False or if the display_name field does not exist,
+    uses 'name' field as category names instead.
+
+Returns:
+  categories: a list of dictionaries representing all possible categories.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00200}{200}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00200\ \textcolor{keyword}{def\ }create\_categories\_from\_labelmap(label\_map\_path,\ use\_display\_name=True):}
+\DoxyCodeLine{00201\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ categories\ list\ compatible\ with\ eval.}}
+\DoxyCodeLine{00202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00203\ \textcolor{stringliteral}{\ \ This\ function\ converts\ label\ map\ proto\ }\textcolor{keywordflow}{and}\ returns\ a\ list\ of\ dicts,\ each\ of}
+\DoxyCodeLine{00204\ \ \ which\ \ has\ the\ following\ keys:}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{stringliteral}{'id'}:\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{stringliteral}{'name'}:\ string\ representing\ category\ name\ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'}.}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ Args:}
+\DoxyCodeLine{00209\ \ \ \ \ label\_map\_path:\ Path\ to\ \`{}StringIntLabelMap\`{}\ proto\ text\ file.}
+\DoxyCodeLine{00210\ \ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ \textcolor{stringliteral}{'display\_name'}\ field}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keyword}{as}\ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ uses\ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ Returns:}
+\DoxyCodeLine{00215\ \ \ \ \ categories:\ a\ list\ of\ dictionaries\ representing\ all\ possible\ categories.}
+\DoxyCodeLine{00216\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00217\ \textcolor{stringliteral}{\ \ label\_map\ =\ load\_labelmap(label\_map\_path)}}
+\DoxyCodeLine{00218\ \textcolor{stringliteral}{\ \ max\_num\_classes\ =\ max(item.id\ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item)}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordflow}{return}\ convert\_label\_map\_to\_categories(label\_map,\ max\_num\_classes,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_display\_name)}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf}\label{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf} 
+\index{label\_map\_util@{label\_map\_util}!create\_category\_index@{create\_category\_index}}
+\index{create\_category\_index@{create\_category\_index}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{create\_category\_index()}{create\_category\_index()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+create\+\_\+category\+\_\+index (\begin{DoxyParamCaption}\item[{}]{categories }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates dictionary of COCO compatible categories keyed by category id.
+
+Args:
+  categories: a list of dicts, each of which has the following keys:
+    'id': (required) an integer id uniquely identifying this category.
+    'name': (required) string representing category name
+      e.g., 'cat', 'dog', 'pizza'.
+
+Returns:
+  category_index: a dict containing the same entries as categories, but keyed
+    by the 'id' field of each category.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00047}{47}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \textcolor{keyword}{def\ }create\_category\_index(categories):}
+\DoxyCodeLine{00048\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ dictionary\ of\ COCO\ compatible\ categories\ keyed\ by\ category\ id.}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ categories:\ a\ list\ of\ dicts,\ each\ of\ which\ has\ the\ following\ keys:}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ \ \ \ \ 'id'}:\ (required)\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ (required)\ string\ representing\ category\ name}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'},\ \textcolor{stringliteral}{'pizza'}.}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ Returns:}
+\DoxyCodeLine{00057\ \ \ \ \ category\_index:\ a\ dict\ containing\ the\ same\ entries\ \textcolor{keyword}{as}\ categories,\ but\ keyed}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ by\ the\ \textcolor{stringliteral}{'id'}\ field\ of\ each\ category.}
+\DoxyCodeLine{00059\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ category\_index\ =\ \{\}}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ cat\ \textcolor{keywordflow}{in}\ categories:}
+\DoxyCodeLine{00062\ \ \ \ \ category\_index[cat[\textcolor{stringliteral}{'id'}]]\ =\ cat}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{return}\ category\_index}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}\label{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af} 
+\index{label\_map\_util@{label\_map\_util}!create\_category\_index\_from\_labelmap@{create\_category\_index\_from\_labelmap}}
+\index{create\_category\_index\_from\_labelmap@{create\_category\_index\_from\_labelmap}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{create\_category\_index\_from\_labelmap()}{create\_category\_index\_from\_labelmap()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+create\+\_\+category\+\_\+index\+\_\+from\+\_\+labelmap (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map\+\_\+path,  }\item[{}]{use\+\_\+display\+\_\+name = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Reads a label map and returns a category index.
+
+Args:
+  label_map_path: Path to `StringIntLabelMap` proto text file.
+  use_display_name: (boolean) choose whether to load 'display_name' field
+    as category name.  If False or if the display_name field does not exist,
+    uses 'name' field as category names instead.
+
+Returns:
+  A category index, which is a dictionary that maps integer ids to dicts
+  containing categories, e.g.
+  {1: {'id': 1, 'name': 'dog'}, 2: {'id': 2, 'name': 'cat'}, ...}
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00223}{223}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00223\ \textcolor{keyword}{def\ }create\_category\_index\_from\_labelmap(label\_map\_path,\ use\_display\_name=True):}
+\DoxyCodeLine{00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ a\ category\ index.}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00226\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00227\ \textcolor{stringliteral}{\ \ \ \ label\_map\_path:\ Path\ to\ \`{}StringIntLabelMap\`{}\ proto\ text\ file.}}
+\DoxyCodeLine{00228\ \textcolor{stringliteral}{\ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ 'display\_name'}\ field}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \textcolor{keyword}{as}\ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ uses\ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ Returns:}
+\DoxyCodeLine{00233\ \ \ \ \ A\ category\ index,\ which\ \textcolor{keywordflow}{is}\ a\ dictionary\ that\ maps\ integer\ ids\ to\ dicts}
+\DoxyCodeLine{00234\ \ \ \ \ containing\ categories,\ e.g.}
+\DoxyCodeLine{00235\ \ \ \ \ \{1:\ \{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},\ 2:\ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},\ ...\}}
+\DoxyCodeLine{00236\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00237\ \textcolor{stringliteral}{\ \ categories\ =\ create\_categories\_from\_labelmap(label\_map\_path,\ use\_display\_name)}}
+\DoxyCodeLine{00238\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ create\_category\_index(categories)}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_a648715c744d4263522c9d628ead2607b}\label{namespacelabel__map__util_a648715c744d4263522c9d628ead2607b} 
+\index{label\_map\_util@{label\_map\_util}!create\_class\_agnostic\_category\_index@{create\_class\_agnostic\_category\_index}}
+\index{create\_class\_agnostic\_category\_index@{create\_class\_agnostic\_category\_index}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{create\_class\_agnostic\_category\_index()}{create\_class\_agnostic\_category\_index()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+create\+\_\+class\+\_\+agnostic\+\_\+category\+\_\+index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a category index with a single `object` class.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00241}{241}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00241\ \textcolor{keyword}{def\ }create\_class\_agnostic\_category\_index():}
+\DoxyCodeLine{00242\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ category\ index\ with\ a\ single\ \`{}object\`{}\ class."{}"{}"{}}}
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordflow}{return}\ \{1:\ \{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'object'}\}\}}
+
+\end{DoxyCode}
+\Hypertarget{namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462}\label{namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462} 
+\index{label\_map\_util@{label\_map\_util}!get\_label\_map\_dict@{get\_label\_map\_dict}}
+\index{get\_label\_map\_dict@{get\_label\_map\_dict}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{get\_label\_map\_dict()}{get\_label\_map\_dict()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+get\+\_\+label\+\_\+map\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map\+\_\+path,  }\item[{}]{use\+\_\+display\+\_\+name = {\ttfamily False},  }\item[{}]{fill\+\_\+in\+\_\+gaps\+\_\+and\+\_\+background = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Reads a label map and returns a dictionary of label names to id.
+
+Args:
+  label_map_path: path to StringIntLabelMap proto text file.
+  use_display_name: whether to use the label map items' display names as keys.
+  fill_in_gaps_and_background: whether to fill in gaps and background with
+  respect to the id field in the proto. The id: 0 is reserved for the
+  'background' class and will be added if it is missing. All other missing
+  ids in range(1, max(id)) will be added with a dummy class name
+  ("class_<id>") if they are missing.
+
+Returns:
+  A dictionary mapping label names to id.
+
+Raises:
+  ValueError: if fill_in_gaps_and_background and label_map has non-integer or
+  negative values.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00149}{149}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fill\_in\_gaps\_and\_background=\textcolor{keyword}{False}):}
+\DoxyCodeLine{00152\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ a\ dictionary\ of\ label\ names\ to\ id.}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ \ \ label\_map\_path:\ path\ to\ StringIntLabelMap\ proto\ text\ file.}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{\ \ \ \ use\_display\_name:\ whether\ to\ use\ the\ label\ map\ items'\ display\ names\ as\ keys.}}
+\DoxyCodeLine{00157\ \textcolor{stringliteral}{\ \ \ \ fill\_in\_gaps\_and\_background:\ whether\ to\ fill\ }\textcolor{keywordflow}{in}\ gaps\ \textcolor{keywordflow}{and}\ background\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00158\ \ \ \ \ respect\ to\ the\ id\ field\ \textcolor{keywordflow}{in}\ the\ proto.\ The\ id:\ 0\ \textcolor{keywordflow}{is}\ reserved\ \textcolor{keywordflow}{for}\ the}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{stringliteral}{'background'}\ \textcolor{keyword}{class\ }and\ will\ be\ added\ if\ it\ is\ missing.\ All\ other\ missing}
+\DoxyCodeLine{00160\ \ \ \ \ ids\ \textcolor{keywordflow}{in}\ range(1,\ max(id))\ will\ be\ added\ \textcolor{keyword}{with}\ a\ dummy\ \textcolor{keyword}{class\ }name}
+\DoxyCodeLine{00161\ \ \ \ \ (\textcolor{stringliteral}{"{}class\_<id>"{}})\ \textcolor{keywordflow}{if}\ they\ are\ missing.}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ Returns:}
+\DoxyCodeLine{00164\ \ \ \ \ A\ dictionary\ mapping\ label\ names\ to\ id.}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ Raises:}
+\DoxyCodeLine{00167\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ fill\_in\_gaps\_and\_background\ \textcolor{keywordflow}{and}\ label\_map\ has\ non-\/integer\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00168\ \ \ \ \ negative\ values.}
+\DoxyCodeLine{00169\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{\ \ label\_map\ =\ load\_labelmap(label\_map\_path)}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ label\_map\_dict\ =\ \{\}}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_display\_name:}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ label\_map\_dict[item.display\_name]\ =\ item.id}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ label\_map\_dict[item.name]\ =\ item.id}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordflow}{if}\ fill\_in\_gaps\_and\_background:}
+\DoxyCodeLine{00179\ \ \ \ \ values\ =\ set(label\_map\_dict.values())}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{if}\ 0\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ values:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ label\_map\_dict[\textcolor{stringliteral}{'background'}]\ =\ 0}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(isinstance(value,\ int)\ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ values):}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ values\ in\ label\ map\ must\ be\ integers\ in\ order\ to'}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'fill\_in\_gaps\_and\_background.'})}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(value\ >=\ 0\ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ values):}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ values\ in\ the\ label\ map\ must\ be\ positive.'})}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}\ len(values)\ !=\ max(values)\ +\ 1:}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{comment}{\#\ there\ are\ gaps\ in\ the\ labels,\ fill\ in\ gaps.}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ range(1,\ max(values)):}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ value\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ values:}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ TODO(rathodv):\ Add\ a\ prefix\ 'class\_'\ here\ once\ the\ tool\ to\ generate}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ teacher\ annotation\ adds\ this\ prefix\ in\ the\ data.}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ label\_map\_dict[str(value)]\ =\ value}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ label\_map\_dict}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab}\label{namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab} 
+\index{label\_map\_util@{label\_map\_util}!get\_max\_label\_map\_index@{get\_max\_label\_map\_index}}
+\index{get\_max\_label\_map\_index@{get\_max\_label\_map\_index}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{get\_max\_label\_map\_index()}{get\_max\_label\_map\_index()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+get\+\_\+max\+\_\+label\+\_\+map\+\_\+index (\begin{DoxyParamCaption}\item[{}]{label\+\_\+map }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get maximum index in label map.
+
+Args:
+  label_map: a StringIntLabelMapProto
+
+Returns:
+  an integer
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00066}{66}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \textcolor{keyword}{def\ }get\_max\_label\_map\_index(label\_map):}
+\DoxyCodeLine{00067\ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ maximum\ index\ in\ label\ map.}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ label\_map:\ a\ StringIntLabelMapProto}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ \ \ an\ integer}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ max([item.id\ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item])}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}\label{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f} 
+\index{label\_map\_util@{label\_map\_util}!load\_labelmap@{load\_labelmap}}
+\index{load\_labelmap@{load\_labelmap}!label\_map\_util@{label\_map\_util}}
+\doxysubsubsection{\texorpdfstring{load\_labelmap()}{load\_labelmap()}}
+{\footnotesize\ttfamily label\+\_\+map\+\_\+util.\+load\+\_\+labelmap (\begin{DoxyParamCaption}\item[{}]{path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Loads label map proto.
+
+Args:
+  path: path to StringIntLabelMap proto text file.
+Returns:
+  a StringIntLabelMapProto
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection_2label__map__util_8py_source_l00130}{130}} of file \mbox{\hyperlink{object__detection_2label__map__util_8py_source}{label\+\_\+map\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \textcolor{keyword}{def\ }load\_labelmap(path):}
+\DoxyCodeLine{00131\ \ \ \textcolor{stringliteral}{"{}"{}"{}Loads\ label\ map\ proto.}}
+\DoxyCodeLine{00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ path:\ path\ to\ StringIntLabelMap\ proto\ text\ file.}}
+\DoxyCodeLine{00135\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00136\ \textcolor{stringliteral}{\ \ \ \ a\ StringIntLabelMapProto}}
+\DoxyCodeLine{00137\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00138\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ fid:}
+\DoxyCodeLine{00139\ \ \ \ \ label\_map\_string\ =\ fid.read()}
+\DoxyCodeLine{00140\ \ \ \ \ label\_map\ =\ string\_int\_label\_map\_pb2.StringIntLabelMap()}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ text\_format.Merge(label\_map\_string,\ label\_map)}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{except}\ text\_format.ParseError:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ label\_map.ParseFromString(label\_map\_string)}
+\DoxyCodeLine{00145\ \ \ \_validate\_label\_map(label\_map)}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordflow}{return}\ label\_map}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{d7/deb/namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/deb/namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f_icgraph}
+\end{center}
+\end{figure}

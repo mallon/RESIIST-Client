@@ -1,0 +1,532 @@
+\doxysection{multiclass\+\_\+nms\+\_\+test.\+py}
+\hypertarget{multiclass__nms__test_8py_source}{}\label{multiclass__nms__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/multiclass\_nms\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/multiclass\_nms\_test.py}}
+\mbox{\hyperlink{multiclass__nms__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1multiclass__nms__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2019\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ tensorflow\_models.object\_detection.core.post\_processing."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00017}00017\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ post\_processing}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ test\_case}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00024}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test}{MulticlassNonMaxSuppressionTest}}(test\_case.TestCase):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00026}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a48041f78b9f76248361be0e05b1bfe77}{00026}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a48041f78b9f76248361be0e05b1bfe77}{test\_multiclass\_nms\_select\_with\_shared\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00027}00027\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00035}00035\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00039}00039\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00040}00040\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00041}00041\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00043}00043\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00047}00047\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00048}00048\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00050}00050\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00052}00052\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00053}00053\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00056}00056\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00057}00057\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00058}00058\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00060}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_aa9c51d4f6236aa468e958c15141eb7b4}{00060}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_aa9c51d4f6236aa468e958c15141eb7b4}{test\_multiclass\_nms\_select\_with\_shared\_boxes\_pad\_to\_max\_output\_size}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00061}00061\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ np.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00069}00069\ \ \ \ \ scores\ =\ np.array([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]],\ np.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00073}00073\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00074}00074\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00075}00075\ \ \ \ \ max\_size\_per\_class\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00076}00076\ \ \ \ \ max\_output\_size\ =\ 5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00078}00078\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00082}00082\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00083}00083\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes,\ scores):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00086}00086\ \ \ \ \ \ \ nms,\ num\_valid\_nms\_boxes\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ max\_total\_size=max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00094}00094\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes),\ num\_valid\_nms\_boxes]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00097}00097\ \ \ \ \ [nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00098}00098\ \ \ \ \ \ num\_valid\_nms\_boxes]\ =\ self.execute(graph\_fn,\ [boxes,\ scores])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00100}00100\ \ \ \ \ self.assertEqual(num\_valid\_nms\_boxes,\ 4)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00101}00101\ \ \ \ \ self.assertAllClose(nms\_corners\_output[0:num\_valid\_nms\_boxes],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00103}00103\ \ \ \ \ self.assertAllClose(nms\_scores\_output[0:num\_valid\_nms\_boxes],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00105}00105\ \ \ \ \ self.assertAllClose(nms\_classes\_output[0:num\_valid\_nms\_boxes],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00108}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a4f483bbcdad7f72744b48a09c1d261c9}{00108}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a4f483bbcdad7f72744b48a09c1d261c9}{test\_multiclass\_nms\_select\_with\_shared\_boxes\_given\_keypoints}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00109}00109\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00117}00117\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00121}00121\ \ \ \ \ num\_keypoints\ =\ 6}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00122}00122\ \ \ \ \ keypoints\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ tf.reshape(tf.range(8),\ [8,\ 1,\ 1]),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ [1,\ num\_keypoints,\ 2])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00125}00125\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00126}00126\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00127}00127\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00129}00129\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00133}00133\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00134}00134\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00135}00135\ \ \ \ \ exp\_nms\_keypoints\_tensor\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ tf.reshape(tf.constant([3,\ 0,\ 6,\ 5],\ dtype=tf.float32),\ [4,\ 1,\ 1]),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ [1,\ num\_keypoints,\ 2])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00139}00139\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ additional\_fields=\{fields.BoxListFields.keypoints:\ keypoints\})}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00147}00147\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00148}00148\ \ \ \ \ \ \ (nms\_corners\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00149}00149\ \ \ \ \ \ \ \ nms\_scores\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00150}00150\ \ \ \ \ \ \ \ nms\_classes\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00151}00151\ \ \ \ \ \ \ \ nms\_keypoints,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00152}00152\ \ \ \ \ \ \ \ exp\_nms\_keypoints)\ =\ sess.run([}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ nms.get(),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.keypoints),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ exp\_nms\_keypoints\_tensor}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00158}00158\ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00159}00159\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00160}00160\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00161}00161\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00162}00162\ \ \ \ \ \ \ self.assertAllEqual(nms\_keypoints,\ exp\_nms\_keypoints)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00164}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a3b5c6f5f0ea9d5a16932d43d734c635e}{00164}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a3b5c6f5f0ea9d5a16932d43d734c635e}{test\_multiclass\_nms\_with\_shared\_boxes\_given\_keypoint\_heatmaps}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00165}00165\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00174}00174\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00179}00179\ \ \ \ \ num\_boxes\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00180}00180\ \ \ \ \ heatmap\_height\ =\ 5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00181}00181\ \ \ \ \ heatmap\_width\ =\ 5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00182}00182\ \ \ \ \ num\_keypoints\ =\ 17}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00183}00183\ \ \ \ \ keypoint\_heatmaps\ =\ tf.ones(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ [num\_boxes,\ heatmap\_height,\ heatmap\_width,\ num\_keypoints],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00187}00187\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00188}00188\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00189}00189\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00190}00190\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00195}00195\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00196}00196\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00197}00197\ \ \ \ \ exp\_nms\_keypoint\_heatmaps\ =\ np.ones(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ (4,\ heatmap\_height,\ heatmap\_width,\ num\_keypoints),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00200}00200\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ additional\_fields=\{}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.keypoint\_heatmaps:\ keypoint\_heatmaps}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00210}00210\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00211}00211\ \ \ \ \ \ \ (nms\_corners\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00212}00212\ \ \ \ \ \ \ \ nms\_scores\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00213}00213\ \ \ \ \ \ \ \ nms\_classes\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00214}00214\ \ \ \ \ \ \ \ nms\_keypoint\_heatmaps)\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ [nms.get(),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.keypoint\_heatmaps)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00220}00220\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00221}00221\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00222}00222\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00223}00223\ \ \ \ \ \ \ self.assertAllEqual(nms\_keypoint\_heatmaps,\ exp\_nms\_keypoint\_heatmaps)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00225}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a018f6ceabcf7ebb7d3e78fbd5e308c14}{00225}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a018f6ceabcf7ebb7d3e78fbd5e308c14}{test\_multiclass\_nms\_with\_additional\_fields}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00226}00226\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00235}00235\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00240}00240\ \ \ \ \ coarse\_boxes\_key\ =\ \textcolor{stringliteral}{'coarse\_boxes'}}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00241}00241\ \ \ \ \ coarse\_boxes\ =\ tf.constant([[0.1,\ 0.1,\ 1.1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.2,\ 1.1,\ 1.2],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ -\/0.2,\ 1.1,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 10.1,\ 1.1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 10.2,\ 1.1,\ 11.2],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 100.1,\ 1.1,\ 101.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 1000.1,\ 1.1,\ 1002.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 1000.1,\ 1.1,\ 1002.2]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00250}00250\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00251}00251\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00252}00252\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00254}00254\ \ \ \ \ exp\_nms\_corners\ =\ np.array([[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00259}00259\ \ \ \ \ exp\_nms\_coarse\_corners\ =\ np.array([[0.1,\ 10.1,\ 1.1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 1.1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 1000.1,\ 1.1,\ 1002.1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 100.1,\ 1.1,\ 101.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00265}00265\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00266}00266\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00268}00268\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ additional\_fields=\{coarse\_boxes\_key:\ coarse\_boxes\})}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00276}00276\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00277}00277\ \ \ \ \ \ \ (nms\_corners\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00278}00278\ \ \ \ \ \ \ \ nms\_scores\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00279}00279\ \ \ \ \ \ \ \ nms\_classes\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00280}00280\ \ \ \ \ \ \ \ nms\_coarse\_corners)\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ [nms.get(),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(coarse\_boxes\_key)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00286}00286\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00287}00287\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00288}00288\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00289}00289\ \ \ \ \ \ \ self.assertAllEqual(nms\_coarse\_corners,\ exp\_nms\_coarse\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00291}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a46afa3978fb6edf5b8cdd89ef5460a61}{00291}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a46afa3978fb6edf5b8cdd89ef5460a61}{test\_multiclass\_nms\_select\_with\_shared\_boxes\_given\_masks}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00292}00292\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00300}00300\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00304}00304\ \ \ \ \ num\_classes\ =\ 2}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00305}00305\ \ \ \ \ mask\_height\ =\ 3}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00306}00306\ \ \ \ \ mask\_width\ =\ 3}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00307}00307\ \ \ \ \ masks\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ tf.reshape(tf.range(8),\ [8,\ 1,\ 1,\ 1]),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ [1,\ num\_classes,\ mask\_height,\ mask\_width])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00310}00310\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00311}00311\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00312}00312\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00314}00314\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00318}00318\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00319}00319\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00320}00320\ \ \ \ \ exp\_nms\_masks\_tensor\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ tf.reshape(tf.constant([3,\ 0,\ 6,\ 5],\ dtype=tf.float32),\ [4,\ 1,\ 1]),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ [1,\ mask\_height,\ mask\_width])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00324}00324\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00325}00325\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_output\_size,\ masks=masks)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00326}00326\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00327}00327\ \ \ \ \ \ \ (nms\_corners\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00328}00328\ \ \ \ \ \ \ \ nms\_scores\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00329}00329\ \ \ \ \ \ \ \ nms\_classes\_output,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00330}00330\ \ \ \ \ \ \ \ nms\_masks,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00331}00331\ \ \ \ \ \ \ \ exp\_nms\_masks)\ =\ sess.run([nms.get(),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.masks),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp\_nms\_masks\_tensor])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00336}00336\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00337}00337\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00338}00338\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00339}00339\ \ \ \ \ \ \ self.assertAllEqual(nms\_masks,\ exp\_nms\_masks)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00341}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_ab953acf8eb5787cb061a6e3c557835c9}{00341}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_ab953acf8eb5787cb061a6e3c557835c9}{test\_multiclass\_nms\_select\_with\_clip\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00342}00342\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 10,\ 10]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 11,\ 11]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00344}00344\ \ \ \ \ scores\ =\ tf.constant([[.9],\ [.75]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00345}00345\ \ \ \ \ clip\_window\ =\ tf.constant([5,\ 4,\ 8,\ 7],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00346}00346\ \ \ \ \ score\_thresh\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00347}00347\ \ \ \ \ iou\_thresh\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00348}00348\ \ \ \ \ max\_output\_size\ =\ 100}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00350}00350\ \ \ \ \ exp\_nms\_corners\ =\ [[5,\ 4,\ 8,\ 7]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00351}00351\ \ \ \ \ exp\_nms\_scores\ =\ [.9]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00352}00352\ \ \ \ \ exp\_nms\_classes\ =\ [0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00354}00354\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ clip\_window=clip\_window)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00361}00361\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00362}00362\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00365}00365\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00366}00366\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00367}00367\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00369}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a89f4c8ab97a9df5145c8958eb06892a1}{00369}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a89f4c8ab97a9df5145c8958eb06892a1}{test\_multiclass\_nms\_select\_with\_clip\_window\_change\_coordinate\_frame}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00370}00370\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 10,\ 10]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 11,\ 11]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00372}00372\ \ \ \ \ scores\ =\ tf.constant([[.9],\ [.75]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00373}00373\ \ \ \ \ clip\_window\ =\ tf.constant([5,\ 4,\ 8,\ 7],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00374}00374\ \ \ \ \ score\_thresh\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00375}00375\ \ \ \ \ iou\_thresh\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00376}00376\ \ \ \ \ max\_output\_size\ =\ 100}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00378}00378\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00379}00379\ \ \ \ \ exp\_nms\_scores\ =\ [.9]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00380}00380\ \ \ \ \ exp\_nms\_classes\ =\ [0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00382}00382\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ clip\_window=clip\_window,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ change\_coordinate\_frame=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00390}00390\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00391}00391\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00394}00394\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00395}00395\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00396}00396\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00398}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a52cc5631e20cce1e846ae4b6f4a9e31f}{00398}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a52cc5631e20cce1e846ae4b6f4a9e31f}{test\_multiclass\_nms\_select\_with\_per\_class\_cap}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00399}00399\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00407}00407\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00411}00411\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00412}00412\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00413}00413\ \ \ \ \ max\_size\_per\_class\ =\ 2}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00415}00415\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1000,\ 1,\ 1002]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00418}00418\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00419}00419\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00421}00421\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00422}00422\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_size\_per\_class)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00423}00423\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00424}00424\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00427}00427\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00428}00428\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00429}00429\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00431}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a15e67b0aed6b5c814cef117a7b529ff7}{00431}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a15e67b0aed6b5c814cef117a7b529ff7}{test\_multiclass\_nms\_select\_with\_total\_cap}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00432}00432\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00440}00440\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00444}00444\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00445}00445\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00446}00446\ \ \ \ \ max\_size\_per\_class\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00447}00447\ \ \ \ \ max\_total\_size\ =\ 2}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00448}00448\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00449}00449\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00451}00451\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00452}00452\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00453}00453\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00454}00454\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00456}00456\ \ \ \ \ \ \ \ \ max\_total\_size)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00457}00457\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00458}00458\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00461}00461\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00462}00462\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00463}00463\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00465}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a94d02313326d278355a69dd4b9625340}{00465}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_a94d02313326d278355a69dd4b9625340}{test\_multiclass\_nms\_threshold\_then\_select\_with\_shared\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00466}00466\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00471}00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1]]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00474}00474\ \ \ \ \ scores\ =\ tf.constant([[.9],\ [.75],\ [.6],\ [.95],\ [.5],\ [.3],\ [.01],\ [.01]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00475}00475\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00476}00476\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00477}00477\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00479}00479\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00482}00482\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00483}00483\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00484}00484\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00485}00485\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00486}00486\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00487}00487\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00488}\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_aa5d8647c74eb2ced056667c8ee9a1f08}{00488}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test_aa5d8647c74eb2ced056667c8ee9a1f08}{test\_multiclass\_nms\_select\_with\_separate\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00489}00489\ \ \ \ \ boxes\ =\ tf.constant([[[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 4,\ 5]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 1,\ 1.1],\ [0,\ 0.1,\ 2,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ -\/0.1,\ 1,\ 0.9],\ [0,\ -\/0.1,\ 1,\ 0.9]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10,\ 1,\ 11],\ [0,\ 10,\ 1,\ 11]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 10.1,\ 1,\ 11.1],\ [0,\ 10.1,\ 1,\ 11.1]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 100,\ 1,\ 101],\ [0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002],\ [0,\ 999,\ 2,\ 1004]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 1000,\ 1,\ 1002.1],\ [0,\ 999,\ 2,\ 1002.7]]],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00498}00498\ \ \ \ \ scores\ =\ tf.constant([[.9,\ 0.01],\ [.75,\ 0.05],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.6,\ 0.01],\ [.95,\ 0],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ 0.01],\ [.3,\ 0.01],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.01,\ .85],\ [.01,\ .5]])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00502}00502\ \ \ \ \ score\_thresh\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00503}00503\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00504}00504\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00506}00506\ \ \ \ \ exp\_nms\_corners\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 999,\ 2,\ 1004],}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00510}00510\ \ \ \ \ exp\_nms\_scores\ =\ [.95,\ .9,\ .85,\ .3]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00511}00511\ \ \ \ \ exp\_nms\_classes\ =\ [0,\ 0,\ 1,\ 0]}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00513}00513\ \ \ \ \ nms,\ \_\ =\ post\_processing.multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ boxes,\ scores,\ score\_thresh,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00515}00515\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00516}00516\ \ \ \ \ \ \ nms\_corners\_output,\ nms\_scores\_output,\ nms\_classes\_output\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00517}00517\ \ \ \ \ \ \ \ \ \ \ [nms.get(),\ nms.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ \ \ \ nms.get\_field(fields.BoxListFields.classes)])}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00519}00519\ \ \ \ \ \ \ self.assertAllClose(nms\_corners\_output,\ exp\_nms\_corners)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00520}00520\ \ \ \ \ \ \ self.assertAllClose(nms\_scores\_output,\ exp\_nms\_scores)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00521}00521\ \ \ \ \ \ \ self.assertAllClose(nms\_classes\_output,\ exp\_nms\_classes)}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00525}00525\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{multiclass__nms__test_8py_source_l00526}00526\ \ \ tf.test.main()}
+
+\end{DoxyCode}

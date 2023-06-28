@@ -1,0 +1,169 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions}\index{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{d8/dd6/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{da/d08/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a88432d66f319ad26f8361f56b44ec876}{test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+single\+\_\+bin}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_adef8a86ac24e675732acfd8ba8040468}{test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+global\+\_\+pool\+\_\+false\+\_\+and\+\_\+known\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a206ddbdba28ca893014c4ff020e6ec4b}{test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+global\+\_\+pool\+\_\+false\+\_\+and\+\_\+single\+\_\+bin}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01010}{1010}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_adef8a86ac24e675732acfd8ba8040468}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_adef8a86ac24e675732acfd8ba8040468} 
+\index{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}!test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes@{test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes}}
+\index{test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes@{test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes}!detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}}
+\doxysubsubsection{\texorpdfstring{test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes()}{test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions.\+test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+global\+\_\+pool\+\_\+false\+\_\+and\+\_\+known\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01035}{1035}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01035\ \ \ \textcolor{keyword}{def\ }test\_position\_sensitive\_with\_global\_pool\_false\_and\_known\_boxes(self):}
+\DoxyCodeLine{01036\ \ \ \ \ num\_spatial\_bins\ =\ [2,\ 2]}
+\DoxyCodeLine{01037\ \ \ \ \ image\_shape\ =\ [2,\ 2,\ 2,\ 4]}
+\DoxyCodeLine{01038\ \ \ \ \ crop\_size\ =\ [2,\ 2]}
+\DoxyCodeLine{01039\ }
+\DoxyCodeLine{01040\ \ \ \ \ images\ =\ tf.constant(}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ list(range(1,\ 2\ *\ 2\ *\ 4\ +\ 1))\ *\ 2,\ dtype=tf.float32,\ shape=image\_shape)}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01043\ \ \ \ \ \textcolor{comment}{\#\ First\ box\ contains\ whole\ image,\ and\ second\ box\ contains\ only\ first\ row.}}
+\DoxyCodeLine{01044\ \ \ \ \ boxes\ =\ tf.constant(np.array([[[0.,\ 0.,\ 1.,\ 1.]],}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.,\ 0.,\ 0.5,\ 1.]]]),\ dtype=tf.float32)}
+\DoxyCodeLine{01046\ \ \ \ \ \textcolor{comment}{\#\ box\_ind\ =\ tf.constant([0,\ 1],\ dtype=tf.int32)}}
+\DoxyCodeLine{01047\ }
+\DoxyCodeLine{01048\ \ \ \ \ expected\_output\ =\ []}
+\DoxyCodeLine{01049\ }
+\DoxyCodeLine{01050\ \ \ \ \ \textcolor{comment}{\#\ Expected\ output,\ when\ the\ box\ containing\ whole\ image.}}
+\DoxyCodeLine{01051\ \ \ \ \ expected\_output.append(}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ np.reshape(np.array([[4,\ 7],}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 13]]),}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1,\ 2,\ 2,\ 1))}
+\DoxyCodeLine{01055\ \ \ \ \ )}
+\DoxyCodeLine{01056\ }
+\DoxyCodeLine{01057\ \ \ \ \ \textcolor{comment}{\#\ Expected\ output,\ when\ the\ box\ containing\ only\ first\ row.}}
+\DoxyCodeLine{01058\ \ \ \ \ expected\_output.append(}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ np.reshape(np.array([[3,\ 6],}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [7,\ 10]]),}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1,\ 2,\ 2,\ 1))}
+\DoxyCodeLine{01062\ \ \ \ \ )}
+\DoxyCodeLine{01063\ \ \ \ \ expected\_output\ =\ np.stack(expected\_output,\ axis=0)}
+\DoxyCodeLine{01064\ }
+\DoxyCodeLine{01065\ \ \ \ \ ps\_crop\ =\ ops.batch\_position\_sensitive\_crop\_regions(}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ images,\ boxes,\ crop\_size,\ num\_spatial\_bins,\ global\_pool=\textcolor{keyword}{False})}
+\DoxyCodeLine{01067\ }
+\DoxyCodeLine{01068\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ output\ =\ sess.run(ps\_crop)}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{01071\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a206ddbdba28ca893014c4ff020e6ec4b}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a206ddbdba28ca893014c4ff020e6ec4b} 
+\index{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}!test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin@{test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin}}
+\index{test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin@{test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin}!detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}}
+\doxysubsubsection{\texorpdfstring{test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin()}{test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions.\+test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+global\+\_\+pool\+\_\+false\+\_\+and\+\_\+single\+\_\+bin (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01072}{1072}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01072\ \ \ \textcolor{keyword}{def\ }test\_position\_sensitive\_with\_global\_pool\_false\_and\_single\_bin(self):}
+\DoxyCodeLine{01073\ \ \ \ \ num\_spatial\_bins\ =\ [1,\ 1]}
+\DoxyCodeLine{01074\ \ \ \ \ image\_shape\ =\ [2,\ 3,\ 3,\ 4]}
+\DoxyCodeLine{01075\ \ \ \ \ crop\_size\ =\ [1,\ 1]}
+\DoxyCodeLine{01076\ }
+\DoxyCodeLine{01077\ \ \ \ \ images\ =\ tf.random\_uniform(image\_shape)}
+\DoxyCodeLine{01078\ \ \ \ \ boxes\ =\ tf.random\_uniform((2,\ 3,\ 4))}
+\DoxyCodeLine{01079\ \ \ \ \ \textcolor{comment}{\#\ box\_ind\ =\ tf.constant([0,\ 0,\ 0,\ 1,\ 1,\ 1],\ dtype=tf.int32)}}
+\DoxyCodeLine{01080\ }
+\DoxyCodeLine{01081\ \ \ \ \ \textcolor{comment}{\#\ Since\ single\_bin\ is\ used\ and\ crop\_size\ =\ [1,\ 1]\ (i.e.,\ no\ crop\ resize),}}
+\DoxyCodeLine{01082\ \ \ \ \ \textcolor{comment}{\#\ the\ outputs\ are\ the\ same\ whatever\ the\ global\_pool\ value\ is.}}
+\DoxyCodeLine{01083\ \ \ \ \ ps\_crop\_and\_pool\ =\ ops.batch\_position\_sensitive\_crop\_regions(}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ images,\ boxes,\ crop\_size,\ num\_spatial\_bins,\ global\_pool=\textcolor{keyword}{True})}
+\DoxyCodeLine{01085\ \ \ \ \ ps\_crop\ =\ ops.batch\_position\_sensitive\_crop\_regions(}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ images,\ boxes,\ crop\_size,\ num\_spatial\_bins,\ global\_pool=\textcolor{keyword}{False})}
+\DoxyCodeLine{01087\ }
+\DoxyCodeLine{01088\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ pooled\_output,\ unpooled\_output\ =\ sess.run((ps\_crop\_and\_pool,\ ps\_crop))}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ self.assertAllClose(pooled\_output,\ unpooled\_output)}
+\DoxyCodeLine{01091\ }
+\DoxyCodeLine{01092\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a88432d66f319ad26f8361f56b44ec876}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_batch_position_sensitive_crop_regions_a88432d66f319ad26f8361f56b44ec876} 
+\index{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}!test\_position\_sensitive\_with\_single\_bin@{test\_position\_sensitive\_with\_single\_bin}}
+\index{test\_position\_sensitive\_with\_single\_bin@{test\_position\_sensitive\_with\_single\_bin}!detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions@{detection\_utils.utils.ops\_test.OpsTestBatchPositionSensitiveCropRegions}}
+\doxysubsubsection{\texorpdfstring{test\_position\_sensitive\_with\_single\_bin()}{test\_position\_sensitive\_with\_single\_bin()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Batch\+Position\+Sensitive\+Crop\+Regions.\+test\+\_\+position\+\_\+sensitive\+\_\+with\+\_\+single\+\_\+bin (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01012}{1012}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01012\ \ \ \textcolor{keyword}{def\ }test\_position\_sensitive\_with\_single\_bin(self):}
+\DoxyCodeLine{01013\ \ \ \ \ num\_spatial\_bins\ =\ [1,\ 1]}
+\DoxyCodeLine{01014\ \ \ \ \ image\_shape\ =\ [2,\ 3,\ 3,\ 4]}
+\DoxyCodeLine{01015\ \ \ \ \ crop\_size\ =\ [2,\ 2]}
+\DoxyCodeLine{01016\ }
+\DoxyCodeLine{01017\ \ \ \ \ image\ =\ tf.random\_uniform(image\_shape)}
+\DoxyCodeLine{01018\ \ \ \ \ boxes\ =\ tf.random\_uniform((2,\ 3,\ 4))}
+\DoxyCodeLine{01019\ \ \ \ \ box\_ind\ =\ tf.constant([0,\ 0,\ 0,\ 1,\ 1,\ 1],\ dtype=tf.int32)}
+\DoxyCodeLine{01020\ }
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{comment}{\#\ When\ a\ single\ bin\ is\ used,\ position-\/sensitive\ crop\ and\ pool\ should\ be}}
+\DoxyCodeLine{01022\ \ \ \ \ \textcolor{comment}{\#\ the\ same\ as\ non-\/position\ sensitive\ crop\ and\ pool.}}
+\DoxyCodeLine{01023\ \ \ \ \ crop\ =\ tf.image.crop\_and\_resize(image,\ tf.reshape(boxes,\ [-\/1,\ 4]),\ box\_ind,}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size)}
+\DoxyCodeLine{01025\ \ \ \ \ crop\_and\_pool\ =\ tf.reduce\_mean(crop,\ [1,\ 2],\ keepdims=\textcolor{keyword}{True})}
+\DoxyCodeLine{01026\ \ \ \ \ crop\_and\_pool\ =\ tf.reshape(crop\_and\_pool,\ [2,\ 3,\ 1,\ 1,\ 4])}
+\DoxyCodeLine{01027\ }
+\DoxyCodeLine{01028\ \ \ \ \ ps\_crop\_and\_pool\ =\ ops.batch\_position\_sensitive\_crop\_regions(}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ image,\ boxes,\ crop\_size,\ num\_spatial\_bins,\ global\_pool=\textcolor{keyword}{True})}
+\DoxyCodeLine{01030\ }
+\DoxyCodeLine{01031\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ expected\_output,\ output\ =\ sess.run((crop\_and\_pool,\ ps\_crop\_and\_pool))}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ self.assertAllClose(output,\ expected\_output)}
+\DoxyCodeLine{01034\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

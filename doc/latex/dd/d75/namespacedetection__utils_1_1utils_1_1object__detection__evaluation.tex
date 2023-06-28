@@ -1,0 +1,73 @@
+\doxysection{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1object__detection__evaluation}{}\label{namespacedetection__utils_1_1utils_1_1object__detection__evaluation}\index{detection\_utils.utils.object\_detection\_evaluation@{detection\_utils.utils.object\_detection\_evaluation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator}{Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluation}{Object\+Detection\+Evaluation}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator}{Object\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator}{Open\+Images\+Challenge\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_challenge_evaluator}{Open\+Images\+Detection\+Challenge\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_evaluator}{Open\+Images\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_instance_segmentation_challenge_evaluator}{Open\+Images\+Instance\+Segmentation\+Challenge\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_detection_evaluator}{Pascal\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_instance_segmentation_evaluator}{Pascal\+Instance\+Segmentation\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_precision_at_recall_detection_evaluator}{Precision\+At\+Recall\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_detection_evaluator}{Weighted\+Pascal\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_instance_segmentation_evaluator}{Weighted\+Pascal\+Instance\+Segmentation\+Evaluator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1object__detection__evaluation_a571cbc06885aa4c0e3188603a9f9049b}{Object\+Detection\+Eval\+Metrics}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}object_detection_evaluation module.
+
+ObjectDetectionEvaluation is a class which manages ground truth information of a
+object detection dataset, and computes frequently used detection metrics such as
+Precision, Recall, CorLoc of the provided detection results.
+It supports the following operations:
+1) Add ground truth information of images sequentially.
+2) Add detection result of images sequentially.
+3) Evaluate detection metrics on already inserted detection results.
+4) Write evaluation result into a pickle file for future processing or
+   visualization.
+
+Note: This module operates on numpy boxes and box lists.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1object__detection__evaluation_a571cbc06885aa4c0e3188603a9f9049b}\label{namespacedetection__utils_1_1utils_1_1object__detection__evaluation_a571cbc06885aa4c0e3188603a9f9049b} 
+\index{detection\_utils.utils.object\_detection\_evaluation@{detection\_utils.utils.object\_detection\_evaluation}!ObjectDetectionEvalMetrics@{ObjectDetectionEvalMetrics}}
+\index{ObjectDetectionEvalMetrics@{ObjectDetectionEvalMetrics}!detection\_utils.utils.object\_detection\_evaluation@{detection\_utils.utils.object\_detection\_evaluation}}
+\doxysubsubsection{\texorpdfstring{ObjectDetectionEvalMetrics}{ObjectDetectionEvalMetrics}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Eval\+Metrics}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ collections.namedtuple(}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'ObjectDetectionEvalMetrics'},\ [}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'average\_precisions'},\ \textcolor{stringliteral}{'mean\_ap'},\ \textcolor{stringliteral}{'precisions'},\ \textcolor{stringliteral}{'recalls'},\ \textcolor{stringliteral}{'corlocs'},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'mean\_corloc'}}
+\DoxyCodeLine{00005\ \ \ \ \ ])}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00864}{864}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+

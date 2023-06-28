@@ -1,0 +1,91 @@
+\doxysection{emotion\+Detection.\+py}
+\hypertarget{emotion_detection_8py_source}{}\label{emotion_detection_8py_source}\index{src/main/resources/processing/video/detections/emotion\_detection/emotionDetection.py@{src/main/resources/processing/video/detections/emotion\_detection/emotionDetection.py}}
+\mbox{\hyperlink{emotion_detection_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00001}\mbox{\hyperlink{namespaceemotion_detection}{00001}}\ \textcolor{keyword}{import}\ cv2}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00002}00002\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00003}00003\ \textcolor{keyword}{import}\ socket}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00004}00004\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00005}00005\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00006}00006\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00007}00007\ \textcolor{keyword}{import}\ threading}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00008}00008\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00009}00009\ \textcolor{keyword}{import}\ imutils}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00010}00010\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00011}00011\ \textcolor{keyword}{from}\ tensorflow.keras.models\ \textcolor{keyword}{import}\ load\_model}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00012}00012\ \textcolor{keyword}{import}\ tensorflow.compat.v1\ \textcolor{keyword}{as}\ tensorflow}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00013}00013\ tensorflow.disable\_v2\_behavior()}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00014}00014\ \textcolor{keyword}{from}\ keras.preprocessing.image\ \textcolor{keyword}{import}\ img\_to\_array}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00016}00016\ \textcolor{keyword}{import}\ logging;}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00017}00017\ logging.disable(logging.INFO);}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00018}00018\ logging.disable(logging.DEBUG);}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00019}00019\ \textcolor{comment}{\#logging.disable(logging.CRITICAL);}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00020}00020\ logging.disable(logging.WARNING);}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00021}00021\ \textcolor{comment}{\#logging.disable(logging.ERROR);}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00023}00023\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00024}00024\ os.environ[\textcolor{stringliteral}{'TF\_CPP\_MIN\_LOG\_LEVEL'}]\ =\ \textcolor{stringliteral}{'2'}\ \ \textcolor{comment}{\#\ or\ any\ \{'0',\ '1',\ '2'\}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00025}00025\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00026}00026\ \ \ \textcolor{comment}{\#Level\ |\ Level\ for\ Humans\ |\ Level\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00027}00027\ \ \textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00028}00028\ \ \ \textcolor{comment}{\#0\ \ \ \ \ |\ DEBUG\ \ \ \ \ \ \ \ \ \ \ \ |\ [Default]\ Print\ all\ messages\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00029}00029\ \ \ \textcolor{comment}{\#1\ \ \ \ \ |\ INFO\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ messages\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00030}00030\ \ \ \textcolor{comment}{\#2\ \ \ \ \ |\ WARNING\ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ \&\ WARNING\ messages\ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00031}00031\ \ \ \textcolor{comment}{\#3\ \ \ \ \ |\ ERROR\ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ all\ messages\ \ }}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00033}\mbox{\hyperlink{namespaceemotion_detection_aa47a030fa3a17672a8b1259d12d4cab0}{00033}}\ label\ =\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00035}\mbox{\hyperlink{namespaceemotion_detection_a831ef72f48797bba37558493c5409357}{00035}}\ EMOTIONS=\ [\textcolor{stringliteral}{"{}Angry"{}},\ \textcolor{stringliteral}{"{}Disgust"{}},\ \textcolor{stringliteral}{"{}Fear"{}},\ \textcolor{stringliteral}{"{}Happy"{}},\ \textcolor{stringliteral}{"{}Sad"{}},\ \textcolor{stringliteral}{"{}Surprise"{}},\ \textcolor{stringliteral}{"{}Neutral"{}}]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00038}\mbox{\hyperlink{namespaceemotion_detection_ac0d9bcc1c36049070cbfa9705fd5be9f}{00038}}\ CURRENT\_PYTHON\_PATH=os.getcwd()\ +\ \textcolor{stringliteral}{"{}/src/main/resources"{}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00039}\mbox{\hyperlink{namespaceemotion_detection_a410a6a442526eabacd8ed184cf30c1ca}{00039}}\ EXTRACTION\_TO\_INTEGRATION\_PATH\ =\ CURRENT\_PYTHON\_PATH\ +\ \textcolor{stringliteral}{'/processing/video/detections/'}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00040}\mbox{\hyperlink{namespaceemotion_detection_a0cbd9894176cdba33da3af3a20cffdef}{00040}}\ detection\_model\_path\ =\ EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{"{}/emotion\_detection/haarcascade\_frontalface\_default.xml"{}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00042}\mbox{\hyperlink{namespaceemotion_detection_a423d5da2cc0eb3b2f720c6fb6ba9c346}{00042}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceemotion_detection_a423d5da2cc0eb3b2f720c6fb6ba9c346}{startDetection}}(frame,\ objectNameToDetectList,\ allElementIds):}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00043}00043\ \ \ \ \ tensorflow.keras.backend.clear\_session()}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00044}00044\ \ \ \ \ face\_detection\ =\ cv2.CascadeClassifier(detection\_model\_path)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00045}00045\ \ \ \ \ model\ =\ load\_model(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{"{}emotion\_detection/fer2013\_big\_XCEPTION.54-\/0.66.hdf5"{}})}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00046}00046\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00047}00047\ \ \ \ \ frame\ =\ imutils.resize(frame,width=800)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00048}00048\ \ \ \ \ gray\ =\ cv2.cvtColor(frame,\ cv2.COLOR\_BGR2GRAY)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00049}00049\ \ \ \ \ faces\ =\ face\_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE\_SCALE\_IMAGE)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00050}00050\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{if}\ len(faces)\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ faces\ =\ sorted(faces,\ reverse=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ key=\textcolor{keyword}{lambda}\ x:\ (x[2]\ -\/\ x[0])\ *\ (x[3]\ -\/\ x[1]))[0]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ (X,\ Y,\ W,\ H)\ =\ faces}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ facial\ =\ gray[Y:Y\ +\ H,\ X:X\ +\ W]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ facial\ =\ cv2.resize(facial,\ (64,\ 64))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ facial\ =\ facial.astype(\textcolor{stringliteral}{"{}float"{}})\ /\ 255.0}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ facial\ =\ img\_to\_array(facial)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ facial\ =\ np.expand\_dims(facial,\ axis=0)\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ preds\ =\ model.predict(facial)[0]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ label\ =\ EMOTIONS[preds.argmax()]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ label\ \textcolor{keywordflow}{in}\ objectNameToDetectList:}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(label)],\ label,\ \textcolor{stringliteral}{"{}1"{}}]}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(label\_crit\_value)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Emotion\ recognized:\ "{}}\ +\ label\_crit\_value\_string)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket.connect(\ (\textcolor{stringliteral}{'127.0.0.1'},\ 8081)\ )\ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ ourSocket.close()}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{emotion_detection_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}

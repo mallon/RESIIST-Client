@@ -1,0 +1,121 @@
+\doxysection{detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+evaluation\+\_\+test.\+Cor\+Loc\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test}{}\label{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test}\index{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest@{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+evaluation\+\_\+test.\+Cor\+Loc\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{db/d44/classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+evaluation\+\_\+test.\+Cor\+Loc\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{da/d00/classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a729018c395fcaa3c9c3523f58e6d0a67}{test\+\_\+compute\+\_\+corloc\+\_\+with\+\_\+normal\+\_\+iou\+\_\+threshold}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a834d10677673372d2a2f79b1c192f18f}{test\+\_\+compute\+\_\+corloc\+\_\+with\+\_\+very\+\_\+large\+\_\+iou\+\_\+threshold}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{per__image__evaluation__test_8py_source_l00666}{666}} of file \mbox{\hyperlink{per__image__evaluation__test_8py_source}{per\+\_\+image\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a729018c395fcaa3c9c3523f58e6d0a67}\label{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a729018c395fcaa3c9c3523f58e6d0a67} 
+\index{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest@{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest}!test\_compute\_corloc\_with\_normal\_iou\_threshold@{test\_compute\_corloc\_with\_normal\_iou\_threshold}}
+\index{test\_compute\_corloc\_with\_normal\_iou\_threshold@{test\_compute\_corloc\_with\_normal\_iou\_threshold}!detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest@{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_corloc\_with\_normal\_iou\_threshold()}{test\_compute\_corloc\_with\_normal\_iou\_threshold()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+evaluation\+\_\+test.\+Cor\+Loc\+Test.\+test\+\_\+compute\+\_\+corloc\+\_\+with\+\_\+normal\+\_\+iou\+\_\+threshold (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{per__image__evaluation__test_8py_source_l00668}{668}} of file \mbox{\hyperlink{per__image__evaluation__test_8py_source}{per\+\_\+image\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00668\ \ \ \textcolor{keyword}{def\ }test\_compute\_corloc\_with\_normal\_iou\_threshold(self):}
+\DoxyCodeLine{00669\ \ \ \ \ num\_groundtruth\_classes\ =\ 3}
+\DoxyCodeLine{00670\ \ \ \ \ matching\_iou\_threshold\ =\ 0.5}
+\DoxyCodeLine{00671\ \ \ \ \ nms\_iou\_threshold\ =\ 1.0}
+\DoxyCodeLine{00672\ \ \ \ \ nms\_max\_output\_boxes\ =\ 10000}
+\DoxyCodeLine{00673\ \ \ \ \ eval1\ =\ per\_image\_evaluation.PerImageEvaluation(num\_groundtruth\_classes,}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matching\_iou\_threshold,}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_iou\_threshold,}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_max\_output\_boxes)}
+\DoxyCodeLine{00677\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3],}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 5,\ 5]],\ dtype=float)}
+\DoxyCodeLine{00679\ \ \ \ \ detected\_scores\ =\ np.array([0.9,\ 0.9,\ 0.1,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00680\ \ \ \ \ detected\_class\_labels\ =\ np.array([0,\ 1,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{00681\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 3,\ 3],\ [0,\ 0,\ 6,\ 6]],}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00683\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([0,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00685\ \ \ \ \ is\_class\_correctly\_detected\_in\_image\ =\ eval1.\_compute\_cor\_loc(}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_class\_labels,}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ groundtruth\_boxes,\ groundtruth\_class\_labels)}
+\DoxyCodeLine{00688\ \ \ \ \ expected\_result\ =\ np.array([1,\ 0,\ 1],\ dtype=int)}
+\DoxyCodeLine{00689\ \ \ \ \ self.assertTrue(np.array\_equal(expected\_result,}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image))}
+\DoxyCodeLine{00691\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a834d10677673372d2a2f79b1c192f18f}\label{classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_cor_loc_test_a834d10677673372d2a2f79b1c192f18f} 
+\index{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest@{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest}!test\_compute\_corloc\_with\_very\_large\_iou\_threshold@{test\_compute\_corloc\_with\_very\_large\_iou\_threshold}}
+\index{test\_compute\_corloc\_with\_very\_large\_iou\_threshold@{test\_compute\_corloc\_with\_very\_large\_iou\_threshold}!detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest@{detection\_utils.utils.per\_image\_evaluation\_test.CorLocTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_corloc\_with\_very\_large\_iou\_threshold()}{test\_compute\_corloc\_with\_very\_large\_iou\_threshold()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+evaluation\+\_\+test.\+Cor\+Loc\+Test.\+test\+\_\+compute\+\_\+corloc\+\_\+with\+\_\+very\+\_\+large\+\_\+iou\+\_\+threshold (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{per__image__evaluation__test_8py_source_l00692}{692}} of file \mbox{\hyperlink{per__image__evaluation__test_8py_source}{per\+\_\+image\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00692\ \ \ \textcolor{keyword}{def\ }test\_compute\_corloc\_with\_very\_large\_iou\_threshold(self):}
+\DoxyCodeLine{00693\ \ \ \ \ num\_groundtruth\_classes\ =\ 3}
+\DoxyCodeLine{00694\ \ \ \ \ matching\_iou\_threshold\ =\ 0.9}
+\DoxyCodeLine{00695\ \ \ \ \ nms\_iou\_threshold\ =\ 1.0}
+\DoxyCodeLine{00696\ \ \ \ \ nms\_max\_output\_boxes\ =\ 10000}
+\DoxyCodeLine{00697\ \ \ \ \ eval1\ =\ per\_image\_evaluation.PerImageEvaluation(num\_groundtruth\_classes,}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matching\_iou\_threshold,}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_iou\_threshold,}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_max\_output\_boxes)}
+\DoxyCodeLine{00701\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3],}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 5,\ 5]],\ dtype=float)}
+\DoxyCodeLine{00703\ \ \ \ \ detected\_scores\ =\ np.array([0.9,\ 0.9,\ 0.1,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00704\ \ \ \ \ detected\_class\_labels\ =\ np.array([0,\ 1,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{00705\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 3,\ 3],\ [0,\ 0,\ 6,\ 6]],}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00707\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([0,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \ \ \ \ is\_class\_correctly\_detected\_in\_image\ =\ eval1.\_compute\_cor\_loc(}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_class\_labels,}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ groundtruth\_boxes,\ groundtruth\_class\_labels)}
+\DoxyCodeLine{00712\ \ \ \ \ expected\_result\ =\ np.array([1,\ 0,\ 0],\ dtype=int)}
+\DoxyCodeLine{00713\ \ \ \ \ self.assertTrue(np.array\_equal(expected\_result,}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image))}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00716\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{per__image__evaluation__test_8py}{per\+\_\+image\+\_\+evaluation\+\_\+test.\+py}}\end{DoxyCompactItemize}

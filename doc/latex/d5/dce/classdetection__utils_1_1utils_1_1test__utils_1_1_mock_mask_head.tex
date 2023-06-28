@@ -1,0 +1,104 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head}{}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head}\index{detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{d3/ddf/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{db/dc1/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_ab3bd29b9cda6a1429428399f26971e5b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, num\+\_\+classes)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_a269609a25fe5534c02fbc940497b7b9f}{predict}} (self, features)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c}{\+\_\+num\+\_\+classes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Simple maskhead that returns all zeros as mask predictions.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00051}{51}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_ab3bd29b9cda6a1429428399f26971e5b}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_ab3bd29b9cda6a1429428399f26971e5b} 
+\index{detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{num\+\_\+classes }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00054}{54}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ num\_classes):}
+\DoxyCodeLine{00055\ \ \ \ \ self.\_num\_classes\ =\ num\_classes}
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_a269609a25fe5534c02fbc940497b7b9f}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_a269609a25fe5534c02fbc940497b7b9f} 
+\index{detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}!predict@{predict}}
+\index{predict@{predict}!detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head.\+predict (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{features }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00057}{57}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{def\ }predict(self,\ features):}
+\DoxyCodeLine{00058\ \ \ \ \ batch\_size\ =\ tf.shape(features)[0]}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.zeros((batch\_size,\ 1,\ self.\_num\_classes,\ DEFAULT\_MASK\_SIZE,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEFAULT\_MASK\_SIZE),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c} 
+\index{detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}!\_num\_classes@{\_num\_classes}}
+\index{\_num\_classes@{\_num\_classes}!detection\_utils.utils.test\_utils.MockMaskHead@{detection\_utils.utils.test\_utils.MockMaskHead}}
+\doxysubsubsection{\texorpdfstring{\_num\_classes}{\_num\_classes}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Mask\+Head.\+\_\+num\+\_\+classes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00055}{55}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{test__utils_8py}{test\+\_\+utils.\+py}}\end{DoxyCompactItemize}

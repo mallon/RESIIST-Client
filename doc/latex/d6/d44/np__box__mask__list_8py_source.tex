@@ -1,0 +1,72 @@
+\doxysection{np\+\_\+box\+\_\+mask\+\_\+list.\+py}
+\hypertarget{np__box__mask__list_8py_source}{}\label{np__box__mask__list_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_mask\_list.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_mask\_list.py}}
+\mbox{\hyperlink{np__box__mask__list_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Numpy\ BoxMaskList\ classes\ and\ functions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00023}00023\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00026}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{00026}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{BoxMaskList}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00027}00027\ \ \ \textcolor{stringliteral}{"{}"{}"{}Convenience\ wrapper\ for\ BoxList\ with\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ BoxMaskList\ extends\ the\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}\ to\ contain\ masks\ }\textcolor{keyword}{as}\ well.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00030}00030\ \ \ In\ particular,\ its\ constructor\ receives\ both\ boxes\ \textcolor{keywordflow}{and}\ masks.\ Note\ that\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00031}00031\ \ \ masks\ correspond\ to\ the\ full\ image.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00032}00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00033}00033\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00034}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a09cb06c66268969141d2541ddedc8eac}{00034}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a09cb06c66268969141d2541ddedc8eac}{\_\_init\_\_}}(self,\ box\_data,\ mask\_data):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00035}00035\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ box\ collection.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ \ \ box\_data:\ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ \ \ mask\_data:\ a\ numpy\ array\ of\ shape\ [N,\ height,\ width]\ representing\ masks}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }\textcolor{keyword}{with}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.\ The\ masks\ correspond\ to\ the\ full}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ image.\ The\ height\ \textcolor{keywordflow}{and}\ the\ width\ will\ be\ equal\ to\ image\ height\ \textcolor{keywordflow}{and}\ width.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00043}00043\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00044}00044\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ bbox\ data\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ numpy\ array}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00045}00045\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ invalid\ dimensions\ \textcolor{keywordflow}{for}\ bbox\ data}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00046}00046\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ mask\ data\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ numpy\ array}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00047}00047\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ invalid\ dimension\ \textcolor{keywordflow}{for}\ mask\ data}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00048}00048\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ super(BoxMaskList,\ self).\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a09cb06c66268969141d2541ddedc8eac}{\_\_init\_\_}}(box\_data)}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(mask\_data,\ np.ndarray):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00051}00051\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Mask\ data\ must\ be\ a\ numpy\ array.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ len(mask\_data.shape)\ !=\ 3:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00053}00053\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ dimensions\ for\ mask\ data.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{if}\ mask\_data.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00055}00055\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ data\ type\ for\ mask\ data:\ uint8\ is\ required.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{if}\ mask\_data.shape[0]\ !=\ box\_data.shape[0]:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00057}00057\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'There\ should\ be\ the\ same\ number\ of\ boxes\ and\ masks.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00058}00058\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}[\textcolor{stringliteral}{'masks'}]\ =\ mask\_data}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00060}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a65550bcaec94b9acff339aa60212d460}{00060}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a65550bcaec94b9acff339aa60212d460}{get\_masks}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00061}00061\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convenience\ function\ for\ accessing\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00062}00062\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ numpy\ array\ of\ shape\ [N,\ height,\ width]\ representing\ masks}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}{get\_field}}(\textcolor{stringliteral}{'masks'})}
+
+\end{DoxyCode}

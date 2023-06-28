@@ -1,0 +1,304 @@
+\doxysection{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test}{}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test}\index{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{d7/d8b/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{de/dff/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a6dd913a3ae8976e784e4f7dbe22c36b2}{test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values\+\_\+on\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a9e2f278641f2009c24ccc37b0a184428}{test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values\+\_\+on\+\_\+masks}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_acc223468bdff641458a9009710db61b8}{test\+\_\+value\+\_\+error\+\_\+on\+\_\+duplicate\+\_\+images}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00331}{331}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a6dd913a3ae8976e784e4f7dbe22c36b2}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a6dd913a3ae8976e784e4f7dbe22c36b2} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}!test\_returns\_correct\_metric\_values\_on\_boxes@{test\_returns\_correct\_metric\_values\_on\_boxes}}
+\index{test\_returns\_correct\_metric\_values\_on\_boxes@{test\_returns\_correct\_metric\_values\_on\_boxes}!detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}}
+\doxysubsubsection{\texorpdfstring{test\_returns\_correct\_metric\_values\_on\_boxes()}{test\_returns\_correct\_metric\_values\_on\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test.\+test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values\+\_\+on\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00333}{333}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00333\ \ \ \textcolor{keyword}{def\ }test\_returns\_correct\_metric\_values\_on\_boxes(self):}
+\DoxyCodeLine{00334\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{00338\ \ \ \ \ pascal\_evaluator\ =\ object\_detection\_evaluation.PascalDetectionEvaluator(}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{00340\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00341\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00343\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{00344\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)\})}
+\DoxyCodeLine{00351\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00352\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{00354\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00355\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{00356\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ image\_key2,}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes2,}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2\})}
+\DoxyCodeLine{00363\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00364\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00365\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00366\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ image\_key3,}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes3,}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3\})}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{00373\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00374\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00377\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00378\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00379\ \ \ \ \ pascal\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ image\_key,}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \{standard\_fields.DetectionResultFields.detection\_boxes:\ detected\_boxes,}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ detected\_class\_labels\})}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ metrics\ =\ pascal\_evaluator.evaluate()}
+\DoxyCodeLine{00388\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{00390\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{00392\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{00394\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'PascalBoxes\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{00396\ \ \ \ \ pascal\_evaluator.clear()}
+\DoxyCodeLine{00397\ \ \ \ \ self.assertFalse(pascal\_evaluator.\_image\_ids)}
+\DoxyCodeLine{00398\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a9e2f278641f2009c24ccc37b0a184428}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a9e2f278641f2009c24ccc37b0a184428} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}!test\_returns\_correct\_metric\_values\_on\_masks@{test\_returns\_correct\_metric\_values\_on\_masks}}
+\index{test\_returns\_correct\_metric\_values\_on\_masks@{test\_returns\_correct\_metric\_values\_on\_masks}!detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}}
+\doxysubsubsection{\texorpdfstring{test\_returns\_correct\_metric\_values\_on\_masks()}{test\_returns\_correct\_metric\_values\_on\_masks()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test.\+test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values\+\_\+on\+\_\+masks (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00399}{399}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00399\ \ \ \textcolor{keyword}{def\ }test\_returns\_correct\_metric\_values\_on\_masks(self):}
+\DoxyCodeLine{00400\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{00404\ \ \ \ \ pascal\_evaluator\ =\ (}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ object\_detection\_evaluation.PascalInstanceSegmentationEvaluator(}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ categories))}
+\DoxyCodeLine{00407\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00408\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00410\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{00411\ \ \ \ \ groundtruth\_masks\_1\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00414\ \ \ \ \ groundtruth\_masks\_1\_1\ =\ np.array([[0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00417\ \ \ \ \ groundtruth\_masks\_1\_2\ =\ np.array([[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00420\ \ \ \ \ groundtruth\_masks1\ =\ np.stack(}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ [groundtruth\_masks\_1\_0,\ groundtruth\_masks\_1\_1,\ groundtruth\_masks\_1\_2],}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ image\_key1,\ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks1,}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00435\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00436\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{00438\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00439\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{00440\ \ \ \ \ groundtruth\_masks\_2\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00443\ \ \ \ \ groundtruth\_masks\_2\_1\ =\ np.array([[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00446\ \ \ \ \ groundtruth\_masks\_2\_2\ =\ np.array([[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],\ dtype=np.uint8)}
+\DoxyCodeLine{00449\ \ \ \ \ groundtruth\_masks2\ =\ np.stack(}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ [groundtruth\_masks\_2\_0,\ groundtruth\_masks\_2\_1,\ groundtruth\_masks\_2\_2],}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{00452\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ image\_key2,\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks2,}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00463\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00464\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00465\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00466\ \ \ \ \ groundtruth\_masks\_3\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],\ dtype=np.uint8)}
+\DoxyCodeLine{00469\ \ \ \ \ groundtruth\_masks3\ =\ np.stack([groundtruth\_masks\_3\_0],\ axis=0)}
+\DoxyCodeLine{00470\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ image\_key3,\ \{}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes3,}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks3,}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{00481\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00482\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00485\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00486\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00487\ \ \ \ \ detected\_masks\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00490\ \ \ \ \ detected\_masks\_1\ =\ np.array([[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00493\ \ \ \ \ detected\_masks\_2\ =\ np.array([[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{00496\ \ \ \ \ detected\_masks\ =\ np.stack(}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ [detected\_masks\_0,\ detected\_masks\_1,\ detected\_masks\_2],\ axis=0)}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ pascal\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks,}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ metrics\ =\ pascal\_evaluator.evaluate()}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{00515\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{00517\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{00519\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'PascalMasks\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{00521\ \ \ \ \ pascal\_evaluator.clear()}
+\DoxyCodeLine{00522\ \ \ \ \ self.assertFalse(pascal\_evaluator.\_image\_ids)}
+\DoxyCodeLine{00523\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_acc223468bdff641458a9009710db61b8}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_acc223468bdff641458a9009710db61b8} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}!test\_value\_error\_on\_duplicate\_images@{test\_value\_error\_on\_duplicate\_images}}
+\index{test\_value\_error\_on\_duplicate\_images@{test\_value\_error\_on\_duplicate\_images}!detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.PascalEvaluationTest}}
+\doxysubsubsection{\texorpdfstring{test\_value\_error\_on\_duplicate\_images()}{test\_value\_error\_on\_duplicate\_images()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Pascal\+Evaluation\+Test.\+test\+\_\+value\+\_\+error\+\_\+on\+\_\+duplicate\+\_\+images (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00524}{524}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00524\ \ \ \textcolor{keyword}{def\ }test\_value\_error\_on\_duplicate\_images(self):}
+\DoxyCodeLine{00525\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{00529\ \ \ \ \ pascal\_evaluator\ =\ object\_detection\_evaluation.PascalDetectionEvaluator(}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{00531\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00532\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00534\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{00535\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{object__detection__evaluation__test_8py}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}\end{DoxyCompactItemize}

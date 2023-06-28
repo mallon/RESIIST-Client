@@ -1,0 +1,241 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector}\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{d4/d38/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{da/de5/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_ad6182f562eefd5ca4614f4e373d0763f}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a090a52aabbe2324b8e7ffa7d75eaa80e}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+size\+\_\+at\+\_\+inference}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_abd8477318a4101ff80df38385755885b}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+int}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a520071fa6797904ec36350bfea252fe9}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+custom\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a0ef05ec614231656a81978683b2dbfe3}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+all\+\_\+indices\+\_\+as\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_afaac2c82b8d07ac2c2999d4fa7f2fd7d}{test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+empty\+\_\+indices\+\_\+as\+\_\+input}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00293}{293}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_ad6182f562eefd5ca4614f4e373d0763f}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_ad6182f562eefd5ca4614f4e373d0763f} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector@{test\_indices\_to\_dense\_vector}}
+\index{test\_indices\_to\_dense\_vector@{test\_indices\_to\_dense\_vector}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector()}{test\_indices\_to\_dense\_vector()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00295}{295}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00295\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector(self):}
+\DoxyCodeLine{00296\ \ \ \ \ size\ =\ 10000}
+\DoxyCodeLine{00297\ \ \ \ \ num\_indices\ =\ np.random.randint(size)}
+\DoxyCodeLine{00298\ \ \ \ \ rand\_indices\ =\ np.random.permutation(np.arange(size))[0:num\_indices]}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ expected\_output\ =\ np.zeros(size,\ dtype=np.float32)}
+\DoxyCodeLine{00301\ \ \ \ \ expected\_output[rand\_indices]\ =\ 1.}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00304\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(tf\_rand\_indices,\ size)}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ output\ =\ sess.run(indicator)}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00310\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a0ef05ec614231656a81978683b2dbfe3}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a0ef05ec614231656a81978683b2dbfe3} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector\_all\_indices\_as\_input@{test\_indices\_to\_dense\_vector\_all\_indices\_as\_input}}
+\index{test\_indices\_to\_dense\_vector\_all\_indices\_as\_input@{test\_indices\_to\_dense\_vector\_all\_indices\_as\_input}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector\_all\_indices\_as\_input()}{test\_indices\_to\_dense\_vector\_all\_indices\_as\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+all\+\_\+indices\+\_\+as\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00370}{370}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00370\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector\_all\_indices\_as\_input(self):}
+\DoxyCodeLine{00371\ \ \ \ \ size\ =\ 500}
+\DoxyCodeLine{00372\ \ \ \ \ num\_indices\ =\ 500}
+\DoxyCodeLine{00373\ \ \ \ \ rand\_indices\ =\ np.random.permutation(np.arange(size))[0:num\_indices]}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ expected\_output\ =\ np.ones(size,\ dtype=np.float32)}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00378\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(tf\_rand\_indices,\ size)}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ output\ =\ sess.run(indicator)}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00384\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a520071fa6797904ec36350bfea252fe9}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a520071fa6797904ec36350bfea252fe9} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector\_custom\_values@{test\_indices\_to\_dense\_vector\_custom\_values}}
+\index{test\_indices\_to\_dense\_vector\_custom\_values@{test\_indices\_to\_dense\_vector\_custom\_values}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector\_custom\_values()}{test\_indices\_to\_dense\_vector\_custom\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+custom\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00348}{348}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00348\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector\_custom\_values(self):}
+\DoxyCodeLine{00349\ \ \ \ \ size\ =\ 100}
+\DoxyCodeLine{00350\ \ \ \ \ num\_indices\ =\ 10}
+\DoxyCodeLine{00351\ \ \ \ \ rand\_indices\ =\ np.random.permutation(np.arange(size))[0:num\_indices]}
+\DoxyCodeLine{00352\ \ \ \ \ indices\_value\ =\ np.random.rand(1)}
+\DoxyCodeLine{00353\ \ \ \ \ default\_value\ =\ np.random.rand(1)}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ expected\_output\ =\ np.float32(np.ones(size)\ *\ default\_value)}
+\DoxyCodeLine{00356\ \ \ \ \ expected\_output[rand\_indices]\ =\ indices\_value}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00359\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ tf\_rand\_indices,}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ size,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ indices\_value=indices\_value,}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ default\_value=default\_value)}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ output\ =\ sess.run(indicator)}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ self.assertAllClose(output,\ expected\_output)}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00369\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_afaac2c82b8d07ac2c2999d4fa7f2fd7d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_afaac2c82b8d07ac2c2999d4fa7f2fd7d} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input@{test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input}}
+\index{test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input@{test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input()}{test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+empty\+\_\+indices\+\_\+as\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00385}{385}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00385\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector\_empty\_indices\_as\_input(self):}
+\DoxyCodeLine{00386\ \ \ \ \ size\ =\ 500}
+\DoxyCodeLine{00387\ \ \ \ \ rand\_indices\ =\ []}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ expected\_output\ =\ np.zeros(size,\ dtype=np.float32)}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00392\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(tf\_rand\_indices,\ size)}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ output\ =\ sess.run(indicator)}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_abd8477318a4101ff80df38385755885b}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_abd8477318a4101ff80df38385755885b} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector\_int@{test\_indices\_to\_dense\_vector\_int}}
+\index{test\_indices\_to\_dense\_vector\_int@{test\_indices\_to\_dense\_vector\_int}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector\_int()}{test\_indices\_to\_dense\_vector\_int()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+int (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00331}{331}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector\_int(self):}
+\DoxyCodeLine{00332\ \ \ \ \ size\ =\ 500}
+\DoxyCodeLine{00333\ \ \ \ \ num\_indices\ =\ 25}
+\DoxyCodeLine{00334\ \ \ \ \ rand\_indices\ =\ np.random.permutation(np.arange(size))[0:num\_indices]}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ expected\_output\ =\ np.zeros(size,\ dtype=np.int64)}
+\DoxyCodeLine{00337\ \ \ \ \ expected\_output[rand\_indices]\ =\ 1}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00340\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ tf\_rand\_indices,\ size,\ 1,\ dtype=tf.int64)}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ output\ =\ sess.run(indicator)}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00347\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a090a52aabbe2324b8e7ffa7d75eaa80e}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_indices_to_dense_vector_a090a52aabbe2324b8e7ffa7d75eaa80e} 
+\index{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}!test\_indices\_to\_dense\_vector\_size\_at\_inference@{test\_indices\_to\_dense\_vector\_size\_at\_inference}}
+\index{test\_indices\_to\_dense\_vector\_size\_at\_inference@{test\_indices\_to\_dense\_vector\_size\_at\_inference}!detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector@{detection\_utils.utils.ops\_test.OpsTestIndicesToDenseVector}}
+\doxysubsubsection{\texorpdfstring{test\_indices\_to\_dense\_vector\_size\_at\_inference()}{test\_indices\_to\_dense\_vector\_size\_at\_inference()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Indices\+To\+Dense\+Vector.\+test\+\_\+indices\+\_\+to\+\_\+dense\+\_\+vector\+\_\+size\+\_\+at\+\_\+inference (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00311}{311}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{def\ }test\_indices\_to\_dense\_vector\_size\_at\_inference(self):}
+\DoxyCodeLine{00312\ \ \ \ \ size\ =\ 5000}
+\DoxyCodeLine{00313\ \ \ \ \ num\_indices\ =\ 250}
+\DoxyCodeLine{00314\ \ \ \ \ all\_indices\ =\ np.arange(size)}
+\DoxyCodeLine{00315\ \ \ \ \ rand\_indices\ =\ np.random.permutation(all\_indices)[0:num\_indices]}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ expected\_output\ =\ np.zeros(size,\ dtype=np.float32)}
+\DoxyCodeLine{00318\ \ \ \ \ expected\_output[rand\_indices]\ =\ 1.}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ tf\_all\_indices\ =\ tf.placeholder(tf.int32)}
+\DoxyCodeLine{00321\ \ \ \ \ tf\_rand\_indices\ =\ tf.constant(rand\_indices)}
+\DoxyCodeLine{00322\ \ \ \ \ indicator\ =\ ops.indices\_to\_dense\_vector(tf\_rand\_indices,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(tf\_all\_indices)[0])}
+\DoxyCodeLine{00324\ \ \ \ \ feed\_dict\ =\ \{tf\_all\_indices:\ all\_indices\}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ output\ =\ sess.run(indicator,\ feed\_dict=feed\_dict)}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ self.assertAllEqual(output,\ expected\_output)}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ self.assertEqual(output.dtype,\ expected\_output.dtype)}
+\DoxyCodeLine{00330\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

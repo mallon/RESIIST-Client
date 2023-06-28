@@ -1,0 +1,1088 @@
+\doxysection{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}
+\hypertarget{object__detection__evaluation__test_8py_source}{}\label{object__detection__evaluation__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/object\_detection\_evaluation\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/object\_detection\_evaluation\_test.py}}
+\mbox{\hyperlink{object__detection__evaluation__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1object__detection__evaluation__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.utils.object\_detection\_evaluation."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ absl.testing\ \textcolor{keyword}{import}\ parameterized}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00023}00023\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00024}00024\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00025}00025\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection\ \textcolor{keyword}{import}\ eval\_util}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00027}00027\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ standard\_fields}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00028}00028\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ object\_detection\_evaluation}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test}{00031}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test}{OpenImagesV2EvaluationTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00033}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test_a635597274a0bf32c46cd821fa5f2c823}{00033}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test_a635597274a0bf32c46cd821fa5f2c823}{test\_returns\_correct\_metric\_values}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00034}00034\ \ \ \ \ categories\ =\ [\{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00037}00037\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00040}00040\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00043}00043\ \ \ \ \ \}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00045}00045\ \ \ \ \ oiv2\_evaluator\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_evaluator}{object\_detection\_evaluation.OpenImagesDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00047}00047\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00048}00048\ \ \ \ \ groundtruth\_boxes1\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00050}00050\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00051}00051\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key1,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00058}00058\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00059}00059\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00060}00060\ \ \ \ \ groundtruth\_boxes2\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00062}00062\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00063}00063\ \ \ \ \ groundtruth\_is\_group\_of\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00064}00064\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key2,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00071}00071\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00072}00072\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00073}00073\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00074}00074\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00075}00075\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key3,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00080}00080\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00081}00081\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00082}00082\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00083}00083\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00086}00086\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00087}00087\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00088}00088\ \ \ \ \ oiv2\_evaluator.add\_single\_detected\_image\_info(image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00095}00095\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00096}00096\ \ \ \ \ metrics\ =\ oiv2\_evaluator.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00097}00097\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00099}00099\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00101}00101\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00103}00103\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'OpenImagesV2\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00105}00105\ \ \ \ \ oiv2\_evaluator.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00106}00106\ \ \ \ \ self.assertFalse(oiv2\_evaluator.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00109}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test}{00109}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test}{OpenImagesChallengeEvaluatorTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00111}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a5665e2dd5189f67f6ada504a0c25a197}{00111}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a5665e2dd5189f67f6ada504a0c25a197}{test\_returns\_correct\_detection\_metric\_values}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00112}00112\ \ \ \ \ categories\ =\ [\{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00115}00115\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00118}00118\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00121}00121\ \ \ \ \ \}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00122}00122\ \ \ \ \ oivchallenge\_evaluator\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator}{object\_detection\_evaluation.OpenImagesChallengeEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ categories,\ evaluate\_masks=\textcolor{keyword}{False},\ group\_of\_weight=0.5))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00126}00126\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00127}00127\ \ \ \ \ groundtruth\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00129}00129\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00130}00130\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00131}00131\ \ \ \ \ groundtruth\_verified\_labels\ =\ np.array([1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00132}00132\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_image\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_verified\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00143}00143\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00144}00144\ \ \ \ \ groundtruth\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00146}00146\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00147}00147\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00148}00148\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00157}00157\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00158}00158\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00159}00159\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00160}00160\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00167}00167\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00168}00168\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00170}00170\ \ \ \ \ detected\_class\_labels\ =\ np.array([2,\ 2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00171}00171\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00172}00172\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00181}00181\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00182}00182\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 11,\ 11]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00186}00186\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00187}00187\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.5,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00188}00188\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00197}00197\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00198}00198\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00199}00199\ \ \ \ \ detected\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00200}00200\ \ \ \ \ detected\_scores\ =\ np.array([0.5],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00201}00201\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00210}00210\ \ \ \ \ metrics\ =\ oivchallenge\_evaluator.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00211}00211\ \ \ \ \ expected\_metric\_name\ =\ \textcolor{stringliteral}{'OpenImagesDetectionChallenge'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00213}00213\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/dog'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ 0.3333333333)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00217}00217\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/elephant'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ 0.333333333333)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00221}00221\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/cat'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ 0.142857142857)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00225}00225\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ 0.269841269)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00229}00229\ \ \ \ \ oivchallenge\_evaluator.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00230}00230\ \ \ \ \ self.assertFalse(oivchallenge\_evaluator.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00232}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a187c9b7f321048c2497f486981d2cab9}{00232}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a187c9b7f321048c2497f486981d2cab9}{test\_returns\_correct\_instance\_segm\_metric\_values}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00233}00233\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},\ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00234}00234\ \ \ \ \ oivchallenge\_evaluator\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator}{object\_detection\_evaluation.OpenImagesChallengeEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ categories,\ evaluate\_masks=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00238}00238\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00239}00239\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00241}00241\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 2,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00242}00242\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00243}00243\ \ \ \ \ groundtruth\_verified\_labels\ =\ np.array([1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00244}00244\ \ \ \ \ groundtruth\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00246}00246\ \ \ \ \ zero\_mask\ =\ np.array([[0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00248}00248\ \ \ \ \ groundtruth\_masks\ =\ np.stack([groundtruth\_mask\_0,\ zero\_mask,\ zero\_mask],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00250}00250\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_image\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_verified\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00263}00263\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00264}00264\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00265}00265\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00266}00266\ \ \ \ \ groundtruth\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00268}00268\ \ \ \ \ groundtruth\_masks\ =\ np.stack([groundtruth\_mask\_0],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00269}00269\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00278}00278\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00279}00279\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 2,\ 2],\ [2,\ 2,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00280}00280\ \ \ \ \ detection\_mask\_0\ =\ np.array([[1,\ 1,\ 0,\ 0],\ [1,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00282}00282\ \ \ \ \ detected\_masks\ =\ np.stack([detection\_mask\_0,\ zero\_mask],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00283}00283\ \ \ \ \ detected\_class\_labels\ =\ np.array([2,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00284}00284\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00285}00285\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00296}00296\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00297}00297\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00298}00298\ \ \ \ \ detected\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00299}00299\ \ \ \ \ detected\_scores\ =\ np.array([0.5],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00300}00300\ \ \ \ \ detected\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00302}00302\ \ \ \ \ detected\_masks\ =\ np.stack([detected\_mask\_0],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00303}00303\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00314}00314\ \ \ \ \ metrics\ =\ oivchallenge\_evaluator.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00315}00315\ \ \ \ \ expected\_metric\_name\ =\ \textcolor{stringliteral}{'OpenImagesInstanceSegmentationChallenge'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00317}00317\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/dog'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ 1.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00320}00320\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00321}00321\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/cat'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ 0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00324}00324\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00325}00325\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_Precision/mAP@0.5IOU'}],\ 0.5)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00327}00327\ \ \ \ \ oivchallenge\_evaluator.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00328}00328\ \ \ \ \ self.assertFalse(oivchallenge\_evaluator.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00330}00330\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00331}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test}{00331}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test}{PascalEvaluationTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00333}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a6dd913a3ae8976e784e4f7dbe22c36b2}{00333}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a6dd913a3ae8976e784e4f7dbe22c36b2}{test\_returns\_correct\_metric\_values\_on\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00334}00334\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00337}00337\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00338}00338\ \ \ \ \ pascal\_evaluator\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_detection_evaluator}{object\_detection\_evaluation.PascalDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00340}00340\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00341}00341\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00343}00343\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00344}00344\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00347}00347\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00348}00348\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00350}00350\ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00351}00351\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00352}00352\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00354}00354\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00355}00355\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00356}00356\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ image\_key2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00363}00363\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00364}00364\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00365}00365\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00366}00366\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ image\_key3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00372}00372\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00373}00373\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00374}00374\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00375}00375\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00376}00376\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00377}00377\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00378}00378\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00379}00379\ \ \ \ \ pascal\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ image\_key,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \{standard\_fields.DetectionResultFields.detection\_boxes:\ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ \ detected\_class\_labels\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00387}00387\ \ \ \ \ metrics\ =\ pascal\_evaluator.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00388}00388\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00390}00390\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00392}00392\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalBoxes\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00394}00394\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'PascalBoxes\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00396}00396\ \ \ \ \ pascal\_evaluator.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00397}00397\ \ \ \ \ self.assertFalse(pascal\_evaluator.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00399}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a9e2f278641f2009c24ccc37b0a184428}{00399}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_a9e2f278641f2009c24ccc37b0a184428}{test\_returns\_correct\_metric\_values\_on\_masks}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00400}00400\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00403}00403\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00404}00404\ \ \ \ \ pascal\_evaluator\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00405}00405\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_instance_segmentation_evaluator}{object\_detection\_evaluation.PascalInstanceSegmentationEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ categories))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00407}00407\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00408}00408\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00410}00410\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00411}00411\ \ \ \ \ groundtruth\_masks\_1\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00414}00414\ \ \ \ \ groundtruth\_masks\_1\_1\ =\ np.array([[0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00417}00417\ \ \ \ \ groundtruth\_masks\_1\_2\ =\ np.array([[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00420}00420\ \ \ \ \ groundtruth\_masks1\ =\ np.stack(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00421}00421\ \ \ \ \ \ \ \ \ [groundtruth\_masks\_1\_0,\ groundtruth\_masks\_1\_1,\ groundtruth\_masks\_1\_2],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00422}00422\ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00424}00424\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ image\_key1,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00434}00434\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00435}00435\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00436}00436\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00438}00438\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00439}00439\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00440}00440\ \ \ \ \ groundtruth\_masks\_2\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00443}00443\ \ \ \ \ groundtruth\_masks\_2\_1\ =\ np.array([[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00446}00446\ \ \ \ \ groundtruth\_masks\_2\_2\ =\ np.array([[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00449}00449\ \ \ \ \ groundtruth\_masks2\ =\ np.stack(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ [groundtruth\_masks\_2\_0,\ groundtruth\_masks\_2\_1,\ groundtruth\_masks\_2\_2],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00451}00451\ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00452}00452\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00453}00453\ \ \ \ \ \ \ \ \ image\_key2,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00463}00463\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00464}00464\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00465}00465\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00466}00466\ \ \ \ \ groundtruth\_masks\_3\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00469}00469\ \ \ \ \ groundtruth\_masks3\ =\ np.stack([groundtruth\_masks\_3\_0],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00470}00470\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00471}00471\ \ \ \ \ \ \ \ \ image\_key3,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00478}00478\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00479}00479\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00480}00480\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00481}00481\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00482}00482\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00483}00483\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00484}00484\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00485}00485\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00486}00486\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00487}00487\ \ \ \ \ detected\_masks\_0\ =\ np.array([[1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00490}00490\ \ \ \ \ detected\_masks\_1\ =\ np.array([[1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00493}00493\ \ \ \ \ detected\_masks\_2\ =\ np.array([[0,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0]],\ dtype=np.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00496}00496\ \ \ \ \ detected\_masks\ =\ np.stack(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00497}00497\ \ \ \ \ \ \ \ \ [detected\_masks\_0,\ detected\_masks\_1,\ detected\_masks\_2],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00499}00499\ \ \ \ \ pascal\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00505}00505\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00511}00511\ \ \ \ \ metrics\ =\ pascal\_evaluator.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00513}00513\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00515}00515\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00516}00516\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00517}00517\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'PascalMasks\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00519}00519\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'PascalMasks\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00521}00521\ \ \ \ \ pascal\_evaluator.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00522}00522\ \ \ \ \ self.assertFalse(pascal\_evaluator.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00524}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_acc223468bdff641458a9009710db61b8}{00524}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_pascal_evaluation_test_acc223468bdff641458a9009710db61b8}{test\_value\_error\_on\_duplicate\_images}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00525}00525\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00528}00528\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00529}00529\ \ \ \ \ pascal\_evaluator\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_detection_evaluator}{object\_detection\_evaluation.PascalDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00531}00531\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00532}00532\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00534}00534\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00535}00535\ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00536}00536\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00537}00537\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00538}00538\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00539}00539\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00540}00540\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00541}00541\ \ \ \ \ \ \ pascal\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00547}00547\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00548}00548\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00549}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test}{00549}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test}{WeightedPascalEvaluationTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00550}00550\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00551}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a71dbf85fafd8dc7ad6e369d3a783254a}{00551}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a71dbf85fafd8dc7ad6e369d3a783254a}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00552}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a2bd4ef1b4a5d15edd3523873c3c7fd62}{00552}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a2bd4ef1b4a5d15edd3523873c3c7fd62}{categories}}\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 3,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}\}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00556}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a9cd221b21c56f9167c13aee589a371b8}{00556}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a9cd221b21c56f9167c13aee589a371b8}{create\_and\_add\_common\_ground\_truth}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00557}00557\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00558}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{00558}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00559}00559\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_detection_evaluator}{object\_detection\_evaluation.WeightedPascalDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a2bd4ef1b4a5d15edd3523873c3c7fd62}{categories}}))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00562}00562\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00563}00563\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00565}00565\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00566}00566\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00567}00567\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00568}00568\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00569}00569\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00570}00570\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00571}00571\ \ \ \ \ \textcolor{comment}{\#\ add\ 'img2'\ separately}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00572}00572\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00573}00573\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00574}00574\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00575}00575\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00576}00576\ \ \ \ \ \ \ \ \ image\_key3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00577}00577\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00578}00578\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00579}00579\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00580}00580\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00581}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5dfe96e39184ba85e0a4c5db7d96f5af}{00581}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5dfe96e39184ba85e0a4c5db7d96f5af}{add\_common\_detected}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00582}00582\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00583}00583\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00586}00586\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00587}00587\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00588}00588\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00589}00589\ \ \ \ \ \ \ \ \ image\_key,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00590}00590\ \ \ \ \ \ \ \ \ \{standard\_fields.DetectionResultFields.detection\_boxes:\ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00592}00592\ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00594}00594\ \ \ \ \ \ \ \ \ \ detected\_class\_labels\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00595}00595\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00596}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a8162b07486d1bd372e6d7458357190b0}{00596}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a8162b07486d1bd372e6d7458357190b0}{test\_returns\_correct\_metric\_values}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00597}00597\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a9cd221b21c56f9167c13aee589a371b8}{create\_and\_add\_common\_ground\_truth}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00598}00598\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00599}00599\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00601}00601\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00602}00602\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00603}00603\ \ \ \ \ \ \ \ \ image\_key2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00604}00604\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00605}00605\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00606}00606\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00607}00607\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00608}00608\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5dfe96e39184ba85e0a4c5db7d96f5af}{add\_common\_detected}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00609}00609\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00610}00610\ \ \ \ \ metrics\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00611}00611\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00612}00612\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00614}00614\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00615}00615\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00617}00617\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00618}00618\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.5\ /\ 4)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00620}00620\ \ \ \ \ self.assertAlmostEqual(metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.\ /\ (4\ +\ 1\ +\ 2)\ /\ 3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00623}00623\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00624}00624\ \ \ \ \ self.assertFalse(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00625}00625\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00626}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a3d654702ea5e89124ef4a3075fa4ba77}{00626}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a3d654702ea5e89124ef4a3075fa4ba77}{test\_returns\_correct\_metric\_values\_with\_difficult\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00627}00627\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a9cd221b21c56f9167c13aee589a371b8}{create\_and\_add\_common\_ground\_truth}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00628}00628\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00629}00629\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00631}00631\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00632}00632\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00633}00633\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00634}00634\ \ \ \ \ \ \ \ \ image\_key2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00635}00635\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00636}00636\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00637}00637\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00638}00638\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00639}00639\ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00640}00640\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00641}00641\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5dfe96e39184ba85e0a4c5db7d96f5af}{add\_common\_detected}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00642}00642\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00643}00643\ \ \ \ \ metrics\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00644}00644\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00645}00645\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00647}00647\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00648}00648\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00650}00650\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00651}00651\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00652}00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.5\ /\ 3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00653}00653\ \ \ \ \ self.assertAlmostEqual(metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00655}00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.\ /\ (3\ +\ 1\ +\ 2)\ /\ 3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00656}00656\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00657}00657\ \ \ \ \ self.assertFalse(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00659}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_ab9e9eab66db6495386d2c2d29e64f8ce}{00659}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_ab9e9eab66db6495386d2c2d29e64f8ce}{test\_value\_error\_on\_duplicate\_images}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00660}00660\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00661}00661\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00662}00662\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_detection_evaluator}{object\_detection\_evaluation.WeightedPascalDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a2bd4ef1b4a5d15edd3523873c3c7fd62}{categories}}))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00664}00664\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00665}00665\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00667}00667\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00668}00668\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00669}00669\ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00670}00670\ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:\ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00671}00671\ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00672}00672\ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00673}00673\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00674}00674\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_weighted_pascal_evaluation_test_a5fcd0b3a822ee6bf4e9c3cb473355c25}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ image\_key1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \{standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1\})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00680}00680\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00682}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test}{00682}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test}{PrecisionAtRecallEvaluationTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00683}00683\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00684}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_acb5136371ce7178d09f7d19e52c56b94}{00684}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_acb5136371ce7178d09f7d19e52c56b94}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00685}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ab6e29d6fef4bbe20a9173856f3bc78ea}{00685}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ab6e29d6fef4bbe20a9173856f3bc78ea}{categories}}\ =\ [\{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00686}00686\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00687}00687\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00688}00688\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00689}00689\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00690}00690\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00691}00691\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00692}00692\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00693}00693\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00694}00694\ \ \ \ \ \}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00695}00695\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00696}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ac1a97aa91ede80d99e2ae8b863e2654f}{00696}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ac1a97aa91ede80d99e2ae8b863e2654f}{create\_and\_add\_common\_ground\_truth}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00697}00697\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00698}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{00698}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00699}00699\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_precision_at_recall_detection_evaluator}{object\_detection\_evaluation.PrecisionAtRecallDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ab6e29d6fef4bbe20a9173856f3bc78ea}{categories}},\ recall\_lower\_bound=0.0,\ recall\_upper\_bound=0.5))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00701}00701\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00702}00702\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00703}00703\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00705}00705\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00706}00706\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00707}00707\ \ \ \ \ \ \ \ \ image\_key1,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00710}00710\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00712}00712\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00713}00713\ \ \ \ \ \textcolor{comment}{\#\ add\ 'img2'\ separately}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00714}00714\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00715}00715\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00716}00716\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00717}00717\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00718}00718\ \ \ \ \ \ \ \ \ image\_key3,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00721}00721\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00722}00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00723}00723\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00724}00724\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00725}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a0aaace5e17f97e4b631adc7f6cb88773}{00725}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a0aaace5e17f97e4b631adc7f6cb88773}{add\_common\_detected}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00726}00726\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00727}00727\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00728}00728\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00729}00729\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00730}00730\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00731}00731\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00732}00732\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00733}00733\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00735}00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00736}00736\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00738}00738\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00739}00739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00740}00740\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00741}00741\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00742}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ad4c641ddc20d856a0abe9ceec7d203a6}{00742}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ad4c641ddc20d856a0abe9ceec7d203a6}{test\_returns\_correct\_metric\_values}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00743}00743\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ac1a97aa91ede80d99e2ae8b863e2654f}{create\_and\_add\_common\_ground\_truth}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00744}00744\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00745}00745\ \ \ \ \ groundtruth\_boxes2\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00746}00746\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00747}00747\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00748}00748\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00749}00749\ \ \ \ \ \ \ \ \ image\_key2,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00752}00752\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00754}00754\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00755}00755\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a0aaace5e17f97e4b631adc7f6cb88773}{add\_common\_detected}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00756}00756\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00757}00757\ \ \ \ \ metrics\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00758}00758\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00759}00759\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00761}00761\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00762}00762\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00764}00764\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00765}00765\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.5\ /\ 4)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00767}00767\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00768}00768\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Precision/mAP@0.5IOU@[0.0,0.5]Recall'}],\ 1.\ /\ (3\ +\ 1\ +\ 2)\ /\ 4)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00770}00770\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00771}00771\ \ \ \ \ self.assertFalse(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00772}00772\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00773}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a10aaa1b2c946e9b7cc59f486fdd6aabc}{00773}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a10aaa1b2c946e9b7cc59f486fdd6aabc}{test\_returns\_correct\_metric\_values\_with\_difficult\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00774}00774\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ac1a97aa91ede80d99e2ae8b863e2654f}{create\_and\_add\_common\_ground\_truth}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00775}00775\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00776}00776\ \ \ \ \ groundtruth\_boxes2\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00777}00777\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00778}00778\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00779}00779\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00780}00780\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00781}00781\ \ \ \ \ \ \ \ \ image\_key2,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00782}00782\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00783}00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00784}00784\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00785}00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00786}00786\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_difficult:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00787}00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00788}00788\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00789}00789\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a0aaace5e17f97e4b631adc7f6cb88773}{add\_common\_detected}}()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00790}00790\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00791}00791\ \ \ \ \ metrics\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00792}00792\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00793}00793\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00794}00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00795}00795\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00796}00796\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00797}00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00798}00798\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00799}00799\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00800}00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.5\ /\ 3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00801}00801\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00802}00802\ \ \ \ \ \ \ \ \ metrics[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_metric\_prefix\ +}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00803}00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Precision/mAP@0.5IOU@[0.0,0.5]Recall'}],\ 1.\ /\ (3\ +\ 1\ +\ 2)\ /\ 3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00804}00804\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.clear()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00805}00805\ \ \ \ \ self.assertFalse(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.\_image\_ids)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00806}00806\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00807}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a35cd8a9790103c918dbd3b4f9fb8e2c7}{00807}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a35cd8a9790103c918dbd3b4f9fb8e2c7}{test\_value\_error\_on\_duplicate\_images}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00808}00808\ \ \ \ \ \textcolor{comment}{\#\ \ Add\ groundtruth}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00809}00809\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}\ =\ (}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00810}00810\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_precision_at_recall_detection_evaluator}{object\_detection\_evaluation.PrecisionAtRecallDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_ab6e29d6fef4bbe20a9173856f3bc78ea}{categories}},\ recall\_lower\_bound=0.0,\ recall\_upper\_bound=0.5))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00812}00812\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00813}00813\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00815}00815\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00816}00816\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00817}00817\ \ \ \ \ \ \ \ \ image\_key1,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00822}00822\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00823}00823\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00824}00824\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_precision_at_recall_evaluation_test_a7ac77353f0c0e9424dc5eae7740941f8}{wp\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ image\_key1,\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00827}00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00829}00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00830}00830\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00831}00831\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00832}00832\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00833}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test}{00833}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test}{ObjectDetectionEvaluationTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00834}00834\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00835}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a9ea10b57253ee328272ac30590c0f0af}{00835}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a9ea10b57253ee328272ac30590c0f0af}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00836}00836\ \ \ \ \ num\_groundtruth\_classes\ =\ 3}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00837}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{00837}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluation}{object\_detection\_evaluation.ObjectDetectionEvaluation}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00838}00838\ \ \ \ \ \ \ \ \ num\_groundtruth\_classes)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00839}00839\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00840}00840\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00841}00841\ \ \ \ \ groundtruth\_boxes1\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00842}00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00843}00843\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([0,\ 2,\ 0],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00844}00844\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00845}00845\ \ \ \ \ \ \ \ \ image\_key1,\ groundtruth\_boxes1,\ groundtruth\_class\_labels1)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00846}00846\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00847}00847\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00848}00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00849}00849\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([0,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00850}00850\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00851}00851\ \ \ \ \ groundtruth\_is\_group\_of\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00852}00852\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00853}00853\ \ \ \ \ \ \ \ \ image\_key2,\ groundtruth\_boxes2,\ groundtruth\_class\_labels2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00854}00854\ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2,\ groundtruth\_is\_group\_of\_list2)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00855}00855\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00856}00856\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00857}00857\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00858}00858\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00859}00859\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00860}00860\ \ \ \ \ \ \ \ \ image\_key3,\ groundtruth\_boxes3,\ groundtruth\_class\_labels3)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00861}00861\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00862}00862\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00863}00863\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00864}00864\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00865}00865\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00866}00866\ \ \ \ \ detected\_class\_labels\ =\ np.array([0,\ 0,\ 2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00867}00867\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00868}00868\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00869}00869\ \ \ \ \ \ \ \ \ image\_key,\ detected\_boxes,\ detected\_scores,\ detected\_class\_labels)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00870}00870\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00871}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_ae6114f40360381fc986575752ef62f75}{00871}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_ae6114f40360381fc986575752ef62f75}{test\_value\_error\_on\_zero\_classes}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00872}00872\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00873}00873\ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluation}{object\_detection\_evaluation.ObjectDetectionEvaluation}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00874}00874\ \ \ \ \ \ \ \ \ \ \ num\_groundtruth\_classes=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00875}00875\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00876}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_ae441b9e65470f99c0bf35555a09d9112}{00876}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_ae441b9e65470f99c0bf35555a09d9112}{test\_add\_single\_ground\_truth\_image\_info}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00877}00877\ \ \ \ \ expected\_num\_gt\_instances\_per\_class\ =\ np.array([3,\ 1,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00878}00878\ \ \ \ \ expected\_num\_gt\_imgs\_per\_class\ =\ np.array([2,\ 1,\ 2],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00879}00879\ \ \ \ \ self.assertTrue(np.array\_equal(expected\_num\_gt\_instances\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00880}00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.num\_gt\_instances\_per\_class))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00881}00881\ \ \ \ \ self.assertTrue(np.array\_equal(expected\_num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00882}00882\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.num\_gt\_imgs\_per\_class))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00883}00883\ \ \ \ \ groundtruth\_boxes2\ =\ np.array([[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00884}00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00885}00885\ \ \ \ \ self.assertTrue(np.allclose(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.groundtruth\_boxes[\textcolor{stringliteral}{'img2'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00886}00886\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00887}00887\ \ \ \ \ groundtruth\_is\_difficult\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00888}00888\ \ \ \ \ self.assertTrue(np.allclose(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00889}00889\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.groundtruth\_is\_difficult\_list[\textcolor{stringliteral}{'img2'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00890}00890\ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list2))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00891}00891\ \ \ \ \ groundtruth\_is\_group\_of\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00892}00892\ \ \ \ \ self.assertTrue(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00893}00893\ \ \ \ \ \ \ \ \ np.allclose(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.groundtruth\_is\_group\_of\_list[\textcolor{stringliteral}{'img2'}],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00894}00894\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list2))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00895}00895\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00896}00896\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([0,\ 2,\ 0],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00897}00897\ \ \ \ \ self.assertTrue(np.array\_equal(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.groundtruth\_class\_labels[}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00898}00898\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'img1'}],\ groundtruth\_class\_labels1))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00899}00899\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00900}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a8ed0d24bfdc5b25d03bf8fc96338960e}{00900}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a8ed0d24bfdc5b25d03bf8fc96338960e}{test\_add\_single\_detected\_image\_info}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00901}00901\ \ \ \ \ expected\_scores\_per\_class\ =\ [[np.array([0.8,\ 0.7],\ dtype=float)],\ [],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00902}00902\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [np.array([0.9],\ dtype=float)]]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00903}00903\ \ \ \ \ expected\_tp\_fp\_labels\_per\_class\ =\ [[np.array([0,\ 1],\ dtype=bool)],\ [],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00904}00904\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [np.array([0],\ dtype=bool)]]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00905}00905\ \ \ \ \ expected\_num\_images\_correctly\_detected\_per\_class\ =\ np.array([0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00906}00906\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00907}00907\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.num\_class):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00908}00908\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(len(expected\_scores\_per\_class[i])):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00909}00909\ \ \ \ \ \ \ \ \ self.assertTrue(np.allclose(expected\_scores\_per\_class[i][j],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00910}00910\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.scores\_per\_class[i][j]))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00911}00911\ \ \ \ \ \ \ \ \ self.assertTrue(np.array\_equal(expected\_tp\_fp\_labels\_per\_class[i][}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00912}00912\ \ \ \ \ \ \ \ \ \ \ \ \ j],\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.tp\_fp\_labels\_per\_class[i][j]))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00913}00913\ \ \ \ \ self.assertTrue(np.array\_equal(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00914}00914\ \ \ \ \ \ \ \ \ expected\_num\_images\_correctly\_detected\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00915}00915\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.num\_images\_correctly\_detected\_per\_class))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00916}00916\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00917}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a05273871a0de35ea72330287d49009fd}{00917}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a05273871a0de35ea72330287d49009fd}{test\_evaluate}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00918}00918\ \ \ \ \ (average\_precision\_per\_class,\ mean\_ap,\ precisions\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00919}00919\ \ \ \ \ \ recalls\_per\_class,\ corloc\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00920}00920\ \ \ \ \ \ mean\_corloc)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.evaluate()}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00921}00921\ \ \ \ \ expected\_precisions\_per\_class\ =\ [np.array([0,\ 0.5],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00922}00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00923}00923\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([0],\ dtype=float)]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00924}00924\ \ \ \ \ expected\_recalls\_per\_class\ =\ [}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00925}00925\ \ \ \ \ \ \ \ \ np.array([0,\ 1.\ /\ 3.],\ dtype=float),\ np.array([],\ dtype=float),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00926}00926\ \ \ \ \ \ \ \ \ np.array([0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00927}00927\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00928}00928\ \ \ \ \ expected\_average\_precision\_per\_class\ =\ np.array([1.\ /\ 6.,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00929}00929\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00930}00930\ \ \ \ \ expected\_corloc\_per\_class\ =\ np.array([0,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00931}00931\ \ \ \ \ expected\_mean\_ap\ =\ 1.\ /\ 18}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00932}00932\ \ \ \ \ expected\_mean\_corloc\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00933}00933\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluation_test_a137397bd2df9ff3ea7a103f5bf55725f}{od\_eval}}.num\_class):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00934}00934\ \ \ \ \ \ \ self.assertTrue(np.allclose(expected\_precisions\_per\_class[i],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00935}00935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ precisions\_per\_class[i]))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00936}00936\ \ \ \ \ \ \ self.assertTrue(np.allclose(expected\_recalls\_per\_class[i],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00937}00937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ recalls\_per\_class[i]))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00938}00938\ \ \ \ \ self.assertTrue(np.allclose(expected\_average\_precision\_per\_class,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00939}00939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ average\_precision\_per\_class))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00940}00940\ \ \ \ \ self.assertTrue(np.allclose(expected\_corloc\_per\_class,\ corloc\_per\_class))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00941}00941\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_ap,\ mean\_ap)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00942}00942\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_corloc,\ mean\_corloc)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00943}00943\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00944}00944\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00945}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test}{00945}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test}{ObjectDetectionEvaluatorTest}}(tf.test.TestCase,\ parameterized.TestCase):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00946}00946\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00947}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_ae86184868d9942ef5a9aa46e99ed6984}{00947}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_ae86184868d9942ef5a9aa46e99ed6984}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00948}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a87fdafbb535f16ab307aa8d025c3c2d5}{00948}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a87fdafbb535f16ab307aa8d025c3c2d5}{categories}}\ =\ [\{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00949}00949\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00950}00950\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'person'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00951}00951\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00952}00952\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00953}00953\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00954}00954\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00955}00955\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00956}00956\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00957}00957\ \ \ \ \ \}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00958}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a3f3d6136068cf40a46ab4a5930cec397}{00958}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a3f3d6136068cf40a46ab4a5930cec397}{od\_eval}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator}{object\_detection\_evaluation.ObjectDetectionEvaluator}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00959}00959\ \ \ \ \ \ \ \ \ categories=self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a87fdafbb535f16ab307aa8d025c3c2d5}{categories}})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00960}00960\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00961}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_af195e7fc01d549ec43620db9d9839db2}{00961}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_af195e7fc01d549ec43620db9d9839db2}{\_make\_evaluation\_dict}}(self,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00962}00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resized\_groundtruth\_masks=False,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00963}00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch\_size=1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_gt\_boxes=None,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00965}00965\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale\_to\_absolute=False):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00966}00966\ \ \ \ \ input\_data\_fields\ =\ standard\_fields.InputDataFields}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00967}00967\ \ \ \ \ detection\_fields\ =\ standard\_fields.DetectionResultFields}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00968}00968\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00969}00969\ \ \ \ \ image\ =\ tf.zeros(shape=[batch\_size,\ 20,\ 20,\ 3],\ dtype=tf.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00970}00970\ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00971}00971\ \ \ \ \ \ \ key\ =\ tf.constant(\textcolor{stringliteral}{'image1'})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00972}00972\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00973}00973\ \ \ \ \ \ \ key\ =\ tf.constant([str(i)\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(batch\_size)])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00974}00974\ \ \ \ \ detection\_boxes\ =\ tf.concat([}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00975}00975\ \ \ \ \ \ \ \ \ tf.tile(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00976}00976\ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant([[[0.,\ 0.,\ 1.,\ 1.]]]),\ multiples=[batch\_size\ -\/\ 1,\ 1,\ 1}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00977}00977\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00978}00978\ \ \ \ \ \ \ \ \ tf.constant([[[0.,\ 0.,\ 0.5,\ 0.5]]])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00979}00979\ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00980}00980\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00981}00981\ \ \ \ \ detection\_scores\ =\ tf.concat([}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00982}00982\ \ \ \ \ \ \ \ \ tf.tile(tf.constant([[0.5]]),\ multiples=[batch\_size\ -\/\ 1,\ 1]),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00983}00983\ \ \ \ \ \ \ \ \ tf.constant([[0.8]])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00984}00984\ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00985}00985\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00986}00986\ \ \ \ \ detection\_classes\ =\ tf.tile(tf.constant([[0]]),\ multiples=[batch\_size,\ 1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00987}00987\ \ \ \ \ detection\_masks\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00988}00988\ \ \ \ \ \ \ \ \ tf.ones(shape=[1,\ 2,\ 20,\ 20],\ dtype=tf.float32),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00989}00989\ \ \ \ \ \ \ \ \ multiples=[batch\_size,\ 1,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00990}00990\ \ \ \ \ groundtruth\_boxes\ =\ tf.constant([[0.,\ 0.,\ 1.,\ 1.]])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00991}00991\ \ \ \ \ groundtruth\_classes\ =\ tf.constant([1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00992}00992\ \ \ \ \ groundtruth\_instance\_masks\ =\ tf.ones(shape=[1,\ 20,\ 20],\ dtype=tf.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00993}00993\ \ \ \ \ num\_detections\ =\ tf.ones([batch\_size])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00994}00994\ \ \ \ \ \textcolor{keywordflow}{if}\ resized\_groundtruth\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00995}00995\ \ \ \ \ \ \ groundtruth\_instance\_masks\ =\ tf.ones(shape=[1,\ 10,\ 10],\ dtype=tf.uint8)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00996}00996\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00997}00997\ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00998}00998\ \ \ \ \ \ \ groundtruth\_boxes\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l00999}00999\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(groundtruth\_boxes,\ 0),\ multiples=[batch\_size,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01000}01000\ \ \ \ \ \ \ groundtruth\_classes\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01001}01001\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(groundtruth\_classes,\ 0),\ multiples=[batch\_size,\ 1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01002}01002\ \ \ \ \ \ \ groundtruth\_instance\_masks\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01003}01003\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(groundtruth\_instance\_masks,\ 0),}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01004}01004\ \ \ \ \ \ \ \ \ \ \ multiples=[batch\_size,\ 1,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01005}01005\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01006}01006\ \ \ \ \ detections\ =\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01007}01007\ \ \ \ \ \ \ \ \ detection\_fields.detection\_boxes:\ detection\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01008}01008\ \ \ \ \ \ \ \ \ detection\_fields.detection\_scores:\ detection\_scores,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01009}01009\ \ \ \ \ \ \ \ \ detection\_fields.detection\_classes:\ detection\_classes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01010}01010\ \ \ \ \ \ \ \ \ detection\_fields.detection\_masks:\ detection\_masks,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01011}01011\ \ \ \ \ \ \ \ \ detection\_fields.num\_detections:\ num\_detections}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01012}01012\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01013}01013\ \ \ \ \ groundtruth\ =\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01014}01014\ \ \ \ \ \ \ \ \ input\_data\_fields.groundtruth\_boxes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01015}01015\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01016}01016\ \ \ \ \ \ \ \ \ input\_data\_fields.groundtruth\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01017}01017\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_classes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01018}01018\ \ \ \ \ \ \ \ \ input\_data\_fields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01019}01019\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_instance\_masks,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01020}01020\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01021}01021\ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01022}01022\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ eval\_util.result\_dict\_for\_batched\_example(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01024}01024\ \ \ \ \ \ \ \ \ \ \ key,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01025}01025\ \ \ \ \ \ \ \ \ \ \ detections,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ groundtruth,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01027}01027\ \ \ \ \ \ \ \ \ \ \ scale\_to\_absolute=scale\_to\_absolute,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ max\_gt\_boxes=max\_gt\_boxes)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01029}01029\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01030}01030\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ eval\_util.result\_dict\_for\_single\_example(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01031}01031\ \ \ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01032}01032\ \ \ \ \ \ \ \ \ \ \ key,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01033}01033\ \ \ \ \ \ \ \ \ \ \ detections,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01034}01034\ \ \ \ \ \ \ \ \ \ \ groundtruth,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01035}01035\ \ \ \ \ \ \ \ \ \ \ scale\_to\_absolute=scale\_to\_absolute)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01036}01036\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01037}01037\ \ \ \textcolor{preprocessor}{@parameterized.parameters}(\{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01038}01038\ \ \ \ \ \ \ \textcolor{stringliteral}{'batch\_size'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01039}01039\ \ \ \ \ \ \ \textcolor{stringliteral}{'expected\_map'}:\ 0,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01040}01040\ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_gt\_boxes'}:\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01041}01041\ \ \ \ \ \ \ \textcolor{stringliteral}{'scale\_to\_absolute'}:\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01042}01042\ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01043}01043\ \ \ \ \ \ \ \textcolor{stringliteral}{'batch\_size'}:\ 8,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01044}01044\ \ \ \ \ \ \ \textcolor{stringliteral}{'expected\_map'}:\ 0.765625,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01045}01045\ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_gt\_boxes'}:\ [1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01046}01046\ \ \ \ \ \ \ \textcolor{stringliteral}{'scale\_to\_absolute'}:\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01047}01047\ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01048}01048\ \ \ \ \ \ \ \textcolor{stringliteral}{'batch\_size'}:\ 1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01049}01049\ \ \ \ \ \ \ \textcolor{stringliteral}{'expected\_map'}:\ 0,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01050}01050\ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_gt\_boxes'}:\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01051}01051\ \ \ \ \ \ \ \textcolor{stringliteral}{'scale\_to\_absolute'}:\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01052}01052\ \ \ \},\ \{}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01053}01053\ \ \ \ \ \ \ \textcolor{stringliteral}{'batch\_size'}:\ 8,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01054}01054\ \ \ \ \ \ \ \textcolor{stringliteral}{'expected\_map'}:\ 0.765625,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01055}01055\ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_gt\_boxes'}:\ [1],}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01056}01056\ \ \ \ \ \ \ \textcolor{stringliteral}{'scale\_to\_absolute'}:\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01057}01057\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01058}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a981b01ce0ed4a79fefdd24f09640f9fb}{01058}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a981b01ce0ed4a79fefdd24f09640f9fb}{test\_get\_estimator\_eval\_metric\_ops}}(self,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01059}01059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch\_size=1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01060}01060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\_map=1,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01061}01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_gt\_boxes=None,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale\_to\_absolute=False):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01063}01063\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01064}01064\ \ \ \ \ eval\_dict\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_af195e7fc01d549ec43620db9d9839db2}{\_make\_evaluation\_dict}}(}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01065}01065\ \ \ \ \ \ \ \ \ batch\_size=batch\_size,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01066}01066\ \ \ \ \ \ \ \ \ max\_gt\_boxes=max\_gt\_boxes,}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01067}01067\ \ \ \ \ \ \ \ \ scale\_to\_absolute=scale\_to\_absolute)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01068}01068\ \ \ \ \ tf.logging.info(\textcolor{stringliteral}{'eval\_dict:\ \{\}'}.format(eval\_dict))}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01069}01069\ \ \ \ \ metric\_ops\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_object_detection_evaluator_test_a3f3d6136068cf40a46ab4a5930cec397}{od\_eval}}.get\_estimator\_eval\_metric\_ops(eval\_dict)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01070}01070\ \ \ \ \ \_,\ update\_op\ =\ metric\_ops[\textcolor{stringliteral}{'Precision/mAP@0.5IOU'}]}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01071}01071\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01072}01072\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01073}01073\ \ \ \ \ \ \ metrics\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01074}01074\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ (value\_op,\ \_)\ \textcolor{keywordflow}{in}\ six.iteritems(metric\_ops):}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01075}01075\ \ \ \ \ \ \ \ \ metrics[key]\ =\ value\_op}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01076}01076\ \ \ \ \ \ \ sess.run(update\_op)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01077}01077\ \ \ \ \ \ \ metrics\ =\ sess.run(metrics)}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01078}01078\ \ \ \ \ \ \ self.assertAlmostEqual(expected\_map,\ metrics[\textcolor{stringliteral}{'Precision/mAP@0.5IOU'}])}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01079}01079\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01080}01080\ }
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01081}01081\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{object__detection__evaluation__test_8py_source_l01082}01082\ \ \ tf.test.main()}
+
+\end{DoxyCode}

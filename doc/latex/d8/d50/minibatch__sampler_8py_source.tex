@@ -1,0 +1,100 @@
+\doxysection{minibatch\+\_\+sampler.\+py}
+\hypertarget{minibatch__sampler_8py_source}{}\label{minibatch__sampler_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/minibatch\_sampler.py@{src/main/resources/processing/video/detections/detection\_utils/core/minibatch\_sampler.py}}
+\mbox{\hyperlink{minibatch__sampler_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1minibatch__sampler}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Base\ minibatch\ sampler\ module.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00018}00018\ \textcolor{stringliteral}{The\ job\ of\ the\ minibatch\_sampler\ is\ to\ subsample\ a\ minibatch\ based\ on\ some}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00019}00019\ \textcolor{stringliteral}{criterion.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00020}00020\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00021}00021\ \textcolor{stringliteral}{The\ main\ function\ call\ is:}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ subsample(indicator,\ batch\_size,\ **params).}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00023}00023\ \textcolor{stringliteral}{Indicator\ }\textcolor{keywordflow}{is}\ a\ 1d\ boolean\ tensor\ where\ \textcolor{keyword}{True}\ denotes\ which\ examples\ can\ be}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00024}00024\ sampled.\ It\ returns\ a\ boolean\ indicator\ where\ \textcolor{keyword}{True}\ denotes\ an\ example\ has\ been}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00025}00025\ sampled..}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00027}00027\ Subclasses\ should\ implement\ the\ Subsample\ function\ \textcolor{keywordflow}{and}\ can\ make\ use\ of\ the}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00028}00028\ \textcolor{preprocessor}{@staticmethod}\ SubsampleIndicator.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00029}00029\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00030}00030\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00031}00031\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00032}00032\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00033}00033\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00034}00034\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00035}00035\ \textcolor{stringliteral}{from\ abc\ import\ ABCMeta}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00036}00036\ \textcolor{stringliteral}{from\ abc\ import\ abstractmethod}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00037}00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00038}00038\ \textcolor{stringliteral}{import\ six}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00039}00039\ \textcolor{stringliteral}{import\ tensorflow\ as\ tf}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00040}00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00041}00041\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ ops}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00043}00043\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler}{00044}}\ \textcolor{stringliteral}{class\ MinibatchSampler(six.with\_metaclass(ABCMeta,\ object)):}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ "{}"{}"{}Abstract\ base\ class\ for\ subsampling\ minibatches."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00047}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a0e60af5bd531feb28ad2c179b8e745a4}{00047}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a0e60af5bd531feb28ad2c179b8e745a4}{\_\_init\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00048}00048\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ minibatch\ sampler."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00051}00051\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00052}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_af62418aa0c50303f6b5f4e8f5130651f}{00052}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_af62418aa0c50303f6b5f4e8f5130651f}{subsample}}(self,\ indicator,\ batch\_size,\ **params):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00053}00053\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ subsample\ of\ entries\ in\ indicator.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00054}00054\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ \ \ indicator:\ boolean\ tensor\ of\ shape\ [N]\ whose\ }\textcolor{keyword}{True}\ entries\ can\ be\ sampled.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00057}00057\ \ \ \ \ \ \ batch\_size:\ desired\ batch\ size.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00058}00058\ \ \ \ \ \ \ **params:\ additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ the\ MinibatchSampler.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00061}00061\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00062}00062\ \ \ \ \ \ \ sample\_indicator:\ boolean\ tensor\ of\ shape\ [N]\ whose\ \textcolor{keyword}{True}\ entries\ have\ been}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00063}00063\ \ \ \ \ \ \ sampled.\ If\ sum(indicator)\ >=\ batch\_size,\ sum(is\_sampled)\ =\ batch\_size}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00067}00067\ \ \ \textcolor{preprocessor}{@staticmethod}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00068}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a2c2eda2a51cf3969cfe0211ac6658ba6}{00068}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a2c2eda2a51cf3969cfe0211ac6658ba6}{subsample\_indicator}}(indicator,\ num\_samples):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00069}00069\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Subsample\ indicator\ vector.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00070}00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ Given\ a\ boolean\ indicator\ vector\ }\textcolor{keyword}{with}\ M\ elements\ set\ to\ \`{}\textcolor{keyword}{True}\`{},\ the\ function}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00072}00072\ \ \ \ \ assigns\ all\ but\ \`{}num\_samples\`{}\ of\ these\ previously\ \`{}\textcolor{keyword}{True}\`{}\ elements\ to}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00073}00073\ \ \ \ \ \`{}\textcolor{keyword}{False}\`{}.\ If\ \`{}num\_samples\`{}\ \textcolor{keywordflow}{is}\ greater\ than\ M,\ the\ original\ indicator\ vector}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{is}\ returned.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00076}00076\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00077}00077\ \ \ \ \ \ \ indicator:\ a\ 1-\/dimensional\ boolean\ tensor\ indicating\ which\ elements}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ are\ allowed\ to\ be\ sampled\ \textcolor{keywordflow}{and}\ which\ are\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00079}00079\ \ \ \ \ \ \ num\_samples:\ int32\ scalar\ tensor}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00081}00081\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00082}00082\ \ \ \ \ \ \ a\ boolean\ tensor\ \textcolor{keyword}{with}\ the\ same\ shape\ \textcolor{keyword}{as}\ input\ (indicator)\ tensor}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00083}00083\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ indices\ =\ tf.where(indicator)}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ indices\ =\ tf.random\_shuffle(indices)}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ indices\ =\ tf.reshape(indices,\ [-\/1])}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00087}00087\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ num\_samples\ =\ tf.minimum(tf.size(indices),\ num\_samples)}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ selected\_indices\ =\ tf.slice(indices,\ [0],\ tf.reshape(num\_samples,\ [1]))}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00090}00090\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ selected\_indicator\ =\ ops.indices\_to\_dense\_vector(selected\_indices,}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(indicator)[0])}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00093}00093\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.equal(selected\_indicator,\ 1)}
+
+\end{DoxyCode}

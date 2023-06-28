@@ -1,0 +1,216 @@
+\doxysection{Model\+Utils.\+java}
+\hypertarget{_model_utils_8java_source}{}\label{_model_utils_8java_source}\index{src/main/java/com/axellience/resiist/client/utils/ModelUtils.java@{src/main/java/com/axellience/resiist/client/utils/ModelUtils.java}}
+\mbox{\hyperlink{_model_utils_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.utils;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.ByteArrayInputStream;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.io.InputStream;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00006}00006\ \textcolor{keyword}{import}\ java.util.Collections;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00007}00007\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00008}00008\ \textcolor{keyword}{import}\ java.util.Optional;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00009}00009\ \textcolor{keyword}{import}\ java.util.stream.Collectors;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.apache.velocity.exception.ResourceNotFoundException;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.eclipse.emf.common.util.EList;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.eclipse.emf.common.util.EMap;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00014}00014\ \textcolor{keyword}{import}\ org.eclipse.emf.common.util.URI;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00015}00015\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.EAnnotation;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00016}00016\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.EModelElement;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00017}00017\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.ENamedElement;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00018}00018\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.EObject;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00019}00019\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.EStructuralFeature;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00020}00020\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.resource.Resource;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00021}00021\ \textcolor{keyword}{import}\ org.eclipse.emf.ecore.resource.impl.ResourceImpl;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00022}00022\ \textcolor{keyword}{import}\ org.genmymodel.gmmf.common.GenMyModelBinaryResourceImpl;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00023}00023\ \textcolor{keyword}{import}\ org.opengroup.archimate.Referenceable;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00024}00024\ \textcolor{keyword}{import}\ org.opengroup.archimate.impl.ArchimatePackageImpl;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00026}00026\ \textcolor{keyword}{import}\ com.genmymodel.archimatediag.impl.ArchimatediagPackageImpl;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00027}00027\ \textcolor{keyword}{import}\ com.genmymodel.ecoreonline.graphic.GMMUtil;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00028}00028\ \textcolor{keyword}{import}\ com.genmymodel.ecoreonline.graphic.crossreferencedatapter.GmmCrossReferenceAdapter;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00030}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils}{00030}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils}{ModelUtils}}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00031}00031\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00033}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a5ff6963009b8023f178d75bed010e1c3}{00033}}\ \ \ \ \ \textcolor{keyword}{private}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a5ff6963009b8023f178d75bed010e1c3}{ModelUtils}}()}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00038}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a71919684715e3ce91f8ba9b46af42b8c}{00038}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ Resource\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a71919684715e3ce91f8ba9b46af42b8c}{importArchimateModel}}(String\ projectId,\ \textcolor{keywordtype}{byte}[]\ data)\ \textcolor{keywordflow}{throws}\ IOException}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00039}00039\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ ArchimatePackageImpl.init();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ ArchimatediagPackageImpl.init();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ GenMyModelBinaryResourceImpl\ resource\ =}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ GenMyModelBinaryResourceImpl(URI.createURI(\textcolor{stringliteral}{"{}genmymodel://"{}}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ projectId}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}/archimate\_imported"{}}));}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ InputStream\ inputStream\ =\ \textcolor{keyword}{new}\ ByteArrayInputStream(data);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ resource.load(inputStream,\ Collections.emptyMap());}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ GmmCrossReferenceAdapter\ crossReferenceAdapter\ =\ \textcolor{keyword}{new}\ GmmCrossReferenceAdapter();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ resource.eAdapters().add(crossReferenceAdapter);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resource;}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00056}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a578649d76f596bd0f32102a132c0860c}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a578649d76f596bd0f32102a132c0860c}{getFrequency}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00057}00057\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a5bcb3c2a528446be49205216a0728514}{FREQUENCY}}))}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ ResourceNotFoundException(\textcolor{stringliteral}{"{}ResiistConstants.FREQUENCY\ not\ found"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a5bcb3c2a528446be49205216a0728514}{FREQUENCY}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00065}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab9082ff80de93649edd04099dcbcdd84}{00065}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab9082ff80de93649edd04099dcbcdd84}{getObjectsToDetect}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00066}00066\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_add050a64c88b9346c5a47f0cf7d6ff43}{OBJECTS\_TO\_DETECT}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00070}00070\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00072}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a02232dfa529c23be1d8e6ef8535bcb0c}{00072}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a02232dfa529c23be1d8e6ef8535bcb0c}{hasFrequency}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00073}00073\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(modelElement))\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a5bcb3c2a528446be49205216a0728514}{FREQUENCY}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a5bcb3c2a528446be49205216a0728514}{FREQUENCY}}).isEmpty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00082}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a67ebe45fbce97b927a2c13271807f7b6}{00082}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a67ebe45fbce97b927a2c13271807f7b6}{hasInterpretationRules}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(modelElement))\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abb4809aa7aeb3237459b9cc477cefa07}{PSEUDO\_CODE\_INTERPRETATION\_RULES}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abb4809aa7aeb3237459b9cc477cefa07}{PSEUDO\_CODE\_INTERPRETATION\_RULES}}).isEmpty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00088}00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00092}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a8b542624b06b4de24416ce4f8cda4fb3}{00092}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a8b542624b06b4de24416ce4f8cda4fb3}{hasSimulationPath}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(modelElement))\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}}).isEmpty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00102}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ac183d208e0907aa150849e52f234c925}{00102}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ac183d208e0907aa150849e52f234c925}{hasGAMASimulationPath}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00103}00103\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(modelElement))\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a97285160db050ede26eceb90d75d83fe}{GAMA\_SIMULATION\_FILE\_PATH}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a97285160db050ede26eceb90d75d83fe}{GAMA\_SIMULATION\_FILE\_PATH}}).isEmpty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00112}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_aaa0c33ad98c271a45a57c4e88fc89ea5}{00112}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_aaa0c33ad98c271a45a57c4e88fc89ea5}{hasVideoSimulationPath}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00113}00113\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(modelElement))\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .endsWith(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a57810d6d3b2431ae9477a2833e137d6b}{SIMULATION\_VIDEO\_FILE\_NAME}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00121}00121\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00123}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{00123}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ EMap<String,\ String>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00124}00124\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ Optional<EAnnotation>\ gmmAnnotation\ =\ GMMUtil.getGmmAnnotation(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!gmmAnnotation.isPresent())}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ ResourceNotFoundException(\textcolor{stringliteral}{"{}Element\ not\ found"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gmmAnnotation.get().getDetails();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00132}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{00132}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_ab2be6bc8921505812492dc01c55da0ae}{hasAnnotation}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00133}00133\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GMMUtil.getGmmAnnotation(modelElement).isPresent();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00137}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a7bdb0f54dc569906532a0dde96116694}{00137}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a7bdb0f54dc569906532a0dde96116694}{getSimulationFilePath}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00138}00138\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00139}00139\ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!details.containsKey(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}}))}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ ResourceNotFoundException(\textcolor{stringliteral}{"{}Simulation\ file\ path\ not\ found"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00144}00144\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00146}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a3ff8ceb91d69712bdac5f52ae4d8e12f}{00146}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a3ff8ceb91d69712bdac5f52ae4d8e12f}{getGAMASimulationFilePath}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00147}00147\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00148}00148\ \ \ \ \ \ \ \ \ EMap<String,\ String>\ details\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a2a0e93f235a6b10d79807312a687c270}{getElementDetails}}(modelElement);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ details.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a97285160db050ede26eceb90d75d83fe}{GAMA\_SIMULATION\_FILE\_PATH}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00152}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_af20055f18e8f0ab174bc457de84801fa}{00152}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_af20055f18e8f0ab174bc457de84801fa}{getElementName}}(EModelElement\ modelElement)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00153}00153\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00154}00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modelElement\ instanceof\ ENamedElement)\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((ENamedElement)\ modelElement).getName();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00160}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a7c0cadbc6d54430e38b55d3eca321da8}{00160}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ Optional<String>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a7c0cadbc6d54430e38b55d3eca321da8}{getName}}(EObject\ eObject)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00161}00161\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00162}00162\ \ \ \ \ \ \ \ \ EStructuralFeature\ nameFeature\ =\ eObject.eClass().getEStructuralFeature(\textcolor{stringliteral}{"{}name"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nameFeature\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.empty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00166}00166\ \ \ \ \ \ \ \ \ Object\ nameValue\ =\ eObject.eGet(nameFeature);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nameValue\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.empty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nameValue\ instanceof\ EList<?>)\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ EList<?>\ nameValues\ =\ ((EList<?>)\ eObject.eGet(nameFeature));}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nameValues.isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.empty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ EObject\ firstNameLiteral\ =\ (EObject)\ nameValues.get(0);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ EStructuralFeature\ valueFeature\ =}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstNameLiteral.eClass().getEStructuralFeature(\textcolor{stringliteral}{"{}value"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (valueFeature\ ==\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.empty();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.ofNullable((String)\ firstNameLiteral.eGet(valueFeature));}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00182}00182\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Optional.ofNullable((String)\ nameValue);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00185}00185\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00187}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_aa57aa7ac3f6a13ba5917612cd7ade2b9}{00187}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_aa57aa7ac3f6a13ba5917612cd7ade2b9}{getArchimateName}}(Referenceable\ referenceable)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00188}00188\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (referenceable\ !=\ \textcolor{keyword}{null}\ \&\&\ !referenceable.getName().isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ referenceable.getName().get(0).getValue();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00191}00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00193}00193\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00195}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a95a4491e43e5b9c6396be2dd466ceda6}{00195}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a95a4491e43e5b9c6396be2dd466ceda6}{setName}}(EObject\ eObject,\ String\ name)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00196}00196\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00197}00197\ \ \ \ \ \ \ \ \ EStructuralFeature\ nameFeature\ =\ eObject.eClass().getEStructuralFeature(\textcolor{stringliteral}{"{}name"{}});}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nameFeature\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ eObject.eSet(nameFeature,\ name);}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00202}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a8924a6eacf67b47555ac8b2fc040f545}{00202}}\ \ \ \ \ \textcolor{keyword}{public}\ static\ <T>\ List<T>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils_a8924a6eacf67b47555ac8b2fc040f545}{getAllElements}}(ResourceImpl\ modelResource,\ Class<T>\ targetedType)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00203}00203\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (modelResource\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GMMUtil.allContentOfType(modelResource.getContents().get(0),\ targetedType)}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .collect(Collectors.toList());}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Collections.emptyList();}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_model_utils_8java_source_l00210}00210\ \}}
+
+\end{DoxyCode}

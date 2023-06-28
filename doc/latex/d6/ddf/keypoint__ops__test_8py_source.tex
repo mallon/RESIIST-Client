@@ -1,0 +1,206 @@
+\doxysection{keypoint\+\_\+ops\+\_\+test.\+py}
+\hypertarget{keypoint__ops__test_8py_source}{}\label{keypoint__ops__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/keypoint\_ops\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/keypoint\_ops\_test.py}}
+\mbox{\hyperlink{keypoint__ops__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.core.keypoint\_ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00017}00017\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ keypoint\_ops}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00023}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test}{KeypointOpsTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00024}00024\ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ common\ keypoint\ operations."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00026}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_adea3494c5ec114e85651c73543b5f3bc}{00026}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_adea3494c5ec114e85651c73543b5f3bc}{test\_scale}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00027}00027\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ [[0.0,\ 0.0],\ [100.0,\ 200.0]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ [[50.0,\ 120.0],\ [100.0,\ 140.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00030}00030\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00031}00031\ \ \ \ \ y\_scale\ =\ tf.constant(1.0\ /\ 100)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00032}00032\ \ \ \ \ x\_scale\ =\ tf.constant(1.0\ /\ 200)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00034}00034\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ [[0.,\ 0.],\ [1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ [[0.5,\ 0.6],\ [1.0,\ 0.7]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00037}00037\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00038}00038\ \ \ \ \ output\ =\ keypoint\_ops.scale(keypoints,\ y\_scale,\ x\_scale)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00041}00041\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00042}00042\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a13b3a94151990ba30a6553058aedc8bb}{00044}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a13b3a94151990ba30a6553058aedc8bb}{test\_clip\_to\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00045}00045\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00048}00048\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00049}00049\ \ \ \ \ window\ =\ tf.constant([0.25,\ 0.25,\ 0.75,\ 0.75])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00051}00051\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ [[0.5,\ 0.25],\ [0.75,\ 0.75]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00054}00054\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00055}00055\ \ \ \ \ output\ =\ keypoint\_ops.clip\_to\_window(keypoints,\ window)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00057}00057\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00058}00058\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00059}00059\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_ab85706e234731946d02899b0a181e75c}{00061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_ab85706e234731946d02899b0a181e75c}{test\_prune\_outside\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00062}00062\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00065}00065\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00066}00066\ \ \ \ \ window\ =\ tf.constant([0.25,\ 0.25,\ 0.75,\ 0.75])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00068}00068\ \ \ \ \ expected\_keypoints\ =\ tf.constant([[[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[np.nan,\ np.nan],\ [np.nan,\ np.nan]]])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00070}00070\ \ \ \ \ output\ =\ keypoint\_ops.prune\_outside\_window(keypoints,\ window)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00073}00073\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00074}00074\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00076}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a6e025c4ed7e1cc9a32cd888e95698dda}{00076}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a6e025c4ed7e1cc9a32cd888e95698dda}{test\_change\_coordinate\_frame}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00077}00077\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00080}00080\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00081}00081\ \ \ \ \ window\ =\ tf.constant([0.25,\ 0.25,\ 0.75,\ 0.75])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00083}00083\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ [[0,\ 0.5],\ [1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ [[0.5,\ -\/0.5],\ [1.5,\ 1.5]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00086}00086\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00087}00087\ \ \ \ \ output\ =\ keypoint\_ops.change\_coordinate\_frame(keypoints,\ window)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00089}00089\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00090}00090\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00091}00091\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00093}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_adf58241b1a081c0d05df0329adef9968}{00093}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_adf58241b1a081c0d05df0329adef9968}{test\_to\_normalized\_coordinates}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00094}00094\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ [[10.,\ 30.],\ [30.,\ 45.]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ [[20.,\ 0.],\ [40.,\ 60.]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00097}00097\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00098}00098\ \ \ \ \ output\ =\ keypoint\_ops.to\_normalized\_coordinates(}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ keypoints,\ 40,\ 60)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00100}00100\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00103}00103\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00105}00105\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00106}00106\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00107}00107\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00109}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a492651233e952e61680924cbe534cf74}{00109}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a492651233e952e61680924cbe534cf74}{test\_to\_normalized\_coordinates\_already\_normalized}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00110}00110\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00113}00113\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00114}00114\ \ \ \ \ output\ =\ keypoint\_ops.to\_normalized\_coordinates(}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ keypoints,\ 40,\ 60)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00117}00117\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00118}00118\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'assertion\ failed'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ sess.run(output)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00121}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a259f0382238b0b83d90adaa0248bdcf6}{00121}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a259f0382238b0b83d90adaa0248bdcf6}{test\_to\_absolute\_coordinates}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00122}00122\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ [[0.25,\ 0.5],\ [0.75,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ [[0.5,\ 0.0],\ [1.0,\ 1.0]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00125}00125\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00126}00126\ \ \ \ \ output\ =\ keypoint\_ops.to\_absolute\_coordinates(}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ keypoints,\ 40,\ 60)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00128}00128\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ [[10.,\ 30.],\ [30.,\ 45.]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ [[20.,\ 0.],\ [40.,\ 60.]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00131}00131\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00133}00133\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00134}00134\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00135}00135\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00137}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_abdedd57c7877698c7b29604607cc2edb}{00137}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_abdedd57c7877698c7b29604607cc2edb}{test\_to\_absolute\_coordinates\_already\_absolute}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00138}00138\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ [[10.,\ 30.],\ [30.,\ 45.]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ [[20.,\ 0.],\ [40.,\ 60.]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00141}00141\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00142}00142\ \ \ \ \ output\ =\ keypoint\_ops.to\_absolute\_coordinates(}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ keypoints,\ 40,\ 60)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00145}00145\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00146}00146\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'assertion\ failed'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ sess.run(output)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00149}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a9c9cc13b439c3fd7a847631ef936a76a}{00149}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a9c9cc13b439c3fd7a847631ef936a76a}{test\_flip\_horizontal}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00150}00150\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ [[0.1,\ 0.1],\ [0.2,\ 0.2],\ [0.3,\ 0.3]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ [[0.4,\ 0.4],\ [0.5,\ 0.5],\ [0.6,\ 0.6]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00153}00153\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00154}00154\ \ \ \ \ flip\_permutation\ =\ [0,\ 2,\ 1]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00156}00156\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ [[0.1,\ 0.9],\ [0.3,\ 0.7],\ [0.2,\ 0.8]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ [[0.4,\ 0.6],\ [0.6,\ 0.4],\ [0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00159}00159\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00160}00160\ \ \ \ \ output\ =\ keypoint\_ops.flip\_horizontal(keypoints,\ 0.5,\ flip\_permutation)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00162}00162\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00163}00163\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00164}00164\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00166}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a2f04376383f9230ffef35fcdfec25a00}{00166}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a2f04376383f9230ffef35fcdfec25a00}{test\_flip\_vertical}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00167}00167\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ [[0.1,\ 0.1],\ [0.2,\ 0.2],\ [0.3,\ 0.3]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ [[0.4,\ 0.4],\ [0.5,\ 0.5],\ [0.6,\ 0.6]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00170}00170\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00171}00171\ \ \ \ \ flip\_permutation\ =\ [0,\ 2,\ 1]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00173}00173\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ [[0.9,\ 0.1],\ [0.7,\ 0.3],\ [0.8,\ 0.2]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ [[0.6,\ 0.4],\ [0.4,\ 0.6],\ [0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00176}00176\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00177}00177\ \ \ \ \ output\ =\ keypoint\_ops.flip\_vertical(keypoints,\ 0.5,\ flip\_permutation)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00179}00179\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00180}00180\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00181}00181\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00183}\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a87c5b918e41c51b4fdb53aa983bc49e4}{00183}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1keypoint__ops__test_1_1_keypoint_ops_test_a87c5b918e41c51b4fdb53aa983bc49e4}{test\_rot90}}(self):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00184}00184\ \ \ \ \ keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ [[0.1,\ 0.1],\ [0.2,\ 0.2],\ [0.3,\ 0.3]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ [[0.4,\ 0.6],\ [0.5,\ 0.6],\ [0.6,\ 0.7]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00187}00187\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00188}00188\ \ \ \ \ expected\_keypoints\ =\ tf.constant([}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ [[0.9,\ 0.1],\ [0.8,\ 0.2],\ [0.7,\ 0.3]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ [[0.4,\ 0.4],\ [0.4,\ 0.5],\ [0.3,\ 0.6]],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00191}00191\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00192}00192\ \ \ \ \ output\ =\ keypoint\_ops.rot90(keypoints)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00194}00194\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00195}00195\ \ \ \ \ \ \ output\_,\ expected\_keypoints\_\ =\ sess.run([output,\ expected\_keypoints])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00196}00196\ \ \ \ \ \ \ self.assertAllClose(output\_,\ expected\_keypoints\_)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00199}00199\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops__test_8py_source_l00200}00200\ \ \ tf.test.main()}
+
+\end{DoxyCode}

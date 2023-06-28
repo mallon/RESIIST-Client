@@ -1,0 +1,162 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test}{}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test}\index{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{d3/d3c/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{da/d89/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_afcc694e0af36d08c23131773492eadcb}{test\+\_\+invalid\+\_\+input\+\_\+box\+\_\+list\+\_\+list}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_aebce819fe0da7d7b0df20c4dabe60957}{test\+\_\+concatenate\+\_\+with\+\_\+missing\+\_\+fields}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a755559bcc5e5c98032ba1aa807403099}{test\+\_\+concatenate\+\_\+with\+\_\+incompatible\+\_\+field\+\_\+shapes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a1fa68e24c1a5b4f044488e0e6648931f}{test\+\_\+concatenate\+\_\+is\+\_\+correct}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00730}{730}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a1fa68e24c1a5b4f044488e0e6648931f}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a1fa68e24c1a5b4f044488e0e6648931f} 
+\index{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}!test\_concatenate\_is\_correct@{test\_concatenate\_is\_correct}}
+\index{test\_concatenate\_is\_correct@{test\_concatenate\_is\_correct}!detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}}
+\doxysubsubsection{\texorpdfstring{test\_concatenate\_is\_correct()}{test\_concatenate\_is\_correct()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test.\+test\+\_\+concatenate\+\_\+is\+\_\+correct (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00764}{764}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00764\ \ \ \textcolor{keyword}{def\ }test\_concatenate\_is\_correct(self):}
+\DoxyCodeLine{00765\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{00766\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{00767\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8],\ [1,\ 0,\ 5,\ 10]],}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)}
+\DoxyCodeLine{00769\ \ \ \ \ scores2\ =\ tf.constant([1.0,\ 2.1,\ 5.6])}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \ \ \ \ exp\_corners\ =\ [[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 2,\ 3,\ 4],}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 3,\ 1,\ 6],}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 4,\ 3,\ 8],}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 5,\ 10]]}
+\DoxyCodeLine{00776\ \ \ \ \ exp\_scores\ =\ [1.0,\ 2.1,\ 1.0,\ 2.1,\ 5.6]}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00778\ \ \ \ \ boxlist1\ =\ box\_list.BoxList(corners1)}
+\DoxyCodeLine{00779\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{00780\ \ \ \ \ boxlist2\ =\ box\_list.BoxList(corners2)}
+\DoxyCodeLine{00781\ \ \ \ \ boxlist2.add\_field(\textcolor{stringliteral}{'scores'},\ scores2)}
+\DoxyCodeLine{00782\ \ \ \ \ result\ =\ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ corners\_output,\ scores\_output\ =\ sess.run(}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ [result.get(),\ result.get\_field(\textcolor{stringliteral}{'scores'})])}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ self.assertAllClose(corners\_output,\ exp\_corners)}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ self.assertAllClose(scores\_output,\ exp\_scores)}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a755559bcc5e5c98032ba1aa807403099}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_a755559bcc5e5c98032ba1aa807403099} 
+\index{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}!test\_concatenate\_with\_incompatible\_field\_shapes@{test\_concatenate\_with\_incompatible\_field\_shapes}}
+\index{test\_concatenate\_with\_incompatible\_field\_shapes@{test\_concatenate\_with\_incompatible\_field\_shapes}!detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}}
+\doxysubsubsection{\texorpdfstring{test\_concatenate\_with\_incompatible\_field\_shapes()}{test\_concatenate\_with\_incompatible\_field\_shapes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test.\+test\+\_\+concatenate\+\_\+with\+\_\+incompatible\+\_\+field\+\_\+shapes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00752}{752}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00752\ \ \ \textcolor{keyword}{def\ }test\_concatenate\_with\_incompatible\_field\_shapes(self):}
+\DoxyCodeLine{00753\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{00754\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{00755\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8]],\ tf.float32)}
+\DoxyCodeLine{00756\ \ \ \ \ scores2\ =\ tf.constant([[1.0,\ 1.0],\ [2.1,\ 3.2]])}
+\DoxyCodeLine{00757\ \ \ \ \ boxlist1\ =\ box\_list.BoxList(corners1)}
+\DoxyCodeLine{00758\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{00759\ \ \ \ \ boxlist2\ =\ box\_list.BoxList(corners2)}
+\DoxyCodeLine{00760\ \ \ \ \ boxlist2.add\_field(\textcolor{stringliteral}{'scores'},\ scores2)}
+\DoxyCodeLine{00761\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{00763\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_aebce819fe0da7d7b0df20c4dabe60957}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_aebce819fe0da7d7b0df20c4dabe60957} 
+\index{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}!test\_concatenate\_with\_missing\_fields@{test\_concatenate\_with\_missing\_fields}}
+\index{test\_concatenate\_with\_missing\_fields@{test\_concatenate\_with\_missing\_fields}!detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}}
+\doxysubsubsection{\texorpdfstring{test\_concatenate\_with\_missing\_fields()}{test\_concatenate\_with\_missing\_fields()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test.\+test\+\_\+concatenate\+\_\+with\+\_\+missing\+\_\+fields (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00742}{742}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00742\ \ \ \textcolor{keyword}{def\ }test\_concatenate\_with\_missing\_fields(self):}
+\DoxyCodeLine{00743\ \ \ \ \ corners1\ =\ tf.constant([[0,\ 0,\ 0,\ 0],\ [1,\ 2,\ 3,\ 4]],\ tf.float32)}
+\DoxyCodeLine{00744\ \ \ \ \ scores1\ =\ tf.constant([1.0,\ 2.1])}
+\DoxyCodeLine{00745\ \ \ \ \ corners2\ =\ tf.constant([[0,\ 3,\ 1,\ 6],\ [2,\ 4,\ 3,\ 8]],\ tf.float32)}
+\DoxyCodeLine{00746\ \ \ \ \ boxlist1\ =\ box\_list.BoxList(corners1)}
+\DoxyCodeLine{00747\ \ \ \ \ boxlist1.add\_field(\textcolor{stringliteral}{'scores'},\ scores1)}
+\DoxyCodeLine{00748\ \ \ \ \ boxlist2\ =\ box\_list.BoxList(corners2)}
+\DoxyCodeLine{00749\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist1,\ boxlist2])}
+\DoxyCodeLine{00751\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_afcc694e0af36d08c23131773492eadcb}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_concatenate_test_afcc694e0af36d08c23131773492eadcb} 
+\index{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}!test\_invalid\_input\_box\_list\_list@{test\_invalid\_input\_box\_list\_list}}
+\index{test\_invalid\_input\_box\_list\_list@{test\_invalid\_input\_box\_list\_list}!detection\_utils.core.box\_list\_ops\_test.ConcatenateTest@{detection\_utils.core.box\_list\_ops\_test.ConcatenateTest}}
+\doxysubsubsection{\texorpdfstring{test\_invalid\_input\_box\_list\_list()}{test\_invalid\_input\_box\_list\_list()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Concatenate\+Test.\+test\+\_\+invalid\+\_\+input\+\_\+box\+\_\+list\+\_\+list (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00732}{732}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00732\ \ \ \textcolor{keyword}{def\ }test\_invalid\_input\_box\_list\_list(self):}
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ box\_list\_ops.concatenate(\textcolor{keywordtype}{None})}
+\DoxyCodeLine{00735\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ box\_list\_ops.concatenate([])}
+\DoxyCodeLine{00737\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 0,\ 0]],\ tf.float32)}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ boxlist\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ box\_list\_ops.concatenate([boxlist,\ 2])}
+\DoxyCodeLine{00741\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__list__ops__test_8py}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

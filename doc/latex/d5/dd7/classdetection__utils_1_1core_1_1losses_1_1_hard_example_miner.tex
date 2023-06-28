@@ -1,0 +1,538 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner}{}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner}\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{d5/dde/classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{da/d93/classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a4714a733ae4075fe0201c4ae524c893b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, num\+\_\+hard\+\_\+examples=64, iou\+\_\+threshold=0.\+7, loss\+\_\+type=\textquotesingle{}both\textquotesingle{}, cls\+\_\+loss\+\_\+weight=0.\+05, loc\+\_\+loss\+\_\+weight=0.\+06, max\+\_\+negatives\+\_\+per\+\_\+positive=None, min\+\_\+negatives\+\_\+per\+\_\+image=0)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, location\+\_\+losses, cls\+\_\+losses, decoded\+\_\+boxlist\+\_\+list, match\+\_\+list=None)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a5102f1118d6088014302904479ff3f81}{summarize}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48}{\+\_\+subsample\+\_\+selection\+\_\+to\+\_\+desired\+\_\+neg\+\_\+pos\+\_\+ratio}} (self, indices, match, max\+\_\+negatives\+\_\+per\+\_\+positive, min\+\_\+negatives\+\_\+per\+\_\+image=0)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}{\+\_\+num\+\_\+hard\+\_\+examples}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b}{\+\_\+iou\+\_\+threshold}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}{\+\_\+loss\+\_\+type}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a}{\+\_\+cls\+\_\+loss\+\_\+weight}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57}{\+\_\+loc\+\_\+loss\+\_\+weight}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}{\+\_\+max\+\_\+negatives\+\_\+per\+\_\+positive}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af}{\+\_\+min\+\_\+negatives\+\_\+per\+\_\+image}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}{\+\_\+num\+\_\+positives\+\_\+list}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}{\+\_\+num\+\_\+negatives\+\_\+list}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Hard example mining for regions in a list of images.
+
+Implements hard example mining to select a subset of regions to be
+back-propagated. For each image, selects the regions with highest losses,
+subject to the condition that a newly selected region cannot have
+an IOU > iou_threshold with any of the previously selected regions.
+This can be achieved by re-using a greedy non-maximum suppression algorithm.
+A constraint on the number of negatives mined per positive region can also be
+enforced.
+
+Reference papers: "Training Region-based Object Detectors with Online
+Hard Example Mining" (CVPR 2016) by Srivastava et al., and
+"SSD: Single Shot MultiBox Detector" (ECCV 2016) by Liu et al.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00469}{469}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a4714a733ae4075fe0201c4ae524c893b}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a4714a733ae4075fe0201c4ae524c893b} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{num\+\_\+hard\+\_\+examples = {\ttfamily 64},  }\item[{}]{iou\+\_\+threshold = {\ttfamily 0.7},  }\item[{}]{loss\+\_\+type = {\ttfamily \textquotesingle{}both\textquotesingle{}},  }\item[{}]{cls\+\_\+loss\+\_\+weight = {\ttfamily 0.05},  }\item[{}]{loc\+\_\+loss\+\_\+weight = {\ttfamily 0.06},  }\item[{}]{max\+\_\+negatives\+\_\+per\+\_\+positive = {\ttfamily None},  }\item[{}]{min\+\_\+negatives\+\_\+per\+\_\+image = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+The hard example mining implemented by this class can replicate the behavior
+in the two aforementioned papers (Srivastava et al., and Liu et al).
+To replicate the A2 paper (Srivastava et al), num_hard_examples is set
+to a fixed parameter (64 by default) and iou_threshold is set to .7 for
+running non-max-suppression the predicted boxes prior to hard mining.
+In order to replicate the SSD paper (Liu et al), num_hard_examples should
+be set to None, max_negatives_per_positive should be 3 and iou_threshold
+should be 1.0 (in order to effectively turn off NMS).
+
+Args:
+  num_hard_examples: maximum number of hard examples to be
+    selected per image (prior to enforcing max negative to positive ratio
+    constraint).  If set to None, all examples obtained after NMS are
+    considered.
+  iou_threshold: minimum intersection over union for an example
+    to be discarded during NMS.
+  loss_type: use only classification losses ('cls', default),
+    localization losses ('loc') or both losses ('both').
+    In the last case, cls_loss_weight and loc_loss_weight are used to
+    compute weighted sum of the two losses.
+  cls_loss_weight: weight for classification loss.
+  loc_loss_weight: weight for location loss.
+  max_negatives_per_positive: maximum number of negatives to retain for
+    each positive anchor. By default, num_negatives_per_positive is None,
+    which means that we do not enforce a prespecified negative:positive
+    ratio.  Note also that num_negatives_per_positives can be a float
+    (and will be converted to be a float even if it is passed in otherwise).
+  min_negatives_per_image: minimum number of negative anchors to sample for
+    a given image. Setting this to a positive number allows sampling
+    negatives in an image without any positive anchors and thus not biased
+    towards at least one detection per image.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00485}{485}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_negatives\_per\_image=0):}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00494\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00495\ \textcolor{stringliteral}{\ \ \ \ The\ hard\ example\ mining\ implemented\ by\ this\ }\textcolor{keyword}{class\ }can\ replicate\ the\ behavior}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{in}\ the\ two\ aforementioned\ papers\ (Srivastava\ et\ al.,\ \textcolor{keywordflow}{and}\ Liu\ et\ al).}
+\DoxyCodeLine{00497\ \ \ \ \ To\ replicate\ the\ A2\ paper\ (Srivastava\ et\ al),\ num\_hard\_examples\ \textcolor{keywordflow}{is}\ set}
+\DoxyCodeLine{00498\ \ \ \ \ to\ a\ fixed\ parameter\ (64\ by\ default)\ \textcolor{keywordflow}{and}\ iou\_threshold\ \textcolor{keywordflow}{is}\ set\ to\ .7\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00499\ \ \ \ \ running\ non-\/max-\/suppression\ the\ predicted\ boxes\ prior\ to\ hard\ mining.}
+\DoxyCodeLine{00500\ \ \ \ \ In\ order\ to\ replicate\ the\ SSD\ paper\ (Liu\ et\ al),\ num\_hard\_examples\ should}
+\DoxyCodeLine{00501\ \ \ \ \ be\ set\ to\ \textcolor{keywordtype}{None},\ max\_negatives\_per\_positive\ should\ be\ 3\ \textcolor{keywordflow}{and}\ iou\_threshold}
+\DoxyCodeLine{00502\ \ \ \ \ should\ be\ 1.0\ (\textcolor{keywordflow}{in}\ order\ to\ effectively\ turn\ off\ NMS).}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ Args:}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ num\_hard\_examples:\ maximum\ number\ of\ hard\ examples\ to\ be}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ selected\ per\ image\ (prior\ to\ enforcing\ max\ negative\ to\ positive\ ratio}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ constraint).\ \ If\ set\ to\ \textcolor{keywordtype}{None},\ all\ examples\ obtained\ after\ NMS\ are}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ considered.}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ iou\_threshold:\ minimum\ intersection\ over\ union\ \textcolor{keywordflow}{for}\ an\ example}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ to\ be\ discarded\ during\ NMS.}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ loss\_type:\ use\ only\ classification\ losses\ (\textcolor{stringliteral}{'cls'},\ default),}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ localization\ losses\ (\textcolor{stringliteral}{'loc'})\ \textcolor{keywordflow}{or}\ both\ losses\ (\textcolor{stringliteral}{'both'}).}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ In\ the\ last\ case,\ cls\_loss\_weight\ \textcolor{keywordflow}{and}\ loc\_loss\_weight\ are\ used\ to}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ compute\ weighted\ sum\ of\ the\ two\ losses.}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ cls\_loss\_weight:\ weight\ \textcolor{keywordflow}{for}\ classification\ loss.}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ loc\_loss\_weight:\ weight\ \textcolor{keywordflow}{for}\ location\ loss.}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ max\_negatives\_per\_positive:\ maximum\ number\ of\ negatives\ to\ retain\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ each\ positive\ anchor.\ By\ default,\ num\_negatives\_per\_positive\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ which\ means\ that\ we\ do\ \textcolor{keywordflow}{not}\ enforce\ a\ prespecified\ negative:positive}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ ratio.\ \ Note\ also\ that\ num\_negatives\_per\_positives\ can\ be\ a\ float}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ (\textcolor{keywordflow}{and}\ will\ be\ converted\ to\ be\ a\ float\ even\ \textcolor{keywordflow}{if}\ it\ \textcolor{keywordflow}{is}\ passed\ \textcolor{keywordflow}{in}\ otherwise).}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ min\_negatives\_per\_image:\ minimum\ number\ of\ negative\ anchors\ to\ sample\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ a\ given\ image.\ Setting\ this\ to\ a\ positive\ number\ allows\ sampling}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ negatives\ \textcolor{keywordflow}{in}\ an\ image\ without\ any\ positive\ anchors\ \textcolor{keywordflow}{and}\ thus\ \textcolor{keywordflow}{not}\ biased}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ towards\ at\ least\ one\ detection\ per\ image.}
+\DoxyCodeLine{00526\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00527\ \textcolor{stringliteral}{\ \ \ \ self.\_num\_hard\_examples\ =\ num\_hard\_examples}}
+\DoxyCodeLine{00528\ \textcolor{stringliteral}{\ \ \ \ self.\_iou\_threshold\ =\ iou\_threshold}}
+\DoxyCodeLine{00529\ \textcolor{stringliteral}{\ \ \ \ self.\_loss\_type\ =\ loss\_type}}
+\DoxyCodeLine{00530\ \textcolor{stringliteral}{\ \ \ \ self.\_cls\_loss\_weight\ =\ cls\_loss\_weight}}
+\DoxyCodeLine{00531\ \textcolor{stringliteral}{\ \ \ \ self.\_loc\_loss\_weight\ =\ loc\_loss\_weight}}
+\DoxyCodeLine{00532\ \textcolor{stringliteral}{\ \ \ \ self.\_max\_negatives\_per\_positive\ =\ max\_negatives\_per\_positive}}
+\DoxyCodeLine{00533\ \textcolor{stringliteral}{\ \ \ \ self.\_min\_negatives\_per\_image\ =\ min\_negatives\_per\_image}}
+\DoxyCodeLine{00534\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\_max\_negatives\_per\_positive\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ self.\_max\_negatives\_per\_positive\ =\ float(self.\_max\_negatives\_per\_positive)}
+\DoxyCodeLine{00536\ \ \ \ \ self.\_num\_positives\_list\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00537\ \ \ \ \ self.\_num\_negatives\_list\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00538\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{location\+\_\+losses,  }\item[{}]{cls\+\_\+losses,  }\item[{}]{decoded\+\_\+boxlist\+\_\+list,  }\item[{}]{match\+\_\+list = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes localization and classification losses after hard mining.
+
+Args:
+  location_losses: a float tensor of shape [num_images, num_anchors]
+    representing anchorwise localization losses.
+  cls_losses: a float tensor of shape [num_images, num_anchors]
+    representing anchorwise classification losses.
+  decoded_boxlist_list: a list of decoded BoxList representing location
+    predictions for each image.
+  match_list: an optional list of matcher.Match objects encoding the match
+    between anchors and groundtruth boxes for each image of the batch,
+    with rows of the Match objects corresponding to groundtruth boxes
+    and columns corresponding to anchors.  Match objects in match_list are
+    used to reference which anchors are positive, negative or ignored.  If
+    self._max_negatives_per_positive exists, these are then used to enforce
+    a prespecified negative to positive ratio.
+
+Returns:
+  mined_location_loss: a float scalar with sum of localization losses from
+    selected hard examples.
+  mined_cls_loss: a float scalar with sum of classification losses from
+    selected hard examples.
+Raises:
+  ValueError: if location_losses, cls_losses and decoded_boxlist_list do
+    not have compatible shapes (i.e., they must correspond to the same
+    number of images).
+  ValueError: if match_list is specified but its length does not match
+    len(decoded_boxlist_list).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00539}{539}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match\_list=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ localization\ and\ classification\ losses\ after\ hard\ mining.}}
+\DoxyCodeLine{00545\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00546\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00547\ \textcolor{stringliteral}{\ \ \ \ \ \ location\_losses:\ a\ float\ tensor\ of\ shape\ [num\_images,\ num\_anchors]}}
+\DoxyCodeLine{00548\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ anchorwise\ localization\ losses.}}
+\DoxyCodeLine{00549\ \textcolor{stringliteral}{\ \ \ \ \ \ cls\_losses:\ a\ float\ tensor\ of\ shape\ [num\_images,\ num\_anchors]}}
+\DoxyCodeLine{00550\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ anchorwise\ classification\ losses.}}
+\DoxyCodeLine{00551\ \textcolor{stringliteral}{\ \ \ \ \ \ decoded\_boxlist\_list:\ a\ list\ of\ decoded\ BoxList\ representing\ location}}
+\DoxyCodeLine{00552\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ predictions\ }\textcolor{keywordflow}{for}\ each\ image.}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ match\_list:\ an\ optional\ list\ of\ matcher.Match\ objects\ encoding\ the\ match}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ between\ anchors\ \textcolor{keywordflow}{and}\ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ each\ image\ of\ the\ batch,}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ rows\ of\ the\ Match\ objects\ corresponding\ to\ groundtruth\ boxes}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ columns\ corresponding\ to\ anchors.\ \ Match\ objects\ \textcolor{keywordflow}{in}\ match\_list\ are}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ used\ to\ reference\ which\ anchors\ are\ positive,\ negative\ \textcolor{keywordflow}{or}\ ignored.\ \ If}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ self.\_max\_negatives\_per\_positive\ exists,\ these\ are\ then\ used\ to\ enforce}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ a\ prespecified\ negative\ to\ positive\ ratio.}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \ \ Returns:}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ mined\_location\_loss:\ a\ float\ scalar\ \textcolor{keyword}{with}\ sum\ of\ localization\ losses\ \textcolor{keyword}{from}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ selected\ hard\ examples.}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ mined\_cls\_loss:\ a\ float\ scalar\ \textcolor{keyword}{with}\ sum\ of\ classification\ losses\ \textcolor{keyword}{from}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ selected\ hard\ examples.}
+\DoxyCodeLine{00566\ \ \ \ \ Raises:}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ location\_losses,\ cls\_losses\ \textcolor{keywordflow}{and}\ decoded\_boxlist\_list\ do}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ have\ compatible\ shapes\ (i.e.,\ they\ must\ correspond\ to\ the\ same}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ number\ of\ images).}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ match\_list\ \textcolor{keywordflow}{is}\ specified\ but\ its\ length\ does\ \textcolor{keywordflow}{not}\ match}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ len(decoded\_boxlist\_list).}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00573\ \textcolor{stringliteral}{\ \ \ \ mined\_location\_losses\ =\ []}}
+\DoxyCodeLine{00574\ \textcolor{stringliteral}{\ \ \ \ mined\_cls\_losses\ =\ []}}
+\DoxyCodeLine{00575\ \textcolor{stringliteral}{\ \ \ \ location\_losses\ =\ tf.unstack(location\_losses)}}
+\DoxyCodeLine{00576\ \textcolor{stringliteral}{\ \ \ \ cls\_losses\ =\ tf.unstack(cls\_losses)}}
+\DoxyCodeLine{00577\ \textcolor{stringliteral}{\ \ \ \ num\_images\ =\ len(decoded\_boxlist\_list)}}
+\DoxyCodeLine{00578\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ match\_list:}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ match\_list\ =\ num\_images\ *\ [\textcolor{keywordtype}{None}]}
+\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ len(location\_losses)\ ==\ len(decoded\_boxlist\_list)\ ==\ len(cls\_losses):}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'location\_losses,\ cls\_losses\ and\ decoded\_boxlist\_list\ '}}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'do\ not\ have\ compatible\ shapes.'})}
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(match\_list,\ list):}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_list\ must\ be\ a\ list.'})}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordflow}{if}\ len(match\_list)\ !=\ len(decoded\_boxlist\_list):}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'match\_list\ must\ either\ be\ None\ or\ have\ '}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'length=len(decoded\_boxlist\_list).'})}
+\DoxyCodeLine{00588\ \ \ \ \ num\_positives\_list\ =\ []}
+\DoxyCodeLine{00589\ \ \ \ \ num\_negatives\_list\ =\ []}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{for}\ ind,\ detection\_boxlist\ \textcolor{keywordflow}{in}\ enumerate(decoded\_boxlist\_list):}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ box\_locations\ =\ detection\_boxlist.get()}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ match\ =\ match\_list[ind]}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ image\_losses\ =\ cls\_losses[ind]}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\_loss\_type\ ==\ \textcolor{stringliteral}{'loc'}:}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ image\_losses\ =\ location\_losses[ind]}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\_loss\_type\ ==\ \textcolor{stringliteral}{'both'}:}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ image\_losses\ *=\ self.\_cls\_loss\_weight}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ image\_losses\ +=\ location\_losses[ind]\ *\ self.\_loc\_loss\_weight}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\_num\_hard\_examples\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ num\_hard\_examples\ =\ self.\_num\_hard\_examples}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ num\_hard\_examples\ =\ detection\_boxlist.num\_boxes()}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ box\_locations,\ image\_losses,\ num\_hard\_examples,\ self.\_iou\_threshold)}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\_max\_negatives\_per\_positive\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ match:}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ (selected\_indices,\ num\_positives,}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ num\_negatives)\ =\ self.\_subsample\_selection\_to\_desired\_neg\_pos\_ratio(}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices,\ match,\ self.\_max\_negatives\_per\_positive,}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\_min\_negatives\_per\_image)}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ num\_positives\_list.append(num\_positives)}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ num\_negatives\_list.append(num\_negatives)}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ mined\_location\_losses.append(}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_sum(tf.gather(location\_losses[ind],\ selected\_indices)))}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ mined\_cls\_losses.append(}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_sum(tf.gather(cls\_losses[ind],\ selected\_indices)))}
+\DoxyCodeLine{00616\ \ \ \ \ location\_loss\ =\ tf.reduce\_sum(tf.stack(mined\_location\_losses))}
+\DoxyCodeLine{00617\ \ \ \ \ cls\_loss\ =\ tf.reduce\_sum(tf.stack(mined\_cls\_losses))}
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keywordflow}{if}\ match\ \textcolor{keywordflow}{and}\ self.\_max\_negatives\_per\_positive:}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ self.\_num\_positives\_list\ =\ num\_positives\_list}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ self.\_num\_negatives\_list\ =\ num\_negatives\_list}
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordflow}{return}\ (location\_loss,\ cls\_loss)}
+\DoxyCodeLine{00622\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/dd7/classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a7f13fd5f8f6e0f1fbe3297cad7cebd0f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_subsample\_selection\_to\_desired\_neg\_pos\_ratio@{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio}}
+\index{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio@{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio()}{\_subsample\_selection\_to\_desired\_neg\_pos\_ratio()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+subsample\+\_\+selection\+\_\+to\+\_\+desired\+\_\+neg\+\_\+pos\+\_\+ratio (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{indices,  }\item[{}]{match,  }\item[{}]{max\+\_\+negatives\+\_\+per\+\_\+positive,  }\item[{}]{min\+\_\+negatives\+\_\+per\+\_\+image = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Subsample a collection of selected indices to a desired neg:pos ratio.
+
+This function takes a subset of M indices (indexing into a large anchor
+collection of N anchors where M<N) which are labeled as positive/negative
+via a Match object (matched indices are positive, unmatched indices
+are negative).  It returns a subset of the provided indices retaining all
+positives as well as up to the first K negatives, where:
+  K=floor(num_negative_per_positive * num_positives).
+
+For example, if indices=[2, 4, 5, 7, 9, 10] (indexing into 12 anchors),
+with positives=[2, 5] and negatives=[4, 7, 9, 10] and
+num_negatives_per_positive=1, then the returned subset of indices
+is [2, 4, 5, 7].
+
+Args:
+  indices: An integer tensor of shape [M] representing a collection
+    of selected anchor indices
+  match: A matcher.Match object encoding the match between anchors and
+    groundtruth boxes for a given image, with rows of the Match objects
+    corresponding to groundtruth boxes and columns corresponding to anchors.
+  max_negatives_per_positive: (float) maximum number of negatives for
+    each positive anchor.
+  min_negatives_per_image: minimum number of negative anchors for a given
+    image. Allow sampling negatives in image without any positive anchors.
+
+Returns:
+  selected_indices: An integer tensor of shape [M'] representing a
+    collection of selected anchor indices with M' <= M.
+  num_positives: An integer tensor representing the number of positive
+    examples in selected set of indices.
+  num_negatives: An integer tensor representing the number of negative
+    examples in selected set of indices.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00633}{633}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_negatives\_per\_image=0):}
+\DoxyCodeLine{00638\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Subsample\ a\ collection\ of\ selected\ indices\ to\ a\ desired\ neg:pos\ ratio.}}
+\DoxyCodeLine{00639\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00640\ \textcolor{stringliteral}{\ \ \ \ This\ function\ takes\ a\ subset\ of\ M\ indices\ (indexing\ into\ a\ large\ anchor}}
+\DoxyCodeLine{00641\ \textcolor{stringliteral}{\ \ \ \ collection\ of\ N\ anchors\ where\ M<N)\ which\ are\ labeled\ }\textcolor{keyword}{as}\ positive/negative}
+\DoxyCodeLine{00642\ \ \ \ \ via\ a\ Match\ object\ (matched\ indices\ are\ positive,\ unmatched\ indices}
+\DoxyCodeLine{00643\ \ \ \ \ are\ negative).\ \ It\ returns\ a\ subset\ of\ the\ provided\ indices\ retaining\ all}
+\DoxyCodeLine{00644\ \ \ \ \ positives\ \textcolor{keyword}{as}\ well\ \textcolor{keyword}{as}\ up\ to\ the\ first\ K\ negatives,\ where:}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ K=floor(num\_negative\_per\_positive\ *\ num\_positives).}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ For\ example,\ \textcolor{keywordflow}{if}\ indices=[2,\ 4,\ 5,\ 7,\ 9,\ 10]\ (indexing\ into\ 12\ anchors),}
+\DoxyCodeLine{00648\ \ \ \ \ \textcolor{keyword}{with}\ positives=[2,\ 5]\ \textcolor{keywordflow}{and}\ negatives=[4,\ 7,\ 9,\ 10]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00649\ \ \ \ \ num\_negatives\_per\_positive=1,\ then\ the\ returned\ subset\ of\ indices}
+\DoxyCodeLine{00650\ \ \ \ \ \textcolor{keywordflow}{is}\ [2,\ 4,\ 5,\ 7].}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \ \ \ \ Args:}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ indices:\ An\ integer\ tensor\ of\ shape\ [M]\ representing\ a\ collection}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ of\ selected\ anchor\ indices}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ match:\ A\ matcher.Match\ object\ encoding\ the\ match\ between\ anchors\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ a\ given\ image,\ \textcolor{keyword}{with}\ rows\ of\ the\ Match\ objects}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ corresponding\ to\ groundtruth\ boxes\ \textcolor{keywordflow}{and}\ columns\ corresponding\ to\ anchors.}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ max\_negatives\_per\_positive:\ (float)\ maximum\ number\ of\ negatives\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ each\ positive\ anchor.}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ min\_negatives\_per\_image:\ minimum\ number\ of\ negative\ anchors\ \textcolor{keywordflow}{for}\ a\ given}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ image.\ Allow\ sampling\ negatives\ \textcolor{keywordflow}{in}\ image\ without\ any\ positive\ anchors.}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ \ \ \ \ Returns:}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ selected\_indices:\ An\ integer\ tensor\ of\ shape\ [M\textcolor{stringliteral}{']\ representing\ a}}
+\DoxyCodeLine{00665\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ collection\ of\ selected\ anchor\ indices\ }\textcolor{keyword}{with}\ M\textcolor{stringliteral}{'\ <=\ M.}}
+\DoxyCodeLine{00666\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_positives:\ An\ integer\ tensor\ representing\ the\ number\ of\ positive}}
+\DoxyCodeLine{00667\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ examples\ }\textcolor{keywordflow}{in}\ selected\ set\ of\ indices.}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ num\_negatives:\ An\ integer\ tensor\ representing\ the\ number\ of\ negative}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ examples\ \textcolor{keywordflow}{in}\ selected\ set\ of\ indices.}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00671\ \textcolor{stringliteral}{\ \ \ \ positives\_indicator\ =\ tf.gather(match.matched\_column\_indicator(),\ indices)}}
+\DoxyCodeLine{00672\ \textcolor{stringliteral}{\ \ \ \ negatives\_indicator\ =\ tf.gather(match.unmatched\_column\_indicator(),\ indices)}}
+\DoxyCodeLine{00673\ \textcolor{stringliteral}{\ \ \ \ num\_positives\ =\ tf.reduce\_sum(tf.cast(positives\_indicator,\ dtype=tf.int32))}}
+\DoxyCodeLine{00674\ \textcolor{stringliteral}{\ \ \ \ max\_negatives\ =\ tf.maximum(}}
+\DoxyCodeLine{00675\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ min\_negatives\_per\_image,}}
+\DoxyCodeLine{00676\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.cast(max\_negatives\_per\_positive\ *}}
+\DoxyCodeLine{00677\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(num\_positives,\ dtype=tf.float32),\ dtype=tf.int32))}}
+\DoxyCodeLine{00678\ \textcolor{stringliteral}{\ \ \ \ topk\_negatives\_indicator\ =\ tf.less\_equal(}}
+\DoxyCodeLine{00679\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.cumsum(tf.cast(negatives\_indicator,\ dtype=tf.int32)),\ max\_negatives)}}
+\DoxyCodeLine{00680\ \textcolor{stringliteral}{\ \ \ \ subsampled\_selection\_indices\ =\ tf.where(}}
+\DoxyCodeLine{00681\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.logical\_or(positives\_indicator,\ topk\_negatives\_indicator))}}
+\DoxyCodeLine{00682\ \textcolor{stringliteral}{\ \ \ \ num\_negatives\ =\ tf.size(subsampled\_selection\_indices)\ -\/\ num\_positives}}
+\DoxyCodeLine{00683\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ (tf.reshape(tf.gather(indices,\ subsampled\_selection\_indices),\ [-\/1]),}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ num\_positives,\ num\_negatives)}
+\DoxyCodeLine{00685\ }
+\DoxyCodeLine{00686\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/dd7/classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad1541128616ed73e7e7d669330909b48_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a5102f1118d6088014302904479ff3f81}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a5102f1118d6088014302904479ff3f81} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!summarize@{summarize}}
+\index{summarize@{summarize}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{summarize()}{summarize()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+summarize (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Summarize the number of positives and negatives after mining.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00623}{623}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00623\ \ \ \textcolor{keyword}{def\ }summarize(self):}
+\DoxyCodeLine{00624\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Summarize\ the\ number\ of\ positives\ and\ negatives\ after\ mining."{}"{}"{}}}
+\DoxyCodeLine{00625\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\_num\_positives\_list\ \textcolor{keywordflow}{and}\ self.\_num\_negatives\_list:}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ avg\_num\_positives\ =\ tf.reduce\_mean(}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ tf.cast(self.\_num\_positives\_list,\ dtype=tf.float32))}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ avg\_num\_negatives\ =\ tf.reduce\_mean(}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ tf.cast(self.\_num\_negatives\_list,\ dtype=tf.float32))}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ tf.summary.scalar(\textcolor{stringliteral}{'HardExampleMiner/NumPositives'},\ avg\_num\_positives)}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ tf.summary.scalar(\textcolor{stringliteral}{'HardExampleMiner/NumNegatives'},\ avg\_num\_negatives)}
+\DoxyCodeLine{00632\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_aada46a2de44d7810ebc15e830599004a} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_cls\_loss\_weight@{\_cls\_loss\_weight}}
+\index{\_cls\_loss\_weight@{\_cls\_loss\_weight}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_cls\_loss\_weight}{\_cls\_loss\_weight}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+cls\+\_\+loss\+\_\+weight\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00530}{530}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_acf91868a8598f087df796a515012f05b} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_iou\_threshold@{\_iou\_threshold}}
+\index{\_iou\_threshold@{\_iou\_threshold}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_iou\_threshold}{\_iou\_threshold}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+iou\+\_\+threshold\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00528}{528}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a53dea51ec308ccfdb6517195b24e3a57} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_loc\_loss\_weight@{\_loc\_loss\_weight}}
+\index{\_loc\_loss\_weight@{\_loc\_loss\_weight}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_loc\_loss\_weight}{\_loc\_loss\_weight}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+loc\+\_\+loss\+\_\+weight\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00531}{531}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a6e62eb86f10ebdf80850f4490719f292} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_loss\_type@{\_loss\_type}}
+\index{\_loss\_type@{\_loss\_type}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_loss\_type}{\_loss\_type}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+loss\+\_\+type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00529}{529}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a0c4ee1d3c14876d6ac0f3cb444a2c0eb} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_max\_negatives\_per\_positive@{\_max\_negatives\_per\_positive}}
+\index{\_max\_negatives\_per\_positive@{\_max\_negatives\_per\_positive}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_max\_negatives\_per\_positive}{\_max\_negatives\_per\_positive}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+max\+\_\+negatives\+\_\+per\+\_\+positive\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00532}{532}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad7dc2027cdc13b61de9ba1daab9779af} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_min\_negatives\_per\_image@{\_min\_negatives\_per\_image}}
+\index{\_min\_negatives\_per\_image@{\_min\_negatives\_per\_image}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_min\_negatives\_per\_image}{\_min\_negatives\_per\_image}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+min\+\_\+negatives\+\_\+per\+\_\+image\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00533}{533}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a9050aefac710d08563f24a578253c5ea} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_num\_hard\_examples@{\_num\_hard\_examples}}
+\index{\_num\_hard\_examples@{\_num\_hard\_examples}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_num\_hard\_examples}{\_num\_hard\_examples}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+num\+\_\+hard\+\_\+examples\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00527}{527}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_a04a79ab082067e7db546cdbe01f734f8} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_num\_negatives\_list@{\_num\_negatives\_list}}
+\index{\_num\_negatives\_list@{\_num\_negatives\_list}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_num\_negatives\_list}{\_num\_negatives\_list}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+num\+\_\+negatives\+\_\+list\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00537}{537}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e}\label{classdetection__utils_1_1core_1_1losses_1_1_hard_example_miner_ad9f01903634e61d36c7ebfefed1edc4e} 
+\index{detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}!\_num\_positives\_list@{\_num\_positives\_list}}
+\index{\_num\_positives\_list@{\_num\_positives\_list}!detection\_utils.core.losses.HardExampleMiner@{detection\_utils.core.losses.HardExampleMiner}}
+\doxysubsubsection{\texorpdfstring{\_num\_positives\_list}{\_num\_positives\_list}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Hard\+Example\+Miner.\+\_\+num\+\_\+positives\+\_\+list\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00536}{536}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,91 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Replace\+Na\+NGroundtruth\+Label\+Scores\+With\+Ones Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones}\index{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes@{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Replace\+Na\+NGroundtruth\+Label\+Scores\+With\+Ones\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{d9/d1a/classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Replace\+Na\+NGroundtruth\+Label\+Scores\+With\+Ones\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{d6/d82/classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a8cae63b18cfeedcb8df59996d53845bd}{test\+\_\+replace\+\_\+nan\+\_\+groundtruth\+\_\+label\+\_\+scores\+\_\+with\+\_\+ones}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a9e6f3b23ca9d9311c9a69f13ae8b4214}{test\+\_\+input\+\_\+equals\+\_\+output\+\_\+when\+\_\+no\+\_\+nans}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00635}{635}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a9e6f3b23ca9d9311c9a69f13ae8b4214}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a9e6f3b23ca9d9311c9a69f13ae8b4214} 
+\index{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes@{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes}!test\_input\_equals\_output\_when\_no\_nans@{test\_input\_equals\_output\_when\_no\_nans}}
+\index{test\_input\_equals\_output\_when\_no\_nans@{test\_input\_equals\_output\_when\_no\_nans}!detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes@{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes}}
+\doxysubsubsection{\texorpdfstring{test\_input\_equals\_output\_when\_no\_nans()}{test\_input\_equals\_output\_when\_no\_nans()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Replace\+Na\+NGroundtruth\+Label\+Scores\+With\+Ones.\+test\+\_\+input\+\_\+equals\+\_\+output\+\_\+when\+\_\+no\+\_\+nans (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00646}{646}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00646\ \ \ \textcolor{keyword}{def\ }test\_input\_equals\_output\_when\_no\_nans(self):}
+\DoxyCodeLine{00647\ \ \ \ \ input\_label\_scores\ =\ [0.5,\ 1.0,\ 1.0]}
+\DoxyCodeLine{00648\ \ \ \ \ label\_scores\_tensor\ =\ tf.constant(input\_label\_scores)}
+\DoxyCodeLine{00649\ \ \ \ \ output\_label\_scores\ =\ ops.replace\_nan\_groundtruth\_label\_scores\_with\_ones(}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ label\_scores\_tensor)}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ output\_label\_scores\ =\ output\_label\_scores.eval()}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ self.assertAllClose(input\_label\_scores,\ output\_label\_scores)}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a8cae63b18cfeedcb8df59996d53845bd}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_replace_na_n_groundtruth_label_scores_with_ones_a8cae63b18cfeedcb8df59996d53845bd} 
+\index{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes@{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes}!test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones@{test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones}}
+\index{test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones@{test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones}!detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes@{detection\_utils.utils.ops\_test.ReplaceNaNGroundtruthLabelScoresWithOnes}}
+\doxysubsubsection{\texorpdfstring{test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones()}{test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Replace\+Na\+NGroundtruth\+Label\+Scores\+With\+Ones.\+test\+\_\+replace\+\_\+nan\+\_\+groundtruth\+\_\+label\+\_\+scores\+\_\+with\+\_\+ones (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00637}{637}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00637\ \ \ \textcolor{keyword}{def\ }test\_replace\_nan\_groundtruth\_label\_scores\_with\_ones(self):}
+\DoxyCodeLine{00638\ \ \ \ \ label\_scores\ =\ tf.constant([np.nan,\ 1.0,\ np.nan])}
+\DoxyCodeLine{00639\ \ \ \ \ output\_tensor\ =\ ops.replace\_nan\_groundtruth\_label\_scores\_with\_ones(}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ label\_scores)}
+\DoxyCodeLine{00641\ \ \ \ \ expected\_tensor\ =\ [1.0,\ 1.0,\ 1.0]}
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ output\_tensor\ =\ output\_tensor.eval()}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ self.assertAllClose(expected\_tensor,\ output\_tensor)}
+\DoxyCodeLine{00645\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

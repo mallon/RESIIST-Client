@@ -1,0 +1,224 @@
+\doxysection{behavior\+Detection Namespace Reference}
+\hypertarget{namespacebehavior_detection}{}\label{namespacebehavior_detection}\index{behaviorDetection@{behaviorDetection}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacebehavior_detection_a1b6339b0c9616dd402e6c91486681aef}{start\+Detection}} (frames\+To\+Analyse, object\+Name\+To\+Detect\+List, all\+Element\+Ids)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_aa0653579499f6e458ae6220662933880}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} = os.\+getcwd() + \"{}/src/main/resources\"{}
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} = \mbox{\hyperlink{namespacebehavior_detection_aa0653579499f6e458ae6220662933880}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{SPECIFIC\+\_\+\+PATH}} = \mbox{\hyperlink{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \textquotesingle{}behavior\+\_\+detection/human-\/activity-\/recognition/\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a}{MODEL\+\_\+\+PATH}} = \mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{SPECIFIC\+\_\+\+PATH}}
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_ad515f456eb0c6a50e8bdff3f2fd76d07}{PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH}} = \mbox{\hyperlink{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a}{MODEL\+\_\+\+PATH}} + \textquotesingle{}resnet-\/34\+\_\+kinetics.\+onnx\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990}{PATH\+\_\+\+TO\+\_\+\+LABELS}} = os.\+path.\+join(\textquotesingle{}data\textquotesingle{}, \mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}action\+\_\+recognition\+\_\+kinetics.\+txt\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacebehavior_detection_a43f75cd8ce13999c71b56de9637b16e4}{CLASSES}} = open(\mbox{\hyperlink{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990}{PATH\+\_\+\+TO\+\_\+\+LABELS}}).read().strip().split(\"{}\textbackslash{}n\"{})
+\item 
+int \mbox{\hyperlink{namespacebehavior_detection_a8713ba5f5fafd8bb663808c5f5166c0d}{IMAGE\+\_\+\+SIZE}} = 112
+\item 
+int \mbox{\hyperlink{namespacebehavior_detection_a58437dae3af66311fd9feb1cff413943}{IMAGE\+\_\+\+NUMBER}} = 16
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_a11d438cfcf8c62bec9ebccd643ce81bf}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS}} = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}
+\item 
+int \mbox{\hyperlink{namespacebehavior_detection_a0e89e9893dae8c45ce84b6a75f96e353}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT}} = 8081
+\item 
+str \mbox{\hyperlink{namespacebehavior_detection_a579b80f34b4207b695f1b2c01105a7ad}{higher\+\_\+proba\+\_\+label}} = \"{}\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacebehavior_detection_a1b6339b0c9616dd402e6c91486681aef}\label{namespacebehavior_detection_a1b6339b0c9616dd402e6c91486681aef} 
+\index{behaviorDetection@{behaviorDetection}!startDetection@{startDetection}}
+\index{startDetection@{startDetection}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{startDetection()}{startDetection()}}
+{\footnotesize\ttfamily behavior\+Detection.\+start\+Detection (\begin{DoxyParamCaption}\item[{}]{frames\+To\+Analyse,  }\item[{}]{object\+Name\+To\+Detect\+List,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00078}{78}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00078\ \textcolor{keyword}{def\ }startDetection(framesToAnalyse,\ objectNameToDetectList,\ allElementIds):\ }
+\DoxyCodeLine{00079\ \ \ \ \ print(\textcolor{stringliteral}{"{}Starting\ activity\ detection..."{}})}
+\DoxyCodeLine{00080\ \ \ \ \ detection\_graph\ =\ cv2.dnn.readNet(PATH\_TO\_FROZEN\_GRAPH)}
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ internalFrames\ =\ deque(maxlen=IMAGE\_NUMBER)}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{for}\ frameToAnalyse\ \textcolor{keywordflow}{in}\ framesToAnalyse:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ internalFrames.append(frameToAnalyse)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{\#\ now\ that\ our\ frames\ array\ is\ filled\ we\ can\ construct\ our\ blob\ \ \ }}
+\DoxyCodeLine{00087\ \ \ \ \ blob\ =\ cv2.dnn.blobFromImages(internalFrames,\ 1.0,\ (IMAGE\_SIZE,\ IMAGE\_SIZE),\ (114.7748,\ 107.7354,\ 99.4750),\ swapRB=\textcolor{keyword}{True},\ crop=\textcolor{keyword}{True})}
+\DoxyCodeLine{00088\ \ \ \ \ blob\ =\ numpy.transpose(blob,\ (1,\ 0,\ 2,\ 3))\ \ }
+\DoxyCodeLine{00089\ \ \ \ \ blob\ =\ numpy.expand\_dims(blob,\ axis=0)}
+\DoxyCodeLine{00090\ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{\#\ pass\ the\ blob\ through\ the\ network\ to\ obtain\ our\ human\ activity}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{\#\ recognition\ predictions}}
+\DoxyCodeLine{00093\ \ \ \ \ detection\_graph.setInput(blob)}
+\DoxyCodeLine{00094\ \ \ \ \ outputs\ =\ detection\_graph.forward()}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{global}\ higher\_proba\_label\ }
+\DoxyCodeLine{00097\ \ \ \ \ higherDistance\ =\ numpy.max(outputs)}
+\DoxyCodeLine{00098\ \ \ \ \ higher\_proba\_label\ =\ CLASSES[numpy.argmax(outputs)]}
+\DoxyCodeLine{00099\ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ print(\textcolor{stringliteral}{"{}objectNameToDetectList:"{}})}
+\DoxyCodeLine{00101\ \ \ \ \ print(*objectNameToDetectList)}
+\DoxyCodeLine{00102\ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Activity\ recognized\ :\ "{}}\ +\ higher\_proba\_label)}
+\DoxyCodeLine{00103\ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ higherDistance:\ "{}}\ +\ str(higherDistance))}
+\DoxyCodeLine{00104\ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (higher\_proba\_label\ \textcolor{keywordflow}{in}\ objectNameToDetectList)\ \textcolor{keywordflow}{and}\ higherDistance\ >=\ 5:\ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(higher\_proba\_label)],\ higher\_proba\_label,\ \textcolor{stringliteral}{"{}1"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Targeted\ activity\ recognized\ -\/\ HERE:\ "{}}\ +\ higher\_proba\_label\_crit\_value\_string)}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ our\_socket.close()}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Targeted\ activity\ not\ recognized:\ "{}}\ +\ higher\_proba\_label\_crit\_value\_string)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacebehavior_detection_a43f75cd8ce13999c71b56de9637b16e4}\label{namespacebehavior_detection_a43f75cd8ce13999c71b56de9637b16e4} 
+\index{behaviorDetection@{behaviorDetection}!CLASSES@{CLASSES}}
+\index{CLASSES@{CLASSES}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{CLASSES}{CLASSES}}
+{\footnotesize\ttfamily behavior\+Detection.\+CLASSES = open(\mbox{\hyperlink{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990}{PATH\+\_\+\+TO\+\_\+\+LABELS}}).read().strip().split(\"{}\textbackslash{}n\"{})}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00069}{69}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_aa0653579499f6e458ae6220662933880}\label{namespacebehavior_detection_aa0653579499f6e458ae6220662933880} 
+\index{behaviorDetection@{behaviorDetection}!CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}}
+\index{CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_PYTHON\_PATH}{CURRENT\_PYTHON\_PATH}}
+{\footnotesize\ttfamily str behavior\+Detection.\+CURRENT\+\_\+\+PYTHON\+\_\+\+PATH = os.\+getcwd() + \"{}/src/main/resources\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00028}{28}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87}\label{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87} 
+\index{behaviorDetection@{behaviorDetection}!EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+\index{EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{EXTRACTION\_TO\_INTEGRATION\_PATH}{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+{\footnotesize\ttfamily str behavior\+Detection.\+EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH = \mbox{\hyperlink{namespacebehavior_detection_aa0653579499f6e458ae6220662933880}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00029}{29}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a579b80f34b4207b695f1b2c01105a7ad}\label{namespacebehavior_detection_a579b80f34b4207b695f1b2c01105a7ad} 
+\index{behaviorDetection@{behaviorDetection}!higher\_proba\_label@{higher\_proba\_label}}
+\index{higher\_proba\_label@{higher\_proba\_label}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{higher\_proba\_label}{higher\_proba\_label}}
+{\footnotesize\ttfamily str behavior\+Detection.\+higher\+\_\+proba\+\_\+label = \"{}\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00075}{75}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a58437dae3af66311fd9feb1cff413943}\label{namespacebehavior_detection_a58437dae3af66311fd9feb1cff413943} 
+\index{behaviorDetection@{behaviorDetection}!IMAGE\_NUMBER@{IMAGE\_NUMBER}}
+\index{IMAGE\_NUMBER@{IMAGE\_NUMBER}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{IMAGE\_NUMBER}{IMAGE\_NUMBER}}
+{\footnotesize\ttfamily int behavior\+Detection.\+IMAGE\+\_\+\+NUMBER = 16}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00072}{72}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a8713ba5f5fafd8bb663808c5f5166c0d}\label{namespacebehavior_detection_a8713ba5f5fafd8bb663808c5f5166c0d} 
+\index{behaviorDetection@{behaviorDetection}!IMAGE\_SIZE@{IMAGE\_SIZE}}
+\index{IMAGE\_SIZE@{IMAGE\_SIZE}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{IMAGE\_SIZE}{IMAGE\_SIZE}}
+{\footnotesize\ttfamily int behavior\+Detection.\+IMAGE\+\_\+\+SIZE = 112}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00071}{71}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a11d438cfcf8c62bec9ebccd643ce81bf}\label{namespacebehavior_detection_a11d438cfcf8c62bec9ebccd643ce81bf} 
+\index{behaviorDetection@{behaviorDetection}!INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}}
+\index{INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_ADRESS}{INTEGRATION\_NETWORK\_ADRESS}}
+{\footnotesize\ttfamily str behavior\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00073}{73}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a0e89e9893dae8c45ce84b6a75f96e353}\label{namespacebehavior_detection_a0e89e9893dae8c45ce84b6a75f96e353} 
+\index{behaviorDetection@{behaviorDetection}!INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}}
+\index{INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_PORT}{INTEGRATION\_NETWORK\_PORT}}
+{\footnotesize\ttfamily int behavior\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT = 8081}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00074}{74}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a}\label{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a} 
+\index{behaviorDetection@{behaviorDetection}!MODEL\_PATH@{MODEL\_PATH}}
+\index{MODEL\_PATH@{MODEL\_PATH}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{MODEL\_PATH}{MODEL\_PATH}}
+{\footnotesize\ttfamily str behavior\+Detection.\+MODEL\+\_\+\+PATH = \mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{SPECIFIC\+\_\+\+PATH}}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00062}{62}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_ad515f456eb0c6a50e8bdff3f2fd76d07}\label{namespacebehavior_detection_ad515f456eb0c6a50e8bdff3f2fd76d07} 
+\index{behaviorDetection@{behaviorDetection}!PATH\_TO\_FROZEN\_GRAPH@{PATH\_TO\_FROZEN\_GRAPH}}
+\index{PATH\_TO\_FROZEN\_GRAPH@{PATH\_TO\_FROZEN\_GRAPH}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{PATH\_TO\_FROZEN\_GRAPH}{PATH\_TO\_FROZEN\_GRAPH}}
+{\footnotesize\ttfamily str behavior\+Detection.\+PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH = \mbox{\hyperlink{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a}{MODEL\+\_\+\+PATH}} + \textquotesingle{}resnet-\/34\+\_\+kinetics.\+onnx\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00065}{65}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990}\label{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990} 
+\index{behaviorDetection@{behaviorDetection}!PATH\_TO\_LABELS@{PATH\_TO\_LABELS}}
+\index{PATH\_TO\_LABELS@{PATH\_TO\_LABELS}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{PATH\_TO\_LABELS}{PATH\_TO\_LABELS}}
+{\footnotesize\ttfamily behavior\+Detection.\+PATH\+\_\+\+TO\+\_\+\+LABELS = os.\+path.\+join(\textquotesingle{}data\textquotesingle{}, \mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}action\+\_\+recognition\+\_\+kinetics.\+txt\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00068}{68}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+
+\Hypertarget{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}\label{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63} 
+\index{behaviorDetection@{behaviorDetection}!SPECIFIC\_PATH@{SPECIFIC\_PATH}}
+\index{SPECIFIC\_PATH@{SPECIFIC\_PATH}!behaviorDetection@{behaviorDetection}}
+\doxysubsubsection{\texorpdfstring{SPECIFIC\_PATH}{SPECIFIC\_PATH}}
+{\footnotesize\ttfamily str behavior\+Detection.\+SPECIFIC\+\_\+\+PATH = \mbox{\hyperlink{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \textquotesingle{}behavior\+\_\+detection/human-\/activity-\/recognition/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{behavior_detection_8py_source_l00058}{58}} of file \mbox{\hyperlink{behavior_detection_8py_source}{behavior\+Detection.\+py}}.
+

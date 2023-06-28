@@ -1,0 +1,241 @@
+\doxysection{test\+\_\+utils.\+py}
+\hypertarget{test__utils_8py_source}{}\label{test__utils_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/test\_utils.py@{src/main/resources/processing/video/detections/detection\_utils/utils/test\_utils.py}}
+\mbox{\hyperlink{test__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Contains\ functions\ which\ are\ convenient\ for\ unit\ testing."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00021}00021\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00022}00022\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00023}00023\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00024}00024\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ anchor\_generator}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00027}00027\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_coder}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00028}00028\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00029}00029\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_predictor}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00030}00030\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ matcher}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00031}00031\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ shape\_utils}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00033}00033\ \textcolor{comment}{\#\ Default\ size\ (both\ width\ and\ height)\ used\ for\ testing\ mask\ predictions.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00034}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a962086ee513120ea00e102603aa81587}{00034}}\ DEFAULT\_MASK\_SIZE\ =\ 5}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder}{00037}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder}{MockBoxCoder}}(box\_coder.BoxCoder):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00038}00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}Simple\ \`{}difference\`{}\ BoxCoder."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00040}00040\ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00041}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a4829206467fbc93e04f8b8c61a62efab}{00041}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a4829206467fbc93e04f8b8c61a62efab}{code\_size}}(self):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{return}\ 4}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d}{00044}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_a1bf622dd36d10878465addb12b77fc7d}{\_encode}}(self,\ boxes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{return}\ boxes.get()\ -\/\ anchors.get()}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00047}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7}{00047}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder_aadb93b41b80714d68a7a6db1b7d42af7}{\_decode}}(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_list.BoxList(rel\_codes\ +\ anchors.get())}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00051}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head}{00051}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head}{MockMaskHead}}(object):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00052}00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}Simple\ maskhead\ that\ returns\ all\ zeros\ as\ mask\ predictions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00054}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_ab3bd29b9cda6a1429428399f26971e5b}{00054}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_ab3bd29b9cda6a1429428399f26971e5b}{\_\_init\_\_}}(self,\ num\_classes):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00055}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c}{00055}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c}{\_num\_classes}}\ =\ num\_classes}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_a269609a25fe5534c02fbc940497b7b9f}{00057}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_a269609a25fe5534c02fbc940497b7b9f}{predict}}(self,\ features):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00058}00058\ \ \ \ \ batch\_size\ =\ tf.shape(features)[0]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.zeros((batch\_size,\ 1,\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head_aaba23313d3958d072bacdb4e5633403c}{\_num\_classes}},\ DEFAULT\_MASK\_SIZE,}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DEFAULT\_MASK\_SIZE),}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00064}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor}{00064}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor}{MockBoxPredictor}}(box\_predictor.BoxPredictor):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00065}00065\ \ \ \textcolor{stringliteral}{"{}"{}"{}Simple\ box\ predictor\ that\ ignores\ inputs\ and\ outputs\ all\ zeros."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00067}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a069203027d01170a132fc37afc2d71b9}{00067}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a069203027d01170a132fc37afc2d71b9}{\_\_init\_\_}}(self,\ is\_training,\ num\_classes,\ add\_background\_class=True):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00068}00068\ \ \ \ \ super(MockBoxPredictor,\ self).\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a069203027d01170a132fc37afc2d71b9}{\_\_init\_\_}}(is\_training,\ num\_classes)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00069}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a23929596c5c349b371aeb5cff86f6f4e}{00069}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a23929596c5c349b371aeb5cff86f6f4e}{\_add\_background\_class}}\ =\ add\_background\_class}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00071}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a2f138336a44d807dd71036578db7c250}{00071}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a2f138336a44d807dd71036578db7c250}{\_predict}}(self,\ image\_features,\ num\_predictions\_per\_location):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00072}00072\ \ \ \ \ image\_feature\ =\ image\_features[0]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00073}00073\ \ \ \ \ combined\_feature\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ image\_feature)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00075}00075\ \ \ \ \ batch\_size\ =\ combined\_feature\_shape[0]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00076}00076\ \ \ \ \ num\_anchors\ =\ (combined\_feature\_shape[1]\ *\ combined\_feature\_shape[2])}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00077}00077\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00078}00078\ \ \ \ \ zero\ =\ tf.reduce\_sum(0\ *\ image\_feature)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00079}00079\ \ \ \ \ num\_class\_slots\ =\ self.num\_classes}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor_a23929596c5c349b371aeb5cff86f6f4e}{\_add\_background\_class}}:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00081}00081\ \ \ \ \ \ \ num\_class\_slots\ =\ num\_class\_slots\ +\ 1}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00082}00082\ \ \ \ \ box\_encodings\ =\ zero\ +\ tf.zeros(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ (batch\_size,\ num\_anchors,\ 1,\ code\_size),\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00084}00084\ \ \ \ \ class\_predictions\_with\_background\ =\ zero\ +\ tf.zeros(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ (batch\_size,\ num\_anchors,\ num\_class\_slots),\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00086}00086\ \ \ \ \ predictions\_dict\ =\ \{}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ box\_predictor.BOX\_ENCODINGS:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ box\_encodings,}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ box\_predictor.CLASS\_PREDICTIONS\_WITH\_BACKGROUND:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ class\_predictions\_with\_background}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00091}00091\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{return}\ predictions\_dict}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00095}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor}{00095}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor}{MockKerasBoxPredictor}}(box\_predictor.KerasBoxPredictor):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00096}00096\ \ \ \textcolor{stringliteral}{"{}"{}"{}Simple\ box\ predictor\ that\ ignores\ inputs\ and\ outputs\ all\ zeros."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00098}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a9663b98ab205f2bad1d7e1aca7a45302}{00098}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a9663b98ab205f2bad1d7e1aca7a45302}{\_\_init\_\_}}(self,\ is\_training,\ num\_classes,\ add\_background\_class=True):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00099}00099\ \ \ \ \ super(MockKerasBoxPredictor,\ self).\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a9663b98ab205f2bad1d7e1aca7a45302}{\_\_init\_\_}}(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ is\_training,\ num\_classes,\ \textcolor{keyword}{False},\ \textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00101}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a6433a2d71de04263603d4b96249dff55}{00101}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a6433a2d71de04263603d4b96249dff55}{\_add\_background\_class}}\ =\ add\_background\_class}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00103}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a176fd843de45489814c8a1a7833a88b7}{00103}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a176fd843de45489814c8a1a7833a88b7}{\_predict}}(self,\ image\_features,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00104}00104\ \ \ \ \ image\_feature\ =\ image\_features[0]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00105}00105\ \ \ \ \ combined\_feature\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ image\_feature)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00107}00107\ \ \ \ \ batch\_size\ =\ combined\_feature\_shape[0]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00108}00108\ \ \ \ \ num\_anchors\ =\ (combined\_feature\_shape[1]\ *\ combined\_feature\_shape[2])}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00109}00109\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00110}00110\ \ \ \ \ zero\ =\ tf.reduce\_sum(0\ *\ image\_feature)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00111}00111\ \ \ \ \ num\_class\_slots\ =\ self.num\_classes}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00112}00112\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor_a6433a2d71de04263603d4b96249dff55}{\_add\_background\_class}}:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00113}00113\ \ \ \ \ \ \ num\_class\_slots\ =\ num\_class\_slots\ +\ 1}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00114}00114\ \ \ \ \ box\_encodings\ =\ zero\ +\ tf.zeros(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ (batch\_size,\ num\_anchors,\ 1,\ code\_size),\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00116}00116\ \ \ \ \ class\_predictions\_with\_background\ =\ zero\ +\ tf.zeros(}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ (batch\_size,\ num\_anchors,\ num\_class\_slots),\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00118}00118\ \ \ \ \ predictions\_dict\ =\ \{}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ box\_predictor.BOX\_ENCODINGS:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ box\_encodings,}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ box\_predictor.CLASS\_PREDICTIONS\_WITH\_BACKGROUND:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ class\_predictions\_with\_background}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{return}\ predictions\_dict}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00127}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator}{00127}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator}{MockAnchorGenerator}}(anchor\_generator.AnchorGenerator):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00128}00128\ \ \ \textcolor{stringliteral}{"{}"{}"{}Mock\ anchor\ generator."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da}{00130}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da}{name\_scope}}(self):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'MockAnchorGenerator'}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00133}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813}{00133}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813}{num\_anchors\_per\_location}}(self):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00134}00134\ \ \ \ \ \textcolor{keywordflow}{return}\ [1]}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00136}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea}{00136}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea}{\_generate}}(self,\ feature\_map\_shape\_list):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00137}00137\ \ \ \ \ num\_anchors\ =\ sum([shape[0]\ *\ shape[1]\ \textcolor{keywordflow}{for}\ shape\ \textcolor{keywordflow}{in}\ feature\_map\_shape\_list])}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_list.BoxList(tf.zeros((num\_anchors,\ 4),\ dtype=tf.float32))}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00141}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher}{00141}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher}{MockMatcher}}(matcher.Matcher):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00142}00142\ \ \ \textcolor{stringliteral}{"{}"{}"{}Simple\ matcher\ that\ matches\ first\ anchor\ to\ first\ groundtruth\ box."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00144}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher_ac1e39ec4b894ab8e7c2351d56ff6058a}{00144}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher_ac1e39ec4b894ab8e7c2351d56ff6058a}{\_match}}(self,\ similarity\_matrix,\ valid\_rows):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.constant([0,\ -\/1,\ -\/1,\ -\/1],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00148}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a796e6d7f5a5b1f24129da9507369cf5c}{00148}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a796e6d7f5a5b1f24129da9507369cf5c}{create\_diagonal\_gradient\_image}}(height,\ width,\ depth):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00149}00149\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ pyramid\ image.\ Useful\ for\ testing.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00150}00150\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ For\ example,\ pyramid\_image(5,\ 6,\ 1)\ looks\ like:}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ [[[\ 5.\ \ 4.\ \ 3.\ \ 2.\ \ 1.\ \ 0.]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00153}00153\ \ \ \textcolor{comment}{\#\ \ \ [\ 6.\ \ 5.\ \ 4.\ \ 3.\ \ 2.\ \ 1.]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00154}00154\ \ \ \textcolor{comment}{\#\ \ \ [\ 7.\ \ 6.\ \ 5.\ \ 4.\ \ 3.\ \ 2.]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00155}00155\ \ \ \textcolor{comment}{\#\ \ \ [\ 8.\ \ 7.\ \ 6.\ \ 5.\ \ 4.\ \ 3.]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00156}00156\ \ \ \textcolor{comment}{\#\ \ \ [\ 9.\ \ 8.\ \ 7.\ \ 6.\ \ 5.\ \ 4.]]]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00158}00158\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00159}00159\ \ \ \ \ height:\ height\ of\ image}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00160}00160\ \ \ \ \ width:\ width\ of\ image}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00161}00161\ \ \ \ \ depth:\ depth\ of\ image}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00163}00163\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00164}00164\ \ \ \ \ pyramid\ image}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00165}00165\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ row\ =\ np.arange(height)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00167}00167\ \textcolor{stringliteral}{\ \ col\ =\ np.arange(width)[::-\/1]}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00168}00168\ \textcolor{stringliteral}{\ \ image\_layer\ =\ np.expand\_dims(row,\ 1)\ +\ col}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00169}00169\ \textcolor{stringliteral}{\ \ image\_layer\ =\ np.expand\_dims(image\_layer,\ 2)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00170}00170\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ image\ =\ image\_layer}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00172}00172\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(1,\ depth):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00173}00173\ \ \ \ \ image\ =\ np.concatenate((image,\ image\_layer\ *\ pow(10,\ i)),\ 2)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00175}00175\ \ \ \textcolor{keywordflow}{return}\ image.astype(np.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00178}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a5afaf8b28256be53947d5c78baa39c26}{00178}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a5afaf8b28256be53947d5c78baa39c26}{create\_random\_boxes}}(num\_boxes,\ max\_height,\ max\_width):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00179}00179\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ random\ bounding\ boxes\ of\ specific\ maximum\ height\ and\ width.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00180}00180\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ \ \ num\_boxes:\ number\ of\ boxes.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ \ \ max\_height:\ maximum\ height\ of\ boxes.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ \ \ max\_width:\ maximum\ width\ of\ boxes.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00185}00185\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00186}00186\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00187}00187\ \textcolor{stringliteral}{\ \ \ \ boxes:\ numpy\ array\ of\ shape\ [num\_boxes,\ 4].\ Each\ row\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{in}\ form}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00189}00189\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00190}00190\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ y\_1\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_height}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00192}00192\ \textcolor{stringliteral}{\ \ y\_2\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_height}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00193}00193\ \textcolor{stringliteral}{\ \ x\_1\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_width}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00194}00194\ \textcolor{stringliteral}{\ \ x\_2\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_width}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00195}00195\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ boxes\ =\ np.zeros(shape=(num\_boxes,\ 4))}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00197}00197\ \textcolor{stringliteral}{\ \ boxes[:,\ 0]\ =\ np.minimum(y\_1,\ y\_2)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00198}00198\ \textcolor{stringliteral}{\ \ boxes[:,\ 1]\ =\ np.minimum(x\_1,\ x\_2)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00199}00199\ \textcolor{stringliteral}{\ \ boxes[:,\ 2]\ =\ np.maximum(y\_1,\ y\_2)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00200}00200\ \textcolor{stringliteral}{\ \ boxes[:,\ 3]\ =\ np.maximum(x\_1,\ x\_2)}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00201}00201\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ boxes.astype(np.float32)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00205}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a655fd85c121c5f64c6342e99696280d0}{00205}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a655fd85c121c5f64c6342e99696280d0}{first\_rows\_close\_as\_set}}(a,\ b,\ k=None,\ rtol=1e-\/6,\ atol=1e-\/6):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00206}00206\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ if\ first\ K\ entries\ of\ two\ lists\ are\ close,\ up\ to\ permutation.}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00207}00207\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ Inputs\ to\ this\ }\textcolor{keyword}{assert}\ are\ lists\ of\ items\ which\ can\ be\ compared\ via}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00209}00209\ \ \ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ can\ be\ sorted.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00211}00211\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00212}00212\ \ \ \ \ a:\ list\ of\ items\ which\ can\ be\ compared\ via\ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ are}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00213}00213\ \ \ \ \ \ \ sortable.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00214}00214\ \ \ \ \ b:\ list\ of\ items\ which\ can\ be\ compared\ via\ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ are}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00215}00215\ \ \ \ \ \ \ sortable.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00216}00216\ \ \ \ \ k:\ a\ non-\/negative\ integer.\ \ If\ \textcolor{keywordflow}{not}\ provided,\ k\ \textcolor{keywordflow}{is}\ set\ to\ be\ len(a).}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00217}00217\ \ \ \ \ rtol:\ relative\ tolerance.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00218}00218\ \ \ \ \ atol:\ absolute\ tolerance.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00220}00220\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00221}00221\ \ \ \ \ boolean,\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ input\ lists\ a\ \textcolor{keywordflow}{and}\ b\ have\ the\ same\ length\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00222}00222\ \ \ \ \ the\ first\ k\ entries\ of\ the\ inputs\ satisfy\ numpy.allclose()\ after}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00223}00223\ \ \ \ \ sorting\ entries.}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00224}00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00225}00225\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(a,\ list)\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ isinstance(b,\ list)\ \textcolor{keywordflow}{or}\ len(a)\ !=\ len(b):}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00226}00226\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00227}00227\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ k:}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00228}00228\ \ \ \ \ k\ =\ len(a)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00229}00229\ \ \ k\ =\ min(k,\ len(a))}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00230}00230\ \ \ a\_sorted\ =\ sorted(a[:k])}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00231}00231\ \ \ b\_sorted\ =\ sorted(b[:k])}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00232}00232\ \ \ \textcolor{keywordflow}{return}\ all([}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00233}00233\ \ \ \ \ \ \ np.allclose(entry\_a,\ entry\_b,\ rtol,\ atol)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00234}00234\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (entry\_a,\ entry\_b)\ \textcolor{keywordflow}{in}\ zip(a\_sorted,\ b\_sorted)}
+\DoxyCodeLine{\Hypertarget{test__utils_8py_source_l00235}00235\ \ \ ])}
+
+\end{DoxyCode}

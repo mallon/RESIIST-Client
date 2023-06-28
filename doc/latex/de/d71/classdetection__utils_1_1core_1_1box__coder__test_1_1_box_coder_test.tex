@@ -1,0 +1,77 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Box\+Coder\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test}{}\label{classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test}\index{detection\_utils.core.box\_coder\_test.BoxCoderTest@{detection\_utils.core.box\_coder\_test.BoxCoderTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Box\+Coder\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{d4/d15/classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Box\+Coder\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{d5/d6a/classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test_aba72e4a72fdebff81389bfecb116244a}{test\+\_\+batch\+\_\+decode}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{box__coder__test_8py_source_l00037}{37}} of file \mbox{\hyperlink{box__coder__test_8py_source}{box\+\_\+coder\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test_aba72e4a72fdebff81389bfecb116244a}\label{classdetection__utils_1_1core_1_1box__coder__test_1_1_box_coder_test_aba72e4a72fdebff81389bfecb116244a} 
+\index{detection\_utils.core.box\_coder\_test.BoxCoderTest@{detection\_utils.core.box\_coder\_test.BoxCoderTest}!test\_batch\_decode@{test\_batch\_decode}}
+\index{test\_batch\_decode@{test\_batch\_decode}!detection\_utils.core.box\_coder\_test.BoxCoderTest@{detection\_utils.core.box\_coder\_test.BoxCoderTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_decode()}{test\_batch\_decode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Box\+Coder\+Test.\+test\+\_\+batch\+\_\+decode (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__coder__test_8py_source_l00039}{39}} of file \mbox{\hyperlink{box__coder__test_8py_source}{box\+\_\+coder\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{def\ }test\_batch\_decode(self):}
+\DoxyCodeLine{00040\ \ \ \ \ mock\_anchor\_corners\ =\ tf.constant(}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ [[0,\ 0.1,\ 0.2,\ 0.3],\ [0.2,\ 0.4,\ 0.4,\ 0.6]],\ tf.float32)}
+\DoxyCodeLine{00042\ \ \ \ \ mock\_anchors\ =\ box\_list.BoxList(mock\_anchor\_corners)}
+\DoxyCodeLine{00043\ \ \ \ \ mock\_box\_coder\ =\ MockBoxCoder()}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ expected\_boxes\ =\ [[[0.0,\ 0.1,\ 0.5,\ 0.6],\ [0.5,\ 0.6,\ 0.7,\ 0.8]],}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.1,\ 0.2,\ 0.3,\ 0.4],\ [0.7,\ 0.8,\ 0.9,\ 1.0]]]}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ encoded\_boxes\_list\ =\ [mock\_box\_coder.encode(}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ box\_list.BoxList(tf.constant(boxes)),\ mock\_anchors)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ boxes\ \textcolor{keywordflow}{in}\ expected\_boxes]}
+\DoxyCodeLine{00051\ \ \ \ \ encoded\_boxes\ =\ tf.stack(encoded\_boxes\_list)}
+\DoxyCodeLine{00052\ \ \ \ \ decoded\_boxes\ =\ box\_coder.batch\_decode(}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ encoded\_boxes,\ mock\_box\_coder,\ mock\_anchors)}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ decoded\_boxes\_result\ =\ sess.run(decoded\_boxes)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ decoded\_boxes\_result)}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__coder__test_8py}{box\+\_\+coder\+\_\+test.\+py}}\end{DoxyCompactItemize}

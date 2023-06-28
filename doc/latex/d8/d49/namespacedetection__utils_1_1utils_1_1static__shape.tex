@@ -1,0 +1,240 @@
+\doxysection{detection\+\_\+utils.\+utils.\+static\+\_\+shape Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1static__shape}{}\label{namespacedetection__utils_1_1utils_1_1static__shape}\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}{get\+\_\+dim\+\_\+as\+\_\+int}} (dim)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1}{get\+\_\+batch\+\_\+size}} (tensor\+\_\+shape)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35}{get\+\_\+height}} (tensor\+\_\+shape)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944}{get\+\_\+width}} (tensor\+\_\+shape)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d}{get\+\_\+depth}} (tensor\+\_\+shape)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Helper functions to access TensorShape values.
+
+The rank 4 tensor_shape must be of the form [batch_size, height, width, depth].
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1}\label{namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1} 
+\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}!get\_batch\_size@{get\_batch\_size}}
+\index{get\_batch\_size@{get\_batch\_size}!detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection{\texorpdfstring{get\_batch\_size()}{get\_batch\_size()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape.\+get\+\_\+batch\+\_\+size (\begin{DoxyParamCaption}\item[{}]{tensor\+\_\+shape }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns batch size from the tensor shape.
+
+Args:
+  tensor_shape: A rank 4 TensorShape.
+
+Returns:
+  An integer representing the batch size of the tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{static__shape_8py_source_l00041}{41}} of file \mbox{\hyperlink{static__shape_8py_source}{static\+\_\+shape.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \textcolor{keyword}{def\ }get\_batch\_size(tensor\_shape):}
+\DoxyCodeLine{00042\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ batch\ size\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ batch\ size\ of\ the\ tensor.}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ get\_dim\_as\_int(tensor\_shape[0])}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d49/namespacedetection__utils_1_1utils_1_1static__shape_a95f997c69aa866e3d0b4a193d504a0d1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d}\label{namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d} 
+\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}!get\_depth@{get\_depth}}
+\index{get\_depth@{get\_depth}!detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection{\texorpdfstring{get\_depth()}{get\_depth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape.\+get\+\_\+depth (\begin{DoxyParamCaption}\item[{}]{tensor\+\_\+shape }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns depth from the tensor shape.
+
+Args:
+  tensor_shape: A rank 4 TensorShape.
+
+Returns:
+  An integer representing the depth of the tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{static__shape_8py_source_l00080}{80}} of file \mbox{\hyperlink{static__shape_8py_source}{static\+\_\+shape.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \textcolor{keyword}{def\ }get\_depth(tensor\_shape):}
+\DoxyCodeLine{00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ depth\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00087\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ depth\ of\ the\ tensor.}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{00090\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ get\_dim\_as\_int(tensor\_shape[3])}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d49/namespacedetection__utils_1_1utils_1_1static__shape_ac5f3ca675109a9cd902ef910489e830d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db}\label{namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db} 
+\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}!get\_dim\_as\_int@{get\_dim\_as\_int}}
+\index{get\_dim\_as\_int@{get\_dim\_as\_int}!detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection{\texorpdfstring{get\_dim\_as\_int()}{get\_dim\_as\_int()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape.\+get\+\_\+dim\+\_\+as\+\_\+int (\begin{DoxyParamCaption}\item[{}]{dim }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Utility to get v1 or v2 TensorShape dim as an int.
+
+Args:
+  dim: The TensorShape dimension to get as an int
+
+Returns:
+  None or an int.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{static__shape_8py_source_l00026}{26}} of file \mbox{\hyperlink{static__shape_8py_source}{static\+\_\+shape.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \textcolor{keyword}{def\ }get\_dim\_as\_int(dim):}
+\DoxyCodeLine{00027\ \ \ \textcolor{stringliteral}{"{}"{}"{}Utility\ to\ get\ v1\ or\ v2\ TensorShape\ dim\ as\ an\ int.}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ dim:\ The\ TensorShape\ dimension\ to\ get\ }\textcolor{keyword}{as}\ an\ int}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ Returns:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ an\ int.}
+\DoxyCodeLine{00034\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{try}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{return}\ dim.value}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordflow}{except}\ AttributeError:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ dim}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d49/namespacedetection__utils_1_1utils_1_1static__shape_afefecbcddae06f5076fe8addfad300db_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35}\label{namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35} 
+\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}!get\_height@{get\_height}}
+\index{get\_height@{get\_height}!detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection{\texorpdfstring{get\_height()}{get\_height()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape.\+get\+\_\+height (\begin{DoxyParamCaption}\item[{}]{tensor\+\_\+shape }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns height from the tensor shape.
+
+Args:
+  tensor_shape: A rank 4 TensorShape.
+
+Returns:
+  An integer representing the height of the tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{static__shape_8py_source_l00054}{54}} of file \mbox{\hyperlink{static__shape_8py_source}{static\+\_\+shape.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \textcolor{keyword}{def\ }get\_height(tensor\_shape):}
+\DoxyCodeLine{00055\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ height\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ height\ of\ the\ tensor.}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ get\_dim\_as\_int(tensor\_shape[1])}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d49/namespacedetection__utils_1_1utils_1_1static__shape_a4fda56b3206163e0d505a0889297bd35_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944}\label{namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944} 
+\index{detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}!get\_width@{get\_width}}
+\index{get\_width@{get\_width}!detection\_utils.utils.static\_shape@{detection\_utils.utils.static\_shape}}
+\doxysubsubsection{\texorpdfstring{get\_width()}{get\_width()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape.\+get\+\_\+width (\begin{DoxyParamCaption}\item[{}]{tensor\+\_\+shape }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns width from the tensor shape.
+
+Args:
+  tensor_shape: A rank 4 TensorShape.
+
+Returns:
+  An integer representing the width of the tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{static__shape_8py_source_l00067}{67}} of file \mbox{\hyperlink{static__shape_8py_source}{static\+\_\+shape.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \textcolor{keyword}{def\ }get\_width(tensor\_shape):}
+\DoxyCodeLine{00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ width\ from\ the\ tensor\ shape.}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ \ \ tensor\_shape:\ A\ rank\ 4\ TensorShape.}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ An\ integer\ representing\ the\ width\ of\ the\ tensor.}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ tensor\_shape.assert\_has\_rank(rank=4)}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ get\_dim\_as\_int(tensor\_shape[2])}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d49/namespacedetection__utils_1_1utils_1_1static__shape_a7964014edd03014d6118720e4bc92944_cgraph}
+\end{center}
+\end{figure}

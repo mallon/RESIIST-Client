@@ -1,0 +1,560 @@
+\doxysection{spatial\+\_\+transform\+\_\+ops\+\_\+test.\+py}
+\hypertarget{spatial__transform__ops__test_8py_source}{}\label{spatial__transform__ops__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/spatial\_transform\_ops\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/spatial\_transform\_ops\_test.py}}
+\mbox{\hyperlink{spatial__transform__ops__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2019\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.utils.spatial\_transform\_ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00021}00021\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00022}00022\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00025}00025\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ spatial\_transform\_ops\ \textcolor{keyword}{as}\ spatial\_ops}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ test\_case}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00029}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test}{00029}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test}{BoxGridCoordinateTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a65318e38d19252322360b8cceeb2c0a1}{00031}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a65318e38d19252322360b8cceeb2c0a1}{test\_4x4\_grid}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00032}00032\ \ \ \ \ boxes\ =\ np.array([[[0.,\ 0.,\ 6.,\ 6.]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00034}00034\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.box\_grid\_coordinate\_vectors(boxes,\ size\_y=4,\ size\_x=4)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00036}00036\ \ \ \ \ grid\_y,\ grid\_x\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00037}00037\ \ \ \ \ expected\_grid\_y\ =\ np.array([[[0.75,\ 2.25,\ 3.75,\ 5.25]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00038}00038\ \ \ \ \ expected\_grid\_x\ =\ np.array([[[0.75,\ 2.25,\ 3.75,\ 5.25]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00039}00039\ \ \ \ \ self.assertAllClose(expected\_grid\_y,\ grid\_y)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00040}00040\ \ \ \ \ self.assertAllClose(expected\_grid\_x,\ grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00042}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_ab476a6952071d7e2dff5ad4ab6dcc864}{00042}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_ab476a6952071d7e2dff5ad4ab6dcc864}{test\_2x2\_grid}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00044}00044\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.box\_grid\_coordinate\_vectors(boxes,\ size\_x=2,\ size\_y=2)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00045}00045\ \ \ \ \ boxes\ =\ np.array([[[0.,\ 0.,\ 6.,\ 3.],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.,\ 0.,\ 3.,\ 6.]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00048}00048\ \ \ \ \ grid\_y,\ grid\_x\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00049}00049\ \ \ \ \ expected\_grid\_y\ =\ np.array([[[1.5,\ 4.5],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.75,\ 2.25]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00051}00051\ \ \ \ \ expected\_grid\_x\ =\ np.array([[[0.75,\ 2.25],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.5,\ 4.5]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00053}00053\ \ \ \ \ self.assertAllClose(expected\_grid\_y,\ grid\_y)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00054}00054\ \ \ \ \ self.assertAllClose(expected\_grid\_x,\ grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00056}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a66ee2da2afe7345f8733c4a2c4c3dbdc}{00056}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a66ee2da2afe7345f8733c4a2c4c3dbdc}{test\_2x4\_grid}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00057}00057\ \ \ \ \ boxes\ =\ np.array([[[0.,\ 0.,\ 6.,\ 6.]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00059}00059\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.box\_grid\_coordinate\_vectors(boxes,\ size\_y=2,\ size\_x=4)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00061}00061\ \ \ \ \ grid\_y,\ grid\_x\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00062}00062\ \ \ \ \ expected\_grid\_y\ =\ np.array([[[1.5,\ 4.5]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00063}00063\ \ \ \ \ expected\_grid\_x\ =\ np.array([[[0.75,\ 2.25,\ 3.75,\ 5.25]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00064}00064\ \ \ \ \ self.assertAllClose(expected\_grid\_y,\ grid\_y)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00065}00065\ \ \ \ \ self.assertAllClose(expected\_grid\_x,\ grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00067}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a779bbfaa6912a76dfe16406f5ac5f59c}{00067}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a779bbfaa6912a76dfe16406f5ac5f59c}{test\_2x4\_grid\_with\_aligned\_corner}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00068}00068\ \ \ \ \ boxes\ =\ np.array([[[0.,\ 0.,\ 6.,\ 6.]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00070}00070\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.box\_grid\_coordinate\_vectors(boxes,\ size\_y=2,\ size\_x=4,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align\_corners=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00073}00073\ \ \ \ \ grid\_y,\ grid\_x\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00074}00074\ \ \ \ \ expected\_grid\_y\ =\ np.array([[[0,\ 6]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00075}00075\ \ \ \ \ expected\_grid\_x\ =\ np.array([[[0,\ 2,\ 4,\ 6]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00076}00076\ \ \ \ \ self.assertAllClose(expected\_grid\_y,\ grid\_y)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00077}00077\ \ \ \ \ self.assertAllClose(expected\_grid\_x,\ grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00079}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a8f33498fe09027ab150f5a025b597c17}{00079}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_box_grid_coordinate_test_a8f33498fe09027ab150f5a025b597c17}{test\_offgrid\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00080}00080\ \ \ \ \ boxes\ =\ np.array([[[1.2,\ 2.3,\ 7.2,\ 8.3]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00082}00082\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.box\_grid\_coordinate\_vectors(boxes,\ size\_y=4,\ size\_x=4)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00084}00084\ \ \ \ \ grid\_y,\ grid\_x\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00085}00085\ \ \ \ \ expected\_grid\_y\ =\ np.array([[[0.75,\ 2.25,\ 3.75,\ 5.25]]])\ +\ 1.2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00086}00086\ \ \ \ \ expected\_grid\_x\ =\ np.array([[[0.75,\ 2.25,\ 3.75,\ 5.25]]])\ +\ 2.3}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00087}00087\ \ \ \ \ self.assertAllClose(expected\_grid\_y,\ grid\_y)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00088}00088\ \ \ \ \ self.assertAllClose(expected\_grid\_x,\ grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00091}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test}{00091}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test}{FeatureGridCoordinateTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00093}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test_afdb63aa06820701332654bb8ade70275}{00093}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test_afdb63aa06820701332654bb8ade70275}{test\_snap\_box\_points\_to\_nearest\_4\_pixels}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00094}00094\ \ \ \ \ box\_grid\_y\ =\ np.array([[[1.5,\ 4.6]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00095}00095\ \ \ \ \ box\_grid\_x\ =\ np.array([[[2.4,\ 5.3]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(box\_grid\_y,\ box\_grid\_x):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00098}00098\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.feature\_grid\_coordinate\_vectors(box\_grid\_y,\ box\_grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00100}00100\ \ \ \ \ (feature\_grid\_y0,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00101}00101\ \ \ \ \ \ feature\_grid\_x0,\ feature\_grid\_y1,\ feature\_grid\_x1)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [box\_grid\_y,\ box\_grid\_x])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00103}00103\ \ \ \ \ expected\_grid\_y0\ =\ np.array([[[1,\ 4]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00104}00104\ \ \ \ \ expected\_grid\_y1\ =\ np.array([[[2,\ 5]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00105}00105\ \ \ \ \ expected\_grid\_x0\ =\ np.array([[[2,\ 5]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00106}00106\ \ \ \ \ expected\_grid\_x1\ =\ np.array([[[3,\ 6]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00107}00107\ \ \ \ \ self.assertAllEqual(expected\_grid\_y0,\ feature\_grid\_y0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00108}00108\ \ \ \ \ self.assertAllEqual(expected\_grid\_y1,\ feature\_grid\_y1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00109}00109\ \ \ \ \ self.assertAllEqual(expected\_grid\_x0,\ feature\_grid\_x0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00110}00110\ \ \ \ \ self.assertAllEqual(expected\_grid\_x1,\ feature\_grid\_x1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00112}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test_a9e1260ca75769d5f1d33b4971fb7363c}{00112}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_feature_grid_coordinate_test_a9e1260ca75769d5f1d33b4971fb7363c}{test\_snap\_box\_points\_outside\_pixel\_grid\_to\_nearest\_neighbor}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00113}00113\ \ \ \ \ box\_grid\_y\ =\ np.array([[[0.33,\ 1.,\ 1.66]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00114}00114\ \ \ \ \ box\_grid\_x\ =\ np.array([[[-\/0.5,\ 1.,\ 1.66]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00116}00116\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(box\_grid\_y,\ box\_grid\_x):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00117}00117\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.feature\_grid\_coordinate\_vectors(box\_grid\_y,\ box\_grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00119}00119\ \ \ \ \ (feature\_grid\_y0,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00120}00120\ \ \ \ \ \ feature\_grid\_x0,\ feature\_grid\_y1,\ feature\_grid\_x1)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ graph\_fn,\ [box\_grid\_y,\ box\_grid\_x])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00122}00122\ \ \ \ \ expected\_grid\_y0\ =\ np.array([[[0,\ 1,\ 1]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00123}00123\ \ \ \ \ expected\_grid\_y1\ =\ np.array([[[1,\ 2,\ 2]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00124}00124\ \ \ \ \ expected\_grid\_x0\ =\ np.array([[[-\/1,\ 1,\ 1]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00125}00125\ \ \ \ \ expected\_grid\_x1\ =\ np.array([[[0,\ 2,\ 2]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00126}00126\ \ \ \ \ self.assertAllEqual(expected\_grid\_y0,\ feature\_grid\_y0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00127}00127\ \ \ \ \ self.assertAllEqual(expected\_grid\_y1,\ feature\_grid\_y1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00128}00128\ \ \ \ \ self.assertAllEqual(expected\_grid\_x0,\ feature\_grid\_x0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00129}00129\ \ \ \ \ self.assertAllEqual(expected\_grid\_x1,\ feature\_grid\_x1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00132}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_ravel_indices_test}{00132}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_ravel_indices_test}{RavelIndicesTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00134}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_ravel_indices_test_adfe790603f855ac0df7074781ebfe6b2}{00134}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_ravel_indices_test_adfe790603f855ac0df7074781ebfe6b2}{test\_feature\_point\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00135}00135\ \ \ \ \ feature\_grid\_y\ =\ np.array([[[1,\ 2,\ 4,\ 5],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 3,\ 4,\ 5]]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00137}00137\ \ \ \ \ feature\_grid\_x\ =\ np.array([[[1,\ 3,\ 4],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 3,\ 4]]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00139}00139\ \ \ \ \ num\_feature\_levels\ =\ 2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00140}00140\ \ \ \ \ feature\_height\ =\ 6}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00141}00141\ \ \ \ \ feature\_width\ =\ 5}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00142}00142\ \ \ \ \ box\_levels\ =\ np.array([[0,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00144}00144\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(feature\_grid\_y,\ feature\_grid\_x,\ box\_levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00145}00145\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.ravel\_indices(feature\_grid\_y,\ feature\_grid\_x,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_feature\_levels,\ feature\_height,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feature\_width,\ box\_levels)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00149}00149\ \ \ \ \ indices\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [feature\_grid\_y,\ feature\_grid\_x,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00151}00151\ \ \ \ \ expected\_indices\ =\ np.array([[[[6,\ 8,\ 9],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [11,\ 13,\ 14],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [21,\ 23,\ 24],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [26,\ 28,\ 29]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[42,\ 43,\ 44],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [47,\ 48,\ 49],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [52,\ 53,\ 54],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [57,\ 58,\ 59]]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00159}00159\ \ \ \ \ self.assertAllEqual(expected\_indices.flatten(),\ indices)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00162}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test}{00162}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test}{MultiLevelRoIAlignTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00164}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a90d6ae486f353e011c623636631e8f28}{00164}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a90d6ae486f353e011c623636631e8f28}{test\_perfectly\_aligned\_cell\_center\_and\_feature\_pixels}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00166}00166\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00167}00167\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00172}00172\ \ \ \ \ image\ =\ np.arange(25).reshape(1,\ 5,\ 5,\ 1).astype(np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00173}00173\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1.0,\ 1.0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00174}00174\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00176}00176\ \ \ \ \ expected\_output\ =\ [[[[[6],\ [8]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[16],\ [18]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00178}00178\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00179}00179\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00181}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_ad59249f7b2a775719e31b2c4d212c595}{00181}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_ad59249f7b2a775719e31b2c4d212c595}{test\_interpolation\_with\_4\_points\_per\_bin}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00183}00183\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00184}00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_samples\_per\_cell\_y=2,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_samples\_per\_cell\_x=2)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00191}00191\ \ \ \ \ image\ =\ np.array([[[[1],\ [2],\ [3],\ [4]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5],\ [6],\ [7],\ [8]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[9],\ [10],\ [11],\ [12]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[13],\ [14],\ [15],\ [16]]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00196}00196\ \ \ \ \ boxes\ =\ np.array([[[1./3,\ 1./3,\ 2./3,\ 2./3]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00197}00197\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00199}00199\ \ \ \ \ expected\_output\ =\ [[[[[(7.25\ +\ 7.75\ +\ 9.25\ +\ 9.75)\ /\ 4]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00200}00200\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00201}00201\ \ \ \ \ self.assertAllClose(expected\_output,\ crop\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00203}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a5083314812c3e16bae61dc6c414bc777}{00203}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a5083314812c3e16bae61dc6c414bc777}{test\_1x1\_crop\_on\_2x2\_features}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00206}00206\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[1,\ 1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00211}00211\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00213}00213\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00214}00214\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00215}00215\ \ \ \ \ expected\_output\ =\ [[[[[2.5]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00216}00216\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00217}00217\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00219}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a04818fdf741d1078701a87974eac95d5}{00219}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a04818fdf741d1078701a87974eac95d5}{test\_3x3\_crops\_on\_2x2\_features}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00221}00221\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00222}00222\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[3,\ 3])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00227}00227\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00229}00229\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00230}00230\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00231}00231\ \ \ \ \ expected\_output\ =\ [[[[[9./6],\ [11./6],\ [13./6]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[13./6],\ [15./6],\ [17./6]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[17./6],\ [19./6],\ [21./6]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00234}00234\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00235}00235\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00237}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_afe60f83e84406885744eeb3f223fd3a5}{00237}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_afe60f83e84406885744eeb3f223fd3a5}{test\_2x2\_crops\_on\_3x3\_features}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00239}00239\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00240}00240\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00245}00245\ \ \ \ \ image\ =\ np.array([[[[1],\ [2],\ [3]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4],\ [5],\ [6]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7],\ [8],\ [9]]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00249}00249\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .5]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00252}00252\ \ \ \ \ box\_levels\ =\ np.array([[0,\ 0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00253}00253\ \ \ \ \ expected\_output\ =\ [[[[[3],\ [4]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[6],\ [7]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[2.],\ [2.5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.5],\ [4.]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00257}00257\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00258}00258\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00260}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_aaee5dba72de13fcd4cd4e40840249d5c}{00260}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_aaee5dba72de13fcd4cd4e40840249d5c}{test\_2x2\_crop\_on\_4x4\_features}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00262}00262\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00263}00263\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00268}00268\ \ \ \ \ image\ =\ np.array([[[[0],\ [1],\ [2],\ [3]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4],\ [5],\ [6],\ [7]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[8],\ [9],\ [10],\ [11]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[12],\ [13],\ [14],\ [15]]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00273}00273\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 2./3,\ 2./3],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 2./3,\ 1.0]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00276}00276\ \ \ \ \ box\_levels\ =\ np.array([[0,\ 0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00278}00278\ \ \ \ \ expected\_output\ =\ np.array([[[[[2.5],\ [3.5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[6.5],\ [7.5]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[2.75],\ [4.25]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[6.75],\ [8.25]]]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00282}00282\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00283}00283\ \ \ \ \ self.assertAllClose(expected\_output,\ crop\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00285}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a1019e597c1e424323e09d35c5a4c0000}{00285}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a1019e597c1e424323e09d35c5a4c0000}{test\_extrapolate\_3x3\_crop\_on\_2x2\_features}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00286}00286\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00287}00287\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[3,\ 3])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00291}00291\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00293}00293\ \ \ \ \ boxes\ =\ np.array([[[-\/1,\ -\/1,\ 2,\ 2]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00294}00294\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00296}00296\ \ \ \ \ expected\_output\ =\ np.array([[[[[0.25],\ [0.75],\ [0.5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1.0],\ [2.5],\ [1.5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.75],\ [1.75],\ [1]]]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00299}00299\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00300}00300\ \ \ \ \ self.assertAllClose(expected\_output,\ crop\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00302}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a796171dd864f3d7037ec1fd88beb484e}{00302}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a796171dd864f3d7037ec1fd88beb484e}{test\_extrapolate\_with\_non\_zero\_value}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00303}00303\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00304}00304\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ output\_size=[3,\ 3],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extrapolation\_value=2.0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00309}00309\ \ \ \ \ image\ =\ np.array([[[[4],\ [4]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00311}00311\ \ \ \ \ boxes\ =\ np.array([[[-\/1,\ -\/1,\ 2,\ 2]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00312}00312\ \ \ \ \ box\_levels\ =\ np.array([[0]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00314}00314\ \ \ \ \ expected\_output\ =\ np.array([[[[[2.5],\ [3.0],\ [2.5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.0],\ [4.0],\ [3.0]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2.5],\ [3.0],\ [2.5]]]]])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00317}00317\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes,\ box\_levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00318}00318\ \ \ \ \ self.assertAllClose(expected\_output,\ crop\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00320}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_addc76f7ec56d59581a60c7ffe86ed1e7}{00320}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_addc76f7ec56d59581a60c7ffe86ed1e7}{test\_multilevel\_roi\_align}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00321}00321\ \ \ \ \ image\_size\ =\ 640}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00322}00322\ \ \ \ \ fpn\_min\_level\ =\ 2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00323}00323\ \ \ \ \ fpn\_max\_level\ =\ 5}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00324}00324\ \ \ \ \ batch\_size\ =\ 1}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00325}00325\ \ \ \ \ output\_size\ =\ [2,\ 2]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00326}00326\ \ \ \ \ num\_filters\ =\ 1}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00327}00327\ \ \ \ \ features\ =\ []}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{for}\ level\ \textcolor{keywordflow}{in}\ range(fpn\_min\_level,\ fpn\_max\_level\ +\ 1):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00329}00329\ \ \ \ \ \ \ feat\_size\ =\ int(image\_size\ /\ 2**level)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00330}00330\ \ \ \ \ \ \ features.append(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ float(level)\ *}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ np.ones([batch\_size,\ feat\_size,\ feat\_size,\ num\_filters],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00334}00334\ \ \ \ \ boxes\ =\ np.array(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 111,\ 111],\ \ \textcolor{comment}{\#\ Level\ 2.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 113,\ 113],\ \ \textcolor{comment}{\#\ Level\ 3.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 223,\ 223],\ \ \textcolor{comment}{\#\ Level\ 3.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 225,\ 225],\ \ \textcolor{comment}{\#\ Level\ 4.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 449,\ 449]\ \ \ \textcolor{comment}{\#\ Level\ 5.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00344}00344\ \ \ \ \ \ \ \ \ dtype=np.float32)\ /\ image\_size}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00345}00345\ \ \ \ \ levels\ =\ np.array([[0,\ 1,\ 1,\ 2,\ 3]],\ dtype=np.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00347}00347\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(feature1,\ feature2,\ feature3,\ feature4,\ boxes,\ levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00348}00348\ \ \ \ \ \ \ roi\_features\ =\ spatial\_ops.multilevel\_roi\_align(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ [feature1,\ feature2,\ feature3,\ feature4],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ output\_size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00353}00353\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ roi\_features}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00355}00355\ \ \ \ \ roi\_features\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ features\ +\ [boxes,\ levels])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00356}00356\ \ \ \ \ self.assertAllClose(roi\_features[0][0],\ 2\ *\ np.ones((2,\ 2,\ 1)))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00357}00357\ \ \ \ \ self.assertAllClose(roi\_features[0][1],\ 3\ *\ np.ones((2,\ 2,\ 1)))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00358}00358\ \ \ \ \ self.assertAllClose(roi\_features[0][2],\ 3\ *\ np.ones((2,\ 2,\ 1)))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00359}00359\ \ \ \ \ self.assertAllClose(roi\_features[0][3],\ 4\ *\ np.ones((2,\ 2,\ 1)))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00360}00360\ \ \ \ \ self.assertAllClose(roi\_features[0][4],\ 5\ *\ np.ones((2,\ 2,\ 1)))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00362}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a581e8ef6a005750f72e7906193a6d55b}{00362}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test_a581e8ef6a005750f72e7906193a6d55b}{test\_large\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00363}00363\ \ \ \ \ \textcolor{keywordflow}{if}\ test\_case.FLAGS.tpu\_test:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00364}00364\ \ \ \ \ \ \ input\_size\ =\ 1408}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00365}00365\ \ \ \ \ \ \ min\_level\ =\ 2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00366}00366\ \ \ \ \ \ \ max\_level\ =\ 6}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00367}00367\ \ \ \ \ \ \ batch\_size\ =\ 2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00368}00368\ \ \ \ \ \ \ num\_boxes\ =\ 512}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00369}00369\ \ \ \ \ \ \ num\_filters\ =\ 256}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00370}00370\ \ \ \ \ \ \ output\_size\ =\ [7,\ 7]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00371}00371\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00372}00372\ \ \ \ \ \ \ \ \ features\ =\ []}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ level\ \textcolor{keywordflow}{in}\ range(min\_level,\ max\_level\ +\ 1):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ feat\_size\ =\ int(input\_size\ /\ 2**level)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ features.append(tf.constant(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.arange(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch\_size\ *\ feat\_size\ *\ feat\_size\ *\ num\_filters,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ feat\_size,\ feat\_size,\ num\_filters]),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.bfloat16))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ boxes\ =\ np.array([}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 256,\ 256]]*num\_boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ ],\ dtype=np.float32)\ /\ input\_size}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ boxes\ =\ np.tile(boxes,\ [batch\_size,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ tf\_boxes\ =\ tf.constant(boxes)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ tf\_levels\ =\ tf.random\_uniform([batch\_size,\ num\_boxes],\ maxval=5,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ \textcolor{keyword}{def\ }crop\_and\_resize\_fn():}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.multilevel\_roi\_align(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ features,\ tf\_boxes,\ tf\_levels,\ output\_size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ tpu\_crop\_and\_resize\_fn\ =\ tf.contrib.tpu.rewrite(crop\_and\_resize\_fn)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ sess.run(tf.contrib.tpu.initialize\_system())}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ sess.run(tf.global\_variables\_initializer())}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ roi\_features\ =\ sess.run(tpu\_crop\_and\_resize\_fn)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00397}00397\ \ \ \ \ \ \ \ \ self.assertEqual(roi\_features[0].shape,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (batch\_size,\ num\_boxes,\ output\_size[0],\ output\_size[1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_filters))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ sess.run(tf.contrib.tpu.shutdown\_system())}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00403}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test}{00403}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test}{MatMulCropAndResizeTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00405}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a36e8565d087652c4c73dd3dce9299468}{00405}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a36e8565d087652c4c73dd3dce9299468}{testMatMulCropAndResize2x2To1x1}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00407}00407\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00408}00408\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[1,\ 1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00410}00410\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],\ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00411}00411\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00412}00412\ \ \ \ \ expected\_output\ =\ [[[[[2.5]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00413}00413\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00414}00414\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00416}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_adcd657214b5881d07165cf9283842e01}{00416}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_adcd657214b5881d07165cf9283842e01}{testMatMulCropAndResize2x2To1x1Flipped}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00418}00418\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00419}00419\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[1,\ 1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00421}00421\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],\ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00422}00422\ \ \ \ \ boxes\ =\ np.array([[[1,\ 1,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00423}00423\ \ \ \ \ expected\_output\ =\ [[[[[2.5]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00424}00424\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00425}00425\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00427}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a0f7dac769c2ea33974ad62bf614a8005}{00427}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a0f7dac769c2ea33974ad62bf614a8005}{testMatMulCropAndResize2x2To3x3}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00429}00429\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00430}00430\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[3,\ 3])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00432}00432\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],\ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00433}00433\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00434}00434\ \ \ \ \ expected\_output\ =\ [[[[[1.0],\ [1.5],\ [2.0]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2.0],\ [2.5],\ [3.0]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.0],\ [3.5],\ [4.0]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00437}00437\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00438}00438\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00440}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_ae59d0cd8674cab2c2f57d57d4f395a79}{00440}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_ae59d0cd8674cab2c2f57d57d4f395a79}{testMatMulCropAndResize2x2To3x3Flipped}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00442}00442\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00443}00443\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[3,\ 3])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00445}00445\ \ \ \ \ image\ =\ np.array([[[[1],\ [2]],\ [[3],\ [4]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00446}00446\ \ \ \ \ boxes\ =\ np.array([[[1,\ 1,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00447}00447\ \ \ \ \ expected\_output\ =\ [[[[[4.0],\ [3.5],\ [3.0]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[3.0],\ [2.5],\ [2.0]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2.0],\ [1.5],\ [1.0]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00450}00450\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00451}00451\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00453}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a2b87307043d9ff99967b84d37fe83711}{00453}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a2b87307043d9ff99967b84d37fe83711}{testMatMulCropAndResize3x3To2x2}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00455}00455\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00456}00456\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00458}00458\ \ \ \ \ image\ =\ np.array([[[[1],\ [2],\ [3]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4],\ [5],\ [6]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7],\ [8],\ [9]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00461}00461\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .5]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00463}00463\ \ \ \ \ expected\_output\ =\ [[[[[1],\ [3]],\ [[7],\ [9]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1],\ [2]],\ [[4],\ [5]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00465}00465\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00466}00466\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00468}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a22a51f1ed97cccc9a9539e640bb06420}{00468}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a22a51f1ed97cccc9a9539e640bb06420}{testMatMulCropAndResize3x3To2x2\_2Channels}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00470}00470\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00471}00471\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00472}00472\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00473}00473\ \ \ \ \ image\ =\ np.array([[[[1,\ 0],\ [2,\ 1],\ [3,\ 2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 3],\ [5,\ 4],\ [6,\ 5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7,\ 6],\ [8,\ 7],\ [9,\ 8]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00476}00476\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .5]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00478}00478\ \ \ \ \ expected\_output\ =\ [[[[[1,\ 0],\ [3,\ 2]],\ [[7,\ 6],\ [9,\ 8]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1,\ 0],\ [2,\ 1]],\ [[4,\ 3],\ [5,\ 4]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00480}00480\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00481}00481\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00483}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_aaaae40c9b8ede2b7f3d9d45134cb8714}{00483}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_aaaae40c9b8ede2b7f3d9d45134cb8714}{testBatchMatMulCropAndResize3x3To2x2\_2Channels}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00485}00485\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00486}00486\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00487}00487\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00488}00488\ \ \ \ \ image\ =\ np.array([[[[1,\ 0],\ [2,\ 1],\ [3,\ 2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 3],\ [5,\ 4],\ [6,\ 5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7,\ 6],\ [8,\ 7],\ [9,\ 8]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1,\ 0],\ [2,\ 1],\ [3,\ 2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 3],\ [5,\ 4],\ [6,\ 5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7,\ 6],\ [8,\ 7],\ [9,\ 8]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00494}00494\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ .5,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00498}00498\ \ \ \ \ expected\_output\ =\ [[[[[1,\ 0],\ [3,\ 2]],\ [[7,\ 6],\ [9,\ 8]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1,\ 0],\ [2,\ 1]],\ [[4,\ 3],\ [5,\ 4]]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[[9,\ 8],\ [7,\ 6]],\ [[3,\ 2],\ [1,\ 0]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[5,\ 4],\ [4,\ 3]],\ [[2,\ 1],\ [1,\ 0]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00502}00502\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00503}00503\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00505}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_af85d737e22078379193a8328575eb5ce}{00505}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_af85d737e22078379193a8328575eb5ce}{testMatMulCropAndResize3x3To2x2Flipped}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00506}00506\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00507}00507\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00508}00508\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00510}00510\ \ \ \ \ image\ =\ np.array([[[[1],\ [2],\ [3]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4],\ [5],\ [6]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7],\ [8],\ [9]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00513}00513\ \ \ \ \ boxes\ =\ np.array([[[1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ .5,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00515}00515\ \ \ \ \ expected\_output\ =\ [[[[[9],\ [7]],\ [[3],\ [1]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[5],\ [4]],\ [[2],\ [1]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00517}00517\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00518}00518\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00519}00519\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00520}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a9cb44ed7c15852faadeae673b2b5df1d}{00520}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test_a9cb44ed7c15852faadeae673b2b5df1d}{testInvalidInputShape}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00521}00521\ \ \ \ \ image\ =\ tf.constant([[[1],\ [2]],\ [[3],\ [4]]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00522}00522\ \ \ \ \ boxes\ =\ tf.constant([[-\/1,\ -\/1,\ 1,\ 1]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00523}00523\ \ \ \ \ crop\_size\ =\ [4,\ 4]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00524}00524\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00525}00525\ \ \ \ \ \ \ spatial\_ops.matmul\_crop\_and\_resize(image,\ boxes,\ crop\_size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00527}00527\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00528}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_native_crop_and_resize_test}{00528}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_native_crop_and_resize_test}{NativeCropAndResizeTest}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{test\_case.TestCase}}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00530}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_native_crop_and_resize_test_a3f9c1c501bf970364427d2b53dca3087}{00530}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_native_crop_and_resize_test_a3f9c1c501bf970364427d2b53dca3087}{testBatchCropAndResize3x3To2x2\_2Channels}}(self):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00531}00531\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00532}00532\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(image,\ boxes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00533}00533\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spatial\_ops.native\_crop\_and\_resize(image,\ boxes,\ crop\_size=[2,\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00535}00535\ \ \ \ \ image\ =\ np.array([[[[1,\ 0],\ [2,\ 1],\ [3,\ 2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 3],\ [5,\ 4],\ [6,\ 5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7,\ 6],\ [8,\ 7],\ [9,\ 8]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1,\ 0],\ [2,\ 1],\ [3,\ 2]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00539}00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 3],\ [5,\ 4],\ [6,\ 5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[7,\ 6],\ [8,\ 7],\ [9,\ 8]]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00541}00541\ \ \ \ \ boxes\ =\ np.array([[[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .5]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [.5,\ .5,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00545}00545\ \ \ \ \ expected\_output\ =\ [[[[[1,\ 0],\ [3,\ 2]],\ [[7,\ 6],\ [9,\ 8]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[1,\ 0],\ [2,\ 1]],\ [[4,\ 3],\ [5,\ 4]]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[[9,\ 8],\ [7,\ 6]],\ [[3,\ 2],\ [1,\ 0]]],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[[5,\ 4],\ [4,\ 3]],\ [[2,\ 1],\ [1,\ 0]]]]]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00549}00549\ \ \ \ \ crop\_output\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\_cpu}}(graph\_fn,\ [image,\ boxes])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00550}00550\ \ \ \ \ self.assertAllClose(crop\_output,\ expected\_output)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00553}00553\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops__test_8py_source_l00554}00554\ \ \ tf.test.main()}
+
+\end{DoxyCode}

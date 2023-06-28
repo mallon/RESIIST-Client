@@ -1,0 +1,143 @@
+\doxysection{detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Get\+Targets\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test}{}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test}\index{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest@{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Get\+Targets\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{dd/d05/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Get\+Targets\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{df/dc0/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768}{test\+\_\+scalar\+\_\+targets}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec}{test\+\_\+1d\+\_\+targets}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00821}{821}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec} 
+\index{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest@{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest}!test\_1d\_targets@{test\_1d\_targets}}
+\index{test\_1d\_targets@{test\_1d\_targets}!detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest@{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest}}
+\doxysubsubsection{\texorpdfstring{test\_1d\_targets()}{test\_1d\_targets()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Get\+Targets\+Test.\+test\+\_\+1d\+\_\+targets (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00849}{849}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00849\ \ \ \textcolor{keyword}{def\ }test\_1d\_targets(self):}
+\DoxyCodeLine{00850\ \ \ \ \ batch\_match\ =\ np.array([[1,\ 0,\ 1],}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/2,\ -\/1,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{00852\ \ \ \ \ groundtruth\_tensors\_list\ =\ np.array([[[11,\ 12],\ [12,\ 13]],}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[13,\ 14],\ [14,\ 15]]],}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{00855\ \ \ \ \ groundtruth\_weights\_list\ =\ np.array([[1.0,\ 1.0],\ [1.0,\ 0.5]],}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{00857\ \ \ \ \ unmatched\_value\ =\ np.array([99,\ 99],\ dtype=np.float32)}
+\DoxyCodeLine{00858\ \ \ \ \ unmatched\_weight\ =\ np.array(0.0,\ dtype=np.float32)}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(batch\_match,\ groundtruth\_tensors\_list,}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list,\ unmatched\_value,\ unmatched\_weight):}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ targets,\ weights\ =\ targetassigner.batch\_get\_targets(}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ batch\_match,\ tf.unstack(groundtruth\_tensors\_list),}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ tf.unstack(groundtruth\_weights\_list),}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight)}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (targets,\ weights)}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ \ \ \ \ (targets\_np,\ weights\_np)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ batch\_match,\ groundtruth\_tensors\_list,\ groundtruth\_weights\_list,}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight}
+\DoxyCodeLine{00871\ \ \ \ \ ])}
+\DoxyCodeLine{00872\ \ \ \ \ self.assertAllClose([[[12,\ 13],\ [11,\ 12],\ [12,\ 13]],}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[99,\ 99],\ [99,\ 99],\ [14,\ 15]]],\ targets\_np)}
+\DoxyCodeLine{00874\ \ \ \ \ self.assertAllClose([[1.0,\ 1.0,\ 1.0],}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5]],\ weights\_np)}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d48/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a91dd75c409e7b96017ad51261f80c0ec_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768} 
+\index{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest@{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest}!test\_scalar\_targets@{test\_scalar\_targets}}
+\index{test\_scalar\_targets@{test\_scalar\_targets}!detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest@{detection\_utils.core.target\_assigner\_test.BatchGetTargetsTest}}
+\doxysubsubsection{\texorpdfstring{test\_scalar\_targets()}{test\_scalar\_targets()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Batch\+Get\+Targets\+Test.\+test\+\_\+scalar\+\_\+targets (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l00823}{823}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00823\ \ \ \textcolor{keyword}{def\ }test\_scalar\_targets(self):}
+\DoxyCodeLine{00824\ \ \ \ \ batch\_match\ =\ np.array([[1,\ 0,\ 1],}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/2,\ -\/1,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{00826\ \ \ \ \ groundtruth\_tensors\_list\ =\ np.array([[11,\ 12],\ [13,\ 14]],\ dtype=np.int32)}
+\DoxyCodeLine{00827\ \ \ \ \ groundtruth\_weights\_list\ =\ np.array([[1.0,\ 1.0],\ [1.0,\ 0.5]],}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{00829\ \ \ \ \ unmatched\_value\ =\ np.array(99,\ dtype=np.int32)}
+\DoxyCodeLine{00830\ \ \ \ \ unmatched\_weight\ =\ np.array(0.0,\ dtype=np.float32)}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(batch\_match,\ groundtruth\_tensors\_list,}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list,\ unmatched\_value,\ unmatched\_weight):}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ targets,\ weights\ =\ targetassigner.batch\_get\_targets(}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ batch\_match,\ tf.unstack(groundtruth\_tensors\_list),}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ tf.unstack(groundtruth\_weights\_list),}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight)}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (targets,\ weights)}
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00840\ \ \ \ \ (targets\_np,\ weights\_np)\ =\ self.execute(graph\_fn,\ [}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ batch\_match,\ groundtruth\_tensors\_list,\ groundtruth\_weights\_list,}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ unmatched\_value,\ unmatched\_weight}
+\DoxyCodeLine{00843\ \ \ \ \ ])}
+\DoxyCodeLine{00844\ \ \ \ \ self.assertAllEqual([[12,\ 11,\ 12],}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [99,\ 99,\ 14]],\ targets\_np)}
+\DoxyCodeLine{00846\ \ \ \ \ self.assertAllClose([[1.0,\ 1.0,\ 1.0],}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5]],\ weights\_np)}
+\DoxyCodeLine{00848\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d48/classdetection__utils_1_1core_1_1target__assigner__test_1_1_batch_get_targets_test_a9bcf8cce012ea45ac5aa65afe4608768_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{target__assigner__test_8py}{target\+\_\+assigner\+\_\+test.\+py}}\end{DoxyCompactItemize}

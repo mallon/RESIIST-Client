@@ -1,0 +1,285 @@
+\doxysection{detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test}{}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test}\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{d2/d53/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{d7/d5e/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_ab037eb90dd113ae716a87f88754a16b7}{test\+\_\+pad\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3c6c6b06158f71c5905ae70576ade6fd}{test\+\_\+pad\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a02d0a62fbe23f67422ad0cae584a2340}{test\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3244b7ed9c75ef61d6088235fb7ea943}{test\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a23125a08cdd2c90407de4ab8b06bf9a8}{test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a9e02c0ebf095c5511da0a005bc26db72}{test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a4f6ad5c6e8ddfe8737e85c153e975321}{test\+\_\+combines\+\_\+static\+\_\+dynamic\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a611134007b5baa22976bb6ad64c74a6f}{test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+nd\+\_\+tensor}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00028}{28}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a02d0a62fbe23f67422ad0cae584a2340}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a02d0a62fbe23f67422ad0cae584a2340} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_clip\_tensor\_using\_integer\_input@{test\_clip\_tensor\_using\_integer\_input}}
+\index{test\_clip\_tensor\_using\_integer\_input@{test\_clip\_tensor\_using\_integer\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_clip\_tensor\_using\_integer\_input()}{test\_clip\_tensor\_using\_integer\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00055}{55}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{def\ }test\_clip\_tensor\_using\_integer\_input(self):}
+\DoxyCodeLine{00056\ \ \ \ \ t1\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{00057\ \ \ \ \ clip\_t1\ =\ shape\_utils.clip\_tensor(t1,\ 2)}
+\DoxyCodeLine{00058\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{00059\ \ \ \ \ clip\_t2\ =\ shape\_utils.clip\_tensor(t2,\ 2)}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ self.assertEqual(2,\ clip\_t1.get\_shape()[0])}
+\DoxyCodeLine{00062\ \ \ \ \ self.assertEqual(2,\ clip\_t2.get\_shape()[0])}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ clip\_t1\_result,\ clip\_t2\_result\ =\ sess.run([clip\_t1,\ clip\_t2])}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ clip\_t1\_result)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ clip\_t2\_result)}
+\DoxyCodeLine{00068\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3244b7ed9c75ef61d6088235fb7ea943}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3244b7ed9c75ef61d6088235fb7ea943} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_clip\_tensor\_using\_tensor\_input@{test\_clip\_tensor\_using\_tensor\_input}}
+\index{test\_clip\_tensor\_using\_tensor\_input@{test\_clip\_tensor\_using\_tensor\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_clip\_tensor\_using\_tensor\_input()}{test\_clip\_tensor\_using\_tensor\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00069}{69}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{def\ }test\_clip\_tensor\_using\_tensor\_input(self):}
+\DoxyCodeLine{00070\ \ \ \ \ t1\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{00071\ \ \ \ \ clip\_t1\ =\ shape\_utils.clip\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{00072\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{00073\ \ \ \ \ clip\_t2\ =\ shape\_utils.clip\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ clip\_t1\_result,\ clip\_t2\_result\ =\ sess.run([clip\_t1,\ clip\_t2])}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ clip\_t1\_result)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ clip\_t2\_result)}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a4f6ad5c6e8ddfe8737e85c153e975321}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a4f6ad5c6e8ddfe8737e85c153e975321} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_combines\_static\_dynamic\_shape@{test\_combines\_static\_dynamic\_shape}}
+\index{test\_combines\_static\_dynamic\_shape@{test\_combines\_static\_dynamic\_shape}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_combines\_static\_dynamic\_shape()}{test\_combines\_static\_dynamic\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+combines\+\_\+static\+\_\+dynamic\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00123}{123}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{def\ }test\_combines\_static\_dynamic\_shape(self):}
+\DoxyCodeLine{00124\ \ \ \ \ tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 2,\ 3))}
+\DoxyCodeLine{00125\ \ \ \ \ combined\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ tensor)}
+\DoxyCodeLine{00127\ \ \ \ \ self.assertTrue(tf.contrib.framework.is\_tensor(combined\_shape[0]))}
+\DoxyCodeLine{00128\ \ \ \ \ self.assertListEqual(combined\_shape[1:],\ [2,\ 3])}
+\DoxyCodeLine{00129\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a611134007b5baa22976bb6ad64c74a6f}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a611134007b5baa22976bb6ad64c74a6f} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_pad\_or\_clip\_nd\_tensor@{test\_pad\_or\_clip\_nd\_tensor}}
+\index{test\_pad\_or\_clip\_nd\_tensor@{test\_pad\_or\_clip\_nd\_tensor}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_pad\_or\_clip\_nd\_tensor()}{test\_pad\_or\_clip\_nd\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+nd\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00130}{130}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{def\ }test\_pad\_or\_clip\_nd\_tensor(self):}
+\DoxyCodeLine{00131\ \ \ \ \ tensor\_placeholder\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 5,\ 4,\ 7])}
+\DoxyCodeLine{00132\ \ \ \ \ output\_tensor\ =\ shape\_utils.pad\_or\_clip\_nd(}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ tensor\_placeholder,\ [\textcolor{keywordtype}{None},\ 3,\ 5,\ tf.constant(6)])}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ self.assertAllEqual(output\_tensor.shape.as\_list(),\ [\textcolor{keywordtype}{None},\ 3,\ 5,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ output\_tensor\_np\ =\ sess.run(}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ output\_tensor,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_placeholder:\ np.random.rand(2,\ 5,\ 4,\ 7),}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ self.assertAllEqual(output\_tensor\_np.shape,\ [2,\ 3,\ 5,\ 6])}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a23125a08cdd2c90407de4ab8b06bf9a8}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a23125a08cdd2c90407de4ab8b06bf9a8} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_pad\_or\_clip\_tensor\_using\_integer\_input@{test\_pad\_or\_clip\_tensor\_using\_integer\_input}}
+\index{test\_pad\_or\_clip\_tensor\_using\_integer\_input@{test\_pad\_or\_clip\_tensor\_using\_integer\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_pad\_or\_clip\_tensor\_using\_integer\_input()}{test\_pad\_or\_clip\_tensor\_using\_integer\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00080}{80}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{def\ }test\_pad\_or\_clip\_tensor\_using\_integer\_input(self):}
+\DoxyCodeLine{00081\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{00082\ \ \ \ \ tt1\ =\ shape\_utils.pad\_or\_clip\_tensor(t1,\ 2)}
+\DoxyCodeLine{00083\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{00084\ \ \ \ \ tt2\ =\ shape\_utils.pad\_or\_clip\_tensor(t2,\ 2)}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ t3\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{00087\ \ \ \ \ tt3\ =\ shape\_utils.clip\_tensor(t3,\ 2)}
+\DoxyCodeLine{00088\ \ \ \ \ t4\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{00089\ \ \ \ \ tt4\ =\ shape\_utils.clip\_tensor(t4,\ 2)}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ self.assertEqual(2,\ tt1.get\_shape()[0])}
+\DoxyCodeLine{00092\ \ \ \ \ self.assertEqual(2,\ tt2.get\_shape()[0])}
+\DoxyCodeLine{00093\ \ \ \ \ self.assertEqual(2,\ tt3.get\_shape()[0])}
+\DoxyCodeLine{00094\ \ \ \ \ self.assertEqual(2,\ tt4.get\_shape()[0])}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ tt1\_result,\ tt2\_result,\ tt3\_result,\ tt4\_result\ =\ sess.run(}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ [tt1,\ tt2,\ tt3,\ tt4])}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ tt1\_result)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ tt2\_result)}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ tt3\_result)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ tt4\_result)}
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a9e02c0ebf095c5511da0a005bc26db72}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a9e02c0ebf095c5511da0a005bc26db72} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_pad\_or\_clip\_tensor\_using\_tensor\_input@{test\_pad\_or\_clip\_tensor\_using\_tensor\_input}}
+\index{test\_pad\_or\_clip\_tensor\_using\_tensor\_input@{test\_pad\_or\_clip\_tensor\_using\_tensor\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_pad\_or\_clip\_tensor\_using\_tensor\_input()}{test\_pad\_or\_clip\_tensor\_using\_tensor\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+pad\+\_\+or\+\_\+clip\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00104}{104}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{def\ }test\_pad\_or\_clip\_tensor\_using\_tensor\_input(self):}
+\DoxyCodeLine{00105\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{00106\ \ \ \ \ tt1\ =\ shape\_utils.pad\_or\_clip\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{00107\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{00108\ \ \ \ \ tt2\ =\ shape\_utils.pad\_or\_clip\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ t3\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{00111\ \ \ \ \ tt3\ =\ shape\_utils.clip\_tensor(t3,\ tf.constant(2))}
+\DoxyCodeLine{00112\ \ \ \ \ t4\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{00113\ \ \ \ \ tt4\ =\ shape\_utils.clip\_tensor(t4,\ tf.constant(2))}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ tt1\_result,\ tt2\_result,\ tt3\_result,\ tt4\_result\ =\ sess.run(}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ [tt1,\ tt2,\ tt3,\ tt4])}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ tt1\_result)}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ tt2\_result)}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ tt3\_result)}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ tt4\_result)}
+\DoxyCodeLine{00122\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_ab037eb90dd113ae716a87f88754a16b7}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_ab037eb90dd113ae716a87f88754a16b7} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_pad\_tensor\_using\_integer\_input@{test\_pad\_tensor\_using\_integer\_input}}
+\index{test\_pad\_tensor\_using\_integer\_input@{test\_pad\_tensor\_using\_integer\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_pad\_tensor\_using\_integer\_input()}{test\_pad\_tensor\_using\_integer\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+pad\+\_\+tensor\+\_\+using\+\_\+integer\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00030}{30}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{def\ }test\_pad\_tensor\_using\_integer\_input(self):}
+\DoxyCodeLine{00031\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{00032\ \ \ \ \ pad\_t1\ =\ shape\_utils.pad\_tensor(t1,\ 2)}
+\DoxyCodeLine{00033\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{00034\ \ \ \ \ pad\_t2\ =\ shape\_utils.pad\_tensor(t2,\ 2)}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ self.assertEqual(2,\ pad\_t1.get\_shape()[0])}
+\DoxyCodeLine{00037\ \ \ \ \ self.assertEqual(2,\ pad\_t2.get\_shape()[0])}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ pad\_t1\_result,\ pad\_t2\_result\ =\ sess.run([pad\_t1,\ pad\_t2])}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ pad\_t1\_result)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ pad\_t2\_result)}
+\DoxyCodeLine{00043\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3c6c6b06158f71c5905ae70576ade6fd}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3c6c6b06158f71c5905ae70576ade6fd} 
+\index{detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}!test\_pad\_tensor\_using\_tensor\_input@{test\_pad\_tensor\_using\_tensor\_input}}
+\index{test\_pad\_tensor\_using\_tensor\_input@{test\_pad\_tensor\_using\_tensor\_input}!detection\_utils.utils.shape\_utils\_test.UtilTest@{detection\_utils.utils.shape\_utils\_test.UtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_pad\_tensor\_using\_tensor\_input()}{test\_pad\_tensor\_using\_tensor\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Util\+Test.\+test\+\_\+pad\+\_\+tensor\+\_\+using\+\_\+tensor\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00044}{44}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{def\ }test\_pad\_tensor\_using\_tensor\_input(self):}
+\DoxyCodeLine{00045\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{00046\ \ \ \ \ pad\_t1\ =\ shape\_utils.pad\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{00047\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{00048\ \ \ \ \ pad\_t2\ =\ shape\_utils.pad\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ pad\_t1\_result,\ pad\_t2\_result\ =\ sess.run([pad\_t1,\ pad\_t2])}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ pad\_t1\_result)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ pad\_t2\_result)}
+\DoxyCodeLine{00054\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{shape__utils__test_8py}{shape\+\_\+utils\+\_\+test.\+py}}\end{DoxyCompactItemize}

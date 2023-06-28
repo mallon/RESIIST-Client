@@ -1,0 +1,105 @@
+\doxysection{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Ioa\+Similarity Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity}{}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity}\index{detection\_utils.core.region\_similarity\_calculator.IoaSimilarity@{detection\_utils.core.region\_similarity\_calculator.IoaSimilarity}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Ioa\+Similarity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{de/d6e/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Ioa\+Similarity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{d9/d59/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c}{\+\_\+compare}} (self, boxlist1, boxlist2)
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{\+\_\+compare}} (self, boxlist1, boxlist2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Region\+Similarity\+Calculator}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a3ba30b3ae84c561d50ccd1547b886266}{compare}} (self, boxlist1, boxlist2, scope=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Class to compute similarity based on Intersection over Area (IOA) metric.
+
+This class computes pairwise similarity between two BoxLists based on their
+pairwise intersections divided by the areas of second BoxLists.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00102}{102}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c} 
+\index{detection\_utils.core.region\_similarity\_calculator.IoaSimilarity@{detection\_utils.core.region\_similarity\_calculator.IoaSimilarity}!\_compare@{\_compare}}
+\index{\_compare@{\_compare}!detection\_utils.core.region\_similarity\_calculator.IoaSimilarity@{detection\_utils.core.region\_similarity\_calculator.IoaSimilarity}}
+\doxysubsubsection{\texorpdfstring{\_compare()}{\_compare()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Ioa\+Similarity.\+\_\+compare (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{boxlist1,  }\item[{}]{boxlist2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute pairwise IOA similarity between the two BoxLists.
+
+Args:
+  boxlist1: BoxList holding N boxes.
+  boxlist2: BoxList holding M boxes.
+
+Returns:
+  A tensor with shape [N, M] representing pairwise IOA scores.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Region\+Similarity\+Calculator}}.
+
+
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00109}{109}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{def\ }\_compare(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ IOA\ similarity\ between\ the\ two\ BoxLists.}}
+\DoxyCodeLine{00111\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00113\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00116\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ IOA\ scores.}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ box\_list\_ops.ioa(boxlist1,\ boxlist2)}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d20/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{region__similarity__calculator_8py}{region\+\_\+similarity\+\_\+calculator.\+py}}\end{DoxyCompactItemize}

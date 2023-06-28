@@ -1,0 +1,84 @@
+\doxysection{detection\+\_\+utils.\+utils.\+model\+\_\+util\+\_\+test.\+Extract\+Submodel\+Util\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test}{}\label{classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test}\index{detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest@{detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+model\+\_\+util\+\_\+test.\+Extract\+Submodel\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{d3/d14/classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+model\+\_\+util\+\_\+test.\+Extract\+Submodel\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{d2/d12/classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test_a2d8750f24400acd296e4f9f6223bda4e}{test\+\_\+simple\+\_\+model}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{model__util__test_8py_source_l00027}{27}} of file \mbox{\hyperlink{model__util__test_8py_source}{model\+\_\+util\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test_a2d8750f24400acd296e4f9f6223bda4e}\label{classdetection__utils_1_1utils_1_1model__util__test_1_1_extract_submodel_util_test_a2d8750f24400acd296e4f9f6223bda4e} 
+\index{detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest@{detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest}!test\_simple\_model@{test\_simple\_model}}
+\index{test\_simple\_model@{test\_simple\_model}!detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest@{detection\_utils.utils.model\_util\_test.ExtractSubmodelUtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_simple\_model()}{test\_simple\_model()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+model\+\_\+util\+\_\+test.\+Extract\+Submodel\+Util\+Test.\+test\+\_\+simple\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model__util__test_8py_source_l00029}{29}} of file \mbox{\hyperlink{model__util__test_8py_source}{model\+\_\+util\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{def\ }test\_simple\_model(self):}
+\DoxyCodeLine{00030\ \ \ \ \ inputs\ =\ tf.keras.Input(shape=(256,))\ \ \textcolor{comment}{\#\ Returns\ a\ placeholder\ tensor}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{\#\ A\ layer\ instance\ is\ callable\ on\ a\ tensor,\ and\ returns\ a\ tensor.}}
+\DoxyCodeLine{00033\ \ \ \ \ x\ =\ tf.keras.layers.Dense(128,\ activation=\textcolor{stringliteral}{'relu'},\ name=\textcolor{stringliteral}{'a'})(inputs)}
+\DoxyCodeLine{00034\ \ \ \ \ x\ =\ tf.keras.layers.Dense(64,\ activation=\textcolor{stringliteral}{'relu'},\ name=\textcolor{stringliteral}{'b'})(x)}
+\DoxyCodeLine{00035\ \ \ \ \ x\ =\ tf.keras.layers.Dense(32,\ activation=\textcolor{stringliteral}{'relu'},\ name=\textcolor{stringliteral}{'c'})(x)}
+\DoxyCodeLine{00036\ \ \ \ \ x\ =\ tf.keras.layers.Dense(16,\ activation=\textcolor{stringliteral}{'relu'},\ name=\textcolor{stringliteral}{'d'})(x)}
+\DoxyCodeLine{00037\ \ \ \ \ x\ =\ tf.keras.layers.Dense(8,\ activation=\textcolor{stringliteral}{'relu'},\ name=\textcolor{stringliteral}{'e'})(x)}
+\DoxyCodeLine{00038\ \ \ \ \ predictions\ =\ tf.keras.layers.Dense(10,\ activation=\textcolor{stringliteral}{'softmax'})(x)}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ model\ =\ tf.keras.Model(inputs=inputs,\ outputs=predictions)}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ new\_in\ =\ model.get\_layer(}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'b'}).input}
+\DoxyCodeLine{00044\ \ \ \ \ new\_out\ =\ model.get\_layer(}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'d'}).output}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ new\_model\ =\ model\_util.extract\_submodel(}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ model=model,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ inputs=new\_in,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ outputs=new\_out)}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ batch\_size\ =\ 3}
+\DoxyCodeLine{00053\ \ \ \ \ ones\ =\ tf.ones((batch\_size,\ 128))}
+\DoxyCodeLine{00054\ \ \ \ \ final\_out\ =\ new\_model(ones)}
+\DoxyCodeLine{00055\ \ \ \ \ self.assertAllEqual(final\_out.shape,\ (batch\_size,\ 16))}
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{model__util__test_8py}{model\+\_\+util\+\_\+test.\+py}}\end{DoxyCompactItemize}

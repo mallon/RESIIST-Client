@@ -1,0 +1,233 @@
+\doxysection{detection\+\_\+utils.\+utils.\+dataset\+\_\+util Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util}{}\label{namespacedetection__utils_1_1utils_1_1dataset__util}\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a9864671accec627bcbd893da64b9dd59}{int64\+\_\+feature}} (value)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_afd86c5758aab34196ec94dc505272b97}{int64\+\_\+list\+\_\+feature}} (value)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a18bc707404908a5784d60d8e03793d86}{bytes\+\_\+feature}} (value)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_aceff65b8bc5431ecc23efc53c3b09c3e}{bytes\+\_\+list\+\_\+feature}} (value)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a34d6992592ade974f4f1335186c64b32}{float\+\_\+list\+\_\+feature}} (value)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_abb17c7de257e5fd0f03fdbe7d4c527c3}{read\+\_\+examples\+\_\+list}} (path)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d}{recursive\+\_\+parse\+\_\+xml\+\_\+to\+\_\+dict}} (xml)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for creating TFRecord data sets.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_a18bc707404908a5784d60d8e03793d86}\label{namespacedetection__utils_1_1utils_1_1dataset__util_a18bc707404908a5784d60d8e03793d86} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!bytes\_feature@{bytes\_feature}}
+\index{bytes\_feature@{bytes\_feature}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{bytes\_feature()}{bytes\_feature()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+bytes\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00033}{33}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \textcolor{keyword}{def\ }bytes\_feature(value):}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(bytes\_list=tf.train.BytesList(value=[value]))}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_aceff65b8bc5431ecc23efc53c3b09c3e}\label{namespacedetection__utils_1_1utils_1_1dataset__util_aceff65b8bc5431ecc23efc53c3b09c3e} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!bytes\_list\_feature@{bytes\_list\_feature}}
+\index{bytes\_list\_feature@{bytes\_list\_feature}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{bytes\_list\_feature()}{bytes\_list\_feature()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+bytes\+\_\+list\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00037}{37}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \textcolor{keyword}{def\ }bytes\_list\_feature(value):}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(bytes\_list=tf.train.BytesList(value=value))}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_a34d6992592ade974f4f1335186c64b32}\label{namespacedetection__utils_1_1utils_1_1dataset__util_a34d6992592ade974f4f1335186c64b32} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!float\_list\_feature@{float\_list\_feature}}
+\index{float\_list\_feature@{float\_list\_feature}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{float\_list\_feature()}{float\_list\_feature()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+float\+\_\+list\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00041}{41}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \textcolor{keyword}{def\ }float\_list\_feature(value):}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(float\_list=tf.train.FloatList(value=value))}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_a9864671accec627bcbd893da64b9dd59}\label{namespacedetection__utils_1_1utils_1_1dataset__util_a9864671accec627bcbd893da64b9dd59} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!int64\_feature@{int64\_feature}}
+\index{int64\_feature@{int64\_feature}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{int64\_feature()}{int64\_feature()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+int64\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00025}{25}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \textcolor{keyword}{def\ }int64\_feature(value):}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(int64\_list=tf.train.Int64List(value=[value]))}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_afd86c5758aab34196ec94dc505272b97}\label{namespacedetection__utils_1_1utils_1_1dataset__util_afd86c5758aab34196ec94dc505272b97} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!int64\_list\_feature@{int64\_list\_feature}}
+\index{int64\_list\_feature@{int64\_list\_feature}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{int64\_list\_feature()}{int64\_list\_feature()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+int64\+\_\+list\+\_\+feature (\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00029}{29}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \textcolor{keyword}{def\ }int64\_list\_feature(value):}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(int64\_list=tf.train.Int64List(value=value))}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_abb17c7de257e5fd0f03fdbe7d4c527c3}\label{namespacedetection__utils_1_1utils_1_1dataset__util_abb17c7de257e5fd0f03fdbe7d4c527c3} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!read\_examples\_list@{read\_examples\_list}}
+\index{read\_examples\_list@{read\_examples\_list}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{read\_examples\_list()}{read\_examples\_list()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+read\+\_\+examples\+\_\+list (\begin{DoxyParamCaption}\item[{}]{path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Read list of training or validation examples.
+
+The file is assumed to contain a single example per line where the first
+token in the line is an identifier that allows us to find the image and
+annotation xml for that example.
+
+For example, the line:
+xyz 3
+would allow us to find files xyz.jpg and xyz.xml (the 3 would be ignored).
+
+Args:
+  path: absolute path to examples list file.
+
+Returns:
+  list of example identifiers (strings).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00045}{45}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \textcolor{keyword}{def\ }read\_examples\_list(path):}
+\DoxyCodeLine{00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}Read\ list\ of\ training\ or\ validation\ examples.}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ The\ file\ }\textcolor{keywordflow}{is}\ assumed\ to\ contain\ a\ single\ example\ per\ line\ where\ the\ first}
+\DoxyCodeLine{00049\ \ \ token\ \textcolor{keywordflow}{in}\ the\ line\ \textcolor{keywordflow}{is}\ an\ identifier\ that\ allows\ us\ to\ find\ the\ image\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00050\ \ \ annotation\ xml\ \textcolor{keywordflow}{for}\ that\ example.}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ For\ example,\ the\ line:}
+\DoxyCodeLine{00053\ \ \ xyz\ 3}
+\DoxyCodeLine{00054\ \ \ would\ allow\ us\ to\ find\ files\ xyz.jpg\ \textcolor{keywordflow}{and}\ xyz.xml\ (the\ 3\ would\ be\ ignored).}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ Args:}
+\DoxyCodeLine{00057\ \ \ \ \ path:\ absolute\ path\ to\ examples\ list\ file.}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ Returns:}
+\DoxyCodeLine{00060\ \ \ \ \ list\ of\ example\ identifiers\ (strings).}
+\DoxyCodeLine{00061\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(path)\ \textcolor{keyword}{as}\ fid:}
+\DoxyCodeLine{00063\ \ \ \ \ lines\ =\ fid.readlines()}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{return}\ [line.strip().split(\textcolor{stringliteral}{'\ '})[0]\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ lines]}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d}\label{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d} 
+\index{detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}!recursive\_parse\_xml\_to\_dict@{recursive\_parse\_xml\_to\_dict}}
+\index{recursive\_parse\_xml\_to\_dict@{recursive\_parse\_xml\_to\_dict}!detection\_utils.utils.dataset\_util@{detection\_utils.utils.dataset\_util}}
+\doxysubsubsection{\texorpdfstring{recursive\_parse\_xml\_to\_dict()}{recursive\_parse\_xml\_to\_dict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+dataset\+\_\+util.\+recursive\+\_\+parse\+\_\+xml\+\_\+to\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{xml }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Recursively parses XML contents to python dict.
+
+We assume that `object` tags are the only ones that can appear
+multiple times at the same level of a tree.
+
+Args:
+  xml: xml tree obtained by parsing XML file contents using lxml.etree
+
+Returns:
+  Python dictionary holding XML contents.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{dataset__util_8py_source_l00067}{67}} of file \mbox{\hyperlink{dataset__util_8py_source}{dataset\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \textcolor{keyword}{def\ }recursive\_parse\_xml\_to\_dict(xml):}
+\DoxyCodeLine{00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Recursively\ parses\ XML\ contents\ to\ python\ dict.}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ We\ assume\ that\ \`{}object\`{}\ tags\ are\ the\ only\ ones\ that\ can\ appear}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ multiple\ times\ at\ the\ same\ level\ of\ a\ tree.}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ xml:\ xml\ tree\ obtained\ by\ parsing\ XML\ file\ contents\ using\ lxml.etree}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ Python\ dictionary\ holding\ XML\ contents.}}
+\DoxyCodeLine{00078\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00079\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ xml:}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \{xml.tag:\ xml.text\}}
+\DoxyCodeLine{00081\ \ \ result\ =\ \{\}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{for}\ child\ \textcolor{keywordflow}{in}\ xml:}
+\DoxyCodeLine{00083\ \ \ \ \ child\_result\ =\ recursive\_parse\_xml\_to\_dict(child)}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ child.tag\ !=\ \textcolor{stringliteral}{'object'}:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ result[child.tag]\ =\ child\_result[child.tag]}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ child.tag\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ result:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ result[child.tag]\ =\ []}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ result[child.tag].append(child\_result[child.tag])}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{return}\ \{xml.tag:\ result\}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{d0/d94/namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{d0/d94/namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d_icgraph}
+\end{center}
+\end{figure}

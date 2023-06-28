@@ -1,0 +1,165 @@
+\doxysection{region\+\_\+similarity\+\_\+calculator.\+py}
+\hypertarget{region__similarity__calculator_8py_source}{}\label{region__similarity__calculator_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/region\_similarity\_calculator.py@{src/main/resources/processing/video/detections/detection\_utils/core/region\_similarity\_calculator.py}}
+\mbox{\hyperlink{region__similarity__calculator_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1region__similarity__calculator}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Region\ Similarity\ Calculators\ for\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00018}00018\ \textcolor{stringliteral}{Region\ Similarity\ Calculators\ compare\ a\ pairwise\ measure\ of\ similarity}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00019}00019\ \textcolor{stringliteral}{between\ the\ boxes\ in\ two\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00020}00020\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00021}00021\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00022}00022\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00025}00025\ \textcolor{keyword}{from}\ abc\ \textcolor{keyword}{import}\ ABCMeta}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00026}00026\ \textcolor{keyword}{from}\ abc\ \textcolor{keyword}{import}\ abstractmethod}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00028}00028\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00029}00029\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00031}00031\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00032}00032\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00035}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{RegionSimilarityCalculator}}(six.with\_metaclass(ABCMeta,\ object)):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00036}00036\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ base\ class\ for\ region\ similarity\ calculator."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00038}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a3ba30b3ae84c561d50ccd1547b886266}{00038}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a3ba30b3ae84c561d50ccd1547b886266}{compare}}(self,\ boxlist1,\ boxlist2,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00039}00039\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ matrix\ of\ pairwise\ similarity\ between\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00040}00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ This\ op\ (to\ be\ overridden)\ computes\ a\ measure\ of\ pairwise\ similarity\ between}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ the\ boxes\ }\textcolor{keywordflow}{in}\ the\ given\ BoxLists.\ Higher\ values\ indicate\ more\ similarity.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00044}00044\ \ \ \ \ Note\ that\ this\ method\ simply\ measures\ similarity\ \textcolor{keywordflow}{and}\ does\ \textcolor{keywordflow}{not}\ explicitly}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00045}00045\ \ \ \ \ perform\ a\ matching.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00047}00047\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00048}00048\ \ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00049}00049\ \ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00050}00050\ \ \ \ \ \ \ scope:\ Op\ scope\ name.\ Defaults\ to\ \textcolor{stringliteral}{'Compare'}\ \textcolor{keywordflow}{if}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00052}00052\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00053}00053\ \ \ \ \ \ \ a\ (float32)\ tensor\ of\ shape\ [N,\ M]\ \textcolor{keyword}{with}\ pairwise\ similarity\ score.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Compare'},\ [boxlist1,\ boxlist2])\ \textcolor{keyword}{as}\ scope:}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00056}00056\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{\_compare}}(boxlist1,\ boxlist2)}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00058}00058\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00059}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{00059}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{\_compare}}(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00063}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity}{00063}}\ \textcolor{keyword}{class\ }IouSimilarity(RegionSimilarityCalculator):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00064}00064\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ compute\ similarity\ based\ on\ Intersection\ over\ Union\ (IOU)\ metric.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00065}00065\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keyword}{class\ }computes\ pairwise\ similarity\ between\ two\ BoxLists\ based\ on\ IOU.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00067}00067\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00068}00068\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00069}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity_ac0bc8952e0123d9e53fd65c189cfffcc}{00069}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_iou_similarity_ac0bc8952e0123d9e53fd65c189cfffcc}{\_compare}}(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00070}00070\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ IOU\ similarity\ between\ the\ two\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00071}00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00075}00075\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00078}00078\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ box\_list\_ops.iou(boxlist1,\ boxlist2)}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00082}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity}{00082}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity}{NegSqDistSimilarity}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{RegionSimilarityCalculator}}):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00083}00083\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ compute\ similarity\ based\ on\ the\ squared\ distance\ metric.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00084}00084\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keyword}{class\ }computes\ pairwise\ similarity\ between\ two\ BoxLists\ based\ on\ the}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00086}00086\ \ \ negative\ squared\ distance\ metric.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00087}00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00089}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity_a8446037b21c4562e6ecb04bd920f9d72}{00089}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_neg_sq_dist_similarity_a8446037b21c4562e6ecb04bd920f9d72}{\_compare}}(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00090}00090\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ matrix\ of\ (negated)\ sq\ distances.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00091}00091\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00095}00095\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00096}00096\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ negated\ pairwise\ squared\ distance.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00098}00098\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ -\/1\ *\ box\_list\_ops.sq\_dist(boxlist1,\ boxlist2)}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00102}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity}{00102}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity}{IoaSimilarity}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{RegionSimilarityCalculator}}):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00103}00103\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ compute\ similarity\ based\ on\ Intersection\ over\ Area\ (IOA)\ metric.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00104}00104\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keyword}{class\ }computes\ pairwise\ similarity\ between\ two\ BoxLists\ based\ on\ their}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00106}00106\ \ \ pairwise\ intersections\ divided\ by\ the\ areas\ of\ second\ BoxLists.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00107}00107\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00108}00108\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00109}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c}{00109}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_ioa_similarity_a3b3070faba7e07c1a64821a78c4b1b7c}{\_compare}}(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00110}00110\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ IOA\ similarity\ between\ the\ two\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00111}00111\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00115}00115\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ IOA\ scores.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00118}00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ box\_list\_ops.ioa(boxlist1,\ boxlist2)}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00122}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity}{00122}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity}{ThresholdedIouSimilarity}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{RegionSimilarityCalculator}}):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00123}00123\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ compute\ similarity\ based\ on\ thresholded\ IOU\ and\ score.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00124}00124\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keyword}{class\ }computes\ pairwise\ similarity\ between\ two\ BoxLists\ based\ on\ IOU\ and}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00126}00126\ \ \ a\ \textcolor{stringliteral}{'score'}\ present\ \textcolor{keywordflow}{in}\ boxlist1.\ If\ IOU\ >\ threshold,\ then\ the\ entry\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00127}00127\ \ \ output\ pairwise\ tensor\ will\ contain\ \`{}score\`{},\ otherwise\ 0.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00128}00128\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00129}00129\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1}{00130}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1}{\_\_init\_\_}}(self,\ iou\_threshold=0):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00131}00131\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialize\ the\ ThresholdedIouSimilarity.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00132}00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ \ \ iou\_threshold:\ For\ a\ given\ pair\ of\ boxes,\ }\textcolor{keywordflow}{if}\ the\ IOU\ \textcolor{keywordflow}{is}\ >\ iou\_threshold,}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ then\ the\ comparison\ result\ will\ be\ the\ foreground\ probability\ of}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ the\ first\ box,\ otherwise\ it\ will\ be\ zero.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00137}00137\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ \ \ super(ThresholdedIouSimilarity,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1}{\_\_init\_\_}}()}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00139}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb}{00139}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb}{\_iou\_threshold}}\ =\ iou\_threshold}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00140}00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00141}\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e}{00141}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e}{\_compare}}(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00142}00142\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ IOU\ similarity\ between\ the\ two\ BoxLists\ and\ score.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00143}00143\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.\ Must\ have\ a\ score\ field.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00147}00147\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ scores\ threholded\ by\ pairwise}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00150}00150\ \ \ \ \ \ \ iou\ scores.}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00151}00151\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ ious\ =\ box\_list\_ops.iou(boxlist1,\ boxlist2)}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ scores\ =\ boxlist1.get\_field(fields.BoxListFields.scores)}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ \ \ scores\ =\ tf.expand\_dims(scores,\ axis=1)}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ \ \ row\_replicated\_scores\ =\ tf.tile(scores,\ [1,\ tf.shape(ious)[-\/1]])}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ thresholded\_ious\ =\ tf.where(ious\ >\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb}{\_iou\_threshold}},}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ row\_replicated\_scores,\ tf.zeros\_like(ious))}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00158}00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{region__similarity__calculator_8py_source_l00159}00159\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ thresholded\_ious}
+
+\end{DoxyCode}

@@ -1,0 +1,153 @@
+\doxysection{detections.\+py}
+\hypertarget{detections_8py_source}{}\label{detections_8py_source}\index{src/main/resources/processing/video/detections/detections.py@{src/main/resources/processing/video/detections/detections.py}}
+\mbox{\hyperlink{detections_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00001}\mbox{\hyperlink{namespacedetections}{00001}}\ \textcolor{comment}{\#!/usr/bin/env\ python}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00002}00002\ \textcolor{comment}{\#\ coding:\ utf-\/8}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00004}00004\ \textcolor{keyword}{import}\ cv2}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00005}00005\ \textcolor{keyword}{import}\ threading}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00006}00006\ \textcolor{keyword}{from}\ subprocess\ \textcolor{keyword}{import}\ call}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00007}00007\ \textcolor{keyword}{from}\ tensorflow.keras.models\ \textcolor{keyword}{import}\ load\_model}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00008}00008\ \textcolor{keyword}{from}\ tensorflow.python.keras.backend\ \textcolor{keyword}{import}\ set\_session}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00009}00009\ \textcolor{keyword}{import}\ tensorflow.compat.v1\ \textcolor{keyword}{as}\ tensorflow}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00010}00010\ tensorflow.disable\_v2\_behavior()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00011}00011\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00012}00012\ \textcolor{keyword}{import}\ json}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00013}00013\ \textcolor{keyword}{import}\ copy}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00014}00014\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00015}00015\ \textcolor{keyword}{import}\ ast}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00016}00016\ \textcolor{keyword}{from}\ multiprocessing\ \textcolor{keyword}{import}\ Process}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00017}00017\ \textcolor{keyword}{import}\ gc}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00019}00019\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00020}\mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{00020}}\ CURRENT\_PYTHON\_PATH=os.getcwd()\ +\ \textcolor{stringliteral}{"{}/src/main/resources"{}}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00021}\mbox{\hyperlink{namespacedetections_af87216e9b589869603857aae5f16a750}{00021}}\ EXTRACTION\_TO\_INTEGRATION\_PATH\ =\ CURRENT\_PYTHON\_PATH\ +\ \textcolor{stringliteral}{'/processing/video/detections/'}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00022}00022\ print(\textcolor{stringliteral}{"{}Chemin\ courant\ :"{}}\ +\ EXTRACTION\_TO\_INTEGRATION\_PATH)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00024}00024\ \textcolor{keyword}{import}\ sys,importlib}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00025}00025\ sys.path.append(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'object\_detection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00026}00026\ sys.path.append(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'behavior\_detection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00027}00027\ sys.path.append(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'event\_detection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00028}00028\ sys.path.append(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'event\_detection/pyimagesearch'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00029}00029\ sys.path.append(EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'emotion\_detection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00031}00031\ \textcolor{keyword}{import}\ logging;}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00032}00032\ logging.disable(logging.INFO);}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00033}00033\ logging.disable(logging.DEBUG);}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00034}00034\ logging.disable(logging.WARNING);}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00036}00036\ os.environ[\textcolor{stringliteral}{'TF\_CPP\_MIN\_LOG\_LEVEL'}]\ =\ \textcolor{stringliteral}{'2'}\ \ \textcolor{comment}{\#\ or\ any\ \{'0',\ '1',\ '2'\}}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00037}00037\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00038}00038\ \ \ \textcolor{comment}{\#Level\ |\ Level\ for\ Humans\ |\ Level\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00039}00039\ \ \textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00040}00040\ \ \ \textcolor{comment}{\#0\ \ \ \ \ |\ DEBUG\ \ \ \ \ \ \ \ \ \ \ \ |\ [Default]\ Print\ all\ messages\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00041}00041\ \ \ \textcolor{comment}{\#1\ \ \ \ \ |\ INFO\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ messages\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00042}00042\ \ \ \textcolor{comment}{\#2\ \ \ \ \ |\ WARNING\ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ \&\ WARNING\ messages\ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00043}00043\ \ \ \textcolor{comment}{\#3\ \ \ \ \ |\ ERROR\ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ all\ messages\ \ }}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00045}\mbox{\hyperlink{namespacedetections_a32fcc3604ec776316184c329cf666f00}{00045}}\ ap\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00046}\mbox{\hyperlink{namespacedetections_ad5766c576b3f9c2106cd1fc6cead4875}{00046}}\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/i"{}},\ \textcolor{stringliteral}{"{}-\/-\/input"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00047}\mbox{\hyperlink{namespacedetections_a7d91735a98897e3aa27a52e625b26f9f}{00047}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{"{}optional\ path\ to\ video\ file"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00048}\mbox{\hyperlink{namespacedetections_a704f0985bb3e1309a5c7efc92829950e}{00048}}\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/fs"{}},\ \textcolor{stringliteral}{"{}-\/-\/frequencies"{}},\ type=str,\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{"{}frequencies\ of\ data\ capture\ ([f1,\ f2,\ ...]"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00050}\mbox{\hyperlink{namespacedetections_a56dc11d5add23fd22fc535a41dab3b6c}{00050}}\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/aeo"{}},\ \textcolor{stringliteral}{"{}-\/-\/algoElementsObjects"{}},\ required=\textcolor{keyword}{True},\ type=json.loads,}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ help=\textcolor{stringliteral}{"{}model\ element\ identifiers\ and\ their\ objects\ to\ detect\ for\ each\ algo\ (\{\ algoOne:\ \{\ elementIDs:\ [],\ objects:\ []\ \}\ \})"{}})\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00052}\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{00052}}\ args\ =\ vars(ap.parse\_args())}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00054}\mbox{\hyperlink{namespacedetections_aed0f79a0aa29ee02171e506a01af2afc}{00054}}\ processList=[]}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00055}00055\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00056}\mbox{\hyperlink{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b}{00056}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b}{startBehaviorDetection}}(framesForActivityDetection,\ allObjToDetects,\ allElementIds):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00057}00057\ \ \ \ \ copiedFrames\ =\ copy.copy(framesForActivityDetection)\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00058}00058\ \ \ \ \ module\ =\ importlib.import\_module(\textcolor{stringliteral}{"{}behaviorDetection"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00059}00059\ \ \ \ \ method\_to\_call\ =\ getattr(module,\ \textcolor{stringliteral}{'startDetection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00060}00060\ \ \ \ \ method\_to\_call(copiedFrames,\ allObjToDetects,\ allElementIds)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00062}\mbox{\hyperlink{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6}{00062}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6}{startDetection}}(frameToAnalyse,\ algoNameToExecute,\ allObjToDetects,\ allElementIds):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00063}00063\ \ \ \ \ print(\textcolor{stringliteral}{'Algo\ to\ execute\ :'}\ +\ algoNameToExecute)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00064}00064\ \ \ \ \ print(\textcolor{stringliteral}{'Objects\ to\ detect\ :'}\ +\ (\textcolor{stringliteral}{',\ '}.join(allObjToDetects)))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00065}00065\ \ \ \ \ print(\textcolor{stringliteral}{'Element\ IDs\ :'}\ +\ (\textcolor{stringliteral}{',\ '}.join(allElementIds)))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00066}00066\ \ \ \ \ copiedFrame\ =\ \ copy.copy(frameToAnalyse)\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00067}00067\ \ \ \ \ module\ =\ importlib.import\_module(algoNameToExecute)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00068}00068\ \ \ \ \ method\_to\_call\ =\ getattr(module,\ \textcolor{stringliteral}{'startDetection'})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00069}00069\ \ \ \ \ method\_to\_call(copiedFrame,\ allObjToDetects,\ allElementIds)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00071}\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{00071}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{sendFramesToBehaviorAlgorithm}}(framesForActivityDetection):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00072}00072\ \ \ \ \ limitProc\ =\ 3}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00073}00073\ \ \ \ \ \mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{terminateProcesses}}(limitProc)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00074}00074\ \ \ \ \ elementObjectMap\ =\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].get(\textcolor{stringliteral}{"{}behaviorDetection"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00075}00075\ \ \ \ \ allElementIds\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}ELEMENT\_IDENTIFIERS"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00076}00076\ \ \ \ \ allObjToDetects\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}OBJECTS\_TO\_DETECT"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00077}00077\ \ \ \ \ process\ =\ Process(target=startBehaviorDetection,\ args=(framesForActivityDetection,\ allObjToDetects,\ allElementIds))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00078}00078\ \ \ \ \ process.start()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00079}00079\ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00080}00080\ \ \ \ \ gc.collect()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00082}\mbox{\hyperlink{namespacedetections_a6917a78cb6d1299857b272f5bd586591}{00082}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_a6917a78cb6d1299857b272f5bd586591}{sendOneFrameToAllDetectionAlgorithms}}(frameToAnalyse):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00083}00083\ \ \ \ \ limitProc\ =\ 3}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{terminateProcesses}}(limitProc)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{for}\ algoNameToExecute\ \textcolor{keywordflow}{in}\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].keys():}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#if\ (algoNameToExecute\ ==\ "{}eventDetection"{}):}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (algoNameToExecute\ !=\ \textcolor{stringliteral}{"{}behaviorDetection"{}}):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ elementObjectMap\ =\ args[\textcolor{stringliteral}{"{}algoElementsObjects"{}}].get(algoNameToExecute)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ allElementIds\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}ELEMENT\_IDENTIFIERS"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ allObjToDetects\ =\ elementObjectMap.get(\textcolor{stringliteral}{"{}OBJECTS\_TO\_DETECT"{}})}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ process\ =\ Process(target=startDetection,\ args=(frameToAnalyse,\ algoNameToExecute,\ allObjToDetects,\ allElementIds))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ process.start()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ gc.collect()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00096}\mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{00096}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{terminateProcesses}}(limitProc):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{global}\ processList}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (len(processList)\ >=\ limitProc):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ process\ \textcolor{keywordflow}{in}\ processList:}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ process.terminate()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ processList\ =\ []}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ gc.collect()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00104}\mbox{\hyperlink{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}{00104}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}{isSendingTime}}(currentTime,\ lastRecordedTime):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00105}00105\ \ \ \ \ frequencies\ =\ ast.literal\_eval(args[\textcolor{stringliteral}{"{}frequencies"{}}])}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{for}\ frequency\ \textcolor{keywordflow}{in}\ frequencies:}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currenTime\ -\/\ lastRecordedTime\ >=\ int(frequency)):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00110}\mbox{\hyperlink{namespacedetections_aa37ace92a7df8533b732aad826fe7794}{00110}}\ cap\ =\ cv2.VideoCapture(args[\textcolor{stringliteral}{"{}input"{}}]\ \textcolor{keywordflow}{if}\ args[\textcolor{stringliteral}{"{}input"{}}]\ \textcolor{keywordflow}{else}\ 0)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00111}\mbox{\hyperlink{namespacedetections_a1f629c390eb4565160535f5baa80f8d2}{00111}}\ delay\ =\ int(1000/cap.get(cv2.CAP\_PROP\_FPS))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00113}\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{00113}}\ framesForActivityDetection=[]}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00114}\mbox{\hyperlink{namespacedetections_a9b3df615426b761043a21fb4a881995b}{00114}}\ lastRecordedTime\ =\ time.time()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00116}00116\ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00117}\mbox{\hyperlink{namespacedetections_a5fad01f7e7b6f7c93d0894c9e900d54b}{00117}}\ \ \ currenTime\ =\ time.time()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00118}\mbox{\hyperlink{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}{00118}}\ \ \ limitProc\ =\ 3}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00119}00119\ \ \ \mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{terminateProcesses}}(limitProc)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00120}00120\ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00121}\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{00121}}\ \ \ ret,\ frameToAnalyse\ =\ cap.read()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00122}00122\ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00123}00123\ \ \ \textcolor{comment}{\#Specific\ case\ for\ activity\ detc.\ needing\ a\ set\ of\ frames\ (16)}}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00124}00124\ \ \ framesForActivityDetection.append(frameToAnalyse)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00125}00125\ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00126}00126\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}{isSendingTime}}(time.time(),\ lastRecordedTime)\ \textcolor{keywordflow}{and}\ len(processList)\ <\ limitProc):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00127}00127\ \ \ \ \ print(\textcolor{stringliteral}{"{}frequency:\ "{}}\ +\ args[\textcolor{stringliteral}{"{}frequencies"{}}])\ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{if}\ len(framesForActivityDetection)\ >=\ 16:}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00129}\mbox{\hyperlink{namespacedetections_ad57d0c74028aa3337beaf81fb63339f5}{00129}}\ \ \ \ \ \ \ \ \ process\ =\ Process(target=sendFramesToBehaviorAlgorithm,\ args=(framesForActivityDetection,))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ process.start()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ framesForActivityDetection=[]}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00133}00133\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00134}00134\ \ \ \ \ process\ =\ Process(target=sendOneFrameToAllDetectionAlgorithms,\ args=(frameToAnalyse,))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00135}00135\ \ \ \ \ process.start()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00136}00136\ \ \ \ \ processList.append(process)}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00137}00137\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00138}00138\ \ \ \ \ lastRecordedTime\ =\ currenTime}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00139}00139\ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00140}00140\ \ \ cv2.imshow(\textcolor{stringliteral}{'Detection...'},\ cv2.resize(frameToAnalyse,\ (400,300)))}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00141}00141\ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00142}00142\ \ \ \textcolor{keywordflow}{if}\ cv2.waitKey(delay)\ \&\ 0xFF\ ==\ ord(\textcolor{stringliteral}{'q'}):}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00143}00143\ \ \ \ \ cv2.destroyAllWindows()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00144}00144\ \ \ \ \ cap.release()\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{for}\ process\ \textcolor{keywordflow}{in}\ processList:}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ process.terminate()}
+\DoxyCodeLine{\Hypertarget{detections_8py_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{break}}
+
+\end{DoxyCode}

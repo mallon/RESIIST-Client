@@ -1,0 +1,448 @@
+\doxysection{pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder Class Reference}
+\hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder}{}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder}\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+
+
+Collaboration diagram for pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{de/daa/classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_af95d61abad77a95b6d179cca1d50eec1}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab17e52e2c9812bdbb8b44f8610cdc480}{model}}, \mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ae8164c4fae5b6cbf20a289a2480be02d}{stop\+Factor}}=4, \mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a1e98db3e948bc2606366443fe0f55fb9}{beta}}=0.\+98)
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ac07d08654ab762cd9ceaa9a32f542e41}{reset}} (self)
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab188655cc7564c1d1568af9701c9a8b0}{is\+\_\+data\+\_\+iter}} (self, data)
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6ef4835a0a10adccc74109e772704fcf}{on\+\_\+batch\+\_\+end}} (self, batch, logs)
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6c7bd460741fb744ac6f6a47e9151a93}{find}} (self, train\+Data, start\+LR, end\+LR, epochs=None, steps\+Per\+Epoch=None, batch\+Size=32, sample\+Size=2048, verbose=1)
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a8f14d4797b0f1d2bd976969d5dc0ddc0}{plot\+\_\+loss}} (self, skip\+Begin=10, skip\+End=1, title=\"{}\"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab17e52e2c9812bdbb8b44f8610cdc480}{model}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ae8164c4fae5b6cbf20a289a2480be02d}{stop\+Factor}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a1e98db3e948bc2606366443fe0f55fb9}{beta}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab3ace455ac9c5bb058952c16807f6339}{lrs}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_aff3fdbae158765186875214f0358c546}{losses}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a45a25b1104f7a8d4885de456817e3641}{lr\+Mult}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a86f4288f4ab29e5e085dbec504f434b2}{avg\+Loss}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab819afec8a34b3791da8080a8b5297ff}{best\+Loss}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a49345dbc5528657062eb8070a6c2ae7f}{batch\+Num}}
+\item 
+\mbox{\hyperlink{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a27439fbdbbe4722620f602eb52c66a32}{weights\+File}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00008}{8}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_af95d61abad77a95b6d179cca1d50eec1}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_af95d61abad77a95b6d179cca1d50eec1} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{model,  }\item[{}]{stop\+Factor = {\ttfamily 4},  }\item[{}]{beta = {\ttfamily 0.98} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00009}{9}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ model,\ stopFactor=4,\ beta=0.98):}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ store\ the\ model,\ stop\ factor,\ and\ beta\ value\ (for\ computing}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ a\ smoothed,\ average\ loss)}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ self.model\ =\ model}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ self.stopFactor\ =\ stopFactor}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ self.beta\ =\ beta}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ initialize\ our\ list\ of\ learning\ rates\ and\ losses,}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ respectively}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ self.lrs\ =\ []}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ self.losses\ =\ []}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ initialize\ our\ learning\ rate\ multiplier,\ average\ loss,\ best}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loss\ found\ thus\ far,\ current\ batch\ number,\ and\ weights\ file}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ self.lrMult\ =\ 1}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ self.avgLoss\ =\ 0}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ self.bestLoss\ =\ 1e9}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ self.batchNum\ =\ 0}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ self.weightsFile\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00028\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6c7bd460741fb744ac6f6a47e9151a93}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6c7bd460741fb744ac6f6a47e9151a93} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!find@{find}}
+\index{find@{find}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+find (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{train\+Data,  }\item[{}]{start\+LR,  }\item[{}]{end\+LR,  }\item[{}]{epochs = {\ttfamily None},  }\item[{}]{steps\+Per\+Epoch = {\ttfamily None},  }\item[{}]{batch\+Size = {\ttfamily 32},  }\item[{}]{sample\+Size = {\ttfamily 2048},  }\item[{}]{verbose = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00080}{80}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ verbose=1):}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ reset\ our\ class-\/specific\ variables}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ self.reset()}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ determine\ if\ we\ are\ using\ a\ data\ generator\ or\ not}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ useGen\ =\ self.is\_data\_iter(trainData)}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ we're\ using\ a\ generator\ and\ the\ steps\ per\ epoch\ is\ not}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ supplied,\ raise\ an\ error}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ useGen\ \textcolor{keywordflow}{and}\ stepsPerEpoch\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ \textcolor{stringliteral}{"{}Using\ generator\ without\ supplying\ stepsPerEpoch"{}}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ Exception(msg)}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ we're\ not\ using\ a\ generator\ then\ our\ entire\ dataset\ must}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ already\ be\ in\ memory}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ \textcolor{keywordflow}{not}\ useGen:}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ grab\ the\ number\ of\ samples\ in\ the\ training\ data\ and}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ then\ derive\ the\ number\ of\ steps\ per\ epoch}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ numSamples\ =\ len(trainData[0])}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ stepsPerEpoch\ =\ np.ceil(numSamples\ /\ float(batchSize))}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ no\ number\ of\ training\ epochs\ are\ supplied,\ compute\ the}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ training\ epochs\ based\ on\ a\ default\ sample\ size}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ epochs\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ epochs\ =\ int(np.ceil(sampleSize\ /\ float(stepsPerEpoch)))}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ compute\ the\ total\ number\ of\ batch\ updates\ that\ will\ take}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ place\ while\ we\ are\ attempting\ to\ find\ a\ good\ starting}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ learning\ rate}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ numBatchUpdates\ =\ epochs\ *\ stepsPerEpoch}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ derive\ the\ learning\ rate\ multiplier\ based\ on\ the\ ending}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ learning\ rate,\ starting\ learning\ rate,\ and\ total\ number\ of}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ batch\ updates}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ self.lrMult\ =\ (endLR\ /\ startLR)\ **\ (1.0\ /\ numBatchUpdates)}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ create\ a\ temporary\ file\ path\ for\ the\ model\ weights\ and}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ then\ save\ the\ weights\ (so\ we\ can\ reset\ the\ weights\ when\ we}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ are\ done)}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ self.weightsFile\ =\ tempfile.mkstemp()[1]}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ self.model.save\_weights(self.weightsFile)}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ grab\ the\ *original*\ learning\ rate\ (so\ we\ can\ reset\ it}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ later),\ and\ then\ set\ the\ *starting*\ learning\ rate}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ origLR\ =\ K.get\_value(self.model.optimizer.lr)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ startLR)}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ construct\ a\ callback\ that\ will\ be\ called\ at\ the\ end\ of\ each}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ batch,\ enabling\ us\ to\ increase\ our\ learning\ rate\ as\ training}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ progresses}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ callback\ =\ LambdaCallback(on\_batch\_end=\textcolor{keyword}{lambda}\ batch,\ logs:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ self.on\_batch\_end(batch,\ logs))}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ check\ to\ see\ if\ we\ are\ using\ a\ data\ iterator}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ useGen:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ self.model.fit\_generator(}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trainData,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ steps\_per\_epoch=stepsPerEpoch,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ epochs=epochs,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verbose=verbose,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ callbacks=[callback])}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ otherwise,\ our\ entire\ training\ data\ is\ already\ in\ memory}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ train\ our\ model\ using\ Keras'\ fit\ method}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ self.model.fit(}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trainData[0],\ trainData[1],}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ batch\_size=batchSize,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ epochs=epochs,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ callbacks=[callback],}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ verbose=verbose)}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ restore\ the\ original\ model\ weights\ and\ learning\ rate}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ self.model.load\_weights(self.weightsFile)}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ origLR)}
+\DoxyCodeLine{00157\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d8a/classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6c7bd460741fb744ac6f6a47e9151a93_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab188655cc7564c1d1568af9701c9a8b0}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab188655cc7564c1d1568af9701c9a8b0} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!is\_data\_iter@{is\_data\_iter}}
+\index{is\_data\_iter@{is\_data\_iter}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{is\_data\_iter()}{is\_data\_iter()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+is\+\_\+data\+\_\+iter (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00039}{39}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{def\ }is\_data\_iter(self,\ data):}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ define\ the\ set\ of\ class\ types\ we\ will\ check\ for}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ iterClasses\ =\ [\textcolor{stringliteral}{"{}NumpyArrayIterator"{}},\ \textcolor{stringliteral}{"{}DirectoryIterator"{}},}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}DataFrameIterator"{}},\ \textcolor{stringliteral}{"{}Iterator"{}},\ \textcolor{stringliteral}{"{}Sequence"{}}]}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ return\ whether\ our\ data\ is\ an\ iterator}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data.\_\_class\_\_.\_\_name\_\_\ \textcolor{keywordflow}{in}\ iterClasses}
+\DoxyCodeLine{00046\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d8a/classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab188655cc7564c1d1568af9701c9a8b0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6ef4835a0a10adccc74109e772704fcf}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6ef4835a0a10adccc74109e772704fcf} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!on\_batch\_end@{on\_batch\_end}}
+\index{on\_batch\_end@{on\_batch\_end}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{on\_batch\_end()}{on\_batch\_end()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+on\+\_\+batch\+\_\+end (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{batch,  }\item[{}]{logs }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00047}{47}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{def\ }on\_batch\_end(self,\ batch,\ logs):}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ grab\ the\ current\ learning\ rate\ and\ add\ log\ it\ to\ the\ list\ of}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ learning\ rates\ that\ we've\ tried}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ lr\ =\ K.get\_value(self.model.optimizer.lr)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ self.lrs.append(lr)}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ grab\ the\ loss\ at\ the\ end\ of\ this\ batch,\ increment\ the\ total}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ number\ of\ batches\ processed,\ compute\ the\ average\ average}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ loss,\ smooth\ it,\ and\ update\ the\ losses\ list\ with\ the}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ smoothed\ value}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ l\ =\ logs[\textcolor{stringliteral}{"{}loss"{}}]}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ self.batchNum\ +=\ 1}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ self.avgLoss\ =\ (self.beta\ *\ self.avgLoss)\ +\ ((1\ -\/\ self.beta)\ *\ l)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ smooth\ =\ self.avgLoss\ /\ (1\ -\/\ (self.beta\ **\ self.batchNum))}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ self.losses.append(smooth)}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ compute\ the\ maximum\ loss\ stopping\ factor\ value}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ stopLoss\ =\ self.stopFactor\ *\ self.bestLoss}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ check\ to\ see\ whether\ the\ loss\ has\ grown\ too\ large}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.batchNum\ >\ 1\ \textcolor{keywordflow}{and}\ smooth\ >\ stopLoss:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ stop\ returning\ and\ return\ from\ the\ method}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ self.model.stop\_training\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ check\ to\ see\ if\ the\ best\ loss\ should\ be\ updated}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.batchNum\ ==\ 1\ \textcolor{keywordflow}{or}\ smooth\ <\ self.bestLoss:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ self.bestLoss\ =\ smooth}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ increase\ the\ learning\ rate}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ lr\ *=\ self.lrMult}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ lr)}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d8a/classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a6ef4835a0a10adccc74109e772704fcf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a8f14d4797b0f1d2bd976969d5dc0ddc0}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a8f14d4797b0f1d2bd976969d5dc0ddc0} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!plot\_loss@{plot\_loss}}
+\index{plot\_loss@{plot\_loss}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{plot\_loss()}{plot\_loss()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+plot\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{skip\+Begin = {\ttfamily 10},  }\item[{}]{skip\+End = {\ttfamily 1},  }\item[{}]{title = {\ttfamily \"{}\"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00158}{158}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{def\ }plot\_loss(self,\ skipBegin=10,\ skipEnd=1,\ title="{}"{}):}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ grab\ the\ learning\ rate\ and\ losses\ values\ to\ plot}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ lrs\ =\ self.lrs[skipBegin:-\/skipEnd]}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ losses\ =\ self.losses[skipBegin:-\/skipEnd]}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ plot\ the\ learning\ rate\ vs.\ loss}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ plt.plot(lrs,\ losses)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ plt.xscale(\textcolor{stringliteral}{"{}log"{}})}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ plt.xlabel(\textcolor{stringliteral}{"{}Learning\ Rate\ (Log\ Scale)"{}})}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ plt.ylabel(\textcolor{stringliteral}{"{}Loss"{}})}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ the\ title\ is\ not\ empty,\ add\ it\ to\ the\ plot}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ title\ !=\ \textcolor{stringliteral}{"{}"{}}:}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ plt.title(title)}
+
+\end{DoxyCode}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ac07d08654ab762cd9ceaa9a32f542e41}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ac07d08654ab762cd9ceaa9a32f542e41} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!reset@{reset}}
+\index{reset@{reset}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+reset (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00029}{29}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{def\ }reset(self):}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ re-\/initialize\ all\ variables\ from\ our\ constructor}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ self.lrs\ =\ []}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ self.losses\ =\ []}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ self.lrMult\ =\ 1}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ self.avgLoss\ =\ 0}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ self.bestLoss\ =\ 1e9}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ self.batchNum\ =\ 0}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ self.weightsFile\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00038\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d8a/classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ac07d08654ab762cd9ceaa9a32f542e41_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a86f4288f4ab29e5e085dbec504f434b2}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a86f4288f4ab29e5e085dbec504f434b2} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!avgLoss@{avgLoss}}
+\index{avgLoss@{avgLoss}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{avgLoss}{avgLoss}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+avg\+Loss}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00024}{24}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a49345dbc5528657062eb8070a6c2ae7f}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a49345dbc5528657062eb8070a6c2ae7f} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!batchNum@{batchNum}}
+\index{batchNum@{batchNum}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{batchNum}{batchNum}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+batch\+Num}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00026}{26}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab819afec8a34b3791da8080a8b5297ff}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab819afec8a34b3791da8080a8b5297ff} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!bestLoss@{bestLoss}}
+\index{bestLoss@{bestLoss}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{bestLoss}{bestLoss}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+best\+Loss}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00025}{25}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a1e98db3e948bc2606366443fe0f55fb9}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a1e98db3e948bc2606366443fe0f55fb9} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!beta@{beta}}
+\index{beta@{beta}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{beta}{beta}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+beta}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00014}{14}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_aff3fdbae158765186875214f0358c546}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_aff3fdbae158765186875214f0358c546} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!losses@{losses}}
+\index{losses@{losses}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{losses}{losses}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+losses}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00019}{19}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a45a25b1104f7a8d4885de456817e3641}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a45a25b1104f7a8d4885de456817e3641} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!lrMult@{lrMult}}
+\index{lrMult@{lrMult}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{lrMult}{lrMult}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+lr\+Mult}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00023}{23}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab3ace455ac9c5bb058952c16807f6339}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab3ace455ac9c5bb058952c16807f6339} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!lrs@{lrs}}
+\index{lrs@{lrs}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{lrs}{lrs}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+lrs}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00018}{18}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab17e52e2c9812bdbb8b44f8610cdc480}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ab17e52e2c9812bdbb8b44f8610cdc480} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!model@{model}}
+\index{model@{model}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{model}{model}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+model}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00012}{12}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ae8164c4fae5b6cbf20a289a2480be02d}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_ae8164c4fae5b6cbf20a289a2480be02d} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!stopFactor@{stopFactor}}
+\index{stopFactor@{stopFactor}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{stopFactor}{stopFactor}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+stop\+Factor}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00013}{13}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+\Hypertarget{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a27439fbdbbe4722620f602eb52c66a32}\label{classpyimagesearch_1_1learningratefinder_1_1_learning_rate_finder_a27439fbdbbe4722620f602eb52c66a32} 
+\index{pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}!weightsFile@{weightsFile}}
+\index{weightsFile@{weightsFile}!pyimagesearch.learningratefinder.LearningRateFinder@{pyimagesearch.learningratefinder.LearningRateFinder}}
+\doxysubsubsection{\texorpdfstring{weightsFile}{weightsFile}}
+{\footnotesize\ttfamily pyimagesearch.\+learningratefinder.\+Learning\+Rate\+Finder.\+weights\+File}
+
+
+
+Definition at line \mbox{\hyperlink{learningratefinder_8py_source_l00027}{27}} of file \mbox{\hyperlink{learningratefinder_8py_source}{learningratefinder.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/event\+\_\+detection/pyimagesearch/\mbox{\hyperlink{learningratefinder_8py}{learningratefinder.\+py}}\end{DoxyCompactItemize}

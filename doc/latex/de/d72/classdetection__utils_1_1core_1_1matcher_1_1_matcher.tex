@@ -1,0 +1,214 @@
+\doxysection{detection\+\_\+utils.\+core.\+matcher.\+Matcher Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1matcher_1_1_matcher}{}\label{classdetection__utils_1_1core_1_1matcher_1_1_matcher}\index{detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+matcher.\+Matcher\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{d3/d58/classdetection__utils_1_1core_1_1matcher_1_1_matcher__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+matcher.\+Matcher\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{d9/d04/classdetection__utils_1_1core_1_1matcher_1_1_matcher__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a4b4a603730d9d61cba9a3954fe2b350e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, use\+\_\+matmul\+\_\+gather=False)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21}{match}} (self, similarity\+\_\+matrix, valid\+\_\+rows=None, scope=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60}{\+\_\+match}} (self, similarity\+\_\+matrix, valid\+\_\+rows)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b}{\+\_\+use\+\_\+matmul\+\_\+gather}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class for matcher.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{matcher_8py_source_l00218}{218}} of file \mbox{\hyperlink{matcher_8py_source}{matcher.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a4b4a603730d9d61cba9a3954fe2b350e}\label{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a4b4a603730d9d61cba9a3954fe2b350e} 
+\index{detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+matcher.\+Matcher.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{use\+\_\+matmul\+\_\+gather = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs a Matcher.
+
+Args:
+  use_matmul_gather: Force constructed match objects to use matrix
+    multiplication based gather instead of standard tf.gather.
+    (Default: False).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{matcher_8py_source_l00222}{222}} of file \mbox{\hyperlink{matcher_8py_source}{matcher.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ use\_matmul\_gather=False):}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ Matcher.}}
+\DoxyCodeLine{00224\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00226\ \textcolor{stringliteral}{\ \ \ \ \ \ use\_matmul\_gather:\ Force\ constructed\ match\ objects\ to\ use\ matrix}}
+\DoxyCodeLine{00227\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ multiplication\ based\ gather\ instead\ of\ standard\ tf.gather.}}
+\DoxyCodeLine{00228\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (Default:\ }\textcolor{keyword}{False}).}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00230\ \textcolor{stringliteral}{\ \ \ \ self.\_use\_matmul\_gather\ =\ use\_matmul\_gather}}
+\DoxyCodeLine{00231\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60}\label{classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60} 
+\index{detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}!\_match@{\_match}}
+\index{\_match@{\_match}!detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}}
+\doxysubsubsection{\texorpdfstring{\_match()}{\_match()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+matcher.\+Matcher.\+\_\+match (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{similarity\+\_\+matrix,  }\item[{}]{valid\+\_\+rows }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Method to be overridden by implementations.
+
+Args:
+  similarity_matrix: Float tensor of shape [N, M] with pairwise similarity
+    where higher value means more similar.
+  valid_rows: A boolean tensor of shape [N] indicating the rows that are
+    valid for matching.
+Returns:
+  match_results: Integer tensor of shape [M]: match_results[i]>=0 means
+    that column i is matched to row match_results[i], match_results[i]=-1
+    means that the column is not matched. match_results[i]=-2 means that
+    the column is ignored (usually this happens when there is a very weak
+    match which one neither wants as positive nor negative example).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{matcher_8py_source_l00255}{255}} of file \mbox{\hyperlink{matcher_8py_source}{matcher.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00255\ \ \ \textcolor{keyword}{def\ }\_match(self,\ similarity\_matrix,\ valid\_rows):}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{00257\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00258\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00259\ \textcolor{stringliteral}{\ \ \ \ \ \ similarity\_matrix:\ Float\ tensor\ of\ shape\ [N,\ M]\ }\textcolor{keyword}{with}\ pairwise\ similarity}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ where\ higher\ value\ means\ more\ similar.}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ valid\_rows:\ A\ boolean\ tensor\ of\ shape\ [N]\ indicating\ the\ rows\ that\ are}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ valid\ \textcolor{keywordflow}{for}\ matching.}
+\DoxyCodeLine{00263\ \ \ \ \ Returns:}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ match\_results:\ Integer\ tensor\ of\ shape\ [M]:\ match\_results[i]>=0\ means}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ that\ column\ i\ \textcolor{keywordflow}{is}\ matched\ to\ row\ match\_results[i],\ match\_results[i]=-\/1}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ means\ that\ the\ column\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ matched.\ match\_results[i]=-\/2\ means\ that}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ the\ column\ \textcolor{keywordflow}{is}\ ignored\ (usually\ this\ happens\ when\ there\ \textcolor{keywordflow}{is}\ a\ very\ weak}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ match\ which\ one\ neither\ wants\ \textcolor{keyword}{as}\ positive\ nor\ negative\ example).}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00270\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d72/classdetection__utils_1_1core_1_1matcher_1_1_matcher_ae06a4ff848b98933f958d729cd2fab60_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21}\label{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21} 
+\index{detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}!match@{match}}
+\index{match@{match}!detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}}
+\doxysubsubsection{\texorpdfstring{match()}{match()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+matcher.\+Matcher.\+match (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{similarity\+\_\+matrix,  }\item[{}]{valid\+\_\+rows = {\ttfamily None},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes matches among row and column indices and returns the result.
+
+Computes matches among the row and column indices based on the similarity
+matrix and optional arguments.
+
+Args:
+  similarity_matrix: Float tensor of shape [N, M] with pairwise similarity
+    where higher value means more similar.
+  valid_rows: A boolean tensor of shape [N] indicating the rows that are
+    valid for matching.
+  scope: Op scope name. Defaults to 'Match' if None.
+
+Returns:
+  A Match object with the results of matching.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{matcher_8py_source_l00232}{232}} of file \mbox{\hyperlink{matcher_8py_source}{matcher.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{def\ }match(self,\ similarity\_matrix,\ valid\_rows=None,\ scope=None):}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ matches\ among\ row\ and\ column\ indices\ and\ returns\ the\ result.}}
+\DoxyCodeLine{00234\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00235\ \textcolor{stringliteral}{\ \ \ \ Computes\ matches\ among\ the\ row\ }\textcolor{keywordflow}{and}\ column\ indices\ based\ on\ the\ similarity}
+\DoxyCodeLine{00236\ \ \ \ \ matrix\ \textcolor{keywordflow}{and}\ optional\ arguments.}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ Args:}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ similarity\_matrix:\ Float\ tensor\ of\ shape\ [N,\ M]\ \textcolor{keyword}{with}\ pairwise\ similarity}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ where\ higher\ value\ means\ more\ similar.}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ valid\_rows:\ A\ boolean\ tensor\ of\ shape\ [N]\ indicating\ the\ rows\ that\ are}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ valid\ \textcolor{keywordflow}{for}\ matching.}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ scope:\ Op\ scope\ name.\ Defaults\ to\ \textcolor{stringliteral}{'Match'}\ \textcolor{keywordflow}{if}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ Returns:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ A\ Match\ object\ \textcolor{keyword}{with}\ the\ results\ of\ matching.}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00248\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Match'})\ \textcolor{keyword}{as}\ scope:}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ valid\_rows\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ valid\_rows\ =\ tf.ones(tf.shape(similarity\_matrix)[0],\ dtype=tf.bool)}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Match(self.\_match(similarity\_matrix,\ valid\_rows),}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\_use\_matmul\_gather)}
+\DoxyCodeLine{00253\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d72/classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5a09ee2d62bfa1d1a2c63d3ebe2e6d21_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b}\label{classdetection__utils_1_1core_1_1matcher_1_1_matcher_a5b51c7c0ab67223fc3a416bff65d934b} 
+\index{detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}!\_use\_matmul\_gather@{\_use\_matmul\_gather}}
+\index{\_use\_matmul\_gather@{\_use\_matmul\_gather}!detection\_utils.core.matcher.Matcher@{detection\_utils.core.matcher.Matcher}}
+\doxysubsubsection{\texorpdfstring{\_use\_matmul\_gather}{\_use\_matmul\_gather}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+matcher.\+Matcher.\+\_\+use\+\_\+matmul\+\_\+gather\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{matcher_8py_source_l00230}{230}} of file \mbox{\hyperlink{matcher_8py_source}{matcher.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{matcher_8py}{matcher.\+py}}\end{DoxyCompactItemize}

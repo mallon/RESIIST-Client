@@ -1,0 +1,69 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+entrypoints.\+Decision\+Model\+Transformation Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation}\index{com.axellience.resiist.client.entrypoints.DecisionModelTransformation@{com.axellience.resiist.client.entrypoints.DecisionModelTransformation}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+entrypoints.\+Decision\+Model\+Transformation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{d2/dfc/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation_acc81e734fc0ac13f254a746f2b045c90}{main}} (String\mbox{[}$\,$\mbox{]} args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_decision_model_transformation_8java_source_l00010}{10}} of file \mbox{\hyperlink{_decision_model_transformation_8java_source}{Decision\+Model\+Transformation.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation_acc81e734fc0ac13f254a746f2b045c90}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation_acc81e734fc0ac13f254a746f2b045c90} 
+\index{com.axellience.resiist.client.entrypoints.DecisionModelTransformation@{com.axellience.resiist.client.entrypoints.DecisionModelTransformation}!main@{main}}
+\index{main@{main}!com.axellience.resiist.client.entrypoints.DecisionModelTransformation@{com.axellience.resiist.client.entrypoints.DecisionModelTransformation}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily static void com.\+axellience.\+resiist.\+client.\+entrypoints.\+Decision\+Model\+Transformation.\+main (\begin{DoxyParamCaption}\item[{String\mbox{[}$\,$\mbox{]}}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_decision_model_transformation_8java_source_l00012}{12}} of file \mbox{\hyperlink{_decision_model_transformation_8java_source}{Decision\+Model\+Transformation.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013\ \ \ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ AcquisitionToIntegration\ acquisitionToIntegration\ =\ \textcolor{keyword}{new}\ AcquisitionToIntegration();}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ acquisitionToIntegration.connexionToModelingPlatform(\textcolor{stringliteral}{"{}\_u6R7EJHPEe2s\_rSsl-\/4wyA"{}},}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}indicator"{}},}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}password"{}});}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ ResourceImpl\ modelResource\ =\ acquisitionToIntegration.getModelFromServerAsBinary();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ DecisionMaking\ decisionMaking\ =\ \textcolor{keyword}{new}\ DecisionMaking();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ decisionMaking.setModelResource(modelResource);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ File\ csvDecisionModelFile\ =\ decisionMaking.transformDecisionModelToCSV();}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ System.exit(0);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decisionMaking.launchDecisionEvaluationServer(csvDecisionModelFile);}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decisionMaking.openImportUrl();}}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/da8/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_decision_model_transformation_acc81e734fc0ac13f254a746f2b045c90_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/entrypoints/\mbox{\hyperlink{_decision_model_transformation_8java}{Decision\+Model\+Transformation.\+java}}\end{DoxyCompactItemize}

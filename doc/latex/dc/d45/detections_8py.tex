@@ -1,0 +1,65 @@
+\doxysection{src/main/resources/processing/video/detections/detections.py File Reference}
+\hypertarget{detections_8py}{}\label{detections_8py}\index{src/main/resources/processing/video/detections/detections.py@{src/main/resources/processing/video/detections/detections.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacedetections}{detections}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetections_a4b34af78e5e8e1fb6ef8966ccb7cb14b}{detections.\+start\+Behavior\+Detection}} (\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}}, all\+Obj\+To\+Detects, all\+Element\+Ids)
+\item 
+\mbox{\hyperlink{namespacedetections_ad493ddbb285e7d724f21c8a48a3ddbd6}{detections.\+start\+Detection}} (\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{frame\+To\+Analyse}}, algo\+Name\+To\+Execute, all\+Obj\+To\+Detects, all\+Element\+Ids)
+\item 
+\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{detections.\+send\+Frames\+To\+Behavior\+Algorithm}} (\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}})
+\item 
+\mbox{\hyperlink{namespacedetections_a6917a78cb6d1299857b272f5bd586591}{detections.\+send\+One\+Frame\+To\+All\+Detection\+Algorithms}} (\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{frame\+To\+Analyse}})
+\item 
+\mbox{\hyperlink{namespacedetections_a1cf7055d09e428873fdb178398ae6a2f}{detections.\+terminate\+Processes}} (\mbox{\hyperlink{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}{limit\+Proc}})
+\item 
+\mbox{\hyperlink{namespacedetections_a82c60b70e8c0654f5fd081d400a21826}{detections.\+is\+Sending\+Time}} (current\+Time, \mbox{\hyperlink{namespacedetections_a9b3df615426b761043a21fb4a881995b}{last\+Recorded\+Time}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} \mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{detections.\+CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} = os.\+getcwd() + \"{}/src/main/resources\"{}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{str}} \mbox{\hyperlink{namespacedetections_af87216e9b589869603857aae5f16a750}{detections.\+EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} = \mbox{\hyperlink{namespacedetections_ab6dea9449bffecc47fbb3b2d5d9a4254}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}
+\item 
+\mbox{\hyperlink{namespacedetections_a32fcc3604ec776316184c329cf666f00}{detections.\+ap}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacedetections_a913273f41d4dddb8cf2171009d65322c}{detections.\+type}}
+\item 
+\mbox{\hyperlink{namespacedetections_a17ad2ddba5f0669a40054156224aa4ab}{detections.\+str}}
+\item 
+\mbox{\hyperlink{namespacedetections_ad5766c576b3f9c2106cd1fc6cead4875}{detections.\+default}}
+\item 
+\mbox{\hyperlink{namespacedetections_a7d91735a98897e3aa27a52e625b26f9f}{detections.\+help}}
+\item 
+\mbox{\hyperlink{namespacedetections_a704f0985bb3e1309a5c7efc92829950e}{detections.\+required}}
+\item 
+\mbox{\hyperlink{namespacedetections_a56dc11d5add23fd22fc535a41dab3b6c}{detections.\+True}}
+\item 
+\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{detections.\+args}} = vars(ap.\+parse\+\_\+args())
+\item 
+list \mbox{\hyperlink{namespacedetections_aed0f79a0aa29ee02171e506a01af2afc}{detections.\+process\+List}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedetections_aa37ace92a7df8533b732aad826fe7794}{detections.\+cap}} = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)
+\item 
+\mbox{\hyperlink{namespacedetections_a1f629c390eb4565160535f5baa80f8d2}{detections.\+delay}} = int(1000/cap.\+get(cv2.\+CAP\+\_\+\+PROP\+\_\+\+FPS))
+\item 
+list \mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{detections.\+frames\+For\+Activity\+Detection}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedetections_a9b3df615426b761043a21fb4a881995b}{detections.\+last\+Recorded\+Time}} = time.\+time()
+\item 
+\mbox{\hyperlink{namespacedetections_a5fad01f7e7b6f7c93d0894c9e900d54b}{detections.\+curren\+Time}} = time.\+time()
+\item 
+int \mbox{\hyperlink{namespacedetections_a56e6a2865b0eabe8642ce1fd01423edd}{detections.\+limit\+Proc}} = 3
+\item 
+\mbox{\hyperlink{namespacedetections_aa77ab94646a328a653f0fe172adb4c42}{detections.\+ret}}
+\item 
+\mbox{\hyperlink{namespacedetections_a1a3adabb94e3f50132b8dbfb42b850eb}{detections.\+frame\+To\+Analyse}}
+\item 
+\mbox{\hyperlink{namespacedetections_ad57d0c74028aa3337beaf81fb63339f5}{detections.\+process}} = Process(target=\mbox{\hyperlink{namespacedetections_a59d567b1014d084d0b1df41f7b3589f7}{send\+Frames\+To\+Behavior\+Algorithm}}, \mbox{\hyperlink{namespacedetections_ac7bb591bed9374e7877ad3509ad648fa}{args}}=(\mbox{\hyperlink{namespacedetections_a92f638194f35a40fda1a3d2864d801fd}{frames\+For\+Activity\+Detection}},))
+\end{DoxyCompactItemize}

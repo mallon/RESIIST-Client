@@ -1,0 +1,410 @@
+\doxysection{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}
+\hypertarget{np__box__mask__list__ops_8py_source}{}\label{np__box__mask__list__ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_mask\_list\_ops.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_mask\_list\_ops.py}}
+\mbox{\hyperlink{np__box__mask__list__ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Operations\ for\ np\_box\_mask\_list.BoxMaskList.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00018}00018\ \textcolor{stringliteral}{Example\ box\ operations\ that\ are\ supported:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ *\ Areas:\ compute\ bounding\ box\ areas}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ *\ IOU:\ pairwise\ intersection-\/over-\/union\ scores}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00022}00022\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00023}00023\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00024}00024\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00025}00025\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00026}00026\ \textcolor{stringliteral}{import\ numpy\ as\ np}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00027}00027\ \textcolor{stringliteral}{from\ six.moves\ import\ range}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00029}00029\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ np\_box\_list\_ops}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00030}00030\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ np\_box\_mask\_list}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00031}00031\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ np\_mask\_ops}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00032}00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00033}00033\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00034}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{00034}}\ \textcolor{stringliteral}{def\ box\_list\_to\_box\_mask\_list(boxlist):}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ "{}"{}"{}Converts\ a\ BoxList\ containing\ 'masks'\ into\ a\ BoxMaskList.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ An\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}\ object.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00039}00039\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ An\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ object.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ If\ boxlist\ does\ }\textcolor{keywordflow}{not}\ contain\ \`{}masks\`{}\ \textcolor{keyword}{as}\ a\ field.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00045}00045\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(\textcolor{stringliteral}{'masks'}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlist\ does\ not\ contain\ mask\ field.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00048}00048\ \ \ box\_mask\_list\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00049}00049\ \ \ \ \ \ \ box\_data=boxlist.get(),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00050}00050\ \ \ \ \ \ \ mask\_data=boxlist.get\_field(\textcolor{stringliteral}{'masks'}))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00051}00051\ \ \ extra\_fields\ =\ boxlist.get\_extra\_fields()}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00052}00052\ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ extra\_fields:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ !=\ \textcolor{stringliteral}{'masks'}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00054}00054\ \ \ \ \ \ \ box\_mask\_list.data[key]\ =\ boxlist.get\_field(key)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00055}00055\ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00058}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae10614b2815f18739420825f1e230e7d}{00058}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae10614b2815f18739420825f1e230e7d}{area}}(box\_mask\_list):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00059}00059\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ area\ of\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00060}00060\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00064}00064\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00065}00065\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*1]\ representing\ mask\ areas}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00066}00066\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.area(box\_mask\_list.get\_masks())}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00070}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac9ae150db8a15572283e83aa90b04441}{00070}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac9ae150db8a15572283e83aa90b04441}{intersection}}(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00071}00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00072}00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list1:\ BoxMaskList\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00075}00075\ \ \ \ \ box\_mask\_list2:\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00077}00077\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00078}00078\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00079}00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.intersection(box\_mask\_list1.get\_masks(),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00084}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_adfd81e5ae2b983f98bb0194fc80c0e54}{00084}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_adfd81e5ae2b983f98bb0194fc80c0e54}{iou}}(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00085}00085\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ box\ and\ mask\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00086}00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list1:\ BoxMaskList\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00089}00089\ \ \ \ \ box\_mask\_list2:\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00091}00091\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00092}00092\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00093}00093\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.iou(box\_mask\_list1.get\_masks(),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00098}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1}{00098}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1}{ioa}}(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00099}00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ and\ mask\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00100}00100\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ masks\ mask1\ }\textcolor{keywordflow}{and}\ mask2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00102}00102\ \ \ their\ intersection\ area\ over\ mask2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(mask1,\ mask2)\ !=\ IOA(mask2,\ mask1).}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00105}00105\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00106}00106\ \ \ \ \ box\_mask\_list1:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00107}00107\ \ \ \ \ box\_mask\_list2:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00109}00109\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00110}00110\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00111}00111\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.ioa(box\_mask\_list1.get\_masks(),\ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00115}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{00115}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}}(box\_mask\_list,\ indices,\ fields=None):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00116}00116\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gather\ boxes\ from\ np\_box\_mask\_list.BoxMaskList\ according\ to\ indices.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00117}00117\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ By\ default,\ gather\ returns\ boxes\ corresponding\ to\ the\ input\ index\ list,\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00119}00119\ \ \ well\ \textcolor{keyword}{as}\ all\ additional\ fields\ stored\ \textcolor{keywordflow}{in}\ the\ box\_mask\_list\ (indexing\ into\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00120}00120\ \ \ first\ dimension).\ \ However\ one\ can\ optionally\ only\ gather\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00121}00121\ \ \ subset\ of\ fields.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00123}00123\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00124}00124\ \ \ \ \ box\_mask\_list:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00125}00125\ \ \ \ \ indices:\ a\ 1-\/d\ numpy\ array\ of\ type\ int\_}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00126}00126\ \ \ \ \ fields:\ (optional)\ list\ of\ fields\ to\ also\ gather\ \textcolor{keyword}{from}.\ \ If\ \textcolor{keywordtype}{None}\ (default),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ all\ fields\ are\ gathered\ \textcolor{keyword}{from}.\ \ Pass\ an\ empty\ fields\ list\ to\ only\ gather}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ the\ box\ coordinates.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00130}00130\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00131}00131\ \ \ \ \ subbox\_mask\_list:\ a\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ corresponding\ to\ the\ subset}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ of\ the\ input\ box\_mask\_list\ specified\ by\ indices}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00134}00134\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00135}00135\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ specified\ field\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ contained\ \textcolor{keywordflow}{in}\ box\_mask\_list\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ indices\ are\ \textcolor{keywordflow}{not}\ of\ type\ int\_}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00137}00137\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'masks'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00140}00140\ \ \ \ \ \ \ fields.append(\textcolor{stringliteral}{'masks'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00141}00141\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{box\_list\_to\_box\_mask\_list}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00142}00142\ \ \ \ \ \ \ np\_box\_list\_ops.gather(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ boxlist=box\_mask\_list,\ indices=indices,\ fields=fields))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00146}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd}{00146}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd}{sort\_by\_field}}(box\_mask\_list,\ field,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ order=np\_box\_list\_ops.SortOrder.DESCEND):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00148}00148\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sort\ boxes\ and\ associated\ fields\ according\ to\ a\ scalar\ field.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00149}00149\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ A\ common\ use\ case\ }\textcolor{keywordflow}{is}\ reordering\ the\ boxes\ according\ to\ descending\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00152}00152\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00153}00153\ \ \ \ \ box\_mask\_list:\ BoxMaskList\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00154}00154\ \ \ \ \ field:\ A\ BoxMaskList\ field\ \textcolor{keywordflow}{for}\ sorting\ \textcolor{keywordflow}{and}\ reordering\ the\ BoxMaskList.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00155}00155\ \ \ \ \ order:\ (Optional)\ \textcolor{stringliteral}{'descend'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'ascend'}.\ Default\ \textcolor{keywordflow}{is}\ descend.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00157}00157\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00158}00158\ \ \ \ \ sorted\_box\_mask\_list:\ A\ sorted\ BoxMaskList\ \textcolor{keyword}{with}\ the\ field\ \textcolor{keywordflow}{in}\ the\ specified}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00159}00159\ \ \ \ \ \ \ order.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00160}00160\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00161}00161\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{box\_list\_to\_box\_mask\_list}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00162}00162\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ boxlist=box\_mask\_list,\ field=field,\ order=order))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00166}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0}{00166}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0}{non\_max\_suppression}}(box\_mask\_list,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size=10000,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=1.0,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=-\/10.0):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00170}00170\ \ \ \textcolor{stringliteral}{"{}"{}"{}Non\ maximum\ suppression.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00171}00171\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00172}00172\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00173}00173\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ In\ each\ iteration,\ the\ detected\ bounding\ box\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00175}00175\ \ \ highest\ score\ \textcolor{keywordflow}{in}\ the\ available\ pool\ \textcolor{keywordflow}{is}\ selected.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00177}00177\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00178}00178\ \ \ \ \ box\_mask\_list:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes.\ \ Must\ contain}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00179}00179\ \ \ \ \ \ \ a\ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.\ All\ scores\ belong\ to\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00180}00180\ \ \ \ \ \ \ same\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00181}00181\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00182}00182\ \ \ \ \ iou\_threshold:\ intersection\ over\ union\ threshold.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00183}00183\ \ \ \ \ score\_threshold:\ minimum\ score\ threshold.\ Remove\ the\ boxes\ \textcolor{keyword}{with}\ scores}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ less\ than\ this\ value.\ Default\ value\ \textcolor{keywordflow}{is}\ set\ to\ -\/10.\ A\ very}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ low\ threshold\ to\ \textcolor{keywordflow}{pass}\ pretty\ much\ all\ the\ boxes,\ unless}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ user\ sets\ a\ different\ score\ threshold.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00188}00188\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00189}00189\ \ \ \ \ an\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ M\ boxes\ where\ M\ <=\ max\_output\_size}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00191}00191\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00192}00192\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'scores'}\ field\ does\ \textcolor{keywordflow}{not}\ exist}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00193}00193\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ threshold\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00194}00194\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00195}00195\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ scores\ does\ not\ exist'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00198}00198\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ <\ 0.\ \textcolor{keywordflow}{or}\ iou\_threshold\ >\ 1.0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'IOU\ threshold\ must\ be\ in\ [0,\ 1]'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00200}00200\ \ \ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'max\_output\_size\ must\ be\ bigger\ than\ 0.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00203}00203\ \ \ box\_mask\_list\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}{filter\_scores\_greater\_than}}(box\_mask\_list,\ score\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00204}00204\ \ \ \textcolor{keywordflow}{if}\ box\_mask\_list.num\_boxes()\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00207}00207\ \ \ box\_mask\_list\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd}{sort\_by\_field}}(box\_mask\_list,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00209}00209\ \ \ \textcolor{comment}{\#\ Prevent\ further\ computation\ if\ NMS\ is\ disabled.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00210}00210\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ ==\ 1.0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00211}00211\ \ \ \ \ \textcolor{keywordflow}{if}\ box\_mask\_list.num\_boxes()\ >\ max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00212}00212\ \ \ \ \ \ \ selected\_indices\ =\ np.arange(max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00213}00213\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}}(box\_mask\_list,\ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00214}00214\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00215}00215\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00217}00217\ \ \ masks\ =\ box\_mask\_list.get\_masks()}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00218}00218\ \ \ num\_masks\ =\ box\_mask\_list.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00220}00220\ \ \ \textcolor{comment}{\#\ is\_index\_valid\ is\ True\ only\ for\ all\ remaining\ valid\ boxes,}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00221}00221\ \ \ is\_index\_valid\ =\ np.full(num\_masks,\ 1,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00222}00222\ \ \ selected\_indices\ =\ []}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00223}00223\ \ \ num\_output\ =\ 0}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00224}00224\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_masks):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_output\ <\ max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00226}00226\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_index\_valid[i]:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ num\_output\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ selected\_indices.append(i)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ is\_index\_valid[i]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ valid\_indices\ =\ np.where(is\_index\_valid)[0]}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ valid\_indices.size\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np\_mask\_ops.iou(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ np.expand\_dims(masks[i],\ axis=0),\ masks[valid\_indices])}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np.squeeze(intersect\_over\_union,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices]\ =\ np.logical\_and(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices],}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ intersect\_over\_union\ <=\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00240}00240\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}}(box\_mask\_list,\ np.array(selected\_indices))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00243}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c}{00243}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c}{multi\_class\_non\_max\_suppression}}(box\_mask\_list,\ score\_thresh,\ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00245}00245\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00246}00246\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00247}00247\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00248}00248\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00249}00249\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ independently\ \textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class\ }for}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00250}00250\ \ \ which\ scores\ are\ provided\ (via\ the\ scores\ field\ of\ the\ input\ box\_list),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00251}00251\ \ \ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided\ threshold\ prior\ to}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00252}00252\ \ \ applying\ NMS.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00254}00254\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00255}00255\ \ \ \ \ box\_mask\_list:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes.\ \ Must\ contain\ a}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00256}00256\ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.\ \ This\ scores\ field\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00257}00257\ \ \ \ \ \ \ tensor\ that\ can\ be\ 1\ dimensional\ (\textcolor{keywordflow}{in}\ the\ case\ of\ a\ single\ \textcolor{keyword}{class})\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00258}00258\ \ \ \ \ \ \ 2-\/dimensional,\ \textcolor{keywordflow}{in}\ which\ case\ we\ assume\ that\ it\ takes\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00259}00259\ \ \ \ \ \ \ shape\ [num\_boxes,\ num\_classes].\ We\ further\ assume\ that\ this\ rank\ \textcolor{keywordflow}{is}\ known}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00260}00260\ \ \ \ \ \ \ statically\ \textcolor{keywordflow}{and}\ that\ scores.shape[1]\ \textcolor{keywordflow}{is}\ also\ known\ (i.e.,\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00261}00261\ \ \ \ \ \ \ classes\ \textcolor{keywordflow}{is}\ fixed\ \textcolor{keywordflow}{and}\ known\ at\ graph\ construction\ time).}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00262}00262\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00263}00263\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (boxes\ that\ that\ high\ IOU\ overlap}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00264}00264\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00265}00265\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00267}00267\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00268}00268\ \ \ \ \ a\ box\_mask\_list\ holding\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00269}00269\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00270}00270\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00271}00271\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00272}00272\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ box\_mask\_list\ does}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00273}00273\ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ have\ a\ valid\ scores\ field.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00274}00274\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00275}00275\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <=\ iou\_thresh\ <=\ 1.0:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00276}00276\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'thresh\ must\ be\ between\ 0\ and\ 1'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00277}00277\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_mask\_list,\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_mask\_list\ must\ be\ a\ box\_mask\_list'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00279}00279\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ box\_mask\_list\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00281}00281\ \ \ scores\ =\ box\_mask\_list.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00282}00282\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00283}00283\ \ \ \ \ scores\ =\ np.reshape(scores,\ [-\/1,\ 1])}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00284}00284\ \ \ \textcolor{keywordflow}{elif}\ len(scores.shape)\ ==\ 2:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{if}\ scores.shape[1]\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00286}00286\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ have\ statically\ defined\ second\ '}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dimension'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00288}00288\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ be\ of\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00291}00291\ \ \ num\_boxes\ =\ box\_mask\_list.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00292}00292\ \ \ num\_scores\ =\ scores.shape[0]}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00293}00293\ \ \ num\_classes\ =\ scores.shape[1]}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00295}00295\ \ \ \textcolor{keywordflow}{if}\ num\_boxes\ !=\ num\_scores:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00296}00296\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Incorrect\ scores\ field\ length:\ actual\ vs\ expected.'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00298}00298\ \ \ selected\_boxes\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00299}00299\ \ \ \textcolor{keywordflow}{for}\ class\_idx\ \textcolor{keywordflow}{in}\ range(num\_classes):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00300}00300\ \ \ \ \ box\_mask\_list\_and\_class\_scores\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ box\_data=box\_mask\_list.get(),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ mask\_data=box\_mask\_list.get\_masks())}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00303}00303\ \ \ \ \ class\_scores\ =\ np.reshape(scores[0:num\_scores,\ class\_idx],\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00304}00304\ \ \ \ \ box\_mask\_list\_and\_class\_scores.add\_field(\textcolor{stringliteral}{'scores'},\ class\_scores)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00305}00305\ \ \ \ \ box\_mask\_list\_filt\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}{filter\_scores\_greater\_than}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ box\_mask\_list\_and\_class\_scores,\ score\_thresh)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00307}00307\ \ \ \ \ nms\_result\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0}{non\_max\_suppression}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ box\_mask\_list\_filt,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ max\_output\_size=max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00312}00312\ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'classes'},}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ np.zeros\_like(nms\_result.get\_field(\textcolor{stringliteral}{'scores'}))\ +\ class\_idx)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00315}00315\ \ \ \ \ selected\_boxes\_list.append(nms\_result)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00316}00316\ \ \ selected\_boxes\ =\ np\_box\_list\_ops.concatenate(selected\_boxes\_list)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00317}00317\ \ \ sorted\_boxes\ =\ np\_box\_list\_ops.sort\_by\_field(selected\_boxes,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00318}00318\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{box\_list\_to\_box\_mask\_list}}(boxlist=sorted\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00321}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109}{00321}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109}{prune\_non\_overlapping\_masks}}(box\_mask\_list1,\ box\_mask\_list2,\ minoverlap=0.0):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00322}00322\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ the\ boxes\ in\ list1\ that\ overlap\ less\ than\ thresh\ with\ list2.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00323}00323\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00324}00324\ \textcolor{stringliteral}{\ \ For\ each\ mask\ }\textcolor{keywordflow}{in}\ box\_mask\_list1,\ we\ want\ its\ IOA\ to\ be\ more\ than\ minoverlap}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00325}00325\ \ \ \textcolor{keyword}{with}\ at\ least\ one\ of\ the\ masks\ \textcolor{keywordflow}{in}\ box\_mask\_list2.\ If\ it\ does\ \textcolor{keywordflow}{not},\ we\ remove}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00326}00326\ \ \ it.\ If\ the\ masks\ are\ \textcolor{keywordflow}{not}\ full\ size\ image,\ we\ do\ the\ pruning\ based\ on\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00328}00328\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00329}00329\ \ \ \ \ box\_mask\_list1:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00330}00330\ \ \ \ \ box\_mask\_list2:\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00331}00331\ \ \ \ \ minoverlap:\ Minimum\ required\ overlap\ between\ boxes,\ to\ count\ them\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overlapping.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00334}00334\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00335}00335\ \ \ \ \ A\ pruned\ box\_mask\_list\ \textcolor{keyword}{with}\ size\ [N\textcolor{stringliteral}{',\ 4].}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00336}00336\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00337}00337\ \textcolor{stringliteral}{\ \ intersection\_over\_area\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1}{ioa}}(box\_mask\_list2,\ box\_mask\_list1)\ \ }\textcolor{comment}{\#\ [M,\ N]\ tensor}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00338}00338\ \ \ intersection\_over\_area\ =\ np.amax(intersection\_over\_area,\ axis=0)\ \ \textcolor{comment}{\#\ [N]\ tensor}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00339}00339\ \ \ keep\_bool\ =\ np.greater\_equal(intersection\_over\_area,\ np.array(minoverlap))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00340}00340\ \ \ keep\_inds\ =\ np.nonzero(keep\_bool)[0]}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00341}00341\ \ \ new\_box\_mask\_list1\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}}(box\_mask\_list1,\ keep\_inds)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00342}00342\ \ \ \textcolor{keywordflow}{return}\ new\_box\_mask\_list1}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00344}00344\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00345}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea}{00345}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea}{concatenate}}(box\_mask\_lists,\ fields=None):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00346}00346\ \ \ \textcolor{stringliteral}{"{}"{}"{}Concatenate\ list\ of\ box\_mask\_lists.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00347}00347\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00348}00348\ \textcolor{stringliteral}{\ \ This\ op\ concatenates\ a\ list\ of\ input\ box\_mask\_lists\ into\ a\ larger}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00349}00349\ \textcolor{stringliteral}{\ \ box\_mask\_list.\ \ It\ also}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00350}00350\ \textcolor{stringliteral}{\ \ handles\ concatenation\ of\ box\_mask\_list\ fields\ }\textcolor{keyword}{as}\ long\ \textcolor{keyword}{as}\ the\ field\ tensor}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00351}00351\ \ \ shapes\ are\ equal\ \textcolor{keywordflow}{except}\ \textcolor{keywordflow}{for}\ the\ first\ dimension.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00353}00353\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00354}00354\ \ \ \ \ box\_mask\_lists:\ list\ of\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ objects}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00355}00355\ \ \ \ \ fields:\ optional\ list\ of\ fields\ to\ also\ concatenate.\ \ By\ default,\ all}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00356}00356\ \ \ \ \ \ \ fields\ \textcolor{keyword}{from}\ the\ first\ BoxMaskList\ \textcolor{keywordflow}{in}\ the\ list\ are\ included\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00357}00357\ \ \ \ \ \ \ concatenation.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00359}00359\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00360}00360\ \ \ \ \ a\ box\_mask\_list\ \textcolor{keyword}{with}\ number\ of\ boxes\ equal\ to}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00361}00361\ \ \ \ \ \ \ sum([box\_mask\_list.num\_boxes()\ \textcolor{keywordflow}{for}\ box\_mask\_list\ \textcolor{keywordflow}{in}\ box\_mask\_list])}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00362}00362\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00363}00363\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ box\_mask\_lists\ \textcolor{keywordflow}{is}\ invalid\ (i.e.,\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ list,\ \textcolor{keywordflow}{is}\ empty,\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00364}00364\ \ \ \ \ \ \ contains\ non\ box\_mask\_list\ objects),\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ requested\ fields\ are\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00365}00365\ \ \ \ \ \ \ contained\ \textcolor{keywordflow}{in}\ all\ box\_mask\_lists}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00366}00366\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00367}00367\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00368}00368\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'masks'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00369}00369\ \ \ \ \ \ \ fields.append(\textcolor{stringliteral}{'masks'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00370}00370\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{box\_list\_to\_box\_mask\_list}}(}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00371}00371\ \ \ \ \ \ \ np\_box\_list\_ops.concatenate(boxlists=box\_mask\_lists,\ fields=fields))}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00374}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}{00374}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}{filter\_scores\_greater\_than}}(box\_mask\_list,\ thresh):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00375}00375\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filter\ to\ keep\ only\ boxes\ and\ masks\ with\ score\ exceeding\ a\ given\ threshold.}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00376}00376\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00377}00377\ \textcolor{stringliteral}{\ \ This\ op\ keeps\ the\ collection\ of\ boxes\ }\textcolor{keywordflow}{and}\ masks\ whose\ corresponding\ scores\ are}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00378}00378\ \ \ greater\ than\ the\ input\ threshold.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00380}00380\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00381}00381\ \ \ \ \ box\_mask\_list:\ BoxMaskList\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks.\ \ Must\ contain\ a}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00382}00382\ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00383}00383\ \ \ \ \ thresh:\ scalar\ threshold}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00385}00385\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00386}00386\ \ \ \ \ a\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks\ where\ M\ <=\ N}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00388}00388\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00389}00389\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ box\_mask\_list\ \textcolor{keywordflow}{not}\ a\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}\ object\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00390}00390\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ it\ does\ \textcolor{keywordflow}{not}\ have\ a\ scores\ field}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00391}00391\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00392}00392\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_mask\_list,\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00393}00393\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_mask\_list\ must\ be\ a\ BoxMaskList'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00394}00394\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00395}00395\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ box\_mask\_list\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00396}00396\ \ \ scores\ =\ box\_mask\_list.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00397}00397\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ >\ 2:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00398}00398\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00399}00399\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 2\ \textcolor{keywordflow}{and}\ scores.shape[1]\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00400}00400\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ have\ shape\ '}}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'consistent\ with\ [None,\ 1]'})}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00402}00402\ \ \ high\_score\_indices\ =\ np.reshape(np.where(np.greater(scores,\ thresh)),}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1]).astype(np.int32)}
+\DoxyCodeLine{\Hypertarget{np__box__mask__list__ops_8py_source_l00404}00404\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}}(box\_mask\_list,\ high\_score\_indices)}
+
+\end{DoxyCode}

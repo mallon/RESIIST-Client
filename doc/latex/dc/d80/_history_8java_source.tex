@@ -1,0 +1,95 @@
+\doxysection{History.\+java}
+\hypertarget{_history_8java_source}{}\label{_history_8java_source}\index{src/main/java/com/axellience/resiist/client/acquisitiontointegration/History.java@{src/main/java/com/axellience/resiist/client/acquisitiontointegration/History.java}}
+\mbox{\hyperlink{_history_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.acquisitiontointegration;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.text.DateFormat;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.text.ParseException;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.text.SimpleDateFormat;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00006}00006\ \textcolor{keyword}{import}\ java.util.Calendar;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00007}00007\ \textcolor{keyword}{import}\ java.util.Date;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00008}00008\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00009}00009\ \textcolor{keyword}{import}\ java.util.TimeZone;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00011}00011\ \textcolor{keyword}{import}\ com.axellience.resiist.client.utils.ResiistConstants;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00012}00012\ \textcolor{keyword}{import}\ com.axellience.resiist.client.utils.gui.BrowserUtil;}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00014}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history}{00014}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history}{History}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00017}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{00017}}\ \ \ \ \ \textcolor{keyword}{private}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{projectId}};}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00019}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_ab3f0bc0dcd863caa524539c758c1bbbc}{00019}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_ab3f0bc0dcd863caa524539c758c1bbbc}{History}}(String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{projectId}},\ List<String>\ indicatorIds)}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00021}00021\ \ \ \ \ \ \ \ \ this.projectId\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{projectId}};}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00022}00022\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00024}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a6fabcc4ca56791ae967f0d8e95b3f00a}{00024}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a6fabcc4ca56791ae967f0d8e95b3f00a}{launchGlobalResilienceHistory}}()}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00025}00025\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ TimeZone\ tz\ =\ TimeZone.getTimeZone(\textcolor{stringliteral}{"{}UTC"{}});}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ DateFormat\ df\ =\ \textcolor{keyword}{new}\ SimpleDateFormat(\textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss.SSSXXX"{}});}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ df.setTimeZone(tz);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ String\ beginDate\ =\ df.format(\textcolor{keyword}{new}\ Date());}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ String\ endDate\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ Calendar\ c\ =\ Calendar.getInstance();}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ c.setTime(df.parse(beginDate));}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ c.add(Calendar.DATE,\ 1);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ endDate\ =\ df.format(c.getTime());}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (ParseException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util}{BrowserUtil}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165}{openUrlInBrowser}}(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_ac05d19d8bf6b0a3a317c6c2edfc03ce0}{APIURL}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}/resilience/history/page/"{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{projectId}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}/"{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a8bfa4afa5df41acb991e715e9efb8749}{projectId}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}?customproperties=resilience"{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\&beginDate="{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ beginDate}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\&endDate="{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ endDate);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00056}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a34de4ed07f8b72328baa9b85c433e9c3}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1_history_a34de4ed07f8b72328baa9b85c433e9c3}{launchGlobalDecisionEvaluationHistory}}(String\ decisionModelReportId,}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ decisionList)}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ TimeZone\ tz\ =\ TimeZone.getTimeZone(\textcolor{stringliteral}{"{}UTC"{}});}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ DateFormat\ df\ =\ \textcolor{keyword}{new}\ SimpleDateFormat(\textcolor{stringliteral}{"{}yyyy-\/MM-\/dd'T'HH:mm:ss.SSSXXX"{}});}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ df.setTimeZone(tz);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ String\ beginDate\ =\ df.format(\textcolor{keyword}{new}\ Date());}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00065}00065\ \ \ \ \ \ \ \ \ String\ endDate\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ Calendar\ c\ =\ Calendar.getInstance();}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ c.setTime(df.parse(beginDate));}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ c.add(Calendar.DATE,\ 1);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ endDate\ =\ df.format(c.getTime());}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (ParseException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ String\ cleanDecisionList\ =\ decisionList.replace(\textcolor{stringliteral}{"{}\ "{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util}{BrowserUtil}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165}{openUrlInBrowser}}(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_ab88884edce0a52390b0936bde56b802a}{DECISIONURL}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}/decision/history/"{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ decisionModelReportId}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}?decisions="{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ cleanDecisionList}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\&beginDate="{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ beginDate}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\&endDate="{}}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ endDate);}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00087}00087\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_history_8java_source_l00089}00089\ \}}
+
+\end{DoxyCode}

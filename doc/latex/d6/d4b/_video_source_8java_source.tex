@@ -1,0 +1,190 @@
+\doxysection{Video\+Source.\+java}
+\hypertarget{_video_source_8java_source}{}\label{_video_source_8java_source}\index{src/main/java/com/axellience/resiist/client/acquisitiontointegration/acquisition/VideoSource.java@{src/main/java/com/axellience/resiist/client/acquisitiontointegration/acquisition/VideoSource.java}}
+\mbox{\hyperlink{_video_source_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.acquisitiontointegration.acquisition;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.BufferedReader;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.io.InputStreamReader;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00006}00006\ \textcolor{keyword}{import}\ java.net.URL;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00007}00007\ \textcolor{keyword}{import}\ java.util.ArrayList;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00008}00008\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00009}00009\ \textcolor{keyword}{import}\ java.util.Map;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00010}00010\ \textcolor{keyword}{import}\ java.util.logging.Level;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00011}00011\ \textcolor{keyword}{import}\ java.util.logging.Logger;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.apache.commons.lang3.StringUtils;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00015}00015\ \textcolor{keyword}{import}\ com.axellience.resiist.client.acquisitiontointegration.integration.IntegrationPlatform;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00016}00016\ \textcolor{keyword}{import}\ com.axellience.resiist.client.utils.ResiistConstants;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00018}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source}{00018}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source}{VideoSource}}\ \textcolor{keyword}{extends}\ Thread}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00020}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a42b89ca1a449108f78f31e3837a8e129}{00020}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{static}\ \textcolor{keyword}{final}\ Logger\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a42b89ca1a449108f78f31e3837a8e129}{LOGGER}}\ =\ Logger.getLogger(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source}{VideoSource}}.class.getName());}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00022}00022\ \ \ \ \ @Override}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00023}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_aaa6ae3db9bd4b4cf58830269e0c76712}{00023}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_aaa6ae3db9bd4b4cf58830269e0c76712}{run}}()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00024}00024\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00025}00025\ \ \ \ \ \ \ \ \ List<Map<String,\ String>>\ allElementIdAndFrequencyAndSimulationFilePath\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform}{IntegrationPlatform}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform_a9875f77bebb66f22e3334c67b461701b}{getInstance}}()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1integration_1_1_integration_platform_ac6513a9397d70172d33e9215c0c4452f}{getAllElementAndObjectToDetectAndFrequenciesAndSimulationFilePaths}}();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ List<List<Map<String,\ String>>>\ elementsRegroupedBySameSimulationFilePath\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a1228a918ae3c53369c65b22972a4e498}{getElementsRegroupedBySameFilePath}}(allElementIdAndFrequencyAndSimulationFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (List<Map<String,\ String>>\ elementsWithSameFilePath\ :\ elementsRegroupedBySameSimulationFilePath)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ Thread\ videoSimulation\ =\ \textcolor{keyword}{new}\ Thread()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ @Override}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_aaa6ae3db9bd4b4cf58830269e0c76712}{run}}()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ab02df44ea1ceb3c05d748cef7bcd7c07}{launchVideoSimulation}}(elementsWithSameFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ videoSimulation.start();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00046}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a1228a918ae3c53369c65b22972a4e498}{00046}}\ \ \ \ \ \textcolor{keyword}{private}\ List<List<Map<String,\ String>>>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a1228a918ae3c53369c65b22972a4e498}{getElementsRegroupedBySameFilePath}}(List<Map<String,\ String>>\ allElementIdAndFrequencyAndSimulationFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00047}00047\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ List<List<Map<String,\ String>>>\ elementsRegroupedBySameSimulationFilePath\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Map<String,\ String>\ elementIdAndFrequencyAndSimulationFilePath\ :\ allElementIdAndFrequencyAndSimulationFilePath)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ String\ elementFilePath\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementIdAndFrequencyAndSimulationFilePath.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (elementFilePath.endsWith(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a57810d6d3b2431ae9477a2833e137d6b}{SIMULATION\_VIDEO\_FILE\_NAME}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ List<Map<String,\ String>>\ elementAndFilePath\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad31c782dbaa3d462254d8e67432abfdf}{getListOfElementWithSameFilePath}}(elementsRegroupedBySameSimulationFilePath,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (elementAndFilePath\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementAndFilePath.add(elementIdAndFrequencyAndSimulationFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementAndFilePath\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementAndFilePath.add(elementIdAndFrequencyAndSimulationFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementsRegroupedBySameSimulationFilePath.add(elementAndFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elementsRegroupedBySameSimulationFilePath;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00069}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad31c782dbaa3d462254d8e67432abfdf}{00069}}\ \ \ \ \ \textcolor{keyword}{private}\ List<Map<String,\ String>>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad31c782dbaa3d462254d8e67432abfdf}{getListOfElementWithSameFilePath}}(List<List<Map<String,\ String>>>\ elementsRegroupedBySameSimulationFilePath,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ elementFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elementsRegroupedBySameSimulationFilePath.stream()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .filter(list\ -\/>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a0d8454aae7d8caf89f221b4625a2d1d3}{listHasSameFilePath}}(list,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementFilePath))}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .findFirst()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .orElse(\textcolor{keyword}{null});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00079}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a0d8454aae7d8caf89f221b4625a2d1d3}{00079}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a0d8454aae7d8caf89f221b4625a2d1d3}{listHasSameFilePath}}(List<Map<String,\ String>>\ list,\ String\ elementFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00080}00080\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ list.stream()}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .filter(map\ -\/>\ map.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}})}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .equals(elementFilePath))}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .count()\ >\ 0;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00087}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ab02df44ea1ceb3c05d748cef7bcd7c07}{00087}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ab02df44ea1ceb3c05d748cef7bcd7c07}{launchVideoSimulation}}(List<Map<String,\ String>>\ elementIdsAndFrequenciesWithSameSimulationFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00088}00088\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ String\ detectionFilePath\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ ClassLoader\ classLoader\ =\ getClass().getClassLoader();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ URL\ detectionResource\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ classLoader.getResource(\textcolor{stringliteral}{"{}processing/video/detections/detections.py"{}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ detectionFilePath\ =\ detectionResource.getPath();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ URL\ envirResource\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ classLoader.getResource(\textcolor{stringliteral}{"{}processing/video/detections/environmentActivation"{}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ String\ envirFilePath\ =\ envirResource.getPath();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ List<String>\ frequencies\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad43dd714e29dc72f5306a999f5ad7022}{getFrequencies}}(elementIdsAndFrequenciesWithSameSimulationFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ String\ algoAndElementIdsAndObjects\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a24fdae848da64b28895426654183116b}{getAllAlgoAndElementIdsAndObjects}}(elementIdsAndFrequenciesWithSameSimulationFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ String\ fileArgument\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementIdsAndFrequenciesWithSameSimulationFilePath.get(0)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_abae9f9887cbabc6e452bb25fba28c393}{SIMULATION\_FILE\_PATH}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ ProcessBuilder\ detectionProcessBuilder\ =\ \textcolor{keyword}{new}\ ProcessBuilder();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ detectionProcessBuilder.command(\textcolor{stringliteral}{"{}bash"{}},\ envirFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ detectionProcessBuilder.command(\textcolor{stringliteral}{"{}python3"{}},}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detectionFilePath,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/fs"{}},}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}["{}}\ +\ StringUtils.join(frequencies,\ \textcolor{stringliteral}{"{},"{}})\ +\ \textcolor{stringliteral}{"{}]"{}},}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/i"{}},}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fileArgument,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/aeo"{}},}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ algoAndElementIdsAndObjects);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ Process\ detectionProcess\ =\ detectionProcessBuilder.start();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ BufferedReader\ reader2\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ BufferedReader(\textcolor{keyword}{new}\ InputStreamReader(detectionProcess.getInputStream()));}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ String\ line2;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line2\ =\ reader2.readLine())\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a42b89ca1a449108f78f31e3837a8e129}{LOGGER}}.log(Level.SEVERE,\ line2);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ BufferedReader\ reader\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ BufferedReader(\textcolor{keyword}{new}\ InputStreamReader(detectionProcess.getErrorStream()));}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ String\ line;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ reader.readLine())\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a42b89ca1a449108f78f31e3837a8e129}{LOGGER}}.log(Level.SEVERE,\ line);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a42b89ca1a449108f78f31e3837a8e129}{LOGGER}}.log(Level.SEVERE,}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Following\ command\ path(s)\ to\ the\ process\ does\ not\ exist:\ "{}}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ detectionFilePath);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00144}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a24fdae848da64b28895426654183116b}{00144}}\ \ \ \ \ \textcolor{keyword}{private}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_a24fdae848da64b28895426654183116b}{getAllAlgoAndElementIdsAndObjects}}(List<Map<String,\ String>>\ elementIdsAndFrequenciesWithSameSimulationFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00145}00145\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00146}00146\ \ \ \ \ \ \ \ \ String\ allElmeentAndObjects\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{enumcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_1_1algo_and_objects}{algoAndObjects}}\ algo\ :\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{enumcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_1_1algo_and_objects}{algoAndObjects}}.values())\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ index++;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ List<String>\ allElementIds\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ List<String>\ allObjectsToDetect\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Map<String,\ String>\ elementIdAndFrequency\ :\ elementIdsAndFrequenciesWithSameSimulationFilePath)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ objectToDetect\ =}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementIdAndFrequency.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_add050a64c88b9346c5a47f0cf7d6ff43}{OBJECTS\_TO\_DETECT}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ elementId\ =\ elementIdAndFrequency.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_ad08c90f73718e47f88d14f9b69a0de1b}{ELEMENT\_IDENTIFIER}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (algo.getObjects().contains(objectToDetect))\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allElementIds.add(\textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ +\ elementId\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allObjectsToDetect.add(\textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ +\ objectToDetect\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ String\ elementIds\ =\ \textcolor{stringliteral}{"{}\(\backslash\)"{}ELEMENT\_IDENTIFIERS\(\backslash\)"{}:"{}}\ +\ StringUtils.join(\textcolor{stringliteral}{"{}"{}},\ allElementIds);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ String\ objects\ =\ \textcolor{stringliteral}{"{}\(\backslash\)"{}OBJECTS\_TO\_DETECT\(\backslash\)"{}:"{}}\ +\ StringUtils.join(\textcolor{stringliteral}{"{}"{}},\ allObjectsToDetect);}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ allElmeentAndObjects\ +=\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ +\ algo\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}:\{"{}}\ +\ elementIds\ +\ \textcolor{stringliteral}{"{},"{}}\ +\ objects\ +\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{enumcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_1_1algo_and_objects}{algoAndObjects}}.values().length)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allElmeentAndObjects\ +=\ \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00168}00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}\{"{}}\ +\ allElmeentAndObjects\ +\ \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00173}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad43dd714e29dc72f5306a999f5ad7022}{00173}}\ \ \ \ \ \textcolor{keyword}{private}\ List<String>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1acquisitiontointegration_1_1acquisition_1_1_video_source_ad43dd714e29dc72f5306a999f5ad7022}{getFrequencies}}(List<Map<String,\ String>>\ elementIdsAndFrequenciesWithSameSimulationFilePath)}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00174}00174\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00175}00175\ \ \ \ \ \ \ \ \ List<String>\ frequencies\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Map<String,\ String>\ elementIdAndFrequency\ :\ elementIdsAndFrequenciesWithSameSimulationFilePath)\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ String\ objectsToDetect\ =\ elementIdAndFrequency.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_add050a64c88b9346c5a47f0cf7d6ff43}{OBJECTS\_TO\_DETECT}});}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (objectsToDetect\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ frequencies.add(elementIdAndFrequency.get(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants}{ResiistConstants}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_resiist_constants_a5bcb3c2a528446be49205216a0728514}{FREQUENCY}}));}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ frequencies;}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00183}00183\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_video_source_8java_source_l00184}00184\ \}}
+
+\end{DoxyCode}

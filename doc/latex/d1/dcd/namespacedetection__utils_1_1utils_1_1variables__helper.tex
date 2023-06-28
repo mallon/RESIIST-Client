@@ -1,0 +1,342 @@
+\doxysection{detection\+\_\+utils.\+utils.\+variables\+\_\+helper Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper}{}\label{namespacedetection__utils_1_1utils_1_1variables__helper}\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}{filter\+\_\+variables}} (variables, filter\+\_\+regex\+\_\+list, invert=False)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc}{multiply\+\_\+gradients\+\_\+matching\+\_\+regex}} (grads\+\_\+and\+\_\+vars, regex\+\_\+list, multiplier)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d}{freeze\+\_\+gradients\+\_\+matching\+\_\+regex}} (grads\+\_\+and\+\_\+vars, regex\+\_\+list)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a714656cdd3682b4945ec5b42520f2b22}{get\+\_\+variables\+\_\+available\+\_\+in\+\_\+checkpoint}} (variables, checkpoint\+\_\+path, include\+\_\+global\+\_\+step=True)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_adc44c660fc538ba2fbd14ec683723b34}{get\+\_\+global\+\_\+variables\+\_\+safely}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a1a3e750a861e875d26e376615bc25810}{slim}} = tf.\+contrib.\+slim
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Helper functions for manipulating collections of variables during training.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}\label{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!filter\_variables@{filter\_variables}}
+\index{filter\_variables@{filter\_variables}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{filter\_variables()}{filter\_variables()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+filter\+\_\+variables (\begin{DoxyParamCaption}\item[{}]{variables,  }\item[{}]{filter\+\_\+regex\+\_\+list,  }\item[{}]{invert = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Filters out the variables matching the filter_regex.
+
+Filter out the variables whose name matches the any of the regular
+expressions in filter_regex_list and returns the remaining variables.
+Optionally, if invert=True, the complement set is returned.
+
+Args:
+  variables: a list of tensorflow variables.
+  filter_regex_list: a list of string regular expressions.
+  invert: (boolean).  If True, returns the complement of the filter set; that
+    is, all variables matching filter_regex are kept and all others discarded.
+
+Returns:
+  a list of filtered variables.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00035}{35}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \textcolor{keyword}{def\ }filter\_variables(variables,\ filter\_regex\_list,\ invert=False):}
+\DoxyCodeLine{00036\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filters\ out\ the\ variables\ matching\ the\ filter\_regex.}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ Filter\ out\ the\ variables\ whose\ name\ matches\ the\ any\ of\ the\ regular}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ expressions\ }\textcolor{keywordflow}{in}\ filter\_regex\_list\ \textcolor{keywordflow}{and}\ returns\ the\ remaining\ variables.}
+\DoxyCodeLine{00040\ \ \ Optionally,\ \textcolor{keywordflow}{if}\ invert=\textcolor{keyword}{True},\ the\ complement\ set\ \textcolor{keywordflow}{is}\ returned.}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ Args:}
+\DoxyCodeLine{00043\ \ \ \ \ variables:\ a\ list\ of\ tensorflow\ variables.}
+\DoxyCodeLine{00044\ \ \ \ \ filter\_regex\_list:\ a\ list\ of\ string\ regular\ expressions.}
+\DoxyCodeLine{00045\ \ \ \ \ invert:\ (boolean).\ \ If\ \textcolor{keyword}{True},\ returns\ the\ complement\ of\ the\ filter\ set;\ that}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keywordflow}{is},\ all\ variables\ matching\ filter\_regex\ are\ kept\ \textcolor{keywordflow}{and}\ all\ others\ discarded.}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ Returns:}
+\DoxyCodeLine{00049\ \ \ \ \ a\ list\ of\ filtered\ variables.}
+\DoxyCodeLine{00050\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ kept\_vars\ =\ []}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ variables\_to\_ignore\_patterns\ =\ list([fre\ }\textcolor{keywordflow}{for}\ fre\ \textcolor{keywordflow}{in}\ filter\_regex\_list\ \textcolor{keywordflow}{if}\ fre])}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ variables:}
+\DoxyCodeLine{00054\ \ \ \ \ add\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}\ pattern\ \textcolor{keywordflow}{in}\ variables\_to\_ignore\_patterns:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ re.match(pattern,\ var.op.name):}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ add\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{if}\ add\ !=\ invert:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ kept\_vars.append(var)}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordflow}{return}\ kept\_vars}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/dcd/namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d}\label{namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!freeze\_gradients\_matching\_regex@{freeze\_gradients\_matching\_regex}}
+\index{freeze\_gradients\_matching\_regex@{freeze\_gradients\_matching\_regex}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{freeze\_gradients\_matching\_regex()}{freeze\_gradients\_matching\_regex()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+freeze\+\_\+gradients\+\_\+matching\+\_\+regex (\begin{DoxyParamCaption}\item[{}]{grads\+\_\+and\+\_\+vars,  }\item[{}]{regex\+\_\+list }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Freeze gradients whose variable names match a regular expression.
+
+Args:
+  grads_and_vars: A list of gradient to variable pairs (tuples).
+  regex_list: A list of string regular expressions.
+
+Returns:
+  grads_and_vars: A list of gradient to variable pairs (tuples) that do not
+    contain the variables and gradients matching the regex.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00086}{86}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \textcolor{keyword}{def\ }freeze\_gradients\_matching\_regex(grads\_and\_vars,\ regex\_list):}
+\DoxyCodeLine{00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Freeze\ gradients\ whose\ variable\ names\ match\ a\ regular\ expression.}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00090\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{00091\ \textcolor{stringliteral}{\ \ \ \ regex\_list:\ A\ list\ of\ string\ regular\ expressions.}}
+\DoxyCodeLine{00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00093\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00094\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples)\ that\ do\ }\textcolor{keywordflow}{not}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ contain\ the\ variables\ \textcolor{keywordflow}{and}\ gradients\ matching\ the\ regex.}
+\DoxyCodeLine{00096\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00097\ \textcolor{stringliteral}{\ \ variables\ =\ [pair[1]\ }\textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars]}
+\DoxyCodeLine{00098\ \ \ matching\_vars\ =\ filter\_variables(variables,\ regex\_list,\ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{00099\ \ \ kept\_grads\_and\_vars\ =\ [pair\ \textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pair[1]\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ matching\_vars]}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars:}
+\DoxyCodeLine{00102\ \ \ \ \ logging.info(\textcolor{stringliteral}{'Freezing\ variable\ [\%s]'},\ var.op.name)}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordflow}{return}\ kept\_grads\_and\_vars}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/dcd/namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_adc44c660fc538ba2fbd14ec683723b34}\label{namespacedetection__utils_1_1utils_1_1variables__helper_adc44c660fc538ba2fbd14ec683723b34} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!get\_global\_variables\_safely@{get\_global\_variables\_safely}}
+\index{get\_global\_variables\_safely@{get\_global\_variables\_safely}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{get\_global\_variables\_safely()}{get\_global\_variables\_safely()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+get\+\_\+global\+\_\+variables\+\_\+safely (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}If not executing eagerly, returns tf.global_variables().
+
+Raises a ValueError if eager execution is enabled,
+because the variables are not tracked when executing eagerly.
+
+If executing eagerly, use a Keras model's .variables property instead.
+
+Returns:
+  The result of tf.global_variables()
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00163}{163}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163\ \textcolor{keyword}{def\ }get\_global\_variables\_safely():}
+\DoxyCodeLine{00164\ \ \ \textcolor{stringliteral}{"{}"{}"{}If\ not\ executing\ eagerly,\ returns\ tf.global\_variables().}}
+\DoxyCodeLine{00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00166\ \textcolor{stringliteral}{\ \ Raises\ a\ ValueError\ }\textcolor{keywordflow}{if}\ eager\ execution\ \textcolor{keywordflow}{is}\ enabled,}
+\DoxyCodeLine{00167\ \ \ because\ the\ variables\ are\ \textcolor{keywordflow}{not}\ tracked\ when\ executing\ eagerly.}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ If\ executing\ eagerly,\ use\ a\ Keras\ model\textcolor{stringliteral}{'s\ .variables\ property\ instead.}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ \ \ The\ result\ of\ tf.global\_variables()}}
+\DoxyCodeLine{00173\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00174\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.init\_scope():}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Global\ variables\ collection\ is\ not\ tracked\ when\ "{}}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}executing\ eagerly.\ Use\ a\ Keras\ model's\ \`{}.variables`\ "{}}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}attribute\ instead."{}})}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordflow}{return}\ tf.global\_variables()}
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_a714656cdd3682b4945ec5b42520f2b22}\label{namespacedetection__utils_1_1utils_1_1variables__helper_a714656cdd3682b4945ec5b42520f2b22} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!get\_variables\_available\_in\_checkpoint@{get\_variables\_available\_in\_checkpoint}}
+\index{get\_variables\_available\_in\_checkpoint@{get\_variables\_available\_in\_checkpoint}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{get\_variables\_available\_in\_checkpoint()}{get\_variables\_available\_in\_checkpoint()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+get\+\_\+variables\+\_\+available\+\_\+in\+\_\+checkpoint (\begin{DoxyParamCaption}\item[{}]{variables,  }\item[{}]{checkpoint\+\_\+path,  }\item[{}]{include\+\_\+global\+\_\+step = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the subset of variables available in the checkpoint.
+
+Inspects given checkpoint and returns the subset of variables that are
+available in it.
+
+TODO(rathodv): force input and output to be a dictionary.
+
+Args:
+  variables: a list or dictionary of variables to find in checkpoint.
+  checkpoint_path: path to the checkpoint to restore variables from.
+  include_global_step: whether to include `global_step` variable, if it
+    exists. Default True.
+
+Returns:
+  A list or dictionary of variables.
+Raises:
+  ValueError: if `variables` is not a list or dict.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00106}{106}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ include\_global\_step=\textcolor{keyword}{True}):}
+\DoxyCodeLine{00109\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ subset\ of\ variables\ available\ in\ the\ checkpoint.}}
+\DoxyCodeLine{00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00111\ \textcolor{stringliteral}{\ \ Inspects\ given\ checkpoint\ }\textcolor{keywordflow}{and}\ returns\ the\ subset\ of\ variables\ that\ are}
+\DoxyCodeLine{00112\ \ \ available\ \textcolor{keywordflow}{in}\ it.}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ TODO(rathodv):\ force\ input\ \textcolor{keywordflow}{and}\ output\ to\ be\ a\ dictionary.}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ Args:}
+\DoxyCodeLine{00117\ \ \ \ \ variables:\ a\ list\ \textcolor{keywordflow}{or}\ dictionary\ of\ variables\ to\ find\ \textcolor{keywordflow}{in}\ checkpoint.}
+\DoxyCodeLine{00118\ \ \ \ \ checkpoint\_path:\ path\ to\ the\ checkpoint\ to\ restore\ variables\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{00119\ \ \ \ \ include\_global\_step:\ whether\ to\ include\ \`{}global\_step\`{}\ variable,\ \textcolor{keywordflow}{if}\ it}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ exists.\ Default\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ Returns:}
+\DoxyCodeLine{00123\ \ \ \ \ A\ list\ \textcolor{keywordflow}{or}\ dictionary\ of\ variables.}
+\DoxyCodeLine{00124\ \ \ Raises:}
+\DoxyCodeLine{00125\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}variables\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ list\ \textcolor{keywordflow}{or}\ dict.}
+\DoxyCodeLine{00126\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00127\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(variables,\ list):}
+\DoxyCodeLine{00128\ \ \ \ \ variable\_names\_map\ =\ \{\}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{for}\ variable\ \textcolor{keywordflow}{in}\ variables:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(variable,\ tf\_variables.PartitionedVariable):}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ name\ =\ variable.name}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ name\ =\ variable.op.name}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ variable\_names\_map[name]\ =\ variable}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordflow}{elif}\ isinstance(variables,\ dict):}
+\DoxyCodeLine{00136\ \ \ \ \ variable\_names\_map\ =\ variables}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}variables`\ is\ expected\ to\ be\ a\ list\ or\ dict.'})}
+\DoxyCodeLine{00139\ \ \ ckpt\_reader\ =\ tf.train.NewCheckpointReader(checkpoint\_path)}
+\DoxyCodeLine{00140\ \ \ ckpt\_vars\_to\_shape\_map\ =\ ckpt\_reader.get\_variable\_to\_shape\_map()}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ include\_global\_step:}
+\DoxyCodeLine{00142\ \ \ \ \ ckpt\_vars\_to\_shape\_map.pop(tf.GraphKeys.GLOBAL\_STEP,\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00143\ \ \ vars\_in\_ckpt\ =\ \{\}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordflow}{for}\ variable\_name,\ variable\ \textcolor{keywordflow}{in}\ sorted(variable\_names\_map.items()):}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}\ variable\_name\ \textcolor{keywordflow}{in}\ ckpt\_vars\_to\_shape\_map:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ckpt\_vars\_to\_shape\_map[variable\_name]\ ==\ variable.shape.as\_list():}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ vars\_in\_ckpt[variable\_name]\ =\ variable}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ logging.warning(\textcolor{stringliteral}{'Variable\ [\%s]\ is\ available\ in\ checkpoint,\ but\ has\ an\ '}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'incompatible\ shape\ with\ model\ variable.\ Checkpoint\ '}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'shape:\ [\%s],\ model\ variable\ shape:\ [\%s].\ This\ '}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'variable\ will\ not\ be\ initialized\ from\ the\ checkpoint.'},}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable\_name,\ ckpt\_vars\_to\_shape\_map[variable\_name],}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable.shape.as\_list())}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ logging.warning(\textcolor{stringliteral}{'Variable\ [\%s]\ is\ not\ available\ in\ checkpoint'},}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable\_name)}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordflow}{if}\ isinstance(variables,\ list):}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ list(vars\_in\_ckpt.values())}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordflow}{return}\ vars\_in\_ckpt}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc}\label{namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!multiply\_gradients\_matching\_regex@{multiply\_gradients\_matching\_regex}}
+\index{multiply\_gradients\_matching\_regex@{multiply\_gradients\_matching\_regex}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{multiply\_gradients\_matching\_regex()}{multiply\_gradients\_matching\_regex()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+multiply\+\_\+gradients\+\_\+matching\+\_\+regex (\begin{DoxyParamCaption}\item[{}]{grads\+\_\+and\+\_\+vars,  }\item[{}]{regex\+\_\+list,  }\item[{}]{multiplier }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Multiply gradients whose variable names match a regular expression.
+
+Args:
+  grads_and_vars: A list of gradient to variable pairs (tuples).
+  regex_list: A list of string regular expressions.
+  multiplier: A (float) multiplier to apply to each gradient matching the
+    regular expression.
+
+Returns:
+  grads_and_vars: A list of gradient to variable pairs (tuples).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00064}{64}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064\ \textcolor{keyword}{def\ }multiply\_gradients\_matching\_regex(grads\_and\_vars,\ regex\_list,\ multiplier):}
+\DoxyCodeLine{00065\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multiply\ gradients\ whose\ variable\ names\ match\ a\ regular\ expression.}}
+\DoxyCodeLine{00066\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ regex\_list:\ A\ list\ of\ string\ regular\ expressions.}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ multiplier:\ A\ (float)\ multiplier\ to\ apply\ to\ each\ gradient\ matching\ the}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ \ \ \ \ regular\ expression.}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ variables\ =\ [pair[1]\ }\textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars]}
+\DoxyCodeLine{00077\ \ \ matching\_vars\ =\ filter\_variables(variables,\ regex\_list,\ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars:}
+\DoxyCodeLine{00079\ \ \ \ \ logging.info(\textcolor{stringliteral}{'Applying\ multiplier\ \%f\ to\ variable\ [\%s]'},}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiplier,\ var.op.name)}
+\DoxyCodeLine{00081\ \ \ grad\_multipliers\ =\ \{var:\ float(multiplier)\ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars\}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ slim.learning.multiply\_gradients(grads\_and\_vars,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grad\_multipliers)}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/dcd/namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1variables__helper_a1a3e750a861e875d26e376615bc25810}\label{namespacedetection__utils_1_1utils_1_1variables__helper_a1a3e750a861e875d26e376615bc25810} 
+\index{detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}!slim@{slim}}
+\index{slim@{slim}!detection\_utils.utils.variables\_helper@{detection\_utils.utils.variables\_helper}}
+\doxysubsubsection{\texorpdfstring{slim}{slim}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+variables\+\_\+helper.\+slim = tf.\+contrib.\+slim}
+
+
+
+Definition at line \mbox{\hyperlink{variables__helper_8py_source_l00030}{30}} of file \mbox{\hyperlink{variables__helper_8py_source}{variables\+\_\+helper.\+py}}.
+

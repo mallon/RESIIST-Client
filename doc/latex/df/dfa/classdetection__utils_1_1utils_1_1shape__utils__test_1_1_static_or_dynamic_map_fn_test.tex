@@ -1,0 +1,208 @@
+\doxysection{detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test}{}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test}\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{df/d5b/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{d3/d39/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_aba570d9ae9a41b0f6b2be53df394f8dd}{test\+\_\+with\+\_\+dynamic\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a339f1ed51548aafa4760ea0dcc065c7a}{test\+\_\+with\+\_\+static\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a30567f93cac0228194e1aac148082eaa}{test\+\_\+with\+\_\+multiple\+\_\+dynamic\+\_\+shapes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a177f0fadb8d0018e4cadf68185c6ce76}{test\+\_\+with\+\_\+multiple\+\_\+static\+\_\+shapes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a4d9c0b085da6525a34dfb90c5865bd9c}{test\+\_\+fails\+\_\+with\+\_\+nested\+\_\+input}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00147}{147}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a4d9c0b085da6525a34dfb90c5865bd9c}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a4d9c0b085da6525a34dfb90c5865bd9c} 
+\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}!test\_fails\_with\_nested\_input@{test\_fails\_with\_nested\_input}}
+\index{test\_fails\_with\_nested\_input@{test\_fails\_with\_nested\_input}!detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+\doxysubsubsection{\texorpdfstring{test\_fails\_with\_nested\_input()}{test\_fails\_with\_nested\_input()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test.\+test\+\_\+fails\+\_\+with\+\_\+nested\+\_\+input (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00226}{226}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{def\ }test\_fails\_with\_nested\_input(self):}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input\_tensor}
+\DoxyCodeLine{00229\ \ \ \ \ input\_tensor1\ =\ tf.constant([1])}
+\DoxyCodeLine{00230\ \ \ \ \ input\_tensor2\ =\ tf.constant([2])}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'}):}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ fn,\ [input\_tensor1,\ [input\_tensor2]],\ dtype=tf.float32)}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_aba570d9ae9a41b0f6b2be53df394f8dd}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_aba570d9ae9a41b0f6b2be53df394f8dd} 
+\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}!test\_with\_dynamic\_shape@{test\_with\_dynamic\_shape}}
+\index{test\_with\_dynamic\_shape@{test\_with\_dynamic\_shape}!detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_dynamic\_shape()}{test\_with\_dynamic\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test.\+test\+\_\+with\+\_\+dynamic\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00149}{149}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00149\ \ \ \textcolor{keyword}{def\ }test\_with\_dynamic\_shape(self):}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(input\_tensor)}
+\DoxyCodeLine{00152\ \ \ \ \ input\_tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 2))}
+\DoxyCodeLine{00153\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(fn,\ input\_tensor)}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{00156\ \ \ \ \ self.assertTrue(any([\textcolor{stringliteral}{'map'}\ ==\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ result1\ =\ sess.run(}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[1,\ 2],\ [3,\ 1],\ [0,\ 4]]\})}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ result2\ =\ sess.run(}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[-\/1,\ 1],\ [0,\ 9]]\})}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ self.assertAllEqual(result1,\ [3,\ 4,\ 4])}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ self.assertAllEqual(result2,\ [0,\ 9])}
+\DoxyCodeLine{00167\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a30567f93cac0228194e1aac148082eaa}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a30567f93cac0228194e1aac148082eaa} 
+\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}!test\_with\_multiple\_dynamic\_shapes@{test\_with\_multiple\_dynamic\_shapes}}
+\index{test\_with\_multiple\_dynamic\_shapes@{test\_with\_multiple\_dynamic\_shapes}!detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_multiple\_dynamic\_shapes()}{test\_with\_multiple\_dynamic\_shapes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test.\+test\+\_\+with\+\_\+multiple\+\_\+dynamic\+\_\+shapes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00181}{181}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \ \ \textcolor{keyword}{def\ }test\_with\_multiple\_dynamic\_shapes(self):}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{def\ }fn(elems):}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ input\_tensor,\ scalar\_index\_tensor\ =\ elems}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(tf.slice(input\_tensor,\ scalar\_index\_tensor,\ [1]),\ [])}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ input\_tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 3))}
+\DoxyCodeLine{00187\ \ \ \ \ scalar\_index\_tensor\ =\ tf.placeholder(tf.int32,\ shape=(\textcolor{keywordtype}{None},\ 1))}
+\DoxyCodeLine{00188\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ fn,\ [input\_tensor,\ scalar\_index\_tensor],\ dtype=tf.float32)}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{00192\ \ \ \ \ self.assertTrue(any([\textcolor{stringliteral}{'map'}\ ==\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ result1\ =\ sess.run(}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[1,\ 2,\ 3],\ [4,\ 5,\ -\/1],\ [0,\ 6,\ 9]],}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalar\_index\_tensor:\ [[0],\ [2],\ [1]],}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ result2\ =\ sess.run(}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[-\/1,\ 1,\ 0],\ [3,\ 9,\ 30]],}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalar\_index\_tensor:\ [[1],\ [0]]}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ self.assertAllEqual(result1,\ [1,\ -\/1,\ 6])}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ self.assertAllEqual(result2,\ [1,\ 3])}
+\DoxyCodeLine{00207\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a177f0fadb8d0018e4cadf68185c6ce76}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a177f0fadb8d0018e4cadf68185c6ce76} 
+\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}!test\_with\_multiple\_static\_shapes@{test\_with\_multiple\_static\_shapes}}
+\index{test\_with\_multiple\_static\_shapes@{test\_with\_multiple\_static\_shapes}!detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_multiple\_static\_shapes()}{test\_with\_multiple\_static\_shapes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test.\+test\+\_\+with\+\_\+multiple\+\_\+static\+\_\+shapes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00208}{208}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{def\ }test\_with\_multiple\_static\_shapes(self):}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{def\ }fn(elems):}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ input\_tensor,\ scalar\_index\_tensor\ =\ elems}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(tf.slice(input\_tensor,\ scalar\_index\_tensor,\ [1]),\ [])}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ input\_tensor\ =\ tf.constant([[1,\ 2,\ 3],\ [4,\ 5,\ -\/1],\ [0,\ 6,\ 9]],}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{00215\ \ \ \ \ scalar\_index\_tensor\ =\ tf.constant([[0],\ [2],\ [1]],\ dtype=tf.int32)}
+\DoxyCodeLine{00216\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ fn,\ [input\_tensor,\ scalar\_index\_tensor],\ dtype=tf.float32)}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{00220\ \ \ \ \ self.assertTrue(all([\textcolor{stringliteral}{'map'}\ !=\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ result\ =\ sess.run(map\_fn\_output)}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ self.assertAllEqual(result,\ [1,\ -\/1,\ 6])}
+\DoxyCodeLine{00225\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a339f1ed51548aafa4760ea0dcc065c7a}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a339f1ed51548aafa4760ea0dcc065c7a} 
+\index{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}!test\_with\_static\_shape@{test\_with\_static\_shape}}
+\index{test\_with\_static\_shape@{test\_with\_static\_shape}!detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest@{detection\_utils.utils.shape\_utils\_test.StaticOrDynamicMapFnTest}}
+\doxysubsubsection{\texorpdfstring{test\_with\_static\_shape()}{test\_with\_static\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Static\+Or\+Dynamic\+Map\+Fn\+Test.\+test\+\_\+with\+\_\+static\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00168}{168}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{def\ }test\_with\_static\_shape(self):}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(input\_tensor)}
+\DoxyCodeLine{00171\ \ \ \ \ input\_tensor\ =\ tf.constant([[1,\ 2],\ [3,\ 1],\ [0,\ 4]],\ dtype=tf.float32)}
+\DoxyCodeLine{00172\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(fn,\ input\_tensor)}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{00175\ \ \ \ \ self.assertTrue(all([\textcolor{stringliteral}{'map'}\ !=\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ result\ =\ sess.run(map\_fn\_output)}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ self.assertAllEqual(result,\ [3,\ 4,\ 4])}
+\DoxyCodeLine{00180\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{shape__utils__test_8py}{shape\+\_\+utils\+\_\+test.\+py}}\end{DoxyCompactItemize}

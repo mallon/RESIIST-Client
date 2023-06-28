@@ -1,0 +1,86 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Unrecognized\+Classes\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test}\index{detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Unrecognized\+Classes\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{d5/d36/classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Unrecognized\+Classes\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{dc/d08/classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test_a47268a3ae4e2b73c8b7677267b47496b}{test\+\_\+filter\+\_\+unrecognized\+\_\+classes}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00722}{722}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test_a47268a3ae4e2b73c8b7677267b47496b}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_groundtruth_filter_with_unrecognized_classes_test_a47268a3ae4e2b73c8b7677267b47496b} 
+\index{detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest}!test\_filter\_unrecognized\_classes@{test\_filter\_unrecognized\_classes}}
+\index{test\_filter\_unrecognized\_classes@{test\_filter\_unrecognized\_classes}!detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest@{detection\_utils.utils.ops\_test.GroundtruthFilterWithUnrecognizedClassesTest}}
+\doxysubsubsection{\texorpdfstring{test\_filter\_unrecognized\_classes()}{test\_filter\_unrecognized\_classes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Groundtruth\+Filter\+With\+Unrecognized\+Classes\+Test.\+test\+\_\+filter\+\_\+unrecognized\+\_\+classes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00724}{724}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00724\ \ \ \textcolor{keyword}{def\ }test\_filter\_unrecognized\_classes(self):}
+\DoxyCodeLine{00725\ \ \ \ \ input\_tensors\ =\ \{}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ [[.3,\ .3,\ .5,\ .7],\ [0.2,\ 0.4,\ 0.1,\ 0.8]],}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ [-\/1,\ 2],}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ [\textcolor{keyword}{False},\ \textcolor{keyword}{True}],}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ [100.0,\ 238.7],}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ [0.5,\ 0.99],}
+\DoxyCodeLine{00732\ \ \ \ \ \}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \ \ \ \ expected\_tensors\ =\ \{}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:\ [[0.2,\ 0.4,\ 0.1,\ 0.8]],}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ [2],}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ [\textcolor{keyword}{True}],}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ [238.7],}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ [0.99],}
+\DoxyCodeLine{00740\ \ \ \ \ \}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \ \ \ \ output\_tensors\ =\ ops.filter\_unrecognized\_classes(input\_tensors)}
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ output\_tensors\ =\ sess.run(output\_tensors)}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_boxes,}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area,}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences]:}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ self.assertAllClose(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_classes,}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd]:}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ self.assertAllEqual(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

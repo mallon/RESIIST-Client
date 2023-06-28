@@ -1,0 +1,97 @@
+\doxysection{detection\+\_\+utils.\+core.\+prefetcher Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1prefetcher}{}\label{namespacedetection__utils_1_1core_1_1prefetcher}\index{detection\_utils.core.prefetcher@{detection\_utils.core.prefetcher}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1prefetcher_a9db401eccb68a6e43d3569311f95f4ed}{prefetch}} (tensor\+\_\+dict, capacity)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Provides functions to prefetch tensors to feed into models.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1prefetcher_a9db401eccb68a6e43d3569311f95f4ed}\label{namespacedetection__utils_1_1core_1_1prefetcher_a9db401eccb68a6e43d3569311f95f4ed} 
+\index{detection\_utils.core.prefetcher@{detection\_utils.core.prefetcher}!prefetch@{prefetch}}
+\index{prefetch@{prefetch}!detection\_utils.core.prefetcher@{detection\_utils.core.prefetcher}}
+\doxysubsubsection{\texorpdfstring{prefetch()}{prefetch()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+prefetcher.\+prefetch (\begin{DoxyParamCaption}\item[{}]{tensor\+\_\+dict,  }\item[{}]{capacity }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a prefetch queue for tensors.
+
+Creates a FIFO queue to asynchronously enqueue tensor_dicts and returns a
+dequeue op that evaluates to a tensor_dict. This function is useful in
+prefetching preprocessed tensors so that the data is readily available for
+consumers.
+
+Example input pipeline when you don't need batching:
+----------------------------------------------------
+key, string_tensor = slim.parallel_reader.parallel_read(...)
+tensor_dict = decoder.decode(string_tensor)
+tensor_dict = preprocessor.preprocess(tensor_dict, ...)
+prefetch_queue = prefetcher.prefetch(tensor_dict, capacity=20)
+tensor_dict = prefetch_queue.dequeue()
+outputs = Model(tensor_dict)
+...
+----------------------------------------------------
+
+For input pipelines with batching, refer to core/batcher.py
+
+Args:
+  tensor_dict: a dictionary of tensors to prefetch.
+  capacity: the size of the prefetch queue.
+
+Returns:
+  a FIFO prefetcher queue
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{prefetcher_8py_source_l00020}{20}} of file \mbox{\hyperlink{prefetcher_8py_source}{prefetcher.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \textcolor{keyword}{def\ }prefetch(tensor\_dict,\ capacity):}
+\DoxyCodeLine{00021\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ prefetch\ queue\ for\ tensors.}}
+\DoxyCodeLine{00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00023\ \textcolor{stringliteral}{\ \ Creates\ a\ FIFO\ queue\ to\ asynchronously\ enqueue\ tensor\_dicts\ }\textcolor{keywordflow}{and}\ returns\ a}
+\DoxyCodeLine{00024\ \ \ dequeue\ op\ that\ evaluates\ to\ a\ tensor\_dict.\ This\ function\ \textcolor{keywordflow}{is}\ useful\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00025\ \ \ prefetching\ preprocessed\ tensors\ so\ that\ the\ data\ \textcolor{keywordflow}{is}\ readily\ available\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00026\ \ \ consumers.}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ Example\ input\ pipeline\ when\ you\ don\textcolor{stringliteral}{'t\ need\ batching:}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ key,\ string\_tensor\ =\ slim.parallel\_reader.parallel\_read(...)}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ decoder.decode(string\_tensor)}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ preprocessor.preprocess(tensor\_dict,\ ...)}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ prefetch\_queue\ =\ prefetcher.prefetch(tensor\_dict,\ capacity=20)}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ prefetch\_queue.dequeue()}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ outputs\ =\ Model(tensor\_dict)}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ ...}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ For\ input\ pipelines\ }\textcolor{keyword}{with}\ batching,\ refer\ to\ core/batcher.py}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ Args:}
+\DoxyCodeLine{00042\ \ \ \ \ tensor\_dict:\ a\ dictionary\ of\ tensors\ to\ prefetch.}
+\DoxyCodeLine{00043\ \ \ \ \ capacity:\ the\ size\ of\ the\ prefetch\ queue.}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ Returns:}
+\DoxyCodeLine{00046\ \ \ \ \ a\ FIFO\ prefetcher\ queue}
+\DoxyCodeLine{00047\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ names\ =\ list(tensor\_dict.keys())}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ dtypes\ =\ [t.dtype\ }\textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ tensor\_dict.values()]}
+\DoxyCodeLine{00050\ \ \ shapes\ =\ [t.get\_shape()\ \textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ tensor\_dict.values()]}
+\DoxyCodeLine{00051\ \ \ prefetch\_queue\ =\ tf.PaddingFIFOQueue(capacity,\ dtypes=dtypes,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shapes=shapes,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ names=names,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'prefetch\_queue'})}
+\DoxyCodeLine{00055\ \ \ enqueue\_op\ =\ prefetch\_queue.enqueue(tensor\_dict)}
+\DoxyCodeLine{00056\ \ \ tf.train.queue\_runner.add\_queue\_runner(tf.train.queue\_runner.QueueRunner(}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ prefetch\_queue,\ [enqueue\_op]))}
+\DoxyCodeLine{00058\ \ \ tf.summary.scalar(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{stringliteral}{'queue/\%s/fraction\_of\_\%d\_full'}\ \%\ (prefetch\_queue.name,\ capacity),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ tf.cast(prefetch\_queue.size(),\ dtype=tf.float32)\ *\ (1.\ /\ capacity))}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordflow}{return}\ prefetch\_queue}
+
+\end{DoxyCode}

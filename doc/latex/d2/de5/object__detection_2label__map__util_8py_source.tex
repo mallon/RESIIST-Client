@@ -1,0 +1,249 @@
+\doxysection{label\+\_\+map\+\_\+util.\+py}
+\hypertarget{object__detection_2label__map__util_8py_source}{}\label{object__detection_2label__map__util_8py_source}\index{src/main/resources/processing/video/detections/object\_detection/label\_map\_util.py@{src/main/resources/processing/video/detections/object\_detection/label\_map\_util.py}}
+\mbox{\hyperlink{object__detection_2label__map__util_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00001}\mbox{\hyperlink{namespacelabel__map__util}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Label\ map\ utility\ functions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00021}00021\ \textcolor{keyword}{import}\ logging}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00023}00023\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00024}00024\ \textcolor{keyword}{import}\ tensorflow.compat.v1\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00025}00025\ tf.disable\_v2\_behavior()}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00026}00026\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ text\_format}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00027}00027\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1protos}{detection\_utils.protos}}\ \textcolor{keyword}{import}\ string\_int\_label\_map\_pb2}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00030}\mbox{\hyperlink{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc}{00030}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc}{\_validate\_label\_map}}(label\_map):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00031}00031\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ if\ a\ label\ map\ is\ valid.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00032}00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ label\_map:\ StringIntLabelMap\ to\ validate.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00035}00035\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ label\ map\ \textcolor{keywordflow}{is}\ invalid.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00038}00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{if}\ item.id\ <\ 0:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00041}00041\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Label\ map\ ids\ should\ be\ >=\ 0.'})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (item.id\ ==\ 0\ \textcolor{keywordflow}{and}\ item.name\ !=\ \textcolor{stringliteral}{'background'}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ item.display\_name\ !=\ \textcolor{stringliteral}{'background'}):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00044}00044\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Label\ map\ id\ 0\ is\ reserved\ for\ the\ background\ label'})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00047}\mbox{\hyperlink{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf}{00047}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf}{create\_category\_index}}(categories):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00048}00048\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ dictionary\ of\ COCO\ compatible\ categories\ keyed\ by\ category\ id.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00049}00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ categories:\ a\ list\ of\ dicts,\ each\ of\ which\ has\ the\ following\ keys:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ \ \ 'id'}:\ (required)\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00053}00053\ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ (required)\ string\ representing\ category\ name}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'},\ \textcolor{stringliteral}{'pizza'}.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00056}00056\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00057}00057\ \ \ \ \ category\_index:\ a\ dict\ containing\ the\ same\ entries\ \textcolor{keyword}{as}\ categories,\ but\ keyed}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00058}00058\ \ \ \ \ \ \ by\ the\ \textcolor{stringliteral}{'id'}\ field\ of\ each\ category.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00059}00059\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ category\_index\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ cat\ \textcolor{keywordflow}{in}\ categories:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00062}00062\ \ \ \ \ category\_index[cat[\textcolor{stringliteral}{'id'}]]\ =\ cat}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00063}00063\ \ \ \textcolor{keywordflow}{return}\ category\_index}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00066}\mbox{\hyperlink{namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab}{00066}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_ab68e6523a41b992328a9deb2f8dae9ab}{get\_max\_label\_map\_index}}(label\_map):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00067}00067\ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ maximum\ index\ in\ label\ map.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00068}00068\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ label\_map:\ a\ StringIntLabelMapProto}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00071}00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ an\ integer}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ max([item.id\ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item])}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00078}\mbox{\hyperlink{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b}{00078}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b}{convert\_label\_map\_to\_categories}}(label\_map,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_num\_classes,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_display\_name=True):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00081}00081\ \ \ \textcolor{stringliteral}{"{}"{}"{}Given\ label\ map\ proto\ returns\ categories\ list\ compatible\ with\ eval.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00082}00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ This\ function\ converts\ label\ map\ proto\ }\textcolor{keywordflow}{and}\ returns\ a\ list\ of\ dicts,\ each\ of}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00084}00084\ \ \ which\ \ has\ the\ following\ keys:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00085}00085\ \ \ \ \ \textcolor{stringliteral}{'id'}:\ (required)\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00086}00086\ \ \ \ \ \textcolor{stringliteral}{'name'}:\ (required)\ string\ representing\ category\ name}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00087}00087\ \ \ \ \ \ \ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'},\ \textcolor{stringliteral}{'pizza'}.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00088}00088\ \ \ We\ only\ allow\ \textcolor{keyword}{class\ }into\ the\ list\ if\ its\ id-\/label\_id\_offset\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00089}00089\ \ \ between\ 0\ (inclusive)\ \textcolor{keywordflow}{and}\ max\_num\_classes\ (exclusive).}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00090}00090\ \ \ If\ there\ are\ several\ items\ mapping\ to\ the\ same\ id\ \textcolor{keywordflow}{in}\ the\ label\ map,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00091}00091\ \ \ we\ will\ only\ keep\ the\ first\ one\ \textcolor{keywordflow}{in}\ the\ categories\ list.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00093}00093\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00094}00094\ \ \ \ \ label\_map:\ a\ StringIntLabelMapProto\ \textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}.\ \ If\ \textcolor{keywordtype}{None},\ a\ default\ categories}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00095}00095\ \ \ \ \ \ \ list\ \textcolor{keywordflow}{is}\ created\ \textcolor{keyword}{with}\ max\_num\_classes\ categories.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00096}00096\ \ \ \ \ max\_num\_classes:\ maximum\ number\ of\ (consecutive)\ label\ indices\ to\ include.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00097}00097\ \ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ \textcolor{stringliteral}{'display\_name'}\ field\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00098}00098\ \ \ \ \ \ \ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,\ uses}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00099}00099\ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00101}00101\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00102}00102\ \ \ \ \ categories:\ a\ list\ of\ dictionaries\ representing\ all\ possible\ categories.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00103}00103\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ categories\ =\ []}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ list\_of\_ids\_already\_added\ =\ []}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ label\_map:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00107}00107\ \ \ \ \ label\_id\_offset\ =\ 1}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{for}\ class\_id\ \textcolor{keywordflow}{in}\ range(max\_num\_classes):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00109}00109\ \ \ \ \ \ \ categories.append(\{}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ class\_id\ +\ label\_id\_offset,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'category\_\{\}'}.format(class\_id\ +\ label\_id\_offset)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00112}00112\ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{return}\ categories}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00114}00114\ \ \ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <\ item.id\ <=\ max\_num\_classes:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00116}00116\ \ \ \ \ \ \ logging.info(}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Ignore\ item\ \%d\ since\ it\ falls\ outside\ of\ requested\ '}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label\ range.'},\ item.id)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00119}00119\ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00120}00120\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_display\_name\ \textcolor{keywordflow}{and}\ item.HasField(\textcolor{stringliteral}{'display\_name'}):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00121}00121\ \ \ \ \ \ \ name\ =\ item.display\_name}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00123}00123\ \ \ \ \ \ \ name\ =\ item.name}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{if}\ item.id\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ list\_of\_ids\_already\_added:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00125}00125\ \ \ \ \ \ \ list\_of\_ids\_already\_added.append(item.id)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00126}00126\ \ \ \ \ \ \ categories.append(\{\textcolor{stringliteral}{'id'}:\ item.id,\ \textcolor{stringliteral}{'name'}:\ name\})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00127}00127\ \ \ \textcolor{keywordflow}{return}\ categories}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00130}\mbox{\hyperlink{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}{00130}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}{load\_labelmap}}(path):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00131}00131\ \ \ \textcolor{stringliteral}{"{}"{}"{}Loads\ label\ map\ proto.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00132}00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ path:\ path\ to\ StringIntLabelMap\ proto\ text\ file.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ a\ StringIntLabelMapProto}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ fid:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00139}00139\ \ \ \ \ label\_map\_string\ =\ fid.read()}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00140}00140\ \ \ \ \ label\_map\ =\ string\_int\_label\_map\_pb2.StringIntLabelMap()}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00141}00141\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00142}00142\ \ \ \ \ \ \ text\_format.Merge(label\_map\_string,\ label\_map)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00143}00143\ \ \ \ \ \textcolor{keywordflow}{except}\ text\_format.ParseError:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00144}00144\ \ \ \ \ \ \ label\_map.ParseFromString(label\_map\_string)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00145}00145\ \ \ \mbox{\hyperlink{namespacelabel__map__util_a7a4b69cecd1683e9ffa7c5689bbdb9cc}{\_validate\_label\_map}}(label\_map)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00146}00146\ \ \ \textcolor{keywordflow}{return}\ label\_map}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00149}\mbox{\hyperlink{namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462}{00149}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a647f4a98c4e13af4e484436fc3610462}{get\_label\_map\_dict}}(label\_map\_path,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_display\_name=False,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fill\_in\_gaps\_and\_background=False):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00152}00152\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ a\ dictionary\ of\ label\ names\ to\ id.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00153}00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ \ \ label\_map\_path:\ path\ to\ StringIntLabelMap\ proto\ text\ file.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ use\_display\_name:\ whether\ to\ use\ the\ label\ map\ items'\ display\ names\ as\ keys.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \ \ fill\_in\_gaps\_and\_background:\ whether\ to\ fill\ }\textcolor{keywordflow}{in}\ gaps\ \textcolor{keywordflow}{and}\ background\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00158}00158\ \ \ \ \ respect\ to\ the\ id\ field\ \textcolor{keywordflow}{in}\ the\ proto.\ The\ id:\ 0\ \textcolor{keywordflow}{is}\ reserved\ \textcolor{keywordflow}{for}\ the}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00159}00159\ \ \ \ \ \textcolor{stringliteral}{'background'}\ \textcolor{keyword}{class\ }and\ will\ be\ added\ if\ it\ is\ missing.\ All\ other\ missing}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00160}00160\ \ \ \ \ ids\ \textcolor{keywordflow}{in}\ range(1,\ max(id))\ will\ be\ added\ \textcolor{keyword}{with}\ a\ dummy\ \textcolor{keyword}{class\ }name}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00161}00161\ \ \ \ \ (\textcolor{stringliteral}{"{}class\_<id>"{}})\ \textcolor{keywordflow}{if}\ they\ are\ missing.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00163}00163\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00164}00164\ \ \ \ \ A\ dictionary\ mapping\ label\ names\ to\ id.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00166}00166\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00167}00167\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ fill\_in\_gaps\_and\_background\ \textcolor{keywordflow}{and}\ label\_map\ has\ non-\/integer\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00168}00168\ \ \ \ \ negative\ values.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00169}00169\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00170}00170\ \textcolor{stringliteral}{\ \ label\_map\ =\ \mbox{\hyperlink{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}{load\_labelmap}}(label\_map\_path)}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ label\_map\_dict\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00172}00172\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{if}\ use\_display\_name:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00174}00174\ \ \ \ \ \ \ label\_map\_dict[item.display\_name]\ =\ item.id}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00175}00175\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00176}00176\ \ \ \ \ \ \ label\_map\_dict[item.name]\ =\ item.id}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00178}00178\ \ \ \textcolor{keywordflow}{if}\ fill\_in\_gaps\_and\_background:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00179}00179\ \ \ \ \ values\ =\ set(label\_map\_dict.values())}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{if}\ 0\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ values:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00182}00182\ \ \ \ \ \ \ label\_map\_dict[\textcolor{stringliteral}{'background'}]\ =\ 0}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(isinstance(value,\ int)\ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ values):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00184}00184\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ values\ in\ label\ map\ must\ be\ integers\ in\ order\ to'}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'fill\_in\_gaps\_and\_background.'})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00186}00186\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(value\ >=\ 0\ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ values):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00187}00187\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ values\ in\ the\ label\ map\ must\ be\ positive.'})}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{if}\ len(values)\ !=\ max(values)\ +\ 1:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00190}00190\ \ \ \ \ \ \ \textcolor{comment}{\#\ there\ are\ gaps\ in\ the\ labels,\ fill\ in\ gaps.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00191}00191\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ value\ \textcolor{keywordflow}{in}\ range(1,\ max(values)):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ value\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ values:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ TODO(rathodv):\ Add\ a\ prefix\ 'class\_'\ here\ once\ the\ tool\ to\ generate}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ teacher\ annotation\ adds\ this\ prefix\ in\ the\ data.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ label\_map\_dict[str(value)]\ =\ value}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00197}00197\ \ \ \textcolor{keywordflow}{return}\ label\_map\_dict}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00200}\mbox{\hyperlink{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9}{00200}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9}{create\_categories\_from\_labelmap}}(label\_map\_path,\ use\_display\_name=True):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00201}00201\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ categories\ list\ compatible\ with\ eval.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00202}00202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ This\ function\ converts\ label\ map\ proto\ }\textcolor{keywordflow}{and}\ returns\ a\ list\ of\ dicts,\ each\ of}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00204}00204\ \ \ which\ \ has\ the\ following\ keys:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00205}00205\ \ \ \ \ \textcolor{stringliteral}{'id'}:\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00206}00206\ \ \ \ \ \textcolor{stringliteral}{'name'}:\ string\ representing\ category\ name\ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'}.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00208}00208\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00209}00209\ \ \ \ \ label\_map\_path:\ Path\ to\ \`{}StringIntLabelMap\`{}\ proto\ text\ file.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00210}00210\ \ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ \textcolor{stringliteral}{'display\_name'}\ field}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00211}00211\ \ \ \ \ \ \ \textcolor{keyword}{as}\ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00212}00212\ \ \ \ \ \ \ uses\ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00214}00214\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00215}00215\ \ \ \ \ categories:\ a\ list\ of\ dictionaries\ representing\ all\ possible\ categories.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00216}00216\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00217}00217\ \textcolor{stringliteral}{\ \ label\_map\ =\ \mbox{\hyperlink{namespacelabel__map__util_acfda3ea5f915f1b384997dab8303915f}{load\_labelmap}}(label\_map\_path)}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00218}00218\ \textcolor{stringliteral}{\ \ max\_num\_classes\ =\ max(item.id\ }\textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ label\_map.item)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00219}00219\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacelabel__map__util_a86d3cf3252c0e6bc35c1bf71dd215e5b}{convert\_label\_map\_to\_categories}}(label\_map,\ max\_num\_classes,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_display\_name)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00223}\mbox{\hyperlink{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}{00223}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}{create\_category\_index\_from\_labelmap}}(label\_map\_path,\ use\_display\_name=True):}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00224}00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ a\ label\ map\ and\ returns\ a\ category\ index.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00225}00225\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00226}00226\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00227}00227\ \textcolor{stringliteral}{\ \ \ \ label\_map\_path:\ Path\ to\ \`{}StringIntLabelMap\`{}\ proto\ text\ file.}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00228}00228\ \textcolor{stringliteral}{\ \ \ \ use\_display\_name:\ (boolean)\ choose\ whether\ to\ load\ 'display\_name'}\ field}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00229}00229\ \ \ \ \ \ \ \textcolor{keyword}{as}\ category\ name.\ \ If\ \textcolor{keyword}{False}\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the\ display\_name\ field\ does\ \textcolor{keywordflow}{not}\ exist,}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00230}00230\ \ \ \ \ \ \ uses\ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keyword}{as}\ category\ names\ instead.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00232}00232\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00233}00233\ \ \ \ \ A\ category\ index,\ which\ \textcolor{keywordflow}{is}\ a\ dictionary\ that\ maps\ integer\ ids\ to\ dicts}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00234}00234\ \ \ \ \ containing\ categories,\ e.g.}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00235}00235\ \ \ \ \ \{1:\ \{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},\ 2:\ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},\ ...\}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00236}00236\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00237}00237\ \textcolor{stringliteral}{\ \ categories\ =\ \mbox{\hyperlink{namespacelabel__map__util_a61bb5431b1bd191959e5920fb64a9fd9}{create\_categories\_from\_labelmap}}(label\_map\_path,\ use\_display\_name)}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacelabel__map__util_aaddc27c3b1afc5a5d48b38a0e58cb3bf}{create\_category\_index}}(categories)}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00241}\mbox{\hyperlink{namespacelabel__map__util_a648715c744d4263522c9d628ead2607b}{00241}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacelabel__map__util_a648715c744d4263522c9d628ead2607b}{create\_class\_agnostic\_category\_index}}():}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00242}00242\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ category\ index\ with\ a\ single\ \`{}object\`{}\ class."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{object__detection_2label__map__util_8py_source_l00243}00243\ \ \ \textcolor{keywordflow}{return}\ \{1:\ \{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'object'}\}\}}
+
+\end{DoxyCode}

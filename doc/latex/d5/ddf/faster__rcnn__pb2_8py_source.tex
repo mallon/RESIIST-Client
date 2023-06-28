@@ -1,0 +1,389 @@
+\doxysection{faster\+\_\+rcnn\+\_\+pb2.\+py}
+\hypertarget{faster__rcnn__pb2_8py_source}{}\label{faster__rcnn__pb2_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/protos/faster\_rcnn\_pb2.py@{src/main/resources/processing/video/detections/detection\_utils/protos/faster\_rcnn\_pb2.py}}
+\mbox{\hyperlink{faster__rcnn__pb2_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2}{00001}}\ \textcolor{comment}{\#\ -\/*-\/\ coding:\ utf-\/8\ -\/*-\/}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00002}00002\ \textcolor{comment}{\#\ Generated\ by\ the\ protocol\ buffer\ compiler.\ \ DO\ NOT\ EDIT!}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00003}00003\ \textcolor{comment}{\#\ source:\ object\_detection/protos/faster\_rcnn.proto}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00005}00005\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00006}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a17e078d21e698c0a8c53f206b89c9299}{00006}}\ \_b=sys.version\_info[0]<3\ \textcolor{keywordflow}{and}\ (\textcolor{keyword}{lambda}\ x:x)\ \textcolor{keywordflow}{or}\ (\textcolor{keyword}{lambda}\ x:x.encode(\textcolor{stringliteral}{'latin1'}))}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00007}00007\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ descriptor\ \textcolor{keyword}{as}\ \_descriptor}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00008}00008\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ message\ \textcolor{keyword}{as}\ \_message}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00009}00009\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ reflection\ \textcolor{keyword}{as}\ \_reflection}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00010}00010\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ symbol\_database\ \textcolor{keyword}{as}\ \_symbol\_database}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00011}00011\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(imports)}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00013}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_afff63b0f494b92c29f80b93caa1182f5}{00013}}\ \_sym\_db\ =\ \_symbol\_database.Default()}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00016}00016\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ anchor\_generator\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_anchor\_\_generator\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00017}00017\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ box\_predictor\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_box\_\_predictor\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00018}00018\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ hyperparams\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_hyperparams\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00019}00019\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ image\_resizer\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_image\_\_resizer\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ losses\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_losses\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ post\_processing\_pb2\ \textcolor{keyword}{as}\ object\_\_detection\_dot\_protos\_dot\_post\_\_processing\_\_pb2}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00024}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a3f9b73a9096028ed521d9a1902202fc9}{00024}}\ DESCRIPTOR\ =\ \_descriptor.FileDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00025}00025\ \ \ name=\textcolor{stringliteral}{'object\_detection/protos/faster\_rcnn.proto'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00026}00026\ \ \ package=\textcolor{stringliteral}{'object\_detection.protos'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00027}00027\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00028}00028\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00029}00029\ \ \ serialized\_pb=\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a17e078d21e698c0a8c53f206b89c9299}{\_b}}(\textcolor{stringliteral}{'\(\backslash\)n)object\_detection/protos/faster\_rcnn.proto\(\backslash\)x12\(\backslash\)x17object\_detection.protos\(\backslash\)x1a.object\_detection/protos/anchor\_generator.proto\(\backslash\)x1a+object\_detection/protos/box\_predictor.proto\(\backslash\)x1a)object\_detection/protos/hyperparams.proto\(\backslash\)x1a+object\_detection/protos/image\_resizer.proto\(\backslash\)x1a\$object\_detection/protos/losses.proto\(\backslash\)x1a-\/object\_detection/protos/post\_processing.proto\(\backslash\)"{}\(\backslash\)xee\(\backslash\)r\(\backslash\)n\(\backslash\)nFasterRcnn\(\backslash\)x12\(\backslash\)x1b\(\backslash\)n\(\backslash\)x10number\_of\_stages\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x01\(\backslash\)x32\(\backslash\)x12\(\backslash\)x13\(\backslash\)n\(\backslash\)x0bnum\_classes\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x05\(\backslash\)x12<\(\backslash\)n\(\backslash\)rimage\_resizer\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\%.object\_detection.protos.ImageResizer\(\backslash\)x12N\(\backslash\)n\(\backslash\)x11\(\backslash\)x66\(\backslash\)x65\(\backslash\)x61ture\_extractor\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x33.object\_detection.protos.FasterRcnnFeatureExtractor\(\backslash\)x12N\(\backslash\)n\(\backslash\)x1c\(\backslash\)x66irst\_stage\_anchor\_generator\(\backslash\)x18\(\backslash\)x06\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32(.object\_detection.protos.AnchorGenerator\(\backslash\)x12\(\backslash\)"{}\(\backslash\)n\(\backslash\)x17\(\backslash\)x66irst\_stage\_atrous\_rate\(\backslash\)x18\(\backslash\)x07\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12X\(\backslash\)n*first\_stage\_box\_predictor\_conv\_hyperparams\(\backslash\)x18\(\backslash\)x08\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\$.object\_detection.protos.Hyperparams\(\backslash\)x12\(\backslash\)x30\(\backslash\)n\%first\_stage\_box\_predictor\_kernel\_size\(\backslash\)x18\(\backslash\)t\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x01\(\backslash\)x33\(\backslash\)x12,\(\backslash\)n\(\backslash\)x1f\(\backslash\)x66irst\_stage\_box\_predictor\_depth\(\backslash\)x18\(\backslash\)n\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x03\(\backslash\)x35\(\backslash\)x31\(\backslash\)x32\(\backslash\)x12\(\backslash\)'\(\backslash\)n\(\backslash\)x1a\(\backslash\)x66irst\_stage\_minibatch\_size\(\backslash\)x18\(\backslash\)x0b\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x03\(\backslash\)x32\(\backslash\)x35\(\backslash\)x36\(\backslash\)x12\(\backslash\)x32\(\backslash\)n\%first\_stage\_positive\_balance\_fraction\(\backslash\)x18\(\backslash\)x0c\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.5\(\backslash\)x12*\(\backslash\)n\(\backslash\)x1f\(\backslash\)x66irst\_stage\_nms\_score\_threshold\(\backslash\)x18\(\backslash\)r\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12*\(\backslash\)n\(\backslash\)x1d\(\backslash\)x66irst\_stage\_nms\_iou\_threshold\(\backslash\)x18\(\backslash\)x0e\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.7\(\backslash\)x12\&\(\backslash\)n\(\backslash\)x19\(\backslash\)x66irst\_stage\_max\_proposals\(\backslash\)x18\(\backslash\)x0f\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x03\(\backslash\)x33\(\backslash\)x30\(\backslash\)x30\(\backslash\)x12/\(\backslash\)n\$first\_stage\_localization\_loss\_weight\(\backslash\)x18\(\backslash\)x10\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12-\/\(\backslash\)n\(\backslash\)"{}first\_stage\_objectness\_loss\_weight\(\backslash\)x18\(\backslash\)x11\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12\(\backslash\)x19\(\backslash\)n\(\backslash\)x11initial\_crop\_size\(\backslash\)x18\(\backslash\)x12\ \(\backslash\)x01(\(\backslash\)x05\(\backslash\)x12\(\backslash\)x1b\(\backslash\)n\(\backslash\)x13maxpool\_kernel\_size\(\backslash\)x18\(\backslash\)x13\ \(\backslash\)x01(\(\backslash\)x05\(\backslash\)x12\(\backslash\)x16\(\backslash\)n\(\backslash\)x0emaxpool\_stride\(\backslash\)x18\(\backslash\)x14\ \(\backslash\)x01(\(\backslash\)x05\(\backslash\)x12I\(\backslash\)n\(\backslash\)x1asecond\_stage\_box\_predictor\(\backslash\)x18\(\backslash\)x15\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\%.object\_detection.protos.BoxPredictor\(\backslash\)x12\#\(\backslash\)n\(\backslash\)x17second\_stage\_batch\_size\(\backslash\)x18\(\backslash\)x16\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x02\(\backslash\)x36\(\backslash\)x34\(\backslash\)x12+\(\backslash\)n\(\backslash\)x1dsecond\_stage\_balance\_fraction\(\backslash\)x18\(\backslash\)x17\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x04\(\backslash\)x30.25\(\backslash\)x12M\(\backslash\)n\(\backslash\)x1csecond\_stage\_post\_processing\(\backslash\)x18\(\backslash\)x18\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)'.object\_detection.protos.PostProcessing\(\backslash\)x12\(\backslash\)x30\(\backslash\)n\%second\_stage\_localization\_loss\_weight\(\backslash\)x18\(\backslash\)x19\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12\(\backslash\)x32\(\backslash\)n\(\backslash\)'second\_stage\_classification\_loss\_weight\(\backslash\)x18\(\backslash\)x1a\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12\(\backslash\)x33\(\backslash\)n(second\_stage\_mask\_prediction\_loss\_weight\(\backslash\)x18\(\backslash\)x1b\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12\(\backslash\)x45\(\backslash\)n\(\backslash\)x12hard\_example\_miner\(\backslash\)x18\(\backslash\)x1c\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32).object\_detection.protos.HardExampleMiner\(\backslash\)x12U\(\backslash\)n\ second\_stage\_classification\_loss\(\backslash\)x18\(\backslash\)x1d\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32+.object\_detection.protos.ClassificationLoss\(\backslash\)x12\(\backslash\)'\(\backslash\)n\(\backslash\)x18inplace\_batchnorm\_update\(\backslash\)x18\(\backslash\)x1e\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12)\(\backslash\)n\(\backslash\)x1ause\_matmul\_crop\_and\_resize\(\backslash\)x18\(\backslash\)x1f\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\$\(\backslash\)n\(\backslash\)x15\(\backslash\)x63lip\_anchors\_to\_image\(\backslash\)x18\ \ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12+\(\backslash\)n\(\backslash\)x1cuse\_matmul\_gather\_in\_matcher\(\backslash\)x18!\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x30\(\backslash\)n!use\_static\_balanced\_label\_sampler\(\backslash\)x18\(\backslash\)"{}\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11use\_static\_shapes\(\backslash\)x18\#\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x1a\(\backslash\)n\(\backslash\)x0cresize\_masks\(\backslash\)x18\$\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x04true\(\backslash\)x12)\(\backslash\)n\(\backslash\)x1ause\_static\_shapes\_for\_eval\(\backslash\)x18\%\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)"{}x\(\backslash\)n\(\backslash\)x1a\(\backslash\)x46\(\backslash\)x61sterRcnnFeatureExtractor\(\backslash\)x12\(\backslash\)x0c\(\backslash\)n\(\backslash\)x04type\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)t\(\backslash\)x12\(\backslash\)'\(\backslash\)n\(\backslash\)x1b\(\backslash\)x66irst\_stage\_features\_stride\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x02\(\backslash\)x31\(\backslash\)x36\(\backslash\)x12\#\(\backslash\)n\(\backslash\)x14\(\backslash\)x62\(\backslash\)x61tch\_norm\_trainable\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse'})}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00030}00030\ \ \ ,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00031}00031\ \ \ dependencies=[object\_\_detection\_dot\_protos\_dot\_anchor\_\_generator\_\_pb2.DESCRIPTOR,object\_\_detection\_dot\_protos\_dot\_box\_\_predictor\_\_pb2.DESCRIPTOR,object\_\_detection\_dot\_protos\_dot\_hyperparams\_\_pb2.DESCRIPTOR,object\_\_detection\_dot\_protos\_dot\_image\_\_resizer\_\_pb2.DESCRIPTOR,object\_\_detection\_dot\_protos\_dot\_losses\_\_pb2.DESCRIPTOR,object\_\_detection\_dot\_protos\_dot\_post\_\_processing\_\_pb2.DESCRIPTOR,])}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00036}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a28e8e72ee43c681fef14df28a6c9c138}{00036}}\ \_FASTERRCNN\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00037}00037\ \ \ name=\textcolor{stringliteral}{'FasterRcnn'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00038}00038\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00039}00039\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00040}00040\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00041}00041\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00042}00042\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00043}00043\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00044}00044\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'number\_of\_stages'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.number\_of\_stages'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00045}00045\ \ \ \ \ \ \ number=1,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00046}00046\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=2,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00047}00047\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00048}00048\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00049}00049\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00050}00050\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00051}00051\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'num\_classes'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.num\_classes'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00052}00052\ \ \ \ \ \ \ number=3,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00053}00053\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00054}00054\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00055}00055\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00056}00056\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00057}00057\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00058}00058\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'image\_resizer'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.image\_resizer'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00059}00059\ \ \ \ \ \ \ number=4,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00060}00060\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00061}00061\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00062}00062\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00063}00063\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00064}00064\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00065}00065\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'feature\_extractor'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.feature\_extractor'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00066}00066\ \ \ \ \ \ \ number=5,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00067}00067\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00068}00068\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00069}00069\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00070}00070\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00071}00071\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00072}00072\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_anchor\_generator'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_anchor\_generator'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00073}00073\ \ \ \ \ \ \ number=6,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00074}00074\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00075}00075\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00076}00076\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00077}00077\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00078}00078\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00079}00079\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_atrous\_rate'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_atrous\_rate'},\ index=5,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00080}00080\ \ \ \ \ \ \ number=7,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00081}00081\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00082}00082\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00083}00083\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00084}00084\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00085}00085\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00086}00086\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_box\_predictor\_conv\_hyperparams'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_box\_predictor\_conv\_hyperparams'},\ index=6,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00087}00087\ \ \ \ \ \ \ number=8,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00088}00088\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00089}00089\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00090}00090\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00091}00091\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00092}00092\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00093}00093\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_box\_predictor\_kernel\_size'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_box\_predictor\_kernel\_size'},\ index=7,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00094}00094\ \ \ \ \ \ \ number=9,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00095}00095\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=3,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00096}00096\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00097}00097\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00098}00098\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00099}00099\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00100}00100\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_box\_predictor\_depth'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_box\_predictor\_depth'},\ index=8,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00101}00101\ \ \ \ \ \ \ number=10,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00102}00102\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=512,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00103}00103\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00104}00104\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00105}00105\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00106}00106\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00107}00107\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_minibatch\_size'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_minibatch\_size'},\ index=9,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00108}00108\ \ \ \ \ \ \ number=11,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00109}00109\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=256,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00110}00110\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00111}00111\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00112}00112\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00113}00113\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00114}00114\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_positive\_balance\_fraction'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_positive\_balance\_fraction'},\ index=10,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00115}00115\ \ \ \ \ \ \ number=12,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00116}00116\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.5),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00117}00117\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00118}00118\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00119}00119\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00120}00120\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00121}00121\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_nms\_score\_threshold'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_nms\_score\_threshold'},\ index=11,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00122}00122\ \ \ \ \ \ \ number=13,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00123}00123\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00124}00124\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00125}00125\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00126}00126\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00127}00127\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00128}00128\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_nms\_iou\_threshold'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_nms\_iou\_threshold'},\ index=12,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00129}00129\ \ \ \ \ \ \ number=14,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00130}00130\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.7),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00131}00131\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00132}00132\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00133}00133\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00134}00134\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00135}00135\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_max\_proposals'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_max\_proposals'},\ index=13,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00136}00136\ \ \ \ \ \ \ number=15,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00137}00137\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=300,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00138}00138\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00139}00139\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00140}00140\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00141}00141\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00142}00142\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_localization\_loss\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_localization\_loss\_weight'},\ index=14,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00143}00143\ \ \ \ \ \ \ number=16,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00144}00144\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00145}00145\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00146}00146\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00147}00147\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00148}00148\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00149}00149\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_objectness\_loss\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.first\_stage\_objectness\_loss\_weight'},\ index=15,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00150}00150\ \ \ \ \ \ \ number=17,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00151}00151\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00152}00152\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00153}00153\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00154}00154\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00155}00155\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00156}00156\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'initial\_crop\_size'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.initial\_crop\_size'},\ index=16,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00157}00157\ \ \ \ \ \ \ number=18,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00158}00158\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00159}00159\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00160}00160\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00161}00161\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00162}00162\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00163}00163\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'maxpool\_kernel\_size'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.maxpool\_kernel\_size'},\ index=17,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00164}00164\ \ \ \ \ \ \ number=19,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00165}00165\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00166}00166\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00167}00167\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00168}00168\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00169}00169\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00170}00170\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'maxpool\_stride'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.maxpool\_stride'},\ index=18,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00171}00171\ \ \ \ \ \ \ number=20,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00172}00172\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00173}00173\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00174}00174\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00175}00175\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00176}00176\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00177}00177\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_box\_predictor'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_box\_predictor'},\ index=19,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00178}00178\ \ \ \ \ \ \ number=21,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00179}00179\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00180}00180\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00181}00181\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00182}00182\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00183}00183\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00184}00184\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_batch\_size'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_batch\_size'},\ index=20,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00185}00185\ \ \ \ \ \ \ number=22,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00186}00186\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=64,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00187}00187\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00188}00188\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00189}00189\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00190}00190\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00191}00191\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_balance\_fraction'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_balance\_fraction'},\ index=21,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00192}00192\ \ \ \ \ \ \ number=23,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00193}00193\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.25),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00194}00194\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00195}00195\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00196}00196\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00197}00197\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00198}00198\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_post\_processing'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_post\_processing'},\ index=22,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00199}00199\ \ \ \ \ \ \ number=24,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00200}00200\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00201}00201\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00202}00202\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00203}00203\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00204}00204\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00205}00205\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_localization\_loss\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_localization\_loss\_weight'},\ index=23,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00206}00206\ \ \ \ \ \ \ number=25,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00207}00207\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00208}00208\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00209}00209\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00210}00210\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00211}00211\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00212}00212\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_classification\_loss\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_classification\_loss\_weight'},\ index=24,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00213}00213\ \ \ \ \ \ \ number=26,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00214}00214\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00215}00215\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00216}00216\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00217}00217\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00218}00218\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00219}00219\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_mask\_prediction\_loss\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_mask\_prediction\_loss\_weight'},\ index=25,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00220}00220\ \ \ \ \ \ \ number=27,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00221}00221\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00222}00222\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00223}00223\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00224}00224\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00225}00225\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00226}00226\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'hard\_example\_miner'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.hard\_example\_miner'},\ index=26,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00227}00227\ \ \ \ \ \ \ number=28,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00228}00228\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00229}00229\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00230}00230\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00231}00231\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00232}00232\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00233}00233\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'second\_stage\_classification\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.second\_stage\_classification\_loss'},\ index=27,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00234}00234\ \ \ \ \ \ \ number=29,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00235}00235\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00236}00236\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00237}00237\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00238}00238\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00239}00239\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00240}00240\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'inplace\_batchnorm\_update'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.inplace\_batchnorm\_update'},\ index=28,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00241}00241\ \ \ \ \ \ \ number=30,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00242}00242\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00243}00243\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00244}00244\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00245}00245\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00246}00246\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00247}00247\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_matmul\_crop\_and\_resize'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.use\_matmul\_crop\_and\_resize'},\ index=29,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00248}00248\ \ \ \ \ \ \ number=31,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00249}00249\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00250}00250\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00251}00251\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00252}00252\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00253}00253\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00254}00254\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'clip\_anchors\_to\_image'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.clip\_anchors\_to\_image'},\ index=30,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00255}00255\ \ \ \ \ \ \ number=32,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00256}00256\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00257}00257\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00258}00258\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00259}00259\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00260}00260\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00261}00261\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_matmul\_gather\_in\_matcher'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.use\_matmul\_gather\_in\_matcher'},\ index=31,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00262}00262\ \ \ \ \ \ \ number=33,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00263}00263\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00264}00264\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00265}00265\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00266}00266\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00267}00267\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00268}00268\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_static\_balanced\_label\_sampler'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.use\_static\_balanced\_label\_sampler'},\ index=32,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00269}00269\ \ \ \ \ \ \ number=34,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00270}00270\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00271}00271\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00272}00272\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00273}00273\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00274}00274\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00275}00275\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_static\_shapes'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.use\_static\_shapes'},\ index=33,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00276}00276\ \ \ \ \ \ \ number=35,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00277}00277\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00278}00278\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00279}00279\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00280}00280\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00281}00281\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00282}00282\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'resize\_masks'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.resize\_masks'},\ index=34,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00283}00283\ \ \ \ \ \ \ number=36,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00284}00284\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00285}00285\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00286}00286\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00287}00287\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00288}00288\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00289}00289\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'use\_static\_shapes\_for\_eval'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnn.use\_static\_shapes\_for\_eval'},\ index=35,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00290}00290\ \ \ \ \ \ \ number=37,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00291}00291\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00292}00292\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00293}00293\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00294}00294\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00295}00295\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00296}00296\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00297}00297\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00298}00298\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00299}00299\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00300}00300\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00301}00301\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00302}00302\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00303}00303\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00304}00304\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00305}00305\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00306}00306\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00307}00307\ \ \ serialized\_start=337,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00308}00308\ \ \ serialized\_end=2111,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00309}00309\ )}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00312}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a02af28d2126ae217540ae6877c479e95}{00312}}\ \_FASTERRCNNFEATUREEXTRACTOR\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00313}00313\ \ \ name=\textcolor{stringliteral}{'FasterRcnnFeatureExtractor'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00314}00314\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnnFeatureExtractor'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00315}00315\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00316}00316\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00317}00317\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00318}00318\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00319}00319\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00320}00320\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'type'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnnFeatureExtractor.type'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00321}00321\ \ \ \ \ \ \ number=1,\ type=9,\ cpp\_type=9,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00322}00322\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a17e078d21e698c0a8c53f206b89c9299}{\_b}}(\textcolor{stringliteral}{"{}"{}}).decode(\textcolor{stringliteral}{'utf-\/8'}),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00323}00323\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00324}00324\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00325}00325\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00326}00326\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00327}00327\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'first\_stage\_features\_stride'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnnFeatureExtractor.first\_stage\_features\_stride'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00328}00328\ \ \ \ \ \ \ number=2,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00329}00329\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=16,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00330}00330\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00331}00331\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00332}00332\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00333}00333\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00334}00334\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'batch\_norm\_trainable'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.FasterRcnnFeatureExtractor.batch\_norm\_trainable'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00335}00335\ \ \ \ \ \ \ number=3,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00336}00336\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00337}00337\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00338}00338\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00339}00339\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00340}00340\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00341}00341\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00342}00342\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00343}00343\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00344}00344\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00345}00345\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00346}00346\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00347}00347\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00348}00348\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00349}00349\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00350}00350\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00351}00351\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00352}00352\ \ \ serialized\_start=2113,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00353}00353\ \ \ serialized\_end=2233,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00354}00354\ )}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00356}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a1835251dd8ad21f62bf3892eefc17ba0}{00356}}\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'image\_resizer'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_image\_\_resizer\_\_pb2.\_IMAGERESIZER}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00357}00357\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'feature\_extractor'}].message\_type\ =\ \_FASTERRCNNFEATUREEXTRACTOR}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00358}00358\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'first\_stage\_anchor\_generator'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_anchor\_\_generator\_\_pb2.\_ANCHORGENERATOR}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00359}00359\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'first\_stage\_box\_predictor\_conv\_hyperparams'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_hyperparams\_\_pb2.\_HYPERPARAMS}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00360}00360\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'second\_stage\_box\_predictor'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_box\_\_predictor\_\_pb2.\_BOXPREDICTOR}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00361}00361\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'second\_stage\_post\_processing'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_post\_\_processing\_\_pb2.\_POSTPROCESSING}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00362}00362\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'hard\_example\_miner'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_losses\_\_pb2.\_HARDEXAMPLEMINER}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00363}00363\ \_FASTERRCNN.fields\_by\_name[\textcolor{stringliteral}{'second\_stage\_classification\_loss'}].message\_type\ =\ object\_\_detection\_dot\_protos\_dot\_losses\_\_pb2.\_CLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00364}00364\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'FasterRcnn'}]\ =\ \_FASTERRCNN}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00365}00365\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'FasterRcnnFeatureExtractor'}]\ =\ \_FASTERRCNNFEATUREEXTRACTOR}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00366}00366\ \_sym\_db.RegisterFileDescriptor(DESCRIPTOR)}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00368}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a82b6f8c5c2e76471696e41e3f396b228}{00368}}\ FasterRcnn\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'FasterRcnn'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00369}00369\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_FASTERRCNN,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00370}00370\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.faster\_rcnn\_pb2'}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00371}00371\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.FasterRcnn)}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00372}00372\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00373}00373\ \_sym\_db.RegisterMessage(FasterRcnn)}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00375}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1faster__rcnn__pb2_a3cc857c50e8083f0575c933e1a0be5a2}{00375}}\ FasterRcnnFeatureExtractor\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'FasterRcnnFeatureExtractor'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00376}00376\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_FASTERRCNNFEATUREEXTRACTOR,}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00377}00377\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.faster\_rcnn\_pb2'}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00378}00378\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.FasterRcnnFeatureExtractor)}}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00379}00379\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00380}00380\ \_sym\_db.RegisterMessage(FasterRcnnFeatureExtractor)}
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{faster__rcnn__pb2_8py_source_l00383}00383\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(module\_scope)}}
+
+\end{DoxyCode}

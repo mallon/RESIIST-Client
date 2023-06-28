@@ -1,0 +1,228 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+utils Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1test__utils}{}\label{namespacedetection__utils_1_1utils_1_1test__utils}\index{detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator}{Mock\+Anchor\+Generator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder}{Mock\+Box\+Coder}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor}{Mock\+Box\+Predictor}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor}{Mock\+Keras\+Box\+Predictor}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head}{Mock\+Mask\+Head}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher}{Mock\+Matcher}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a796e6d7f5a5b1f24129da9507369cf5c}{create\+\_\+diagonal\+\_\+gradient\+\_\+image}} (height, width, depth)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a5afaf8b28256be53947d5c78baa39c26}{create\+\_\+random\+\_\+boxes}} (num\+\_\+boxes, max\+\_\+height, max\+\_\+width)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a655fd85c121c5f64c6342e99696280d0}{first\+\_\+rows\+\_\+close\+\_\+as\+\_\+set}} (a, b, k=None, rtol=1e-\/6, atol=1e-\/6)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__utils_a962086ee513120ea00e102603aa81587}{DEFAULT\+\_\+\+MASK\+\_\+\+SIZE}} = 5
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Contains functions which are convenient for unit testing.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1test__utils_a796e6d7f5a5b1f24129da9507369cf5c}\label{namespacedetection__utils_1_1utils_1_1test__utils_a796e6d7f5a5b1f24129da9507369cf5c} 
+\index{detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}!create\_diagonal\_gradient\_image@{create\_diagonal\_gradient\_image}}
+\index{create\_diagonal\_gradient\_image@{create\_diagonal\_gradient\_image}!detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}}
+\doxysubsubsection{\texorpdfstring{create\_diagonal\_gradient\_image()}{create\_diagonal\_gradient\_image()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+create\+\_\+diagonal\+\_\+gradient\+\_\+image (\begin{DoxyParamCaption}\item[{}]{height,  }\item[{}]{width,  }\item[{}]{depth }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates pyramid image. Useful for testing.
+
+For example, pyramid_image(5, 6, 1) looks like:
+# [[[ 5.  4.  3.  2.  1.  0.]
+#   [ 6.  5.  4.  3.  2.  1.]
+#   [ 7.  6.  5.  4.  3.  2.]
+#   [ 8.  7.  6.  5.  4.  3.]
+#   [ 9.  8.  7.  6.  5.  4.]]]
+
+Args:
+  height: height of image
+  width: width of image
+  depth: depth of image
+
+Returns:
+  pyramid image
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00148}{148}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00148\ \textcolor{keyword}{def\ }create\_diagonal\_gradient\_image(height,\ width,\ depth):}
+\DoxyCodeLine{00149\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ pyramid\ image.\ Useful\ for\ testing.}}
+\DoxyCodeLine{00150\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00151\ \textcolor{stringliteral}{\ \ For\ example,\ pyramid\_image(5,\ 6,\ 1)\ looks\ like:}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ [[[\ 5.\ \ 4.\ \ 3.\ \ 2.\ \ 1.\ \ 0.]}}
+\DoxyCodeLine{00153\ \ \ \textcolor{comment}{\#\ \ \ [\ 6.\ \ 5.\ \ 4.\ \ 3.\ \ 2.\ \ 1.]}}
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{\#\ \ \ [\ 7.\ \ 6.\ \ 5.\ \ 4.\ \ 3.\ \ 2.]}}
+\DoxyCodeLine{00155\ \ \ \textcolor{comment}{\#\ \ \ [\ 8.\ \ 7.\ \ 6.\ \ 5.\ \ 4.\ \ 3.]}}
+\DoxyCodeLine{00156\ \ \ \textcolor{comment}{\#\ \ \ [\ 9.\ \ 8.\ \ 7.\ \ 6.\ \ 5.\ \ 4.]]]}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ Args:}
+\DoxyCodeLine{00159\ \ \ \ \ height:\ height\ of\ image}
+\DoxyCodeLine{00160\ \ \ \ \ width:\ width\ of\ image}
+\DoxyCodeLine{00161\ \ \ \ \ depth:\ depth\ of\ image}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ Returns:}
+\DoxyCodeLine{00164\ \ \ \ \ pyramid\ image}
+\DoxyCodeLine{00165\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00166\ \textcolor{stringliteral}{\ \ row\ =\ np.arange(height)}}
+\DoxyCodeLine{00167\ \textcolor{stringliteral}{\ \ col\ =\ np.arange(width)[::-\/1]}}
+\DoxyCodeLine{00168\ \textcolor{stringliteral}{\ \ image\_layer\ =\ np.expand\_dims(row,\ 1)\ +\ col}}
+\DoxyCodeLine{00169\ \textcolor{stringliteral}{\ \ image\_layer\ =\ np.expand\_dims(image\_layer,\ 2)}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ image\ =\ image\_layer}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(1,\ depth):}
+\DoxyCodeLine{00173\ \ \ \ \ image\ =\ np.concatenate((image,\ image\_layer\ *\ pow(10,\ i)),\ 2)}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordflow}{return}\ image.astype(np.float32)}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1test__utils_a5afaf8b28256be53947d5c78baa39c26}\label{namespacedetection__utils_1_1utils_1_1test__utils_a5afaf8b28256be53947d5c78baa39c26} 
+\index{detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}!create\_random\_boxes@{create\_random\_boxes}}
+\index{create\_random\_boxes@{create\_random\_boxes}!detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}}
+\doxysubsubsection{\texorpdfstring{create\_random\_boxes()}{create\_random\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+create\+\_\+random\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{num\+\_\+boxes,  }\item[{}]{max\+\_\+height,  }\item[{}]{max\+\_\+width }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates random bounding boxes of specific maximum height and width.
+
+Args:
+  num_boxes: number of boxes.
+  max_height: maximum height of boxes.
+  max_width: maximum width of boxes.
+
+Returns:
+  boxes: numpy array of shape [num_boxes, 4]. Each row is in form
+      [y_min, x_min, y_max, x_max].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00178}{178}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00178\ \textcolor{keyword}{def\ }create\_random\_boxes(num\_boxes,\ max\_height,\ max\_width):}
+\DoxyCodeLine{00179\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ random\ bounding\ boxes\ of\ specific\ maximum\ height\ and\ width.}}
+\DoxyCodeLine{00180\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00181\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00182\ \textcolor{stringliteral}{\ \ \ \ num\_boxes:\ number\ of\ boxes.}}
+\DoxyCodeLine{00183\ \textcolor{stringliteral}{\ \ \ \ max\_height:\ maximum\ height\ of\ boxes.}}
+\DoxyCodeLine{00184\ \textcolor{stringliteral}{\ \ \ \ max\_width:\ maximum\ width\ of\ boxes.}}
+\DoxyCodeLine{00185\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00186\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00187\ \textcolor{stringliteral}{\ \ \ \ boxes:\ numpy\ array\ of\ shape\ [num\_boxes,\ 4].\ Each\ row\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{in}\ form}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{00189\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00190\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00191\ \textcolor{stringliteral}{\ \ y\_1\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_height}}
+\DoxyCodeLine{00192\ \textcolor{stringliteral}{\ \ y\_2\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_height}}
+\DoxyCodeLine{00193\ \textcolor{stringliteral}{\ \ x\_1\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_width}}
+\DoxyCodeLine{00194\ \textcolor{stringliteral}{\ \ x\_2\ =\ np.random.uniform(size=(1,\ num\_boxes))\ *\ max\_width}}
+\DoxyCodeLine{00195\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{\ \ boxes\ =\ np.zeros(shape=(num\_boxes,\ 4))}}
+\DoxyCodeLine{00197\ \textcolor{stringliteral}{\ \ boxes[:,\ 0]\ =\ np.minimum(y\_1,\ y\_2)}}
+\DoxyCodeLine{00198\ \textcolor{stringliteral}{\ \ boxes[:,\ 1]\ =\ np.minimum(x\_1,\ x\_2)}}
+\DoxyCodeLine{00199\ \textcolor{stringliteral}{\ \ boxes[:,\ 2]\ =\ np.maximum(y\_1,\ y\_2)}}
+\DoxyCodeLine{00200\ \textcolor{stringliteral}{\ \ boxes[:,\ 3]\ =\ np.maximum(x\_1,\ x\_2)}}
+\DoxyCodeLine{00201\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00202\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ boxes.astype(np.float32)}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1test__utils_a655fd85c121c5f64c6342e99696280d0}\label{namespacedetection__utils_1_1utils_1_1test__utils_a655fd85c121c5f64c6342e99696280d0} 
+\index{detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}!first\_rows\_close\_as\_set@{first\_rows\_close\_as\_set}}
+\index{first\_rows\_close\_as\_set@{first\_rows\_close\_as\_set}!detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}}
+\doxysubsubsection{\texorpdfstring{first\_rows\_close\_as\_set()}{first\_rows\_close\_as\_set()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+first\+\_\+rows\+\_\+close\+\_\+as\+\_\+set (\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b,  }\item[{}]{k = {\ttfamily None},  }\item[{}]{rtol = {\ttfamily 1e-\/6},  }\item[{}]{atol = {\ttfamily 1e-\/6} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Checks if first K entries of two lists are close, up to permutation.
+
+Inputs to this assert are lists of items which can be compared via
+numpy.allclose(...) and can be sorted.
+
+Args:
+  a: list of items which can be compared via numpy.allclose(...) and are
+    sortable.
+  b: list of items which can be compared via numpy.allclose(...) and are
+    sortable.
+  k: a non-negative integer.  If not provided, k is set to be len(a).
+  rtol: relative tolerance.
+  atol: absolute tolerance.
+
+Returns:
+  boolean, True if input lists a and b have the same length and
+  the first k entries of the inputs satisfy numpy.allclose() after
+  sorting entries.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00205}{205}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00205\ \textcolor{keyword}{def\ }first\_rows\_close\_as\_set(a,\ b,\ k=None,\ rtol=1e-\/6,\ atol=1e-\/6):}
+\DoxyCodeLine{00206\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ if\ first\ K\ entries\ of\ two\ lists\ are\ close,\ up\ to\ permutation.}}
+\DoxyCodeLine{00207\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00208\ \textcolor{stringliteral}{\ \ Inputs\ to\ this\ }\textcolor{keyword}{assert}\ are\ lists\ of\ items\ which\ can\ be\ compared\ via}
+\DoxyCodeLine{00209\ \ \ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ can\ be\ sorted.}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ Args:}
+\DoxyCodeLine{00212\ \ \ \ \ a:\ list\ of\ items\ which\ can\ be\ compared\ via\ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ are}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ sortable.}
+\DoxyCodeLine{00214\ \ \ \ \ b:\ list\ of\ items\ which\ can\ be\ compared\ via\ numpy.allclose(...)\ \textcolor{keywordflow}{and}\ are}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ sortable.}
+\DoxyCodeLine{00216\ \ \ \ \ k:\ a\ non-\/negative\ integer.\ \ If\ \textcolor{keywordflow}{not}\ provided,\ k\ \textcolor{keywordflow}{is}\ set\ to\ be\ len(a).}
+\DoxyCodeLine{00217\ \ \ \ \ rtol:\ relative\ tolerance.}
+\DoxyCodeLine{00218\ \ \ \ \ atol:\ absolute\ tolerance.}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ Returns:}
+\DoxyCodeLine{00221\ \ \ \ \ boolean,\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ input\ lists\ a\ \textcolor{keywordflow}{and}\ b\ have\ the\ same\ length\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00222\ \ \ \ \ the\ first\ k\ entries\ of\ the\ inputs\ satisfy\ numpy.allclose()\ after}
+\DoxyCodeLine{00223\ \ \ \ \ sorting\ entries.}
+\DoxyCodeLine{00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(a,\ list)\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ isinstance(b,\ list)\ \textcolor{keywordflow}{or}\ len(a)\ !=\ len(b):}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ k:}
+\DoxyCodeLine{00228\ \ \ \ \ k\ =\ len(a)}
+\DoxyCodeLine{00229\ \ \ k\ =\ min(k,\ len(a))}
+\DoxyCodeLine{00230\ \ \ a\_sorted\ =\ sorted(a[:k])}
+\DoxyCodeLine{00231\ \ \ b\_sorted\ =\ sorted(b[:k])}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordflow}{return}\ all([}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ np.allclose(entry\_a,\ entry\_b,\ rtol,\ atol)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (entry\_a,\ entry\_b)\ \textcolor{keywordflow}{in}\ zip(a\_sorted,\ b\_sorted)}
+\DoxyCodeLine{00235\ \ \ ])}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1test__utils_a962086ee513120ea00e102603aa81587}\label{namespacedetection__utils_1_1utils_1_1test__utils_a962086ee513120ea00e102603aa81587} 
+\index{detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}!DEFAULT\_MASK\_SIZE@{DEFAULT\_MASK\_SIZE}}
+\index{DEFAULT\_MASK\_SIZE@{DEFAULT\_MASK\_SIZE}!detection\_utils.utils.test\_utils@{detection\_utils.utils.test\_utils}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_MASK\_SIZE}{DEFAULT\_MASK\_SIZE}}
+{\footnotesize\ttfamily int detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+DEFAULT\+\_\+\+MASK\+\_\+\+SIZE = 5}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00034}{34}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+

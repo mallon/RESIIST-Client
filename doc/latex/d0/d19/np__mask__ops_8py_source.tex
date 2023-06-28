@@ -1,0 +1,130 @@
+\doxysection{np\+\_\+mask\+\_\+ops.\+py}
+\hypertarget{np__mask__ops_8py_source}{}\label{np__mask__ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_mask\_ops.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_mask\_ops.py}}
+\mbox{\hyperlink{np__mask__ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Operations\ for\ [N,\ height,\ width]\ numpy\ arrays\ representing\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00018}00018\ \textcolor{stringliteral}{Example\ mask\ operations\ that\ are\ supported:}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ *\ Areas:\ compute\ mask\ areas}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ *\ IOU:\ pairwise\ intersection-\/over-\/union\ scores}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00023}00023\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00024}00024\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00025}00025\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00027}00027\ \textcolor{stringliteral}{import\ numpy\ as\ np}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00029}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_abc83c73bff64f225994ad3e3059b4f8a}{00029}}\ \textcolor{stringliteral}{EPSILON\ =\ 1e-\/7}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00030}00030\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00031}00031\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00032}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_aa5c1487c101278072b308d1e13dfa940}{00032}}\ \textcolor{stringliteral}{def\ area(masks):}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ "{}"{}"{}Computes\ area\ of\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00034}00034\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ masks:\ Numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00037}00037\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00039}00039\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00040}00040\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*1]\ representing\ mask\ areas.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00042}00042\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00043}00043\ \ \ \ \ ValueError:\ If\ masks.dtype\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ np.uint8}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00044}00044\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ masks.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Masks\ type\ should\ be\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00047}00047\ \ \ \textcolor{keywordflow}{return}\ np.sum(masks,\ axis=(1,\ 2),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00050}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_ab86e490066a2b28d2e92a85905b4a305}{00050}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_ab86e490066a2b28d2e92a85905b4a305}{intersection}}(masks1,\ masks2):}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00051}00051\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ masks.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00052}00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ masks1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00055}00055\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00056}00056\ \ \ \ \ masks2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ height,\ width]\ holding\ M\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00057}00057\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00059}00059\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00060}00060\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00062}00062\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00063}00063\ \ \ \ \ ValueError:\ If\ masks1\ \textcolor{keywordflow}{and}\ masks2\ are\ \textcolor{keywordflow}{not}\ of\ type\ np.uint8.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00064}00064\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ masks1.dtype\ !=\ np.uint8\ \textcolor{keywordflow}{or}\ masks2.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'masks1\ and\ masks2\ should\ be\ of\ type\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00067}00067\ \ \ n\ =\ masks1.shape[0]}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00068}00068\ \ \ m\ =\ masks2.shape[0]}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00069}00069\ \ \ answer\ =\ np.zeros([n,\ m],\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00070}00070\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ np.arange(n):}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ np.arange(m):}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00072}00072\ \ \ \ \ \ \ answer[i,\ j]\ =\ np.sum(np.minimum(masks1[i],\ masks2[j]),\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00073}00073\ \ \ \textcolor{keywordflow}{return}\ answer}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00076}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_a107f42821711fe2a709f68e04dac9f3a}{00076}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_a107f42821711fe2a709f68e04dac9f3a}{iou}}(masks1,\ masks2):}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00077}00077\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ mask\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00078}00078\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ masks1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00081}00081\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00082}00082\ \ \ \ \ masks2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00083}00083\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00085}00085\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00086}00086\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00088}00088\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00089}00089\ \ \ \ \ ValueError:\ If\ masks1\ \textcolor{keywordflow}{and}\ masks2\ are\ \textcolor{keywordflow}{not}\ of\ type\ np.uint8.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00090}00090\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ masks1.dtype\ !=\ np.uint8\ \textcolor{keywordflow}{or}\ masks2.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'masks1\ and\ masks2\ should\ be\ of\ type\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00093}00093\ \ \ intersect\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_ab86e490066a2b28d2e92a85905b4a305}{intersection}}(masks1,\ masks2)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00094}00094\ \ \ area1\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_aa5c1487c101278072b308d1e13dfa940}{area}}(masks1)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00095}00095\ \ \ area2\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_aa5c1487c101278072b308d1e13dfa940}{area}}(masks2)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00096}00096\ \ \ union\ =\ np.expand\_dims(area1,\ axis=1)\ +\ np.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00097}00097\ \ \ \ \ \ \ area2,\ axis=0)\ -\/\ intersect}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00098}00098\ \ \ \textcolor{keywordflow}{return}\ intersect\ /\ np.maximum(union,\ EPSILON)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00101}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_a4feda1393eb4662d346d10343dccb8f7}{00101}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_a4feda1393eb4662d346d10343dccb8f7}{ioa}}(masks1,\ masks2):}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00102}00102\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00103}00103\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ masks,\ mask1\ }\textcolor{keywordflow}{and}\ mask2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00105}00105\ \ \ their\ intersection\ area\ over\ mask2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(mask1,\ mask2)\ !=\ IOA(mask2,\ mask1).}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00108}00108\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00109}00109\ \ \ \ \ masks1:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00110}00110\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00111}00111\ \ \ \ \ masks2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ height,\ width]\ holding\ N\ masks.\ Masks}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00112}00112\ \ \ \ \ \ \ values\ are\ of\ type\ np.uint8\ \textcolor{keywordflow}{and}\ values\ are\ \textcolor{keywordflow}{in}\ \{0,1\}.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00114}00114\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00115}00115\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00117}00117\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00118}00118\ \ \ \ \ ValueError:\ If\ masks1\ \textcolor{keywordflow}{and}\ masks2\ are\ \textcolor{keywordflow}{not}\ of\ type\ np.uint8.}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00119}00119\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ masks1.dtype\ !=\ np.uint8\ \textcolor{keywordflow}{or}\ masks2.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'masks1\ and\ masks2\ should\ be\ of\ type\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00122}00122\ \ \ intersect\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_ab86e490066a2b28d2e92a85905b4a305}{intersection}}(masks1,\ masks2)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00123}00123\ \ \ areas\ =\ np.expand\_dims(\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__mask__ops_aa5c1487c101278072b308d1e13dfa940}{area}}(masks2),\ axis=0)}
+\DoxyCodeLine{\Hypertarget{np__mask__ops_8py_source_l00124}00124\ \ \ \textcolor{keywordflow}{return}\ intersect\ /\ (areas\ +\ EPSILON)}
+
+\end{DoxyCode}

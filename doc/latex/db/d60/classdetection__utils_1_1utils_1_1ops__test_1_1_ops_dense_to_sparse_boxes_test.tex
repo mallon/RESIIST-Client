@@ -1,0 +1,125 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Dense\+To\+Sparse\+Boxes\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test}\index{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest@{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Dense\+To\+Sparse\+Boxes\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{d5/d52/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Dense\+To\+Sparse\+Boxes\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{d4/d5a/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_ad1f03995a72c5f2c51775e6b0f46737d}{test\+\_\+return\+\_\+all\+\_\+boxes\+\_\+when\+\_\+all\+\_\+input\+\_\+boxes\+\_\+are\+\_\+valid}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_a7658626d13f43ba822102172a10d7ed7}{test\+\_\+return\+\_\+only\+\_\+valid\+\_\+boxes\+\_\+when\+\_\+input\+\_\+contains\+\_\+invalid\+\_\+boxes}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00238}{238}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_ad1f03995a72c5f2c51775e6b0f46737d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_ad1f03995a72c5f2c51775e6b0f46737d} 
+\index{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest@{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest}!test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid@{test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid}}
+\index{test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid@{test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid}!detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest@{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid()}{test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Dense\+To\+Sparse\+Boxes\+Test.\+test\+\_\+return\+\_\+all\+\_\+boxes\+\_\+when\+\_\+all\+\_\+input\+\_\+boxes\+\_\+are\+\_\+valid (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00240}{240}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00240\ \ \ \textcolor{keyword}{def\ }test\_return\_all\_boxes\_when\_all\_input\_boxes\_are\_valid(self):}
+\DoxyCodeLine{00241\ \ \ \ \ num\_classes\ =\ 4}
+\DoxyCodeLine{00242\ \ \ \ \ num\_valid\_boxes\ =\ 3}
+\DoxyCodeLine{00243\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{00244\ \ \ \ \ dense\_location\_placeholder\ =\ tf.placeholder(tf.float32,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape=(num\_valid\_boxes,}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ code\_size))}
+\DoxyCodeLine{00247\ \ \ \ \ dense\_num\_boxes\_placeholder\ =\ tf.placeholder(tf.int32,\ shape=(num\_classes))}
+\DoxyCodeLine{00248\ \ \ \ \ box\_locations,\ box\_classes\ =\ ops.dense\_to\_sparse\_boxes(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ dense\_location\_placeholder,\ dense\_num\_boxes\_placeholder,\ num\_classes)}
+\DoxyCodeLine{00250\ \ \ \ \ feed\_dict\ =\ \{dense\_location\_placeholder:\ np.random.uniform(}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ size=[num\_valid\_boxes,\ code\_size]),}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dense\_num\_boxes\_placeholder:\ np.array([1,\ 0,\ 0,\ 2],}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.int32)\}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ expected\_box\_locations\ =\ feed\_dict[dense\_location\_placeholder]}
+\DoxyCodeLine{00256\ \ \ \ \ expected\_box\_classses\ =\ np.array([0,\ 3,\ 3])}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ box\_locations,\ box\_classes\ =\ sess.run([box\_locations,\ box\_classes],}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=feed\_dict)}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ self.assertAllClose(box\_locations,\ expected\_box\_locations,\ rtol=1e-\/6,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atol=1e-\/6)}
+\DoxyCodeLine{00263\ \ \ \ \ self.assertAllEqual(box\_classes,\ expected\_box\_classses)}
+\DoxyCodeLine{00264\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_a7658626d13f43ba822102172a10d7ed7}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_dense_to_sparse_boxes_test_a7658626d13f43ba822102172a10d7ed7} 
+\index{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest@{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest}!test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes@{test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes}}
+\index{test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes@{test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes}!detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest@{detection\_utils.utils.ops\_test.OpsDenseToSparseBoxesTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes()}{test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Dense\+To\+Sparse\+Boxes\+Test.\+test\+\_\+return\+\_\+only\+\_\+valid\+\_\+boxes\+\_\+when\+\_\+input\+\_\+contains\+\_\+invalid\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00265}{265}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00265\ \ \ \textcolor{keyword}{def\ }test\_return\_only\_valid\_boxes\_when\_input\_contains\_invalid\_boxes(self):}
+\DoxyCodeLine{00266\ \ \ \ \ num\_classes\ =\ 4}
+\DoxyCodeLine{00267\ \ \ \ \ num\_valid\_boxes\ =\ 3}
+\DoxyCodeLine{00268\ \ \ \ \ num\_boxes\ =\ 10}
+\DoxyCodeLine{00269\ \ \ \ \ code\_size\ =\ 4}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ dense\_location\_placeholder\ =\ tf.placeholder(tf.float32,\ shape=(num\_boxes,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ code\_size))}
+\DoxyCodeLine{00273\ \ \ \ \ dense\_num\_boxes\_placeholder\ =\ tf.placeholder(tf.int32,\ shape=(num\_classes))}
+\DoxyCodeLine{00274\ \ \ \ \ box\_locations,\ box\_classes\ =\ ops.dense\_to\_sparse\_boxes(}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ dense\_location\_placeholder,\ dense\_num\_boxes\_placeholder,\ num\_classes)}
+\DoxyCodeLine{00276\ \ \ \ \ feed\_dict\ =\ \{dense\_location\_placeholder:\ np.random.uniform(}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ size=[num\_boxes,\ code\_size]),}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dense\_num\_boxes\_placeholder:\ np.array([1,\ 0,\ 0,\ 2],}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.int32)\}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ expected\_box\_locations\ =\ (feed\_dict[dense\_location\_placeholder]}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [:num\_valid\_boxes])}
+\DoxyCodeLine{00283\ \ \ \ \ expected\_box\_classses\ =\ np.array([0,\ 3,\ 3])}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ box\_locations,\ box\_classes\ =\ sess.run([box\_locations,\ box\_classes],}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=feed\_dict)}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ self.assertAllClose(box\_locations,\ expected\_box\_locations,\ rtol=1e-\/6,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atol=1e-\/6)}
+\DoxyCodeLine{00290\ \ \ \ \ self.assertAllEqual(box\_classes,\ expected\_box\_classses)}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

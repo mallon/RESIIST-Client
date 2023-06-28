@@ -1,0 +1,43 @@
+\doxysection{config.\+py}
+\hypertarget{config_8py_source}{}\label{config_8py_source}\index{src/main/resources/processing/video/detections/event\_detection/pyimagesearch/config.py@{src/main/resources/processing/video/detections/event\_detection/pyimagesearch/config.py}}
+\mbox{\hyperlink{config_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00001}\mbox{\hyperlink{namespacepyimagesearch_1_1config}{00001}}\ \textcolor{comment}{\#\ import\ the\ necessary\ packages}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00002}00002\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00004}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a232d078502fe6b5b1502bb841867658b}{00004}}\ CURRENT\_PYTHON\_PATH=os.getcwd()\ +\ \textcolor{stringliteral}{"{}/src/main/resources"{}}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00005}\mbox{\hyperlink{namespacepyimagesearch_1_1config_adb57ac1674a412a555fbd7db1fd5c3f5}{00005}}\ EXTRACTION\_TO\_INTEGRATION\_PATH\ =\ CURRENT\_PYTHON\_PATH\ +\ \textcolor{stringliteral}{'/processing/video/detections/'}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00007}00007\ \textcolor{comment}{\#\ initialize\ the\ path\ to\ the\ input\ directory\ containing\ our\ dataset}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00008}00008\ \textcolor{comment}{\#\ of\ images}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00009}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a0ff2d86190da0293bb790cc35bf9d32e}{00009}}\ DATASET\_PATH\ =\ \textcolor{stringliteral}{"{}Cyclone\_Wildfire\_Flood\_Earthquake\_Database"{}}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00011}00011\ \textcolor{comment}{\#\ initialize\ the\ class\ labels\ in\ the\ dataset}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00012}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a13425f46aa2f463c06036b53f57c4ec4}{00012}}\ CLASSES\ =\ [\textcolor{stringliteral}{"{}Cyclone"{}},\ \textcolor{stringliteral}{"{}Earthquake"{}},\ \textcolor{stringliteral}{"{}Flood"{}},\ \textcolor{stringliteral}{"{}Wildfire"{}}]}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00014}00014\ \textcolor{comment}{\#\ define\ the\ size\ of\ the\ training,\ validation\ (which\ comes\ from\ the}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00015}00015\ \textcolor{comment}{\#\ train\ split),\ and\ testing\ splits,\ respectively}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00016}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a2a7f5a12594fa65a83b0b371aabeec26}{00016}}\ TRAIN\_SPLIT\ =\ 0.75}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00017}\mbox{\hyperlink{namespacepyimagesearch_1_1config_ad9165ff611971ca57ea1887bc406dc3d}{00017}}\ VAL\_SPLIT\ =\ 0.1}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00018}\mbox{\hyperlink{namespacepyimagesearch_1_1config_aef3c0ad3ad397f5681931648a198449c}{00018}}\ TEST\_SPLIT\ =\ 0.25}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00020}00020\ \textcolor{comment}{\#\ define\ the\ minimum\ learning\ rate,\ maximum\ learning\ rate,\ batch\ size,}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00021}00021\ \textcolor{comment}{\#\ step\ size,\ CLR\ method,\ and\ number\ of\ epochs}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00022}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a6f5fb097a8a501bdf16708def0356633}{00022}}\ MIN\_LR\ =\ 1e-\/6}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00023}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a195893f7f8e3559d3e99731356e9c07a}{00023}}\ MAX\_LR\ =\ 1e-\/4}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00024}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a8245c5ebb828076afa50685408d18a33}{00024}}\ BATCH\_SIZE\ =\ 32}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00025}\mbox{\hyperlink{namespacepyimagesearch_1_1config_aeafd905f1cfaef3b07b2d07d2db654bf}{00025}}\ STEP\_SIZE\ =\ 8}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00026}\mbox{\hyperlink{namespacepyimagesearch_1_1config_accd00639f42412a0bb7d2fa6f5ef1bb2}{00026}}\ CLR\_METHOD\ =\ \textcolor{stringliteral}{"{}triangular"{}}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00027}\mbox{\hyperlink{namespacepyimagesearch_1_1config_ac9d70ba818c59457f83b4e40d4a801c6}{00027}}\ NUM\_EPOCHS\ =\ 48}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00029}00029\ \textcolor{comment}{\#\ set\ the\ path\ to\ the\ serialized\ model\ after\ training}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00030}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a3466a77ef62ed239522996c411de9960}{00030}}\ MODEL\_PATH\ =\ os.path.sep.join([EXTRACTION\_TO\_INTEGRATION\_PATH+\textcolor{stringliteral}{"{}event\_detection/output"{}},\ \textcolor{stringliteral}{"{}natural\_disaster.model"{}}])}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00031}\mbox{\hyperlink{namespacepyimagesearch_1_1config_aaa39d961a8c446877f8c352304efc826}{00031}}\ MODEL\_PATH\_PB\ =\ os.path.sep.join([EXTRACTION\_TO\_INTEGRATION\_PATH+\textcolor{stringliteral}{"{}event\_detection/output/natural\_disaster.model"{}},\ \textcolor{stringliteral}{"{}saved\_model.pb"{}}])}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00033}00033\ \textcolor{comment}{\#\ define\ the\ path\ to\ the\ output\ learning\ rate\ finder\ plot,\ training}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00034}00034\ \textcolor{comment}{\#\ history\ plot\ and\ cyclical\ learning\ rate\ plot}}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00035}\mbox{\hyperlink{namespacepyimagesearch_1_1config_ad4ecc0024cf12a7233df15c9a531195f}{00035}}\ LRFIND\_PLOT\_PATH\ =\ os.path.sep.join([EXTRACTION\_TO\_INTEGRATION\_PATH+\textcolor{stringliteral}{"{}event\_detection/output"{}},\ \textcolor{stringliteral}{"{}lrfind\_plot.png"{}}])}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00036}\mbox{\hyperlink{namespacepyimagesearch_1_1config_a240a90a8e7629b5897ebfb7b5cb6f9e1}{00036}}\ TRAINING\_PLOT\_PATH\ =\ os.path.sep.join([EXTRACTION\_TO\_INTEGRATION\_PATH+\textcolor{stringliteral}{"{}event\_detection/output"{}},\ \textcolor{stringliteral}{"{}training\_plot.png"{}}])}
+\DoxyCodeLine{\Hypertarget{config_8py_source_l00037}\mbox{\hyperlink{namespacepyimagesearch_1_1config_ad71f1e2ef510dfdda7842b119e9a7204}{00037}}\ CLR\_PLOT\_PATH\ =\ os.path.sep.join([EXTRACTION\_TO\_INTEGRATION\_PATH+\textcolor{stringliteral}{"{}event\_detection/output"{}},\ \textcolor{stringliteral}{"{}clr\_plot.png"{}}])}
+
+\end{DoxyCode}

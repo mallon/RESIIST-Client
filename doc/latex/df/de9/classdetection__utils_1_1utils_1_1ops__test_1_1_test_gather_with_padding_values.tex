@@ -1,0 +1,90 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Gather\+With\+Padding\+Values Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values}\index{detection\_utils.utils.ops\_test.TestGatherWithPaddingValues@{detection\_utils.utils.ops\_test.TestGatherWithPaddingValues}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Gather\+With\+Padding\+Values\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{df/df1/classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Gather\+With\+Padding\+Values\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{da/d35/classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values_a15f2a43759976f1db9823a49d5473ad1}{test\+\_\+gather\+\_\+with\+\_\+padding\+\_\+values}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01412}{1412}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values_a15f2a43759976f1db9823a49d5473ad1}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_test_gather_with_padding_values_a15f2a43759976f1db9823a49d5473ad1} 
+\index{detection\_utils.utils.ops\_test.TestGatherWithPaddingValues@{detection\_utils.utils.ops\_test.TestGatherWithPaddingValues}!test\_gather\_with\_padding\_values@{test\_gather\_with\_padding\_values}}
+\index{test\_gather\_with\_padding\_values@{test\_gather\_with\_padding\_values}!detection\_utils.utils.ops\_test.TestGatherWithPaddingValues@{detection\_utils.utils.ops\_test.TestGatherWithPaddingValues}}
+\doxysubsubsection{\texorpdfstring{test\_gather\_with\_padding\_values()}{test\_gather\_with\_padding\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Gather\+With\+Padding\+Values.\+test\+\_\+gather\+\_\+with\+\_\+padding\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01414}{1414}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01414\ \ \ \textcolor{keyword}{def\ }test\_gather\_with\_padding\_values(self):}
+\DoxyCodeLine{01415\ \ \ \ \ indices\ =\ tf.constant([1,\ -\/1,\ 0,\ -\/1])}
+\DoxyCodeLine{01416\ \ \ \ \ input\_tensor\ =\ tf.constant([[0,\ 0,\ 0.1,\ 0.1],\ [0,\ 0,\ 0.2,\ 0.2]],}
+\DoxyCodeLine{01417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{01418\ \ \ \ \ expected\_gathered\_tensor\ =\ [}
+\DoxyCodeLine{01419\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0.2,\ 0.2],}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01421\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0.1,\ 0.1],}
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01423\ \ \ \ \ ]}
+\DoxyCodeLine{01424\ \ \ \ \ gathered\_tensor\ =\ ops.gather\_with\_padding\_values(}
+\DoxyCodeLine{01425\ \ \ \ \ \ \ \ \ input\_tensor,}
+\DoxyCodeLine{01426\ \ \ \ \ \ \ \ \ indices=indices,}
+\DoxyCodeLine{01427\ \ \ \ \ \ \ \ \ padding\_value=tf.zeros\_like(input\_tensor[0]))}
+\DoxyCodeLine{01428\ \ \ \ \ self.assertEqual(gathered\_tensor.dtype,\ tf.float32)}
+\DoxyCodeLine{01429\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{01430\ \ \ \ \ \ \ gathered\_tensor\_np\ =\ gathered\_tensor.eval()}
+\DoxyCodeLine{01431\ \ \ \ \ self.assertAllClose(expected\_gathered\_tensor,\ gathered\_tensor\_np)}
+\DoxyCodeLine{01432\ }
+\DoxyCodeLine{01433\ }
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01435\ }
+\DoxyCodeLine{01436\ }
+\DoxyCodeLine{01437\ }
+\DoxyCodeLine{01438\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

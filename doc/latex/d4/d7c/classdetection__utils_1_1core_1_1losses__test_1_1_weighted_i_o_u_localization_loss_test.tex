@@ -1,0 +1,107 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+IOULocalization\+Loss\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test}{}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test}\index{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest@{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+IOULocalization\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{d8/da5/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+IOULocalization\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{d5/d08/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_aea068bb6af305264866893f520dcc55b}{test\+Returns\+Correct\+Loss}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_a64eb3c8916efba984e6c5e3e8464cfd4}{test\+Returns\+Correct\+Loss\+With\+No\+Labels}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00161}{161}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_aea068bb6af305264866893f520dcc55b}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_aea068bb6af305264866893f520dcc55b} 
+\index{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest@{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest}!testReturnsCorrectLoss@{testReturnsCorrectLoss}}
+\index{testReturnsCorrectLoss@{testReturnsCorrectLoss}!detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest@{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLoss()}{testReturnsCorrectLoss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+IOULocalization\+Loss\+Test.\+test\+Returns\+Correct\+Loss (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00163}{163}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLoss(self):}
+\DoxyCodeLine{00164\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[1.5,\ 0,\ 2.4,\ 1],}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .25]]])}
+\DoxyCodeLine{00167\ \ \ \ \ target\_tensor\ =\ tf.constant([[[1.5,\ 0,\ 2.4,\ 1],}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [50,\ 50,\ 500.5,\ 100.25]]])}
+\DoxyCodeLine{00170\ \ \ \ \ weights\ =\ [[1.0,\ .5,\ 2.0]]}
+\DoxyCodeLine{00171\ \ \ \ \ loss\_op\ =\ losses.WeightedIOULocalizationLoss()}
+\DoxyCodeLine{00172\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights)}
+\DoxyCodeLine{00173\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00174\ \ \ \ \ exp\_loss\ =\ 2.0}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00178\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_a64eb3c8916efba984e6c5e3e8464cfd4}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_i_o_u_localization_loss_test_a64eb3c8916efba984e6c5e3e8464cfd4} 
+\index{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest@{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest}!testReturnsCorrectLossWithNoLabels@{testReturnsCorrectLossWithNoLabels}}
+\index{testReturnsCorrectLossWithNoLabels@{testReturnsCorrectLossWithNoLabels}!detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest@{detection\_utils.core.losses\_test.WeightedIOULocalizationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLossWithNoLabels()}{testReturnsCorrectLossWithNoLabels()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+IOULocalization\+Loss\+Test.\+test\+Returns\+Correct\+Loss\+With\+No\+Labels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00179}{179}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00179\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLossWithNoLabels(self):}
+\DoxyCodeLine{00180\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[1.5,\ 0,\ 2.4,\ 1],}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ .5,\ .25]]])}
+\DoxyCodeLine{00183\ \ \ \ \ target\_tensor\ =\ tf.constant([[[1.5,\ 0,\ 2.4,\ 1],}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [50,\ 50,\ 500.5,\ 100.25]]])}
+\DoxyCodeLine{00186\ \ \ \ \ weights\ =\ [[1.0,\ .5,\ 2.0]]}
+\DoxyCodeLine{00187\ \ \ \ \ losses\_mask\ =\ tf.constant([\textcolor{keyword}{False}],\ tf.bool)}
+\DoxyCodeLine{00188\ \ \ \ \ loss\_op\ =\ losses.WeightedIOULocalizationLoss()}
+\DoxyCodeLine{00189\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask=losses\_mask)}
+\DoxyCodeLine{00191\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00192\ \ \ \ \ exp\_loss\ =\ 0.0}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses__test_8py}{losses\+\_\+test.\+py}}\end{DoxyCompactItemize}

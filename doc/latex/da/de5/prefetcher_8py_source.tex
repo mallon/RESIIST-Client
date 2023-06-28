@@ -1,0 +1,67 @@
+\doxysection{prefetcher.\+py}
+\hypertarget{prefetcher_8py_source}{}\label{prefetcher_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/prefetcher.py@{src/main/resources/processing/video/detections/detection\_utils/core/prefetcher.py}}
+\mbox{\hyperlink{prefetcher_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1prefetcher}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Provides\ functions\ to\ prefetch\ tensors\ to\ feed\ into\ models."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00017}00017\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00020}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1prefetcher_a9db401eccb68a6e43d3569311f95f4ed}{00020}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1prefetcher_a9db401eccb68a6e43d3569311f95f4ed}{prefetch}}(tensor\_dict,\ capacity):}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00021}00021\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ prefetch\ queue\ for\ tensors.}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ Creates\ a\ FIFO\ queue\ to\ asynchronously\ enqueue\ tensor\_dicts\ }\textcolor{keywordflow}{and}\ returns\ a}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00024}00024\ \ \ dequeue\ op\ that\ evaluates\ to\ a\ tensor\_dict.\ This\ function\ \textcolor{keywordflow}{is}\ useful\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00025}00025\ \ \ prefetching\ preprocessed\ tensors\ so\ that\ the\ data\ \textcolor{keywordflow}{is}\ readily\ available\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00026}00026\ \ \ consumers.}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00028}00028\ \ \ Example\ input\ pipeline\ when\ you\ don\textcolor{stringliteral}{'t\ need\ batching:}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ key,\ string\_tensor\ =\ slim.parallel\_reader.parallel\_read(...)}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ decoder.decode(string\_tensor)}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ preprocessor.preprocess(tensor\_dict,\ ...)}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ prefetch\_queue\ =\ prefetcher.prefetch(tensor\_dict,\ capacity=20)}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ tensor\_dict\ =\ prefetch\_queue.dequeue()}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ outputs\ =\ Model(tensor\_dict)}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ ...}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00038}00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ For\ input\ pipelines\ }\textcolor{keyword}{with}\ batching,\ refer\ to\ core/batcher.py}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00041}00041\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00042}00042\ \ \ \ \ tensor\_dict:\ a\ dictionary\ of\ tensors\ to\ prefetch.}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00043}00043\ \ \ \ \ capacity:\ the\ size\ of\ the\ prefetch\ queue.}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00045}00045\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00046}00046\ \ \ \ \ a\ FIFO\ prefetcher\ queue}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00047}00047\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ names\ =\ list(tensor\_dict.keys())}}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ dtypes\ =\ [t.dtype\ }\textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ tensor\_dict.values()]}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00050}00050\ \ \ shapes\ =\ [t.get\_shape()\ \textcolor{keywordflow}{for}\ t\ \textcolor{keywordflow}{in}\ tensor\_dict.values()]}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00051}00051\ \ \ prefetch\_queue\ =\ tf.PaddingFIFOQueue(capacity,\ dtypes=dtypes,}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shapes=shapes,}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ names=names,}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'prefetch\_queue'})}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00055}00055\ \ \ enqueue\_op\ =\ prefetch\_queue.enqueue(tensor\_dict)}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00056}00056\ \ \ tf.train.queue\_runner.add\_queue\_runner(tf.train.queue\_runner.QueueRunner(}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00057}00057\ \ \ \ \ \ \ prefetch\_queue,\ [enqueue\_op]))}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00058}00058\ \ \ tf.summary.scalar(}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00059}00059\ \ \ \ \ \ \ \textcolor{stringliteral}{'queue/\%s/fraction\_of\_\%d\_full'}\ \%\ (prefetch\_queue.name,\ capacity),}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00060}00060\ \ \ \ \ \ \ tf.cast(prefetch\_queue.size(),\ dtype=tf.float32)\ *\ (1.\ /\ capacity))}
+\DoxyCodeLine{\Hypertarget{prefetcher_8py_source_l00061}00061\ \ \ \textcolor{keywordflow}{return}\ prefetch\_queue}
+
+\end{DoxyCode}

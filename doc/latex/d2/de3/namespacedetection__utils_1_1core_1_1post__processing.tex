@@ -1,0 +1,1695 @@
+\doxysection{detection\+\_\+utils.\+core.\+post\+\_\+processing Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1post__processing}{}\label{namespacedetection__utils_1_1core_1_1post__processing}\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{batch\+\_\+iou}} (boxes1, boxes2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a259919b31e1b3880168781f2907ecf75}{\+\_\+self\+\_\+suppression}} (iou, iou\+\_\+threshold, loop\+\_\+condition, iou\+\_\+sum)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6}{\+\_\+cross\+\_\+suppression}} (boxes, box\+\_\+slice, iou\+\_\+threshold, inner\+\_\+idx)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386}{\+\_\+suppression\+\_\+loop\+\_\+body}} (boxes, iou\+\_\+threshold, output\+\_\+size, idx)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}{partitioned\+\_\+non\+\_\+max\+\_\+suppression\+\_\+padded}} (boxes, scores, max\+\_\+output\+\_\+size, iou\+\_\+threshold=0.\+5, score\+\_\+threshold=float(\textquotesingle{}-\/inf\textquotesingle{}))
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}{\+\_\+validate\+\_\+boxes\+\_\+scores\+\_\+iou\+\_\+thresh}} (boxes, scores, iou\+\_\+thresh, change\+\_\+coordinate\+\_\+frame, clip\+\_\+window)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}{\+\_\+clip\+\_\+window\+\_\+prune\+\_\+boxes}} (sorted\+\_\+boxes, clip\+\_\+window, pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size, change\+\_\+coordinate\+\_\+frame)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006}{multiclass\+\_\+non\+\_\+max\+\_\+suppression}} (boxes, scores, score\+\_\+thresh, iou\+\_\+thresh, max\+\_\+size\+\_\+per\+\_\+class, max\+\_\+total\+\_\+size=0, clip\+\_\+window=None, change\+\_\+coordinate\+\_\+frame=False, masks=None, boundaries=None, pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size=False, additional\+\_\+fields=None, soft\+\_\+nms\+\_\+sigma=0.\+0, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d}{class\+\_\+agnostic\+\_\+non\+\_\+max\+\_\+suppression}} (boxes, scores, score\+\_\+thresh, iou\+\_\+thresh, max\+\_\+classes\+\_\+per\+\_\+detection=1, max\+\_\+total\+\_\+size=0, clip\+\_\+window=None, change\+\_\+coordinate\+\_\+frame=False, masks=None, boundaries=None, pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size=False, additional\+\_\+fields=None, soft\+\_\+nms\+\_\+sigma=0.\+0, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000}{batch\+\_\+multiclass\+\_\+non\+\_\+max\+\_\+suppression}} (boxes, scores, score\+\_\+thresh, iou\+\_\+thresh, max\+\_\+size\+\_\+per\+\_\+class, max\+\_\+total\+\_\+size=0, clip\+\_\+window=None, change\+\_\+coordinate\+\_\+frame=False, num\+\_\+valid\+\_\+boxes=None, masks=None, additional\+\_\+fields=None, soft\+\_\+nms\+\_\+sigma=0.\+0, scope=None, use\+\_\+static\+\_\+shapes=False, parallel\+\_\+iterations=32, use\+\_\+class\+\_\+agnostic\+\_\+nms=False, max\+\_\+classes\+\_\+per\+\_\+detection=1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aaa179acbbda14bd507b72a2fb36b0fef}{\+\_\+\+NMS\+\_\+\+TILE\+\_\+\+SIZE}} = 512
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Post-processing operations on detected boxes.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}\label{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_clip\_window\_prune\_boxes@{\_clip\_window\_prune\_boxes}}
+\index{\_clip\_window\_prune\_boxes@{\_clip\_window\_prune\_boxes}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_clip\_window\_prune\_boxes()}{\_clip\_window\_prune\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+clip\+\_\+window\+\_\+prune\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{sorted\+\_\+boxes,  }\item[{}]{clip\+\_\+window,  }\item[{}]{pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size,  }\item[{}]{change\+\_\+coordinate\+\_\+frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Prune boxes with zero area.
+
+Args:
+  sorted_boxes: A BoxList containing k detections.
+  clip_window: A float32 tensor of the form [y_min, x_min, y_max, x_max]
+    representing the window to clip and normalize boxes to before performing
+    non-max suppression.
+  pad_to_max_output_size: flag indicating whether to pad to max output size or
+    not.
+  change_coordinate_frame: Whether to normalize coordinates after clipping
+    relative to clip_window (this can only be set to True if a clip_window is
+    provided).
+
+Returns:
+  sorted_boxes: A BoxList containing k detections after pruning.
+  num_valid_nms_boxes_cumulative: Number of valid NMS boxes
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00344}{344}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame):}
+\DoxyCodeLine{00346\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prune\ boxes\ with\ zero\ area.}}
+\DoxyCodeLine{00347\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00348\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00349\ \textcolor{stringliteral}{\ \ \ \ sorted\_boxes:\ A\ BoxList\ containing\ k\ detections.}}
+\DoxyCodeLine{00350\ \textcolor{stringliteral}{\ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{00351\ \textcolor{stringliteral}{\ \ \ \ \ \ representing\ the\ window\ to\ clip\ }\textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{00353\ \ \ \ \ pad\_to\_max\_output\_size:\ flag\ indicating\ whether\ to\ pad\ to\ max\ output\ size\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{00355\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ provided).}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ Returns:}
+\DoxyCodeLine{00360\ \ \ \ \ sorted\_boxes:\ A\ BoxList\ containing\ k\ detections\ after\ pruning.}
+\DoxyCodeLine{00361\ \ \ \ \ num\_valid\_nms\_boxes\_cumulative:\ Number\ of\ valid\ NMS\ boxes}
+\DoxyCodeLine{00362\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00363\ \textcolor{stringliteral}{\ \ sorted\_boxes\ =\ box\_list\_ops.clip\_to\_window(}}
+\DoxyCodeLine{00364\ \textcolor{stringliteral}{\ \ \ \ \ \ sorted\_boxes,}}
+\DoxyCodeLine{00365\ \textcolor{stringliteral}{\ \ \ \ \ \ clip\_window,}}
+\DoxyCodeLine{00366\ \textcolor{stringliteral}{\ \ \ \ \ \ filter\_nonoverlapping=}\textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size)}
+\DoxyCodeLine{00367\ \ \ \textcolor{comment}{\#\ Set\ the\ scores\ of\ boxes\ with\ zero\ area\ to\ -\/1\ to\ keep\ the\ default}}
+\DoxyCodeLine{00368\ \ \ \textcolor{comment}{\#\ behaviour\ of\ pruning\ out\ zero\ area\ boxes.}}
+\DoxyCodeLine{00369\ \ \ sorted\_boxes\_size\ =\ tf.shape(sorted\_boxes.get())[0]}
+\DoxyCodeLine{00370\ \ \ non\_zero\_box\_area\ =\ tf.cast(box\_list\_ops.area(sorted\_boxes),\ tf.bool)}
+\DoxyCodeLine{00371\ \ \ sorted\_boxes\_scores\ =\ tf.where(}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ non\_zero\_box\_area,\ sorted\_boxes.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ -\/1\ *\ tf.ones(sorted\_boxes\_size))}
+\DoxyCodeLine{00374\ \ \ sorted\_boxes.add\_field(fields.BoxListFields.scores,\ sorted\_boxes\_scores)}
+\DoxyCodeLine{00375\ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.reduce\_sum(}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ tf.cast(tf.greater\_equal(sorted\_boxes\_scores,\ 0),\ tf.int32))}
+\DoxyCodeLine{00377\ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(sorted\_boxes,}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{00379\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame:}
+\DoxyCodeLine{00380\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.change\_coordinate\_frame(sorted\_boxes,}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window)}
+\DoxyCodeLine{00382\ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6}\label{namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_cross\_suppression@{\_cross\_suppression}}
+\index{\_cross\_suppression@{\_cross\_suppression}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_cross\_suppression()}{\_cross\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+cross\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{box\+\_\+slice,  }\item[{}]{iou\+\_\+threshold,  }\item[{}]{inner\+\_\+idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Bounding-boxes cross-suppression loop body.
+
+Args:
+  boxes: A float Tensor of shape [1, anchors, 4], representing boxes.
+  box_slice: A float Tensor of shape [1, _NMS_TILE_SIZE, 4], the box tile
+    returned from last iteration
+  iou_threshold: A scalar, representing IOU threshold.
+  inner_idx: A scalar, representing inner index.
+
+Returns:
+  boxes: A float Tensor of shape [1, anchors, 4], representing boxes.
+  ret_slice: A float Tensor of shape [1, _NMS_TILE_SIZE, 4], the box tile
+             after suppression
+  iou_threshold: A scalar, representing IOU threshold.
+  inner_idx: A scalar, inner index incremented.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00114}{114}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114\ \textcolor{keyword}{def\ }\_cross\_suppression(boxes,\ box\_slice,\ iou\_threshold,\ inner\_idx):}
+\DoxyCodeLine{00115\ \ \ \textcolor{stringliteral}{"{}"{}"{}Bounding-\/boxes\ cross-\/suppression\ loop\ body.}}
+\DoxyCodeLine{00116\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00118\ \textcolor{stringliteral}{\ \ \ \ boxes:\ A\ float\ Tensor\ of\ shape\ [1,\ anchors,\ 4],\ representing\ boxes.}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ \ \ box\_slice:\ A\ float\ Tensor\ of\ shape\ [1,\ \_NMS\_TILE\_SIZE,\ 4],\ the\ box\ tile}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ \ \ \ \ returned\ }\textcolor{keyword}{from}\ last\ iteration}
+\DoxyCodeLine{00121\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{00122\ \ \ \ \ inner\_idx:\ A\ scalar,\ representing\ inner\ index.}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ Returns:}
+\DoxyCodeLine{00125\ \ \ \ \ boxes:\ A\ float\ Tensor\ of\ shape\ [1,\ anchors,\ 4],\ representing\ boxes.}
+\DoxyCodeLine{00126\ \ \ \ \ ret\_slice:\ A\ float\ Tensor\ of\ shape\ [1,\ \_NMS\_TILE\_SIZE,\ 4],\ the\ box\ tile}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ after\ suppression}
+\DoxyCodeLine{00128\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{00129\ \ \ \ \ inner\_idx:\ A\ scalar,\ inner\ index\ incremented.}
+\DoxyCodeLine{00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00131\ \textcolor{stringliteral}{\ \ new\_slice\ =\ tf.slice(boxes,\ [0,\ inner\_idx\ *\ \_NMS\_TILE\_SIZE,\ 0],}}
+\DoxyCodeLine{00132\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ \_NMS\_TILE\_SIZE,\ 4])}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ iou\ =\ batch\_iou(new\_slice,\ box\_slice)}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ ret\_slice\ =\ tf.expand\_dims(}}
+\DoxyCodeLine{00135\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.cast(tf.reduce\_all(iou\ <\ iou\_threshold,\ [1]),\ box\_slice.dtype),}}
+\DoxyCodeLine{00136\ \textcolor{stringliteral}{\ \ \ \ \ \ 2)\ *\ box\_slice}}
+\DoxyCodeLine{00137\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ boxes,\ ret\_slice,\ iou\_threshold,\ inner\_idx\ +\ 1}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a259919b31e1b3880168781f2907ecf75}\label{namespacedetection__utils_1_1core_1_1post__processing_a259919b31e1b3880168781f2907ecf75} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_self\_suppression@{\_self\_suppression}}
+\index{\_self\_suppression@{\_self\_suppression}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_self\_suppression()}{\_self\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+self\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{iou,  }\item[{}]{iou\+\_\+threshold,  }\item[{}]{loop\+\_\+condition,  }\item[{}]{iou\+\_\+sum }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Bounding-boxes self-suppression loop body.
+
+Args:
+  iou: A float Tensor with shape [1, num_boxes, max_num_instance]: IOUs.
+  iou_threshold: A scalar, representing IOU threshold.
+  loop_condition: The loop condition returned from last iteration.
+  iou_sum: iou_sum_new returned from last iteration.
+
+Returns:
+  iou_suppressed: A float Tensor with shape [1, num_boxes, max_num_instance],
+                  IOU after suppression.
+  iou_threshold: A scalar, representing IOU threshold.
+  loop_condition: Bool Tensor of shape [], the loop condition.
+  iou_sum_new: The new IOU sum.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00084}{84}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \textcolor{keyword}{def\ }\_self\_suppression(iou,\ iou\_threshold,\ loop\_condition,\ iou\_sum):}
+\DoxyCodeLine{00085\ \ \ \textcolor{stringliteral}{"{}"{}"{}Bounding-\/boxes\ self-\/suppression\ loop\ body.}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00087\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ \ \ iou:\ A\ float\ Tensor\ }\textcolor{keyword}{with}\ shape\ [1,\ num\_boxes,\ max\_num\_instance]:\ IOUs.}
+\DoxyCodeLine{00089\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{00090\ \ \ \ \ loop\_condition:\ The\ loop\ condition\ returned\ \textcolor{keyword}{from}\ last\ iteration.}
+\DoxyCodeLine{00091\ \ \ \ \ iou\_sum:\ iou\_sum\_new\ returned\ \textcolor{keyword}{from}\ last\ iteration.}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ Returns:}
+\DoxyCodeLine{00094\ \ \ \ \ iou\_suppressed:\ A\ float\ Tensor\ \textcolor{keyword}{with}\ shape\ [1,\ num\_boxes,\ max\_num\_instance],}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IOU\ after\ suppression.}
+\DoxyCodeLine{00096\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{00097\ \ \ \ \ loop\_condition:\ Bool\ Tensor\ of\ shape\ [],\ the\ loop\ condition.}
+\DoxyCodeLine{00098\ \ \ \ \ iou\_sum\_new:\ The\ new\ IOU\ sum.}
+\DoxyCodeLine{00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{\ \ del\ loop\_condition}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ can\_suppress\_others\ =\ tf.cast(}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(tf.reduce\_max(iou,\ 1)\ <=\ iou\_threshold,\ [1,\ -\/1,\ 1]),\ iou.dtype)}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ iou\_suppressed\ =\ tf.reshape(}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.cast(}}
+\DoxyCodeLine{00105\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.reduce\_max(can\_suppress\_others\ *\ iou,\ 1)\ <=\ iou\_threshold,}}
+\DoxyCodeLine{00106\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ iou.dtype),\ [1,\ -\/1,\ 1])\ *\ iou}}
+\DoxyCodeLine{00107\ \textcolor{stringliteral}{\ \ iou\_sum\_new\ =\ tf.reduce\_sum(iou\_suppressed,\ [1,\ 2])}}
+\DoxyCodeLine{00108\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ iou\_suppressed,\ iou\_threshold,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ tf.reduce\_any(iou\_sum\ -\/\ iou\_sum\_new\ >\ iou\_threshold),\ iou\_sum\_new}
+\DoxyCodeLine{00111\ \ \ ]}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386}\label{namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_suppression\_loop\_body@{\_suppression\_loop\_body}}
+\index{\_suppression\_loop\_body@{\_suppression\_loop\_body}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_suppression\_loop\_body()}{\_suppression\_loop\_body()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+suppression\+\_\+loop\+\_\+body (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{iou\+\_\+threshold,  }\item[{}]{output\+\_\+size,  }\item[{}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Process boxes in the range [idx*_NMS_TILE_SIZE, (idx+1)*_NMS_TILE_SIZE).
+
+Args:
+  boxes: a tensor with a shape of [1, anchors, 4].
+  iou_threshold: a float representing the threshold for deciding whether boxes
+    overlap too much with respect to IOU.
+  output_size: an int32 tensor of size [1]. Representing the number of
+    selected boxes.
+  idx: an integer scalar representing induction variable.
+
+Returns:
+  boxes: updated boxes.
+  iou_threshold: pass down iou_threshold to the next iteration.
+  output_size: the updated output_size.
+  idx: the updated induction variable.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00140}{140}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00140\ \textcolor{keyword}{def\ }\_suppression\_loop\_body(boxes,\ iou\_threshold,\ output\_size,\ idx):}
+\DoxyCodeLine{00141\ \ \ \textcolor{stringliteral}{"{}"{}"{}Process\ boxes\ in\ the\ range\ [idx*\_NMS\_TILE\_SIZE,\ (idx+1)*\_NMS\_TILE\_SIZE).}}
+\DoxyCodeLine{00142\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00143\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00144\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ tensor\ }\textcolor{keyword}{with}\ a\ shape\ of\ [1,\ anchors,\ 4].}
+\DoxyCodeLine{00145\ \ \ \ \ iou\_threshold:\ a\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ whether\ boxes}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ overlap\ too\ much\ \textcolor{keyword}{with}\ respect\ to\ IOU.}
+\DoxyCodeLine{00147\ \ \ \ \ output\_size:\ an\ int32\ tensor\ of\ size\ [1].\ Representing\ the\ number\ of}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ selected\ boxes.}
+\DoxyCodeLine{00149\ \ \ \ \ idx:\ an\ integer\ scalar\ representing\ induction\ variable.}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ Returns:}
+\DoxyCodeLine{00152\ \ \ \ \ boxes:\ updated\ boxes.}
+\DoxyCodeLine{00153\ \ \ \ \ iou\_threshold:\ \textcolor{keywordflow}{pass}\ down\ iou\_threshold\ to\ the\ next\ iteration.}
+\DoxyCodeLine{00154\ \ \ \ \ output\_size:\ the\ updated\ output\_size.}
+\DoxyCodeLine{00155\ \ \ \ \ idx:\ the\ updated\ induction\ variable.}
+\DoxyCodeLine{00156\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00157\ \textcolor{stringliteral}{\ \ num\_tiles\ =\ tf.shape(boxes)[1]\ //\ \_NMS\_TILE\_SIZE}}
+\DoxyCodeLine{00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00159\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Iterates\ over\ tiles\ that\ can\ possibly\ suppress\ the\ current\ tile.}}
+\DoxyCodeLine{00160\ \ \ box\_slice\ =\ tf.slice(boxes,\ [0,\ idx\ *\ \_NMS\_TILE\_SIZE,\ 0],}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ \_NMS\_TILE\_SIZE,\ 4])}
+\DoxyCodeLine{00162\ \ \ \_,\ box\_slice,\ \_,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \textcolor{keyword}{lambda}\ \_boxes,\ \_box\_slice,\ \_threshold,\ inner\_idx:\ inner\_idx\ <\ idx,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \_cross\_suppression,\ [boxes,\ box\_slice,\ iou\_threshold,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant(0)])}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{\#\ Iterates\ over\ the\ current\ tile\ to\ compute\ self-\/suppression.}}
+\DoxyCodeLine{00168\ \ \ iou\ =\ batch\_iou(box\_slice,\ box\_slice)}
+\DoxyCodeLine{00169\ \ \ mask\ =\ tf.expand\_dims(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ tf.reshape(tf.range(\_NMS\_TILE\_SIZE),\ [1,\ -\/1])\ >\ tf.reshape(}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ tf.range(\_NMS\_TILE\_SIZE),\ [-\/1,\ 1]),\ 0)}
+\DoxyCodeLine{00172\ \ \ iou\ *=\ tf.cast(tf.logical\_and(mask,\ iou\ >=\ iou\_threshold),\ iou.dtype)}
+\DoxyCodeLine{00173\ \ \ suppressed\_iou,\ \_,\ \_,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \textcolor{keyword}{lambda}\ \_iou,\ \_threshold,\ loop\_condition,\ \_iou\_sum:\ loop\_condition,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \_self\_suppression,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ [iou,\ iou\_threshold,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ tf.constant(\textcolor{keyword}{True}),}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ tf.reduce\_sum(iou,\ [1,\ 2])])}
+\DoxyCodeLine{00179\ \ \ suppressed\_box\ =\ tf.reduce\_sum(suppressed\_iou,\ 1)\ >\ 0}
+\DoxyCodeLine{00180\ \ \ box\_slice\ *=\ tf.expand\_dims(1.0\ -\/\ tf.cast(suppressed\_box,\ box\_slice.dtype),\ 2)}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{\#\ Uses\ box\_slice\ to\ update\ the\ input\ boxes.}}
+\DoxyCodeLine{00183\ \ \ mask\ =\ tf.reshape(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ tf.cast(tf.equal(tf.range(num\_tiles),\ idx),\ boxes.dtype),\ [1,\ -\/1,\ 1,\ 1])}
+\DoxyCodeLine{00185\ \ \ boxes\ =\ tf.tile(tf.expand\_dims(box\_slice,\ [1]),}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ num\_tiles,\ 1,\ 1])\ *\ mask\ +\ tf.reshape(}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,\ [1,\ num\_tiles,\ \_NMS\_TILE\_SIZE,\ 4])\ *\ (1\ -\/\ mask)}
+\DoxyCodeLine{00188\ \ \ boxes\ =\ tf.reshape(boxes,\ [1,\ -\/1,\ 4])}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{\#\ Updates\ output\_size.}}
+\DoxyCodeLine{00191\ \ \ output\_size\ +=\ tf.reduce\_sum(}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ tf.cast(tf.reduce\_any(box\_slice\ >\ 0,\ [2]),\ tf.int32),\ [1])}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{return}\ boxes,\ iou\_threshold,\ output\_size,\ idx\ +\ 1}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}\label{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_validate\_boxes\_scores\_iou\_thresh@{\_validate\_boxes\_scores\_iou\_thresh}}
+\index{\_validate\_boxes\_scores\_iou\_thresh@{\_validate\_boxes\_scores\_iou\_thresh}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_validate\_boxes\_scores\_iou\_thresh()}{\_validate\_boxes\_scores\_iou\_thresh()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+validate\+\_\+boxes\+\_\+scores\+\_\+iou\+\_\+thresh (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{scores,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{change\+\_\+coordinate\+\_\+frame,  }\item[{}]{clip\+\_\+window }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Validates boxes, scores and iou_thresh.
+
+This function validates the boxes, scores, iou_thresh
+   and if change_coordinate_frame is True, clip_window must be specified.
+
+Args:
+  boxes: A [k, q, 4] float32 tensor containing k detections. `q` can be either
+    number of classes or 1 depending on whether a separate box is predicted
+    per class.
+  scores: A [k, num_classes] float32 tensor containing the scores for each of
+    the k detections. The scores have to be non-negative when
+    pad_to_max_output_size is True.
+  iou_thresh: scalar threshold for IOU (new boxes that have high IOU overlap
+    with previously selected boxes are removed).
+  change_coordinate_frame: Whether to normalize coordinates after clipping
+    relative to clip_window (this can only be set to True if a clip_window is
+    provided)
+  clip_window: A float32 tensor of the form [y_min, x_min, y_max, x_max]
+    representing the window to clip and normalize boxes to before performing
+    non-max suppression.
+
+Raises:
+  ValueError: if iou_thresh is not in [0, 1] or if input boxlist does not
+  have a valid scores field.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00297}{297}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window):}
+\DoxyCodeLine{00299\ \ \ \textcolor{stringliteral}{"{}"{}"{}Validates\ boxes,\ scores\ and\ iou\_thresh.}}
+\DoxyCodeLine{00300\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00301\ \textcolor{stringliteral}{\ \ This\ function\ validates\ the\ boxes,\ scores,\ iou\_thresh}}
+\DoxyCodeLine{00302\ \textcolor{stringliteral}{\ \ \ \ \ }\textcolor{keywordflow}{and}\ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True},\ clip\_window\ must\ be\ specified.}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ Args:}
+\DoxyCodeLine{00305\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00308\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00311\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00313\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{00316\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ Raises:}
+\DoxyCodeLine{00321\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00322\ \ \ \ \ have\ a\ valid\ scores\ field.}
+\DoxyCodeLine{00323\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00324\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <=\ iou\_thresh\ <=\ 1.0:}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'iou\_thresh\ must\ be\ between\ 0\ and\ 1'})}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordflow}{if}\ scores.shape.ndims\ !=\ 2:}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ be\ of\ rank\ 2'})}
+\DoxyCodeLine{00328\ \ \ \textcolor{keywordflow}{if}\ shape\_utils.get\_dim\_as\_int(scores.shape[1])\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ must\ have\ statically\ defined\ second\ '}\ \textcolor{stringliteral}{'dimension'})}
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordflow}{if}\ boxes.shape.ndims\ !=\ 3:}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxes\ must\ be\ of\ rank\ 3.'})}
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (shape\_utils.get\_dim\_as\_int(}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ boxes.shape[1])\ ==\ shape\_utils.get\_dim\_as\_int(scores.shape[1])\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(boxes.shape[1])\ ==\ 1):}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'second\ dimension\ of\ boxes\ must\ be\ either\ 1\ or\ equal\ '}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ the\ second\ dimension\ of\ scores'})}
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordflow}{if}\ shape\_utils.get\_dim\_as\_int(boxes.shape[2])\ !=\ 4:}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'last\ dimension\ of\ boxes\ must\ be\ of\ size\ 4.'})}
+\DoxyCodeLine{00339\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{and}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'if\ change\_coordinate\_frame\ is\ True,\ then\ a\ clip\_window'}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'must\ be\ specified.'})}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}\label{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!batch\_iou@{batch\_iou}}
+\index{batch\_iou@{batch\_iou}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{batch\_iou()}{batch\_iou()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+batch\+\_\+iou (\begin{DoxyParamCaption}\item[{}]{boxes1,  }\item[{}]{boxes2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calculates the overlap between proposal and ground truth boxes.
+
+Some `boxes2` may have been padded.  The returned `iou` tensor for these
+boxes will be -1.
+
+Args:
+  boxes1: a tensor with a shape of [batch_size, N, 4]. N is the number of
+    proposals before groundtruth assignment. The last dimension is the pixel
+    coordinates in [ymin, xmin, ymax, xmax] form.
+  boxes2: a tensor with a shape of [batch_size, MAX_NUM_INSTANCES, 4]. This
+    tensor might have paddings with a negative value.
+
+Returns:
+  iou: a tensor with as a shape of [batch_size, N, MAX_NUM_INSTANCES].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00035}{35}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \textcolor{keyword}{def\ }batch\_iou(boxes1,\ boxes2):}
+\DoxyCodeLine{00036\ \ \ \textcolor{stringliteral}{"{}"{}"{}Calculates\ the\ overlap\ between\ proposal\ and\ ground\ truth\ boxes.}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ Some\ \`{}boxes2\`{}\ may\ have\ been\ padded.\ \ The\ returned\ \`{}iou\`{}\ tensor\ }\textcolor{keywordflow}{for}\ these}
+\DoxyCodeLine{00039\ \ \ boxes\ will\ be\ -\/1.}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ Args:}
+\DoxyCodeLine{00042\ \ \ \ \ boxes1:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [batch\_size,\ N,\ 4].\ N\ \textcolor{keywordflow}{is}\ the\ number\ of}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ proposals\ before\ groundtruth\ assignment.\ The\ last\ dimension\ \textcolor{keywordflow}{is}\ the\ pixel}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{in}\ [ymin,\ xmin,\ ymax,\ xmax]\ form.}
+\DoxyCodeLine{00045\ \ \ \ \ boxes2:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [batch\_size,\ MAX\_NUM\_INSTANCES,\ 4].\ This}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ tensor\ might\ have\ paddings\ \textcolor{keyword}{with}\ a\ negative\ value.}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ Returns:}
+\DoxyCodeLine{00049\ \ \ \ \ iou:\ a\ tensor\ \textcolor{keyword}{with}\ \textcolor{keyword}{as}\ a\ shape\ of\ [batch\_size,\ N,\ MAX\_NUM\_INSTANCES].}
+\DoxyCodeLine{00050\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'BatchIOU'}):}
+\DoxyCodeLine{00052\ \ \ \ \ y1\_min,\ x1\_min,\ y1\_max,\ x1\_max\ =\ tf.split(}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ value=boxes1,\ num\_or\_size\_splits=4,\ axis=2)}
+\DoxyCodeLine{00054\ \ \ \ \ y2\_min,\ x2\_min,\ y2\_max,\ x2\_max\ =\ tf.split(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ value=boxes2,\ num\_or\_size\_splits=4,\ axis=2)}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ the\ intersection\ area.}}
+\DoxyCodeLine{00058\ \ \ \ \ intersection\_xmin\ =\ tf.maximum(x1\_min,\ tf.transpose(x2\_min,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{00059\ \ \ \ \ intersection\_xmax\ =\ tf.minimum(x1\_max,\ tf.transpose(x2\_max,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{00060\ \ \ \ \ intersection\_ymin\ =\ tf.maximum(y1\_min,\ tf.transpose(y2\_min,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{00061\ \ \ \ \ intersection\_ymax\ =\ tf.minimum(y1\_max,\ tf.transpose(y2\_max,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{00062\ \ \ \ \ intersection\_area\ =\ tf.maximum(}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ (intersection\_xmax\ -\/\ intersection\_xmin),\ 0)\ *\ tf.maximum(}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ (intersection\_ymax\ -\/\ intersection\_ymin),\ 0)}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ the\ union\ area.}}
+\DoxyCodeLine{00067\ \ \ \ \ area1\ =\ (y1\_max\ -\/\ y1\_min)\ *\ (x1\_max\ -\/\ x1\_min)}
+\DoxyCodeLine{00068\ \ \ \ \ area2\ =\ (y2\_max\ -\/\ y2\_min)\ *\ (x2\_max\ -\/\ x2\_min)}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{\#\ Adds\ a\ small\ epsilon\ to\ avoid\ divide-\/by-\/zero.}}
+\DoxyCodeLine{00070\ \ \ \ \ union\_area\ =\ area1\ +\ tf.transpose(area2,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 2,\ 1])\ -\/\ intersection\_area\ +\ 1e-\/8}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ IoU.}}
+\DoxyCodeLine{00074\ \ \ \ \ iou\ =\ intersection\_area\ /\ union\_area}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{\#\ Fills\ -\/1\ for\ padded\ ground\ truth\ boxes.}}
+\DoxyCodeLine{00077\ \ \ \ \ padding\_mask\ =\ tf.logical\_and(}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ tf.less(intersection\_xmax,\ 0),\ tf.less(intersection\_ymax,\ 0))}
+\DoxyCodeLine{00079\ \ \ \ \ iou\ =\ tf.where(padding\_mask,\ -\/tf.ones\_like(iou),\ iou)}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ iou}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000}\label{namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!batch\_multiclass\_non\_max\_suppression@{batch\_multiclass\_non\_max\_suppression}}
+\index{batch\_multiclass\_non\_max\_suppression@{batch\_multiclass\_non\_max\_suppression}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{batch\_multiclass\_non\_max\_suppression()}{batch\_multiclass\_non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+batch\+\_\+multiclass\+\_\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{scores,  }\item[{}]{score\+\_\+thresh,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{max\+\_\+size\+\_\+per\+\_\+class,  }\item[{}]{max\+\_\+total\+\_\+size = {\ttfamily 0},  }\item[{}]{clip\+\_\+window = {\ttfamily None},  }\item[{}]{change\+\_\+coordinate\+\_\+frame = {\ttfamily False},  }\item[{}]{num\+\_\+valid\+\_\+boxes = {\ttfamily None},  }\item[{}]{masks = {\ttfamily None},  }\item[{}]{additional\+\_\+fields = {\ttfamily None},  }\item[{}]{soft\+\_\+nms\+\_\+sigma = {\ttfamily 0.0},  }\item[{}]{scope = {\ttfamily None},  }\item[{}]{use\+\_\+static\+\_\+shapes = {\ttfamily False},  }\item[{}]{parallel\+\_\+iterations = {\ttfamily 32},  }\item[{}]{use\+\_\+class\+\_\+agnostic\+\_\+nms = {\ttfamily False},  }\item[{}]{max\+\_\+classes\+\_\+per\+\_\+detection = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Multi-class version of non maximum suppression that operates on a batch.
+
+This op is similar to `multiclass_non_max_suppression` but operates on a batch
+of boxes and scores. See documentation for `multiclass_non_max_suppression`
+for details.
+
+Args:
+  boxes: A [batch_size, num_anchors, q, 4] float32 tensor containing
+    detections. If `q` is 1 then same boxes are used for all classes
+    otherwise, if `q` is equal to number of classes, class-specific boxes are
+    used.
+  scores: A [batch_size, num_anchors, num_classes] float32 tensor containing
+    the scores for each of the `num_anchors` detections. The scores have to be
+    non-negative when use_static_shapes is set True.
+  score_thresh: scalar threshold for score (low scoring boxes are removed).
+  iou_thresh: scalar threshold for IOU (new boxes that have high IOU overlap
+    with previously selected boxes are removed).
+  max_size_per_class: maximum number of retained boxes per class.
+  max_total_size: maximum number of boxes retained over all classes. By
+    default returns all boxes retained after capping boxes per class.
+  clip_window: A float32 tensor of shape [batch_size, 4]  where each entry is
+    of the form [y_min, x_min, y_max, x_max] representing the window to clip
+    boxes to before performing non-max suppression. This argument can also be
+    a tensor of shape [4] in which case, the same clip window is applied to
+    all images in the batch. If clip_widow is None, all boxes are used to
+    perform non-max suppression.
+  change_coordinate_frame: Whether to normalize coordinates after clipping
+    relative to clip_window (this can only be set to True if a clip_window is
+    provided)
+  num_valid_boxes: (optional) a Tensor of type `int32`. A 1-D tensor of shape
+    [batch_size] representing the number of valid boxes to be considered for
+    each image in the batch.  This parameter allows for ignoring zero
+    paddings.
+  masks: (optional) a [batch_size, num_anchors, q, mask_height, mask_width]
+    float32 tensor containing box masks. `q` can be either number of classes
+    or 1 depending on whether a separate mask is predicted per class.
+  additional_fields: (optional) If not None, a dictionary that maps keys to
+    tensors whose dimensions are [batch_size, num_anchors, ...].
+  soft_nms_sigma: A scalar float representing the Soft NMS sigma parameter;
+    See Bodla et al, https://arxiv.org/abs/1704.04503).  When
+    `soft_nms_sigma=0.0` (which is default), we fall back to standard (hard)
+    NMS.  Soft NMS is currently only supported when pad_to_max_output_size is
+    False.
+  scope: tf scope name.
+  use_static_shapes: If true, the output nmsed boxes are padded to be of
+    length `max_size_per_class` and it doesn't clip boxes to max_total_size.
+    Defaults to false.
+  parallel_iterations: (optional) number of batch items to process in
+    parallel.
+  use_class_agnostic_nms: If true, this uses class-agnostic non max
+    suppression
+  max_classes_per_detection: Maximum number of retained classes per detection
+    box in class-agnostic NMS.
+
+Returns:
+  'nmsed_boxes': A [batch_size, max_detections, 4] float32 tensor
+    containing the non-max suppressed boxes.
+  'nmsed_scores': A [batch_size, max_detections] float32 tensor containing
+    the scores for the boxes.
+  'nmsed_classes': A [batch_size, max_detections] float32 tensor
+    containing the class for boxes.
+  'nmsed_masks': (optional) a
+    [batch_size, max_detections, mask_height, mask_width] float32 tensor
+    containing masks for each selected box. This is set to None if input
+    `masks` is None.
+  'nmsed_additional_fields': (optional) a dictionary of
+    [batch_size, max_detections, ...] float32 tensors corresponding to the
+    tensors specified in the input `additional_fields`. This is not returned
+    if input `additional_fields` is None.
+  'num_detections': A [batch_size] int32 tensor indicating the number of
+    valid detections per batch item. Only the top num_detections[i] entries in
+    nms_boxes[i], nms_scores[i] and nms_class[i] are valid. The rest of the
+    entries are zero paddings.
+
+Raises:
+  ValueError: if `q` in boxes.shape is not 1 or not equal to number of
+    classes as inferred from scores.shape.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00807}{807}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_classes\_per\_detection=1):}
+\DoxyCodeLine{00824\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression\ that\ operates\ on\ a\ batch.}}
+\DoxyCodeLine{00825\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00826\ \textcolor{stringliteral}{\ \ This\ op\ }\textcolor{keywordflow}{is}\ similar\ to\ \`{}multiclass\_non\_max\_suppression\`{}\ but\ operates\ on\ a\ batch}
+\DoxyCodeLine{00827\ \ \ of\ boxes\ \textcolor{keywordflow}{and}\ scores.\ See\ documentation\ \textcolor{keywordflow}{for}\ \`{}multiclass\_non\_max\_suppression\`{}}
+\DoxyCodeLine{00828\ \ \ \textcolor{keywordflow}{for}\ details.}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00830\ \ \ Args:}
+\DoxyCodeLine{00831\ \ \ \ \ boxes:\ A\ [batch\_size,\ num\_anchors,\ q,\ 4]\ float32\ tensor\ containing}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ detections.\ If\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ 1\ then\ same\ boxes\ are\ used\ \textcolor{keywordflow}{for}\ all\ classes}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ otherwise,\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ equal\ to\ number\ of\ classes,\ \textcolor{keyword}{class}-\/specific\ boxes\ are}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ used.}
+\DoxyCodeLine{00835\ \ \ \ \ scores:\ A\ [batch\_size,\ num\_anchors,\ num\_classes]\ float32\ tensor\ containing}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ the\ scores\ \textcolor{keywordflow}{for}\ each\ of\ the\ \`{}num\_anchors\`{}\ detections.\ The\ scores\ have\ to\ be}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ non-\/negative\ when\ use\_static\_shapes\ \textcolor{keywordflow}{is}\ set\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00838\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{00839\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00841\ \ \ \ \ max\_size\_per\_class:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00842\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00844\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ shape\ [batch\_size,\ 4]\ \ where\ each\ entry\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]\ representing\ the\ window\ to\ clip}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ boxes\ to\ before\ performing\ non-\/max\ suppression.\ This\ argument\ can\ also\ be}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ a\ tensor\ of\ shape\ [4]\ \textcolor{keywordflow}{in}\ which\ case,\ the\ same\ clip\ window\ \textcolor{keywordflow}{is}\ applied\ to}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ all\ images\ \textcolor{keywordflow}{in}\ the\ batch.\ If\ clip\_widow\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None},\ all\ boxes\ are\ used\ to}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ perform\ non-\/max\ suppression.}
+\DoxyCodeLine{00850\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{00853\ \ \ \ \ num\_valid\_boxes:\ (optional)\ a\ Tensor\ of\ type\ \`{}int32\`{}.\ A\ 1-\/D\ tensor\ of\ shape}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ [batch\_size]\ representing\ the\ number\ of\ valid\ boxes\ to\ be\ considered\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ each\ image\ \textcolor{keywordflow}{in}\ the\ batch.\ \ This\ parameter\ allows\ \textcolor{keywordflow}{for}\ ignoring\ zero}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ paddings.}
+\DoxyCodeLine{00857\ \ \ \ \ masks:\ (optional)\ a\ [batch\_size,\ num\_anchors,\ q,\ mask\_height,\ mask\_width]}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ float32\ tensor\ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00860\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ tensors\ whose\ dimensions\ are\ [batch\_size,\ num\_anchors,\ ...].}
+\DoxyCodeLine{00862\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{00867\ \ \ \ \ scope:\ tf\ scope\ name.}
+\DoxyCodeLine{00868\ \ \ \ \ use\_static\_shapes:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}\ \textcolor{keywordflow}{and}\ it\ doesn\textcolor{stringliteral}{'t\ clip\ boxes\ to\ max\_total\_size.}}
+\DoxyCodeLine{00870\ \textcolor{stringliteral}{\ \ \ \ \ \ Defaults\ to\ false.}}
+\DoxyCodeLine{00871\ \textcolor{stringliteral}{\ \ \ \ parallel\_iterations:\ (optional)\ number\ of\ batch\ items\ to\ process\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ parallel.}
+\DoxyCodeLine{00873\ \ \ \ \ use\_class\_agnostic\_nms:\ If\ true,\ this\ uses\ \textcolor{keyword}{class}-\/agnostic\ non\ max}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ suppression}
+\DoxyCodeLine{00875\ \ \ \ \ max\_classes\_per\_detection:\ Maximum\ number\ of\ retained\ classes\ per\ detection}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ box\ \textcolor{keywordflow}{in}\ \textcolor{keyword}{class}-\/agnostic\ NMS.}
+\DoxyCodeLine{00877\ }
+\DoxyCodeLine{00878\ \ \ Returns:}
+\DoxyCodeLine{00879\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_boxes'}:\ A\ [batch\_size,\ max\_detections,\ 4]\ float32\ tensor}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ containing\ the\ non-\/max\ suppressed\ boxes.}
+\DoxyCodeLine{00881\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_scores'}:\ A\ [batch\_size,\ max\_detections]\ float32\ tensor\ containing}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ the\ scores\ \textcolor{keywordflow}{for}\ the\ boxes.}
+\DoxyCodeLine{00883\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_classes'}:\ A\ [batch\_size,\ max\_detections]\ float32\ tensor}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ containing\ the\ \textcolor{keyword}{class\ }for\ boxes.}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_masks'}:\ (optional)\ a}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ [batch\_size,\ max\_detections,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ containing\ masks\ \textcolor{keywordflow}{for}\ each\ selected\ box.\ This\ \textcolor{keywordflow}{is}\ set\ to\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ input}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \`{}masks\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_additional\_fields'}:\ (optional)\ a\ dictionary\ of}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ [batch\_size,\ max\_detections,\ ...]\ float32\ tensors\ corresponding\ to\ the}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ tensors\ specified\ \textcolor{keywordflow}{in}\ the\ input\ \`{}additional\_fields\`{}.\ This\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ returned}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ input\ \`{}additional\_fields\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{00893\ \ \ \ \ \textcolor{stringliteral}{'num\_detections'}:\ A\ [batch\_size]\ int32\ tensor\ indicating\ the\ number\ of}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ valid\ detections\ per\ batch\ item.\ Only\ the\ top\ num\_detections[i]\ entries\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ nms\_boxes[i],\ nms\_scores[i]\ \textcolor{keywordflow}{and}\ nms\_class[i]\ are\ valid.\ The\ rest\ of\ the}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ entries\ are\ zero\ paddings.}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ Raises:}
+\DoxyCodeLine{00899\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{in}\ boxes.shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ 1\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ equal\ to\ number\ of}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ classes\ \textcolor{keyword}{as}\ inferred\ \textcolor{keyword}{from}\ scores.shape.}
+\DoxyCodeLine{00901\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00902\ \textcolor{stringliteral}{\ \ q\ =\ shape\_utils.get\_dim\_as\_int(boxes.shape[2])}}
+\DoxyCodeLine{00903\ \textcolor{stringliteral}{\ \ num\_classes\ =\ shape\_utils.get\_dim\_as\_int(scores.shape[2])}}
+\DoxyCodeLine{00904\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ q\ !=\ 1\ \textcolor{keywordflow}{and}\ q\ !=\ num\_classes:}
+\DoxyCodeLine{00905\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'third\ dimension\ of\ boxes\ must\ be\ either\ 1\ or\ equal\ '}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ the\ third\ dimension\ of\ scores'})}
+\DoxyCodeLine{00907\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{and}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00908\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'if\ change\_coordinate\_frame\ is\ True,\ then\ a\ clip\_window'}}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'must\ be\ specified.'})}
+\DoxyCodeLine{00910\ \ \ original\_masks\ =\ masks}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00912\ \ \ \textcolor{comment}{\#\ Create\ ordered\ dictionary\ using\ the\ sorted\ keys\ from}}
+\DoxyCodeLine{00913\ \ \ \textcolor{comment}{\#\ additional\ fields\ to\ ensure\ getting\ the\ same\ key\ value\ assignment}}
+\DoxyCodeLine{00914\ \ \ \textcolor{comment}{\#\ in\ \_single\_image\_nms\_fn().\ The\ dictionary\ is\ thus\ a\ sorted\ version\ of}}
+\DoxyCodeLine{00915\ \ \ \textcolor{comment}{\#\ additional\_fields.}}
+\DoxyCodeLine{00916\ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00917\ \ \ \ \ ordered\_additional\_fields\ =\ \{\}}
+\DoxyCodeLine{00918\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00919\ \ \ \ \ ordered\_additional\_fields\ =\ collections.OrderedDict(}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ sorted(additional\_fields.items(),\ key=\textcolor{keyword}{lambda}\ item:\ item[0]))}
+\DoxyCodeLine{00921\ \ \ del\ additional\_fields}
+\DoxyCodeLine{00922\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'BatchMultiClassNonMaxSuppression'}):}
+\DoxyCodeLine{00923\ \ \ \ \ boxes\_shape\ =\ boxes.shape}
+\DoxyCodeLine{00924\ \ \ \ \ batch\_size\ =\ shape\_utils.get\_dim\_as\_int(boxes\_shape[0])}
+\DoxyCodeLine{00925\ \ \ \ \ num\_anchors\ =\ shape\_utils.get\_dim\_as\_int(boxes\_shape[1])}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ batch\_size\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{00929\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_anchors\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ num\_anchors\ =\ tf.shape(boxes)[1]}
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00932\ \ \ \ \ \textcolor{comment}{\#\ If\ num\ valid\ boxes\ aren't\ provided,\ create\ one\ and\ mark\ all\ boxes\ as}}
+\DoxyCodeLine{00933\ \ \ \ \ \textcolor{comment}{\#\ valid.}}
+\DoxyCodeLine{00934\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_valid\_boxes\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ num\_valid\_boxes\ =\ tf.ones([batch\_size],\ dtype=tf.int32)\ *\ num\_anchors}
+\DoxyCodeLine{00936\ }
+\DoxyCodeLine{00937\ \ \ \ \ \textcolor{comment}{\#\ If\ masks\ aren't\ provided,\ create\ dummy\ masks\ so\ we\ can\ only\ have\ one\ copy}}
+\DoxyCodeLine{00938\ \ \ \ \ \textcolor{comment}{\#\ of\ \_single\_image\_nms\_fn\ and\ discard\ the\ dummy\ masks\ after\ map\_fn.}}
+\DoxyCodeLine{00939\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ masks\_shape\ =\ tf.stack([batch\_size,\ num\_anchors,\ q,\ 1,\ 1])}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ masks\ =\ tf.zeros(masks\_shape)}
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00943\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ clip\_window\ =\ tf.stack([}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_min(boxes[:,\ :,\ :,\ 0]),}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_min(boxes[:,\ :,\ :,\ 1]),}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_max(boxes[:,\ :,\ :,\ 2]),}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_max(boxes[:,\ :,\ :,\ 3])}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ ])}
+\DoxyCodeLine{00950\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window.shape.ndims\ ==\ 1:}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ clip\_window\ =\ tf.tile(tf.expand\_dims(clip\_window,\ 0),\ [batch\_size,\ 1])}
+\DoxyCodeLine{00952\ }
+\DoxyCodeLine{00953\ \ \ \ \ \textcolor{keyword}{def\ }\_single\_image\_nms\_fn(args):}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ NMS\ on\ a\ single\ image\ and\ returns\ padded\ output.}}
+\DoxyCodeLine{00955\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00956\ \textcolor{stringliteral}{\ \ \ \ \ \ Args:}}
+\DoxyCodeLine{00957\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ args:\ A\ list\ of\ tensors\ consisting\ of\ the\ following:}}
+\DoxyCodeLine{00958\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ per\_image\_boxes\ -\/\ A\ [num\_anchors,\ q,\ 4]\ float32\ tensor\ containing}}
+\DoxyCodeLine{00959\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ detections.\ If\ \`{}q\`{}\ }\textcolor{keywordflow}{is}\ 1\ then\ same\ boxes\ are\ used\ \textcolor{keywordflow}{for}\ all\ classes}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ otherwise,\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ equal\ to\ number\ of\ classes,\ \textcolor{keyword}{class}-\/specific}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ boxes\ are\ used.}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ per\_image\_scores\ -\/\ A\ [num\_anchors,\ num\_classes]\ float32\ tensor}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of\ the\ \`{}num\_anchors\`{}\ detections.}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ per\_image\_masks\ -\/\ A\ [num\_anchors,\ q,\ mask\_height,\ mask\_width]\ float32}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ per\_image\_clip\_window\ -\/\ A\ 1D\ float32\ tensor\ of\ the\ form}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ [ymin,\ xmin,\ ymax,\ xmax]\ representing\ the\ window\ to\ clip\ the\ boxes}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ \ \ to.}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields\ -\/\ (optional)\ A\ variable\ number\ of\ float32}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ tensors\ each\ \textcolor{keyword}{with}\ size\ [num\_anchors,\ ...].}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ per\_image\_num\_valid\_boxes\ -\/\ A\ tensor\ of\ type\ \`{}int32\`{}.\ A\ 1-\/D\ tensor\ of}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ \ \ shape\ [batch\_size]\ representing\ the\ number\ of\ valid\ boxes\ to\ be}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \ \ \ \ considered\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the\ batch.\ \ This\ parameter\ allows\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ ignoring\ zero\ paddings.}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \ \ \ \ \ \ Returns:}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_boxes'}:\ A\ [max\_detections,\ 4]\ float32\ tensor\ containing\ the}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ non-\/max\ suppressed\ boxes.}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_scores'}:\ A\ [max\_detections]\ float32\ tensor\ containing\ the\ scores}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ the\ boxes.}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_classes'}:\ A\ [max\_detections]\ float32\ tensor\ containing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ boxes.}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_masks'}:\ (optional)\ a\ [max\_detections,\ mask\_height,\ mask\_width]}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ float32\ tensor\ containing\ masks\ \textcolor{keywordflow}{for}\ each\ selected\ box.\ This\ \textcolor{keywordflow}{is}\ set\ to}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ input\ \`{}masks\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_additional\_fields'}:\ \ (optional)\ A\ variable\ number\ of\ float32}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \ \ tensors\ each\ \textcolor{keyword}{with}\ size\ [max\_detections,\ ...]\ corresponding\ to\ the}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \ \ input\ \`{}per\_image\_additional\_fields\`{}.}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'num\_detections'}:\ A\ [batch\_size]\ int32\ tensor\ indicating\ the\ number\ of}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ valid\ detections\ per\ batch\ item.\ Only\ the\ top\ num\_detections[i]}
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \ \ entries\ \textcolor{keywordflow}{in}\ nms\_boxes[i],\ nms\_scores[i]\ \textcolor{keywordflow}{and}\ nms\_class[i]\ are\ valid.\ The}
+\DoxyCodeLine{00993\ \ \ \ \ \ \ \ \ \ \ rest\ of\ the\ entries\ are\ zero\ paddings.}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00995\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_boxes\ =\ args[0]}}
+\DoxyCodeLine{00996\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_scores\ =\ args[1]}}
+\DoxyCodeLine{00997\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_masks\ =\ args[2]}}
+\DoxyCodeLine{00998\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_clip\_window\ =\ args[3]}}
+\DoxyCodeLine{00999\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{comment}{\#\ Make\ sure\ that\ the\ order\ of\ elements\ passed\ in\ args\ is\ aligned\ with}}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \textcolor{comment}{\#\ the\ iteration\ order\ of\ ordered\_additional\_fields}}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ per\_image\_additional\_fields\ =\ \{}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ key:\ value}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ zip(ordered\_additional\_fields,\ args[4:-\/1])}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ per\_image\_num\_valid\_boxes\ =\ args[-\/1]}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ use\_static\_shapes:}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ total\_proposals\ =\ tf.shape(per\_image\_scores)}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ per\_image\_scores\ =\ tf.where(}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ tf.less(tf.range(total\_proposals[0]),\ per\_image\_num\_valid\_boxes),}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \ \ tf.fill(total\_proposals,\ np.finfo(\textcolor{stringliteral}{'float32'}).min))}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ per\_image\_boxes\ =\ tf.reshape(}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_boxes,\ 3\ *\ [0],}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1,\ -\/1])),\ [-\/1,\ q,\ 4])}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ per\_image\_scores\ =\ tf.reshape(}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_scores,\ [0,\ 0],}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1])),}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ num\_classes])}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ per\_image\_masks\ =\ tf.reshape(}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_masks,\ 4\ *\ [0],}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1,\ -\/1,\ -\/1])),}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ q,\ shape\_utils.get\_dim\_as\_int(per\_image\_masks.shape[2]),}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(per\_image\_masks.shape[3])])}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ per\_image\_additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ per\_image\_additional\_fields.items():}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_shape\ =\ tensor.get\_shape()}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_dim\ =\ len(additional\_field\_shape)}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields[key]\ =\ tf.reshape(}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields[key],}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_dim\ *\ [0],}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes]\ +}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (additional\_field\_dim\ -\/\ 1)\ *\ [-\/1])),\ [-\/1]\ +\ [}
+\DoxyCodeLine{01035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(dim)}
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ additional\_field\_shape[1:]}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ use\_class\_agnostic\_nms:}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ num\_valid\_nms\_boxes\ =\ class\_agnostic\_non\_max\_suppression(}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_boxes,}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ max\_classes\_per\_detection,}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size,}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=per\_image\_clip\_window,}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=change\_coordinate\_frame,}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \ \ \ \ masks=per\_image\_masks,}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=use\_static\_shapes,}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=per\_image\_additional\_fields,}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ num\_valid\_nms\_boxes\ =\ multiclass\_non\_max\_suppression(}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_boxes,}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ max\_size\_per\_class,}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size,}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=per\_image\_clip\_window,}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=change\_coordinate\_frame,}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ masks=per\_image\_masks,}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=use\_static\_shapes,}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=per\_image\_additional\_fields,}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ use\_static\_shapes:}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ nmsed\_boxlist\ =\ box\_list\_ops.pad\_or\_clip\_box\_list(}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ max\_total\_size)}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ num\_detections\ =\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ nmsed\_boxes\ =\ nmsed\_boxlist.get()}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ nmsed\_scores\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ nmsed\_classes\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.classes)}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ nmsed\_masks\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.masks)}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ nmsed\_additional\_fields\ =\ []}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \textcolor{comment}{\#\ Sorting\ is\ needed\ here\ to\ ensure\ that\ the\ values\ stored\ in}}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \textcolor{comment}{\#\ nmsed\_additional\_fields\ are\ always\ kept\ in\ the\ same\ order}}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \textcolor{comment}{\#\ across\ different\ execution\ runs.}}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ sorted(per\_image\_additional\_fields.keys()):}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ nmsed\_additional\_fields.append(nmsed\_boxlist.get\_field(key))}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ([nmsed\_boxes,\ nmsed\_scores,\ nmsed\_classes,\ nmsed\_masks]\ +}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nmsed\_additional\_fields\ +\ [num\_detections])}
+\DoxyCodeLine{01083\ }
+\DoxyCodeLine{01084\ \ \ \ \ num\_additional\_fields\ =\ 0}
+\DoxyCodeLine{01085\ \ \ \ \ \textcolor{keywordflow}{if}\ ordered\_additional\_fields:}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ num\_additional\_fields\ =\ len(ordered\_additional\_fields)}
+\DoxyCodeLine{01087\ \ \ \ \ num\_nmsed\_outputs\ =\ 4\ +\ num\_additional\_fields}
+\DoxyCodeLine{01088\ }
+\DoxyCodeLine{01089\ \ \ \ \ batch\_outputs\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \_single\_image\_nms\_fn,}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ elems=([boxes,\ scores,\ masks,\ clip\_window]\ +}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ list(ordered\_additional\_fields.values())\ +\ [num\_valid\_boxes]),}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ dtype=(num\_nmsed\_outputs\ *\ [tf.float32]\ +\ [tf.int32]),}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ parallel\_iterations=parallel\_iterations)}
+\DoxyCodeLine{01095\ }
+\DoxyCodeLine{01096\ \ \ \ \ batch\_nmsed\_boxes\ =\ batch\_outputs[0]}
+\DoxyCodeLine{01097\ \ \ \ \ batch\_nmsed\_scores\ =\ batch\_outputs[1]}
+\DoxyCodeLine{01098\ \ \ \ \ batch\_nmsed\_classes\ =\ batch\_outputs[2]}
+\DoxyCodeLine{01099\ \ \ \ \ batch\_nmsed\_masks\ =\ batch\_outputs[3]}
+\DoxyCodeLine{01100\ \ \ \ \ batch\_nmsed\_values\ =\ batch\_outputs[4:-\/1]}
+\DoxyCodeLine{01101\ }
+\DoxyCodeLine{01102\ \ \ \ \ batch\_nmsed\_additional\_fields\ =\ \{\}}
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_additional\_fields\ >\ 0:}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \textcolor{comment}{\#\ Sort\ the\ keys\ to\ ensure\ arranging\ elements\ in\ same\ order\ as}}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ \_single\_image\_nms\_fn.}}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ batch\_nmsed\_keys\ =\ list(ordered\_additional\_fields.keys())}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(batch\_nmsed\_keys)):}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ batch\_nmsed\_additional\_fields[}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_nmsed\_keys[i]]\ =\ batch\_nmsed\_values[i]}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01111\ \ \ \ \ batch\_num\_detections\ =\ batch\_outputs[-\/1]}
+\DoxyCodeLine{01112\ }
+\DoxyCodeLine{01113\ \ \ \ \ \textcolor{keywordflow}{if}\ original\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ batch\_nmsed\_masks\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{01115\ }
+\DoxyCodeLine{01116\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ ordered\_additional\_fields:}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ batch\_nmsed\_additional\_fields\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{01118\ }
+\DoxyCodeLine{01119\ \ \ \ \ \textcolor{keywordflow}{return}\ (batch\_nmsed\_boxes,\ batch\_nmsed\_scores,\ batch\_nmsed\_classes,}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_nmsed\_masks,\ batch\_nmsed\_additional\_fields,}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_num\_detections)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d}\label{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!class\_agnostic\_non\_max\_suppression@{class\_agnostic\_non\_max\_suppression}}
+\index{class\_agnostic\_non\_max\_suppression@{class\_agnostic\_non\_max\_suppression}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{class\_agnostic\_non\_max\_suppression()}{class\_agnostic\_non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+class\+\_\+agnostic\+\_\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{scores,  }\item[{}]{score\+\_\+thresh,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{max\+\_\+classes\+\_\+per\+\_\+detection = {\ttfamily 1},  }\item[{}]{max\+\_\+total\+\_\+size = {\ttfamily 0},  }\item[{}]{clip\+\_\+window = {\ttfamily None},  }\item[{}]{change\+\_\+coordinate\+\_\+frame = {\ttfamily False},  }\item[{}]{masks = {\ttfamily None},  }\item[{}]{boundaries = {\ttfamily None},  }\item[{}]{pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size = {\ttfamily False},  }\item[{}]{additional\+\_\+fields = {\ttfamily None},  }\item[{}]{soft\+\_\+nms\+\_\+sigma = {\ttfamily 0.0},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Class-agnostic version of non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes.  It operates on all the boxes using
+max scores across all classes for which scores are provided (via the scores
+field of the input box_list), pruning boxes with score less than a provided
+threshold prior to applying NMS.
+
+Please note that this operation is performed in a class-agnostic way,
+therefore any background classes should be removed prior to calling this
+function.
+
+Selected boxes are guaranteed to be sorted in decreasing order by score (but
+the sort is not guaranteed to be stable).
+
+Args:
+  boxes: A [k, q, 4] float32 tensor containing k detections. `q` can be either
+    number of classes or 1 depending on whether a separate box is predicted
+    per class.
+  scores: A [k, num_classes] float32 tensor containing the scores for each of
+    the k detections. The scores have to be non-negative when
+    pad_to_max_output_size is True.
+  score_thresh: scalar threshold for score (low scoring boxes are removed).
+  iou_thresh: scalar threshold for IOU (new boxes that have high IOU overlap
+    with previously selected boxes are removed).
+  max_classes_per_detection: maximum number of retained classes per detection
+    box in class-agnostic NMS.
+  max_total_size: maximum number of boxes retained over all classes. By
+    default returns all boxes retained after capping boxes per class.
+  clip_window: A float32 tensor of the form [y_min, x_min, y_max, x_max]
+    representing the window to clip and normalize boxes to before performing
+    non-max suppression.
+  change_coordinate_frame: Whether to normalize coordinates after clipping
+    relative to clip_window (this can only be set to True if a clip_window is
+    provided)
+  masks: (optional) a [k, q, mask_height, mask_width] float32 tensor
+    containing box masks. `q` can be either number of classes or 1 depending
+    on whether a separate mask is predicted per class.
+  boundaries: (optional) a [k, q, boundary_height, boundary_width] float32
+    tensor containing box boundaries. `q` can be either number of classes or 1
+    depending on whether a separate boundary is predicted per class.
+  pad_to_max_output_size: If true, the output nmsed boxes are padded to be of
+    length `max_size_per_class`. Defaults to false.
+  additional_fields: (optional) If not None, a dictionary that maps keys to
+    tensors whose first dimensions are all of size `k`. After non-maximum
+    suppression, all tensors corresponding to the selected boxes will be added
+    to resulting BoxList.
+  soft_nms_sigma: A scalar float representing the Soft NMS sigma parameter;
+    See Bodla et al, https://arxiv.org/abs/1704.04503).  When
+    `soft_nms_sigma=0.0` (which is default), we fall back to standard (hard)
+    NMS.  Soft NMS is currently only supported when pad_to_max_output_size is
+    False.
+  scope: name scope.
+
+Returns:
+  A tuple of sorted_boxes and num_valid_nms_boxes. The sorted_boxes is a
+    BoxList holds M boxes with a rank-1 scores field representing
+    corresponding scores for each box with scores sorted in decreasing order
+    and a rank-1 classes field representing a class label for each box. The
+    num_valid_nms_boxes is a 0-D integer tensor representing the number of
+    valid elements in `BoxList`, with the valid elements appearing first.
+
+Raises:
+  ValueError: if iou_thresh is not in [0, 1] or if input boxlist does not have
+    a valid scores field or if non-zero soft_nms_sigma is provided when
+    pad_to_max_output_size is True.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00598}{598}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00612\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class-\/agnostic\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{00613\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00614\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00615\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00616\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ on\ all\ the\ boxes\ using}
+\DoxyCodeLine{00617\ \ \ max\ scores\ across\ all\ classes\ \textcolor{keywordflow}{for}\ which\ scores\ are\ provided\ (via\ the\ scores}
+\DoxyCodeLine{00618\ \ \ field\ of\ the\ input\ box\_list),\ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided}
+\DoxyCodeLine{00619\ \ \ threshold\ prior\ to\ applying\ NMS.}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ Please\ note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ performed\ \textcolor{keywordflow}{in}\ a\ \textcolor{keyword}{class}-\/agnostic\ way,}
+\DoxyCodeLine{00622\ \ \ therefore\ any\ background\ classes\ should\ be\ removed\ prior\ to\ calling\ this}
+\DoxyCodeLine{00623\ \ \ function.}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \ \ Selected\ boxes\ are\ guaranteed\ to\ be\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order\ by\ score\ (but}
+\DoxyCodeLine{00626\ \ \ the\ sort\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ guaranteed\ to\ be\ stable).}
+\DoxyCodeLine{00627\ }
+\DoxyCodeLine{00628\ \ \ Args:}
+\DoxyCodeLine{00629\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00632\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00635\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{00636\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00638\ \ \ \ \ max\_classes\_per\_detection:\ maximum\ number\ of\ retained\ classes\ per\ detection}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ box\ \textcolor{keywordflow}{in}\ \textcolor{keyword}{class}-\/agnostic\ NMS.}
+\DoxyCodeLine{00640\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00642\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{00645\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{00648\ \ \ \ \ masks:\ (optional)\ a\ [k,\ q,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00651\ \ \ \ \ boundaries:\ (optional)\ a\ [k,\ q,\ boundary\_height,\ boundary\_width]\ float32}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ tensor\ containing\ box\ boundaries.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ depending\ on\ whether\ a\ separate\ boundary\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00654\ \ \ \ \ pad\_to\_max\_output\_size:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}.\ Defaults\ to\ false.}
+\DoxyCodeLine{00656\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ tensors\ whose\ first\ dimensions\ are\ all\ of\ size\ \`{}k\`{}.\ After\ non-\/maximum}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ suppression,\ all\ tensors\ corresponding\ to\ the\ selected\ boxes\ will\ be\ added}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ to\ resulting\ BoxList.}
+\DoxyCodeLine{00660\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{00665\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \ \ Returns:}
+\DoxyCodeLine{00668\ \ \ \ \ A\ tuple\ of\ sorted\_boxes\ \textcolor{keywordflow}{and}\ num\_valid\_nms\_boxes.\ The\ sorted\_boxes\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ BoxList\ holds\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.\ The}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ \textcolor{keywordflow}{is}\ a\ 0-\/D\ integer\ tensor\ representing\ the\ number\ of}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ valid\ elements\ \textcolor{keywordflow}{in}\ \`{}BoxList\`{},\ \textcolor{keyword}{with}\ the\ valid\ elements\ appearing\ first.}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \ \ Raises:}
+\DoxyCodeLine{00676\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}\ have}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ a\ valid\ scores\ field\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ non-\/zero\ soft\_nms\_sigma\ \textcolor{keywordflow}{is}\ provided\ when}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00679\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00680\ \textcolor{stringliteral}{\ \ \_validate\_boxes\_scores\_iou\_thresh(boxes,\ scores,\ iou\_thresh,}}
+\DoxyCodeLine{00681\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window)}}
+\DoxyCodeLine{00682\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{and}\ soft\_nms\_sigma\ !=\ 0.0:}
+\DoxyCodeLine{00683\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ (soft\_nms\_sigma\ !=\ 0.0)\ is\ currently\ not\ '}}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'supported\ when\ pad\_to\_max\_output\_size\ is\ True.'})}
+\DoxyCodeLine{00685\ }
+\DoxyCodeLine{00686\ \ \ \textcolor{keywordflow}{if}\ max\_classes\_per\_detection\ >\ 1:}
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Max\ classes\ per\ detection\ box\ >1\ not\ supported.'})}
+\DoxyCodeLine{00688\ \ \ q\ =\ shape\_utils.get\_dim\_as\_int(boxes.shape[1])}
+\DoxyCodeLine{00689\ \ \ \textcolor{keywordflow}{if}\ q\ >\ 1:}
+\DoxyCodeLine{00690\ \ \ \ \ class\_ids\ =\ tf.expand\_dims(}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ tf.argmax(scores,\ axis=1,\ output\_type=tf.int32),\ axis=1)}
+\DoxyCodeLine{00692\ \ \ \ \ boxes\ =\ tf.batch\_gather(boxes,\ class\_ids)}
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ masks\ =\ tf.batch\_gather(masks,\ class\_ids)}
+\DoxyCodeLine{00695\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ boundaries\ =\ tf.batch\_gather(boundaries,\ class\_ids)}
+\DoxyCodeLine{00697\ \ \ boxes\ =\ tf.squeeze(boxes,\ axis=[1])}
+\DoxyCodeLine{00698\ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00699\ \ \ \ \ masks\ =\ tf.squeeze(masks,\ axis=[1])}
+\DoxyCodeLine{00700\ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00701\ \ \ \ \ boundaries\ =\ tf.squeeze(boundaries,\ axis=[1])}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ClassAgnosticNonMaxSuppression'}):}
+\DoxyCodeLine{00704\ \ \ \ \ boxlist\_and\_class\_scores\ =\ box\_list.BoxList(boxes)}
+\DoxyCodeLine{00705\ \ \ \ \ max\_scores\ =\ tf.reduce\_max(scores,\ axis=-\/1)}
+\DoxyCodeLine{00706\ \ \ \ \ classes\_with\_max\_scores\ =\ tf.argmax(scores,\ axis=-\/1)}
+\DoxyCodeLine{00707\ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.scores,\ max\_scores)}
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.masks,\ masks)}
+\DoxyCodeLine{00710\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.boundaries,}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaries)}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ additional\_fields.items():}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(key,\ tensor)}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ nms\_result\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00719\ \ \ \ \ selected\_scores\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ max\_selection\_size\ =\ max\_total\_size}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ (selected\_indices,\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'boxes'}],}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'scores'}],}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ argsort\_ids)\ =\ partitioned\_non\_max\_suppression\_padded(}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ classes\_with\_max\_scores\ =\ tf.gather(classes\_with\_max\_scores,\ argsort\_ids)}
+\DoxyCodeLine{00735\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ max\_selection\_size\ =\ tf.minimum(max\_total\_size,}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.num\_boxes())}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(tf.image,\ \textcolor{stringliteral}{'non\_max\_suppression\_with\_scores'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \ \ tf.compat.forward\_compatible(2019,\ 6,\ 6)):}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ (selected\_indices,\ selected\_scores}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ )\ =\ tf.image.non\_max\_suppression\_with\_scores(}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh,}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat([}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices,}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size\ -\/\ num\_valid\_nms\_boxes,\ tf.int32)}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ ],\ 0)}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ selected\_scores\ =\ tf.concat(}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_scores,}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.float32)],\ -\/1)}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ soft\_nms\_sigma\ !=\ 0:}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ not\ supported\ in\ current\ TF\ version!'})}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{00774\ \ \ \ \ valid\_nms\_boxes\_indices\ =\ tf.less(}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ tf.range(max\_selection\_size),\ num\_valid\_nms\_boxes)}
+\DoxyCodeLine{00776\ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ fields.BoxListFields.scores,}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ tf.where(valid\_nms\_boxes\_indices,}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_scores,\ -\/1*tf.ones(max\_selection\_size)))}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ \ \ \ \ selected\_classes\ =\ tf.gather(classes\_with\_max\_scores,\ selected\_indices)}
+\DoxyCodeLine{00782\ \ \ \ \ nms\_result.add\_field(fields.BoxListFields.classes,\ selected\_classes)}
+\DoxyCodeLine{00783\ \ \ \ \ selected\_boxes\ =\ nms\_result}
+\DoxyCodeLine{00784\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(selected\_boxes,}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{00786\ }
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \textcolor{comment}{\#\ When\ pad\_to\_max\_output\_size\ is\ False,\ it\ prunes\ the\ boxes\ with\ zero}}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \textcolor{comment}{\#\ area.}}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ sorted\_boxes,\ num\_valid\_nms\_boxes\ =\ \_clip\_window\_prune\_boxes(}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ clip\_window,\ pad\_to\_max\_output\_size,}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame)}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keywordflow}{if}\ max\_total\_size:}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ max\_total\_size\ =\ tf.minimum(max\_total\_size,\ sorted\_boxes.num\_boxes())}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,\ tf.range(max\_total\_size))}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.where(max\_total\_size\ >\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes,\ max\_total\_size)}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{comment}{\#\ Select\ only\ the\ valid\ boxes\ if\ pad\_to\_max\_output\_size\ is\ False.}}
+\DoxyCodeLine{00800\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.range(num\_valid\_nms\_boxes))}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \ \ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00806\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006}\label{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!multiclass\_non\_max\_suppression@{multiclass\_non\_max\_suppression}}
+\index{multiclass\_non\_max\_suppression@{multiclass\_non\_max\_suppression}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{multiclass\_non\_max\_suppression()}{multiclass\_non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+multiclass\+\_\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{scores,  }\item[{}]{score\+\_\+thresh,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{max\+\_\+size\+\_\+per\+\_\+class,  }\item[{}]{max\+\_\+total\+\_\+size = {\ttfamily 0},  }\item[{}]{clip\+\_\+window = {\ttfamily None},  }\item[{}]{change\+\_\+coordinate\+\_\+frame = {\ttfamily False},  }\item[{}]{masks = {\ttfamily None},  }\item[{}]{boundaries = {\ttfamily None},  }\item[{}]{pad\+\_\+to\+\_\+max\+\_\+output\+\_\+size = {\ttfamily False},  }\item[{}]{additional\+\_\+fields = {\ttfamily None},  }\item[{}]{soft\+\_\+nms\+\_\+sigma = {\ttfamily 0.0},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Multi-class version of non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes.  It operates independently for each class for
+which scores are provided (via the scores field of the input box_list),
+pruning boxes with score less than a provided threshold prior to
+applying NMS.
+
+Please note that this operation is performed on *all* classes, therefore any
+background classes should be removed prior to calling this function.
+
+Selected boxes are guaranteed to be sorted in decreasing order by score (but
+the sort is not guaranteed to be stable).
+
+Args:
+  boxes: A [k, q, 4] float32 tensor containing k detections. `q` can be either
+    number of classes or 1 depending on whether a separate box is predicted
+    per class.
+  scores: A [k, num_classes] float32 tensor containing the scores for each of
+    the k detections. The scores have to be non-negative when
+    pad_to_max_output_size is True.
+  score_thresh: scalar threshold for score (low scoring boxes are removed).
+  iou_thresh: scalar threshold for IOU (new boxes that have high IOU overlap
+    with previously selected boxes are removed).
+  max_size_per_class: maximum number of retained boxes per class.
+  max_total_size: maximum number of boxes retained over all classes. By
+    default returns all boxes retained after capping boxes per class.
+  clip_window: A float32 tensor of the form [y_min, x_min, y_max, x_max]
+    representing the window to clip and normalize boxes to before performing
+    non-max suppression.
+  change_coordinate_frame: Whether to normalize coordinates after clipping
+    relative to clip_window (this can only be set to True if a clip_window
+    is provided)
+  masks: (optional) a [k, q, mask_height, mask_width] float32 tensor
+    containing box masks. `q` can be either number of classes or 1 depending
+    on whether a separate mask is predicted per class.
+  boundaries: (optional) a [k, q, boundary_height, boundary_width] float32
+    tensor containing box boundaries. `q` can be either number of classes or 1
+    depending on whether a separate boundary is predicted per class.
+  pad_to_max_output_size: If true, the output nmsed boxes are padded to be of
+    length `max_size_per_class`. Defaults to false.
+  additional_fields: (optional) If not None, a dictionary that maps keys to
+    tensors whose first dimensions are all of size `k`. After non-maximum
+    suppression, all tensors corresponding to the selected boxes will be
+    added to resulting BoxList.
+  soft_nms_sigma: A scalar float representing the Soft NMS sigma parameter;
+    See Bodla et al, https://arxiv.org/abs/1704.04503).  When
+    `soft_nms_sigma=0.0` (which is default), we fall back to standard (hard)
+    NMS.  Soft NMS is currently only supported when pad_to_max_output_size is
+    False.
+  scope: name scope.
+
+Returns:
+  A tuple of sorted_boxes and num_valid_nms_boxes. The sorted_boxes is a
+    BoxList holds M boxes with a rank-1 scores field representing
+    corresponding scores for each box with scores sorted in decreasing order
+    and a rank-1 classes field representing a class label for each box. The
+    num_valid_nms_boxes is a 0-D integer tensor representing the number of
+    valid elements in `BoxList`, with the valid elements appearing first.
+
+Raises:
+  ValueError: if iou_thresh is not in [0, 1] or if input boxlist does not have
+    a valid scores field.
+  ValueError: if Soft NMS (tf.image.non_max_suppression_with_scores) is not
+    supported in the current TF version and `soft_nms_sigma` is nonzero.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00385}{385}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00399\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{00400\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00401\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00402\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00403\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ independently\ \textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class\ }for}
+\DoxyCodeLine{00404\ \ \ which\ scores\ are\ provided\ (via\ the\ scores\ field\ of\ the\ input\ box\_list),}
+\DoxyCodeLine{00405\ \ \ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided\ threshold\ prior\ to}
+\DoxyCodeLine{00406\ \ \ applying\ NMS.}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ Please\ note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ performed\ on\ *all*\ classes,\ therefore\ any}
+\DoxyCodeLine{00409\ \ \ background\ classes\ should\ be\ removed\ prior\ to\ calling\ this\ function.}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ Selected\ boxes\ are\ guaranteed\ to\ be\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order\ by\ score\ (but}
+\DoxyCodeLine{00412\ \ \ the\ sort\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ guaranteed\ to\ be\ stable).}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ Args:}
+\DoxyCodeLine{00415\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00418\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{00421\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{00422\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00424\ \ \ \ \ max\_size\_per\_class:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00425\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00427\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{00430\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ provided)}
+\DoxyCodeLine{00433\ \ \ \ \ masks:\ (optional)\ a\ [k,\ q,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00436\ \ \ \ \ boundaries:\ (optional)\ a\ [k,\ q,\ boundary\_height,\ boundary\_width]\ float32}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ tensor\ containing\ box\ boundaries.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ depending\ on\ whether\ a\ separate\ boundary\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00439\ \ \ \ \ pad\_to\_max\_output\_size:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}.\ Defaults\ to\ false.}
+\DoxyCodeLine{00441\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ tensors\ whose\ first\ dimensions\ are\ all\ of\ size\ \`{}k\`{}.\ After\ non-\/maximum}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ suppression,\ all\ tensors\ corresponding\ to\ the\ selected\ boxes\ will\ be}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ added\ to\ resulting\ BoxList.}
+\DoxyCodeLine{00445\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{00450\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ Returns:}
+\DoxyCodeLine{00453\ \ \ \ \ A\ tuple\ of\ sorted\_boxes\ \textcolor{keywordflow}{and}\ num\_valid\_nms\_boxes.\ The\ sorted\_boxes\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ BoxList\ holds\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.\ The}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ \textcolor{keywordflow}{is}\ a\ 0-\/D\ integer\ tensor\ representing\ the\ number\ of}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ valid\ elements\ \textcolor{keywordflow}{in}\ \`{}BoxList\`{},\ \textcolor{keyword}{with}\ the\ valid\ elements\ appearing\ first.}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ Raises:}
+\DoxyCodeLine{00461\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}\ have}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ a\ valid\ scores\ field.}
+\DoxyCodeLine{00463\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ Soft\ NMS\ (tf.image.non\_max\_suppression\_with\_scores)\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ supported\ \textcolor{keywordflow}{in}\ the\ current\ TF\ version\ \textcolor{keywordflow}{and}\ \`{}soft\_nms\_sigma\`{}\ \textcolor{keywordflow}{is}\ nonzero.}
+\DoxyCodeLine{00465\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00466\ \textcolor{stringliteral}{\ \ \_validate\_boxes\_scores\_iou\_thresh(boxes,\ scores,\ iou\_thresh,}}
+\DoxyCodeLine{00467\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window)}}
+\DoxyCodeLine{00468\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{and}\ soft\_nms\_sigma\ !=\ 0.0:}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ (soft\_nms\_sigma\ !=\ 0.0)\ is\ currently\ not\ '}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'supported\ when\ pad\_to\_max\_output\_size\ is\ True.'})}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MultiClassNonMaxSuppression'}):}
+\DoxyCodeLine{00473\ \ \ \ \ num\_scores\ =\ tf.shape(scores)[0]}
+\DoxyCodeLine{00474\ \ \ \ \ num\_classes\ =\ shape\_utils.get\_dim\_as\_int(scores.get\_shape()[1])}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \ \ selected\_boxes\_list\ =\ []}
+\DoxyCodeLine{00477\ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.constant(0)}
+\DoxyCodeLine{00478\ \ \ \ \ per\_class\_boxes\_list\ =\ tf.unstack(boxes,\ axis=1)}
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ per\_class\_masks\_list\ =\ tf.unstack(masks,\ axis=1)}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ per\_class\_boundaries\_list\ =\ tf.unstack(boundaries,\ axis=1)}
+\DoxyCodeLine{00483\ \ \ \ \ boxes\_ids\ =\ (range(num\_classes)\ \textcolor{keywordflow}{if}\ len(per\_class\_boxes\_list)\ >\ 1}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ [0]\ *\ num\_classes)}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordflow}{for}\ class\_idx,\ boxes\_idx\ \textcolor{keywordflow}{in}\ zip(range(num\_classes),\ boxes\_ids):}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ per\_class\_boxes\ =\ per\_class\_boxes\_list[boxes\_idx]}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ boxlist\_and\_class\_scores\ =\ box\_list.BoxList(per\_class\_boxes)}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ class\_scores\ =\ tf.reshape(}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ tf.slice(scores,\ [0,\ class\_idx],\ tf.stack([num\_scores,\ 1])),\ [-\/1])}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.scores,}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_scores)}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ per\_class\_masks\ =\ per\_class\_masks\_list[boxes\_idx]}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.masks,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_class\_masks)}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ per\_class\_boundaries\ =\ per\_class\_boundaries\_list[boxes\_idx]}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.boundaries,}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_class\_boundaries)}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ additional\_fields.items():}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(key,\ tensor)}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \ \ nms\_result\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ selected\_scores\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ max\_selection\_size\ =\ max\_size\_per\_class}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ (selected\_indices,\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'boxes'}],}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'scores'}],}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \_)\ =\ partitioned\_non\_max\_suppression\_padded(}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ max\_selection\_size\ =\ tf.minimum(max\_size\_per\_class,}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.num\_boxes())}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(tf.image,\ \textcolor{stringliteral}{'non\_max\_suppression\_with\_scores'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ tf.compat.forward\_compatible(2019,\ 6,\ 6)):}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ (selected\_indices,\ selected\_scores}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ )\ =\ tf.image.non\_max\_suppression\_with\_scores(}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh,}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ selected\_scores\ =\ tf.concat(}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_scores,}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)],\ -\/1)}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ soft\_nms\_sigma\ !=\ 0:}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ not\ supported\ in\ current\ TF\ version!'})}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \textcolor{comment}{\#\ Make\ the\ scores\ -\/1\ for\ invalid\ boxes.}}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ valid\_nms\_boxes\_indices\ =\ tf.less(}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ tf.range(max\_selection\_size),\ num\_valid\_nms\_boxes)}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores,}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ tf.where(valid\_nms\_boxes\_indices,}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_scores,\ -\/1*tf.ones(max\_selection\_size)))}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ +=\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.classes,\ (tf.zeros\_like(}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_result.get\_field(fields.BoxListFields.scores))\ +\ class\_idx))}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ selected\_boxes\_list.append(nms\_result)}
+\DoxyCodeLine{00574\ \ \ \ \ selected\_boxes\ =\ box\_list\_ops.concatenate(selected\_boxes\_list)}
+\DoxyCodeLine{00575\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(selected\_boxes,}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \textcolor{comment}{\#\ When\ pad\_to\_max\_output\_size\ is\ False,\ it\ prunes\ the\ boxes\ with\ zero}}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \textcolor{comment}{\#\ area.}}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative\ =\ \_clip\_window\_prune\_boxes(}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ clip\_window,\ pad\_to\_max\_output\_size,}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame)}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keywordflow}{if}\ max\_total\_size:}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ max\_total\_size\ =\ tf.minimum(max\_total\_size,\ sorted\_boxes.num\_boxes())}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,\ tf.range(max\_total\_size))}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.where(}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ max\_total\_size\ >\ num\_valid\_nms\_boxes\_cumulative,}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative,\ max\_total\_size)}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{comment}{\#\ Select\ only\ the\ valid\ boxes\ if\ pad\_to\_max\_output\_size\ is\ False.}}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ tf.range(num\_valid\_nms\_boxes\_cumulative))}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}\label{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!partitioned\_non\_max\_suppression\_padded@{partitioned\_non\_max\_suppression\_padded}}
+\index{partitioned\_non\_max\_suppression\_padded@{partitioned\_non\_max\_suppression\_padded}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{partitioned\_non\_max\_suppression\_padded()}{partitioned\_non\_max\_suppression\_padded()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+post\+\_\+processing.\+partitioned\+\_\+non\+\_\+max\+\_\+suppression\+\_\+padded (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{scores,  }\item[{}]{max\+\_\+output\+\_\+size,  }\item[{}]{iou\+\_\+threshold = {\ttfamily 0.5},  }\item[{}]{score\+\_\+threshold = {\ttfamily float(\textquotesingle{}-\/inf\textquotesingle{})} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A tiled version of [`tf.image.non_max_suppression_padded`](https://www.tensorflow.org/api_docs/python/tf/image/non_max_suppression_padded).
+
+The overall design of the algorithm is to handle boxes tile-by-tile:
+
+boxes = boxes.pad_to_multiple_of(tile_size)
+num_tiles = len(boxes) // tile_size
+output_boxes = []
+for i in range(num_tiles):
+  box_tile = boxes[i*tile_size : (i+1)*tile_size]
+  for j in range(i - 1):
+    suppressing_tile = boxes[j*tile_size : (j+1)*tile_size]
+    iou = batch_iou(box_tile, suppressing_tile)
+    # if the box is suppressed in iou, clear it to a dot
+    box_tile *= _update_boxes(iou)
+  # Iteratively handle the diagonal tile.
+  iou = _box_overlap(box_tile, box_tile)
+  iou_changed = True
+  while iou_changed:
+    # boxes that are not suppressed by anything else
+    suppressing_boxes = _get_suppressing_boxes(iou)
+    # boxes that are suppressed by suppressing_boxes
+    suppressed_boxes = _get_suppressed_boxes(iou, suppressing_boxes)
+    # clear iou to 0 for boxes that are suppressed, as they cannot be used
+    # to suppress other boxes any more
+    new_iou = _clear_iou(iou, suppressed_boxes)
+    iou_changed = (new_iou != iou)
+    iou = new_iou
+  # remaining boxes that can still suppress others, are selected boxes.
+  output_boxes.append(_get_suppressing_boxes(iou))
+  if len(output_boxes) >= max_output_size:
+    break
+
+Args:
+  boxes: A 2-D float `Tensor` of shape `[num_boxes, 4]`.
+  scores: A 1-D float `Tensor` of shape `[num_boxes]` representing a single
+    score corresponding to each box (each row of boxes).
+  max_output_size: a scalar integer `Tensor` representing the maximum number
+    of boxes to be selected by non max suppression.
+  iou_threshold: a float representing the threshold for deciding whether boxes
+    overlap too much with respect to IOU.
+  score_threshold: A float representing the threshold for deciding when to
+    remove boxes based on score.
+
+Returns:
+  selected_indices: a tensor of shape [anchors].
+  num_valid_boxes: a scalar int tensor.
+  nms_proposals: a tensor with a shape of [anchors, 4]. It has
+    same dtype as input boxes.
+  nms_scores: a tensor with a shape of [anchors]. It has same
+    dtype as input scores.
+  argsort_ids: a tensor of shape [anchors], mapping from input order of boxes
+    to output order of boxes.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00196}{196}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=float(\textcolor{stringliteral}{'-\/inf'})):}
+\DoxyCodeLine{00201\ \ \ \textcolor{stringliteral}{"{}"{}"{}A\ tiled\ version\ of\ [\`{}tf.image.non\_max\_suppression\_padded\`{}](https://www.tensorflow.org/api\_docs/python/tf/image/non\_max\_suppression\_padded).}}
+\DoxyCodeLine{00202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00203\ \textcolor{stringliteral}{\ \ The\ overall\ design\ of\ the\ algorithm\ }\textcolor{keywordflow}{is}\ to\ handle\ boxes\ tile-\/by-\/tile:}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ boxes\ =\ boxes.pad\_to\_multiple\_of(tile\_size)}
+\DoxyCodeLine{00206\ \ \ num\_tiles\ =\ len(boxes)\ //\ tile\_size}
+\DoxyCodeLine{00207\ \ \ output\_boxes\ =\ []}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_tiles):}
+\DoxyCodeLine{00209\ \ \ \ \ box\_tile\ =\ boxes[i*tile\_size\ :\ (i+1)*tile\_size]}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(i\ -\/\ 1):}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ suppressing\_tile\ =\ boxes[j*tile\_size\ :\ (j+1)*tile\_size]}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ iou\ =\ batch\_iou(box\_tile,\ suppressing\_tile)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ the\ box\ is\ suppressed\ in\ iou,\ clear\ it\ to\ a\ dot}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ box\_tile\ *=\ \_update\_boxes(iou)}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{\#\ Iteratively\ handle\ the\ diagonal\ tile.}}
+\DoxyCodeLine{00216\ \ \ \ \ iou\ =\ \_box\_overlap(box\_tile,\ box\_tile)}
+\DoxyCodeLine{00217\ \ \ \ \ iou\_changed\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{while}\ iou\_changed:}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \textcolor{comment}{\#\ boxes\ that\ are\ not\ suppressed\ by\ anything\ else}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ suppressing\_boxes\ =\ \_get\_suppressing\_boxes(iou)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \textcolor{comment}{\#\ boxes\ that\ are\ suppressed\ by\ suppressing\_boxes}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ suppressed\_boxes\ =\ \_get\_suppressed\_boxes(iou,\ suppressing\_boxes)}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \textcolor{comment}{\#\ clear\ iou\ to\ 0\ for\ boxes\ that\ are\ suppressed,\ as\ they\ cannot\ be\ used}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \textcolor{comment}{\#\ to\ suppress\ other\ boxes\ any\ more}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ new\_iou\ =\ \_clear\_iou(iou,\ suppressed\_boxes)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ iou\_changed\ =\ (new\_iou\ !=\ iou)}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ iou\ =\ new\_iou}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{\#\ remaining\ boxes\ that\ can\ still\ suppress\ others,\ are\ selected\ boxes.}}
+\DoxyCodeLine{00229\ \ \ \ \ output\_boxes.append(\_get\_suppressing\_boxes(iou))}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{if}\ len(output\_boxes)\ >=\ max\_output\_size:}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ Args:}
+\DoxyCodeLine{00234\ \ \ \ \ boxes:\ A\ 2-\/D\ float\ \`{}Tensor\`{}\ of\ shape\ \`{}[num\_boxes,\ 4]\`{}.}
+\DoxyCodeLine{00235\ \ \ \ \ scores:\ A\ 1-\/D\ float\ \`{}Tensor\`{}\ of\ shape\ \`{}[num\_boxes]\`{}\ representing\ a\ single}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ score\ corresponding\ to\ each\ box\ (each\ row\ of\ boxes).}
+\DoxyCodeLine{00237\ \ \ \ \ max\_output\_size:\ a\ scalar\ integer\ \`{}Tensor\`{}\ representing\ the\ maximum\ number}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ of\ boxes\ to\ be\ selected\ by\ non\ max\ suppression.}
+\DoxyCodeLine{00239\ \ \ \ \ iou\_threshold:\ a\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ whether\ boxes}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ overlap\ too\ much\ \textcolor{keyword}{with}\ respect\ to\ IOU.}
+\DoxyCodeLine{00241\ \ \ \ \ score\_threshold:\ A\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ when\ to}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ remove\ boxes\ based\ on\ score.}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ Returns:}
+\DoxyCodeLine{00245\ \ \ \ \ selected\_indices:\ a\ tensor\ of\ shape\ [anchors].}
+\DoxyCodeLine{00246\ \ \ \ \ num\_valid\_boxes:\ a\ scalar\ int\ tensor.}
+\DoxyCodeLine{00247\ \ \ \ \ nms\_proposals:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [anchors,\ 4].\ It\ has}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ same\ dtype\ \textcolor{keyword}{as}\ input\ boxes.}
+\DoxyCodeLine{00249\ \ \ \ \ nms\_scores:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [anchors].\ It\ has\ same}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ dtype\ \textcolor{keyword}{as}\ input\ scores.}
+\DoxyCodeLine{00251\ \ \ \ \ argsort\_ids:\ a\ tensor\ of\ shape\ [anchors],\ mapping\ \textcolor{keyword}{from}\ input\ order\ of\ boxes}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ to\ output\ order\ of\ boxes.}
+\DoxyCodeLine{00253\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00254\ \textcolor{stringliteral}{\ \ num\_boxes\ =\ tf.shape(boxes)[0]}}
+\DoxyCodeLine{00255\ \textcolor{stringliteral}{\ \ pad\ =\ tf.cast(}}
+\DoxyCodeLine{00256\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ceil(tf.cast(num\_boxes,\ tf.float32)\ /\ \_NMS\_TILE\_SIZE),}}
+\DoxyCodeLine{00257\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.int32)\ *\ \_NMS\_TILE\_SIZE\ -\/\ num\_boxes}}
+\DoxyCodeLine{00258\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00259\ \textcolor{stringliteral}{\ \ scores,\ argsort\_ids\ =\ tf.nn.top\_k(scores,\ k=num\_boxes,\ sorted=}\textcolor{keyword}{True})}
+\DoxyCodeLine{00260\ \ \ boxes\ =\ tf.gather(boxes,\ argsort\_ids)}
+\DoxyCodeLine{00261\ \ \ num\_boxes\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{00262\ \ \ num\_boxes\ +=\ pad}
+\DoxyCodeLine{00263\ \ \ boxes\ =\ tf.pad(}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ tf.cast(boxes,\ tf.float32),\ [[0,\ pad],\ [0,\ 0]],\ constant\_values=-\/1)}
+\DoxyCodeLine{00265\ \ \ scores\ =\ tf.pad(tf.cast(scores,\ tf.float32),\ [[0,\ pad]])}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \textcolor{comment}{\#\ mask\ boxes\ to\ -\/1\ by\ score\ threshold}}
+\DoxyCodeLine{00268\ \ \ scores\_mask\ =\ tf.expand\_dims(}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ tf.cast(scores\ >\ score\_threshold,\ boxes.dtype),\ axis=1)}
+\DoxyCodeLine{00270\ \ \ boxes\ =\ ((boxes\ +\ 1.)\ *\ scores\_mask)\ -\/\ 1.}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ boxes\ =\ tf.expand\_dims(boxes,\ axis=0)}
+\DoxyCodeLine{00273\ \ \ scores\ =\ tf.expand\_dims(scores,\ axis=0)}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \textcolor{keyword}{def\ }\_loop\_cond(unused\_boxes,\ unused\_threshold,\ output\_size,\ idx):}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.logical\_and(}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ tf.reduce\_min(output\_size)\ <\ max\_output\_size,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ idx\ <\ num\_boxes\ //\ \_NMS\_TILE\_SIZE)}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ selected\_boxes,\ \_,\ output\_size,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \_loop\_cond,\ \_suppression\_loop\_body,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ [boxes,\ iou\_threshold,}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ tf.zeros([1],\ tf.int32),}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ tf.constant(0)])}
+\DoxyCodeLine{00285\ \ \ idx\ =\ num\_boxes\ -\/\ tf.cast(}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ tf.nn.top\_k(}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ tf.cast(tf.reduce\_any(selected\_boxes\ >\ 0,\ [2]),\ tf.int32)\ *}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(tf.range(num\_boxes,\ 0,\ -\/1),\ 0),\ max\_output\_size)[0],}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ tf.int32)}
+\DoxyCodeLine{00290\ \ \ idx\ =\ tf.minimum(idx,\ num\_boxes\ -\/\ 1\ -\/\ pad)}
+\DoxyCodeLine{00291\ \ \ idx\ =\ tf.reshape(idx\ +\ tf.reshape(tf.range(1)\ *\ num\_boxes,\ [-\/1,\ 1]),\ [-\/1])}
+\DoxyCodeLine{00292\ \ \ num\_valid\_boxes\ =\ tf.reduce\_sum(output\_size)}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordflow}{return}\ (idx,\ num\_valid\_boxes,\ tf.reshape(boxes,\ [-\/1,\ 4]),}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ tf.reshape(scores,\ [-\/1]),\ argsort\_ids)}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de3/namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1post__processing_aaa179acbbda14bd507b72a2fb36b0fef}\label{namespacedetection__utils_1_1core_1_1post__processing_aaa179acbbda14bd507b72a2fb36b0fef} 
+\index{detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}!\_NMS\_TILE\_SIZE@{\_NMS\_TILE\_SIZE}}
+\index{\_NMS\_TILE\_SIZE@{\_NMS\_TILE\_SIZE}!detection\_utils.core.post\_processing@{detection\_utils.core.post\_processing}}
+\doxysubsubsection{\texorpdfstring{\_NMS\_TILE\_SIZE}{\_NMS\_TILE\_SIZE}}
+{\footnotesize\ttfamily int detection\+\_\+utils.\+core.\+post\+\_\+processing.\+\_\+\+NMS\+\_\+\+TILE\+\_\+\+SIZE = 512\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{post__processing_8py_source_l00032}{32}} of file \mbox{\hyperlink{post__processing_8py_source}{post\+\_\+processing.\+py}}.
+

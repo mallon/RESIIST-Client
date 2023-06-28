@@ -1,0 +1,112 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Meshgrid\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test}\index{detection\_utils.utils.ops\_test.MeshgridTest@{detection\_utils.utils.ops\_test.MeshgridTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Meshgrid\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{d2/dcb/classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Meshgrid\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{d1/d3b/classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_af31c7a7725d0e944e129ff62f7c4de0a}{test\+\_\+meshgrid\+\_\+numpy\+\_\+comparison}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_a34b8246f74a764314e19e952ab4a5009}{test\+\_\+meshgrid\+\_\+multidimensional}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00066}{66}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_a34b8246f74a764314e19e952ab4a5009}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_a34b8246f74a764314e19e952ab4a5009} 
+\index{detection\_utils.utils.ops\_test.MeshgridTest@{detection\_utils.utils.ops\_test.MeshgridTest}!test\_meshgrid\_multidimensional@{test\_meshgrid\_multidimensional}}
+\index{test\_meshgrid\_multidimensional@{test\_meshgrid\_multidimensional}!detection\_utils.utils.ops\_test.MeshgridTest@{detection\_utils.utils.ops\_test.MeshgridTest}}
+\doxysubsubsection{\texorpdfstring{test\_meshgrid\_multidimensional()}{test\_meshgrid\_multidimensional()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Meshgrid\+Test.\+test\+\_\+meshgrid\+\_\+multidimensional (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00079}{79}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{def\ }test\_meshgrid\_multidimensional(self):}
+\DoxyCodeLine{00080\ \ \ \ \ np.random.seed(18)}
+\DoxyCodeLine{00081\ \ \ \ \ x\ =\ np.random.rand(4,\ 1,\ 2).astype(np.float32)}
+\DoxyCodeLine{00082\ \ \ \ \ y\ =\ np.random.rand(2,\ 3).astype(np.float32)}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ xgrid,\ ygrid\ =\ ops.meshgrid(x,\ y)}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ grid\_shape\ =\ list(y.shape)\ +\ list(x.shape)}
+\DoxyCodeLine{00087\ \ \ \ \ self.assertEqual(xgrid.get\_shape().as\_list(),\ grid\_shape)}
+\DoxyCodeLine{00088\ \ \ \ \ self.assertEqual(ygrid.get\_shape().as\_list(),\ grid\_shape)}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ xgrid\_output,\ ygrid\_output\ =\ sess.run([xgrid,\ ygrid])}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{\#\ Check\ the\ shape\ of\ the\ output\ grids}}
+\DoxyCodeLine{00093\ \ \ \ \ self.assertEqual(xgrid\_output.shape,\ tuple(grid\_shape))}
+\DoxyCodeLine{00094\ \ \ \ \ self.assertEqual(ygrid\_output.shape,\ tuple(grid\_shape))}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{\#\ Check\ a\ few\ elements}}
+\DoxyCodeLine{00097\ \ \ \ \ test\_elements\ =\ [((3,\ 0,\ 0),\ (1,\ 2)),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((2,\ 0,\ 1),\ (0,\ 0)),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((0,\ 0,\ 0),\ (1,\ 1))]}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{for}\ xind,\ yind\ \textcolor{keywordflow}{in}\ test\_elements:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{comment}{\#\ These\ are\ float\ equality\ tests,\ but\ the\ meshgrid\ op\ should\ not\ introduce}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \textcolor{comment}{\#\ rounding.}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ self.assertEqual(xgrid\_output[yind\ +\ xind],\ x[xind])}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ self.assertEqual(ygrid\_output[yind\ +\ xind],\ y[yind])}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_af31c7a7725d0e944e129ff62f7c4de0a}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test_af31c7a7725d0e944e129ff62f7c4de0a} 
+\index{detection\_utils.utils.ops\_test.MeshgridTest@{detection\_utils.utils.ops\_test.MeshgridTest}!test\_meshgrid\_numpy\_comparison@{test\_meshgrid\_numpy\_comparison}}
+\index{test\_meshgrid\_numpy\_comparison@{test\_meshgrid\_numpy\_comparison}!detection\_utils.utils.ops\_test.MeshgridTest@{detection\_utils.utils.ops\_test.MeshgridTest}}
+\doxysubsubsection{\texorpdfstring{test\_meshgrid\_numpy\_comparison()}{test\_meshgrid\_numpy\_comparison()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Meshgrid\+Test.\+test\+\_\+meshgrid\+\_\+numpy\+\_\+comparison (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tests meshgrid op with vectors, for which it should match numpy.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00068}{68}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{def\ }test\_meshgrid\_numpy\_comparison(self):}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ meshgrid\ op\ with\ vectors,\ for\ which\ it\ should\ match\ numpy."{}"{}"{}}}
+\DoxyCodeLine{00070\ \ \ \ \ x\ =\ np.arange(4)}
+\DoxyCodeLine{00071\ \ \ \ \ y\ =\ np.arange(6)}
+\DoxyCodeLine{00072\ \ \ \ \ exp\_xgrid,\ exp\_ygrid\ =\ np.meshgrid(x,\ y)}
+\DoxyCodeLine{00073\ \ \ \ \ xgrid,\ ygrid\ =\ ops.meshgrid(x,\ y)}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ xgrid\_output,\ ygrid\_output\ =\ sess.run([xgrid,\ ygrid])}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ self.assertAllEqual(xgrid\_output,\ exp\_xgrid)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ self.assertAllEqual(ygrid\_output,\ exp\_ygrid)}
+\DoxyCodeLine{00078\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

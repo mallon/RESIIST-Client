@@ -1,0 +1,234 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss}\index{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{da/d80/classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d7/dde/classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, alpha, bootstrap\+\_\+type=\textquotesingle{}soft\textquotesingle{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, weights)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}{\+\_\+alpha}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543}{\+\_\+bootstrap\+\_\+type}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Bootstrapped sigmoid cross entropy classification loss function.
+
+This loss uses a convex combination of training labels and the current model's
+predictions as training targets in the classification loss. The idea is that
+as the model improves over time, its predictions can be trusted more and we
+can use these predictions to mitigate the damage of noisy/incorrect labels,
+because incorrect labels are likely to be eventually highly inconsistent with
+other stimuli predicted to have the same label by the model.
+
+In "soft" bootstrapping, we use all predicted class probabilities, whereas in
+"hard" bootstrapping, we use the single class favored by the model.
+
+See also Training Deep Neural Networks On Noisy Labels with Bootstrapping by
+Reed et al. (ICLR 2015).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00406}{406}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f}\label{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f} 
+\index{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{alpha,  }\item[{}]{bootstrap\+\_\+type = {\ttfamily \textquotesingle{}soft\textquotesingle{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  alpha: a float32 scalar tensor between 0 and 1 representing interpolation
+    weight
+  bootstrap_type: set to either 'hard' or 'soft' (default)
+
+Raises:
+  ValueError: if bootstrap_type is not either 'hard' or 'soft'
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00423}{423}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00423\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ alpha,\ bootstrap\_type='soft'):}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00425\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00426\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00427\ \textcolor{stringliteral}{\ \ \ \ \ \ alpha:\ a\ float32\ scalar\ tensor\ between\ 0\ }\textcolor{keywordflow}{and}\ 1\ representing\ interpolation}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ weight}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ bootstrap\_type:\ set\ to\ either\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'soft'}\ (default)}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \ \ \ \ Raises:}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ bootstrap\_type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ either\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'soft'}}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00434\ \textcolor{stringliteral}{\ \ \ \ super(BootstrappedSigmoidClassificationLoss,\ self).\_\_init\_\_()}}
+\DoxyCodeLine{00435\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ bootstrap\_type\ !=\ \textcolor{stringliteral}{'hard'}\ \textcolor{keywordflow}{and}\ bootstrap\_type\ !=\ \textcolor{stringliteral}{'soft'}:}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unrecognized\ bootstrap\_type:\ must\ be\ one\ of\ '}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\(\backslash\)'hard\(\backslash\)'\ or\ \(\backslash\)'soft.\(\backslash\)''})}
+\DoxyCodeLine{00438\ \ \ \ \ self.\_alpha\ =\ alpha}
+\DoxyCodeLine{00439\ \ \ \ \ self.\_bootstrap\_type\ =\ bootstrap\_type}
+\DoxyCodeLine{00440\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{db/d6d/classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{db/d6d/classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a07130d0c2c29c2757f72059da3dbe79f_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c}\label{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c} 
+\index{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute loss function.
+
+Args:
+  prediction_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing the predicted logits for each class
+  target_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing one-hot encoded classification targets
+  weights: a float tensor of shape, either [batch_size, num_anchors,
+    num_classes] or [batch_size, num_anchors, 1]. If the shape is
+    [batch_size, num_anchors, 1], all the classses are equally weighted.
+
+Returns:
+  loss: a float tensor of shape [batch_size, num_anchors, num_classes]
+    representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{detection\+\_\+utils.\+core.\+losses.\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00441}{441}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00441\ \ \ \textcolor{keyword}{def\ }\_compute\_loss(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{00443\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00444\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00445\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{00446\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ Returns:}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ num\_classes]}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00457\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\_bootstrap\_type\ ==\ \textcolor{stringliteral}{'soft'}:}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ bootstrap\_target\_tensor\ =\ self.\_alpha\ *\ target\_tensor\ +\ (}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ 1.0\ -\/\ self.\_alpha)\ *\ tf.sigmoid(prediction\_tensor)}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ bootstrap\_target\_tensor\ =\ self.\_alpha\ *\ target\_tensor\ +\ (}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ 1.0\ -\/\ self.\_alpha)\ *\ tf.cast(}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.sigmoid(prediction\_tensor)\ >\ 0.5,\ tf.float32)}
+\DoxyCodeLine{00464\ \ \ \ \ per\_entry\_cross\_ent\ =\ (tf.nn.sigmoid\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ labels=bootstrap\_target\_tensor,\ logits=prediction\_tensor))}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keywordflow}{return}\ per\_entry\_cross\_ent\ *\ weights}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d6d/classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8}\label{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a0176f38c8a3245ef2dcc783c780f02a8} 
+\index{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}!\_alpha@{\_alpha}}
+\index{\_alpha@{\_alpha}!detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_alpha}{\_alpha}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss.\+\_\+alpha\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00438}{438}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543}\label{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a20a73b254e0341b61ddb91b7e54e7543} 
+\index{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}!\_bootstrap\_type@{\_bootstrap\_type}}
+\index{\_bootstrap\_type@{\_bootstrap\_type}!detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss@{detection\_utils.core.losses.BootstrappedSigmoidClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_bootstrap\_type}{\_bootstrap\_type}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss.\+\_\+bootstrap\+\_\+type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00439}{439}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

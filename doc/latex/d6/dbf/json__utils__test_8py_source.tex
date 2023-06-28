@@ -1,0 +1,103 @@
+\doxysection{json\+\_\+utils\+\_\+test.\+py}
+\hypertarget{json__utils__test_8py_source}{}\label{json__utils__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/json\_utils\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/json\_utils\_test.py}}
+\mbox{\hyperlink{json__utils__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1json__utils__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ google3.image.understanding.object\_detection.utils.json\_utils."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00016}00016\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ json\_utils}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00023}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test}{JsonUtilsTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00025}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_aaaff3bebcd653800b6e67bbc0b750d49}{00025}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_aaaff3bebcd653800b6e67bbc0b750d49}{testDumpReasonablePrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00026}00026\ \ \ \ \ output\_path\ =\ os.path.join(tf.test.get\_temp\_dir(),\ \textcolor{stringliteral}{'test.json'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00028}00028\ \ \ \ \ \ \ json\_utils.Dump(1.0,\ f,\ float\_digits=2)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00030}00030\ \ \ \ \ \ \ self.assertEqual(f.read(),\ \textcolor{stringliteral}{'1.00'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00032}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_afd2b1bd07346691db6949b51f607db1e}{00032}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_afd2b1bd07346691db6949b51f607db1e}{testDumpPassExtraParams}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00033}00033\ \ \ \ \ output\_path\ =\ os.path.join(tf.test.get\_temp\_dir(),\ \textcolor{stringliteral}{'test.json'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00035}00035\ \ \ \ \ \ \ json\_utils.Dump([1.0],\ f,\ float\_digits=2,\ indent=3)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00037}00037\ \ \ \ \ \ \ self.assertEqual(f.read(),\ \textcolor{stringliteral}{'[\(\backslash\)n\ \ \ 1.00\(\backslash\)n]'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00039}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a8d927ab05b62fef44fe5718d0e53ce89}{00039}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a8d927ab05b62fef44fe5718d0e53ce89}{testDumpZeroPrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00040}00040\ \ \ \ \ output\_path\ =\ os.path.join(tf.test.get\_temp\_dir(),\ \textcolor{stringliteral}{'test.json'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00042}00042\ \ \ \ \ \ \ json\_utils.Dump(1.0,\ f,\ float\_digits=0,\ indent=3)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00044}00044\ \ \ \ \ \ \ self.assertEqual(f.read(),\ \textcolor{stringliteral}{'1'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00046}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a1feb098ac25cfbb180f8e053a236779d}{00046}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a1feb098ac25cfbb180f8e053a236779d}{testDumpUnspecifiedPrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00047}00047\ \ \ \ \ output\_path\ =\ os.path.join(tf.test.get\_temp\_dir(),\ \textcolor{stringliteral}{'test.json'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00049}00049\ \ \ \ \ \ \ json\_utils.Dump(1.012345,\ f)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(output\_path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00051}00051\ \ \ \ \ \ \ self.assertEqual(f.read(),\ \textcolor{stringliteral}{'1.012345'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00053}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a4c04b1fab920fafc723384eeac6b1b52}{00053}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a4c04b1fab920fafc723384eeac6b1b52}{testDumpsReasonablePrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00054}00054\ \ \ \ \ s\ =\ json\_utils.Dumps(1.0,\ float\_digits=2)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00055}00055\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'1.00'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_aff26437ab17c52132426656fb01f54c3}{00057}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_aff26437ab17c52132426656fb01f54c3}{testDumpsPassExtraParams}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00058}00058\ \ \ \ \ s\ =\ json\_utils.Dumps([1.0],\ float\_digits=2,\ indent=3)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00059}00059\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'[\(\backslash\)n\ \ \ 1.00\(\backslash\)n]'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_af19444f392dc40631d877fbd91c5a1df}{00061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_af19444f392dc40631d877fbd91c5a1df}{testDumpsZeroPrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00062}00062\ \ \ \ \ s\ =\ json\_utils.Dumps(1.0,\ float\_digits=0)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00063}00063\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'1'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00065}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a5a3f5d0b420127abf573d0378da46886}{00065}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a5a3f5d0b420127abf573d0378da46886}{testDumpsUnspecifiedPrecision}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00066}00066\ \ \ \ \ s\ =\ json\_utils.Dumps(1.012345)}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00067}00067\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'1.012345'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00069}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a7b3e34a01366edcc26833153d7d5d9d2}{00069}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a7b3e34a01366edcc26833153d7d5d9d2}{testPrettyParams}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00070}00070\ \ \ \ \ s\ =\ json\_utils.Dumps(\{\textcolor{stringliteral}{'v'}:\ 1.012345,\ \textcolor{stringliteral}{'n'}:\ 2\},\ **json\_utils.PrettyParams())}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00071}00071\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'\{\(\backslash\)n\ \ "{}n"{}:\ 2,\(\backslash\)n\ \ "{}v"{}:\ 1.0123\(\backslash\)n\}'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00073}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_abfabf7006f15d30e0d8613122d4c5ed0}{00073}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_abfabf7006f15d30e0d8613122d4c5ed0}{testPrettyParamsExtraParamsInside}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00074}00074\ \ \ \ \ s\ =\ json\_utils.Dumps(}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'v'}:\ 1.012345,}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'n'}:\ float(\textcolor{stringliteral}{'nan'})\},\ **json\_utils.PrettyParams(allow\_nan=\textcolor{keyword}{True}))}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00077}00077\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'\{\(\backslash\)n\ \ "{}n"{}:\ NaN,\(\backslash\)n\ \ "{}v"{}:\ 1.0123\(\backslash\)n\}'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00080}00080\ \ \ \ \ \ \ s\ =\ json\_utils.Dumps(}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'v'}:\ 1.012345,}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'n'}:\ float(\textcolor{stringliteral}{'nan'})\},\ **json\_utils.PrettyParams(allow\_nan=\textcolor{keyword}{False}))}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00084}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a95a1c1bcfed13de85b99412ad8c83018}{00084}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1json__utils__test_1_1_json_utils_test_a95a1c1bcfed13de85b99412ad8c83018}{testPrettyParamsExtraParamsOutside}}(self):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00085}00085\ \ \ \ \ s\ =\ json\_utils.Dumps(}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'v'}:\ 1.012345,}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'n'}:\ float(\textcolor{stringliteral}{'nan'})\},\ allow\_nan=\textcolor{keyword}{True},\ **json\_utils.PrettyParams())}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00088}00088\ \ \ \ \ self.assertEqual(s,\ \textcolor{stringliteral}{'\{\(\backslash\)n\ \ "{}n"{}:\ NaN,\(\backslash\)n\ \ "{}v"{}:\ 1.0123\(\backslash\)n\}'})}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00090}00090\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00091}00091\ \ \ \ \ \ \ s\ =\ json\_utils.Dumps(}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'v'}:\ 1.012345,}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'n'}:\ float(\textcolor{stringliteral}{'nan'})\},\ allow\_nan=\textcolor{keyword}{False},\ **json\_utils.PrettyParams())}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00096}00096\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{json__utils__test_8py_source_l00097}00097\ \ \ tf.test.main()}
+
+\end{DoxyCode}

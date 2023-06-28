@@ -1,0 +1,164 @@
+\doxysection{box\+\_\+coder.\+py}
+\hypertarget{box__coder_8py_source}{}\label{box__coder_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/box\_coder.py@{src/main/resources/processing/video/detections/detection\_utils/core/box\_coder.py}}
+\mbox{\hyperlink{box__coder_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Base\ box\ coder.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00018}00018\ \textcolor{stringliteral}{Box\ coders\ convert\ between\ coordinate\ frames,\ namely\ image-\/centric}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00019}00019\ \textcolor{stringliteral}{(with\ (0,0)\ on\ the\ top\ left\ of\ image)\ and\ anchor-\/centric\ (with\ (0,0)\ being}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00020}00020\ \textcolor{stringliteral}{defined\ by\ a\ specific\ anchor).}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00021}00021\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00022}00022\ \textcolor{stringliteral}{Users\ of\ a\ BoxCoder\ can\ call\ two\ methods:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00023}00023\ \textcolor{stringliteral}{\ encode:\ which\ encodes\ a\ box\ with\ respect\ to\ a\ given\ anchor}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ (}\textcolor{keywordflow}{or}\ rather,\ a\ tensor\ of\ boxes\ wrt\ a\ corresponding\ tensor\ of\ anchors)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00025}00025\ \ decode:\ which\ inverts\ this\ encoding\ \textcolor{keyword}{with}\ a\ decode\ operation.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00026}00026\ In\ both\ cases,\ the\ arguments\ are\ assumed\ to\ be\ \textcolor{keywordflow}{in}\ 1-\/1\ correspondence\ already;}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00027}00027\ it\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ the\ job\ of\ a\ BoxCoder\ to\ perform\ matching.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00028}00028\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00029}00029\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00030}00030\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00031}00031\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00032}00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00033}00033\ \textcolor{stringliteral}{from\ abc\ import\ ABCMeta}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00034}00034\ \textcolor{stringliteral}{from\ abc\ import\ abstractmethod}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00035}00035\ \textcolor{stringliteral}{from\ abc\ import\ abstractproperty}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00037}00037\ \textcolor{stringliteral}{import\ six}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00038}00038\ \textcolor{stringliteral}{import\ tensorflow\ as\ tf}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00039}00039\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00040}00040\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ shape\_utils}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00041}00041\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00043}00043\ \textcolor{stringliteral}{\#\ Box\ coder\ types.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00044}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a29907ac584e6fe0ef606f1b75189fa4e}{00044}}\ \textcolor{stringliteral}{FASTER\_RCNN\ =\ 'faster\_rcnn'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00045}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a61314a639ca2e5a5f43edabbb9ac9f4d}{00045}}\ \textcolor{stringliteral}{KEYPOINT\ =\ 'keypoint'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00046}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a560cfe3acf9537d79ebc8f3767263354}{00046}}\ \textcolor{stringliteral}{MEAN\_STDDEV\ =\ 'mean\_stddev'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00047}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_aafde485147a77d91fb7c20596d1a24df}{00047}}\ \textcolor{stringliteral}{SQUARE\ =\ 'square'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00048}00048\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00049}00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00050}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder}{00050}}\ \textcolor{stringliteral}{class\ BoxCoder(six.with\_metaclass(ABCMeta,\ object)):}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ "{}"{}"{}Abstract\ base\ class\ for\ box\ coder."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00053}00053\ \ \ \textcolor{preprocessor}{@abstractproperty}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00054}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047}{00054}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047}{code\_size}}(self):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00055}00055\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ the\ size\ of\ each\ code.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00056}00056\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ This\ number\ }\textcolor{keywordflow}{is}\ a\ constant\ \textcolor{keywordflow}{and}\ should\ agree\ \textcolor{keyword}{with}\ the\ output\ of\ the\ \`{}encode\`{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00058}00058\ \ \ \ \ op\ (e.g.\ \textcolor{keywordflow}{if}\ rel\_codes\ \textcolor{keywordflow}{is}\ the\ output\ of\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69}{encode}}(...),\ then\ it\ should\ have}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00059}00059\ \ \ \ \ shape\ [N,\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047}{code\_size}}()]).\ \ This\ abstractproperty\ should\ be\ overridden\ by}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00060}00060\ \ \ \ \ implementations.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00062}00062\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00063}00063\ \ \ \ \ \ \ an\ integer\ constant}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00067}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69}{00067}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69}{encode}}(self,\ boxes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00068}00068\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Encode\ a\ box\ list\ relative\ to\ an\ anchor\ collection.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00069}00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ boxes:\ BoxList\ holding\ N\ boxes\ to\ be\ encoded}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ N\ anchors}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00073}00073\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'Encode'}):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00078}00078\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e}{\_encode}}(boxes,\ anchors)}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00080}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a}{00080}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a}{decode}}(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00081}00081\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Decode\ boxes\ that\ are\ encoded\ relative\ to\ an\ anchor\ collection.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00082}00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ \ \ rel\_codes:\ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00085}00085\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ anchors}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00086}00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes\ encoded\ }\textcolor{keywordflow}{in}\ the\ ordinary\ way\ (i.e.,}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ corners\ y\_min,\ x\_min,\ y\_max,\ x\_max)}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00090}00090\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'Decode'}):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00092}00092\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1}{\_decode}}(rel\_codes,\ anchors)}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00094}00094\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00095}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e}{00095}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e}{\_encode}}(self,\ boxes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00096}00096\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overriden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00097}00097\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ \ \ boxes:\ BoxList\ holding\ N\ boxes\ to\ be\ encoded}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ N\ anchors}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00101}00101\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00107}00107\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00108}\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1}{00108}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1}{\_decode}}(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00109}00109\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overriden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00110}00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ \ \ rel\_codes:\ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ anchors}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00114}00114\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes\ encoded\ }\textcolor{keywordflow}{in}\ the\ ordinary\ way\ (i.e.,}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ corners\ y\_min,\ x\_min,\ y\_max,\ x\_max)}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00118}00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00122}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_abc3dd015bbcd84aed7102a7c6db8db41}{00122}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_abc3dd015bbcd84aed7102a7c6db8db41}{batch\_decode}}(encoded\_boxes,\ box\_coder,\ anchors):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00123}00123\ \ \ \textcolor{stringliteral}{"{}"{}"{}Decode\ a\ batch\ of\ encoded\ boxes.}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00124}00124\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ This\ op\ takes\ a\ batch\ of\ encoded\ bounding\ boxes\ }\textcolor{keywordflow}{and}\ transforms}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00126}00126\ \ \ them\ to\ a\ batch\ of\ bounding\ boxes\ specified\ by\ their\ corners\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00127}00127\ \ \ the\ order\ of\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00129}00129\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00130}00130\ \ \ \ \ encoded\_boxes:\ a\ float32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00131}00131\ \ \ \ \ \ \ code\_size]\ representing\ the\ location\ of\ the\ objects.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00132}00132\ \ \ \ \ box\_coder:\ a\ BoxCoder\ object.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00133}00133\ \ \ \ \ anchors:\ a\ BoxList\ of\ anchors\ used\ to\ encode\ \`{}encoded\_boxes\`{}.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00135}00135\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00136}00136\ \ \ \ \ decoded\_boxes:\ a\ float32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00137}00137\ \ \ \ \ \ \ coder\_size]\ representing\ the\ corners\ of\ the\ objects\ \textcolor{keywordflow}{in}\ the\ order}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00138}00138\ \ \ \ \ \ \ of\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00140}00140\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00141}00141\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ batch\ sizes\ of\ the\ inputs\ are\ inconsistent,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00142}00142\ \ \ \ \ the\ number\ of\ anchors\ inferred\ \textcolor{keyword}{from}\ encoded\_boxes\ \textcolor{keywordflow}{and}\ anchors\ are}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00143}00143\ \ \ \ \ inconsistent.}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00144}00144\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ encoded\_boxes.get\_shape().assert\_has\_rank(3)}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ (shape\_utils.get\_dim\_as\_int(encoded\_boxes.get\_shape()[1])}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00147}00147\ \ \ \ \ \ \ !=\ anchors.num\_boxes\_static()):}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ number\ of\ anchors\ inferred\ from\ encoded\_boxes'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\ and\ anchors\ are\ inconsistent:\ shape[1]\ of\ encoded\_boxes'}}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\ \%s\ should\ be\ equal\ to\ the\ number\ of\ anchors:\ \%s.'}\ \%}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (shape\_utils.get\_dim\_as\_int(encoded\_boxes.get\_shape()[1]),}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors.num\_boxes\_static()))}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00154}00154\ \ \ decoded\_boxes\ =\ tf.stack([}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00155}00155\ \ \ \ \ \ \ box\_coder.decode(boxes,\ anchors).get()}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00156}00156\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ boxes\ \textcolor{keywordflow}{in}\ tf.unstack(encoded\_boxes)}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00157}00157\ \ \ ])}
+\DoxyCodeLine{\Hypertarget{box__coder_8py_source_l00158}00158\ \ \ \textcolor{keywordflow}{return}\ decoded\_boxes}
+
+\end{DoxyCode}

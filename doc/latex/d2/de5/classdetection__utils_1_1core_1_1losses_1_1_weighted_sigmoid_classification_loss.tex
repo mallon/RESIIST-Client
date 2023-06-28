@@ -1,0 +1,127 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Sigmoid\+Classification\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss}\index{detection\_utils.core.losses.WeightedSigmoidClassificationLoss@{detection\_utils.core.losses.WeightedSigmoidClassificationLoss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Sigmoid\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d1/d23/classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Sigmoid\+Classification\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d1/d29/classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, weights, class\+\_\+indices=None)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Sigmoid cross entropy classification loss function.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00216}{216}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb} 
+\index{detection\_utils.core.losses.WeightedSigmoidClassificationLoss@{detection\_utils.core.losses.WeightedSigmoidClassificationLoss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.WeightedSigmoidClassificationLoss@{detection\_utils.core.losses.WeightedSigmoidClassificationLoss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Sigmoid\+Classification\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{weights,  }\item[{}]{class\+\_\+indices = {\ttfamily None} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute loss function.
+
+Args:
+  prediction_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing the predicted logits for each class
+  target_tensor: A float tensor of shape [batch_size, num_anchors,
+    num_classes] representing one-hot encoded classification targets
+  weights: a float tensor of shape, either [batch_size, num_anchors,
+    num_classes] or [batch_size, num_anchors, 1]. If the shape is
+    [batch_size, num_anchors, 1], all the classses are equally weighted.
+  class_indices: (Optional) A 1-D integer tensor of class indices.
+    If provided, computes loss only for the specified class indices.
+
+Returns:
+  loss: a float tensor of shape [batch_size, num_anchors, num_classes]
+    representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{detection\+\_\+utils.\+core.\+losses.\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00219}{219}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_indices=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00226\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00227\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{00228\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ num\_classes]\ representing\ the\ predicted\ logits\ }\textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ num\_classes]\ representing\ one-\/hot\ encoded\ classification\ targets}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape,\ either\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ num\_classes]\ \textcolor{keywordflow}{or}\ [batch\_size,\ num\_anchors,\ 1].\ If\ the\ shape\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_anchors,\ 1],\ all\ the\ classses\ are\ equally\ weighted.}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ class\_indices:\ (Optional)\ A\ 1-\/D\ integer\ tensor\ of\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ If\ provided,\ computes\ loss\ only\ \textcolor{keywordflow}{for}\ the\ specified\ \textcolor{keyword}{class\ }indices.}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ Returns:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ num\_classes]}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00241\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ class\_indices\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ weights\ *=\ tf.reshape(}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ ops.indices\_to\_dense\_vector(class\_indices,}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(prediction\_tensor)[2]),}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ -\/1])}
+\DoxyCodeLine{00246\ \ \ \ \ per\_entry\_cross\_ent\ =\ (tf.nn.sigmoid\_cross\_entropy\_with\_logits(}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ labels=target\_tensor,\ logits=prediction\_tensor))}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{return}\ per\_entry\_cross\_ent\ *\ weights}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/de5/classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

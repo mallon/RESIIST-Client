@@ -1,0 +1,328 @@
+\doxysection{detection\+\_\+utils.\+utils.\+learning\+\_\+schedules Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1learning__schedules}{}\label{namespacedetection__utils_1_1utils_1_1learning__schedules}\index{detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1learning__schedules_a58612d7cddcf21d6cde5bd725f4665ad}{exponential\+\_\+decay\+\_\+with\+\_\+burnin}} (global\+\_\+step, learning\+\_\+rate\+\_\+base, learning\+\_\+rate\+\_\+decay\+\_\+steps, learning\+\_\+rate\+\_\+decay\+\_\+factor, burnin\+\_\+learning\+\_\+rate=0.\+0, burnin\+\_\+steps=0, min\+\_\+learning\+\_\+rate=0.\+0, staircase=True)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1learning__schedules_abb26a1c6ade9443a3a23d2dda73ca031}{cosine\+\_\+decay\+\_\+with\+\_\+warmup}} (global\+\_\+step, learning\+\_\+rate\+\_\+base, total\+\_\+steps, warmup\+\_\+learning\+\_\+rate=0.\+0, warmup\+\_\+steps=0, hold\+\_\+base\+\_\+rate\+\_\+steps=0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1learning__schedules_a58bc49f44c22512b9fc3ca5a179d24a5}{manual\+\_\+stepping}} (global\+\_\+step, boundaries, rates, warmup=False)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Library of common learning rate schedules.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1learning__schedules_abb26a1c6ade9443a3a23d2dda73ca031}\label{namespacedetection__utils_1_1utils_1_1learning__schedules_abb26a1c6ade9443a3a23d2dda73ca031} 
+\index{detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}!cosine\_decay\_with\_warmup@{cosine\_decay\_with\_warmup}}
+\index{cosine\_decay\_with\_warmup@{cosine\_decay\_with\_warmup}!detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}}
+\doxysubsubsection{\texorpdfstring{cosine\_decay\_with\_warmup()}{cosine\_decay\_with\_warmup()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+learning\+\_\+schedules.\+cosine\+\_\+decay\+\_\+with\+\_\+warmup (\begin{DoxyParamCaption}\item[{}]{global\+\_\+step,  }\item[{}]{learning\+\_\+rate\+\_\+base,  }\item[{}]{total\+\_\+steps,  }\item[{}]{warmup\+\_\+learning\+\_\+rate = {\ttfamily 0.0},  }\item[{}]{warmup\+\_\+steps = {\ttfamily 0},  }\item[{}]{hold\+\_\+base\+\_\+rate\+\_\+steps = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Cosine decay schedule with warm up period.
+
+Cosine annealing learning rate as described in:
+  Loshchilov and Hutter, SGDR: Stochastic Gradient Descent with Warm Restarts.
+  ICLR 2017. https://arxiv.org/abs/1608.03983
+In this schedule, the learning rate grows linearly from warmup_learning_rate
+to learning_rate_base for warmup_steps, then transitions to a cosine decay
+schedule.
+
+Args:
+  global_step: int64 (scalar) tensor representing global step.
+  learning_rate_base: base learning rate.
+  total_steps: total number of training steps.
+  warmup_learning_rate: initial learning rate for warm up.
+  warmup_steps: number of warmup steps.
+  hold_base_rate_steps: Optional number of steps to hold base learning rate
+    before decaying.
+
+Returns:
+  If executing eagerly:
+    returns a no-arg callable that outputs the (scalar)
+    float tensor learning rate given the current value of global_step.
+  If in a graph:
+    immediately returns a (scalar) float tensor representing learning rate.
+
+Raises:
+  ValueError: if warmup_learning_rate is larger than learning_rate_base,
+    or if warmup_steps is larger than total_steps.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{learning__schedules_8py_source_l00085}{85}} of file \mbox{\hyperlink{learning__schedules_8py_source}{learning\+\_\+schedules.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hold\_base\_rate\_steps=0):}
+\DoxyCodeLine{00091\ \ \ \textcolor{stringliteral}{"{}"{}"{}Cosine\ decay\ schedule\ with\ warm\ up\ period.}}
+\DoxyCodeLine{00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00093\ \textcolor{stringliteral}{\ \ Cosine\ annealing\ learning\ rate\ }\textcolor{keyword}{as}\ described\ \textcolor{keywordflow}{in}:}
+\DoxyCodeLine{00094\ \ \ \ \ Loshchilov\ \textcolor{keywordflow}{and}\ Hutter,\ SGDR:\ Stochastic\ Gradient\ Descent\ \textcolor{keyword}{with}\ Warm\ Restarts.}
+\DoxyCodeLine{00095\ \ \ \ \ ICLR\ 2017.\ https://arxiv.org/abs/1608.03983}
+\DoxyCodeLine{00096\ \ \ In\ this\ schedule,\ the\ learning\ rate\ grows\ linearly\ \textcolor{keyword}{from}\ warmup\_learning\_rate}
+\DoxyCodeLine{00097\ \ \ to\ learning\_rate\_base\ \textcolor{keywordflow}{for}\ warmup\_steps,\ then\ transitions\ to\ a\ cosine\ decay}
+\DoxyCodeLine{00098\ \ \ schedule.}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ Args:}
+\DoxyCodeLine{00101\ \ \ \ \ global\_step:\ int64\ (scalar)\ tensor\ representing\ \textcolor{keyword}{global}\ step.}
+\DoxyCodeLine{00102\ \ \ \ \ learning\_rate\_base:\ base\ learning\ rate.}
+\DoxyCodeLine{00103\ \ \ \ \ total\_steps:\ total\ number\ of\ training\ steps.}
+\DoxyCodeLine{00104\ \ \ \ \ warmup\_learning\_rate:\ initial\ learning\ rate\ \textcolor{keywordflow}{for}\ warm\ up.}
+\DoxyCodeLine{00105\ \ \ \ \ warmup\_steps:\ number\ of\ warmup\ steps.}
+\DoxyCodeLine{00106\ \ \ \ \ hold\_base\_rate\_steps:\ Optional\ number\ of\ steps\ to\ hold\ base\ learning\ rate}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ before\ decaying.}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ Returns:}
+\DoxyCodeLine{00110\ \ \ \ \ If\ executing\ eagerly:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ returns\ a\ no-\/arg\ callable\ that\ outputs\ the\ (scalar)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ float\ tensor\ learning\ rate\ given\ the\ current\ value\ of\ global\_step.}
+\DoxyCodeLine{00113\ \ \ \ \ If\ \textcolor{keywordflow}{in}\ a\ graph:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ immediately\ returns\ a\ (scalar)\ float\ tensor\ representing\ learning\ rate.}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ Raises:}
+\DoxyCodeLine{00117\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ warmup\_learning\_rate\ \textcolor{keywordflow}{is}\ larger\ than\ learning\_rate\_base,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ warmup\_steps\ \textcolor{keywordflow}{is}\ larger\ than\ total\_steps.}
+\DoxyCodeLine{00119\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ total\_steps\ <\ warmup\_steps:}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'total\_steps\ must\ be\ larger\ or\ equal\ to\ '}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'warmup\_steps.'})}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{def\ }eager\_decay\_rate():}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Callable\ to\ compute\ the\ learning\ rate."{}"{}"{}}}
+\DoxyCodeLine{00125\ \ \ \ \ learning\_rate\ =\ 0.5\ *\ learning\_rate\_base\ *\ (1\ +\ tf.cos(}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ np.pi\ *}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ (tf.cast(global\_step,\ tf.float32)\ -\/\ warmup\_steps\ -\/\ hold\_base\_rate\_steps}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ )\ /\ float(total\_steps\ -\/\ warmup\_steps\ -\/\ hold\_base\_rate\_steps)))}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{if}\ hold\_base\_rate\_steps\ >\ 0:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ learning\_rate\ =\ tf.where(}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ global\_step\ >\ warmup\_steps\ +\ hold\_base\_rate\_steps,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ learning\_rate,\ learning\_rate\_base)}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{if}\ warmup\_steps\ >\ 0:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ learning\_rate\_base\ <\ warmup\_learning\_rate:}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'learning\_rate\_base\ must\ be\ larger\ or\ equal\ to\ '}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'warmup\_learning\_rate.'})}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ slope\ =\ (learning\_rate\_base\ -\/\ warmup\_learning\_rate)\ /\ warmup\_steps}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ warmup\_rate\ =\ slope\ *\ tf.cast(global\_step,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)\ +\ warmup\_learning\_rate}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ learning\_rate\ =\ tf.where(global\_step\ <\ warmup\_steps,\ warmup\_rate,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ learning\_rate)}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.where(global\_step\ >\ total\_steps,\ 0.0,\ learning\_rate,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'})}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate()}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1learning__schedules_a58612d7cddcf21d6cde5bd725f4665ad}\label{namespacedetection__utils_1_1utils_1_1learning__schedules_a58612d7cddcf21d6cde5bd725f4665ad} 
+\index{detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}!exponential\_decay\_with\_burnin@{exponential\_decay\_with\_burnin}}
+\index{exponential\_decay\_with\_burnin@{exponential\_decay\_with\_burnin}!detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}}
+\doxysubsubsection{\texorpdfstring{exponential\_decay\_with\_burnin()}{exponential\_decay\_with\_burnin()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+learning\+\_\+schedules.\+exponential\+\_\+decay\+\_\+with\+\_\+burnin (\begin{DoxyParamCaption}\item[{}]{global\+\_\+step,  }\item[{}]{learning\+\_\+rate\+\_\+base,  }\item[{}]{learning\+\_\+rate\+\_\+decay\+\_\+steps,  }\item[{}]{learning\+\_\+rate\+\_\+decay\+\_\+factor,  }\item[{}]{burnin\+\_\+learning\+\_\+rate = {\ttfamily 0.0},  }\item[{}]{burnin\+\_\+steps = {\ttfamily 0},  }\item[{}]{min\+\_\+learning\+\_\+rate = {\ttfamily 0.0},  }\item[{}]{staircase = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Exponential decay schedule with burn-in period.
+
+In this schedule, learning rate is fixed at burnin_learning_rate
+for a fixed period, before transitioning to a regular exponential
+decay schedule.
+
+Args:
+  global_step: int tensor representing global step.
+  learning_rate_base: base learning rate.
+  learning_rate_decay_steps: steps to take between decaying the learning rate.
+    Note that this includes the number of burn-in steps.
+  learning_rate_decay_factor: multiplicative factor by which to decay
+    learning rate.
+  burnin_learning_rate: initial learning rate during burn-in period.  If
+    0.0 (which is the default), then the burn-in learning rate is simply
+    set to learning_rate_base.
+  burnin_steps: number of steps to use burnin learning rate.
+  min_learning_rate: the minimum learning rate.
+  staircase: whether use staircase decay.
+
+Returns:
+  If executing eagerly:
+    returns a no-arg callable that outputs the (scalar)
+    float tensor learning rate given the current value of global_step.
+  If in a graph:
+    immediately returns a (scalar) float tensor representing learning rate.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{learning__schedules_8py_source_l00026}{26}} of file \mbox{\hyperlink{learning__schedules_8py_source}{learning\+\_\+schedules.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ staircase=\textcolor{keyword}{True}):}
+\DoxyCodeLine{00034\ \ \ \textcolor{stringliteral}{"{}"{}"{}Exponential\ decay\ schedule\ with\ burn-\/in\ period.}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ In\ this\ schedule,\ learning\ rate\ }\textcolor{keywordflow}{is}\ fixed\ at\ burnin\_learning\_rate}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordflow}{for}\ a\ fixed\ period,\ before\ transitioning\ to\ a\ regular\ exponential}
+\DoxyCodeLine{00038\ \ \ decay\ schedule.}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ Args:}
+\DoxyCodeLine{00041\ \ \ \ \ global\_step:\ int\ tensor\ representing\ \textcolor{keyword}{global}\ step.}
+\DoxyCodeLine{00042\ \ \ \ \ learning\_rate\_base:\ base\ learning\ rate.}
+\DoxyCodeLine{00043\ \ \ \ \ learning\_rate\_decay\_steps:\ steps\ to\ take\ between\ decaying\ the\ learning\ rate.}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ Note\ that\ this\ includes\ the\ number\ of\ burn-\/\textcolor{keywordflow}{in}\ steps.}
+\DoxyCodeLine{00045\ \ \ \ \ learning\_rate\_decay\_factor:\ multiplicative\ factor\ by\ which\ to\ decay}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ learning\ rate.}
+\DoxyCodeLine{00047\ \ \ \ \ burnin\_learning\_rate:\ initial\ learning\ rate\ during\ burn-\/\textcolor{keywordflow}{in}\ period.\ \ If}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ 0.0\ (which\ \textcolor{keywordflow}{is}\ the\ default),\ then\ the\ burn-\/\textcolor{keywordflow}{in}\ learning\ rate\ \textcolor{keywordflow}{is}\ simply}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ set\ to\ learning\_rate\_base.}
+\DoxyCodeLine{00050\ \ \ \ \ burnin\_steps:\ number\ of\ steps\ to\ use\ burnin\ learning\ rate.}
+\DoxyCodeLine{00051\ \ \ \ \ min\_learning\_rate:\ the\ minimum\ learning\ rate.}
+\DoxyCodeLine{00052\ \ \ \ \ staircase:\ whether\ use\ staircase\ decay.}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ Returns:}
+\DoxyCodeLine{00055\ \ \ \ \ If\ executing\ eagerly:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ returns\ a\ no-\/arg\ callable\ that\ outputs\ the\ (scalar)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ float\ tensor\ learning\ rate\ given\ the\ current\ value\ of\ global\_step.}
+\DoxyCodeLine{00058\ \ \ \ \ If\ \textcolor{keywordflow}{in}\ a\ graph:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ immediately\ returns\ a\ (scalar)\ float\ tensor\ representing\ learning\ rate.}
+\DoxyCodeLine{00060\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ burnin\_learning\_rate\ ==\ 0:}
+\DoxyCodeLine{00062\ \ \ \ \ burnin\_learning\_rate\ =\ learning\_rate\_base}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{def\ }eager\_decay\_rate():}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Callable\ to\ compute\ the\ learning\ rate."{}"{}"{}}}
+\DoxyCodeLine{00066\ \ \ \ \ post\_burnin\_learning\_rate\ =\ tf.train.exponential\_decay(}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ learning\_rate\_base,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ global\_step\ -\/\ burnin\_steps,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ learning\_rate\_decay\_steps,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ learning\_rate\_decay\_factor,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ staircase=staircase)}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}\ callable(post\_burnin\_learning\_rate):}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ post\_burnin\_learning\_rate\ =\ post\_burnin\_learning\_rate()}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.maximum(tf.where(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ tf.less(tf.cast(global\_step,\ tf.int32),\ tf.constant(burnin\_steps)),}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ tf.constant(burnin\_learning\_rate),}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ post\_burnin\_learning\_rate),\ min\_learning\_rate,\ name=\textcolor{stringliteral}{'learning\_rate'})}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate()}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1learning__schedules_a58bc49f44c22512b9fc3ca5a179d24a5}\label{namespacedetection__utils_1_1utils_1_1learning__schedules_a58bc49f44c22512b9fc3ca5a179d24a5} 
+\index{detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}!manual\_stepping@{manual\_stepping}}
+\index{manual\_stepping@{manual\_stepping}!detection\_utils.utils.learning\_schedules@{detection\_utils.utils.learning\_schedules}}
+\doxysubsubsection{\texorpdfstring{manual\_stepping()}{manual\_stepping()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+learning\+\_\+schedules.\+manual\+\_\+stepping (\begin{DoxyParamCaption}\item[{}]{global\+\_\+step,  }\item[{}]{boundaries,  }\item[{}]{rates,  }\item[{}]{warmup = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Manually stepped learning rate schedule.
+
+This function provides fine grained control over learning rates.  One must
+specify a sequence of learning rates as well as a set of integer steps
+at which the current learning rate must transition to the next.  For example,
+if boundaries = [5, 10] and rates = [.1, .01, .001], then the learning
+rate returned by this function is .1 for global_step=0,...,4, .01 for
+global_step=5...9, and .001 for global_step=10 and onward.
+
+Args:
+  global_step: int64 (scalar) tensor representing global step.
+  boundaries: a list of global steps at which to switch learning
+    rates.  This list is assumed to consist of increasing positive integers.
+  rates: a list of (float) learning rates corresponding to intervals between
+    the boundaries.  The length of this list must be exactly
+    len(boundaries) + 1.
+  warmup: Whether to linearly interpolate learning rate for steps in
+    [0, boundaries[0]].
+
+Returns:
+  If executing eagerly:
+    returns a no-arg callable that outputs the (scalar)
+    float tensor learning rate given the current value of global_step.
+  If in a graph:
+    immediately returns a (scalar) float tensor representing learning rate.
+Raises:
+  ValueError: if one of the following checks fails:
+    1. boundaries is a strictly increasing list of positive integers
+    2. len(rates) == len(boundaries) + 1
+    3. boundaries[0] != 0
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{learning__schedules_8py_source_l00151}{151}} of file \mbox{\hyperlink{learning__schedules_8py_source}{learning\+\_\+schedules.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00151\ \textcolor{keyword}{def\ }manual\_stepping(global\_step,\ boundaries,\ rates,\ warmup=False):}
+\DoxyCodeLine{00152\ \ \ \textcolor{stringliteral}{"{}"{}"{}Manually\ stepped\ learning\ rate\ schedule.}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ This\ function\ provides\ fine\ grained\ control\ over\ learning\ rates.\ \ One\ must}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ specify\ a\ sequence\ of\ learning\ rates\ }\textcolor{keyword}{as}\ well\ \textcolor{keyword}{as}\ a\ set\ of\ integer\ steps}
+\DoxyCodeLine{00156\ \ \ at\ which\ the\ current\ learning\ rate\ must\ transition\ to\ the\ next.\ \ For\ example,}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordflow}{if}\ boundaries\ =\ [5,\ 10]\ \textcolor{keywordflow}{and}\ rates\ =\ [.1,\ .01,\ .001],\ then\ the\ learning}
+\DoxyCodeLine{00158\ \ \ rate\ returned\ by\ this\ function\ \textcolor{keywordflow}{is}\ .1\ \textcolor{keywordflow}{for}\ global\_step=0,...,4,\ .01\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00159\ \ \ global\_step=5...9,\ \textcolor{keywordflow}{and}\ .001\ \textcolor{keywordflow}{for}\ global\_step=10\ \textcolor{keywordflow}{and}\ onward.}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ Args:}
+\DoxyCodeLine{00162\ \ \ \ \ global\_step:\ int64\ (scalar)\ tensor\ representing\ \textcolor{keyword}{global}\ step.}
+\DoxyCodeLine{00163\ \ \ \ \ boundaries:\ a\ list\ of\ \textcolor{keyword}{global}\ steps\ at\ which\ to\ switch\ learning}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ rates.\ \ This\ list\ \textcolor{keywordflow}{is}\ assumed\ to\ consist\ of\ increasing\ positive\ integers.}
+\DoxyCodeLine{00165\ \ \ \ \ rates:\ a\ list\ of\ (float)\ learning\ rates\ corresponding\ to\ intervals\ between}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ the\ boundaries.\ \ The\ length\ of\ this\ list\ must\ be\ exactly}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ len(boundaries)\ +\ 1.}
+\DoxyCodeLine{00168\ \ \ \ \ warmup:\ Whether\ to\ linearly\ interpolate\ learning\ rate\ \textcolor{keywordflow}{for}\ steps\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ [0,\ boundaries[0]].}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ Returns:}
+\DoxyCodeLine{00172\ \ \ \ \ If\ executing\ eagerly:}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ returns\ a\ no-\/arg\ callable\ that\ outputs\ the\ (scalar)}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ float\ tensor\ learning\ rate\ given\ the\ current\ value\ of\ global\_step.}
+\DoxyCodeLine{00175\ \ \ \ \ If\ \textcolor{keywordflow}{in}\ a\ graph:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ immediately\ returns\ a\ (scalar)\ float\ tensor\ representing\ learning\ rate.}
+\DoxyCodeLine{00177\ \ \ Raises:}
+\DoxyCodeLine{00178\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ one\ of\ the\ following\ checks\ fails:}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ 1.\ boundaries\ \textcolor{keywordflow}{is}\ a\ strictly\ increasing\ list\ of\ positive\ integers}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ 2.\ len(rates)\ ==\ len(boundaries)\ +\ 1}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ 3.\ boundaries[0]\ !=\ 0}
+\DoxyCodeLine{00182\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00183\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ any([b\ <\ 0\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ boundaries])\ \textcolor{keywordflow}{or}\ any(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ [\textcolor{keywordflow}{not}\ isinstance(b,\ int)\ \textcolor{keywordflow}{for}\ b\ \textcolor{keywordflow}{in}\ boundaries]):}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boundaries\ must\ be\ a\ list\ of\ positive\ integers'})}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{if}\ any([bnext\ <=\ b\ \textcolor{keywordflow}{for}\ bnext,\ b\ \textcolor{keywordflow}{in}\ zip(boundaries[1:],\ boundaries[:-\/1])]):}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Entries\ in\ boundaries\ must\ be\ strictly\ increasing.'})}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{if}\ any([\textcolor{keywordflow}{not}\ isinstance(r,\ float)\ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ rates]):}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Learning\ rates\ must\ be\ floats'})}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{if}\ len(rates)\ !=\ len(boundaries)\ +\ 1:}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Number\ of\ provided\ learning\ rates\ must\ exceed\ '}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'number\ of\ boundary\ points\ by\ exactly\ 1.'})}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{and}\ boundaries[0]\ ==\ 0:}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'First\ step\ cannot\ be\ zero.'})}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{if}\ warmup\ \textcolor{keywordflow}{and}\ boundaries:}
+\DoxyCodeLine{00198\ \ \ \ \ slope\ =\ (rates[1]\ -\/\ rates[0])\ *\ 1.0\ /\ boundaries[0]}
+\DoxyCodeLine{00199\ \ \ \ \ warmup\_steps\ =\ list(range(boundaries[0]))}
+\DoxyCodeLine{00200\ \ \ \ \ warmup\_rates\ =\ [rates[0]\ +\ slope\ *\ step\ \textcolor{keywordflow}{for}\ step\ \textcolor{keywordflow}{in}\ warmup\_steps]}
+\DoxyCodeLine{00201\ \ \ \ \ boundaries\ =\ warmup\_steps\ +\ boundaries}
+\DoxyCodeLine{00202\ \ \ \ \ rates\ =\ warmup\_rates\ +\ rates[1:]}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00204\ \ \ \ \ boundaries\ =\ [0]\ +\ boundaries}
+\DoxyCodeLine{00205\ \ \ num\_boundaries\ =\ len(boundaries)}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{keyword}{def\ }eager\_decay\_rate():}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Callable\ to\ compute\ the\ learning\ rate."{}"{}"{}}}
+\DoxyCodeLine{00209\ \ \ \ \ rate\_index\ =\ tf.reduce\_max(tf.where(}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ tf.greater\_equal(global\_step,\ boundaries),}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ list(range(num\_boundaries)),}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ [0]\ *\ num\_boundaries))}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(rates\ *\ tf.one\_hot(rate\_index,\ depth=num\_boundaries),}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'learning\_rate'})}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{return}\ eager\_decay\_rate()}
+
+\end{DoxyCode}

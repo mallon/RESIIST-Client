@@ -1,0 +1,327 @@
+\doxysection{detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test}{}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test}\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{de/d43/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{db/def/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_af608aa78a76e885ea7b391ec6fb1fcbd}{test\+\_\+batchnorm\+\_\+freezing\+\_\+training\+\_\+none}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a74e6fd28a2bc0885f2eba7957c746c5c}{test\+\_\+batchnorm\+\_\+freezing\+\_\+training\+\_\+false}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a942f8e9473f26aef9508f09d342b8634}{\+\_\+build\+\_\+model}} (self, training=None)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_adf7451aa1acaffaeb0d191d9fd1eb1f4}{\+\_\+train\+\_\+freezable\+\_\+batch\+\_\+norm}} (self, training\+\_\+mean, training\+\_\+var)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_ae45c57708ba6cfe222df35de6179d999}{\+\_\+test\+\_\+batchnorm\+\_\+layer}} (self, norm, should\+\_\+be\+\_\+training, test\+\_\+data, testing\+\_\+mean, testing\+\_\+var, training\+\_\+arg, training\+\_\+mean, training\+\_\+var)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Tests for FreezableBatchNorm operations.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00028}{28}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a942f8e9473f26aef9508f09d342b8634}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a942f8e9473f26aef9508f09d342b8634} 
+\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}!\_build\_model@{\_build\_model}}
+\index{\_build\_model@{\_build\_model}!detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+\doxysubsubsection{\texorpdfstring{\_build\_model()}{\_build\_model()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test.\+\_\+build\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{training = {\ttfamily None} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{def\ }\_build\_model(self,\ training=None):}
+\DoxyCodeLine{00032\ \ \ \ \ model\ =\ tf.keras.models.Sequential()}
+\DoxyCodeLine{00033\ \ \ \ \ norm\ =\ freezable\_batch\_norm.FreezableBatchNorm(training=training,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_shape=(10,),}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ momentum=0.8)}
+\DoxyCodeLine{00036\ \ \ \ \ model.add(norm)}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ model,\ norm}
+\DoxyCodeLine{00038\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a942f8e9473f26aef9508f09d342b8634_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_ae45c57708ba6cfe222df35de6179d999}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_ae45c57708ba6cfe222df35de6179d999} 
+\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}!\_test\_batchnorm\_layer@{\_test\_batchnorm\_layer}}
+\index{\_test\_batchnorm\_layer@{\_test\_batchnorm\_layer}!detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+\doxysubsubsection{\texorpdfstring{\_test\_batchnorm\_layer()}{\_test\_batchnorm\_layer()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test.\+\_\+test\+\_\+batchnorm\+\_\+layer (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{norm,  }\item[{}]{should\+\_\+be\+\_\+training,  }\item[{}]{test\+\_\+data,  }\item[{}]{testing\+\_\+mean,  }\item[{}]{testing\+\_\+var,  }\item[{}]{training\+\_\+arg,  }\item[{}]{training\+\_\+mean,  }\item[{}]{training\+\_\+var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00051}{51}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,\ training\_mean,\ training\_var):}
+\DoxyCodeLine{00054\ \ \ \ \ out\_tensor\ =\ norm(tf.convert\_to\_tensor(test\_data,\ dtype=tf.float32),}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training=training\_arg)}
+\DoxyCodeLine{00056\ \ \ \ \ out\ =\ tf.keras.backend.eval(out\_tensor)}
+\DoxyCodeLine{00057\ \ \ \ \ out\ -\/=\ tf.keras.backend.eval(norm.beta)}
+\DoxyCodeLine{00058\ \ \ \ \ out\ /=\ tf.keras.backend.eval(norm.gamma)}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ should\_be\_training:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ out\ *=\ training\_var}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ out\ +=\ (training\_mean\ -\/\ testing\_mean)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ out\ /=\ testing\_var}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ np.testing.assert\_allclose(out.mean(),\ 0.0,\ atol=1.5e-\/1)}
+\DoxyCodeLine{00066\ \ \ \ \ np.testing.assert\_allclose(out.std(),\ 1.0,\ atol=1.5e-\/1)}
+\DoxyCodeLine{00067\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_ae45c57708ba6cfe222df35de6179d999_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_adf7451aa1acaffaeb0d191d9fd1eb1f4}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_adf7451aa1acaffaeb0d191d9fd1eb1f4} 
+\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}!\_train\_freezable\_batch\_norm@{\_train\_freezable\_batch\_norm}}
+\index{\_train\_freezable\_batch\_norm@{\_train\_freezable\_batch\_norm}!detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+\doxysubsubsection{\texorpdfstring{\_train\_freezable\_batch\_norm()}{\_train\_freezable\_batch\_norm()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test.\+\_\+train\+\_\+freezable\+\_\+batch\+\_\+norm (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{training\+\_\+mean,  }\item[{}]{training\+\_\+var }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00039}{39}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{def\ }\_train\_freezable\_batch\_norm(self,\ training\_mean,\ training\_var):}
+\DoxyCodeLine{00040\ \ \ \ \ model,\ \_\ =\ self.\_build\_model()}
+\DoxyCodeLine{00041\ \ \ \ \ model.compile(loss=\textcolor{stringliteral}{'mse'},\ optimizer=\textcolor{stringliteral}{'sgd'})}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{\#\ centered\ on\ training\_mean,\ variance\ training\_var}}
+\DoxyCodeLine{00044\ \ \ \ \ train\_data\ =\ np.random.normal(}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ loc=training\_mean,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ scale=training\_var,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ size=(1000,\ 10))}
+\DoxyCodeLine{00048\ \ \ \ \ model.fit(train\_data,\ train\_data,\ epochs=4,\ verbose=0)}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ model.weights}
+\DoxyCodeLine{00050\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_adf7451aa1acaffaeb0d191d9fd1eb1f4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_adf7451aa1acaffaeb0d191d9fd1eb1f4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a74e6fd28a2bc0885f2eba7957c746c5c}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a74e6fd28a2bc0885f2eba7957c746c5c} 
+\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}!test\_batchnorm\_freezing\_training\_false@{test\_batchnorm\_freezing\_training\_false}}
+\index{test\_batchnorm\_freezing\_training\_false@{test\_batchnorm\_freezing\_training\_false}!detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+\doxysubsubsection{\texorpdfstring{test\_batchnorm\_freezing\_training\_false()}{test\_batchnorm\_freezing\_training\_false()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test.\+test\+\_\+batchnorm\+\_\+freezing\+\_\+training\+\_\+false (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00127}{127}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{def\ }test\_batchnorm\_freezing\_training\_false(self):}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ training\_mean\ =\ 5.0}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ training\_var\ =\ 10.0}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ testing\_mean\ =\ -\/10.0}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ testing\_var\ =\ 5.0}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{comment}{\#\ Initially\ train\ the\ batch\ norm,\ and\ save\ the\ weights}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ trained\_weights\ =\ self.\_train\_freezable\_batch\_norm(training\_mean,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_var)}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{comment}{\#\ Load\ the\ batch\ norm\ back\ up,\ freezing\ training\ to\ False.}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{comment}{\#\ Apply\ the\ batch\ norm\ layer\ to\ testing\ data\ and\ ensure\ it\ is\ normalized}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{comment}{\#\ according\ to\ the\ training\ data's\ statistics.}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ model,\ norm\ =\ self.\_build\_model(training=\textcolor{keyword}{False})}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ trained\_weight,\ blank\_weight\ \textcolor{keywordflow}{in}\ zip(trained\_weights,\ model.weights):}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ weight\_copy\ =\ blank\_weight.assign(tf.keras.backend.eval(trained\_weight))}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ tf.keras.backend.eval(weight\_copy)}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{comment}{\#\ centered\ on\ testing\_mean,\ variance\ testing\_var}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ test\_data\ =\ np.random.normal(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ loc=testing\_mean,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ scale=testing\_var,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ size=(1000,\ 10))}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \textcolor{comment}{\#\ Make\ sure\ that\ the\ layer\ is\ never\ training}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ training=True\ passed\ to\ the\ call\ method:}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ training=False\ passed\ to\ the\ call\ method:}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ the\ layer\ in\ various\ Keras\ learning\ phase\ scopes:}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ tf.keras.backend.set\_learning\_phase(\textcolor{keyword}{True})}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ tf.keras.backend.set\_learning\_phase(\textcolor{keyword}{False})}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_a74e6fd28a2bc0885f2eba7957c746c5c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_af608aa78a76e885ea7b391ec6fb1fcbd}\label{classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_af608aa78a76e885ea7b391ec6fb1fcbd} 
+\index{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}!test\_batchnorm\_freezing\_training\_none@{test\_batchnorm\_freezing\_training\_none}}
+\index{test\_batchnorm\_freezing\_training\_none@{test\_batchnorm\_freezing\_training\_none}!detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest@{detection\_utils.core.freezable\_batch\_norm\_test.FreezableBatchNormTest}}
+\doxysubsubsection{\texorpdfstring{test\_batchnorm\_freezing\_training\_none()}{test\_batchnorm\_freezing\_training\_none()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+freezable\+\_\+batch\+\_\+norm\+\_\+test.\+Freezable\+Batch\+Norm\+Test.\+test\+\_\+batchnorm\+\_\+freezing\+\_\+training\+\_\+none (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{freezable__batch__norm__test_8py_source_l00068}{68}} of file \mbox{\hyperlink{freezable__batch__norm__test_8py_source}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{def\ }test\_batchnorm\_freezing\_training\_none(self):}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ training\_mean\ =\ 5.0}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ training\_var\ =\ 10.0}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ testing\_mean\ =\ -\/10.0}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ testing\_var\ =\ 5.0}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{comment}{\#\ Initially\ train\ the\ batch\ norm,\ and\ save\ the\ weights}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ trained\_weights\ =\ self.\_train\_freezable\_batch\_norm(training\_mean,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_var)}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{comment}{\#\ Load\ the\ batch\ norm\ weights,\ freezing\ training\ to\ True.}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \textcolor{comment}{\#\ Apply\ the\ batch\ norm\ layer\ to\ testing\ data\ and\ ensure\ it\ is\ normalized}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{comment}{\#\ according\ to\ the\ batch\ statistics.}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ model,\ norm\ =\ self.\_build\_model(training=\textcolor{keyword}{True})}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ trained\_weight,\ blank\_weight\ \textcolor{keywordflow}{in}\ zip(trained\_weights,\ model.weights):}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ weight\_copy\ =\ blank\_weight.assign(tf.keras.backend.eval(trained\_weight))}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ tf.keras.backend.eval(weight\_copy)}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \textcolor{comment}{\#\ centered\ on\ testing\_mean,\ variance\ testing\_var}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ test\_data\ =\ np.random.normal(}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ loc=testing\_mean,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ scale=testing\_var,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ size=(1000,\ 10))}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ training=True\ passed\ to\ the\ call\ method:}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ with\ training=False\ passed\ to\ the\ call\ method:}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{comment}{\#\ Test\ the\ layer\ in\ various\ Keras\ learning\ phase\ scopes:}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ training\_arg\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ tf.keras.backend.set\_learning\_phase(\textcolor{keyword}{True})}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ tf.keras.backend.set\_learning\_phase(\textcolor{keyword}{False})}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ should\_be\_training\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ self.\_test\_batchnorm\_layer(norm,\ should\_be\_training,\ test\_data,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ testing\_mean,\ testing\_var,\ training\_arg,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ training\_mean,\ training\_var)}
+\DoxyCodeLine{00126\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/ddf/classdetection__utils_1_1core_1_1freezable__batch__norm__test_1_1_freezable_batch_norm_test_af608aa78a76e885ea7b391ec6fb1fcbd_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{freezable__batch__norm__test_8py}{freezable\+\_\+batch\+\_\+norm\+\_\+test.\+py}}\end{DoxyCompactItemize}

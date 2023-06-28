@@ -1,0 +1,109 @@
+\doxysection{preprocessor\+\_\+cache.\+py}
+\hypertarget{preprocessor__cache_8py_source}{}\label{preprocessor__cache_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/preprocessor\_cache.py@{src/main/resources/processing/video/detections/detection\_utils/core/preprocessor\_cache.py}}
+\mbox{\hyperlink{preprocessor__cache_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1preprocessor__cache}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Records\ previous\ preprocessing\ operations\ and\ allows\ them\ to\ be\ repeated.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00017}00017\ \textcolor{stringliteral}{Used\ with\ object\_detection.core.preprocessor.\ Passing\ a\ PreprocessorCache}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00018}00018\ \textcolor{stringliteral}{into\ individual\ data\ augmentation\ functions\ or\ the\ general\ preprocess()\ function}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00019}00019\ \textcolor{stringliteral}{will\ store\ all\ randomly\ generated\ variables\ in\ the\ PreprocessorCache.\ When}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00020}00020\ \textcolor{stringliteral}{a\ preprocessor\ function\ is\ called\ multiple\ times\ with\ the\ same}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00021}00021\ \textcolor{stringliteral}{PreprocessorCache\ object,\ that\ function\ will\ perform\ the\ same\ augmentation}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00022}00022\ \textcolor{stringliteral}{on\ all\ calls.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00023}00023\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00025}00025\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ defaultdict}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00028}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache}{00028}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache}{PreprocessorCache}}(object):}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00029}00029\ \ \ \textcolor{stringliteral}{"{}"{}"{}Dictionary\ wrapper\ storing\ random\ variables\ generated\ during\ preprocessing.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00031}00031\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Constant\ keys\ representing\ different\ preprocessing\ functions}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00033}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a9eab75ebb65731f0582603c82fcb1339}{00033}}\ \ \ ROTATION90\ =\ \textcolor{stringliteral}{'rotation90'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00034}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a212083255bf6950059743b27ac2ce459}{00034}}\ \ \ HORIZONTAL\_FLIP\ =\ \textcolor{stringliteral}{'horizontal\_flip'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00035}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_aa39ee38bb2e0f5751628447efdc5a69b}{00035}}\ \ \ VERTICAL\_FLIP\ =\ \textcolor{stringliteral}{'vertical\_flip'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00036}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a47063c9fb1059ac079a747a8de20a0ef}{00036}}\ \ \ PIXEL\_VALUE\_SCALE\ =\ \textcolor{stringliteral}{'pixel\_value\_scale'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a6d43586312872a781b4268c992d04059}{00037}}\ \ \ IMAGE\_SCALE\ =\ \textcolor{stringliteral}{'image\_scale'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00038}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a93d53ae0993905d79445b97a95ee1e5b}{00038}}\ \ \ RGB\_TO\_GRAY\ =\ \textcolor{stringliteral}{'rgb\_to\_gray'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00039}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_ac9f946d44ee7fbf89b35ed1fb3c2a936}{00039}}\ \ \ ADJUST\_BRIGHTNESS\ =\ \textcolor{stringliteral}{'adjust\_brightness'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00040}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a4d032b93072c79b1ca86b1c5618e6c1b}{00040}}\ \ \ ADJUST\_CONTRAST\ =\ \textcolor{stringliteral}{'adjust\_contrast'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00041}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a339ed4cab18b7a27781822103ddc5080}{00041}}\ \ \ ADJUST\_HUE\ =\ \textcolor{stringliteral}{'adjust\_hue'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00042}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_abb84915a67cda01281c4ddc386323c99}{00042}}\ \ \ ADJUST\_SATURATION\ =\ \textcolor{stringliteral}{'adjust\_saturation'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00043}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_af1c6573a5652c5c069d20bc001568e7c}{00043}}\ \ \ DISTORT\_COLOR\ =\ \textcolor{stringliteral}{'distort\_color'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_afa6fd89395241dffa90b548b88b13209}{00044}}\ \ \ STRICT\_CROP\_IMAGE\ =\ \textcolor{stringliteral}{'strict\_crop\_image'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00045}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_adda8504ac50e402372a0a872a218471a}{00045}}\ \ \ CROP\_IMAGE\ =\ \textcolor{stringliteral}{'crop\_image'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00046}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a9055ab00a1752d2422617db7650349e4}{00046}}\ \ \ PAD\_IMAGE\ =\ \textcolor{stringliteral}{'pad\_image'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00047}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_ab62ecfed118bb1cf17ddb08f25f151f9}{00047}}\ \ \ CROP\_TO\_ASPECT\_RATIO\ =\ \textcolor{stringliteral}{'crop\_to\_aspect\_ratio'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00048}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a04036d792a61e2c0592465d95454ec08}{00048}}\ \ \ RESIZE\_METHOD\ =\ \textcolor{stringliteral}{'resize\_method'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00049}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_aaecea14b580d76ab45be3ebadd3b0d80}{00049}}\ \ \ PAD\_TO\_ASPECT\_RATIO\ =\ \textcolor{stringliteral}{'pad\_to\_aspect\_ratio'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00050}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a2298c97121839dec3156e3c34720f208}{00050}}\ \ \ BLACK\_PATCHES\ =\ \textcolor{stringliteral}{'black\_patches'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00051}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a2bcb9072ac15a2d04f02a4011754be34}{00051}}\ \ \ ADD\_BLACK\_PATCH\ =\ \textcolor{stringliteral}{'add\_black\_patch'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00052}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a2cb33a8c5a926eb6abc69f2db8c8ab38}{00052}}\ \ \ SELECTOR\ =\ \textcolor{stringliteral}{'selector'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00053}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a74da280e972dbdeeec1dbeeb0df4b70f}{00053}}\ \ \ SELECTOR\_TUPLES\ =\ \textcolor{stringliteral}{'selector\_tuples'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00054}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a99f984209d7de4b8f716f7709cfcca70}{00054}}\ \ \ SELF\_CONCAT\_IMAGE\ =\ \textcolor{stringliteral}{'self\_concat\_image'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00055}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a3ba9165f4d65807bcc57d7b8313e5221}{00055}}\ \ \ SSD\_CROP\_SELECTOR\_ID\ =\ \textcolor{stringliteral}{'ssd\_crop\_selector\_id'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00056}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a1110751118e1f81efc95cb8ad93cc743}{00056}}\ \ \ SSD\_CROP\_PAD\_SELECTOR\_ID\ =\ \textcolor{stringliteral}{'ssd\_crop\_pad\_selector\_id'}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00058}00058\ \ \ \textcolor{comment}{\#\ 23\ permitted\ function\ ids}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00059}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a4563955fdb2ced247b2578259a4b456b}{00059}}\ \ \ \_VALID\_FNS\ =\ [ROTATION90,\ HORIZONTAL\_FLIP,\ VERTICAL\_FLIP,\ PIXEL\_VALUE\_SCALE,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IMAGE\_SCALE,\ RGB\_TO\_GRAY,\ ADJUST\_BRIGHTNESS,\ ADJUST\_CONTRAST,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ADJUST\_HUE,\ ADJUST\_SATURATION,\ DISTORT\_COLOR,\ STRICT\_CROP\_IMAGE,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CROP\_IMAGE,\ PAD\_IMAGE,\ CROP\_TO\_ASPECT\_RATIO,\ RESIZE\_METHOD,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PAD\_TO\_ASPECT\_RATIO,\ BLACK\_PATCHES,\ ADD\_BLACK\_PATCH,\ SELECTOR,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SELECTOR\_TUPLES,\ SELF\_CONCAT\_IMAGE,\ SSD\_CROP\_SELECTOR\_ID,}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SSD\_CROP\_PAD\_SELECTOR\_ID]}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00067}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a5d61806846423d41058cff1cca786564}{00067}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a5d61806846423d41058cff1cca786564}{\_\_init\_\_}}(self):}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00068}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a040b4ffbcf71d53909e95db5552733d4}{00068}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a040b4ffbcf71d53909e95db5552733d4}{\_history}}\ =\ defaultdict(dict)}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00070}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a1379d3e4f553696e690f01424d7a597b}{00070}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a1379d3e4f553696e690f01424d7a597b}{clear}}(self):}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00071}00071\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Resets\ cache."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00072}00072\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a040b4ffbcf71d53909e95db5552733d4}{\_history}}\ =\ defaultdict(dict)}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00074}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_aef80241d5a3284a8986017a8a69b38b6}{00074}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_aef80241d5a3284a8986017a8a69b38b6}{get}}(self,\ function\_id,\ key):}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00075}00075\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Gets\ stored\ value\ given\ a\ function\ id\ and\ key.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00076}00076\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ \ \ \ \ function\_id:\ identifier\ }\textcolor{keywordflow}{for}\ the\ preprocessing\ function\ used.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00079}00079\ \ \ \ \ \ \ key:\ identifier\ \textcolor{keywordflow}{for}\ the\ variable\ stored.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00080}00080\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00081}00081\ \ \ \ \ \ \ value:\ the\ corresponding\ value,\ expected\ to\ be\ a\ tensor\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ nested\ structure\ of\ tensors.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00083}00083\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00084}00084\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ function\_id\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ one\ of\ the\ 23\ valid\ function\ ids.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00085}00085\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ function\_id\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a4563955fdb2ced247b2578259a4b456b}{\_VALID\_FNS}}:}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00087}00087\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Function\ id\ not\ recognized:\ \%s.'}\ \%\ str(function\_id))}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a040b4ffbcf71d53909e95db5552733d4}{\_history}}[function\_id].\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_aef80241d5a3284a8986017a8a69b38b6}{get}}(key)}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00090}\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a7d84a671aacc99fa21886cb8d6d4e06e}{00090}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a7d84a671aacc99fa21886cb8d6d4e06e}{update}}(self,\ function\_id,\ key,\ value):}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00091}00091\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ a\ value\ to\ the\ dictionary.}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00092}00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ \ \ function\_id:\ identifier\ }\textcolor{keywordflow}{for}\ the\ preprocessing\ function\ used.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00095}00095\ \ \ \ \ \ \ key:\ identifier\ \textcolor{keywordflow}{for}\ the\ variable\ stored.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00096}00096\ \ \ \ \ \ \ value:\ the\ value\ to\ store,\ expected\ to\ be\ a\ tensor\ \textcolor{keywordflow}{or}\ nested\ structure}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ of\ tensors.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00098}00098\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00099}00099\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ function\_id\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ one\ of\ the\ 23\ valid\ function\ ids.}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00100}00100\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ function\_id\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a4563955fdb2ced247b2578259a4b456b}{\_VALID\_FNS}}:}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00102}00102\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Function\ id\ not\ recognized:\ \%s.'}\ \%\ str(function\_id))}
+\DoxyCodeLine{\Hypertarget{preprocessor__cache_8py_source_l00103}00103\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1preprocessor__cache_1_1_preprocessor_cache_a040b4ffbcf71d53909e95db5552733d4}{\_history}}[function\_id][key]\ =\ value}
+
+\end{DoxyCode}

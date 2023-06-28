@@ -1,0 +1,866 @@
+\doxysection{losses\+\_\+pb2.\+py}
+\hypertarget{losses__pb2_8py_source}{}\label{losses__pb2_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/protos/losses\_pb2.py@{src/main/resources/processing/video/detections/detection\_utils/protos/losses\_pb2.py}}
+\mbox{\hyperlink{losses__pb2_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2}{00001}}\ \textcolor{comment}{\#\ -\/*-\/\ coding:\ utf-\/8\ -\/*-\/}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00002}00002\ \textcolor{comment}{\#\ Generated\ by\ the\ protocol\ buffer\ compiler.\ \ DO\ NOT\ EDIT!}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00003}00003\ \textcolor{comment}{\#\ source:\ object\_detection/protos/losses.proto}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00005}00005\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00006}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a2ceecff1ebd009daadfef8abeea8f9f3}{00006}}\ \_b=sys.version\_info[0]<3\ \textcolor{keywordflow}{and}\ (\textcolor{keyword}{lambda}\ x:x)\ \textcolor{keywordflow}{or}\ (\textcolor{keyword}{lambda}\ x:x.encode(\textcolor{stringliteral}{'latin1'}))}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00007}00007\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ descriptor\ \textcolor{keyword}{as}\ \_descriptor}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00008}00008\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ message\ \textcolor{keyword}{as}\ \_message}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00009}00009\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ reflection\ \textcolor{keyword}{as}\ \_reflection}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00010}00010\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ symbol\_database\ \textcolor{keyword}{as}\ \_symbol\_database}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00011}00011\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(imports)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00013}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_adf8a4edd0121d9e04124eddf828ca8af}{00013}}\ \_sym\_db\ =\ \_symbol\_database.Default()}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00018}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a710a4ebfca78d36852919cffcf23f3c8}{00018}}\ DESCRIPTOR\ =\ \_descriptor.FileDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00019}00019\ \ \ name=\textcolor{stringliteral}{'object\_detection/protos/losses.proto'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00020}00020\ \ \ package=\textcolor{stringliteral}{'object\_detection.protos'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00021}00021\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00022}00022\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00023}00023\ \ \ serialized\_pb=\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a2ceecff1ebd009daadfef8abeea8f9f3}{\_b}}(\textcolor{stringliteral}{'\(\backslash\)n\$object\_detection/protos/losses.proto\(\backslash\)x12\(\backslash\)x17object\_detection.protos\(\backslash\)"{}\(\backslash\)xfe\(\backslash\)x05\(\backslash\)n\(\backslash\)x04Loss\(\backslash\)x12\(\backslash\)x44\(\backslash\)n\(\backslash\)x11localization\_loss\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32).object\_detection.protos.LocalizationLoss\(\backslash\)x12H\(\backslash\)n\(\backslash\)x13\(\backslash\)x63lassification\_loss\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32+.object\_detection.protos.ClassificationLoss\(\backslash\)x12\(\backslash\)x45\(\backslash\)n\(\backslash\)x12hard\_example\_miner\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32).object\_detection.protos.HardExampleMiner\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x15\(\backslash\)x63lassification\_weight\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12\(\backslash\)x1e\(\backslash\)n\(\backslash\)x13localization\_weight\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)x12M\(\backslash\)n\(\backslash\)x16random\_example\_sampler\(\backslash\)x18\(\backslash\)x06\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32-\/.object\_detection.protos.RandomExampleSampler\(\backslash\)x12I\(\backslash\)n\(\backslash\)x11\(\backslash\)x65qualization\_loss\(\backslash\)x18\(\backslash\)x07\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32..object\_detection.protos.Loss.EqualizationLoss\(\backslash\)x12V\(\backslash\)n\(\backslash\)x15\(\backslash\)x65xpected\_loss\_weights\(\backslash\)x18\(\backslash\)x12\ \(\backslash\)x01(\(\backslash\)x0e\(\backslash\)x32\(\backslash\)x31.object\_detection.protos.Loss.ExpectedLossWeights:\(\backslash\)x04NONE\(\backslash\)x12\#\(\backslash\)n\(\backslash\)x18min\_num\_negative\_samples\(\backslash\)x18\(\backslash\)x13\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12*\(\backslash\)n\(\backslash\)x1f\(\backslash\)x64\(\backslash\)x65sired\_negative\_sampling\_ratio\(\backslash\)x18\(\backslash\)x14\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x33\(\backslash\)x1a?\(\backslash\)n\(\backslash\)x10\(\backslash\)x45qualizationLoss\(\backslash\)x12\(\backslash\)x11\(\backslash\)n\(\backslash\)x06weight\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12\(\backslash\)x18\(\backslash\)n\(\backslash\)x10\(\backslash\)x65xclude\_prefixes\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x03(\(\backslash\)t\(\backslash\)"{}Y\(\backslash\)n\(\backslash\)x13\(\backslash\)x45xpectedLossWeights\(\backslash\)x12\(\backslash\)x08\(\backslash\)n\(\backslash\)x04NONE\(\backslash\)x10\(\backslash\)x00\(\backslash\)x12\(\backslash\)x15\(\backslash\)n\(\backslash\)x11\(\backslash\)x45XPECTED\_SAMPLING\(\backslash\)x10\(\backslash\)x01\(\backslash\)x12!\(\backslash\)n\(\backslash\)x1dREWEIGHTING\_UNMATCHED\_ANCHORS\(\backslash\)x10\(\backslash\)x02\(\backslash\)"{}\(\backslash\)x9a\(\backslash\)x02\(\backslash\)n\(\backslash\)x10LocalizationLoss\(\backslash\)x12J\(\backslash\)n\(\backslash\)x0bweighted\_l2\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x33.object\_detection.protos.WeightedL2LocalizationLossH\(\backslash\)x00\(\backslash\)x12W\(\backslash\)n\(\backslash\)x12weighted\_smooth\_l1\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x39.object\_detection.protos.WeightedSmoothL1LocalizationLossH\(\backslash\)x00\(\backslash\)x12L\(\backslash\)n\(\backslash\)x0cweighted\_iou\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x34.object\_detection.protos.WeightedIOULocalizationLossH\(\backslash\)x00\(\backslash\)x42\(\backslash\)x13\(\backslash\)n\(\backslash\)x11localization\_loss\(\backslash\)"{}>\(\backslash\)n\(\backslash\)x1aWeightedL2LocalizationLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)"{}V\(\backslash\)n\ WeightedSmoothL1LocalizationLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x10\(\backslash\)n\(\backslash\)x05\(\backslash\)x64\(\backslash\)x65lta\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)"{}\(\backslash\)x1d\(\backslash\)n\(\backslash\)x1bWeightedIOULocalizationLoss\(\backslash\)"{}\(\backslash\)x82\(\backslash\)x04\(\backslash\)n\(\backslash\)x12\(\backslash\)x43lassificationLoss\(\backslash\)x12V\(\backslash\)n\(\backslash\)x10weighted\_sigmoid\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32:.object\_detection.protos.WeightedSigmoidClassificationLossH\(\backslash\)x00\(\backslash\)x12V\(\backslash\)n\(\backslash\)x10weighted\_softmax\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32:.object\_detection.protos.WeightedSoftmaxClassificationLossH\(\backslash\)x00\(\backslash\)x12j\(\backslash\)n\(\backslash\)x17weighted\_logits\_softmax\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32G.object\_detection.protos.WeightedSoftmaxClassificationAgainstLogitsLossH\(\backslash\)x00\(\backslash\)x12\string^\(\backslash\)n\(\backslash\)x14\(\backslash\)x62ootstrapped\_sigmoid\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32>.object\_detection.protos.BootstrappedSigmoidClassificationLossH\(\backslash\)x00\(\backslash\)x12Y\(\backslash\)n\(\backslash\)x16weighted\_sigmoid\_focal\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x0b\(\backslash\)x32\(\backslash\)x37.object\_detection.protos.SigmoidFocalClassificationLossH\(\backslash\)x00\(\backslash\)x42\(\backslash\)x15\(\backslash\)n\(\backslash\)x13\(\backslash\)x63lassification\_loss\(\backslash\)"{}E\(\backslash\)n!WeightedSigmoidClassificationLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)"{}c\(\backslash\)n\(\backslash\)x1eSigmoidFocalClassificationLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x10\(\backslash\)n\(\backslash\)x05gamma\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x32\(\backslash\)x12\(\backslash\)r\(\backslash\)n\(\backslash\)x05\(\backslash\)x61lpha\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x02\(\backslash\)"{}]\(\backslash\)n!WeightedSoftmaxClassificationLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x16\(\backslash\)n\(\backslash\)x0blogit\_scale\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)"{}j\(\backslash\)n.WeightedSoftmaxClassificationAgainstLogitsLoss\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\(\backslash\)x16\(\backslash\)n\(\backslash\)x0blogit\_scale\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x01\(\backslash\)x31\(\backslash\)"{}w\(\backslash\)n\%BootstrappedSigmoidClassificationLoss\(\backslash\)x12\(\backslash\)r\(\backslash\)n\(\backslash\)x05\(\backslash\)x61lpha\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02\(\backslash\)x12\(\backslash\)x1d\(\backslash\)n\(\backslash\)x0ehard\_bootstrap\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)x12\ \(\backslash\)n\(\backslash\)x11\(\backslash\)x61nchorwise\_output\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x08:\(\backslash\)x05\(\backslash\)x66\(\backslash\)x61lse\(\backslash\)"{}\(\backslash\)xa1\(\backslash\)x02\(\backslash\)n\(\backslash\)x10HardExampleMiner\(\backslash\)x12\(\backslash\)x1d\(\backslash\)n\(\backslash\)x11num\_hard\_examples\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x02\(\backslash\)x36\(\backslash\)x34\(\backslash\)x12\(\backslash\)x1a\(\backslash\)n\(\backslash\)riou\_threshold\(\backslash\)x18\(\backslash\)x02\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x03\(\backslash\)x30.7\(\backslash\)x12K\(\backslash\)n\(\backslash\)tloss\_type\(\backslash\)x18\(\backslash\)x03\ \(\backslash\)x01(\(\backslash\)x0e\(\backslash\)x32\(\backslash\)x32.object\_detection.protos.HardExampleMiner.LossType:\(\backslash\)x04\(\backslash\)x42OTH\(\backslash\)x12\%\(\backslash\)n\(\backslash\)x1amax\_negatives\_per\_positive\(\backslash\)x18\(\backslash\)x04\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x01\(\backslash\)x30\(\backslash\)x12\(\backslash\)"{}\(\backslash\)n\(\backslash\)x17min\_negatives\_per\_image\(\backslash\)x18\(\backslash\)x05\ \(\backslash\)x01(\(\backslash\)x05:\(\backslash\)x01\(\backslash\)x30\(\backslash\)"{}:\(\backslash\)n\(\backslash\)x08LossType\(\backslash\)x12\(\backslash\)x08\(\backslash\)n\(\backslash\)x04\(\backslash\)x42OTH\(\backslash\)x10\(\backslash\)x00\(\backslash\)x12\(\backslash\)x12\(\backslash\)n\(\backslash\)x0e\(\backslash\)x43LASSIFICATION\(\backslash\)x10\(\backslash\)x01\(\backslash\)x12\(\backslash\)x10\(\backslash\)n\(\backslash\)x0cLOCALIZATION\(\backslash\)x10\(\backslash\)x02\(\backslash\)"{}>\(\backslash\)n\(\backslash\)x14RandomExampleSampler\(\backslash\)x12\&\(\backslash\)n\(\backslash\)x18positive\_sample\_fraction\(\backslash\)x18\(\backslash\)x01\ \(\backslash\)x01(\(\backslash\)x02:\(\backslash\)x04\(\backslash\)x30.01'})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00024}00024\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00028}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a2e6e9280738791c43cf4bfc9fd5a84db}{00028}}\ \_LOSS\_EXPECTEDLOSSWEIGHTS\ =\ \_descriptor.EnumDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00029}00029\ \ \ name=\textcolor{stringliteral}{'ExpectedLossWeights'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00030}00030\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.ExpectedLossWeights'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00031}00031\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00032}00032\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00033}00033\ \ \ values=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00034}00034\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00035}00035\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'NONE'},\ index=0,\ number=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00036}00036\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00037}00037\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00038}00038\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00039}00039\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'EXPECTED\_SAMPLING'},\ index=1,\ number=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00040}00040\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00041}00041\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00042}00042\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00043}00043\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'REWEIGHTING\_UNMATCHED\_ANCHORS'},\ index=2,\ number=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00044}00044\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00045}00045\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00046}00046\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00047}00047\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00048}00048\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00049}00049\ \ \ serialized\_start=743,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00050}00050\ \ \ serialized\_end=832,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00051}00051\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00052}00052\ \_sym\_db.RegisterEnumDescriptor(\_LOSS\_EXPECTEDLOSSWEIGHTS)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00054}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a4993ec23cee79960303ebaa25f17ced2}{00054}}\ \_HARDEXAMPLEMINER\_LOSSTYPE\ =\ \_descriptor.EnumDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00055}00055\ \ \ name=\textcolor{stringliteral}{'LossType'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00056}00056\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.LossType'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00057}00057\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00058}00058\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00059}00059\ \ \ values=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00060}00060\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00061}00061\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'BOTH'},\ index=0,\ number=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00062}00062\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00063}00063\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00064}00064\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00065}00065\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'CLASSIFICATION'},\ index=1,\ number=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00066}00066\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00067}00067\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00068}00068\ \ \ \ \ \_descriptor.EnumValueDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00069}00069\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'LOCALIZATION'},\ index=2,\ number=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00070}00070\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00071}00071\ \ \ \ \ \ \ type=\textcolor{keywordtype}{None}),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00072}00072\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00073}00073\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00074}00074\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00075}00075\ \ \ serialized\_start=2547,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00076}00076\ \ \ serialized\_end=2605,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00077}00077\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00078}00078\ \_sym\_db.RegisterEnumDescriptor(\_HARDEXAMPLEMINER\_LOSSTYPE)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00081}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a28950709a13f11b970251e69ae082589}{00081}}\ \_LOSS\_EQUALIZATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00082}00082\ \ \ name=\textcolor{stringliteral}{'EqualizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00083}00083\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.EqualizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00084}00084\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00085}00085\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00086}00086\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00087}00087\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00088}00088\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00089}00089\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.EqualizationLoss.weight'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00090}00090\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00091}00091\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00092}00092\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00093}00093\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00094}00094\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00095}00095\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00096}00096\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'exclude\_prefixes'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.EqualizationLoss.exclude\_prefixes'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00097}00097\ \ \ \ \ \ \ number=2,\ type=9,\ cpp\_type=9,\ label=3,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00098}00098\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00099}00099\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00100}00100\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00101}00101\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00102}00102\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00103}00103\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00104}00104\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00105}00105\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00106}00106\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00107}00107\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00108}00108\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00109}00109\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00110}00110\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00111}00111\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00112}00112\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00113}00113\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00114}00114\ \ \ serialized\_start=678,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00115}00115\ \ \ serialized\_end=741,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00116}00116\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00118}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a5c2d86973e4595ad071f78f8af46da3b}{00118}}\ \_LOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00119}00119\ \ \ name=\textcolor{stringliteral}{'Loss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00120}00120\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00121}00121\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00122}00122\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00123}00123\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00124}00124\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00125}00125\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00126}00126\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'localization\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.localization\_loss'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00127}00127\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00128}00128\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00129}00129\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00130}00130\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00131}00131\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00132}00132\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00133}00133\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'classification\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.classification\_loss'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00134}00134\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00135}00135\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00136}00136\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00137}00137\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00138}00138\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00139}00139\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00140}00140\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'hard\_example\_miner'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.hard\_example\_miner'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00141}00141\ \ \ \ \ \ \ number=3,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00142}00142\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00143}00143\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00144}00144\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00145}00145\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00146}00146\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00147}00147\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'classification\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.classification\_weight'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00148}00148\ \ \ \ \ \ \ number=4,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00149}00149\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00150}00150\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00151}00151\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00152}00152\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00153}00153\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00154}00154\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'localization\_weight'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.localization\_weight'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00155}00155\ \ \ \ \ \ \ number=5,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00156}00156\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00157}00157\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00158}00158\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00159}00159\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00160}00160\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00161}00161\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'random\_example\_sampler'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.random\_example\_sampler'},\ index=5,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00162}00162\ \ \ \ \ \ \ number=6,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00163}00163\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00164}00164\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00165}00165\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00166}00166\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00167}00167\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00168}00168\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'equalization\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.equalization\_loss'},\ index=6,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00169}00169\ \ \ \ \ \ \ number=7,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00170}00170\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00171}00171\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00172}00172\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00173}00173\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00174}00174\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00175}00175\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'expected\_loss\_weights'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.expected\_loss\_weights'},\ index=7,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00176}00176\ \ \ \ \ \ \ number=18,\ type=14,\ cpp\_type=8,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00177}00177\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00178}00178\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00179}00179\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00180}00180\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00181}00181\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00182}00182\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'min\_num\_negative\_samples'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.min\_num\_negative\_samples'},\ index=8,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00183}00183\ \ \ \ \ \ \ number=19,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00184}00184\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00185}00185\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00186}00186\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00187}00187\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00188}00188\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00189}00189\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'desired\_negative\_sampling\_ratio'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.Loss.desired\_negative\_sampling\_ratio'},\ index=9,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00190}00190\ \ \ \ \ \ \ number=20,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00191}00191\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(3),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00192}00192\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00193}00193\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00194}00194\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00195}00195\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00196}00196\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00197}00197\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00198}00198\ \ \ nested\_types=[\_LOSS\_EQUALIZATIONLOSS,\ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00199}00199\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00200}00200\ \ \ \ \ \_LOSS\_EXPECTEDLOSSWEIGHTS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00201}00201\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00202}00202\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00203}00203\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00204}00204\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00205}00205\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00206}00206\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00207}00207\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00208}00208\ \ \ serialized\_start=66,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00209}00209\ \ \ serialized\_end=832,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00210}00210\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00213}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a4d641c745761baccc33cb5fea5c887c5}{00213}}\ \_LOCALIZATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00214}00214\ \ \ name=\textcolor{stringliteral}{'LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00215}00215\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00216}00216\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00217}00217\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00218}00218\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00219}00219\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00220}00220\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00221}00221\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_l2'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LocalizationLoss.weighted\_l2'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00222}00222\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00223}00223\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00224}00224\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00225}00225\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00226}00226\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00227}00227\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00228}00228\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_smooth\_l1'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LocalizationLoss.weighted\_smooth\_l1'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00229}00229\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00230}00230\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00231}00231\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00232}00232\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00233}00233\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00234}00234\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00235}00235\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_iou'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LocalizationLoss.weighted\_iou'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00236}00236\ \ \ \ \ \ \ number=3,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00237}00237\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00238}00238\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00239}00239\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00240}00240\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00241}00241\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00242}00242\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00243}00243\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00244}00244\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00245}00245\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00246}00246\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00247}00247\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00248}00248\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00249}00249\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00250}00250\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00251}00251\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00252}00252\ \ \ \ \ \_descriptor.OneofDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00253}00253\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'localization\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.LocalizationLoss.localization\_loss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00254}00254\ \ \ \ \ \ \ index=0,\ containing\_type=\textcolor{keywordtype}{None},\ fields=[]),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00255}00255\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00256}00256\ \ \ serialized\_start=835,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00257}00257\ \ \ serialized\_end=1117,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00258}00258\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00261}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a5822b67151819f88c56d326fcff877d6}{00261}}\ \_WEIGHTEDL2LOCALIZATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00262}00262\ \ \ name=\textcolor{stringliteral}{'WeightedL2LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00263}00263\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedL2LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00264}00264\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00265}00265\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00266}00266\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00267}00267\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00268}00268\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00269}00269\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedL2LocalizationLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00270}00270\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00271}00271\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00272}00272\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00273}00273\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00274}00274\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00275}00275\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00276}00276\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00277}00277\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00278}00278\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00279}00279\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00280}00280\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00281}00281\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00282}00282\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00283}00283\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00284}00284\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00285}00285\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00286}00286\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00287}00287\ \ \ serialized\_start=1119,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00288}00288\ \ \ serialized\_end=1181,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00289}00289\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00292}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a32ef8963297428d6c0526526eee810bd}{00292}}\ \_WEIGHTEDSMOOTHL1LOCALIZATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00293}00293\ \ \ name=\textcolor{stringliteral}{'WeightedSmoothL1LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00294}00294\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSmoothL1LocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00295}00295\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00296}00296\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00297}00297\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00298}00298\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00299}00299\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00300}00300\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSmoothL1LocalizationLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00301}00301\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00302}00302\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00303}00303\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00304}00304\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00305}00305\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00306}00306\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00307}00307\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'delta'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSmoothL1LocalizationLoss.delta'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00308}00308\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00309}00309\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00310}00310\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00311}00311\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00312}00312\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00313}00313\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00314}00314\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00315}00315\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00316}00316\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00317}00317\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00318}00318\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00319}00319\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00320}00320\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00321}00321\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00322}00322\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00323}00323\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00324}00324\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00325}00325\ \ \ serialized\_start=1183,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00326}00326\ \ \ serialized\_end=1269,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00327}00327\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00330}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a9ee2d9757bfba4e3aa46e91d29a64fc8}{00330}}\ \_WEIGHTEDIOULOCALIZATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00331}00331\ \ \ name=\textcolor{stringliteral}{'WeightedIOULocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00332}00332\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedIOULocalizationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00333}00333\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00334}00334\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00335}00335\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00336}00336\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00337}00337\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00338}00338\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00339}00339\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00340}00340\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00341}00341\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00342}00342\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00343}00343\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00344}00344\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00345}00345\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00346}00346\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00347}00347\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00348}00348\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00349}00349\ \ \ serialized\_start=1271,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00350}00350\ \ \ serialized\_end=1300,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00351}00351\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00354}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a88546a84c96847f8b50f8567951dec25}{00354}}\ \_CLASSIFICATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00355}00355\ \ \ name=\textcolor{stringliteral}{'ClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00356}00356\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00357}00357\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00358}00358\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00359}00359\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00360}00360\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00361}00361\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00362}00362\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_sigmoid'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.weighted\_sigmoid'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00363}00363\ \ \ \ \ \ \ number=1,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00364}00364\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00365}00365\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00366}00366\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00367}00367\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00368}00368\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00369}00369\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_softmax'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.weighted\_softmax'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00370}00370\ \ \ \ \ \ \ number=2,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00371}00371\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00372}00372\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00373}00373\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00374}00374\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00375}00375\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00376}00376\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_logits\_softmax'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.weighted\_logits\_softmax'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00377}00377\ \ \ \ \ \ \ number=5,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00378}00378\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00379}00379\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00380}00380\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00381}00381\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00382}00382\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00383}00383\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'bootstrapped\_sigmoid'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.bootstrapped\_sigmoid'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00384}00384\ \ \ \ \ \ \ number=3,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00385}00385\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00386}00386\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00387}00387\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00388}00388\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00389}00389\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00390}00390\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weighted\_sigmoid\_focal'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.weighted\_sigmoid\_focal'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00391}00391\ \ \ \ \ \ \ number=4,\ type=11,\ cpp\_type=10,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00392}00392\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00393}00393\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00394}00394\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00395}00395\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00396}00396\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00397}00397\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00398}00398\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00399}00399\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00400}00400\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00401}00401\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00402}00402\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00403}00403\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00404}00404\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00405}00405\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00406}00406\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00407}00407\ \ \ \ \ \_descriptor.OneofDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00408}00408\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'classification\_loss'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.ClassificationLoss.classification\_loss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00409}00409\ \ \ \ \ \ \ index=0,\ containing\_type=\textcolor{keywordtype}{None},\ fields=[]),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00410}00410\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00411}00411\ \ \ serialized\_start=1303,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00412}00412\ \ \ serialized\_end=1817,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00413}00413\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00416}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ae410e4a14888ee0b57c0a2527188c74b}{00416}}\ \_WEIGHTEDSIGMOIDCLASSIFICATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00417}00417\ \ \ name=\textcolor{stringliteral}{'WeightedSigmoidClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00418}00418\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSigmoidClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00419}00419\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00420}00420\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00421}00421\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00422}00422\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00423}00423\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00424}00424\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSigmoidClassificationLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00425}00425\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00426}00426\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00427}00427\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00428}00428\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00429}00429\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00430}00430\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00431}00431\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00432}00432\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00433}00433\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00434}00434\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00435}00435\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00436}00436\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00437}00437\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00438}00438\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00439}00439\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00440}00440\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00441}00441\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00442}00442\ \ \ serialized\_start=1819,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00443}00443\ \ \ serialized\_end=1888,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00444}00444\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00445}00445\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00447}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a83da32b0a2871d649782c10be47bf4a0}{00447}}\ \_SIGMOIDFOCALCLASSIFICATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00448}00448\ \ \ name=\textcolor{stringliteral}{'SigmoidFocalClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00449}00449\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.SigmoidFocalClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00450}00450\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00451}00451\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00452}00452\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00453}00453\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00454}00454\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00455}00455\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.SigmoidFocalClassificationLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00456}00456\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00457}00457\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00458}00458\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00459}00459\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00460}00460\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00461}00461\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00462}00462\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'gamma'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.SigmoidFocalClassificationLoss.gamma'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00463}00463\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00464}00464\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(2),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00465}00465\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00466}00466\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00467}00467\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00468}00468\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00469}00469\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'alpha'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.SigmoidFocalClassificationLoss.alpha'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00470}00470\ \ \ \ \ \ \ number=3,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00471}00471\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00472}00472\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00473}00473\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00474}00474\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00475}00475\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00476}00476\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00477}00477\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00478}00478\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00479}00479\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00480}00480\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00481}00481\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00482}00482\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00483}00483\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00484}00484\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00485}00485\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00486}00486\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00487}00487\ \ \ serialized\_start=1890,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00488}00488\ \ \ serialized\_end=1989,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00489}00489\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00491}00491\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00492}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a387e1d169bd734051cb03ef4628d36ad}{00492}}\ \_WEIGHTEDSOFTMAXCLASSIFICATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00493}00493\ \ \ name=\textcolor{stringliteral}{'WeightedSoftmaxClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00494}00494\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00495}00495\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00496}00496\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00497}00497\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00498}00498\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00499}00499\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00500}00500\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00501}00501\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00502}00502\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00503}00503\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00504}00504\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00505}00505\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00506}00506\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00507}00507\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'logit\_scale'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationLoss.logit\_scale'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00508}00508\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00509}00509\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00510}00510\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00511}00511\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00512}00512\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00513}00513\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00514}00514\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00515}00515\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00516}00516\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00517}00517\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00518}00518\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00519}00519\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00520}00520\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00521}00521\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00522}00522\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00523}00523\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00524}00524\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00525}00525\ \ \ serialized\_start=1991,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00526}00526\ \ \ serialized\_end=2084,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00527}00527\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00528}00528\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00530}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_afc363701cf78bac428afe6078e4b418b}{00530}}\ \_WEIGHTEDSOFTMAXCLASSIFICATIONAGAINSTLOGITSLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00531}00531\ \ \ name=\textcolor{stringliteral}{'WeightedSoftmaxClassificationAgainstLogitsLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00532}00532\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationAgainstLogitsLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00533}00533\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00534}00534\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00535}00535\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00536}00536\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00537}00537\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00538}00538\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationAgainstLogitsLoss.anchorwise\_output'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00539}00539\ \ \ \ \ \ \ number=1,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00540}00540\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00541}00541\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00542}00542\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00543}00543\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00544}00544\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00545}00545\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'logit\_scale'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.WeightedSoftmaxClassificationAgainstLogitsLoss.logit\_scale'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00546}00546\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00547}00547\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(1),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00548}00548\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00549}00549\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00550}00550\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00551}00551\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00552}00552\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00553}00553\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00554}00554\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00555}00555\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00556}00556\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00557}00557\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00558}00558\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00559}00559\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00560}00560\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00561}00561\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00562}00562\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00563}00563\ \ \ serialized\_start=2086,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00564}00564\ \ \ serialized\_end=2192,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00565}00565\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00566}00566\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00568}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ab7bfd5f3f456ae8c5252dd7ef144df51}{00568}}\ \_BOOTSTRAPPEDSIGMOIDCLASSIFICATIONLOSS\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00569}00569\ \ \ name=\textcolor{stringliteral}{'BootstrappedSigmoidClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00570}00570\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.BootstrappedSigmoidClassificationLoss'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00571}00571\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00572}00572\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00573}00573\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00574}00574\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00575}00575\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00576}00576\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'alpha'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.BootstrappedSigmoidClassificationLoss.alpha'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00577}00577\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00578}00578\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{False},\ default\_value=float(0),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00579}00579\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00580}00580\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00581}00581\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00582}00582\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00583}00583\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'hard\_bootstrap'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.BootstrappedSigmoidClassificationLoss.hard\_bootstrap'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00584}00584\ \ \ \ \ \ \ number=2,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00585}00585\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00586}00586\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00587}00587\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00588}00588\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00589}00589\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00590}00590\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'anchorwise\_output'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.BootstrappedSigmoidClassificationLoss.anchorwise\_output'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00591}00591\ \ \ \ \ \ \ number=3,\ type=8,\ cpp\_type=7,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00592}00592\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00593}00593\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00594}00594\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00595}00595\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00596}00596\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00597}00597\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00598}00598\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00599}00599\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00600}00600\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00601}00601\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00602}00602\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00603}00603\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00604}00604\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00605}00605\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00606}00606\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00607}00607\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00608}00608\ \ \ serialized\_start=2194,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00609}00609\ \ \ serialized\_end=2313,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00610}00610\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00611}00611\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00612}00612\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00613}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a74e831a80bf7f3fb2f45f3acfb16a353}{00613}}\ \_HARDEXAMPLEMINER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00614}00614\ \ \ name=\textcolor{stringliteral}{'HardExampleMiner'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00615}00615\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00616}00616\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00617}00617\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00618}00618\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00619}00619\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00620}00620\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00621}00621\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'num\_hard\_examples'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.num\_hard\_examples'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00622}00622\ \ \ \ \ \ \ number=1,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00623}00623\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=64,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00624}00624\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00625}00625\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00626}00626\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00627}00627\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00628}00628\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'iou\_threshold'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.iou\_threshold'},\ index=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00629}00629\ \ \ \ \ \ \ number=2,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00630}00630\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.7),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00631}00631\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00632}00632\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00633}00633\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00634}00634\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00635}00635\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'loss\_type'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.loss\_type'},\ index=2,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00636}00636\ \ \ \ \ \ \ number=3,\ type=14,\ cpp\_type=8,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00637}00637\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00638}00638\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00639}00639\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00640}00640\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00641}00641\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00642}00642\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'max\_negatives\_per\_positive'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.max\_negatives\_per\_positive'},\ index=3,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00643}00643\ \ \ \ \ \ \ number=4,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00644}00644\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00645}00645\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00646}00646\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00647}00647\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00648}00648\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00649}00649\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'min\_negatives\_per\_image'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.HardExampleMiner.min\_negatives\_per\_image'},\ index=4,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00650}00650\ \ \ \ \ \ \ number=5,\ type=5,\ cpp\_type=1,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00651}00651\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00652}00652\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00653}00653\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00654}00654\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00655}00655\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00656}00656\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00657}00657\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00658}00658\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00659}00659\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00660}00660\ \ \ \ \ \_HARDEXAMPLEMINER\_LOSSTYPE,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00661}00661\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00662}00662\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00663}00663\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00664}00664\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00665}00665\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00666}00666\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00667}00667\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00668}00668\ \ \ serialized\_start=2316,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00669}00669\ \ \ serialized\_end=2605,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00670}00670\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00671}00671\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00672}00672\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00673}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ab072b70997d90e436fb211bece3440ce}{00673}}\ \_RANDOMEXAMPLESAMPLER\ =\ \_descriptor.Descriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00674}00674\ \ \ name=\textcolor{stringliteral}{'RandomExampleSampler'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00675}00675\ \ \ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RandomExampleSampler'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00676}00676\ \ \ filename=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00677}00677\ \ \ file=DESCRIPTOR,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00678}00678\ \ \ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00679}00679\ \ \ fields=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00680}00680\ \ \ \ \ \_descriptor.FieldDescriptor(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00681}00681\ \ \ \ \ \ \ name=\textcolor{stringliteral}{'positive\_sample\_fraction'},\ full\_name=\textcolor{stringliteral}{'object\_detection.protos.RandomExampleSampler.positive\_sample\_fraction'},\ index=0,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00682}00682\ \ \ \ \ \ \ number=1,\ type=2,\ cpp\_type=6,\ label=1,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00683}00683\ \ \ \ \ \ \ has\_default\_value=\textcolor{keyword}{True},\ default\_value=float(0.01),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00684}00684\ \ \ \ \ \ \ message\_type=\textcolor{keywordtype}{None},\ enum\_type=\textcolor{keywordtype}{None},\ containing\_type=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00685}00685\ \ \ \ \ \ \ is\_extension=\textcolor{keyword}{False},\ extension\_scope=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00686}00686\ \ \ \ \ \ \ serialized\_options=\textcolor{keywordtype}{None},\ file=DESCRIPTOR),}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00687}00687\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00688}00688\ \ \ extensions=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00689}00689\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00690}00690\ \ \ nested\_types=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00691}00691\ \ \ enum\_types=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00692}00692\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00693}00693\ \ \ serialized\_options=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00694}00694\ \ \ is\_extendable=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00695}00695\ \ \ syntax=\textcolor{stringliteral}{'proto2'},}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00696}00696\ \ \ extension\_ranges=[],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00697}00697\ \ \ oneofs=[}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00698}00698\ \ \ ],}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00699}00699\ \ \ serialized\_start=2607,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00700}00700\ \ \ serialized\_end=2669,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00701}00701\ )}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00702}00702\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00703}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_aaaaf16a57e25a4b67bde5247e7549578}{00703}}\ \_LOSS\_EQUALIZATIONLOSS.containing\_type\ =\ \_LOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00704}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_acc99e1949e52a48eb889baa8f600c80b}{00704}}\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'localization\_loss'}].message\_type\ =\ \_LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00705}00705\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].message\_type\ =\ \_CLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00706}00706\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'hard\_example\_miner'}].message\_type\ =\ \_HARDEXAMPLEMINER}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00707}00707\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'random\_example\_sampler'}].message\_type\ =\ \_RANDOMEXAMPLESAMPLER}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00708}00708\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'equalization\_loss'}].message\_type\ =\ \_LOSS\_EQUALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00709}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ad746c492e0a300969193a06ba98c9f2e}{00709}}\ \_LOSS.fields\_by\_name[\textcolor{stringliteral}{'expected\_loss\_weights'}].enum\_type\ =\ \_LOSS\_EXPECTEDLOSSWEIGHTS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00710}00710\ \_LOSS\_EXPECTEDLOSSWEIGHTS.containing\_type\ =\ \_LOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00711}00711\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_l2'}].message\_type\ =\ \_WEIGHTEDL2LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00712}00712\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_smooth\_l1'}].message\_type\ =\ \_WEIGHTEDSMOOTHL1LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00713}00713\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_iou'}].message\_type\ =\ \_WEIGHTEDIOULOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00714}00714\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00715}00715\ \ \ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_l2'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00716}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a3c9f3354606c8c5b2096e73673d8ead1}{00716}}\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_l2'}].containing\_oneof\ =\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00717}00717\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00718}00718\ \ \ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_smooth\_l1'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00719}00719\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_smooth\_l1'}].containing\_oneof\ =\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00720}00720\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00721}00721\ \ \ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_iou'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00722}00722\ \_LOCALIZATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_iou'}].containing\_oneof\ =\ \_LOCALIZATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'localization\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00723}00723\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid'}].message\_type\ =\ \_WEIGHTEDSIGMOIDCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00724}00724\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_softmax'}].message\_type\ =\ \_WEIGHTEDSOFTMAXCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00725}00725\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_logits\_softmax'}].message\_type\ =\ \_WEIGHTEDSOFTMAXCLASSIFICATIONAGAINSTLOGITSLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00726}00726\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'bootstrapped\_sigmoid'}].message\_type\ =\ \_BOOTSTRAPPEDSIGMOIDCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00727}00727\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid\_focal'}].message\_type\ =\ \_SIGMOIDFOCALCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00728}00728\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00729}00729\ \ \ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00730}00730\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid'}].containing\_oneof\ =\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00731}00731\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00732}00732\ \ \ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_softmax'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00733}00733\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_softmax'}].containing\_oneof\ =\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00734}00734\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00735}00735\ \ \ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_logits\_softmax'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00736}00736\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_logits\_softmax'}].containing\_oneof\ =\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00737}00737\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00738}00738\ \ \ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'bootstrapped\_sigmoid'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00739}00739\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'bootstrapped\_sigmoid'}].containing\_oneof\ =\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00740}00740\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}].fields.append(}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00741}00741\ \ \ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid\_focal'}])}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00742}00742\ \_CLASSIFICATIONLOSS.fields\_by\_name[\textcolor{stringliteral}{'weighted\_sigmoid\_focal'}].containing\_oneof\ =\ \_CLASSIFICATIONLOSS.oneofs\_by\_name[\textcolor{stringliteral}{'classification\_loss'}]}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00743}00743\ \_HARDEXAMPLEMINER.fields\_by\_name[\textcolor{stringliteral}{'loss\_type'}].enum\_type\ =\ \_HARDEXAMPLEMINER\_LOSSTYPE}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00744}00744\ \_HARDEXAMPLEMINER\_LOSSTYPE.containing\_type\ =\ \_HARDEXAMPLEMINER}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00745}00745\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'Loss'}]\ =\ \_LOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00746}00746\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'LocalizationLoss'}]\ =\ \_LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00747}00747\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedL2LocalizationLoss'}]\ =\ \_WEIGHTEDL2LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00748}00748\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedSmoothL1LocalizationLoss'}]\ =\ \_WEIGHTEDSMOOTHL1LOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00749}00749\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedIOULocalizationLoss'}]\ =\ \_WEIGHTEDIOULOCALIZATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00750}00750\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'ClassificationLoss'}]\ =\ \_CLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00751}00751\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedSigmoidClassificationLoss'}]\ =\ \_WEIGHTEDSIGMOIDCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00752}00752\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'SigmoidFocalClassificationLoss'}]\ =\ \_SIGMOIDFOCALCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00753}00753\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedSoftmaxClassificationLoss'}]\ =\ \_WEIGHTEDSOFTMAXCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00754}00754\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'WeightedSoftmaxClassificationAgainstLogitsLoss'}]\ =\ \_WEIGHTEDSOFTMAXCLASSIFICATIONAGAINSTLOGITSLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00755}00755\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'BootstrappedSigmoidClassificationLoss'}]\ =\ \_BOOTSTRAPPEDSIGMOIDCLASSIFICATIONLOSS}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00756}00756\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'HardExampleMiner'}]\ =\ \_HARDEXAMPLEMINER}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00757}00757\ DESCRIPTOR.message\_types\_by\_name[\textcolor{stringliteral}{'RandomExampleSampler'}]\ =\ \_RANDOMEXAMPLESAMPLER}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00758}00758\ \_sym\_db.RegisterFileDescriptor(DESCRIPTOR)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00759}00759\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00760}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_af894a5355a5d21366d95b42edc06b434}{00760}}\ Loss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'Loss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00761}00761\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00762}00762\ \ \ \textcolor{stringliteral}{'EqualizationLoss'}\ :\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'EqualizationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00763}00763\ \ \ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_LOSS\_EQUALIZATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00764}00764\ \ \ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00765}00765\ \ \ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.Loss.EqualizationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00766}00766\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00767}00767\ \ \ ,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00768}00768\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_LOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00769}00769\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00770}00770\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.Loss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00771}00771\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00772}00772\ \_sym\_db.RegisterMessage(Loss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00773}00773\ \_sym\_db.RegisterMessage(Loss.EqualizationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00774}00774\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00775}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_af773af6345f6e23284066215e24708da}{00775}}\ LocalizationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'LocalizationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00776}00776\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_LOCALIZATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00777}00777\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00778}00778\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.LocalizationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00779}00779\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00780}00780\ \_sym\_db.RegisterMessage(LocalizationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00781}00781\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00782}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ad20a07a72154bfcb54d2d46089523362}{00782}}\ WeightedL2LocalizationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedL2LocalizationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00783}00783\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDL2LOCALIZATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00784}00784\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00785}00785\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedL2LocalizationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00786}00786\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00787}00787\ \_sym\_db.RegisterMessage(WeightedL2LocalizationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00788}00788\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00789}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_aaf3e1215d5c950f29d5ef07ca76baeeb}{00789}}\ WeightedSmoothL1LocalizationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedSmoothL1LocalizationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00790}00790\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDSMOOTHL1LOCALIZATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00791}00791\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00792}00792\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedSmoothL1LocalizationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00793}00793\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00794}00794\ \_sym\_db.RegisterMessage(WeightedSmoothL1LocalizationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00795}00795\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00796}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a5ca97ef20498d207cc28cef244d3bd80}{00796}}\ WeightedIOULocalizationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedIOULocalizationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00797}00797\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDIOULOCALIZATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00798}00798\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00799}00799\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedIOULocalizationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00800}00800\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00801}00801\ \_sym\_db.RegisterMessage(WeightedIOULocalizationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00802}00802\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00803}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_aecd519230cffc09033e4a08c4e2b955f}{00803}}\ ClassificationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'ClassificationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00804}00804\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_CLASSIFICATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00805}00805\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00806}00806\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.ClassificationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00807}00807\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00808}00808\ \_sym\_db.RegisterMessage(ClassificationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00809}00809\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00810}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a3d53de29f647c47efa1330a6959e88f4}{00810}}\ WeightedSigmoidClassificationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedSigmoidClassificationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00811}00811\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDSIGMOIDCLASSIFICATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00812}00812\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00813}00813\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedSigmoidClassificationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00814}00814\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00815}00815\ \_sym\_db.RegisterMessage(WeightedSigmoidClassificationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00816}00816\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00817}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a759907fefc774a45aa00896987d9860d}{00817}}\ SigmoidFocalClassificationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'SigmoidFocalClassificationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00818}00818\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_SIGMOIDFOCALCLASSIFICATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00819}00819\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00820}00820\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.SigmoidFocalClassificationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00821}00821\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00822}00822\ \_sym\_db.RegisterMessage(SigmoidFocalClassificationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00823}00823\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00824}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a00f3665e92bf4960115b0d58e85cc1d4}{00824}}\ WeightedSoftmaxClassificationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedSoftmaxClassificationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00825}00825\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDSOFTMAXCLASSIFICATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00826}00826\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00827}00827\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedSoftmaxClassificationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00828}00828\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00829}00829\ \_sym\_db.RegisterMessage(WeightedSoftmaxClassificationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00830}00830\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00831}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ab10d1efe0b08f594f61fea21812d3a31}{00831}}\ WeightedSoftmaxClassificationAgainstLogitsLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'WeightedSoftmaxClassificationAgainstLogitsLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00832}00832\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_WEIGHTEDSOFTMAXCLASSIFICATIONAGAINSTLOGITSLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00833}00833\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00834}00834\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.WeightedSoftmaxClassificationAgainstLogitsLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00835}00835\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00836}00836\ \_sym\_db.RegisterMessage(WeightedSoftmaxClassificationAgainstLogitsLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00837}00837\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00838}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_ade3f9012254664f272bc1cfe33c70e2f}{00838}}\ BootstrappedSigmoidClassificationLoss\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'BootstrappedSigmoidClassificationLoss'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00839}00839\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_BOOTSTRAPPEDSIGMOIDCLASSIFICATIONLOSS,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00840}00840\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00841}00841\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.BootstrappedSigmoidClassificationLoss)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00842}00842\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00843}00843\ \_sym\_db.RegisterMessage(BootstrappedSigmoidClassificationLoss)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00844}00844\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00845}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a6608cc0483dac3dbca8b65473afaecc9}{00845}}\ HardExampleMiner\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'HardExampleMiner'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00846}00846\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_HARDEXAMPLEMINER,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00847}00847\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00848}00848\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.HardExampleMiner)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00849}00849\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00850}00850\ \_sym\_db.RegisterMessage(HardExampleMiner)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00851}00851\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00852}\mbox{\hyperlink{namespacedetection__utils_1_1protos_1_1losses__pb2_a94cfe41891376196b3332718f470290a}{00852}}\ RandomExampleSampler\ =\ \_reflection.GeneratedProtocolMessageType(\textcolor{stringliteral}{'RandomExampleSampler'},\ (\_message.Message,),\ \{}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00853}00853\ \ \ \textcolor{stringliteral}{'DESCRIPTOR'}\ :\ \_RANDOMEXAMPLESAMPLER,}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00854}00854\ \ \ \textcolor{stringliteral}{'\_\_module\_\_'}\ :\ \textcolor{stringliteral}{'object\_detection.protos.losses\_pb2'}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00855}00855\ \ \ \textcolor{comment}{\#\ @@protoc\_insertion\_point(class\_scope:object\_detection.protos.RandomExampleSampler)}}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00856}00856\ \ \ \})}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00857}00857\ \_sym\_db.RegisterMessage(RandomExampleSampler)}
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00858}00858\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{losses__pb2_8py_source_l00860}00860\ \textcolor{comment}{\#\ @@protoc\_insertion\_point(module\_scope)}}
+
+\end{DoxyCode}

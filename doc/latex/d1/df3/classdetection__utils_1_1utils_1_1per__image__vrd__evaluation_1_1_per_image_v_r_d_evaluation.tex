@@ -1,0 +1,481 @@
+\doxysection{detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation}{}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation}\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{d0/da4/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{de/d56/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a68fd33e73f7977552c5944d944b4352e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}{matching\+\_\+iou\+\_\+threshold}}=0.\+5)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb}{compute\+\_\+detection\+\_\+tp\+\_\+fp}} (self, detected\+\_\+box\+\_\+tuples, detected\+\_\+scores, detected\+\_\+class\+\_\+tuples, groundtruth\+\_\+box\+\_\+tuples, groundtruth\+\_\+class\+\_\+tuples)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}{matching\+\_\+iou\+\_\+threshold}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26}{\+\_\+compute\+\_\+tp\+\_\+fp}} (self, detected\+\_\+box\+\_\+tuples, detected\+\_\+scores, detected\+\_\+class\+\_\+tuples, groundtruth\+\_\+box\+\_\+tuples, groundtruth\+\_\+class\+\_\+tuples)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836}{\+\_\+get\+\_\+overlaps\+\_\+and\+\_\+scores\+\_\+relation\+\_\+tuples}} (self, detected\+\_\+box\+\_\+tuples, groundtruth\+\_\+box\+\_\+tuples)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651}{\+\_\+compute\+\_\+tp\+\_\+fp\+\_\+for\+\_\+single\+\_\+class}} (self, detected\+\_\+box\+\_\+tuples, groundtruth\+\_\+box\+\_\+tuples)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Evaluate vrd result of a single image.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00033}{33}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a68fd33e73f7977552c5944d944b4352e}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a68fd33e73f7977552c5944d944b4352e} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{matching\+\_\+iou\+\_\+threshold = {\ttfamily 0.5} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialized PerImageVRDEvaluation by evaluation parameters.
+
+Args:
+  matching_iou_threshold: A ratio of area intersection to union, which is
+      the threshold to consider whether a detection is true positive or not;
+      in phrase detection subtask.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00036}{36}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ matching\_iou\_threshold=0.5):}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialized\ PerImageVRDEvaluation\ by\ evaluation\ parameters.}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ \ \ matching\_iou\_threshold:\ A\ ratio\ of\ area\ intersection\ to\ union,\ which\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ the\ threshold\ to\ consider\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ true\ positive\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ phrase\ detection\ subtask.}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ self.matching\_iou\_threshold\ =\ matching\_iou\_threshold}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!\_compute\_tp\_fp@{\_compute\_tp\_fp}}
+\index{\_compute\_tp\_fp@{\_compute\_tp\_fp}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{\_compute\_tp\_fp()}{\_compute\_tp\_fp()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+\_\+compute\+\_\+tp\+\_\+fp (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{detected\+\_\+box\+\_\+tuples,  }\item[{}]{detected\+\_\+scores,  }\item[{}]{detected\+\_\+class\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+box\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+class\+\_\+tuples }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Labels as true/false positives detection tuples across all classes.
+
+Args:
+  detected_box_tuples: A numpy array of structures with shape [N,],
+      representing N tuples, each tuple containing the same number of named
+      bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+  detected_scores: A float numpy array of shape [N,], representing
+      the confidence scores of the detected N object instances.
+  detected_class_tuples: A numpy array of structures shape [N,],
+      representing the class labels of the corresponding bounding boxes and
+      possibly additional classes.
+  groundtruth_box_tuples: A float numpy array of structures with the shape
+      [M,], representing M tuples, each tuple containing the same number
+      of named bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+  groundtruth_class_tuples: A numpy array of structures shape [M,],
+      representing  the class labels of the corresponding bounding boxes and
+      possibly additional classes.
+
+Returns:
+  scores: A single numpy array with shape [N,], representing N scores
+      detected with object class, sorted in descentent order.
+  tp_fp_labels: A single boolean numpy array of shape [N,], representing N
+      True/False positive label, one label per tuple. The labels are sorted
+      so that the order of the labels matches the order of the scores.
+  result_mapping: A numpy array with shape [N,] with original index of each
+      entry.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00088}{88}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_tuples):}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ as\ true/false\ positives\ detection\ tuples\ across\ all\ classes.}}
+\DoxyCodeLine{00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00093\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00094\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,],\ representing}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ the\ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ detected\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [N,],}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ representing\ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ groundtruth\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [M,],}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ representing\ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ Returns:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ scores:\ A\ single\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,],\ representing\ N\ scores}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class},\ sorted\ \textcolor{keywordflow}{in}\ descentent\ order.}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ tp\_fp\_labels:\ A\ single\ boolean\ numpy\ array\ of\ shape\ [N,],\ representing\ N}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label,\ one\ label\ per\ tuple.\ The\ labels\ are\ sorted}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ so\ that\ the\ order\ of\ the\ labels\ matches\ the\ order\ of\ the\ scores.}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ result\_mapping:\ A\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,]\ \textcolor{keyword}{with}\ original\ index\ of\ each}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ entry.}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ \ \ unique\_gt\_tuples\ =\ np.unique(}}
+\DoxyCodeLine{00121\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ np.concatenate((groundtruth\_class\_tuples,\ detected\_class\_tuples)))}}
+\DoxyCodeLine{00122\ \textcolor{stringliteral}{\ \ \ \ result\_scores\ =\ []}}
+\DoxyCodeLine{00123\ \textcolor{stringliteral}{\ \ \ \ result\_tp\_fp\_labels\ =\ []}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{\ \ \ \ result\_mapping\ =\ []}}
+\DoxyCodeLine{00125\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00126\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{for}\ unique\_tuple\ \textcolor{keywordflow}{in}\ unique\_gt\_tuples:}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ detections\_selector\ =\ (detected\_class\_tuples\ ==\ unique\_tuple)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ gt\_selector\ =\ (groundtruth\_class\_tuples\ ==\ unique\_tuple)}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ selector\_mapping\ =\ np.where(detections\_selector)[0]}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ detection\_scores\_per\_tuple\ =\ detected\_scores[detections\_selector]}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ detection\_box\_per\_tuple\ =\ detected\_box\_tuples[detections\_selector]}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ sorted\_indices\ =\ np.argsort(detection\_scores\_per\_tuple)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ tp\_fp\_labels\ =\ self.\_compute\_tp\_fp\_for\_single\_class(}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ detected\_box\_tuples=detection\_box\_per\_tuple[sorted\_indices],}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples=groundtruth\_box\_tuples[gt\_selector])}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ result\_scores.append(detection\_scores\_per\_tuple[sorted\_indices])}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ result\_tp\_fp\_labels.append(tp\_fp\_labels)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ result\_mapping.append(selector\_mapping[sorted\_indices])}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}\ result\_scores:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ result\_scores\ =\ np.concatenate(result\_scores)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ result\_tp\_fp\_labels\ =\ np.concatenate(result\_tp\_fp\_labels)}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ result\_mapping\ =\ np.concatenate(result\_mapping)}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ result\_scores\ =\ np.array([],\ dtype=float)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ result\_tp\_fp\_labels\ =\ np.array([],\ dtype=bool)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ result\_mapping\ =\ np.array([],\ dtype=int)}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ sorted\_indices\ =\ np.argsort(result\_scores)}
+\DoxyCodeLine{00155\ \ \ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_scores[sorted\_indices],\ result\_tp\_fp\_labels[}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ sorted\_indices],\ result\_mapping[sorted\_indices]}
+\DoxyCodeLine{00159\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!\_compute\_tp\_fp\_for\_single\_class@{\_compute\_tp\_fp\_for\_single\_class}}
+\index{\_compute\_tp\_fp\_for\_single\_class@{\_compute\_tp\_fp\_for\_single\_class}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{\_compute\_tp\_fp\_for\_single\_class()}{\_compute\_tp\_fp\_for\_single\_class()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+\_\+compute\+\_\+tp\+\_\+fp\+\_\+for\+\_\+single\+\_\+class (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{detected\+\_\+box\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+box\+\_\+tuples }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Labels boxes detected with the same class from the same image as tp/fp.
+
+Detection boxes are expected to be already sorted by score.
+Args:
+  detected_box_tuples: A numpy array of structures with shape [N,],
+      representing N tuples, each tuple containing the same number of named
+      bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+  groundtruth_box_tuples: A float numpy array of structures with the shape
+      [M,], representing M tuples, each tuple containing the same number
+      of named bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+
+Returns:
+  tp_fp_labels: a boolean numpy array indicating whether a detection is a
+      true positive.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00191}{191}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples):}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ boxes\ detected\ with\ the\ same\ class\ from\ the\ same\ image\ as\ tp/fp.}}
+\DoxyCodeLine{00194\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00195\ \textcolor{stringliteral}{\ \ \ \ Detection\ boxes\ are\ expected\ to\ be\ already\ sorted\ by\ score.}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00197\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ Returns:}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ tp\_fp\_labels:\ a\ boolean\ numpy\ array\ indicating\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ true\ positive.}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00210\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_box\_tuples.size\ ==\ 0:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.array([],\ dtype=bool)}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ min\_iou\ =\ self.\_get\_overlaps\_and\_scores\_relation\_tuples(}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ detected\_box\_tuples,\ groundtruth\_box\_tuples)}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ num\_detected\_tuples\ =\ detected\_box\_tuples.shape[0]}
+\DoxyCodeLine{00217\ \ \ \ \ tp\_fp\_labels\ =\ np.zeros(num\_detected\_tuples,\ dtype=bool)}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{if}\ min\_iou.shape[1]\ >\ 0:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ max\_overlap\_gt\_ids\ =\ np.argmax(min\_iou,\ axis=1)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ is\_gt\_tuple\_detected\ =\ np.zeros(min\_iou.shape[1],\ dtype=bool)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_detected\_tuples):}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ gt\_id\ =\ max\_overlap\_gt\_ids[i]}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ min\_iou[i,\ gt\_id]\ >=\ self.matching\_iou\_threshold:}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ is\_gt\_tuple\_detected[gt\_id]:}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ tp\_fp\_labels[i]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ is\_gt\_tuple\_detected[gt\_id]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{return}\ tp\_fp\_labels}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!\_get\_overlaps\_and\_scores\_relation\_tuples@{\_get\_overlaps\_and\_scores\_relation\_tuples}}
+\index{\_get\_overlaps\_and\_scores\_relation\_tuples@{\_get\_overlaps\_and\_scores\_relation\_tuples}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{\_get\_overlaps\_and\_scores\_relation\_tuples()}{\_get\_overlaps\_and\_scores\_relation\_tuples()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+\_\+get\+\_\+overlaps\+\_\+and\+\_\+scores\+\_\+relation\+\_\+tuples (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{detected\+\_\+box\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+box\+\_\+tuples }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Computes overlaps and scores between detected and groundtruth tuples.
+
+Both detections and groundtruth boxes have the same class tuples.
+
+Args:
+  detected_box_tuples: A numpy array of structures with shape [N,],
+      representing N tuples, each tuple containing the same number of named
+      bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+  groundtruth_box_tuples: A float numpy array of structures with the shape
+      [M,], representing M tuples, each tuple containing the same number
+      of named bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max]
+
+Returns:
+  result_iou: A float numpy array of size
+    [num_detected_tuples, num_gt_box_tuples].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00160}{160}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples):}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ overlaps\ and\ scores\ between\ detected\ and\ groundtruth\ tuples.}}
+\DoxyCodeLine{00163\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00164\ \textcolor{stringliteral}{\ \ \ \ Both\ detections\ }\textcolor{keywordflow}{and}\ groundtruth\ boxes\ have\ the\ same\ \textcolor{keyword}{class\ }tuples.}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ Args:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ Returns:}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ result\_iou:\ A\ float\ numpy\ array\ of\ size}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ [num\_detected\_tuples,\ num\_gt\_box\_tuples].}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00180\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00181\ \textcolor{stringliteral}{\ \ \ \ result\_iou\ =\ np.ones(}}
+\DoxyCodeLine{00182\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (detected\_box\_tuples.shape[0],\ groundtruth\_box\_tuples.shape[0]),}}
+\DoxyCodeLine{00183\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ dtype=float)}}
+\DoxyCodeLine{00184\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ detected\_box\_tuples.dtype.fields:}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ detected\_boxlist\_field\ =\ np\_box\_list.BoxList(detected\_box\_tuples[field])}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ gt\_boxlist\_field\ =\ np\_box\_list.BoxList(groundtruth\_box\_tuples[field])}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ iou\_field\ =\ np\_box\_list\_ops.iou(detected\_boxlist\_field,\ gt\_boxlist\_field)}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ result\_iou\ =\ np.minimum(iou\_field,\ result\_iou)}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_iou}
+\DoxyCodeLine{00190\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!compute\_detection\_tp\_fp@{compute\_detection\_tp\_fp}}
+\index{compute\_detection\_tp\_fp@{compute\_detection\_tp\_fp}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{compute\_detection\_tp\_fp()}{compute\_detection\_tp\_fp()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+compute\+\_\+detection\+\_\+tp\+\_\+fp (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{detected\+\_\+box\+\_\+tuples,  }\item[{}]{detected\+\_\+scores,  }\item[{}]{detected\+\_\+class\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+box\+\_\+tuples,  }\item[{}]{groundtruth\+\_\+class\+\_\+tuples }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Evaluates VRD as being tp, fp from a single image.
+
+Args:
+  detected_box_tuples: A numpy array of structures with shape [N,],
+      representing N tuples, each tuple containing the same number of named
+      bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max].
+  detected_scores: A float numpy array of shape [N,], representing
+      the confidence scores of the detected N object instances.
+  detected_class_tuples: A numpy array of structures shape [N,],
+      representing the class labels of the corresponding bounding boxes and
+      possibly additional classes.
+  groundtruth_box_tuples: A float numpy array of structures with the shape
+      [M,], representing M tuples, each tuple containing the same number
+      of named bounding boxes.
+      Each box is of the format [y_min, x_min, y_max, x_max].
+  groundtruth_class_tuples: A numpy array of structures shape [M,],
+      representing  the class labels of the corresponding bounding boxes and
+      possibly additional classes.
+
+Returns:
+  scores: A single numpy array with shape [N,], representing N scores
+      detected with object class, sorted in descentent order.
+  tp_fp_labels: A single boolean numpy array of shape [N,], representing N
+      True/False positive label, one label per tuple. The labels are sorted
+      so that the order of the labels matches the order of the scores.
+  result_mapping: A numpy array with shape [N,] with original index of each
+      entry.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00046}{46}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_tuples):}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluates\ VRD\ as\ being\ tp,\ fp\ from\ a\ single\ image.}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,],\ representing}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ the\ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ detected\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [N,],}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ representing\ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ groundtruth\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [M,],}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ representing\ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ Returns:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ scores:\ A\ single\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,],\ representing\ N\ scores}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class},\ sorted\ \textcolor{keywordflow}{in}\ descentent\ order.}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ tp\_fp\_labels:\ A\ single\ boolean\ numpy\ array\ of\ shape\ [N,],\ representing\ N}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label,\ one\ label\ per\ tuple.\ The\ labels\ are\ sorted}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ so\ that\ the\ order\ of\ the\ labels\ matches\ the\ order\ of\ the\ scores.}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ result\_mapping:\ A\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,]\ \textcolor{keyword}{with}\ original\ index\ of\ each}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ entry.}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00078\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00079\ \textcolor{stringliteral}{\ \ \ \ scores,\ tp\_fp\_labels,\ result\_mapping\ =\ self.\_compute\_tp\_fp(}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_box\_tuples=detected\_box\_tuples,}}
+\DoxyCodeLine{00081\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_class\_tuples=detected\_class\_tuples,}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_box\_tuples=groundtruth\_box\_tuples,}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_class\_tuples=groundtruth\_class\_tuples)}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ scores,\ tp\_fp\_labels,\ result\_mapping}
+\DoxyCodeLine{00087\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df3/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}\label{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49} 
+\index{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}!matching\_iou\_threshold@{matching\_iou\_threshold}}
+\index{matching\_iou\_threshold@{matching\_iou\_threshold}!detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation@{detection\_utils.utils.per\_image\_vrd\_evaluation.PerImageVRDEvaluation}}
+\doxysubsubsection{\texorpdfstring{matching\_iou\_threshold}{matching\_iou\_threshold}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+Per\+Image\+VRDEvaluation.\+matching\+\_\+iou\+\_\+threshold}
+
+
+
+Definition at line \mbox{\hyperlink{per__image__vrd__evaluation_8py_source_l00044}{44}} of file \mbox{\hyperlink{per__image__vrd__evaluation_8py_source}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{per__image__vrd__evaluation_8py}{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}}\end{DoxyCompactItemize}

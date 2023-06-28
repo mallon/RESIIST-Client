@@ -1,0 +1,114 @@
+\doxysection{test\+\_\+case.\+py}
+\hypertarget{test__case_8py_source}{}\label{test__case_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/test\_case.py@{src/main/resources/processing/video/detections/detection\_utils/utils/test\_case.py}}
+\mbox{\hyperlink{test__case_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__case}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}A\ convenience\ wrapper\ around\ tf.test.TestCase\ to\ enable\ TPU\ tests."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00020}00020\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00021}00021\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00022}00022\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00023}00023\ \textcolor{keyword}{from}\ tensorflow.contrib\ \textcolor{keyword}{import}\ tpu}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00025}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__case_a9c3e897b74962ed7479cc3358f67de61}{00025}}\ flags\ =\ tf.app.flags}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00027}00027\ flags.DEFINE\_bool(\textcolor{stringliteral}{'tpu\_test'},\ \textcolor{keyword}{False},\ \textcolor{stringliteral}{'Whether\ to\ configure\ test\ for\ TPU.'})}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00028}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1test__case_a165a8138d15ab3bba1472c0a5433b833}{00028}}\ FLAGS\ =\ flags.FLAGS}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00033}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{00033}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{TestCase}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00034}00034\ \ \ \textcolor{stringliteral}{"{}"{}"{}Extends\ tf.test.TestCase\ to\ optionally\ allow\ running\ tests\ on\ TPU."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00036}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{00036}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\_tpu}}(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00037}00037\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ executes\ it\ on\ TPU\ and\ returns\ the\ result.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00038}00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00043}00043\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ }\textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00046}00046\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00047}00047\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ self.test\_session(graph=tf.Graph())\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00049}00049\ \ \ \ \ \ \ placeholders\ =\ [tf.placeholder\_with\_default(v,\ v.shape)\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00050}00050\ \ \ \ \ \ \ tpu\_computation\ =\ tpu.rewrite(graph\_fn,\ placeholders)}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00051}00051\ \ \ \ \ \ \ sess.run(tpu.initialize\_system())}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00052}00052\ \ \ \ \ \ \ sess.run([tf.global\_variables\_initializer(),\ tf.tables\_initializer(),}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.local\_variables\_initializer()])}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00054}00054\ \ \ \ \ \ \ materialized\_results\ =\ sess.run(tpu\_computation,}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=dict(zip(placeholders,\ inputs)))}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00056}00056\ \ \ \ \ \ \ sess.run(tpu.shutdown\_system())}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00057}00057\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(materialized\_results,\ \textcolor{stringliteral}{'\_\_len\_\_'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ len(materialized\_results)\ ==\ 1\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ (isinstance(materialized\_results,\ list)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ isinstance(materialized\_results,\ tuple))):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ materialized\_results\ =\ materialized\_results[0]}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{return}\ materialized\_results}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00064}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{00064}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\_cpu}}(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ executes\ it\ on\ CPU\ and\ returns\ the\ result.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00066}00066\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00071}00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ }\textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00074}00074\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00075}00075\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ self.test\_session(graph=tf.Graph())\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00077}00077\ \ \ \ \ \ \ placeholders\ =\ [tf.placeholder\_with\_default(v,\ v.shape)\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00078}00078\ \ \ \ \ \ \ results\ =\ graph\_fn(*placeholders)}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00079}00079\ \ \ \ \ \ \ sess.run([tf.global\_variables\_initializer(),\ tf.tables\_initializer(),}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.local\_variables\_initializer()])}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00081}00081\ \ \ \ \ \ \ materialized\_results\ =\ sess.run(results,\ feed\_dict=dict(zip(placeholders,}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs)))}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00084}00084\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(materialized\_results,\ \textcolor{stringliteral}{'\_\_len\_\_'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ len(materialized\_results)\ ==\ 1\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ (isinstance(materialized\_results,\ list)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ isinstance(materialized\_results,\ tuple))):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ materialized\_results\ =\ materialized\_results[0]}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{return}\ materialized\_results}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00091}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{00091}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}}(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00092}00092\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ creates\ a\ test\ session\ and\ returns\ the\ results.}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00093}00093\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ The\ graph\ }\textcolor{keywordflow}{is}\ executed\ either\ on\ TPU\ \textcolor{keywordflow}{or}\ CPU\ based\ on\ the\ \`{}tpu\_test\`{}\ flag.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00096}00096\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00097}00097\ \ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00099}00099\ \ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00101}00101\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00102}00102\ \ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ \textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00103}00103\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00104}00104\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ FLAGS.tpu\_test:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00106}00106\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\_tpu}}(graph\_fn,\ inputs)}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{test__case_8py_source_l00108}00108\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\_cpu}}(graph\_fn,\ inputs)}
+
+\end{DoxyCode}

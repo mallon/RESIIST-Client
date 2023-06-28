@@ -1,0 +1,212 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test}\index{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{df/d17/classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{d0/df1/classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a61c93e1e93b821e0dfaadd2623957afc}{test\+Merge\+Boxes\+With\+Multiple\+Labels}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a6e5714b03ba3dcba8a179c5a9aaebefb}{test\+Merge\+Boxes\+With\+Multiple\+Labels\+Corner\+Case}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a86fb7d58b9cf9f65d7b659e51cf06764}{test\+Merge\+Boxes\+With\+Empty\+Inputs}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a067f11ce858e1049af9a85f9d8da7b0f}{test\+Merge\+Boxes\+With\+Multiple\+Labels\+Uses\+Int64}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01151}{1151}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a86fb7d58b9cf9f65d7b659e51cf06764}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a86fb7d58b9cf9f65d7b659e51cf06764} 
+\index{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}!testMergeBoxesWithEmptyInputs@{testMergeBoxesWithEmptyInputs}}
+\index{testMergeBoxesWithEmptyInputs@{testMergeBoxesWithEmptyInputs}!detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}}
+\doxysubsubsection{\texorpdfstring{testMergeBoxesWithEmptyInputs()}{testMergeBoxesWithEmptyInputs()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test.\+test\+Merge\+Boxes\+With\+Empty\+Inputs (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01213}{1213}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01213\ \ \ \textcolor{keyword}{def\ }testMergeBoxesWithEmptyInputs(self):}
+\DoxyCodeLine{01214\ \ \ \ \ boxes\ =\ tf.zeros([0,\ 4],\ dtype=tf.float32)}
+\DoxyCodeLine{01215\ \ \ \ \ class\_indices\ =\ tf.constant([],\ dtype=tf.int32)}
+\DoxyCodeLine{01216\ \ \ \ \ class\_confidences\ =\ tf.constant([],\ dtype=tf.float32)}
+\DoxyCodeLine{01217\ \ \ \ \ num\_classes\ =\ 5}
+\DoxyCodeLine{01218\ \ \ \ \ merged\_boxes,\ merged\_classes,\ merged\_confidences,\ merged\_box\_indices\ =\ (}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ ops.merge\_boxes\_with\_multiple\_labels(}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ \ \ \ \ boxes,\ class\_indices,\ class\_confidences,\ num\_classes))}
+\DoxyCodeLine{01221\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ (np\_merged\_boxes,\ np\_merged\_classes,\ np\_merged\_confidences,}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ np\_merged\_box\_indices)\ =\ sess.run(}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \ \ \ [merged\_boxes,\ merged\_classes,\ merged\_confidences,}
+\DoxyCodeLine{01225\ \ \ \ \ \ \ \ \ \ \ \ \ merged\_box\_indices])}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ self.assertAllEqual(np\_merged\_boxes.shape,\ [0,\ 4])}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ self.assertAllEqual(np\_merged\_classes.shape,\ [0,\ 5])}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ self.assertAllEqual(np\_merged\_confidences.shape,\ [0,\ 5])}
+\DoxyCodeLine{01229\ \ \ \ \ \ \ self.assertAllEqual(np\_merged\_box\_indices.shape,\ [0])}
+\DoxyCodeLine{01230\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a61c93e1e93b821e0dfaadd2623957afc}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a61c93e1e93b821e0dfaadd2623957afc} 
+\index{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}!testMergeBoxesWithMultipleLabels@{testMergeBoxesWithMultipleLabels}}
+\index{testMergeBoxesWithMultipleLabels@{testMergeBoxesWithMultipleLabels}!detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}}
+\doxysubsubsection{\texorpdfstring{testMergeBoxesWithMultipleLabels()}{testMergeBoxesWithMultipleLabels()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test.\+test\+Merge\+Boxes\+With\+Multiple\+Labels (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01153}{1153}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01153\ \ \ \textcolor{keyword}{def\ }testMergeBoxesWithMultipleLabels(self):}
+\DoxyCodeLine{01154\ \ \ \ \ boxes\ =\ tf.constant(}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{01156\ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]],}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{01158\ \ \ \ \ class\_indices\ =\ tf.constant([0,\ 4,\ 2],\ dtype=tf.int32)}
+\DoxyCodeLine{01159\ \ \ \ \ class\_confidences\ =\ tf.constant([0.8,\ 0.2,\ 0.1],\ dtype=tf.float32)}
+\DoxyCodeLine{01160\ \ \ \ \ num\_classes\ =\ 5}
+\DoxyCodeLine{01161\ \ \ \ \ merged\_boxes,\ merged\_classes,\ merged\_confidences,\ merged\_box\_indices\ =\ (}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ ops.merge\_boxes\_with\_multiple\_labels(}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ \ boxes,\ class\_indices,\ class\_confidences,\ num\_classes))}
+\DoxyCodeLine{01164\ \ \ \ \ expected\_merged\_boxes\ =\ np.array(}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=np.float32)}
+\DoxyCodeLine{01166\ \ \ \ \ expected\_merged\_classes\ =\ np.array(}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ [[1,\ 0,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0,\ 1]],\ dtype=np.int32)}
+\DoxyCodeLine{01168\ \ \ \ \ expected\_merged\_confidences\ =\ np.array(}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ [[0.8,\ 0,\ 0.1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0,\ 0.2]],\ dtype=np.float32)}
+\DoxyCodeLine{01170\ \ \ \ \ expected\_merged\_box\_indices\ =\ np.array([0,\ 1],\ dtype=np.int32)}
+\DoxyCodeLine{01171\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01172\ \ \ \ \ \ \ (np\_merged\_boxes,\ np\_merged\_classes,\ np\_merged\_confidences,}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ \ np\_merged\_box\_indices)\ =\ sess.run(}
+\DoxyCodeLine{01174\ \ \ \ \ \ \ \ \ \ \ \ [merged\_boxes,\ merged\_classes,\ merged\_confidences,}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ \ \ \ \ merged\_box\_indices])}
+\DoxyCodeLine{01176\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_boxes,\ expected\_merged\_boxes)}
+\DoxyCodeLine{01177\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_classes,\ expected\_merged\_classes)}
+\DoxyCodeLine{01178\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_confidences,\ expected\_merged\_confidences)}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_box\_indices,\ expected\_merged\_box\_indices)}
+\DoxyCodeLine{01180\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a6e5714b03ba3dcba8a179c5a9aaebefb}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a6e5714b03ba3dcba8a179c5a9aaebefb} 
+\index{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}!testMergeBoxesWithMultipleLabelsCornerCase@{testMergeBoxesWithMultipleLabelsCornerCase}}
+\index{testMergeBoxesWithMultipleLabelsCornerCase@{testMergeBoxesWithMultipleLabelsCornerCase}!detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}}
+\doxysubsubsection{\texorpdfstring{testMergeBoxesWithMultipleLabelsCornerCase()}{testMergeBoxesWithMultipleLabelsCornerCase()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test.\+test\+Merge\+Boxes\+With\+Multiple\+Labels\+Corner\+Case (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01181}{1181}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01181\ \ \ \textcolor{keyword}{def\ }testMergeBoxesWithMultipleLabelsCornerCase(self):}
+\DoxyCodeLine{01182\ \ \ \ \ boxes\ =\ tf.constant(}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 1,\ 1,\ 1],\ [1,\ 0,\ 1,\ 1],\ [1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1],\ [1,\ 0,\ 1,\ 1],\ [0,\ 1,\ 1,\ 1],\ [0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{01186\ \ \ \ \ class\_indices\ =\ tf.constant([0,\ 1,\ 2,\ 3,\ 2,\ 1,\ 0,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{01187\ \ \ \ \ class\_confidences\ =\ tf.constant([0.1,\ 0.9,\ 0.2,\ 0.8,\ 0.3,\ 0.7,\ 0.4,\ 0.6],}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{01189\ \ \ \ \ num\_classes\ =\ 4}
+\DoxyCodeLine{01190\ \ \ \ \ merged\_boxes,\ merged\_classes,\ merged\_confidences,\ merged\_box\_indices\ =\ (}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ ops.merge\_boxes\_with\_multiple\_labels(}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \ \ \ \ boxes,\ class\_indices,\ class\_confidences,\ num\_classes))}
+\DoxyCodeLine{01193\ \ \ \ \ expected\_merged\_boxes\ =\ np.array(}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 1,\ 1,\ 1],\ [1,\ 0,\ 1,\ 1],\ [1,\ 1,\ 1,\ 1]],}
+\DoxyCodeLine{01195\ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{01196\ \ \ \ \ expected\_merged\_classes\ =\ np.array(}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0,\ 1],\ [1,\ 1,\ 0,\ 0],\ [0,\ 1,\ 1,\ 0],\ [0,\ 0,\ 1,\ 1]],}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ dtype=np.int32)}
+\DoxyCodeLine{01199\ \ \ \ \ expected\_merged\_confidences\ =\ np.array(}
+\DoxyCodeLine{01200\ \ \ \ \ \ \ \ \ [[0.1,\ 0,\ 0,\ 0.6],\ [0.4,\ 0.9,\ 0,\ 0],}
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ \ [0,\ 0.7,\ 0.2,\ 0],\ [0,\ 0,\ 0.3,\ 0.8]],\ dtype=np.float32)}
+\DoxyCodeLine{01202\ \ \ \ \ expected\_merged\_box\_indices\ =\ np.array([0,\ 1,\ 2,\ 3],\ dtype=np.int32)}
+\DoxyCodeLine{01203\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ (np\_merged\_boxes,\ np\_merged\_classes,\ np\_merged\_confidences,}
+\DoxyCodeLine{01205\ \ \ \ \ \ \ \ np\_merged\_box\_indices)\ =\ sess.run(}
+\DoxyCodeLine{01206\ \ \ \ \ \ \ \ \ \ \ \ [merged\_boxes,\ merged\_classes,\ merged\_confidences,}
+\DoxyCodeLine{01207\ \ \ \ \ \ \ \ \ \ \ \ \ merged\_box\_indices])}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_boxes,\ expected\_merged\_boxes)}
+\DoxyCodeLine{01209\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_classes,\ expected\_merged\_classes)}
+\DoxyCodeLine{01210\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_confidences,\ expected\_merged\_confidences)}
+\DoxyCodeLine{01211\ \ \ \ \ \ \ self.assertAllClose(np\_merged\_box\_indices,\ expected\_merged\_box\_indices)}
+\DoxyCodeLine{01212\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a067f11ce858e1049af9a85f9d8da7b0f}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test_a067f11ce858e1049af9a85f9d8da7b0f} 
+\index{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}!testMergeBoxesWithMultipleLabelsUsesInt64@{testMergeBoxesWithMultipleLabelsUsesInt64}}
+\index{testMergeBoxesWithMultipleLabelsUsesInt64@{testMergeBoxesWithMultipleLabelsUsesInt64}!detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest@{detection\_utils.utils.ops\_test.MergeBoxesWithMultipleLabelsTest}}
+\doxysubsubsection{\texorpdfstring{testMergeBoxesWithMultipleLabelsUsesInt64()}{testMergeBoxesWithMultipleLabelsUsesInt64()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Merge\+Boxes\+With\+Multiple\+Labels\+Test.\+test\+Merge\+Boxes\+With\+Multiple\+Labels\+Uses\+Int64 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01231}{1231}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01231\ \ \ \textcolor{keyword}{def\ }testMergeBoxesWithMultipleLabelsUsesInt64(self):}
+\DoxyCodeLine{01232\ \ \ \ \ boxes\ =\ tf.constant(}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ [0.25,\ 0.25,\ 0.75,\ 0.75]],}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{01236\ \ \ \ \ class\_indices\ =\ tf.constant([0,\ 4,\ 2],\ dtype=tf.int32)}
+\DoxyCodeLine{01237\ \ \ \ \ class\_confidences\ =\ tf.constant([0.8,\ 0.2,\ 0.1],\ dtype=tf.float32)}
+\DoxyCodeLine{01238\ \ \ \ \ num\_classes\ =\ 5}
+\DoxyCodeLine{01239\ \ \ \ \ ops.merge\_boxes\_with\_multiple\_labels(}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ boxes,\ class\_indices,\ class\_confidences,\ num\_classes)}
+\DoxyCodeLine{01241\ }
+\DoxyCodeLine{01242\ \ \ \ \ graph\ =\ tf.get\_default\_graph()}
+\DoxyCodeLine{01243\ }
+\DoxyCodeLine{01244\ \ \ \ \ \textcolor{keyword}{def\ }assert\_dtype\_is\_int64(op\_name):}
+\DoxyCodeLine{01245\ \ \ \ \ \ \ op\ =\ graph.get\_operation\_by\_name(op\_name)}
+\DoxyCodeLine{01246\ \ \ \ \ \ \ self.assertEqual(op.get\_attr(\textcolor{stringliteral}{'dtype'}),\ tf.int64)}
+\DoxyCodeLine{01247\ }
+\DoxyCodeLine{01248\ \ \ \ \ \textcolor{keyword}{def\ }assert\_t\_is\_int64(op\_name):}
+\DoxyCodeLine{01249\ \ \ \ \ \ \ op\ =\ graph.get\_operation\_by\_name(op\_name)}
+\DoxyCodeLine{01250\ \ \ \ \ \ \ self.assertEqual(op.get\_attr(\textcolor{stringliteral}{'T'}),\ tf.int64)}
+\DoxyCodeLine{01251\ }
+\DoxyCodeLine{01252\ \ \ \ \ assert\_dtype\_is\_int64(\textcolor{stringliteral}{'map/TensorArray'})}
+\DoxyCodeLine{01253\ \ \ \ \ assert\_dtype\_is\_int64(\textcolor{stringliteral}{'map/TensorArray\_1'})}
+\DoxyCodeLine{01254\ \ \ \ \ assert\_dtype\_is\_int64(\textcolor{stringliteral}{'map/while/TensorArrayReadV3'})}
+\DoxyCodeLine{01255\ \ \ \ \ assert\_t\_is\_int64(\textcolor{stringliteral}{'map/while/TensorArrayWrite/TensorArrayWriteV3'})}
+\DoxyCodeLine{01256\ \ \ \ \ assert\_t\_is\_int64(}
+\DoxyCodeLine{01257\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'map/TensorArrayUnstack/TensorArrayScatter/TensorArrayScatterV3'})}
+\DoxyCodeLine{01258\ \ \ \ \ assert\_dtype\_is\_int64(\textcolor{stringliteral}{'map/TensorArrayStack/TensorArrayGatherV3'})}
+\DoxyCodeLine{01259\ }
+\DoxyCodeLine{01260\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

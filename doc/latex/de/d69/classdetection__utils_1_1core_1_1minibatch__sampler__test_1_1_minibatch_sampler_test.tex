@@ -1,0 +1,175 @@
+\doxysection{detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test}{}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test}\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{d5/db1/classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{d4/dc4/classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a4f67b011afd2a9b519ee7905a22c4d9d}{test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+more\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_ada925020ee44e5e534803ce774e349c7}{test\+\_\+subsample\+\_\+when\+\_\+more\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples\+\_\+no\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a642c768951f59c6a634cb850784615eb}{test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+less\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a9f1463d0d60b63f8b50ac7b2fa415528}{test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+num\+\_\+samples\+\_\+is\+\_\+zero}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a591bf7c89508ae2b32a831976217a44d}{test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+indicator\+\_\+all\+\_\+false}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00024}{24}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a591bf7c89508ae2b32a831976217a44d}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a591bf7c89508ae2b32a831976217a44d} 
+\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}!test\_subsample\_indicator\_when\_indicator\_all\_false@{test\_subsample\_indicator\_when\_indicator\_all\_false}}
+\index{test\_subsample\_indicator\_when\_indicator\_all\_false@{test\_subsample\_indicator\_when\_indicator\_all\_false}!detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+\doxysubsubsection{\texorpdfstring{test\_subsample\_indicator\_when\_indicator\_all\_false()}{test\_subsample\_indicator\_when\_indicator\_all\_false()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test.\+test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+indicator\+\_\+all\+\_\+false (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00072}{72}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{def\ }test\_subsample\_indicator\_when\_indicator\_all\_false(self):}
+\DoxyCodeLine{00073\ \ \ \ \ indicator\_empty\ =\ tf.zeros([0],\ dtype=tf.bool)}
+\DoxyCodeLine{00074\ \ \ \ \ samples\_empty\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ indicator\_empty,\ 4)}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ samples\_empty\_out\ =\ sess.run(samples\_empty)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ self.assertEqual(0,\ samples\_empty\_out.size)}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a642c768951f59c6a634cb850784615eb}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a642c768951f59c6a634cb850784615eb} 
+\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}!test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples@{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples}}
+\index{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples@{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples}!detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+\doxysubsubsection{\texorpdfstring{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples()}{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test.\+test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+less\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00050}{50}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{def\ }test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples(self):}
+\DoxyCodeLine{00051\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{00052\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{00053\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ indicator,\ 5)}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 4)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{00060\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a4f67b011afd2a9b519ee7905a22c4d9d}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a4f67b011afd2a9b519ee7905a22c4d9d} 
+\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}!test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples@{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples}}
+\index{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples@{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples}!detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+\doxysubsubsection{\texorpdfstring{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples()}{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test.\+test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+more\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00026}{26}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{def\ }test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples(self):}
+\DoxyCodeLine{00027\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{00028\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{00029\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ indicator,\ 3)}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 3)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{00036\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a9f1463d0d60b63f8b50ac7b2fa415528}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a9f1463d0d60b63f8b50ac7b2fa415528} 
+\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}!test\_subsample\_indicator\_when\_num\_samples\_is\_zero@{test\_subsample\_indicator\_when\_num\_samples\_is\_zero}}
+\index{test\_subsample\_indicator\_when\_num\_samples\_is\_zero@{test\_subsample\_indicator\_when\_num\_samples\_is\_zero}!detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+\doxysubsubsection{\texorpdfstring{test\_subsample\_indicator\_when\_num\_samples\_is\_zero()}{test\_subsample\_indicator\_when\_num\_samples\_is\_zero()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test.\+test\+\_\+subsample\+\_\+indicator\+\_\+when\+\_\+num\+\_\+samples\+\_\+is\+\_\+zero (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00061}{61}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{def\ }test\_subsample\_indicator\_when\_num\_samples\_is\_zero(self):}
+\DoxyCodeLine{00062\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{00063\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{00064\ \ \ \ \ samples\_none\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ indicator,\ 0)}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ samples\_none\_out\ =\ sess.run(samples\_none)}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ self.assertAllEqual(}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ np.zeros\_like(samples\_none\_out,\ dtype=bool),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ samples\_none\_out)}
+\DoxyCodeLine{00071\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_ada925020ee44e5e534803ce774e349c7}\label{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_ada925020ee44e5e534803ce774e349c7} 
+\index{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}!test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape@{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape}}
+\index{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape@{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape}!detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest@{detection\_utils.core.minibatch\_sampler\_test.MinibatchSamplerTest}}
+\doxysubsubsection{\texorpdfstring{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape()}{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler\+\_\+test.\+Minibatch\+Sampler\+Test.\+test\+\_\+subsample\+\_\+when\+\_\+more\+\_\+true\+\_\+elements\+\_\+than\+\_\+num\+\_\+samples\+\_\+no\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{minibatch__sampler__test_8py_source_l00037}{37}} of file \mbox{\hyperlink{minibatch__sampler__test_8py_source}{minibatch\+\_\+sampler\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{def\ }test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape(self):}
+\DoxyCodeLine{00038\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{00039\ \ \ \ \ indicator\ =\ tf.placeholder(tf.bool)}
+\DoxyCodeLine{00040\ \ \ \ \ feed\_dict\ =\ \{indicator:\ np\_indicator\}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ indicator,\ 3)}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples,\ feed\_dict=feed\_dict)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 3)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{00049\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{minibatch__sampler__test_8py}{minibatch\+\_\+sampler\+\_\+test.\+py}}\end{DoxyCompactItemize}

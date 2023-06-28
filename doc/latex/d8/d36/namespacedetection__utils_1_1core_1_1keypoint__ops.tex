@@ -1,0 +1,596 @@
+\doxysection{detection\+\_\+utils.\+core.\+keypoint\+\_\+ops Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops}{}\label{namespacedetection__utils_1_1core_1_1keypoint__ops}\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{scale}} (keypoints, y\+\_\+scale, x\+\_\+scale, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a7218985c1d488a4af34f784620ce2309}{clip\+\_\+to\+\_\+window}} (keypoints, window, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4a214fb6879d14d53d53660a5099e7f4}{prune\+\_\+outside\+\_\+window}} (keypoints, window, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8}{change\+\_\+coordinate\+\_\+frame}} (keypoints, window, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901}{to\+\_\+normalized\+\_\+coordinates}} (keypoints, height, width, check\+\_\+range=True, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874}{to\+\_\+absolute\+\_\+coordinates}} (keypoints, height, width, check\+\_\+range=True, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a1e930f3eeb48f0c5c9f4308ecb2abf13}{flip\+\_\+horizontal}} (keypoints, flip\+\_\+point, flip\+\_\+permutation, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a865ee483b7ace34c0767589838e577b1}{flip\+\_\+vertical}} (keypoints, flip\+\_\+point, flip\+\_\+permutation, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_af33d083020b5f44a58b2de924a1659a9}{rot90}} (keypoints, scope=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Keypoint operations.
+
+Keypoints are represented as tensors of shape [num_instances, num_keypoints, 2],
+where the last dimension holds rank 2 tensors of the form [y, x] representing
+the coordinates of the keypoint.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!change\_coordinate\_frame@{change\_coordinate\_frame}}
+\index{change\_coordinate\_frame@{change\_coordinate\_frame}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{change\_coordinate\_frame()}{change\_coordinate\_frame()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+change\+\_\+coordinate\+\_\+frame (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{window,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Changes coordinate frame of the keypoints to be relative to window's frame.
+
+Given a window of the form [y_min, x_min, y_max, x_max], changes keypoint
+coordinates from keypoints of shape [num_instances, num_keypoints, 2]
+to be relative to this window.
+
+An example use case is data augmentation: where we are given groundtruth
+keypoints and would like to randomly crop the image to some window. In this
+case we need to change the coordinate frame of each groundtruth keypoint to be
+relative to this new window.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  window: a tensor of shape [4] representing the [y_min, x_min, y_max, x_max]
+    window we should change the coordinate frame to.
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00099}{99}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \textcolor{keyword}{def\ }change\_coordinate\_frame(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{00100\ \ \ \textcolor{stringliteral}{"{}"{}"{}Changes\ coordinate\ frame\ of\ the\ keypoints\ to\ be\ relative\ to\ window's\ frame.}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{\ \ Given\ a\ window\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max],\ changes\ keypoint}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ coordinates\ }\textcolor{keyword}{from}\ keypoints\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00104\ \ \ to\ be\ relative\ to\ this\ window.}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ An\ example\ use\ case\ \textcolor{keywordflow}{is}\ data\ augmentation:\ where\ we\ are\ given\ groundtruth}
+\DoxyCodeLine{00107\ \ \ keypoints\ \textcolor{keywordflow}{and}\ would\ like\ to\ randomly\ crop\ the\ image\ to\ some\ window.\ In\ this}
+\DoxyCodeLine{00108\ \ \ case\ we\ need\ to\ change\ the\ coordinate\ frame\ of\ each\ groundtruth\ keypoint\ to\ be}
+\DoxyCodeLine{00109\ \ \ relative\ to\ this\ new\ window.}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ Args:}
+\DoxyCodeLine{00112\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00113\ \ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ window\ we\ should\ change\ the\ coordinate\ frame\ to.}
+\DoxyCodeLine{00115\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ Returns:}
+\DoxyCodeLine{00118\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00119\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ChangeCoordinateFrame'}):}
+\DoxyCodeLine{00121\ \ \ \ \ win\_height\ =\ window[2]\ -\/\ window[0]}
+\DoxyCodeLine{00122\ \ \ \ \ win\_width\ =\ window[3]\ -\/\ window[1]}
+\DoxyCodeLine{00123\ \ \ \ \ new\_keypoints\ =\ scale(keypoints\ -\/\ [window[0],\ window[1]],\ 1.0\ /\ win\_height,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0\ /\ win\_width)}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d36/namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a7218985c1d488a4af34f784620ce2309}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a7218985c1d488a4af34f784620ce2309} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!clip\_to\_window@{clip\_to\_window}}
+\index{clip\_to\_window@{clip\_to\_window}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{clip\_to\_window()}{clip\_to\_window()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+clip\+\_\+to\+\_\+window (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{window,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Clips keypoints to a window.
+
+This op clips any input keypoints to a window.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  window: a tensor of shape [4] representing the [y_min, x_min, y_max, x_max]
+    window to which the op should clip the keypoints.
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00045}{45}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \textcolor{keyword}{def\ }clip\_to\_window(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}Clips\ keypoints\ to\ a\ window.}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ This\ op\ clips\ any\ input\ keypoints\ to\ a\ window.}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ \ \ \ \ window\ to\ which\ the\ op\ should\ clip\ the\ keypoints.}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ClipToWindow'}):}
+\DoxyCodeLine{00060\ \ \ \ \ y,\ x\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{00061\ \ \ \ \ win\_y\_min,\ win\_x\_min,\ win\_y\_max,\ win\_x\_max\ =\ tf.unstack(window)}
+\DoxyCodeLine{00062\ \ \ \ \ y\ =\ tf.maximum(tf.minimum(y,\ win\_y\_max),\ win\_y\_min)}
+\DoxyCodeLine{00063\ \ \ \ \ x\ =\ tf.maximum(tf.minimum(x,\ win\_x\_max),\ win\_x\_min)}
+\DoxyCodeLine{00064\ \ \ \ \ new\_keypoints\ =\ tf.concat([y,\ x],\ 2)}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a1e930f3eeb48f0c5c9f4308ecb2abf13}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a1e930f3eeb48f0c5c9f4308ecb2abf13} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!flip\_horizontal@{flip\_horizontal}}
+\index{flip\_horizontal@{flip\_horizontal}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{flip\_horizontal()}{flip\_horizontal()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+flip\+\_\+horizontal (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{flip\+\_\+point,  }\item[{}]{flip\+\_\+permutation,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flips the keypoints horizontally around the flip_point.
+
+This operation flips the x coordinate for each keypoint around the flip_point
+and also permutes the keypoints in a manner specified by flip_permutation.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  flip_point:  (float) scalar tensor representing the x coordinate to flip the
+    keypoints around.
+  flip_permutation: rank 1 int32 tensor containing the keypoint flip
+    permutation. This specifies the mapping from original keypoint indices
+    to the flipped keypoint indices. This is used primarily for keypoints
+    that are not reflection invariant. E.g. Suppose there are 3 keypoints
+    representing ['head', 'right_eye', 'left_eye'], then a logical choice for
+    flip_permutation might be [0, 2, 1] since we want to swap the 'left_eye'
+    and 'right_eye' after a horizontal flip.
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00202}{202}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00202\ \textcolor{keyword}{def\ }flip\_horizontal(keypoints,\ flip\_point,\ flip\_permutation,\ scope=None):}
+\DoxyCodeLine{00203\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flips\ the\ keypoints\ horizontally\ around\ the\ flip\_point.}}
+\DoxyCodeLine{00204\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00205\ \textcolor{stringliteral}{\ \ This\ operation\ flips\ the\ x\ coordinate\ }\textcolor{keywordflow}{for}\ each\ keypoint\ around\ the\ flip\_point}
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordflow}{and}\ also\ permutes\ the\ keypoints\ \textcolor{keywordflow}{in}\ a\ manner\ specified\ by\ flip\_permutation.}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ Args:}
+\DoxyCodeLine{00209\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00210\ \ \ \ \ flip\_point:\ \ (float)\ scalar\ tensor\ representing\ the\ x\ coordinate\ to\ flip\ the}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ keypoints\ around.}
+\DoxyCodeLine{00212\ \ \ \ \ flip\_permutation:\ rank\ 1\ int32\ tensor\ containing\ the\ keypoint\ flip}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ permutation.\ This\ specifies\ the\ mapping\ \textcolor{keyword}{from}\ original\ keypoint\ indices}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ to\ the\ flipped\ keypoint\ indices.\ This\ \textcolor{keywordflow}{is}\ used\ primarily\ \textcolor{keywordflow}{for}\ keypoints}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ that\ are\ \textcolor{keywordflow}{not}\ reflection\ invariant.\ E.g.\ Suppose\ there\ are\ 3\ keypoints}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ representing\ [\textcolor{stringliteral}{'head'},\ \textcolor{stringliteral}{'right\_eye'},\ \textcolor{stringliteral}{'left\_eye'}],\ then\ a\ logical\ choice\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ flip\_permutation\ might\ be\ [0,\ 2,\ 1]\ since\ we\ want\ to\ swap\ the\ \textcolor{stringliteral}{'left\_eye'}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'right\_eye'}\ after\ a\ horizontal\ flip.}
+\DoxyCodeLine{00219\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ Returns:}
+\DoxyCodeLine{00222\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00223\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00224\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'FlipHorizontal'}):}
+\DoxyCodeLine{00225\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00226\ \ \ \ \ keypoints\ =\ tf.gather(keypoints,\ flip\_permutation)}
+\DoxyCodeLine{00227\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{00228\ \ \ \ \ u\ =\ flip\_point\ *\ 2.0\ -\/\ u}
+\DoxyCodeLine{00229\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{00230\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a865ee483b7ace34c0767589838e577b1}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a865ee483b7ace34c0767589838e577b1} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!flip\_vertical@{flip\_vertical}}
+\index{flip\_vertical@{flip\_vertical}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{flip\_vertical()}{flip\_vertical()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+flip\+\_\+vertical (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{flip\+\_\+point,  }\item[{}]{flip\+\_\+permutation,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flips the keypoints vertically around the flip_point.
+
+This operation flips the y coordinate for each keypoint around the flip_point
+and also permutes the keypoints in a manner specified by flip_permutation.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  flip_point:  (float) scalar tensor representing the y coordinate to flip the
+    keypoints around.
+  flip_permutation: rank 1 int32 tensor containing the keypoint flip
+    permutation. This specifies the mapping from original keypoint indices
+    to the flipped keypoint indices. This is used primarily for keypoints
+    that are not reflection invariant. E.g. Suppose there are 3 keypoints
+    representing ['head', 'right_eye', 'left_eye'], then a logical choice for
+    flip_permutation might be [0, 2, 1] since we want to swap the 'left_eye'
+    and 'right_eye' after a horizontal flip.
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00234}{234}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00234\ \textcolor{keyword}{def\ }flip\_vertical(keypoints,\ flip\_point,\ flip\_permutation,\ scope=None):}
+\DoxyCodeLine{00235\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flips\ the\ keypoints\ vertically\ around\ the\ flip\_point.}}
+\DoxyCodeLine{00236\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00237\ \textcolor{stringliteral}{\ \ This\ operation\ flips\ the\ y\ coordinate\ }\textcolor{keywordflow}{for}\ each\ keypoint\ around\ the\ flip\_point}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordflow}{and}\ also\ permutes\ the\ keypoints\ \textcolor{keywordflow}{in}\ a\ manner\ specified\ by\ flip\_permutation.}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ Args:}
+\DoxyCodeLine{00241\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00242\ \ \ \ \ flip\_point:\ \ (float)\ scalar\ tensor\ representing\ the\ y\ coordinate\ to\ flip\ the}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ keypoints\ around.}
+\DoxyCodeLine{00244\ \ \ \ \ flip\_permutation:\ rank\ 1\ int32\ tensor\ containing\ the\ keypoint\ flip}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ permutation.\ This\ specifies\ the\ mapping\ \textcolor{keyword}{from}\ original\ keypoint\ indices}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ to\ the\ flipped\ keypoint\ indices.\ This\ \textcolor{keywordflow}{is}\ used\ primarily\ \textcolor{keywordflow}{for}\ keypoints}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ that\ are\ \textcolor{keywordflow}{not}\ reflection\ invariant.\ E.g.\ Suppose\ there\ are\ 3\ keypoints}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ representing\ [\textcolor{stringliteral}{'head'},\ \textcolor{stringliteral}{'right\_eye'},\ \textcolor{stringliteral}{'left\_eye'}],\ then\ a\ logical\ choice\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ flip\_permutation\ might\ be\ [0,\ 2,\ 1]\ since\ we\ want\ to\ swap\ the\ \textcolor{stringliteral}{'left\_eye'}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'right\_eye'}\ after\ a\ horizontal\ flip.}
+\DoxyCodeLine{00251\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ Returns:}
+\DoxyCodeLine{00254\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00255\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00256\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'FlipVertical'}):}
+\DoxyCodeLine{00257\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00258\ \ \ \ \ keypoints\ =\ tf.gather(keypoints,\ flip\_permutation)}
+\DoxyCodeLine{00259\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{00260\ \ \ \ \ v\ =\ flip\_point\ *\ 2.0\ -\/\ v}
+\DoxyCodeLine{00261\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{00262\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a4a214fb6879d14d53d53660a5099e7f4}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a4a214fb6879d14d53d53660a5099e7f4} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!prune\_outside\_window@{prune\_outside\_window}}
+\index{prune\_outside\_window@{prune\_outside\_window}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{prune\_outside\_window()}{prune\_outside\_window()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+prune\+\_\+outside\+\_\+window (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{window,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Prunes keypoints that fall outside a given window.
+
+This function replaces keypoints that fall outside the given window with nan.
+See also clip_to_window which clips any keypoints that fall outside the given
+window.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  window: a tensor of shape [4] representing the [y_min, x_min, y_max, x_max]
+    window outside of which the op should prune the keypoints.
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00068}{68}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \textcolor{keyword}{def\ }prune\_outside\_window(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{00069\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ keypoints\ that\ fall\ outside\ a\ given\ window.}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ This\ function\ replaces\ keypoints\ that\ fall\ outside\ the\ given\ window\ }\textcolor{keyword}{with}\ nan.}
+\DoxyCodeLine{00072\ \ \ See\ also\ clip\_to\_window\ which\ clips\ any\ keypoints\ that\ fall\ outside\ the\ given}
+\DoxyCodeLine{00073\ \ \ window.}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ Args:}
+\DoxyCodeLine{00076\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00077\ \ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ window\ outside\ of\ which\ the\ op\ should\ prune\ the\ keypoints.}
+\DoxyCodeLine{00079\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ Returns:}
+\DoxyCodeLine{00082\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00083\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'PruneOutsideWindow'}):}
+\DoxyCodeLine{00085\ \ \ \ \ y,\ x\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{00086\ \ \ \ \ win\_y\_min,\ win\_x\_min,\ win\_y\_max,\ win\_x\_max\ =\ tf.unstack(window)}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ valid\_indices\ =\ tf.logical\_and(}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ tf.logical\_and(y\ >=\ win\_y\_min,\ y\ <=\ win\_y\_max),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ tf.logical\_and(x\ >=\ win\_x\_min,\ x\ <=\ win\_x\_max))}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ new\_y\ =\ tf.where(valid\_indices,\ y,\ np.nan\ *\ tf.ones\_like(y))}
+\DoxyCodeLine{00093\ \ \ \ \ new\_x\ =\ tf.where(valid\_indices,\ x,\ np.nan\ *\ tf.ones\_like(x))}
+\DoxyCodeLine{00094\ \ \ \ \ new\_keypoints\ =\ tf.concat([new\_y,\ new\_x],\ 2)}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_af33d083020b5f44a58b2de924a1659a9}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_af33d083020b5f44a58b2de924a1659a9} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!rot90@{rot90}}
+\index{rot90@{rot90}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{rot90()}{rot90()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+rot90 (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Rotates the keypoints counter-clockwise by 90 degrees.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00266}{266}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00266\ \textcolor{keyword}{def\ }rot90(keypoints,\ scope=None):}
+\DoxyCodeLine{00267\ \ \ \textcolor{stringliteral}{"{}"{}"{}Rotates\ the\ keypoints\ counter-\/clockwise\ by\ 90\ degrees.}}
+\DoxyCodeLine{00268\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00269\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00270\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00271\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{00272\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00273\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00274\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00275\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00276\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Rot90'}):}
+\DoxyCodeLine{00277\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00278\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints[:,\ :,\ ::-\/1],\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{00279\ \ \ \ \ v\ =\ 1.0\ -\/\ v}
+\DoxyCodeLine{00280\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{00281\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!scale@{scale}}
+\index{scale@{scale}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+scale (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{y\+\_\+scale,  }\item[{}]{x\+\_\+scale,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Scales keypoint coordinates in x and y dimensions.
+
+Args:
+  keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+  y_scale: (float) scalar tensor
+  x_scale: (float) scalar tensor
+  scope: name scope.
+
+Returns:
+  new_keypoints: a tensor of shape [num_instances, num_keypoints, 2]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00026}{26}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \textcolor{keyword}{def\ }scale(keypoints,\ y\_scale,\ x\_scale,\ scope=None):}
+\DoxyCodeLine{00027\ \ \ \textcolor{stringliteral}{"{}"{}"{}Scales\ keypoint\ coordinates\ in\ x\ and\ y\ dimensions.}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ y\_scale:\ (float)\ scalar\ tensor}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{\ \ \ \ x\_scale:\ (float)\ scalar\ tensor}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Scale'}):}
+\DoxyCodeLine{00039\ \ \ \ \ y\_scale\ =\ tf.cast(y\_scale,\ tf.float32)}
+\DoxyCodeLine{00040\ \ \ \ \ x\_scale\ =\ tf.cast(x\_scale,\ tf.float32)}
+\DoxyCodeLine{00041\ \ \ \ \ new\_keypoints\ =\ keypoints\ *\ [[[y\_scale,\ x\_scale]]]}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d36/namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!to\_absolute\_coordinates@{to\_absolute\_coordinates}}
+\index{to\_absolute\_coordinates@{to\_absolute\_coordinates}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{to\_absolute\_coordinates()}{to\_absolute\_coordinates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+to\+\_\+absolute\+\_\+coordinates (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{height,  }\item[{}]{width,  }\item[{}]{check\+\_\+range = {\ttfamily True},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Converts normalized keypoint coordinates to absolute pixel coordinates.
+
+This function raises an assertion failed error when the maximum keypoint
+coordinate value is larger than 1.01 (in which case coordinates are already
+absolute).
+
+Args:
+  keypoints: A tensor of shape [num_instances, num_keypoints, 2]
+  height: Maximum value for y coordinate of absolute keypoint coordinates.
+  width: Maximum value for x coordinate of absolute keypoint coordinates.
+  check_range: If True, checks if the coordinates are normalized or not.
+  scope: name scope.
+
+Returns:
+  tensor of shape [num_instances, num_keypoints, 2] with absolute coordinates
+  in terms of the image size.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00166}{166}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ check\_range=\textcolor{keyword}{True},\ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00168\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ normalized\ keypoint\ coordinates\ to\ absolute\ pixel\ coordinates.}}
+\DoxyCodeLine{00169\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{\ \ This\ function\ raises\ an\ assertion\ failed\ error\ when\ the\ maximum\ keypoint}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ coordinate\ value\ }\textcolor{keywordflow}{is}\ larger\ than\ 1.01\ (\textcolor{keywordflow}{in}\ which\ case\ coordinates\ are\ already}
+\DoxyCodeLine{00172\ \ \ absolute).}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ Args:}
+\DoxyCodeLine{00175\ \ \ \ \ keypoints:\ A\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{00176\ \ \ \ \ height:\ Maximum\ value\ \textcolor{keywordflow}{for}\ y\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{00177\ \ \ \ \ width:\ Maximum\ value\ \textcolor{keywordflow}{for}\ x\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{00178\ \ \ \ \ check\_range:\ If\ \textcolor{keyword}{True},\ checks\ \textcolor{keywordflow}{if}\ the\ coordinates\ are\ normalized\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{00179\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ Returns:}
+\DoxyCodeLine{00182\ \ \ \ \ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]\ \textcolor{keyword}{with}\ absolute\ coordinates}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{in}\ terms\ of\ the\ image\ size.}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00186\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ToAbsoluteCoordinates'}):}
+\DoxyCodeLine{00187\ \ \ \ \ height\ =\ tf.cast(height,\ tf.float32)}
+\DoxyCodeLine{00188\ \ \ \ \ width\ =\ tf.cast(width,\ tf.float32)}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{comment}{\#\ Ensure\ range\ of\ input\ keypoints\ is\ correct.}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{if}\ check\_range:}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ max\_val\ =\ tf.reduce\_max(keypoints)}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ max\_assert\ =\ tf.Assert(tf.greater\_equal(1.01,\ max\_val),}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'maximum\ keypoint\ coordinate\ value\ is\ larger\ '}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'than\ 1.01:\ '},\ max\_val])}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([max\_assert]):}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ width\ =\ tf.identity(width)}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{return}\ scale(keypoints,\ height,\ width)}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d36/namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901}\label{namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901} 
+\index{detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}!to\_normalized\_coordinates@{to\_normalized\_coordinates}}
+\index{to\_normalized\_coordinates@{to\_normalized\_coordinates}!detection\_utils.core.keypoint\_ops@{detection\_utils.core.keypoint\_ops}}
+\doxysubsubsection{\texorpdfstring{to\_normalized\_coordinates()}{to\_normalized\_coordinates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+keypoint\+\_\+ops.\+to\+\_\+normalized\+\_\+coordinates (\begin{DoxyParamCaption}\item[{}]{keypoints,  }\item[{}]{height,  }\item[{}]{width,  }\item[{}]{check\+\_\+range = {\ttfamily True},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Converts absolute keypoint coordinates to normalized coordinates in [0, 1].
+
+Usually one uses the dynamic shape of the image or conv-layer tensor:
+  keypoints = keypoint_ops.to_normalized_coordinates(keypoints,
+                                                     tf.shape(images)[1],
+                                                     tf.shape(images)[2]),
+
+This function raises an assertion failed error at graph execution time when
+the maximum coordinate is smaller than 1.01 (which means that coordinates are
+already normalized). The value 1.01 is to deal with small rounding errors.
+
+Args:
+  keypoints: A tensor of shape [num_instances, num_keypoints, 2].
+  height: Maximum value for y coordinate of absolute keypoint coordinates.
+  width: Maximum value for x coordinate of absolute keypoint coordinates.
+  check_range: If True, checks if the coordinates are normalized.
+  scope: name scope.
+
+Returns:
+  tensor of shape [num_instances, num_keypoints, 2] with normalized
+  coordinates in [0, 1].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{keypoint__ops_8py_source_l00128}{128}} of file \mbox{\hyperlink{keypoint__ops_8py_source}{keypoint\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ check\_range=\textcolor{keyword}{True},\ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ absolute\ keypoint\ coordinates\ to\ normalized\ coordinates\ in\ [0,\ 1].}}
+\DoxyCodeLine{00131\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00132\ \textcolor{stringliteral}{\ \ Usually\ one\ uses\ the\ dynamic\ shape\ of\ the\ image\ }\textcolor{keywordflow}{or}\ conv-\/layer\ tensor:}
+\DoxyCodeLine{00133\ \ \ \ \ keypoints\ =\ keypoint\_ops.to\_normalized\_coordinates(keypoints,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(images)[1],}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(images)[2]),}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ This\ function\ raises\ an\ assertion\ failed\ error\ at\ graph\ execution\ time\ when}
+\DoxyCodeLine{00138\ \ \ the\ maximum\ coordinate\ \textcolor{keywordflow}{is}\ smaller\ than\ 1.01\ (which\ means\ that\ coordinates\ are}
+\DoxyCodeLine{00139\ \ \ already\ normalized).\ The\ value\ 1.01\ \textcolor{keywordflow}{is}\ to\ deal\ \textcolor{keyword}{with}\ small\ rounding\ errors.}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ Args:}
+\DoxyCodeLine{00142\ \ \ \ \ keypoints:\ A\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2].}
+\DoxyCodeLine{00143\ \ \ \ \ height:\ Maximum\ value\ \textcolor{keywordflow}{for}\ y\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{00144\ \ \ \ \ width:\ Maximum\ value\ \textcolor{keywordflow}{for}\ x\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{00145\ \ \ \ \ check\_range:\ If\ \textcolor{keyword}{True},\ checks\ \textcolor{keywordflow}{if}\ the\ coordinates\ are\ normalized.}
+\DoxyCodeLine{00146\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ Returns:}
+\DoxyCodeLine{00149\ \ \ \ \ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]\ \textcolor{keyword}{with}\ normalized}
+\DoxyCodeLine{00150\ \ \ \ \ coordinates\ \textcolor{keywordflow}{in}\ [0,\ 1].}
+\DoxyCodeLine{00151\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ToNormalizedCoordinates'}):}
+\DoxyCodeLine{00153\ \ \ \ \ height\ =\ tf.cast(height,\ tf.float32)}
+\DoxyCodeLine{00154\ \ \ \ \ width\ =\ tf.cast(width,\ tf.float32)}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{if}\ check\_range:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ max\_val\ =\ tf.reduce\_max(keypoints)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ max\_assert\ =\ tf.Assert(tf.greater(max\_val,\ 1.01),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'max\ value\ is\ lower\ than\ 1.01:\ '},\ max\_val])}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([max\_assert]):}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ width\ =\ tf.identity(width)}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{return}\ scale(keypoints,\ 1.0\ /\ height,\ 1.0\ /\ width)}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d36/namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901_cgraph}
+\end{center}
+\end{figure}

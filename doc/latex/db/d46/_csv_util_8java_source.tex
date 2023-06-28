@@ -1,0 +1,185 @@
+\doxysection{Csv\+Util.\+java}
+\hypertarget{_csv_util_8java_source}{}\label{_csv_util_8java_source}\index{src/main/java/com/axellience/resiist/client/utils/CsvUtil.java@{src/main/java/com/axellience/resiist/client/utils/CsvUtil.java}}
+\mbox{\hyperlink{_csv_util_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1axellience_1_1resiist_1_1client_1_1utils}{00001}}\ \textcolor{keyword}{package\ }com.axellience.resiist.client.utils;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.BufferedReader;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.io.BufferedWriter;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.io.File;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00006}00006\ \textcolor{keyword}{import}\ java.io.FileReader;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00007}00007\ \textcolor{keyword}{import}\ java.io.FileWriter;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00008}00008\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00009}00009\ \textcolor{keyword}{import}\ java.nio.charset.StandardCharsets;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00010}00010\ \textcolor{keyword}{import}\ java.nio.file.Files;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00011}00011\ \textcolor{keyword}{import}\ java.nio.file.Path;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00012}00012\ \textcolor{keyword}{import}\ java.nio.file.StandardOpenOption;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00013}00013\ \textcolor{keyword}{import}\ java.util.ArrayList;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00014}00014\ \textcolor{keyword}{import}\ java.util.List;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00015}00015\ \textcolor{keyword}{import}\ java.util.Map;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00016}00016\ \textcolor{keyword}{import}\ java.util.Map.Entry;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00017}00017\ \textcolor{keyword}{import}\ java.util.logging.Level;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00018}00018\ \textcolor{keyword}{import}\ java.util.logging.Logger;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00020}00020\ \textcolor{keyword}{import}\ com.fasterxml.jackson.databind.MappingIterator;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00021}00021\ \textcolor{keyword}{import}\ com.fasterxml.jackson.dataformat.csv.CsvMapper;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00022}00022\ \textcolor{keyword}{import}\ com.fasterxml.jackson.dataformat.csv.CsvSchema;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00024}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util}{00024}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util}{CsvUtil}}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00026}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}{00026}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{static}\ \textcolor{keyword}{final}\ Logger\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}{LOGGER}}\ =\ Logger.getLogger(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util}{CsvUtil}}.class.getName());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00028}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2}{00028}}\ \ \ \ \ \textcolor{keyword}{public}\ MappingIterator<Map<String,\ String>>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2}{readCSVFile}}(String\ csvFilePath)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ MappingIterator<Map<String,\ String>>\ it\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(csvFilePath);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ CsvMapper\ mapper\ =\ \textcolor{keyword}{new}\ CsvMapper();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ CsvSchema\ schema\ =\ CsvSchema.emptySchema().withHeader();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ it\ =\ mapper.readerFor(Map.class).with(schema).readValues(csvFile);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}{LOGGER}}.log(Level.SEVERE,\ \textcolor{stringliteral}{"{}***No\ CSV\ found\ !***"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00043}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd}{00043}}\ \ \ \ \ \textcolor{keyword}{public}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd}{createFileWithOneColumAndSomeLinesnOnly}}(String\ csvFilePath,\ String\ elementName,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ eachXLines)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ elementName\ =\ elementName.replace(\textcolor{stringliteral}{"{}\ "{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(csvFilePath);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ String\ csvFileName\ =\ csvFile.getName();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ String\ newCSVFileName\ =\ csvFile.getParentFile().getPath()}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ File.separator}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ csvFileName}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\_"{}}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ elementName.replace(\textcolor{stringliteral}{"{}\#"{}},\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}.csv"{}};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}csvFilePath\ :\ "{}}\ +\ csvFilePath);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}newCSVFileName\ :\ "{}}\ +\ newCSVFileName);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ Integer\ elementNameColumnIndex\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ (BufferedReader\ br\ =\ \textcolor{keyword}{new}\ BufferedReader(\textcolor{keyword}{new}\ FileReader(csvFile));}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FileWriter\ csvWriter\ =\ \textcolor{keyword}{new}\ FileWriter(newCSVFileName);)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ File(newCSVFileName).createNewFile();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ String\ line\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ csvWriter.write(\textcolor{stringliteral}{"{}Values"{}}\ +\ System.lineSeparator());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int\ lineNumber\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ br.readLine())\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(line);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (lineNumber\ ==\ 1\ ||\ lineNumber\ \%\ eachXLines\ ==\ 0)\ \{}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String[]\ cols\ =\ line.split(\textcolor{stringliteral}{"{};"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ cols.length\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ col\ =\ cols[i];}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ col.replace(\textcolor{stringliteral}{"{}\ "{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (elementName.equals(col))\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementNameColumnIndex\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (elementNameColumnIndex\ !=\ \textcolor{keyword}{null}\ \&\&\ i\ ==\ elementNameColumnIndex)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ csvWriter.write(col\ +\ System.lineSeparator());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ lineNumber++;}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ newCSVFileName;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00092}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b}{00092}}\ \ \ \ \ \textcolor{keyword}{public}\ File\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b}{createCSVFile}}(String\ fileName,\ String\ separator,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Map<String,\ Map<String,\ String>>\ rowTitlesAndValues)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00094}00094\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ List<String>\ rows\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}{toCsvLines}}(rowTitlesAndValues,\ separator);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rows.isEmpty())}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00099}00099\ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(fileName);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00100}00100\ \ \ \ \ \ \ \ \ Path\ csvFilePath\ =\ csvFile.toPath();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ (BufferedWriter\ bufferedWriter\ =\ Files.newBufferedWriter(csvFilePath))\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ bufferedWriter.write(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ bufferedWriter.flush();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (String\ row\ :\ rows)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rows.indexOf(row)\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Files.write(csvFilePath,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.lineSeparator().getBytes(StandardCharsets.UTF\_8),}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StandardOpenOption.APPEND);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Files.write(csvFilePath,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ row.getBytes(StandardCharsets.UTF\_8),}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StandardOpenOption.APPEND);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ csvFile;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00124}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}{00124}}\ \ \ \ \ \textcolor{keyword}{private}\ List<String>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}{toCsvLines}}(Map<String,\ Map<String,\ String>>\ rowTitlesAndValues,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ separator)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00126}00126\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00127}00127\ \ \ \ \ \ \ \ \ List<String>\ rows\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00128}00128\ \ \ \ \ \ \ \ \ List<String>\ columnTitles\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00129}00129\ \ \ \ \ \ \ \ \ String\ emptyCellForRowAndColumnTitleGap\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00130}00130\ \ \ \ \ \ \ \ \ columnTitles.add(emptyCellForRowAndColumnTitleGap);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Entry<String,\ Map<String,\ String>>\ entry\ :\ rowTitlesAndValues.entrySet())\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ List<String>\ values\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ values.add(entry.getKey());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Entry<String,\ String>\ columnTitleAndCellValue\ :\ entry.getValue().entrySet())\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!columnTitles.contains(columnTitleAndCellValue.getKey()))}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ columnTitles.add(columnTitleAndCellValue.getKey());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.add(columnTitleAndCellValue.getValue());}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ rows.add(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{toCsvCells}}(values,\ separator,\ 0));}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00142}00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00144}00144\ \ \ \ \ \ \ \ \ rows.add(0,\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{toCsvCells}}(columnTitles,\ separator,\ 0));}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rows;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00149}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{00149}}\ \ \ \ \ \textcolor{keyword}{private}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{toCsvCells}}(List<String>\ cellNames,\ String\ separator,\ \textcolor{keywordtype}{int}\ startingIndex)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00150}00150\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00151}00151\ \ \ \ \ \ \ \ \ StringBuilder\ cells\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00152}00152\ \ \ \ \ \ \ \ \ cells.append(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}{getFirstAndEmptyCells}}(cellNames.get(0),\ separator,\ startingIndex));}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00153}00153\ \ \ \ \ \ \ \ \ cellNames.remove(0);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (String\ cellName\ :\ cellNames)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ String\ fullCelll\ =\ separator\ +\ cellName;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ cells.append(fullCelll);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00158}00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cells.toString();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00163}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}{00163}}\ \ \ \ \ \textcolor{keyword}{private}\ StringBuilder\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}{getFirstAndEmptyCells}}(String\ firstNotEmptyCellName,\ String\ separator,}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ startingIndex)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00165}00165\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00166}00166\ \ \ \ \ \ \ \ \ StringBuilder\ emptyCells\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ startingIndex;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ emptyCells.append(separator);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00169}00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00170}00170\ \ \ \ \ \ \ \ \ emptyCells.append(firstNotEmptyCellName);}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ emptyCells;}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00175}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257}{00175}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{boolean}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257}{isACSVFile}}(String\ filePath)}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00176}00176\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ filePath.endsWith(\textcolor{stringliteral}{"{}csv"{}});}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00178}00178\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_csv_util_8java_source_l00179}00179\ \}}
+
+\end{DoxyCode}

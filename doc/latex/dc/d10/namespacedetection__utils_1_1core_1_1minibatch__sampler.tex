@@ -1,0 +1,25 @@
+\doxysection{detection\+\_\+utils.\+core.\+minibatch\+\_\+sampler Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1minibatch__sampler}{}\label{namespacedetection__utils_1_1core_1_1minibatch__sampler}\index{detection\_utils.core.minibatch\_sampler@{detection\_utils.core.minibatch\_sampler}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler}{Minibatch\+Sampler}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Base minibatch sampler module.
+
+The job of the minibatch_sampler is to subsample a minibatch based on some
+criterion.
+
+The main function call is:
+    subsample(indicator, batch_size, **params).
+Indicator is a 1d boolean tensor where True denotes which examples can be
+sampled. It returns a boolean indicator where True denotes an example has been
+sampled..
+
+Subclasses should implement the Subsample function and can make use of the
+@staticmethod SubsampleIndicator.
+\end{DoxyVerb}
+ 

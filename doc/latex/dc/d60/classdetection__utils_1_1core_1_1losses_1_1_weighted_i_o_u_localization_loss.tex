@@ -1,0 +1,121 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Weighted\+IOULocalization\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss}\index{detection\_utils.core.losses.WeightedIOULocalizationLoss@{detection\_utils.core.losses.WeightedIOULocalizationLoss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+IOULocalization\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{de/dd4/classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+IOULocalization\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{db/d34/classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, weights)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}IOU localization loss function.
+
+Sums the IOU for corresponding pairs of predicted/groundtruth boxes
+and for each pair assign a loss of 1 - IOU.  We then compute a weighted
+sum over all pairs which is returned as the total loss.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00187}{187}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3} 
+\index{detection\_utils.core.losses.WeightedIOULocalizationLoss@{detection\_utils.core.losses.WeightedIOULocalizationLoss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.WeightedIOULocalizationLoss@{detection\_utils.core.losses.WeightedIOULocalizationLoss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+IOULocalization\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute loss function.
+
+Args:
+  prediction_tensor: A float tensor of shape [batch_size, num_anchors, 4]
+    representing the decoded predicted boxes
+  target_tensor: A float tensor of shape [batch_size, num_anchors, 4]
+    representing the decoded target boxes
+  weights: a float tensor of shape [batch_size, num_anchors]
+
+Returns:
+  loss: a float tensor of shape [batch_size, num_anchors] tensor
+    representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{detection\+\_\+utils.\+core.\+losses.\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00195}{195}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{def\ }\_compute\_loss(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{00197\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00198\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00199\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ 4]}}
+\DoxyCodeLine{00200\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ decoded\ predicted\ boxes}}
+\DoxyCodeLine{00201\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,\ 4]}}
+\DoxyCodeLine{00202\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ decoded\ target\ boxes}}
+\DoxyCodeLine{00203\ \textcolor{stringliteral}{\ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}}
+\DoxyCodeLine{00204\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00205\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00206\ \textcolor{stringliteral}{\ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ tensor}}
+\DoxyCodeLine{00207\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}}
+\DoxyCodeLine{00208\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00209\ \textcolor{stringliteral}{\ \ \ \ predicted\_boxes\ =\ box\_list.BoxList(tf.reshape(prediction\_tensor,\ [-\/1,\ 4]))}}
+\DoxyCodeLine{00210\ \textcolor{stringliteral}{\ \ \ \ target\_boxes\ =\ box\_list.BoxList(tf.reshape(target\_tensor,\ [-\/1,\ 4]))}}
+\DoxyCodeLine{00211\ \textcolor{stringliteral}{\ \ \ \ per\_anchor\_iou\_loss\ =\ 1.0\ -\/\ box\_list\_ops.matched\_iou(predicted\_boxes,}}
+\DoxyCodeLine{00212\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_boxes)}}
+\DoxyCodeLine{00213\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.reshape(weights,\ [-\/1])\ *\ per\_anchor\_iou\_loss}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d60/classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

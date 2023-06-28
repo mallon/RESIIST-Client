@@ -1,0 +1,72 @@
+\doxysection{Serveur\+Distant\+Controller.\+java}
+\hypertarget{_serveur_distant_controller_8java_source}{}\label{_serveur_distant_controller_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/controller/ServeurDistantController.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/controller/ServeurDistantController.java}}
+\mbox{\hyperlink{_serveur_distant_controller_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.struct.controller;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.nio.file.Path;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttException;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Autowired;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.springframework.stereotype.Controller;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.springframework.ui.ModelMap;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.GetMapping;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.PostMapping;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RequestParam;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.web.multipart.MultipartFile;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00014}00014\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00015}00015\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.storage.StorageService;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00017}00017\ @Controller}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00018}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller}{00018}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller}{ServeurDistantController}}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00021}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_aef8978766f1f96aa644035f77f03a24d}{00021}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{final}\ \mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_aef8978766f1f96aa644035f77f03a24d}{storageService}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00023}00023\ \ \ \ \ @Autowired}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00024}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a852858f63f534dad2f6ca0c5337ad9ca}{00024}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a852858f63f534dad2f6ca0c5337ad9ca}{ServeurDistantController}}(\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_aef8978766f1f96aa644035f77f03a24d}{storageService}})}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00025}00025\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00026}00026\ \ \ \ \ \ \ \ \ this.storageService\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_aef8978766f1f96aa644035f77f03a24d}{storageService}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00027}00027\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ SAVE\ INFORMATIONS}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00031}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a55fdb1e9b80c7478224f6705e53545db}{00031}}\ \ \ \ \ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a55fdb1e9b80c7478224f6705e53545db}{topicname}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00032}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a2642d8bf184fa8ceddcf6a90256fcb54}{00032}}\ \ \ \ \ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a2642d8bf184fa8ceddcf6a90256fcb54}{pathname}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00034}00034\ \ \ \ \ @GetMapping(\textcolor{stringliteral}{"{}/exterieur"{}})}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00035}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a4e4b11fc261cdc71e20794371406d87c}{00035}}\ \ \ \ \ public\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a4e4b11fc261cdc71e20794371406d87c}{getForm}}()}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Ext"{}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00040}00040\ \ \ \ \ @PostMapping(\textcolor{stringliteral}{"{}/TopicName"{}})}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00041}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a73e2f4caaa821efb2fd62f5d6c0c6513}{00041}}\ \ \ \ \ public\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a73e2f4caaa821efb2fd62f5d6c0c6513}{savetopic}}(@RequestParam("{}Topic"{})\ String\ topic,\ ModelMap\ modelMap)}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ throws\ MqttException}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00043}00043\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ write\ your\ code\ to\ save\ details}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a55fdb1e9b80c7478224f6705e53545db}{topicname}}\ =\ topic;}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ modelMap.put(\textcolor{stringliteral}{"{}topic"{}},\ topic);}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ modelMap.put(\textcolor{stringliteral}{"{}topicLength"{}},\ topic.length());}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Ext"{}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00053}00053\ \ \ \ \ @PostMapping(\textcolor{stringliteral}{"{}/FileName"{}})}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00054}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_acf2e95e16572fb98570047f01b6085c6}{00054}}\ \ \ \ \ public\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_acf2e95e16572fb98570047f01b6085c6}{savefileNAme}}(@RequestParam("{}file"{})\ MultipartFile\ file,\ ModelMap\ modelMap)}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ throws\ MqttException}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00056}00056\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ write\ your\ code\ to\ save\ details}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ Path\ chemin\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_aef8978766f1f96aa644035f77f03a24d}{storageService}}.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a95480bdec040881dbc606babada1893e}{store}}(file);}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ String\ path\ =\ chemin.toString();}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber}{Subscriber}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10}{main}}(path,\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_serveur_distant_controller_a55fdb1e9b80c7478224f6705e53545db}{topicname}});}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Ext"{}};}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_serveur_distant_controller_8java_source_l00066}00066\ \}}
+
+\end{DoxyCode}

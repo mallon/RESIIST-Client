@@ -1,0 +1,242 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test}{}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test}\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{db/dd6/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d3/dfc/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a5b3543f7c8da124cf2c7ba8f45655fdc}{test\+\_\+select\+\_\+from\+\_\+three\+\_\+clusters}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a44c963cfa7f0173311a4c7fabc595ee7}{test\+\_\+select\+\_\+at\+\_\+most\+\_\+two\+\_\+boxes\+\_\+from\+\_\+three\+\_\+clusters}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_ad3d83bfb8ab9cb658b865fdae3e1a9ab}{test\+\_\+select\+\_\+at\+\_\+most\+\_\+thirty\+\_\+boxes\+\_\+from\+\_\+three\+\_\+clusters}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a99042519bd04562a9ecc39c1eeee0958}{test\+\_\+select\+\_\+single\+\_\+box}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_afc4d6f480e9f85309be241f24b472133}{test\+\_\+select\+\_\+from\+\_\+ten\+\_\+identical\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a2dd9ebe4b9600cdc11aefeb93883a488}{test\+\_\+copy\+\_\+extra\+\_\+fields}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00790}{790}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a2dd9ebe4b9600cdc11aefeb93883a488}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a2dd9ebe4b9600cdc11aefeb93883a488} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_copy\_extra\_fields@{test\_copy\_extra\_fields}}
+\index{test\_copy\_extra\_fields@{test\_copy\_extra\_fields}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_copy\_extra\_fields()}{test\_copy\_extra\_fields()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+copy\+\_\+extra\+\_\+fields (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00882}{882}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00882\ \ \ \textcolor{keyword}{def\ }test\_copy\_extra\_fields(self):}
+\DoxyCodeLine{00883\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1]],\ tf.float32)}
+\DoxyCodeLine{00885\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00886\ \ \ \ \ tensor1\ =\ np.array([[1],\ [4]])}
+\DoxyCodeLine{00887\ \ \ \ \ tensor2\ =\ np.array([[1,\ 1],\ [2,\ 2]])}
+\DoxyCodeLine{00888\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'tensor1'},\ tf.constant(tensor1))}
+\DoxyCodeLine{00889\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'tensor2'},\ tf.constant(tensor2))}
+\DoxyCodeLine{00890\ \ \ \ \ new\_boxes\ =\ box\_list.BoxList(tf.constant([[0,\ 0,\ 10,\ 10],}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 3,\ 5,\ 5]],\ tf.float32))}
+\DoxyCodeLine{00892\ \ \ \ \ new\_boxes\ =\ box\_list\_ops.\_copy\_extra\_fields(new\_boxes,\ boxes)}
+\DoxyCodeLine{00893\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ self.assertAllClose(tensor1,\ sess.run(new\_boxes.get\_field(\textcolor{stringliteral}{'tensor1'})))}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ self.assertAllClose(tensor2,\ sess.run(new\_boxes.get\_field(\textcolor{stringliteral}{'tensor2'})))}
+\DoxyCodeLine{00896\ }
+\DoxyCodeLine{00897\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_ad3d83bfb8ab9cb658b865fdae3e1a9ab}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_ad3d83bfb8ab9cb658b865fdae3e1a9ab} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters@{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters}}
+\index{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters@{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters()}{test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+select\+\_\+at\+\_\+most\+\_\+thirty\+\_\+boxes\+\_\+from\+\_\+three\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00833}{833}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00833\ \ \ \textcolor{keyword}{def\ }test\_select\_at\_most\_thirty\_boxes\_from\_three\_clusters(self):}
+\DoxyCodeLine{00834\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{00840\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00841\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{00842\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{00843\ \ \ \ \ max\_output\_size\ =\ 30}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{00848\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{00850\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{00853\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a44c963cfa7f0173311a4c7fabc595ee7}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a44c963cfa7f0173311a4c7fabc595ee7} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_select\_at\_most\_two\_boxes\_from\_three\_clusters@{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters}}
+\index{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters@{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters()}{test\_select\_at\_most\_two\_boxes\_from\_three\_clusters()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+select\+\_\+at\+\_\+most\+\_\+two\+\_\+boxes\+\_\+from\+\_\+three\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00813}{813}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00813\ \ \ \textcolor{keyword}{def\ }test\_select\_at\_most\_two\_boxes\_from\_three\_clusters(self):}
+\DoxyCodeLine{00814\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{00820\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00821\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{00822\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{00823\ \ \ \ \ max\_output\_size\ =\ 2}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{00827\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{00829\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{00832\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_afc4d6f480e9f85309be241f24b472133}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_afc4d6f480e9f85309be241f24b472133} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_select\_from\_ten\_identical\_boxes@{test\_select\_from\_ten\_identical\_boxes}}
+\index{test\_select\_from\_ten\_identical\_boxes@{test\_select\_from\_ten\_identical\_boxes}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_select\_from\_ten\_identical\_boxes()}{test\_select\_from\_ten\_identical\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+select\+\_\+from\+\_\+ten\+\_\+identical\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00868}{868}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00868\ \ \ \textcolor{keyword}{def\ }test\_select\_from\_ten\_identical\_boxes(self):}
+\DoxyCodeLine{00869\ \ \ \ \ corners\ =\ tf.constant(10\ *\ [[0,\ 0,\ 1,\ 1]],\ tf.float32)}
+\DoxyCodeLine{00870\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00871\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant(10\ *\ [.9]))}
+\DoxyCodeLine{00872\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{00873\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{00874\ }
+\DoxyCodeLine{00875\ \ \ \ \ exp\_nms\ =\ [[0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{00876\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{00878\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{00881\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a5b3543f7c8da124cf2c7ba8f45655fdc}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a5b3543f7c8da124cf2c7ba8f45655fdc} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_select\_from\_three\_clusters@{test\_select\_from\_three\_clusters}}
+\index{test\_select\_from\_three\_clusters@{test\_select\_from\_three\_clusters}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_select\_from\_three\_clusters()}{test\_select\_from\_three\_clusters()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+select\+\_\+from\+\_\+three\+\_\+clusters (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00792}{792}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00792\ \ \ \textcolor{keyword}{def\ }test\_select\_from\_three\_clusters(self):}
+\DoxyCodeLine{00793\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],\ tf.float32)}
+\DoxyCodeLine{00799\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00800\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9,\ .75,\ .6,\ .95,\ .5,\ .3]))}
+\DoxyCodeLine{00801\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{00802\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \ \ \ \ exp\_nms\ =\ [[0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]]}
+\DoxyCodeLine{00807\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{00809\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{00812\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a99042519bd04562a9ecc39c1eeee0958}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_non_max_suppression_test_a99042519bd04562a9ecc39c1eeee0958} 
+\index{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}!test\_select\_single\_box@{test\_select\_single\_box}}
+\index{test\_select\_single\_box@{test\_select\_single\_box}!detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest@{detection\_utils.core.box\_list\_ops\_test.NonMaxSuppressionTest}}
+\doxysubsubsection{\texorpdfstring{test\_select\_single\_box()}{test\_select\_single\_box()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Non\+Max\+Suppression\+Test.\+test\+\_\+select\+\_\+single\+\_\+box (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l00854}{854}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00854\ \ \ \textcolor{keyword}{def\ }test\_select\_single\_box(self):}
+\DoxyCodeLine{00855\ \ \ \ \ corners\ =\ tf.constant([[0,\ 0,\ 1,\ 1]],\ tf.float32)}
+\DoxyCodeLine{00856\ \ \ \ \ boxes\ =\ box\_list.BoxList(corners)}
+\DoxyCodeLine{00857\ \ \ \ \ boxes.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([.9]))}
+\DoxyCodeLine{00858\ \ \ \ \ iou\_thresh\ =\ .5}
+\DoxyCodeLine{00859\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{00860\ }
+\DoxyCodeLine{00861\ \ \ \ \ exp\_nms\ =\ [[0,\ 0,\ 1,\ 1]]}
+\DoxyCodeLine{00862\ \ \ \ \ nms\ =\ box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ boxes,\ iou\_thresh,\ max\_output\_size)}
+\DoxyCodeLine{00864\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ nms\_output\ =\ sess.run(nms.get())}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ self.assertAllClose(nms\_output,\ exp\_nms)}
+\DoxyCodeLine{00867\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__list__ops__test_8py}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

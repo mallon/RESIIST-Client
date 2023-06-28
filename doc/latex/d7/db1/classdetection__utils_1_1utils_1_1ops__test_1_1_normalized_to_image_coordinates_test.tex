@@ -1,0 +1,75 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Normalized\+To\+Image\+Coordinates\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test}\index{detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest@{detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Normalized\+To\+Image\+Coordinates\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{de/d96/classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Normalized\+To\+Image\+Coordinates\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{d4/d18/classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test_a9056c1d9563285fd88c7244ef547526d}{test\+\_\+normalized\+\_\+to\+\_\+image\+\_\+coordinates}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00033}{33}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test_a9056c1d9563285fd88c7244ef547526d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_normalized_to_image_coordinates_test_a9056c1d9563285fd88c7244ef547526d} 
+\index{detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest@{detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest}!test\_normalized\_to\_image\_coordinates@{test\_normalized\_to\_image\_coordinates}}
+\index{test\_normalized\_to\_image\_coordinates@{test\_normalized\_to\_image\_coordinates}!detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest@{detection\_utils.utils.ops\_test.NormalizedToImageCoordinatesTest}}
+\doxysubsubsection{\texorpdfstring{test\_normalized\_to\_image\_coordinates()}{test\_normalized\_to\_image\_coordinates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Normalized\+To\+Image\+Coordinates\+Test.\+test\+\_\+normalized\+\_\+to\+\_\+image\+\_\+coordinates (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00035}{35}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{def\ }test\_normalized\_to\_image\_coordinates(self):}
+\DoxyCodeLine{00036\ \ \ \ \ normalized\_boxes\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 1,\ 4))}
+\DoxyCodeLine{00037\ \ \ \ \ normalized\_boxes\_np\ =\ np.array([[[0.0,\ 0.0,\ 1.0,\ 1.0]],}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.5,\ 1.0,\ 1.0]]])}
+\DoxyCodeLine{00039\ \ \ \ \ image\_shape\ =\ tf.convert\_to\_tensor([1,\ 4,\ 4,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{00040\ \ \ \ \ absolute\_boxes\ =\ ops.normalized\_to\_image\_coordinates(normalized\_boxes,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_shape,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=2)}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ expected\_boxes\ =\ np.array([[[0,\ 0,\ 4,\ 4]],}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2,\ 2,\ 4,\ 4]]])}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ absolute\_boxes\ =\ sess.run(absolute\_boxes,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{normalized\_boxes:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ normalized\_boxes\_np\})}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ self.assertAllEqual(absolute\_boxes,\ expected\_boxes)}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

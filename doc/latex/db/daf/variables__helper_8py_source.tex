@@ -1,0 +1,185 @@
+\doxysection{variables\+\_\+helper.\+py}
+\hypertarget{variables__helper_8py_source}{}\label{variables__helper_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/variables\_helper.py@{src/main/resources/processing/video/detections/detection\_utils/utils/variables\_helper.py}}
+\mbox{\hyperlink{variables__helper_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Helper\ functions\ for\ manipulating\ collections\ of\ variables\ during\ training.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00017}00017\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00021}00021\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00023}00023\ \textcolor{keyword}{import}\ logging}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00024}00024\ \textcolor{keyword}{import}\ re}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00026}00026\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00028}00028\ \textcolor{keyword}{from}\ tensorflow.python.ops\ \textcolor{keyword}{import}\ variables\ \textcolor{keyword}{as}\ tf\_variables}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00030}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a1a3e750a861e875d26e376615bc25810}{00030}}\ slim\ =\ tf.contrib.slim}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00033}00033\ \textcolor{comment}{\#\ TODO(derekjchow):\ Consider\ replacing\ with\ tf.contrib.filter\_variables\ in}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00034}00034\ \textcolor{comment}{\#\ tensorflow/contrib/framework/python/ops/variables.py}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00035}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}{00035}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}{filter\_variables}}(variables,\ filter\_regex\_list,\ invert=False):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00036}00036\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filters\ out\ the\ variables\ matching\ the\ filter\_regex.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00037}00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ Filter\ out\ the\ variables\ whose\ name\ matches\ the\ any\ of\ the\ regular}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ expressions\ }\textcolor{keywordflow}{in}\ filter\_regex\_list\ \textcolor{keywordflow}{and}\ returns\ the\ remaining\ variables.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00040}00040\ \ \ Optionally,\ \textcolor{keywordflow}{if}\ invert=\textcolor{keyword}{True},\ the\ complement\ set\ \textcolor{keywordflow}{is}\ returned.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00042}00042\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00043}00043\ \ \ \ \ variables:\ a\ list\ of\ tensorflow\ variables.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00044}00044\ \ \ \ \ filter\_regex\_list:\ a\ list\ of\ string\ regular\ expressions.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00045}00045\ \ \ \ \ invert:\ (boolean).\ \ If\ \textcolor{keyword}{True},\ returns\ the\ complement\ of\ the\ filter\ set;\ that}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00046}00046\ \ \ \ \ \ \ \textcolor{keywordflow}{is},\ all\ variables\ matching\ filter\_regex\ are\ kept\ \textcolor{keywordflow}{and}\ all\ others\ discarded.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00048}00048\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00049}00049\ \ \ \ \ a\ list\ of\ filtered\ variables.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00050}00050\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ kept\_vars\ =\ []}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ variables\_to\_ignore\_patterns\ =\ list([fre\ }\textcolor{keywordflow}{for}\ fre\ \textcolor{keywordflow}{in}\ filter\_regex\_list\ \textcolor{keywordflow}{if}\ fre])}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00053}00053\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ variables:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00054}00054\ \ \ \ \ add\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{for}\ pattern\ \textcolor{keywordflow}{in}\ variables\_to\_ignore\_patterns:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00056}00056\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ re.match(pattern,\ var.op.name):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ add\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ add\ !=\ invert:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00060}00060\ \ \ \ \ \ \ kept\_vars.append(var)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00061}00061\ \ \ \textcolor{keywordflow}{return}\ kept\_vars}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00064}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc}{00064}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a6778751c6ef0d30d991d49b692cdf3bc}{multiply\_gradients\_matching\_regex}}(grads\_and\_vars,\ regex\_list,\ multiplier):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00065}00065\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multiply\ gradients\ whose\ variable\ names\ match\ a\ regular\ expression.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00066}00066\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ regex\_list:\ A\ list\ of\ string\ regular\ expressions.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ multiplier:\ A\ (float)\ multiplier\ to\ apply\ to\ each\ gradient\ matching\ the}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ regular\ expression.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00072}00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ variables\ =\ [pair[1]\ }\textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars]}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00077}00077\ \ \ matching\_vars\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}{filter\_variables}}(variables,\ regex\_list,\ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00078}00078\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00079}00079\ \ \ \ \ logging.info(\textcolor{stringliteral}{'Applying\ multiplier\ \%f\ to\ variable\ [\%s]'},}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiplier,\ var.op.name)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00081}00081\ \ \ grad\_multipliers\ =\ \{var:\ float(multiplier)\ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars\}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00082}00082\ \ \ \textcolor{keywordflow}{return}\ slim.learning.multiply\_gradients(grads\_and\_vars,}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grad\_multipliers)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00086}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d}{00086}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a90f57037506528e38a110bccdb46634d}{freeze\_gradients\_matching\_regex}}(grads\_and\_vars,\ regex\_list):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00087}00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Freeze\ gradients\ whose\ variable\ names\ match\ a\ regular\ expression.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples).}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ regex\_list:\ A\ list\ of\ string\ regular\ expressions.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00092}00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ grads\_and\_vars:\ A\ list\ of\ gradient\ to\ variable\ pairs\ (tuples)\ that\ do\ }\textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00095}00095\ \ \ \ \ \ \ contain\ the\ variables\ \textcolor{keywordflow}{and}\ gradients\ matching\ the\ regex.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00096}00096\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ variables\ =\ [pair[1]\ }\textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars]}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00098}00098\ \ \ matching\_vars\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a0b840c4365cec716f823518bfff51cdd}{filter\_variables}}(variables,\ regex\_list,\ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00099}00099\ \ \ kept\_grads\_and\_vars\ =\ [pair\ \textcolor{keywordflow}{for}\ pair\ \textcolor{keywordflow}{in}\ grads\_and\_vars}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pair[1]\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ matching\_vars]}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00101}00101\ \ \ \textcolor{keywordflow}{for}\ var\ \textcolor{keywordflow}{in}\ matching\_vars:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00102}00102\ \ \ \ \ logging.info(\textcolor{stringliteral}{'Freezing\ variable\ [\%s]'},\ var.op.name)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00103}00103\ \ \ \textcolor{keywordflow}{return}\ kept\_grads\_and\_vars}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00106}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a714656cdd3682b4945ec5b42520f2b22}{00106}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_a714656cdd3682b4945ec5b42520f2b22}{get\_variables\_available\_in\_checkpoint}}(variables,}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ checkpoint\_path,}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ include\_global\_step=True):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00109}00109\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ subset\ of\ variables\ available\ in\ the\ checkpoint.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00110}00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ Inspects\ given\ checkpoint\ }\textcolor{keywordflow}{and}\ returns\ the\ subset\ of\ variables\ that\ are}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00112}00112\ \ \ available\ \textcolor{keywordflow}{in}\ it.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00114}00114\ \ \ TODO(rathodv):\ force\ input\ \textcolor{keywordflow}{and}\ output\ to\ be\ a\ dictionary.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00116}00116\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00117}00117\ \ \ \ \ variables:\ a\ list\ \textcolor{keywordflow}{or}\ dictionary\ of\ variables\ to\ find\ \textcolor{keywordflow}{in}\ checkpoint.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00118}00118\ \ \ \ \ checkpoint\_path:\ path\ to\ the\ checkpoint\ to\ restore\ variables\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00119}00119\ \ \ \ \ include\_global\_step:\ whether\ to\ include\ \`{}global\_step\`{}\ variable,\ \textcolor{keywordflow}{if}\ it}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00120}00120\ \ \ \ \ \ \ exists.\ Default\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00122}00122\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00123}00123\ \ \ \ \ A\ list\ \textcolor{keywordflow}{or}\ dictionary\ of\ variables.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00124}00124\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00125}00125\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}variables\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ list\ \textcolor{keywordflow}{or}\ dict.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00126}00126\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(variables,\ list):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00128}00128\ \ \ \ \ variable\_names\_map\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{for}\ variable\ \textcolor{keywordflow}{in}\ variables:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00130}00130\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(variable,\ tf\_variables.PartitionedVariable):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ name\ =\ variable.name}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00132}00132\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ name\ =\ variable.op.name}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00134}00134\ \ \ \ \ \ \ variable\_names\_map[name]\ =\ variable}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00135}00135\ \ \ \textcolor{keywordflow}{elif}\ isinstance(variables,\ dict):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00136}00136\ \ \ \ \ variable\_names\_map\ =\ variables}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00137}00137\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}variables`\ is\ expected\ to\ be\ a\ list\ or\ dict.'})}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00139}00139\ \ \ ckpt\_reader\ =\ tf.train.NewCheckpointReader(checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00140}00140\ \ \ ckpt\_vars\_to\_shape\_map\ =\ ckpt\_reader.get\_variable\_to\_shape\_map()}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00141}00141\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ include\_global\_step:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00142}00142\ \ \ \ \ ckpt\_vars\_to\_shape\_map.pop(tf.GraphKeys.GLOBAL\_STEP,\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00143}00143\ \ \ vars\_in\_ckpt\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00144}00144\ \ \ \textcolor{keywordflow}{for}\ variable\_name,\ variable\ \textcolor{keywordflow}{in}\ sorted(variable\_names\_map.items()):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}\ variable\_name\ \textcolor{keywordflow}{in}\ ckpt\_vars\_to\_shape\_map:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00146}00146\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ckpt\_vars\_to\_shape\_map[variable\_name]\ ==\ variable.shape.as\_list():}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ vars\_in\_ckpt[variable\_name]\ =\ variable}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00148}00148\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ logging.warning(\textcolor{stringliteral}{'Variable\ [\%s]\ is\ available\ in\ checkpoint,\ but\ has\ an\ '}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'incompatible\ shape\ with\ model\ variable.\ Checkpoint\ '}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'shape:\ [\%s],\ model\ variable\ shape:\ [\%s].\ This\ '}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'variable\ will\ not\ be\ initialized\ from\ the\ checkpoint.'},}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable\_name,\ ckpt\_vars\_to\_shape\_map[variable\_name],}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable.shape.as\_list())}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00156}00156\ \ \ \ \ \ \ logging.warning(\textcolor{stringliteral}{'Variable\ [\%s]\ is\ not\ available\ in\ checkpoint'},}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ variable\_name)}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00158}00158\ \ \ \textcolor{keywordflow}{if}\ isinstance(variables,\ list):}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{return}\ list(vars\_in\_ckpt.values())}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00160}00160\ \ \ \textcolor{keywordflow}{return}\ vars\_in\_ckpt}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00163}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_adc44c660fc538ba2fbd14ec683723b34}{00163}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper_adc44c660fc538ba2fbd14ec683723b34}{get\_global\_variables\_safely}}():}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00164}00164\ \ \ \textcolor{stringliteral}{"{}"{}"{}If\ not\ executing\ eagerly,\ returns\ tf.global\_variables().}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00165}00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ Raises\ a\ ValueError\ }\textcolor{keywordflow}{if}\ eager\ execution\ \textcolor{keywordflow}{is}\ enabled,}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00167}00167\ \ \ because\ the\ variables\ are\ \textcolor{keywordflow}{not}\ tracked\ when\ executing\ eagerly.}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00169}00169\ \ \ If\ executing\ eagerly,\ use\ a\ Keras\ model\textcolor{stringliteral}{'s\ .variables\ property\ instead.}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00170}00170\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00172}00172\ \textcolor{stringliteral}{\ \ \ \ The\ result\ of\ tf.global\_variables()}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00173}00173\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.init\_scope():}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00175}00175\ \ \ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00176}00176\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Global\ variables\ collection\ is\ not\ tracked\ when\ "{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}executing\ eagerly.\ Use\ a\ Keras\ model's\ \`{}.variables`\ "{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}attribute\ instead."{}})}
+\DoxyCodeLine{\Hypertarget{variables__helper_8py_source_l00179}00179\ \ \ \textcolor{keywordflow}{return}\ tf.global\_variables()}
+
+\end{DoxyCode}

@@ -1,0 +1,70 @@
+\doxysection{detection\+\_\+utils.\+core.\+model Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1model}{}\label{namespacedetection__utils_1_1core_1_1model}\index{detection\_utils.core.model@{detection\_utils.core.model}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model}{Detection\+Model}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1model_a1da944dd12ab5fb958190a9fbc6693a6}{\+\_\+\+Base\+Class}} = tf.\+Module
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract detection model.
+
+This file defines a generic base class for detection models.  Programs that are
+designed to work with arbitrary detection models should only depend on this
+class.  We intend for the functions in this class to follow tensor-in/tensor-out
+design, thus all functions have tensors or lists/dictionaries holding tensors as
+inputs and outputs.
+
+Abstractly, detection models predict output tensors given input images
+which can be passed to a loss function at training time or passed to a
+postprocessing function at eval time.  The computation graphs at a high level
+consequently look as follows:
+
+Training time:
+inputs (images tensor) -> preprocess -> predict -> loss -> outputs (loss tensor)
+
+Evaluation time:
+inputs (images tensor) -> preprocess -> predict -> postprocess
+ -> outputs (boxes tensor, scores tensor, classes tensor, num_detections tensor)
+
+DetectionModels must thus implement four functions (1) preprocess, (2) predict,
+(3) postprocess and (4) loss.  DetectionModels should make no assumptions about
+the input size or aspect ratio --- they are responsible for doing any
+resize/reshaping necessary (see docstring for the preprocess function).
+Output classes are always integers in the range [0, num_classes).  Any mapping
+of these integers to semantic labels is to be handled outside of this class.
+
+Images are resized in the `preprocess` method. All of `preprocess`, `predict`,
+and `postprocess` should be reentrant.
+
+The `preprocess` method runs `image_resizer_fn` that returns resized_images and
+`true_image_shapes`. Since `image_resizer_fn` can pad the images with zeros,
+true_image_shapes indicate the slices that contain the image without padding.
+This is useful for padding images to be a fixed size for batching.
+
+The `postprocess` method uses the true image shapes to clip predictions that lie
+outside of images.
+
+By default, DetectionModels produce bounding box detections; However, we support
+a handful of auxiliary annotations associated with each bounding box, namely,
+instance masks and keypoints.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1model_a1da944dd12ab5fb958190a9fbc6693a6}\label{namespacedetection__utils_1_1core_1_1model_a1da944dd12ab5fb958190a9fbc6693a6} 
+\index{detection\_utils.core.model@{detection\_utils.core.model}!\_BaseClass@{\_BaseClass}}
+\index{\_BaseClass@{\_BaseClass}!detection\_utils.core.model@{detection\_utils.core.model}}
+\doxysubsubsection{\texorpdfstring{\_BaseClass}{\_BaseClass}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+\_\+\+Base\+Class = tf.\+Module\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00071}{71}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+

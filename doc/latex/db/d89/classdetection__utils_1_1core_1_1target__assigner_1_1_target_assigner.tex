@@ -1,0 +1,786 @@
+\doxysection{detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner}{}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner}\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{d8/d59/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{d6/dd0/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8a1ceea1c86bd4a5da2c052faa736d32}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, similarity\+\_\+calc, matcher, \mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aba5655fc6bb850dddc28f733d0e14737}{box\+\_\+coder}}, negative\+\_\+class\+\_\+weight=1.\+0)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aba5655fc6bb850dddc28f733d0e14737}{box\+\_\+coder}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc}{assign}} (self, anchors, groundtruth\+\_\+boxes, groundtruth\+\_\+labels=None, unmatched\+\_\+class\+\_\+label=None, groundtruth\+\_\+weights=None)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a458e6bab7f3aa2a797f45d1c71d51d61}{get\+\_\+box\+\_\+coder}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\+\_\+reset\+\_\+target\+\_\+shape}} (self, target, num\+\_\+anchors)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52}{\+\_\+create\+\_\+regression\+\_\+targets}} (self, anchors, groundtruth\+\_\+boxes, match)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864}{\+\_\+default\+\_\+regression\+\_\+target}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710}{\+\_\+create\+\_\+classification\+\_\+targets}} (self, groundtruth\+\_\+labels, unmatched\+\_\+class\+\_\+label, match)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b}{\+\_\+create\+\_\+regression\+\_\+weights}} (self, match, groundtruth\+\_\+weights)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905}{\+\_\+create\+\_\+classification\+\_\+weights}} (self, match, groundtruth\+\_\+weights)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e}{\+\_\+similarity\+\_\+calc}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d}{\+\_\+matcher}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\+\_\+box\+\_\+coder}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db}{\+\_\+negative\+\_\+class\+\_\+weight}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Target assigner to compute classification and regression targets.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00054}{54}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8a1ceea1c86bd4a5da2c052faa736d32}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8a1ceea1c86bd4a5da2c052faa736d32} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{similarity\+\_\+calc,  }\item[{}]{matcher,  }\item[{}]{box\+\_\+coder,  }\item[{}]{negative\+\_\+class\+\_\+weight = {\ttfamily 1.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct Object Detection Target Assigner.
+
+Args:
+  similarity_calc: a RegionSimilarityCalculator
+  matcher: an object_detection.core.Matcher used to match groundtruth to
+    anchors.
+  box_coder: an object_detection.core.BoxCoder used to encode matching
+    groundtruth boxes with respect to anchors.
+  negative_class_weight: classification weight to be associated to negative
+    anchors (default: 1.0). The weight must be in [0., 1.].
+
+Raises:
+  ValueError: if similarity_calc is not a RegionSimilarityCalculator or
+    if matcher is not a Matcher or if box_coder is not a BoxCoder
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00057}{57}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negative\_class\_weight=1.0):}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Construct\ Object\ Detection\ Target\ Assigner.}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ \ \ similarity\_calc:\ a\ RegionSimilarityCalculator}}
+\DoxyCodeLine{00066\ \textcolor{stringliteral}{\ \ \ \ \ \ matcher:\ an\ object\_detection.core.Matcher\ used\ to\ match\ groundtruth\ to}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ anchors.}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ \ \ \ \ box\_coder:\ an\ object\_detection.core.BoxCoder\ used\ to\ encode\ matching}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\ boxes\ }\textcolor{keyword}{with}\ respect\ to\ anchors.}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ negative\_class\_weight:\ classification\ weight\ to\ be\ associated\ to\ negative}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ anchors\ (default:\ 1.0).\ The\ weight\ must\ be\ \textcolor{keywordflow}{in}\ [0.,\ 1.].}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ Raises:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ similarity\_calc\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ RegionSimilarityCalculator\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ matcher\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ Matcher\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ box\_coder\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ BoxCoder}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(similarity\_calc,\ sim\_calc.RegionSimilarityCalculator):}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'similarity\_calc\ must\ be\ a\ RegionSimilarityCalculator'})}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(matcher,\ mat.Matcher):}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'matcher\ must\ be\ a\ Matcher'})}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_coder,\ bcoder.BoxCoder):}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_coder\ must\ be\ a\ BoxCoder'})}
+\DoxyCodeLine{00083\ \ \ \ \ self.\_similarity\_calc\ =\ similarity\_calc}
+\DoxyCodeLine{00084\ \ \ \ \ self.\_matcher\ =\ matcher}
+\DoxyCodeLine{00085\ \ \ \ \ self.\_box\_coder\ =\ box\_coder}
+\DoxyCodeLine{00086\ \ \ \ \ self.\_negative\_class\_weight\ =\ negative\_class\_weight}
+\DoxyCodeLine{00087\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_create\_classification\_targets@{\_create\_classification\_targets}}
+\index{\_create\_classification\_targets@{\_create\_classification\_targets}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_create\_classification\_targets()}{\_create\_classification\_targets()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+create\+\_\+classification\+\_\+targets (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{groundtruth\+\_\+labels,  }\item[{}]{unmatched\+\_\+class\+\_\+label,  }\item[{}]{match }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Create classification targets for each anchor.
+
+Assign a classification target of for each anchor to the matching
+groundtruth label that is provided by match.  Anchors that are not matched
+to anything are given the target self._unmatched_cls_target
+
+Args:
+  groundtruth_labels:  a tensor of shape [num_gt_boxes, d_1, ... d_k]
+    with labels for each of the ground_truth boxes. The subshape
+    [d_1, ... d_k] can be empty (corresponding to scalar labels).
+  unmatched_class_label: a float32 tensor with shape [d_1, d_2, ..., d_k]
+    which is consistent with the classification target for each
+    anchor (and can be empty for scalar targets).  This shape must thus be
+    compatible with the groundtruth labels that are passed to the "assign"
+    function (which have shape [num_gt_boxes, d_1, d_2, ..., d_k]).
+  match: a matcher.Match object that provides a matching between anchors
+    and groundtruth boxes.
+
+Returns:
+  a float32 tensor with shape [num_anchors, d_1, d_2 ... d_k], where the
+  subshape [d_1, ..., d_k] is compatible with groundtruth_labels which has
+  shape [num_gt_boxes, d_1, d_2, ... d_k].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00286}{286}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label,\ match):}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Create\ classification\ targets\ for\ each\ anchor.}}
+\DoxyCodeLine{00289\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00290\ \textcolor{stringliteral}{\ \ \ \ Assign\ a\ classification\ target\ of\ }\textcolor{keywordflow}{for}\ each\ anchor\ to\ the\ matching}
+\DoxyCodeLine{00291\ \ \ \ \ groundtruth\ label\ that\ \textcolor{keywordflow}{is}\ provided\ by\ match.\ \ Anchors\ that\ are\ \textcolor{keywordflow}{not}\ matched}
+\DoxyCodeLine{00292\ \ \ \ \ to\ anything\ are\ given\ the\ target\ self.\_unmatched\_cls\_target}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ Args:}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ groundtruth\_labels:\ \ a\ tensor\ of\ shape\ [num\_gt\_boxes,\ d\_1,\ ...\ d\_k]}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ labels\ \textcolor{keywordflow}{for}\ each\ of\ the\ ground\_truth\ boxes.\ The\ subshape}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ [d\_1,\ ...\ d\_k]\ can\ be\ empty\ (corresponding\ to\ scalar\ labels).}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ match:\ a\ matcher.Match\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ Returns:}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],\ where\ the}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ subshape\ [d\_1,\ ...,\ d\_k]\ \textcolor{keywordflow}{is}\ compatible\ \textcolor{keyword}{with}\ groundtruth\_labels\ which\ has}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...\ d\_k].}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00311\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ unmatched\_value=unmatched\_class\_label,}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ ignored\_value=unmatched\_class\_label)}
+\DoxyCodeLine{00315\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_create\_classification\_weights@{\_create\_classification\_weights}}
+\index{\_create\_classification\_weights@{\_create\_classification\_weights}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_create\_classification\_weights()}{\_create\_classification\_weights()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+create\+\_\+classification\+\_\+weights (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{match,  }\item[{}]{groundtruth\+\_\+weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Create classification weights for each anchor.
+
+Positive (matched) anchors are associated with a weight of
+positive_class_weight and negative (unmatched) anchors are associated with
+a weight of negative_class_weight. When anchors are ignored, weights are set
+to zero. By default, both positive/negative weights are set to 1.0,
+but they can be adjusted to handle class imbalance (which is almost always
+the case in object detection).
+
+Args:
+  match: a matcher.Match object that provides a matching between anchors
+    and groundtruth boxes.
+  groundtruth_weights: a float tensor of shape [M] indicating the weight to
+    assign to all anchors match to a particular groundtruth box.
+
+Returns:
+  a float32 tensor with shape [num_anchors] representing classification
+  weights.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00335}{335}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights):}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Create\ classification\ weights\ for\ each\ anchor.}}
+\DoxyCodeLine{00339\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00340\ \textcolor{stringliteral}{\ \ \ \ Positive\ (matched)\ anchors\ are\ associated\ }\textcolor{keyword}{with}\ a\ weight\ of}
+\DoxyCodeLine{00341\ \ \ \ \ positive\_class\_weight\ \textcolor{keywordflow}{and}\ negative\ (unmatched)\ anchors\ are\ associated\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00342\ \ \ \ \ a\ weight\ of\ negative\_class\_weight.\ When\ anchors\ are\ ignored,\ weights\ are\ set}
+\DoxyCodeLine{00343\ \ \ \ \ to\ zero.\ By\ default,\ both\ positive/negative\ weights\ are\ set\ to\ 1.0,}
+\DoxyCodeLine{00344\ \ \ \ \ but\ they\ can\ be\ adjusted\ to\ handle\ \textcolor{keyword}{class\ }imbalance\ (which\ is\ almost\ always}
+\DoxyCodeLine{00345\ \ \ \ \ the\ case\ \textcolor{keywordflow}{in}\ object\ detection).}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ Args:}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ match:\ a\ matcher.Match\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ Returns:}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]\ representing\ classification}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ weights.}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00357\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ groundtruth\_weights,}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ ignored\_value=0.,}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ unmatched\_value=self.\_negative\_class\_weight)}
+\DoxyCodeLine{00361\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_create\_regression\_targets@{\_create\_regression\_targets}}
+\index{\_create\_regression\_targets@{\_create\_regression\_targets}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_create\_regression\_targets()}{\_create\_regression\_targets()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+create\+\_\+regression\+\_\+targets (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{anchors,  }\item[{}]{groundtruth\+\_\+boxes,  }\item[{}]{match }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns a regression target for each anchor.
+
+Args:
+  anchors: a BoxList representing N anchors
+  groundtruth_boxes: a BoxList representing M groundtruth_boxes
+  match: a matcher.Match object
+
+Returns:
+  reg_targets: a float32 tensor with shape [N, box_code_dimension]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00235}{235}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00235\ \ \ \textcolor{keyword}{def\ }\_create\_regression\_targets(self,\ anchors,\ groundtruth\_boxes,\ match):}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ regression\ target\ for\ each\ anchor.}}
+\DoxyCodeLine{00237\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00238\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00239\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ a\ BoxList\ representing\ N\ anchors}}
+\DoxyCodeLine{00240\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes:\ a\ BoxList\ representing\ M\ groundtruth\_boxes}}
+\DoxyCodeLine{00241\ \textcolor{stringliteral}{\ \ \ \ \ \ match:\ a\ matcher.Match\ object}}
+\DoxyCodeLine{00242\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00243\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00244\ \textcolor{stringliteral}{\ \ \ \ \ \ reg\_targets:\ a\ float32\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ box\_code\_dimension]}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00246\ \textcolor{stringliteral}{\ \ \ \ matched\_gt\_boxes\ =\ match.gather\_based\_on\_match(}}
+\DoxyCodeLine{00247\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_boxes.get(),}}
+\DoxyCodeLine{00248\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(4),}}
+\DoxyCodeLine{00249\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ignored\_value=tf.zeros(4))}}
+\DoxyCodeLine{00250\ \textcolor{stringliteral}{\ \ \ \ matched\_gt\_boxlist\ =\ box\_list.BoxList(matched\_gt\_boxes)}}
+\DoxyCodeLine{00251\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ groundtruth\_boxes.has\_field(fields.BoxListFields.keypoints):}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ groundtruth\_keypoints\ =\ groundtruth\_boxes.get\_field(}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.keypoints)}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ matched\_keypoints\ =\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(groundtruth\_keypoints.get\_shape()[1:]),}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ ignored\_value=tf.zeros(groundtruth\_keypoints.get\_shape()[1:]))}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ matched\_gt\_boxlist.add\_field(fields.BoxListFields.keypoints,}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matched\_keypoints)}
+\DoxyCodeLine{00260\ \ \ \ \ matched\_reg\_targets\ =\ self.\_box\_coder.encode(matched\_gt\_boxlist,\ anchors)}
+\DoxyCodeLine{00261\ \ \ \ \ match\_results\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ match.match\_results)}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{\#\ Zero\ out\ the\ unmatched\ and\ ignored\ regression\ targets.}}
+\DoxyCodeLine{00265\ \ \ \ \ unmatched\_ignored\_reg\_targets\ =\ tf.tile(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ self.\_default\_regression\_target(),\ [match\_results\_shape[0],\ 1])}
+\DoxyCodeLine{00267\ \ \ \ \ matched\_anchors\_mask\ =\ match.matched\_column\_indicator()}
+\DoxyCodeLine{00268\ \ \ \ \ reg\_targets\ =\ tf.where(matched\_anchors\_mask,}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matched\_reg\_targets,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_ignored\_reg\_targets)}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{return}\ reg\_targets}
+\DoxyCodeLine{00272\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_create\_regression\_weights@{\_create\_regression\_weights}}
+\index{\_create\_regression\_weights@{\_create\_regression\_weights}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_create\_regression\_weights()}{\_create\_regression\_weights()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+create\+\_\+regression\+\_\+weights (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{match,  }\item[{}]{groundtruth\+\_\+weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Set regression weight for each anchor.
+
+Only positive anchors are set to contribute to the regression loss, so this
+method returns a weight of 1 for every positive anchor and 0 for every
+negative anchor.
+
+Args:
+  match: a matcher.Match object that provides a matching between anchors
+    and groundtruth boxes.
+  groundtruth_weights: a float tensor of shape [M] indicating the weight to
+    assign to all anchors match to a particular groundtruth box.
+
+Returns:
+  a float32 tensor with shape [num_anchors] representing regression weights.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00316}{316}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00316\ \ \ \textcolor{keyword}{def\ }\_create\_regression\_weights(self,\ match,\ groundtruth\_weights):}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Set\ regression\ weight\ for\ each\ anchor.}}
+\DoxyCodeLine{00318\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00319\ \textcolor{stringliteral}{\ \ \ \ Only\ positive\ anchors\ are\ set\ to\ contribute\ to\ the\ regression\ loss,\ so\ this}}
+\DoxyCodeLine{00320\ \textcolor{stringliteral}{\ \ \ \ method\ returns\ a\ weight\ of\ 1\ }\textcolor{keywordflow}{for}\ every\ positive\ anchor\ \textcolor{keywordflow}{and}\ 0\ \textcolor{keywordflow}{for}\ every}
+\DoxyCodeLine{00321\ \ \ \ \ negative\ anchor.}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ Args:}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ match:\ a\ matcher.Match\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ Returns:}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]\ representing\ regression\ weights.}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00332\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ groundtruth\_weights,\ ignored\_value=0.,\ unmatched\_value=0.)}
+\DoxyCodeLine{00334\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_default\_regression\_target@{\_default\_regression\_target}}
+\index{\_default\_regression\_target@{\_default\_regression\_target}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_default\_regression\_target()}{\_default\_regression\_target()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+default\+\_\+regression\+\_\+target (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns the default target for anchors to regress to.
+
+Default regression targets are set to zero (though in
+this implementation what these targets are set to should
+not matter as the regression weight of any box set to
+regress to the default target is zero).
+
+Returns:
+  default_target: a float32 tensor with shape [1, box_code_dimension]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00273}{273}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{def\ }\_default\_regression\_target(self):}
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ default\ target\ for\ anchors\ to\ regress\ to.}}
+\DoxyCodeLine{00275\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00276\ \textcolor{stringliteral}{\ \ \ \ Default\ regression\ targets\ are\ set\ to\ zero\ (though\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{00277\ \ \ \ \ this\ implementation\ what\ these\ targets\ are\ set\ to\ should}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{not}\ matter\ \textcolor{keyword}{as}\ the\ regression\ weight\ of\ any\ box\ set\ to}
+\DoxyCodeLine{00279\ \ \ \ \ regress\ to\ the\ default\ target\ \textcolor{keywordflow}{is}\ zero).}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ Returns:}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ default\_target:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [1,\ box\_code\_dimension]}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00284\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.constant([self.\_box\_coder.code\_size*[0]],\ tf.float32)}
+\DoxyCodeLine{00285\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_reset\_target\_shape@{\_reset\_target\_shape}}
+\index{\_reset\_target\_shape@{\_reset\_target\_shape}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_reset\_target\_shape()}{\_reset\_target\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+reset\+\_\+target\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{target,  }\item[{}]{num\+\_\+anchors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Sets the static shape of the target.
+
+Args:
+  target: the target tensor. Its first dimension will be overwritten.
+  num_anchors: the number of anchors, which is used to override the target's
+    first dimension.
+
+Returns:
+  A tensor with the shape info filled in.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00219}{219}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{def\ }\_reset\_target\_shape(self,\ target,\ num\_anchors):}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Sets\ the\ static\ shape\ of\ the\ target.}}
+\DoxyCodeLine{00221\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00222\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00223\ \textcolor{stringliteral}{\ \ \ \ \ \ target:\ the\ target\ tensor.\ Its\ first\ dimension\ will\ be\ overwritten.}}
+\DoxyCodeLine{00224\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_anchors:\ the\ number\ of\ anchors,\ which\ }\textcolor{keywordflow}{is}\ used\ to\ override\ the\ target\textcolor{stringliteral}{'s}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ first\ dimension.}}
+\DoxyCodeLine{00226\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00227\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00228\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ the\ shape\ info\ filled\ \textcolor{keywordflow}{in}.}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00230\ \textcolor{stringliteral}{\ \ \ \ target\_shape\ =\ target.get\_shape().as\_list()}}
+\DoxyCodeLine{00231\ \textcolor{stringliteral}{\ \ \ \ target\_shape[0]\ =\ num\_anchors}}
+\DoxyCodeLine{00232\ \textcolor{stringliteral}{\ \ \ \ target.set\_shape(target\_shape)}}
+\DoxyCodeLine{00233\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ target}
+\DoxyCodeLine{00234\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!assign@{assign}}
+\index{assign@{assign}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{assign()}{assign()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+assign (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{anchors,  }\item[{}]{groundtruth\+\_\+boxes,  }\item[{}]{groundtruth\+\_\+labels = {\ttfamily None},  }\item[{}]{unmatched\+\_\+class\+\_\+label = {\ttfamily None},  }\item[{}]{groundtruth\+\_\+weights = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Assign classification and regression targets to each anchor.
+
+For a given set of anchors and groundtruth detections, match anchors
+to groundtruth_boxes and assign classification and regression targets to
+each anchor as well as weights based on the resulting match (specifying,
+e.g., which anchors should not contribute to training loss).
+
+Anchors that are not matched to anything are given a classification target
+of self._unmatched_cls_target which can be specified via the constructor.
+
+Args:
+  anchors: a BoxList representing N anchors
+  groundtruth_boxes: a BoxList representing M groundtruth boxes
+  groundtruth_labels:  a tensor of shape [M, d_1, ... d_k]
+    with labels for each of the ground_truth boxes. The subshape
+    [d_1, ... d_k] can be empty (corresponding to scalar inputs).  When set
+    to None, groundtruth_labels assumes a binary problem where all
+    ground_truth boxes get a positive label (of 1).
+  unmatched_class_label: a float32 tensor with shape [d_1, d_2, ..., d_k]
+    which is consistent with the classification target for each
+    anchor (and can be empty for scalar targets).  This shape must thus be
+    compatible with the groundtruth labels that are passed to the "assign"
+    function (which have shape [num_gt_boxes, d_1, d_2, ..., d_k]).
+    If set to None, unmatched_cls_target is set to be [0] for each anchor.
+  groundtruth_weights: a float tensor of shape [M] indicating the weight to
+    assign to all anchors match to a particular groundtruth box. The weights
+    must be in [0., 1.]. If None, all weights are set to 1. Generally no
+    groundtruth boxes with zero weight match to any anchors as matchers are
+    aware of groundtruth weights. Additionally, `cls_weights` and
+    `reg_weights` are calculated using groundtruth weights as an added
+    safety.
+
+Returns:
+  cls_targets: a float32 tensor with shape [num_anchors, d_1, d_2 ... d_k],
+    where the subshape [d_1, ..., d_k] is compatible with groundtruth_labels
+    which has shape [num_gt_boxes, d_1, d_2, ... d_k].
+  cls_weights: a float32 tensor with shape [num_anchors, d_1, d_2 ... d_k],
+    representing weights for each element in cls_targets.
+  reg_targets: a float32 tensor with shape [num_anchors, box_code_dimension]
+  reg_weights: a float32 tensor with shape [num_anchors]
+  match: an int32 tensor of shape [num_anchors] containing result of anchor
+    groundtruth matching. Each position in the tensor indicates an anchor
+    and holds the following meaning:
+    (1) if match[i] >= 0, anchor i is matched with groundtruth match[i].
+    (2) if match[i]=-1, anchor i is marked to be background .
+    (3) if match[i]=-2, anchor i is ignored since it is not background and
+        does not have sufficient overlap to call it a foreground.
+
+Raises:
+  ValueError: if anchors or groundtruth_boxes are not of type
+    box_list.BoxList
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00093}{93}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Assign\ classification\ and\ regression\ targets\ to\ each\ anchor.}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ \ \ For\ a\ given\ set\ of\ anchors\ }\textcolor{keywordflow}{and}\ groundtruth\ detections,\ match\ anchors}
+\DoxyCodeLine{00102\ \ \ \ \ to\ groundtruth\_boxes\ \textcolor{keywordflow}{and}\ assign\ classification\ \textcolor{keywordflow}{and}\ regression\ targets\ to}
+\DoxyCodeLine{00103\ \ \ \ \ each\ anchor\ \textcolor{keyword}{as}\ well\ \textcolor{keyword}{as}\ weights\ based\ on\ the\ resulting\ match\ (specifying,}
+\DoxyCodeLine{00104\ \ \ \ \ e.g.,\ which\ anchors\ should\ \textcolor{keywordflow}{not}\ contribute\ to\ training\ loss).}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ Anchors\ that\ are\ \textcolor{keywordflow}{not}\ matched\ to\ anything\ are\ given\ a\ classification\ target}
+\DoxyCodeLine{00107\ \ \ \ \ of\ self.\_unmatched\_cls\_target\ which\ can\ be\ specified\ via\ the\ constructor.}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ Args:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ anchors:\ a\ BoxList\ representing\ N\ anchors}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ groundtruth\_boxes:\ a\ BoxList\ representing\ M\ groundtruth\ boxes}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ groundtruth\_labels:\ \ a\ tensor\ of\ shape\ [M,\ d\_1,\ ...\ d\_k]}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ labels\ \textcolor{keywordflow}{for}\ each\ of\ the\ ground\_truth\ boxes.\ The\ subshape}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ [d\_1,\ ...\ d\_k]\ can\ be\ empty\ (corresponding\ to\ scalar\ inputs).\ \ When\ set}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ to\ \textcolor{keywordtype}{None},\ groundtruth\_labels\ assumes\ a\ binary\ problem\ where\ all}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ ground\_truth\ boxes\ get\ a\ positive\ label\ (of\ 1).}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ If\ set\ to\ \textcolor{keywordtype}{None},\ unmatched\_cls\_target\ \textcolor{keywordflow}{is}\ set\ to\ be\ [0]\ \textcolor{keywordflow}{for}\ each\ anchor.}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.\ The\ weights}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ must\ be\ \textcolor{keywordflow}{in}\ [0.,\ 1.].\ If\ \textcolor{keywordtype}{None},\ all\ weights\ are\ set\ to\ 1.\ Generally\ no}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ groundtruth\ boxes\ \textcolor{keyword}{with}\ zero\ weight\ match\ to\ any\ anchors\ \textcolor{keyword}{as}\ matchers\ are}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ aware\ of\ groundtruth\ weights.\ Additionally,\ \`{}cls\_weights\`{}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \`{}reg\_weights\`{}\ are\ calculated\ using\ groundtruth\ weights\ \textcolor{keyword}{as}\ an\ added}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ safety.}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ Returns:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ cls\_targets:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ where\ the\ subshape\ [d\_1,\ ...,\ d\_k]\ \textcolor{keywordflow}{is}\ compatible\ \textcolor{keyword}{with}\ groundtruth\_labels}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ which\ has\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...\ d\_k].}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ cls\_weights:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ representing\ weights\ \textcolor{keywordflow}{for}\ each\ element\ \textcolor{keywordflow}{in}\ cls\_targets.}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ reg\_targets:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ box\_code\_dimension]}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ reg\_weights:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ match:\ an\ int32\ tensor\ of\ shape\ [num\_anchors]\ containing\ result\ of\ anchor}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ groundtruth\ matching.\ Each\ position\ \textcolor{keywordflow}{in}\ the\ tensor\ indicates\ an\ anchor}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ holds\ the\ following\ meaning:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ (1)\ \textcolor{keywordflow}{if}\ match[i]\ >=\ 0,\ anchor\ i\ \textcolor{keywordflow}{is}\ matched\ \textcolor{keyword}{with}\ groundtruth\ match[i].}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ (2)\ \textcolor{keywordflow}{if}\ match[i]=-\/1,\ anchor\ i\ \textcolor{keywordflow}{is}\ marked\ to\ be\ background\ .}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ (3)\ \textcolor{keywordflow}{if}\ match[i]=-\/2,\ anchor\ i\ \textcolor{keywordflow}{is}\ ignored\ since\ it\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ background\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ does\ \textcolor{keywordflow}{not}\ have\ sufficient\ overlap\ to\ call\ it\ a\ foreground.}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ Raises:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ anchors\ \textcolor{keywordflow}{or}\ groundtruth\_boxes\ are\ \textcolor{keywordflow}{not}\ of\ type}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ box\_list.BoxList}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00151\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(anchors,\ box\_list.BoxList):}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'anchors\ must\ be\ an\ BoxList'})}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(groundtruth\_boxes,\ box\_list.BoxList):}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'groundtruth\_boxes\ must\ be\ an\ BoxList'})}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{if}\ unmatched\_class\_label\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([0],\ tf.float32)}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_labels\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ groundtruth\_labels\ =\ tf.ones(tf.expand\_dims(groundtruth\_boxes.num\_boxes(),}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0))}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ groundtruth\_labels\ =\ tf.expand\_dims(groundtruth\_labels,\ -\/1)}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ unmatched\_shape\_assert\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(groundtruth\_labels)[1:],}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(unmatched\_class\_label))}
+\DoxyCodeLine{00167\ \ \ \ \ labels\_and\_box\_shapes\_assert\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels)[:1],}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes.get())[:1])}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_weights\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ num\_gt\_boxes\ =\ groundtruth\_boxes.num\_boxes\_static()}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ num\_gt\_boxes:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ num\_gt\_boxes\ =\ groundtruth\_boxes.num\_boxes()}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ groundtruth\_weights\ =\ tf.ones([num\_gt\_boxes],\ dtype=tf.float32)}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{\#\ set\ scores\ on\ the\ gt\ boxes}}
+\DoxyCodeLine{00180\ \ \ \ \ scores\ =\ 1\ -\/\ groundtruth\_labels[:,\ 0]}
+\DoxyCodeLine{00181\ \ \ \ \ groundtruth\_boxes.add\_field(fields.BoxListFields.scores,\ scores)}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ [unmatched\_shape\_assert,\ labels\_and\_box\_shapes\_assert]):}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ match\_quality\_matrix\ =\ self.\_similarity\_calc.compare(groundtruth\_boxes,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors)}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ match\ =\ self.\_matcher.match(match\_quality\_matrix,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valid\_rows=tf.greater(groundtruth\_weights,\ 0))}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ reg\_targets\ =\ self.\_create\_regression\_targets(anchors,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match)}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ cls\_targets\ =\ self.\_create\_classification\_targets(groundtruth\_labels,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match)}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ reg\_weights\ =\ self.\_create\_regression\_weights(match,\ groundtruth\_weights)}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ cls\_weights\ =\ self.\_create\_classification\_weights(match,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \textcolor{comment}{\#\ convert\ cls\_weights\ from\ per-\/anchor\ to\ per-\/class.}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ class\_label\_shape\ =\ tf.shape(cls\_targets)[1:]}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ weights\_shape\ =\ tf.shape(cls\_weights)}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ weights\_multiple\ =\ tf.concat(}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ [tf.ones\_like(weights\_shape),\ class\_label\_shape],}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(len(cls\_targets.get\_shape()[1:])):}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ cls\_weights\ =\ tf.expand\_dims(cls\_weights,\ -\/1)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ cls\_weights\ =\ tf.tile(cls\_weights,\ weights\_multiple)}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ num\_anchors\ =\ anchors.num\_boxes\_static()}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_anchors\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ reg\_targets\ =\ self.\_reset\_target\_shape(reg\_targets,\ num\_anchors)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ cls\_targets\ =\ self.\_reset\_target\_shape(cls\_targets,\ num\_anchors)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ reg\_weights\ =\ self.\_reset\_target\_shape(reg\_weights,\ num\_anchors)}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ cls\_weights\ =\ self.\_reset\_target\_shape(cls\_weights,\ num\_anchors)}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ match.match\_results)}
+\DoxyCodeLine{00218\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d89/classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aba5655fc6bb850dddc28f733d0e14737}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aba5655fc6bb850dddc28f733d0e14737} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!box\_coder@{box\_coder}}
+\index{box\_coder@{box\_coder}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{box\_coder()}{box\_coder()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+box\+\_\+coder (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00089}{89}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacebox__coder}{box\_coder}}(self):}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_box\_coder}
+\DoxyCodeLine{00091\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a458e6bab7f3aa2a797f45d1c71d51d61}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a458e6bab7f3aa2a797f45d1c71d51d61} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!get\_box\_coder@{get\_box\_coder}}
+\index{get\_box\_coder@{get\_box\_coder}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{get\_box\_coder()}{get\_box\_coder()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+get\+\_\+box\+\_\+coder (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get BoxCoder of this TargetAssigner.
+
+Returns:
+  BoxCoder object.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00362}{362}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00362\ \ \ \textcolor{keyword}{def\ }get\_box\_coder(self):}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ BoxCoder\ of\ this\ TargetAssigner.}}
+\DoxyCodeLine{00364\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00365\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00366\ \textcolor{stringliteral}{\ \ \ \ \ \ BoxCoder\ object.}}
+\DoxyCodeLine{00367\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00368\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\_box\_coder}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{comment}{\#\ TODO(rathodv):\ This\ method\ pulls\ in\ all\ the\ implementation\ dependencies\ into}}
+\DoxyCodeLine{00372\ \textcolor{comment}{\#\ core.\ Therefore\ its\ best\ to\ have\ this\ factory\ method\ outside\ of\ core.}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_box\_coder@{\_box\_coder}}
+\index{\_box\_coder@{\_box\_coder}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_box\_coder}{\_box\_coder}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+box\+\_\+coder\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00085}{85}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_matcher@{\_matcher}}
+\index{\_matcher@{\_matcher}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_matcher}{\_matcher}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+matcher\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00084}{84}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_negative\_class\_weight@{\_negative\_class\_weight}}
+\index{\_negative\_class\_weight@{\_negative\_class\_weight}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_negative\_class\_weight}{\_negative\_class\_weight}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+negative\+\_\+class\+\_\+weight\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00086}{86}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e}\label{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e} 
+\index{detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}!\_similarity\_calc@{\_similarity\_calc}}
+\index{\_similarity\_calc@{\_similarity\_calc}!detection\_utils.core.target\_assigner.TargetAssigner@{detection\_utils.core.target\_assigner.TargetAssigner}}
+\doxysubsubsection{\texorpdfstring{\_similarity\_calc}{\_similarity\_calc}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner.\+Target\+Assigner.\+\_\+similarity\+\_\+calc\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{target__assigner_8py_source_l00083}{83}} of file \mbox{\hyperlink{target__assigner_8py_source}{target\+\_\+assigner.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{target__assigner_8py}{target\+\_\+assigner.\+py}}\end{DoxyCompactItemize}

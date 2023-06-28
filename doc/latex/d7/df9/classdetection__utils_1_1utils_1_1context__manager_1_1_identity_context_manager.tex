@@ -1,0 +1,86 @@
+\doxysection{detection\+\_\+utils.\+utils.\+context\+\_\+manager.\+Identity\+Context\+Manager Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager}{}\label{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager}\index{detection\_utils.utils.context\_manager.IdentityContextManager@{detection\_utils.utils.context\_manager.IdentityContextManager}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+context\+\_\+manager.\+Identity\+Context\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{dd/df5/classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+context\+\_\+manager.\+Identity\+Context\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{df/da1/classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a6be6d4fb8bc668745dc3dbeaa0fe5b13}{\+\_\+\+\_\+enter\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a7208d8ebbe4c8b10689bd1b18b2900da}{\+\_\+\+\_\+exit\+\_\+\+\_\+}} (self, exec\+\_\+type, exec\+\_\+value, traceback)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Returns an identity context manager that does nothing.
+
+This is helpful in setting up conditional `with` statement as below:
+
+with slim.arg_scope(x) if use_slim_scope else IdentityContextManager():
+  do_stuff()\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{context__manager_8py_source_l00022}{22}} of file \mbox{\hyperlink{context__manager_8py_source}{context\+\_\+manager.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a6be6d4fb8bc668745dc3dbeaa0fe5b13}\label{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a6be6d4fb8bc668745dc3dbeaa0fe5b13} 
+\index{detection\_utils.utils.context\_manager.IdentityContextManager@{detection\_utils.utils.context\_manager.IdentityContextManager}!\_\_enter\_\_@{\_\_enter\_\_}}
+\index{\_\_enter\_\_@{\_\_enter\_\_}!detection\_utils.utils.context\_manager.IdentityContextManager@{detection\_utils.utils.context\_manager.IdentityContextManager}}
+\doxysubsubsection{\texorpdfstring{\_\_enter\_\_()}{\_\_enter\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+context\+\_\+manager.\+Identity\+Context\+Manager.\+\_\+\+\_\+enter\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{context__manager_8py_source_l00032}{32}} of file \mbox{\hyperlink{context__manager_8py_source}{context\+\_\+manager.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{def\ }\_\_enter\_\_(self):}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00034\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a7208d8ebbe4c8b10689bd1b18b2900da}\label{classdetection__utils_1_1utils_1_1context__manager_1_1_identity_context_manager_a7208d8ebbe4c8b10689bd1b18b2900da} 
+\index{detection\_utils.utils.context\_manager.IdentityContextManager@{detection\_utils.utils.context\_manager.IdentityContextManager}!\_\_exit\_\_@{\_\_exit\_\_}}
+\index{\_\_exit\_\_@{\_\_exit\_\_}!detection\_utils.utils.context\_manager.IdentityContextManager@{detection\_utils.utils.context\_manager.IdentityContextManager}}
+\doxysubsubsection{\texorpdfstring{\_\_exit\_\_()}{\_\_exit\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+context\+\_\+manager.\+Identity\+Context\+Manager.\+\_\+\+\_\+exit\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{exec\+\_\+type,  }\item[{}]{exec\+\_\+value,  }\item[{}]{traceback }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{context__manager_8py_source_l00035}{35}} of file \mbox{\hyperlink{context__manager_8py_source}{context\+\_\+manager.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{def\ }\_\_exit\_\_(self,\ exec\_type,\ exec\_value,\ traceback):}
+\DoxyCodeLine{00036\ \ \ \ \ del\ exec\_type}
+\DoxyCodeLine{00037\ \ \ \ \ del\ exec\_value}
+\DoxyCodeLine{00038\ \ \ \ \ del\ traceback}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{context__manager_8py}{context\+\_\+manager.\+py}}\end{DoxyCompactItemize}

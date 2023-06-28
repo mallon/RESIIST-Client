@@ -1,0 +1,128 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Nearest\+Neighbor\+Upsampling\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test}\index{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest@{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Nearest\+Neighbor\+Upsampling\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{d6/d2d/classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Nearest\+Neighbor\+Upsampling\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{db/df3/classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_a199627b9339d027057bb2bf4c9950bf7}{test\+\_\+upsampling\+\_\+with\+\_\+single\+\_\+scale}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_ad9d518bfaeea1f207e28a812c92f451d}{test\+\_\+upsampling\+\_\+with\+\_\+separate\+\_\+height\+\_\+width\+\_\+scales}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01261}{1261}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_ad9d518bfaeea1f207e28a812c92f451d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_ad9d518bfaeea1f207e28a812c92f451d} 
+\index{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest@{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest}!test\_upsampling\_with\_separate\_height\_width\_scales@{test\_upsampling\_with\_separate\_height\_width\_scales}}
+\index{test\_upsampling\_with\_separate\_height\_width\_scales@{test\_upsampling\_with\_separate\_height\_width\_scales}!detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest@{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest}}
+\doxysubsubsection{\texorpdfstring{test\_upsampling\_with\_separate\_height\_width\_scales()}{test\_upsampling\_with\_separate\_height\_width\_scales()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Nearest\+Neighbor\+Upsampling\+Test.\+test\+\_\+upsampling\+\_\+with\+\_\+separate\+\_\+height\+\_\+width\+\_\+scales (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01277}{1277}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01277\ \ \ \textcolor{keyword}{def\ }test\_upsampling\_with\_separate\_height\_width\_scales(self):}
+\DoxyCodeLine{01278\ }
+\DoxyCodeLine{01279\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(inputs):}
+\DoxyCodeLine{01280\ \ \ \ \ \ \ custom\_op\_output\ =\ ops.nearest\_neighbor\_upsampling(inputs,}
+\DoxyCodeLine{01281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ height\_scale=2,}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ width\_scale=3)}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ custom\_op\_output}
+\DoxyCodeLine{01284\ \ \ \ \ inputs\ =\ np.reshape(np.arange(4).astype(np.float32),\ [1,\ 2,\ 2,\ 1])}
+\DoxyCodeLine{01285\ \ \ \ \ custom\_op\_output\ =\ self.execute(graph\_fn,\ [inputs])}
+\DoxyCodeLine{01286\ }
+\DoxyCodeLine{01287\ \ \ \ \ expected\_output\ =\ [[[[0],\ [0],\ [0],\ [1],\ [1],\ [1]],}
+\DoxyCodeLine{01288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0],\ [0],\ [0],\ [1],\ [1],\ [1]],}
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2],\ [2],\ [2],\ [3],\ [3],\ [3]],}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2],\ [2],\ [2],\ [3],\ [3],\ [3]]]]}
+\DoxyCodeLine{01291\ \ \ \ \ self.assertAllClose(custom\_op\_output,\ expected\_output)}
+\DoxyCodeLine{01292\ }
+\DoxyCodeLine{01293\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0f/classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_ad9d518bfaeea1f207e28a812c92f451d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_a199627b9339d027057bb2bf4c9950bf7}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_a199627b9339d027057bb2bf4c9950bf7} 
+\index{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest@{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest}!test\_upsampling\_with\_single\_scale@{test\_upsampling\_with\_single\_scale}}
+\index{test\_upsampling\_with\_single\_scale@{test\_upsampling\_with\_single\_scale}!detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest@{detection\_utils.utils.ops\_test.NearestNeighborUpsamplingTest}}
+\doxysubsubsection{\texorpdfstring{test\_upsampling\_with\_single\_scale()}{test\_upsampling\_with\_single\_scale()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Nearest\+Neighbor\+Upsampling\+Test.\+test\+\_\+upsampling\+\_\+with\+\_\+single\+\_\+scale (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01263}{1263}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01263\ \ \ \textcolor{keyword}{def\ }test\_upsampling\_with\_single\_scale(self):}
+\DoxyCodeLine{01264\ }
+\DoxyCodeLine{01265\ \ \ \ \ \textcolor{keyword}{def\ }graph\_fn(inputs):}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ custom\_op\_output\ =\ ops.nearest\_neighbor\_upsampling(inputs,\ scale=2)}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ custom\_op\_output}
+\DoxyCodeLine{01268\ \ \ \ \ inputs\ =\ np.reshape(np.arange(4).astype(np.float32),\ [1,\ 2,\ 2,\ 1])}
+\DoxyCodeLine{01269\ \ \ \ \ custom\_op\_output\ =\ self.execute(graph\_fn,\ [inputs])}
+\DoxyCodeLine{01270\ }
+\DoxyCodeLine{01271\ \ \ \ \ expected\_output\ =\ [[[[0],\ [0],\ [1],\ [1]],}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0],\ [0],\ [1],\ [1]],}
+\DoxyCodeLine{01273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2],\ [2],\ [3],\ [3]],}
+\DoxyCodeLine{01274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[2],\ [2],\ [3],\ [3]]]]}
+\DoxyCodeLine{01275\ \ \ \ \ self.assertAllClose(custom\_op\_output,\ expected\_output)}
+\DoxyCodeLine{01276\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0f/classdetection__utils_1_1utils_1_1ops__test_1_1_nearest_neighbor_upsampling_test_a199627b9339d027057bb2bf4c9950bf7_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

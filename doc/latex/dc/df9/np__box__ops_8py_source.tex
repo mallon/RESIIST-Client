@@ -1,0 +1,108 @@
+\doxysection{np\+\_\+box\+\_\+ops.\+py}
+\hypertarget{np__box__ops_8py_source}{}\label{np__box__ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_ops.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_ops.py}}
+\mbox{\hyperlink{np__box__ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Operations\ for\ [N,\ 4]\ numpy\ arrays\ representing\ bounding\ boxes.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00018}00018\ \textcolor{stringliteral}{Example\ box\ operations\ that\ are\ supported:}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ *\ Areas:\ compute\ bounding\ box\ areas}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ *\ IOU:\ pairwise\ intersection-\/over-\/union\ scores}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00023}00023\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00024}00024\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00025}00025\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00027}00027\ \textcolor{stringliteral}{import\ numpy\ as\ np}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00029}00029\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00030}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}{00030}}\ \textcolor{stringliteral}{def\ area(boxes):}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ "{}"{}"{}Computes\ area\ of\ boxes.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00032}00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ boxes:\ Numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00036}00036\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00037}00037\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*1]\ representing\ box\ areas}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00038}00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ (boxes[:,\ 2]\ -\/\ boxes[:,\ 0])\ *\ (boxes[:,\ 3]\ -\/\ boxes[:,\ 1])}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00042}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}{00042}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}{intersection}}(boxes1,\ boxes2):}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00043}00043\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ boxes.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00044}00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ boxes1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00047}00047\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ M\ boxes}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00049}00049\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00050}00050\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00051}00051\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ [y\_min1,\ x\_min1,\ y\_max1,\ x\_max1]\ =\ np.split(boxes1,\ 4,\ axis=1)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ [y\_min2,\ x\_min2,\ y\_max2,\ x\_max2]\ =\ np.split(boxes2,\ 4,\ axis=1)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00054}00054\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ all\_pairs\_min\_ymax\ =\ np.minimum(y\_max1,\ np.transpose(y\_max2))}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ all\_pairs\_max\_ymin\ =\ np.maximum(y\_min1,\ np.transpose(y\_min2))}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ intersect\_heights\ =\ np.maximum(}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ \ \ np.zeros(all\_pairs\_max\_ymin.shape),}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ all\_pairs\_min\_ymax\ -\/\ all\_pairs\_max\_ymin)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ all\_pairs\_min\_xmax\ =\ np.minimum(x\_max1,\ np.transpose(x\_max2))}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ all\_pairs\_max\_xmin\ =\ np.maximum(x\_min1,\ np.transpose(x\_min2))}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ intersect\_widths\ =\ np.maximum(}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ \ \ np.zeros(all\_pairs\_max\_xmin.shape),}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ \ \ all\_pairs\_min\_xmax\ -\/\ all\_pairs\_max\_xmin)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\_heights\ *\ intersect\_widths}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00068}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701}{00068}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701}{iou}}(boxes1,\ boxes2):}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00069}00069\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ box\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00070}00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ boxes1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00073}00073\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00075}00075\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00076}00076\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00077}00077\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ intersect\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}{intersection}}(boxes1,\ boxes2)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ area1\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}{area}}(boxes1)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ area2\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}{area}}(boxes2)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ union\ =\ np.expand\_dims(area1,\ axis=1)\ +\ np.expand\_dims(}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ \ \ area2,\ axis=0)\ -\/\ intersect}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\ /\ union}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00086}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc}{00086}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc}{ioa}}(boxes1,\ boxes2):}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00087}00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ collections.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ boxes\ box1\ }\textcolor{keywordflow}{and}\ box2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00090}00090\ \ \ their\ intersection\ area\ over\ box2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(box1,\ box2)\ !=\ IOA(box2,\ box1).}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00093}00093\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00094}00094\ \ \ \ \ boxes1:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00095}00095\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00097}00097\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00098}00098\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00099}00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ intersect\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}{intersection}}(boxes1,\ boxes2)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ areas\ =\ np.expand\_dims(\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}{area}}(boxes2),\ axis=0)}}
+\DoxyCodeLine{\Hypertarget{np__box__ops_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\ /\ areas}
+
+\end{DoxyCode}

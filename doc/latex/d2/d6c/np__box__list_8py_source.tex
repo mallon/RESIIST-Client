@@ -1,0 +1,143 @@
+\doxysection{np\+\_\+box\+\_\+list.\+py}
+\hypertarget{np__box__list_8py_source}{}\label{np__box__list_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_list.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_list.py}}
+\mbox{\hyperlink{np__box__list_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Numpy\ BoxList\ classes\ and\ functions."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00021}00021\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00022}00022\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00025}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{00025}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{BoxList}}(object):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00026}00026\ \ \ \textcolor{stringliteral}{"{}"{}"{}Box\ collection.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00027}00027\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ BoxList\ represents\ a\ list\ of\ bounding\ boxes\ }\textcolor{keyword}{as}\ numpy\ array,\ where\ each}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00029}00029\ \ \ bounding\ box\ \textcolor{keywordflow}{is}\ represented\ \textcolor{keyword}{as}\ a\ row\ of\ 4\ numbers,}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00030}00030\ \ \ [y\_min,\ x\_min,\ y\_max,\ x\_max].\ \ It\ \textcolor{keywordflow}{is}\ assumed\ that\ all\ bounding\ boxes\ within\ a}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00031}00031\ \ \ given\ list\ correspond\ to\ a\ single\ image.}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00033}00033\ \ \ Optionally,\ users\ can\ add\ additional\ related\ fields\ (such\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00034}00034\ \ \ objectness/classification\ scores).}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00035}00035\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17}{00037}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17}{\_\_init\_\_}}(self,\ data):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00038}00038\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ box\ collection.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00039}00039\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ \ \ data:\ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00042}00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00044}00044\ \textcolor{stringliteral}{\ \ \ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ bbox\ data\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ numpy\ array}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00045}00045\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ invalid\ dimensions\ \textcolor{keywordflow}{for}\ bbox\ data}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00046}00046\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(data,\ np.ndarray):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00048}00048\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'data\ must\ be\ a\ numpy\ array.'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ len(data.shape)\ !=\ 2\ \textcolor{keywordflow}{or}\ data.shape[1]\ !=\ 4:}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00050}00050\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ dimensions\ for\ box\ data.'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{if}\ data.dtype\ !=\ np.float32\ \textcolor{keywordflow}{and}\ data.dtype\ !=\ np.float64:}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00052}00052\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ data\ type\ for\ box\ data:\ float\ is\ required.'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4}{\_is\_valid\_boxes}}(data):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00054}00054\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ box\ data.\ data\ must\ be\ a\ numpy\ array\ of\ '}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'N*[y\_min,\ x\_min,\ y\_max,\ x\_max]'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00056}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{00056}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}\ =\ \{\textcolor{stringliteral}{'boxes'}:\ data\}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00058}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8}{00058}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8}{num\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00059}00059\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ number\ of\ boxes\ held\ in\ collections."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}[\textcolor{stringliteral}{'boxes'}].shape[0]}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00062}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a515597ecf74af855815cb40f45641303}{00062}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a515597ecf74af855815cb40f45641303}{get\_extra\_fields}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ all\ non-\/box\ fields."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{return}\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}.keys()\ \textcolor{keywordflow}{if}\ k\ !=\ \textcolor{stringliteral}{'boxes'}]}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00066}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}{00066}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}{has\_field}}(self,\ field):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{return}\ field\ \textcolor{keywordflow}{in}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00069}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f}{00069}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f}{add\_field}}(self,\ field,\ field\_data):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00070}00070\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Add\ data\ to\ a\ specified\ field.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00071}00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ parameter\ used\ to\ speficy\ a\ related\ field\ to\ be\ accessed.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ field\_data:\ a\ numpy\ array\ of\ [N,\ ...]\ representing\ the\ data\ associated}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ }\textcolor{keyword}{with}\ the\ field.}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00076}00076\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00077}00077\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ the\ field\ \textcolor{keywordflow}{is}\ already\ exist\ \textcolor{keywordflow}{or}\ the\ dimension\ of\ the\ field}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ data\ does\ \textcolor{keywordflow}{not}\ matches\ the\ number\ of\ boxes.}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00079}00079\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}{has\_field}}(field):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00081}00081\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ '}\ +\ field\ +\ \textcolor{stringliteral}{'already\ exists'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{if}\ len(field\_data.shape)\ <\ 1\ \textcolor{keywordflow}{or}\ field\_data.shape[0]\ !=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8}{num\_boxes}}():}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00083}00083\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ dimensions\ for\ field\ data'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00084}00084\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}[field]\ =\ field\_data}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7}{00086}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7}{get}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00087}00087\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convenience\ function\ for\ accesssing\ box\ coordinates.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ corners}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}{get\_field}}(\textcolor{stringliteral}{'boxes'})}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00094}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}{00094}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}{get\_field}}(self,\ field):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00095}00095\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Accesses\ data\ associated\ with\ the\ specified\ field\ in\ the\ box\ collection.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00096}00096\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ parameter\ used\ to\ speficy\ a\ related\ field\ to\ be\ accessed.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00099}00099\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ numpy\ 1-\/d\ array\ representing\ data\ of\ an\ associated\ field}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00102}00102\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ \ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ invalid\ field}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00105}00105\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}{has\_field}}(field):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00107}00107\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'field\ \{\}\ does\ not\ exist'}.format(field))}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}[field]}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00110}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f}{00110}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f}{get\_coordinates}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00111}00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ corner\ coordinates\ of\ boxes.}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00112}00112\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ a\ list\ of\ 4\ 1-\/d\ numpy\ arrays\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ box\_coordinates\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7}{get}}()}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ y\_min\ =\ box\_coordinates[:,\ 0]}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ x\_min\ =\ box\_coordinates[:,\ 1]}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ y\_max\ =\ box\_coordinates[:,\ 2]}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ x\_max\ =\ box\_coordinates[:,\ 3]}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00123}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4}{00123}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4}{\_is\_valid\_boxes}}(self,\ data):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00124}00124\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Check\ whether\ data\ fullfills\ the\ format\ of\ N*[ymin,\ xmin,\ ymax,\ xmin].}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00125}00125\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ \ \ data:\ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00128}00128\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ boolean\ indicating\ whether\ all\ ymax\ of\ boxes\ are\ equal\ }\textcolor{keywordflow}{or}\ greater\ than}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ ymin,\ \textcolor{keywordflow}{and}\ all\ xmax\ of\ boxes\ are\ equal\ \textcolor{keywordflow}{or}\ greater\ than\ xmin.}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00132}00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ data.shape[0]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00134}00134\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(data.shape[0]):}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ data[i,\ 0]\ >\ data[i,\ 2]\ \textcolor{keywordflow}{or}\ data[i,\ 1]\ >\ data[i,\ 3]:}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{np__box__list_8py_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+
+\end{DoxyCode}

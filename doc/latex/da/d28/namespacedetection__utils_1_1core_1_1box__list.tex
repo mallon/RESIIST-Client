@@ -1,0 +1,31 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+list Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1box__list}{}\label{namespacedetection__utils_1_1core_1_1box__list}\index{detection\_utils.core.box\_list@{detection\_utils.core.box\_list}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{Box\+List}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Bounding Box List definition.
+
+BoxList represents a list of bounding boxes as tensorflow
+tensors, where each bounding box is represented as a row of 4 numbers,
+[y_min, x_min, y_max, x_max].  It is assumed that all bounding boxes
+within a given list correspond to a single image.  See also
+box_list_ops.py for common box related operations (such as area, iou, etc).
+
+Optionally, users can add additional related fields (such as weights).
+We assume the following things to be true about fields:
+* they correspond to boxes in the box_list along the 0th dimension
+* they have inferrable rank at graph construction time
+* all dimensions except for possibly the 0th can be inferred
+  (i.e., not None) at graph construction time.
+
+Some other notes:
+  * Following tensorflow conventions, we use height, width ordering,
+  and correspondingly, y,x (or ymin, xmin, ymax, xmax) ordering
+  * Tensors are always provided as (flat) [N, 4] tensors.
+\end{DoxyVerb}
+ 

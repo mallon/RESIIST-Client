@@ -1,0 +1,122 @@
+\doxysection{detection\+\_\+utils.\+utils.\+model\+\_\+util Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1model__util}{}\label{namespacedetection__utils_1_1utils_1_1model__util}\index{detection\_utils.utils.model\_util@{detection\_utils.utils.model\_util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1model__util_a5403fa1ee5f3cea5dec4d68933d75285}{extract\+\_\+submodel}} (model, inputs, outputs, name=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for manipulating Keras models.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1model__util_a5403fa1ee5f3cea5dec4d68933d75285}\label{namespacedetection__utils_1_1utils_1_1model__util_a5403fa1ee5f3cea5dec4d68933d75285} 
+\index{detection\_utils.utils.model\_util@{detection\_utils.utils.model\_util}!extract\_submodel@{extract\_submodel}}
+\index{extract\_submodel@{extract\_submodel}!detection\_utils.utils.model\_util@{detection\_utils.utils.model\_util}}
+\doxysubsubsection{\texorpdfstring{extract\_submodel()}{extract\_submodel()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+model\+\_\+util.\+extract\+\_\+submodel (\begin{DoxyParamCaption}\item[{}]{model,  }\item[{}]{inputs,  }\item[{}]{outputs,  }\item[{}]{name = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extracts a section of a Keras model into a new model.
+
+This method walks an existing model from the specified outputs back to the
+specified inputs in order to construct a new model containing only a portion
+of the old model, while sharing the layers and weights with the original
+model.
+
+WARNING: This method does not work for submodels containing layers that have
+been used multiple times in the original model, or in other models beyond
+the original model. (E.g. does not work for submodels that contain layers that
+use shared weights). This also means that multiple overlapping submodels
+cannot be extracted from the same model.
+
+It also relies on recursion and will hit python's recursion limit for large
+submodels.
+
+Args:
+  model: The existing Keras model this method extracts a submodel from.
+  inputs: The layer inputs in the existing model that start the submodel
+  outputs: The layer outputs in the existing model that should be output by
+    the submodel
+  name: The name for the extracted model
+
+Returns:
+  The extracted submodel specified by the given inputs and outputs
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model__util_8py_source_l00025}{25}} of file \mbox{\hyperlink{model__util_8py_source}{model\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00025\ \textcolor{keyword}{def\ }extract\_submodel(model,\ inputs,\ outputs,\ name=None):}
+\DoxyCodeLine{00026\ \ \ \textcolor{stringliteral}{"{}"{}"{}Extracts\ a\ section\ of\ a\ Keras\ model\ into\ a\ new\ model.}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ This\ method\ walks\ an\ existing\ model\ }\textcolor{keyword}{from}\ the\ specified\ outputs\ back\ to\ the}
+\DoxyCodeLine{00029\ \ \ specified\ inputs\ \textcolor{keywordflow}{in}\ order\ to\ construct\ a\ new\ model\ containing\ only\ a\ portion}
+\DoxyCodeLine{00030\ \ \ of\ the\ old\ model,\ \textcolor{keywordflow}{while}\ sharing\ the\ layers\ \textcolor{keywordflow}{and}\ weights\ \textcolor{keyword}{with}\ the\ original}
+\DoxyCodeLine{00031\ \ \ model.}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ WARNING:\ This\ method\ does\ \textcolor{keywordflow}{not}\ work\ \textcolor{keywordflow}{for}\ submodels\ containing\ layers\ that\ have}
+\DoxyCodeLine{00034\ \ \ been\ used\ multiple\ times\ \textcolor{keywordflow}{in}\ the\ original\ model,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{in}\ other\ models\ beyond}
+\DoxyCodeLine{00035\ \ \ the\ original\ model.\ (E.g.\ does\ \textcolor{keywordflow}{not}\ work\ \textcolor{keywordflow}{for}\ submodels\ that\ contain\ layers\ that}
+\DoxyCodeLine{00036\ \ \ use\ shared\ weights).\ This\ also\ means\ that\ multiple\ overlapping\ submodels}
+\DoxyCodeLine{00037\ \ \ cannot\ be\ extracted\ \textcolor{keyword}{from}\ the\ same\ model.}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ It\ also\ relies\ on\ recursion\ \textcolor{keywordflow}{and}\ will\ hit\ python\textcolor{stringliteral}{'s\ recursion\ limit\ for\ large}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ submodels.}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ model:\ The\ existing\ Keras\ model\ this\ method\ extracts\ a\ submodel\ }\textcolor{keyword}{from}.}
+\DoxyCodeLine{00044\ \ \ \ \ inputs:\ The\ layer\ inputs\ \textcolor{keywordflow}{in}\ the\ existing\ model\ that\ start\ the\ submodel}
+\DoxyCodeLine{00045\ \ \ \ \ outputs:\ The\ layer\ outputs\ \textcolor{keywordflow}{in}\ the\ existing\ model\ that\ should\ be\ output\ by}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ the\ submodel}
+\DoxyCodeLine{00047\ \ \ \ \ name:\ The\ name\ \textcolor{keywordflow}{for}\ the\ extracted\ model}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ Returns:}
+\DoxyCodeLine{00050\ \ \ \ \ The\ extracted\ submodel\ specified\ by\ the\ given\ inputs\ \textcolor{keywordflow}{and}\ outputs}
+\DoxyCodeLine{00051\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ output\_to\_layer\ =\ \{\}}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ output\_to\_layer\_input\ =\ \{\}}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ layer\ \textcolor{keywordflow}{in}\ model.layers:}
+\DoxyCodeLine{00055\ \ \ \ \ layer\_output\ =\ layer.output}
+\DoxyCodeLine{00056\ \ \ \ \ layer\_inputs\ =\ layer.input}
+\DoxyCodeLine{00057\ \ \ \ \ output\_to\_layer[layer\_output]\ =\ layer}
+\DoxyCodeLine{00058\ \ \ \ \ output\_to\_layer\_input[layer\_output]\ =\ layer\_inputs}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ model\_inputs\_dict\ =\ \{\}}
+\DoxyCodeLine{00061\ \ \ memoized\_results\ =\ \{\}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{\#\ Relies\ on\ recursion,\ very\ low\ limit\ in\ python}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{def\ }\_recurse\_in\_model(tensor):}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Walk\ the\ existing\ model\ recursively\ to\ copy\ a\ submodel."{}"{}"{}}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{in}\ memoized\_results:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ memoized\_results[tensor]}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (tensor\ ==\ inputs)\ \textcolor{keywordflow}{or}\ (isinstance(inputs,\ list)\ \textcolor{keywordflow}{and}\ tensor\ \textcolor{keywordflow}{in}\ inputs):}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ tensor\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ model\_inputs\_dict:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ model\_inputs\_dict[tensor]\ =\ tf.keras.layers.Input(tensor=tensor)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ out\ =\ model\_inputs\_dict[tensor]}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ cur\_inputs\ =\ output\_to\_layer\_input[tensor]}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ cur\_layer\ =\ output\_to\_layer[tensor]}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(cur\_inputs,\ list):}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ out\ =\ cur\_layer([\_recurse\_in\_model(inp)\ \textcolor{keywordflow}{for}\ inp\ \textcolor{keywordflow}{in}\ cur\_inputs])}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ out\ =\ cur\_layer(\_recurse\_in\_model(cur\_inputs))}
+\DoxyCodeLine{00079\ \ \ \ \ memoized\_results[tensor]\ =\ out}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ out}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{if}\ isinstance(outputs,\ list):}
+\DoxyCodeLine{00083\ \ \ \ \ model\_outputs\ =\ [\_recurse\_in\_model(tensor)\ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ outputs]}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00085\ \ \ \ \ model\_outputs\ =\ \_recurse\_in\_model(outputs)}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordflow}{if}\ isinstance(inputs,\ list):}
+\DoxyCodeLine{00088\ \ \ \ \ model\_inputs\ =\ [model\_inputs\_dict[tensor]\ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00090\ \ \ \ \ model\_inputs\ =\ model\_inputs\_dict[inputs]}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordflow}{return}\ tf.keras.Model(inputs=model\_inputs,\ outputs=model\_outputs,\ name=name)}
+
+\end{DoxyCode}

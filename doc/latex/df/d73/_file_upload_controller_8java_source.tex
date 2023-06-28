@@ -1,0 +1,93 @@
+\doxysection{File\+Upload\+Controller.\+java}
+\hypertarget{_file_upload_controller_8java_source}{}\label{_file_upload_controller_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/controller/FileUploadController.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/struct/controller/FileUploadController.java}}
+\mbox{\hyperlink{_file_upload_controller_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.struct.controller;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.util.stream.Collectors;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.springframework.beans.factory.annotation.Autowired;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.springframework.core.io.Resource;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.springframework.http.HttpHeaders;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.springframework.http.ResponseEntity;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.springframework.stereotype.Controller;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00011}00011\ \textcolor{keyword}{import}\ org.springframework.ui.Model;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00012}00012\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.ExceptionHandler;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00013}00013\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.GetMapping;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00014}00014\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.PathVariable;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00015}00015\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.PostMapping;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00016}00016\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.RequestParam;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00017}00017\ \textcolor{keyword}{import}\ org.springframework.web.bind.annotation.ResponseBody;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00018}00018\ \textcolor{keyword}{import}\ org.springframework.web.multipart.MultipartFile;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00019}00019\ \textcolor{keyword}{import}\ org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00020}00020\ \textcolor{keyword}{import}\ org.springframework.web.servlet.mvc.support.RedirectAttributes;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00022}00022\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.storage.StorageFileNotFoundException;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00023}00023\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.storage.StorageService;}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00025}00025\ @Controller}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00026}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller}{00026}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller}{FileUploadController}}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00029}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{00029}}\ \ \ \ \ \textcolor{keyword}{private}\ \textcolor{keyword}{final}\ \mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}};}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00031}00031\ \ \ \ \ @Autowired}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00032}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a70eb4d3b1342c8db7e2b4886858482b1}{00032}}\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a70eb4d3b1342c8db7e2b4886858482b1}{FileUploadController}}(\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service}{StorageService}}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}})}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00033}00033\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ this.storageService\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}};}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00037}00037\ \ \ \ \ @GetMapping(\textcolor{stringliteral}{"{}/letest"{}})}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00038}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a5d32b13c1b0e3afe902f75d19758b9e6}{00038}}\ \ \ \ \ public\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a5d32b13c1b0e3afe902f75d19758b9e6}{listUploadedFiles}}(Model\ model)\ throws\ IOException}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00039}00039\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ model.addAttribute(\textcolor{stringliteral}{"{}files"{}},}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}}.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a4ab515f4994f78e36d768ca30ce6ee7b}{loadAll}}()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .map(path\ -\/>\ MvcUriComponentsBuilder.fromMethodName(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller}{FileUploadController}}.class,}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}serveFile"{}},}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ path.getFileName()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .toString())}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .build()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .toUri()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .toString())}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .collect(Collectors.toList()));}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}uploadForm"{}};}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00055}00055\ \ \ \ \ @GetMapping(\textcolor{stringliteral}{"{}/files/\{filename:.+\}"{}})}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00056}00056\ \ \ \ \ @ResponseBody}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00057}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_aa4d03c4b125eafc3b5903d8bf22bd824}{00057}}\ \ \ \ \ \textcolor{keyword}{public}\ ResponseEntity<Resource>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_aa4d03c4b125eafc3b5903d8bf22bd824}{serveFile}}(@PathVariable\ String\ filename)}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00060}00060\ \ \ \ \ \ \ \ \ Resource\ file\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}}.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_ab1ec07e9cae7d14c4a43d826d0c92f45}{loadAsResource}}(filename);}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ResponseEntity.ok()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .header(HttpHeaders.CONTENT\_DISPOSITION,}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}attachment;\ filename=\(\backslash\)"{}"{}}\ +\ file.getFilename()\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}})}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .body(file);}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00067}00067\ \ \ \ \ @PostMapping(\textcolor{stringliteral}{"{}/letest"{}})}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00068}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a49425f5ffe1e93cfa21c02c10f10d6cc}{00068}}\ \ \ \ \ public\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a49425f5ffe1e93cfa21c02c10f10d6cc}{handleFileUpload}}(@RequestParam("{}file"{})\ MultipartFile\ file,}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RedirectAttributes\ redirectAttributes)}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00070}00070\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_a37767fe246a2099bce0495b369747193}{storageService}}.\mbox{\hyperlink{interfacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_service_a95480bdec040881dbc606babada1893e}{store}}(file);}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ redirectAttributes.addFlashAttribute(\textcolor{stringliteral}{"{}message"{}},}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}You\ successfully\ uploaded\ "{}}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ file.getOriginalFilename()}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}!"{}});}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}redirect:/letest"{}};}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00081}00081\ \ \ \ \ @ExceptionHandler(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_file_not_found_exception}{StorageFileNotFoundException}}.class)}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00082}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_ae2ad7a8f920c5322f334ca9120509855}{00082}}\ \ \ \ \ public\ ResponseEntity<?>\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_file_upload_controller_ae2ad7a8f920c5322f334ca9120509855}{handleStorageFileNotFound}}(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1storage_1_1_storage_file_not_found_exception}{StorageFileNotFoundException}}\ exc)}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ResponseEntity.notFound().build();}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_file_upload_controller_8java_source_l00087}00087\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,272 @@
+\doxysection{balanced\+\_\+positive\+\_\+negative\+\_\+sampler.\+py}
+\hypertarget{balanced__positive__negative__sampler_8py_source}{}\label{balanced__positive__negative__sampler_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/balanced\_positive\_negative\_sampler.py@{src/main/resources/processing/video/detections/detection\_utils/core/balanced\_positive\_negative\_sampler.py}}
+\mbox{\hyperlink{balanced__positive__negative__sampler_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1balanced__positive__negative__sampler}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Class\ to\ subsample\ minibatches\ by\ balancing\ positives\ and\ negatives.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00018}00018\ \textcolor{stringliteral}{Subsamples\ minibatches\ based\ on\ a\ pre-\/specified\ positive\ fraction\ in\ range}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00019}00019\ \textcolor{stringliteral}{[0,1].\ The\ class\ presumes\ there\ are\ many\ more\ negatives\ than\ positive\ examples:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00020}00020\ \textcolor{stringliteral}{if\ the\ desired\ batch\_size\ cannot\ be\ achieved\ with\ the\ pre-\/specified\ positive}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00021}00021\ \textcolor{stringliteral}{fraction,\ it\ fills\ the\ rest\ with\ negative\ examples.\ If\ this\ is\ not\ sufficient}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00022}00022\ \textcolor{stringliteral}{for\ obtaining\ the\ desired\ batch\_size,\ it\ returns\ fewer\ examples.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00023}00023\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00024}00024\ \textcolor{stringliteral}{The\ main\ function\ to\ call\ is\ Subsample(self,\ indicator,\ labels).\ For\ convenience}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00025}00025\ \textcolor{stringliteral}{one\ can\ also\ call\ SubsampleWeights(self,\ weights,\ labels)\ which\ is\ defined\ in}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00026}00026\ \textcolor{stringliteral}{the\ minibatch\_sampler\ base\ class.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00027}00027\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00028}00028\ \textcolor{stringliteral}{When\ is\_static\ is\ True,\ it\ implements\ a\ method\ that\ guarantees\ static\ shapes.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00029}00029\ \textcolor{stringliteral}{It\ also\ ensures\ the\ length\ of\ output\ of\ the\ subsample\ is\ always\ batch\_size,\ even}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00030}00030\ \textcolor{stringliteral}{when\ number\ of\ examples\ set\ to\ True\ in\ indicator\ is\ less\ than\ batch\_size.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00031}00031\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00033}00033\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00035}00035\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ minibatch\_sampler}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00036}00036\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ ops}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00039}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{00039}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{BalancedPositiveNegativeSampler}}(\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler}{minibatch\_sampler.MinibatchSampler}}):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00040}00040\ \ \ \textcolor{stringliteral}{"{}"{}"{}Subsamples\ minibatches\ to\ a\ desired\ balance\ of\ positives\ and\ negatives."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00042}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a4bb04705236af59e8b4938304074f35c}{00042}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a4bb04705236af59e8b4938304074f35c}{\_\_init\_\_}}(self,\ positive\_fraction=0.5,\ is\_static=False):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00043}00043\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ minibatch\ sampler.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00044}00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ \ \ positive\_fraction:\ desired\ fraction\ of\ positive\ examples\ (scalar\ }\textcolor{keywordflow}{in}\ [0,1])}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ the\ batch.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00048}00048\ \ \ \ \ \ \ is\_static:\ If\ \textcolor{keyword}{True},\ uses\ an\ implementation\ \textcolor{keyword}{with}\ static\ shape\ guarantees.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00050}00050\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00051}00051\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ positive\_fraction\ <\ 0,\ \textcolor{keywordflow}{or}\ positive\_fraction\ >\ 1}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00052}00052\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ positive\_fraction\ <\ 0\ \textcolor{keywordflow}{or}\ positive\_fraction\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00054}00054\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'positive\_fraction\ should\ be\ in\ range\ [0,1].\ '}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Received:\ \%s.'}\ \%\ positive\_fraction)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00056}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{00056}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}}\ =\ positive\_fraction}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a0cf7a20373c2870b4ea3b316403adb8c}{00057}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a0cf7a20373c2870b4ea3b316403adb8c}{\_is\_static}}\ =\ is\_static}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00059}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a114dc7eba49d5c24ca4a9645e6557aca}{00059}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a114dc7eba49d5c24ca4a9645e6557aca}{\_get\_num\_pos\_neg\_samples}}(self,\ sorted\_indices\_tensor,\ sample\_size):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00060}00060\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Counts\ the\ number\ of\ positives\ and\ negatives\ numbers\ to\ be\ sampled.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00061}00061\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ \ \ sorted\_indices\_tensor:\ A\ sorted\ int32\ tensor\ of\ shape\ [N]\ which\ contains}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ the\ signed\ indices\ of\ the\ examples\ where\ the\ sign\ }\textcolor{keywordflow}{is}\ based\ on\ the\ label}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ value.\ The\ examples\ that\ cannot\ be\ sampled\ are\ set\ to\ 0.\ It\ samples}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ atmost\ sample\_size*positive\_fraction\ positive\ examples\ \textcolor{keywordflow}{and}\ remaining}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{from}\ negative\ examples.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00068}00068\ \ \ \ \ \ \ sample\_size:\ Size\ of\ subsamples.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00070}00070\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00071}00071\ \ \ \ \ \ \ A\ tuple\ containing\ the\ number\ of\ positive\ \textcolor{keywordflow}{and}\ negative\ labels\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00072}00072\ \ \ \ \ \ \ subsample.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00073}00073\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ input\_length\ =\ tf.shape(sorted\_indices\_tensor)[0]}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ \ \ valid\_positive\_index\ =\ tf.greater(sorted\_indices\_tensor,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(input\_length,\ tf.int32))}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ num\_sampled\_pos\ =\ tf.reduce\_sum(tf.cast(valid\_positive\_index,\ tf.int32))}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ \ \ max\_num\_positive\_samples\ =\ tf.constant(}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ int(sample\_size\ *\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}}),\ tf.int32)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ num\_positive\_samples\ =\ tf.minimum(max\_num\_positive\_samples,\ num\_sampled\_pos)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ num\_negative\_samples\ =\ tf.constant(sample\_size,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.int32)\ -\/\ num\_positive\_samples}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00083}00083\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ num\_positive\_samples,\ num\_negative\_samples}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_adbe6d71b81e8ef0007043b6a7ae23692}{00086}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_adbe6d71b81e8ef0007043b6a7ae23692}{\_get\_values\_from\_start\_and\_end}}(self,\ input\_tensor,\ num\_start\_samples,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_end\_samples,\ total\_num\_samples):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00088}00088\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}slices\ num\_start\_samples\ and\ last\ num\_end\_samples\ from\ input\_tensor.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00089}00089\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ \ \ input\_tensor:\ An\ int32\ tensor\ of\ shape\ [N]\ to\ be\ sliced.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_start\_samples:\ Number\ of\ examples\ to\ be\ sliced\ }\textcolor{keyword}{from}\ the\ beginning}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ of\ the\ input\ tensor.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00094}00094\ \ \ \ \ \ \ num\_end\_samples:\ Number\ of\ examples\ to\ be\ sliced\ \textcolor{keyword}{from}\ the\ end\ of\ the}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ input\ tensor.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00096}00096\ \ \ \ \ \ \ total\_num\_samples:\ Sum\ of\ \textcolor{keywordflow}{is}\ num\_start\_samples\ \textcolor{keywordflow}{and}\ num\_end\_samples.\ This}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ should\ be\ a\ scalar.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00099}00099\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00100}00100\ \ \ \ \ \ \ A\ tensor\ containing\ the\ first\ num\_start\_samples\ \textcolor{keywordflow}{and}\ last\ num\_end\_samples}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00101}00101\ \ \ \ \ \ \ \textcolor{keyword}{from}\ input\_tensor.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00103}00103\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ input\_length\ =\ tf.shape(input\_tensor)[0]}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ start\_positions\ =\ tf.less(tf.range(input\_length),\ num\_start\_samples)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ end\_positions\ =\ tf.greater\_equal(}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tf.range(input\_length),\ input\_length\ -\/\ num\_end\_samples)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ selected\_positions\ =\ tf.logical\_or(start\_positions,\ end\_positions)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00109}00109\ \textcolor{stringliteral}{\ \ \ \ selected\_positions\ =\ tf.cast(selected\_positions,\ tf.float32)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00110}00110\ \textcolor{stringliteral}{\ \ \ \ indexed\_positions\ =\ tf.multiply(tf.cumsum(selected\_positions),}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_positions)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ one\_hot\_selector\ =\ tf.one\_hot(tf.cast(indexed\_positions,\ tf.int32)\ -\/\ 1,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_num\_samples,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.cast(tf.tensordot(tf.cast(input\_tensor,\ tf.float32),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ one\_hot\_selector,\ axes=[0,\ 0]),\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00118}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_aa87afbab24c4a5d1214eb918bf534436}{00118}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_aa87afbab24c4a5d1214eb918bf534436}{\_static\_subsample}}(self,\ indicator,\ batch\_size,\ labels):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00119}00119\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ subsampled\ minibatch.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00120}00120\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ \ \ indicator:\ boolean\ tensor\ of\ shape\ [N]\ whose\ }\textcolor{keyword}{True}\ entries\ can\ be\ sampled.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ N\ should\ be\ a\ complie\ time\ constant.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00124}00124\ \ \ \ \ \ \ batch\_size:\ desired\ batch\ size.\ This\ scalar\ cannot\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00125}00125\ \ \ \ \ \ \ labels:\ boolean\ tensor\ of\ shape\ [N]\ denoting\ positive(=\textcolor{keyword}{True})\ \textcolor{keywordflow}{and}\ negative}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ (=\textcolor{keyword}{False})\ examples.\ N\ should\ be\ a\ complie\ time\ constant.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00128}00128\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00129}00129\ \ \ \ \ \ \ sampled\_idx\_indicator:\ boolean\ tensor\ of\ shape\ [N],\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{for}\ entries\ which}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ are\ sampled.\ It\ ensures\ the\ length\ of\ output\ of\ the\ subsample\ \textcolor{keywordflow}{is}\ always}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ batch\_size,\ even\ when\ number\ of\ examples\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{in}\ indicator\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ less\ than\ batch\_size.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00134}00134\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00135}00135\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ labels\ \textcolor{keywordflow}{and}\ indicator\ are\ \textcolor{keywordflow}{not}\ 1D\ boolean\ tensors.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00136}00136\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{comment}{\#\ Check\ if\ indicator\ and\ labels\ have\ a\ static\ size.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ indicator.shape.is\_fully\_defined():}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00139}00139\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'indicator\ must\ be\ static\ in\ shape\ when\ is\_static\ is'}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'True'})}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00141}00141\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ labels.shape.is\_fully\_defined():}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00142}00142\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'labels\ must\ be\ static\ in\ shape\ when\ is\_static\ is'}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'True'})}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(batch\_size,\ int):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00145}00145\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'batch\_size\ has\ to\ be\ an\ integer\ when\ is\_static\ is'}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'True.'})}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00148}00148\ \ \ \ \ input\_length\ =\ tf.shape(indicator)[0]}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00150}00150\ \ \ \ \ \textcolor{comment}{\#\ Set\ the\ number\ of\ examples\ set\ True\ in\ indicator\ to\ be\ at\ least}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00151}00151\ \ \ \ \ \textcolor{comment}{\#\ batch\_size.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00152}00152\ \ \ \ \ num\_true\_sampled\ =\ tf.reduce\_sum(tf.cast(indicator,\ tf.float32))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00153}00153\ \ \ \ \ additional\_false\_sample\ =\ tf.less\_equal(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ tf.cumsum(tf.cast(tf.logical\_not(indicator),\ tf.float32)),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ batch\_size\ -\/\ num\_true\_sampled)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00156}00156\ \ \ \ \ indicator\ =\ tf.logical\_or(indicator,\ additional\_false\_sample)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00158}00158\ \ \ \ \ \textcolor{comment}{\#\ Shuffle\ indicator\ and\ label.\ Need\ to\ store\ the\ permutation\ to\ restore\ the}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00159}00159\ \ \ \ \ \textcolor{comment}{\#\ order\ post\ sampling.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00160}00160\ \ \ \ \ permutation\ =\ tf.random\_shuffle(tf.range(input\_length))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00161}00161\ \ \ \ \ indicator\ =\ ops.matmul\_gather\_on\_zeroth\_axis(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ tf.cast(indicator,\ tf.float32),\ permutation)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00163}00163\ \ \ \ \ labels\ =\ ops.matmul\_gather\_on\_zeroth\_axis(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ tf.cast(labels,\ tf.float32),\ permutation)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00166}00166\ \ \ \ \ \textcolor{comment}{\#\ index\ (starting\ from\ 1)\ when\ indicator\ is\ True,\ 0\ when\ False}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00167}00167\ \ \ \ \ indicator\_idx\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ tf.cast(indicator,\ tf.bool),\ tf.range(1,\ input\_length\ +\ 1),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ tf.zeros(input\_length,\ tf.int32))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00171}00171\ \ \ \ \ \textcolor{comment}{\#\ Replace\ -\/1\ for\ negative,\ +1\ for\ positive\ labels}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00172}00172\ \ \ \ \ signed\_label\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ tf.cast(labels,\ tf.bool),\ tf.ones(input\_length,\ tf.int32),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ tf.scalar\_mul(-\/1,\ tf.ones(input\_length,\ tf.int32)))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00175}00175\ \ \ \ \ \textcolor{comment}{\#\ negative\ of\ index\ for\ negative\ label,\ positive\ index\ for\ positive\ label,}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00176}00176\ \ \ \ \ \textcolor{comment}{\#\ 0\ when\ indicator\ is\ False.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00177}00177\ \ \ \ \ signed\_indicator\_idx\ =\ tf.multiply(indicator\_idx,\ signed\_label)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00178}00178\ \ \ \ \ sorted\_signed\_indicator\_idx\ =\ tf.nn.top\_k(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ signed\_indicator\_idx,\ input\_length,\ sorted=\textcolor{keyword}{True}).values}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00181}00181\ \ \ \ \ [num\_positive\_samples,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00182}00182\ \ \ \ \ \ num\_negative\_samples]\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a114dc7eba49d5c24ca4a9645e6557aca}{\_get\_num\_pos\_neg\_samples}}(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ sorted\_signed\_indicator\_idx,\ batch\_size)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00185}00185\ \ \ \ \ sampled\_idx\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_adbe6d71b81e8ef0007043b6a7ae23692}{\_get\_values\_from\_start\_and\_end}}(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ sorted\_signed\_indicator\_idx,\ num\_positive\_samples,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ num\_negative\_samples,\ batch\_size)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00189}00189\ \ \ \ \ \textcolor{comment}{\#\ Shift\ the\ indices\ to\ start\ from\ 0\ and\ remove\ any\ samples\ that\ are\ set\ as}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00190}00190\ \ \ \ \ \textcolor{comment}{\#\ False.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00191}00191\ \ \ \ \ sampled\_idx\ =\ tf.abs(sampled\_idx)\ -\/\ tf.ones(batch\_size,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00192}00192\ \ \ \ \ sampled\_idx\ =\ tf.multiply(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ tf.cast(tf.greater\_equal(sampled\_idx,\ tf.constant(0)),\ tf.int32),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ sampled\_idx)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00196}00196\ \ \ \ \ sampled\_idx\_indicator\ =\ tf.cast(tf.reduce\_sum(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ tf.one\_hot(sampled\_idx,\ depth=input\_length),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ axis=0),\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00200}00200\ \ \ \ \ \textcolor{comment}{\#\ project\ back\ the\ order\ based\ on\ stored\ permutations}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00201}00201\ \ \ \ \ reprojections\ =\ tf.one\_hot(permutation,\ depth=input\_length,}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cast(tf.tensordot(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ tf.cast(sampled\_idx\_indicator,\ tf.float32),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ reprojections,\ axes=[0,\ 0]),\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00207}\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a47ecd1ba4a6e9f0be57ff1b85f7a6c56}{00207}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a47ecd1ba4a6e9f0be57ff1b85f7a6c56}{subsample}}(self,\ indicator,\ batch\_size,\ labels,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00208}00208\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ subsampled\ minibatch.}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00209}00209\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ \ \ indicator:\ boolean\ tensor\ of\ shape\ [N]\ whose\ }\textcolor{keyword}{True}\ entries\ can\ be\ sampled.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00212}00212\ \ \ \ \ \ \ batch\_size:\ desired\ batch\ size.\ If\ \textcolor{keywordtype}{None},\ keeps\ all\ positive\ samples\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ randomly\ selects\ negative\ samples\ so\ that\ the\ positive\ sample\ fraction}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ matches\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}}.\ It\ cannot\ be\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{is}\ is\_static\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00215}00215\ \ \ \ \ \ \ labels:\ boolean\ tensor\ of\ shape\ [N]\ denoting\ positive(=\textcolor{keyword}{True})\ \textcolor{keywordflow}{and}\ negative}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ (=\textcolor{keyword}{False})\ examples.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00217}00217\ \ \ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00219}00219\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00220}00220\ \ \ \ \ \ \ sampled\_idx\_indicator:\ boolean\ tensor\ of\ shape\ [N],\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{for}\ entries\ which}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ are\ sampled.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00223}00223\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00224}00224\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ labels\ \textcolor{keywordflow}{and}\ indicator\ are\ \textcolor{keywordflow}{not}\ 1D\ boolean\ tensors.}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00225}00225\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00226}00226\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ len(indicator.get\_shape().as\_list())\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00227}00227\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'indicator\ must\ be\ 1\ dimensional,\ got\ a\ tensor\ of\ '}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'shape\ \%s'}\ \%\ indicator.get\_shape())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{if}\ len(labels.get\_shape().as\_list())\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00230}00230\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'labels\ must\ be\ 1\ dimensional,\ got\ a\ tensor\ of\ '}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'shape\ \%s'}\ \%\ labels.get\_shape())}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00232}00232\ \ \ \ \ \textcolor{keywordflow}{if}\ labels.dtype\ !=\ tf.bool:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00233}00233\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'labels\ should\ be\ of\ type\ bool.\ Received:\ \%s'}\ \%}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ labels.dtype)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00235}00235\ \ \ \ \ \textcolor{keywordflow}{if}\ indicator.dtype\ !=\ tf.bool:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00236}00236\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'indicator\ should\ be\ of\ type\ bool.\ Received:\ \%s'}\ \%}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indicator.dtype)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00238}00238\ \ \ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'BalancedPositiveNegativeSampler'}):}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00239}00239\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a0cf7a20373c2870b4ea3b316403adb8c}{\_is\_static}}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_aa87afbab24c4a5d1214eb918bf534436}{\_static\_subsample}}(indicator,\ batch\_size,\ labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00242}00242\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Only\ sample\ from\ indicated\ samples}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ negative\_idx\ =\ tf.logical\_not(labels)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ positive\_idx\ =\ tf.logical\_and(labels,\ indicator)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ negative\_idx\ =\ tf.logical\_and(negative\_idx,\ indicator)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Sample\ positive\ and\ negative\ samples\ separately}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ max\_num\_pos\ =\ tf.reduce\_sum(tf.cast(positive\_idx,\ dtype=tf.int32))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ max\_num\_pos\ =\ int(self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}}\ *\ batch\_size)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ sampled\_pos\_idx\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a2c2eda2a51cf3969cfe0211ac6658ba6}{subsample\_indicator}}(positive\_idx,\ max\_num\_pos)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ num\_sampled\_pos\ =\ tf.reduce\_sum(tf.cast(sampled\_pos\_idx,\ tf.int32))}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ negative\_positive\_ratio\ =\ (}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ -\/\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}})\ /\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler_a52824e1d5b1e9c3a085f9bd1e733f008}{\_positive\_fraction}}}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ max\_num\_neg\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negative\_positive\_ratio\ *}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.cast(num\_sampled\_pos,\ dtype=tf.float32),}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ max\_num\_neg\ =\ batch\_size\ -\/\ num\_sampled\_pos}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00264}00264\ \ \ \ \ \ \ \ \ sampled\_neg\_idx\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler_a2c2eda2a51cf3969cfe0211ac6658ba6}{subsample\_indicator}}(negative\_idx,\ max\_num\_neg)}
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{balanced__positive__negative__sampler_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.logical\_or(sampled\_pos\_idx,\ sampled\_neg\_idx)}
+
+\end{DoxyCode}

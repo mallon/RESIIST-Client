@@ -1,0 +1,27 @@
+\doxysection{detection\+\_\+utils.\+core.\+balanced\+\_\+positive\+\_\+negative\+\_\+sampler Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1balanced__positive__negative__sampler}{}\label{namespacedetection__utils_1_1core_1_1balanced__positive__negative__sampler}\index{detection\_utils.core.balanced\_positive\_negative\_sampler@{detection\_utils.core.balanced\_positive\_negative\_sampler}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1balanced__positive__negative__sampler_1_1_balanced_positive_negative_sampler}{Balanced\+Positive\+Negative\+Sampler}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Class to subsample minibatches by balancing positives and negatives.
+
+Subsamples minibatches based on a pre-specified positive fraction in range
+[0,1]. The class presumes there are many more negatives than positive examples:
+if the desired batch_size cannot be achieved with the pre-specified positive
+fraction, it fills the rest with negative examples. If this is not sufficient
+for obtaining the desired batch_size, it returns fewer examples.
+
+The main function to call is Subsample(self, indicator, labels). For convenience
+one can also call SubsampleWeights(self, weights, labels) which is defined in
+the minibatch_sampler base class.
+
+When is_static is True, it implements a method that guarantees static shapes.
+It also ensures the length of output of the subsample is always batch_size, even
+when number of examples set to True in indicator is less than batch_size.
+\end{DoxyVerb}
+ 

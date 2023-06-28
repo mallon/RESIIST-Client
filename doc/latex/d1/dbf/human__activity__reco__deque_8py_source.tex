@@ -1,0 +1,93 @@
+\doxysection{human\+\_\+activity\+\_\+reco\+\_\+deque.\+py}
+\hypertarget{human__activity__reco__deque_8py_source}{}\label{human__activity__reco__deque_8py_source}\index{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco\_deque.py@{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco\_deque.py}}
+\mbox{\hyperlink{human__activity__reco__deque_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00001}\mbox{\hyperlink{namespacehuman__activity__reco__deque}{00001}}\ \textcolor{comment}{\#\ USAGE}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00002}00002\ \textcolor{comment}{\#\ python\ human\_activity\_reco\_deque.py\ -\/-\/model\ resnet-\/34\_kinetics.onnx\ -\/-\/classes\ action\_recognition\_kinetics.txt\ -\/-\/input\ example\_activities.mp4}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00003}00003\ \textcolor{comment}{\#\ python\ human\_activity\_reco\_deque.py\ -\/-\/model\ resnet-\/34\_kinetics.onnx\ -\/-\/classes\ action\_recognition\_kinetics.txt}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00005}00005\ \textcolor{comment}{\#\ import\ the\ necessary\ packages}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00006}00006\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ deque}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00007}00007\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00008}00008\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00009}00009\ \textcolor{keyword}{import}\ imutils}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00010}00010\ \textcolor{keyword}{import}\ cv2}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00012}00012\ \textcolor{comment}{\#\ construct\ the\ argument\ parser\ and\ parse\ the\ arguments}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00013}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a87264f88d7f9d2f454738dc81c525751}{00013}}\ ap\ =\ argparse.ArgumentParser()}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00014}\mbox{\hyperlink{namespacehuman__activity__reco__deque_adfb21d026906c99861af302ce9f1c4b8}{00014}}\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/m"{}},\ \textcolor{stringliteral}{"{}-\/-\/model"{}},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00015}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a628c7fb731b7f24664d847e52458ef98}{00015}}\ \ \ \ \ help=\textcolor{stringliteral}{"{}path\ to\ trained\ human\ activity\ recognition\ model"{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00016}00016\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/c"{}},\ \textcolor{stringliteral}{"{}-\/-\/classes"{}},\ required=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00017}00017\ \ \ \ \ help=\textcolor{stringliteral}{"{}path\ to\ class\ labels\ file"{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00018}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a91d6d736b166e52830ca1b9f5c46b8b3}{00018}}\ ap.add\_argument(\textcolor{stringliteral}{"{}-\/i"{}},\ \textcolor{stringliteral}{"{}-\/-\/input"{}},\ type=str,\ default=\textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00019}00019\ \ \ \ \ help=\textcolor{stringliteral}{"{}optional\ path\ to\ video\ file"{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00020}\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{00020}}\ args\ =\ vars(ap.parse\_args())}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00022}00022\ \textcolor{comment}{\#\ load\ the\ contents\ of\ the\ class\ labels\ file,\ then\ define\ the\ sample}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00023}00023\ \textcolor{comment}{\#\ duration\ (i.e.,\ \#\ of\ frames\ for\ classification)\ and\ sample\ size}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00024}00024\ \textcolor{comment}{\#\ (i.e.,\ the\ spatial\ dimensions\ of\ the\ frame)}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00025}\mbox{\hyperlink{namespacehuman__activity__reco__deque_ae7cb4a2072841616460cb466a2b76fa8}{00025}}\ CLASSES\ =\ open(args[\textcolor{stringliteral}{"{}classes"{}}]).read().strip().split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00026}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a411d454734c10d574ea388f721f5d3a7}{00026}}\ SAMPLE\_DURATION\ =\ 16}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00027}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a45cf13b4f3a2db7e5e8cb8f1da7dac6a}{00027}}\ SAMPLE\_SIZE\ =\ 112}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00029}00029\ \textcolor{comment}{\#\ initialize\ the\ frames\ queue\ used\ to\ store\ a\ rolling\ sample\ duration}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00030}00030\ \textcolor{comment}{\#\ of\ frames\ -\/-\/\ this\ queue\ will\ automatically\ pop\ out\ old\ frames\ and}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00031}00031\ \textcolor{comment}{\#\ accept\ new\ ones}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00032}\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab22c593de30575d506fc34595c2c98b}{00032}}\ frames\ =\ deque(maxlen=SAMPLE\_DURATION)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00034}00034\ \textcolor{comment}{\#\ load\ the\ human\ activity\ recognition\ model}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00035}00035\ print(\textcolor{stringliteral}{"{}[INFO]\ loading\ human\ activity\ recognition\ model..."{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00036}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a3505d6a716e8583807bf6bcbec914514}{00036}}\ net\ =\ cv2.dnn.readNet(args[\textcolor{stringliteral}{"{}model"{}}])}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00038}00038\ \textcolor{comment}{\#\ grab\ a\ pointer\ to\ the\ input\ video\ stream}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00039}00039\ print(\textcolor{stringliteral}{"{}[INFO]\ accessing\ video\ stream..."{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00040}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a63971a6946b80c5c4b85dce80dc5691d}{00040}}\ vs\ =\ cv2.VideoCapture(args[\textcolor{stringliteral}{"{}input"{}}]\ \textcolor{keywordflow}{if}\ args[\textcolor{stringliteral}{"{}input"{}}]\ \textcolor{keywordflow}{else}\ 0)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00042}00042\ \textcolor{comment}{\#\ loop\ over\ frames\ from\ the\ video\ stream}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00043}00043\ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00044}00044\ \ \ \ \ \textcolor{comment}{\#\ read\ a\ frame\ from\ the\ video\ stream}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00045}\mbox{\hyperlink{namespacehuman__activity__reco__deque_ac8781c36ebe4d315a4fef10dae5cde28}{00045}}\ \ \ \ \ (grabbed,\ frame)\ =\ vs.read()}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00047}00047\ \ \ \ \ \textcolor{comment}{\#\ if\ the\ frame\ was\ not\ grabbed\ then\ we've\ reached\ the\ end\ of}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00048}00048\ \ \ \ \ \textcolor{comment}{\#\ the\ video\ stream\ so\ break\ from\ the\ loop}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ grabbed:}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ no\ frame\ read\ from\ stream\ -\/\ exiting"{}})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00053}00053\ \ \ \ \ \textcolor{comment}{\#\ resize\ the\ frame\ (to\ ensure\ faster\ processing)\ and\ add\ the}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00054}00054\ \ \ \ \ \textcolor{comment}{\#\ frame\ to\ our\ queue}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00055}00055\ \ \ \ \ frame\ =\ imutils.resize(frame,\ width=400)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00056}00056\ \ \ \ \ frames.append(frame)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00058}00058\ \ \ \ \ \textcolor{comment}{\#\ if\ our\ queue\ is\ not\ filled\ to\ the\ sample\ size,\ continue\ back\ to}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00059}00059\ \ \ \ \ \textcolor{comment}{\#\ the\ top\ of\ the\ loop\ and\ continue\ polling/processing\ frames}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}\ len(frames)\ <\ SAMPLE\_DURATION:}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00063}00063\ \ \ \ \ \textcolor{comment}{\#\ now\ that\ our\ frames\ array\ is\ filled\ we\ can\ construct\ our\ blob}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00064}\mbox{\hyperlink{namespacehuman__activity__reco__deque_ae43a7ca761645a41d4edcc21bf0dd81e}{00064}}\ \ \ \ \ blob\ =\ cv2.dnn.blobFromImages(frames,\ 1.0,}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ (SAMPLE\_SIZE,\ SAMPLE\_SIZE),\ (114.7748,\ 107.7354,\ 99.4750),}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ swapRB=\textcolor{keyword}{True},\ crop=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00067}00067\ \ \ \ \ blob\ =\ np.transpose(blob,\ (1,\ 0,\ 2,\ 3))}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00068}00068\ \ \ \ \ blob\ =\ np.expand\_dims(blob,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00070}00070\ \ \ \ \ \textcolor{comment}{\#\ pass\ the\ blob\ through\ the\ network\ to\ obtain\ our\ human\ activity}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00071}00071\ \ \ \ \ \textcolor{comment}{\#\ recognition\ predictions}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00072}00072\ \ \ \ \ net.setInput(blob)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00073}\mbox{\hyperlink{namespacehuman__activity__reco__deque_ac7e539dcbc26d54a55a5757d91621247}{00073}}\ \ \ \ \ outputs\ =\ net.forward()}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00074}\mbox{\hyperlink{namespacehuman__activity__reco__deque_a31bd5a1b30ba3c475e092304088bdfe7}{00074}}\ \ \ \ \ label\ =\ CLASSES[np.argmax(outputs)]}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00076}00076\ \ \ \ \ \textcolor{comment}{\#\ draw\ the\ predicted\ activity\ on\ the\ frame}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00077}00077\ \ \ \ \ cv2.rectangle(frame,\ (0,\ 0),\ (300,\ 40),\ (0,\ 0,\ 0),\ -\/1)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00078}00078\ \ \ \ \ cv2.putText(frame,\ label,\ (10,\ 25),\ cv2.FONT\_HERSHEY\_SIMPLEX,}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ 0.8,\ (255,\ 255,\ 255),\ 2)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00081}00081\ \ \ \ \ \textcolor{comment}{\#\ display\ the\ frame\ to\ our\ screen}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00082}00082\ \ \ \ \ cv2.imshow(\textcolor{stringliteral}{"{}Activity\ Recognition"{}},\ frame)}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00083}\mbox{\hyperlink{namespacehuman__activity__reco__deque_abf59ee9ff790db943aa481b2e8e16f12}{00083}}\ \ \ \ \ key\ =\ cv2.waitKey(1)\ \&\ 0xFF}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00085}00085\ \ \ \ \ \textcolor{comment}{\#\ if\ the\ \`{}q`\ key\ was\ pressed,\ break\ from\ the\ loop}}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ ==\ ord(\textcolor{stringliteral}{"{}q"{}}):}
+\DoxyCodeLine{\Hypertarget{human__activity__reco__deque_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+
+\end{DoxyCode}

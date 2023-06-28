@@ -1,0 +1,141 @@
+\doxysection{clr\+\_\+callback.\+py}
+\hypertarget{clr__callback_8py_source}{}\label{clr__callback_8py_source}\index{src/main/resources/processing/video/detections/event\_detection/pyimagesearch/clr\_callback.py@{src/main/resources/processing/video/detections/event\_detection/pyimagesearch/clr\_callback.py}}
+\mbox{\hyperlink{clr__callback_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00001}\mbox{\hyperlink{namespacepyimagesearch}{00001}}\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacetensorflow_1_1keras_1_1callbacks}{tensorflow.keras.callbacks}}\ \textcolor{keyword}{import}\ *}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00002}00002\ \textcolor{keyword}{from}\ tensorflow.keras\ \textcolor{keyword}{import}\ backend\ \textcolor{keyword}{as}\ K}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00003}00003\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00006}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r}{00006}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r}{CyclicLR}}(Callback):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00007}00007\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}This\ callback\ implements\ a\ cyclical\ learning\ rate\ policy\ (CLR).}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00008}00008\ \textcolor{stringliteral}{\ \ \ \ The\ method\ cycles\ the\ learning\ rate\ between\ two\ boundaries\ with}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00009}00009\ \textcolor{stringliteral}{\ \ \ \ some\ constant\ frequency,\ as\ detailed\ in\ this\ paper\ (https://arxiv.org/abs/1506.01186).}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00010}00010\ \textcolor{stringliteral}{\ \ \ \ The\ amplitude\ of\ the\ cycle\ can\ be\ scaled\ on\ a\ per-\/iteration\ or}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00011}00011\ \textcolor{stringliteral}{\ \ \ \ per-\/cycle\ basis.}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00012}00012\ \textcolor{stringliteral}{\ \ \ \ This\ class\ has\ three\ built-\/in\ policies,\ as\ put\ forth\ in\ the\ paper.}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00013}00013\ \textcolor{stringliteral}{\ \ \ \ "{}triangular"{}:}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00014}00014\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ A\ basic\ triangular\ cycle\ w/\ no\ amplitude\ scaling.}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00015}00015\ \textcolor{stringliteral}{\ \ \ \ "{}triangular2"{}}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ A\ basic\ triangular\ cycle\ that\ scales\ initial\ amplitude\ by\ half\ each\ cycle.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00017}00017\ \ \ \ \ \textcolor{stringliteral}{"{}exp\_range"{}}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ A\ cycle\ that\ scales\ initial\ amplitude\ by\ gamma**(cycle\ iterations)\ at\ each}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ cycle\ iteration.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00020}00020\ \ \ \ \ For\ more\ detail,\ please\ see\ paper.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00022}00022\ \ \ \ \ \textcolor{comment}{\#\ Example}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00023}00023\ \ \ \ \ \ \ \ \ \`{}\`{}\`{}python}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ clr\ =\ \mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r}{CyclicLR}}(base\_lr=0.001,\ max\_lr=0.006,}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ step\_size=2000.,\ mode=\textcolor{stringliteral}{'triangular'})}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ model.fit(X\_train,\ Y\_train,\ callbacks=[clr])}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \`{}\`{}\`{}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00029}00029\ \ \ \ \ Class\ also\ supports\ custom\ scaling\ functions:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \`{}\`{}\`{}python}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ clr\_fn\ =\ \textcolor{keyword}{lambda}\ x:\ 0.5*(1+np.sin(x*np.pi/2.))}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ clr\ =\ \mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r}{CyclicLR}}(base\_lr=0.001,\ max\_lr=0.006,}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ step\_size=2000.,\ scale\_fn=clr\_fn,}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale\_mode=\textcolor{stringliteral}{'cycle'})}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ model.fit(X\_train,\ Y\_train,\ callbacks=[clr])}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \`{}\`{}\`{}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00037}00037\ \ \ \ \ \textcolor{comment}{\#\ Arguments}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ base\_lr:\ initial\ learning\ rate\ which\ \textcolor{keywordflow}{is}\ the}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ lower\ boundary\ \textcolor{keywordflow}{in}\ the\ cycle.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ max\_lr:\ upper\ boundary\ \textcolor{keywordflow}{in}\ the\ cycle.\ Functionally,}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ it\ defines\ the\ cycle\ amplitude\ (max\_lr\ -\/\ base\_lr).}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ The\ lr\ at\ any\ cycle\ \textcolor{keywordflow}{is}\ the\ sum\ of\ base\_lr}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ some\ scaling\ of\ the\ amplitude;\ therefore}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ max\_lr\ may\ \textcolor{keywordflow}{not}\ actually\ be\ reached\ depending\ on}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ scaling\ function.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ step\_size:\ number\ of\ training\ iterations\ per}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ half\ cycle.\ Authors\ suggest\ setting\ step\_size}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ 2-\/8\ x\ training\ iterations\ \textcolor{keywordflow}{in}\ epoch.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ mode:\ one\ of\ \{triangular,\ triangular2,\ exp\_range\}.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ Default\ \textcolor{stringliteral}{'triangular'}.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ Values\ correspond\ to\ policies\ detailed\ above.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ If\ scale\_fn\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ this\ argument\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ gamma:\ constant\ \textcolor{keywordflow}{in}\ \textcolor{stringliteral}{'exp\_range'}\ scaling\ function:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ gamma**(cycle\ iterations)}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ scale\_fn:\ Custom\ scaling\ policy\ defined\ by\ a\ single}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ argument\ \textcolor{keyword}{lambda}\ function,\ where}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ 0\ <=\ \mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}(x)\ <=\ 1\ \textcolor{keywordflow}{for}\ all\ x\ >=\ 0.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ mode\ paramater\ \textcolor{keywordflow}{is}\ ignored}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ scale\_mode:\ \{\textcolor{stringliteral}{'cycle'},\ \textcolor{stringliteral}{'iterations'}\}.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ Defines\ whether\ scale\_fn\ \textcolor{keywordflow}{is}\ evaluated\ on}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ cycle\ number\ \textcolor{keywordflow}{or}\ cycle\ iterations\ (training}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ iterations\ since\ start\ of\ cycle).\ Default\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{'cycle'}.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00064}00064\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00065}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_acc16af09b986bacb8feff6edb35c197d}{00065}}\ \textcolor{stringliteral}{\ \ \ \ def\ \_\_init\_\_(self,\ base\_lr=0.001,\ max\_lr=0.006,\ step\_size=2000.,\ mode='triangular',}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gamma=1.,\ scale\_fn=}\textcolor{keywordtype}{None},\ scale\_mode=\textcolor{stringliteral}{'cycle'}):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ super(CyclicLR,\ self).\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_acc16af09b986bacb8feff6edb35c197d}{\_\_init\_\_}}()}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00069}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{00069}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}}\ =\ base\_lr}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00070}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a48ee512fac36eada7543cf609ef06cfd}{00070}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a48ee512fac36eada7543cf609ef06cfd}{max\_lr}}\ =\ max\_lr}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00071}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aaaf8c80dc6708256d59b485f9adf004e}{00071}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aaaf8c80dc6708256d59b485f9adf004e}{step\_size}}\ =\ step\_size}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00072}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8ba31cbac9d0952ca21b9cb82655ec41}{00072}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8ba31cbac9d0952ca21b9cb82655ec41}{mode}}\ =\ mode}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00073}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a4bf98a8291dddbcb95ee74134ef761bf}{00073}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a4bf98a8291dddbcb95ee74134ef761bf}{gamma}}\ =\ gamma}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ scale\_fn\ ==\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8ba31cbac9d0952ca21b9cb82655ec41}{mode}}\ ==\ \textcolor{stringliteral}{'triangular'}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00076}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{00076}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}\ =\ \textcolor{keyword}{lambda}\ x:\ 1.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00077}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{00077}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{scale\_mode}}\ =\ \textcolor{stringliteral}{'cycle'}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8ba31cbac9d0952ca21b9cb82655ec41}{mode}}\ ==\ \textcolor{stringliteral}{'triangular2'}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}\ =\ \textcolor{keyword}{lambda}\ x:\ 1\ /\ (2.\ **\ (x\ -\/\ 1))}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{scale\_mode}}\ =\ \textcolor{stringliteral}{'cycle'}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8ba31cbac9d0952ca21b9cb82655ec41}{mode}}\ ==\ \textcolor{stringliteral}{'exp\_range'}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}\ =\ \textcolor{keyword}{lambda}\ x:\ gamma\ **\ (x)}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{scale\_mode}}\ =\ \textcolor{stringliteral}{'iterations'}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}\ =\ scale\_fn}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{scale\_mode}}\ =\ scale\_mode}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00087}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{00087}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ =\ 0.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00088}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af5a988841c2a9eee53a01e8d736ca5d0}{00088}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af5a988841c2a9eee53a01e8d736ca5d0}{trn\_iterations}}\ =\ 0.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00089}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a3e8d5992c2c62e07010a241ac961ff4b}{00089}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a3e8d5992c2c62e07010a241ac961ff4b}{history}}\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a38d5cb9bd1ad7dbe70837ec23917fa02}{\_reset}}()}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00093}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a38d5cb9bd1ad7dbe70837ec23917fa02}{00093}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a38d5cb9bd1ad7dbe70837ec23917fa02}{\_reset}}(self,\ new\_base\_lr=None,\ new\_max\_lr=None,}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_step\_size=None):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Resets\ cycle\ iterations.}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00096}00096\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Optional\ boundary/step\ size\ adjustment.}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ }\textcolor{keywordflow}{if}\ new\_base\_lr\ !=\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}}\ =\ new\_base\_lr}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_max\_lr\ !=\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a48ee512fac36eada7543cf609ef06cfd}{max\_lr}}\ =\ new\_max\_lr}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_step\_size\ !=\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aaaf8c80dc6708256d59b485f9adf004e}{step\_size}}\ =\ new\_step\_size}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ =\ 0.}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00106}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8bc31bdbb4fa609ca5d8cf7b2f10ef58}{00106}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8bc31bdbb4fa609ca5d8cf7b2f10ef58}{clr}}(self):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ cycle\ =\ np.floor(1\ +\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ /\ (2\ *\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aaaf8c80dc6708256d59b485f9adf004e}{step\_size}}))}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ x\ =\ np.abs(self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ /\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aaaf8c80dc6708256d59b485f9adf004e}{step\_size}}\ -\/\ 2\ *\ cycle\ +\ 1)}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a29871f7720ed2bae4284d038ca27b0f2}{scale\_mode}}\ ==\ \textcolor{stringliteral}{'cycle'}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}}\ +\ (self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a48ee512fac36eada7543cf609ef06cfd}{max\_lr}}\ -\/\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}})\ *\ np.maximum(0,\ (1\ -\/\ x))\ *\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}(cycle)}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}}\ +\ (self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a48ee512fac36eada7543cf609ef06cfd}{max\_lr}}\ -\/\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}})\ *\ np.maximum(0,\ (1\ -\/\ x))\ *\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a5721436602bf1249b99fdad602521f61}{scale\_fn}}(}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}})}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00115}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aa352ecba07372e8f5d05998150d4cb00}{00115}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_aa352ecba07372e8f5d05998150d4cb00}{on\_train\_begin}}(self,\ logs=\{\}):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ logs\ =\ logs\ \textcolor{keywordflow}{or}\ \{\}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8d8a0a5b492afb2bc3edc0ba25435b1f}{base\_lr}})}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8bc31bdbb4fa609ca5d8cf7b2f10ef58}{clr}}())}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00123}\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2a24afa89c9b850fa789d36e8b3e5d5}{00123}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2a24afa89c9b850fa789d36e8b3e5d5}{on\_batch\_end}}(self,\ epoch,\ logs=None):}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ logs\ =\ logs\ \textcolor{keywordflow}{or}\ \{\}}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af5a988841c2a9eee53a01e8d736ca5d0}{trn\_iterations}}\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af2f53a57c59a04dbe87a466afdc32970}{clr\_iterations}}\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a3e8d5992c2c62e07010a241ac961ff4b}{history}}.setdefault(\textcolor{stringliteral}{'lr'},\ []).append(K.get\_value(self.model.optimizer.lr))}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a3e8d5992c2c62e07010a241ac961ff4b}{history}}.setdefault(\textcolor{stringliteral}{'iterations'},\ []).append(self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_af5a988841c2a9eee53a01e8d736ca5d0}{trn\_iterations}})}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ k,\ v\ \textcolor{keywordflow}{in}\ logs.items():}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a3e8d5992c2c62e07010a241ac961ff4b}{history}}.setdefault(k,\ []).append(v)}
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{clr__callback_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ K.set\_value(self.model.optimizer.lr,\ self.\mbox{\hyperlink{classpyimagesearch_1_1clr__callback_1_1_cyclic_l_r_a8bc31bdbb4fa609ca5d8cf7b2f10ef58}{clr}}())}
+
+\end{DoxyCode}

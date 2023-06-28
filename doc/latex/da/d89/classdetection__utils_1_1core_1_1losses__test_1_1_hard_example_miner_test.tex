@@ -1,0 +1,304 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test}{}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test}\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{d1/db3/classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{d0/df3/classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_af29ba773420a4fc70110b2aad31c0faf}{test\+Hard\+Mining\+With\+Single\+Loss\+Type}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_ad5f45c02b6faf5519dc858478e865031}{test\+Hard\+Mining\+With\+Both\+Loss\+Type}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a2a77a95a7c2a44a095359dc2f6807736}{test\+Hard\+Mining\+NMS}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a3a9af4577150722487eff937b76f2365}{test\+Enforce\+Negatives\+Per\+Positive\+Ratio}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_adbc5f65bd4fe93e03f2125acf54beb07}{test\+Enforce\+Negatives\+Per\+Positive\+Ratio\+With\+Min\+Negatives\+Per\+Image}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01094}{1094}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a3a9af4577150722487eff937b76f2365}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a3a9af4577150722487eff937b76f2365} 
+\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}!testEnforceNegativesPerPositiveRatio@{testEnforceNegativesPerPositiveRatio}}
+\index{testEnforceNegativesPerPositiveRatio@{testEnforceNegativesPerPositiveRatio}!detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+\doxysubsubsection{\texorpdfstring{testEnforceNegativesPerPositiveRatio()}{testEnforceNegativesPerPositiveRatio()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test.\+test\+Enforce\+Negatives\+Per\+Positive\+Ratio (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01178}{1178}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01178\ \ \ \textcolor{keyword}{def\ }testEnforceNegativesPerPositiveRatio(self):}
+\DoxyCodeLine{01179\ \ \ \ \ location\_losses\ =\ tf.constant([[100,\ 90,\ 80,\ 0,\ 1,\ 2,}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,\ 10,\ 20,\ 100,\ 20,\ 3]],\ tf.float32)}
+\DoxyCodeLine{01181\ \ \ \ \ cls\_losses\ =\ tf.constant([[0,\ 0,\ 100,\ 0,\ 90,\ 70,}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ 60,\ 0,\ 17,\ 13,\ 0]],\ tf.float32)}
+\DoxyCodeLine{01183\ \ \ \ \ box\_corners\ =\ tf.constant([[0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5,\ 0.1],}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.6,\ 0.1],}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.8,\ 0.1],}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.0,\ 0.1],}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.1,\ 0.1],}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1]],\ tf.float32)}
+\DoxyCodeLine{01195\ \ \ \ \ match\_results\ =\ tf.constant([2,\ -\/1,\ 0,\ -\/1,\ -\/1,\ 1,\ -\/1,\ -\/1,\ -\/1,\ -\/1,\ -\/1,\ 3])}
+\DoxyCodeLine{01196\ \ \ \ \ match\_list\ =\ [matcher.Match(match\_results)]}
+\DoxyCodeLine{01197\ \ \ \ \ decoded\_boxlist\_list\ =\ []}
+\DoxyCodeLine{01198\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01200\ \ \ \ \ max\_negatives\_per\_positive\_list\ =\ [0.0,\ 0.5,\ 1.0,\ 1.5,\ 10]}
+\DoxyCodeLine{01201\ \ \ \ \ exp\_loc\_loss\_list\ =\ [80\ +\ 2,}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2,}
+\DoxyCodeLine{01203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10,}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10\ +\ 100,}
+\DoxyCodeLine{01205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10\ +\ 100\ +\ 20]}
+\DoxyCodeLine{01206\ \ \ \ \ exp\_cls\_loss\_list\ =\ [100\ +\ 70,}
+\DoxyCodeLine{01207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70,}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60,}
+\DoxyCodeLine{01209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60\ +\ 17,}
+\DoxyCodeLine{01210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60\ +\ 17\ +\ 13]}
+\DoxyCodeLine{01211\ }
+\DoxyCodeLine{01212\ \ \ \ \ \textcolor{keywordflow}{for}\ max\_negatives\_per\_positive,\ exp\_loc\_loss,\ exp\_cls\_loss\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \ \ max\_negatives\_per\_positive\_list,\ exp\_loc\_loss\_list,\ exp\_cls\_loss\_list):}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ loss\_op\ =\ losses.HardExampleMiner(}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ \ \ num\_hard\_examples=\textcolor{keywordtype}{None},\ iou\_threshold=0.9999,\ loss\_type=\textcolor{stringliteral}{'cls'},}
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=1,\ loc\_loss\_weight=1,}
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \ \ max\_negatives\_per\_positive=max\_negatives\_per\_positive)}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ (loc\_loss,\ cls\_loss)\ =\ loss\_op(location\_losses,\ cls\_losses,}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list,\ match\_list)}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ loss\_op.summarize()}
+\DoxyCodeLine{01221\ }
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ loc\_loss\_output\ =\ sess.run(loc\_loss)}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ self.assertAllClose(loc\_loss\_output,\ exp\_loc\_loss)}
+\DoxyCodeLine{01225\ \ \ \ \ \ \ \ \ cls\_loss\_output\ =\ sess.run(cls\_loss)}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ self.assertAllClose(cls\_loss\_output,\ exp\_cls\_loss)}
+\DoxyCodeLine{01227\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_adbc5f65bd4fe93e03f2125acf54beb07}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_adbc5f65bd4fe93e03f2125acf54beb07} 
+\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}!testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage@{testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage}}
+\index{testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage@{testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage}!detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+\doxysubsubsection{\texorpdfstring{testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage()}{testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test.\+test\+Enforce\+Negatives\+Per\+Positive\+Ratio\+With\+Min\+Negatives\+Per\+Image (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01228}{1228}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01228\ \ \ \textcolor{keyword}{def\ }testEnforceNegativesPerPositiveRatioWithMinNegativesPerImage(self):}
+\DoxyCodeLine{01229\ \ \ \ \ location\_losses\ =\ tf.constant([[100,\ 90,\ 80,\ 0,\ 1,\ 2,}
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3,\ 10,\ 20,\ 100,\ 20,\ 3]],\ tf.float32)}
+\DoxyCodeLine{01231\ \ \ \ \ cls\_losses\ =\ tf.constant([[0,\ 0,\ 100,\ 0,\ 90,\ 70,}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ 60,\ 0,\ 17,\ 13,\ 0]],\ tf.float32)}
+\DoxyCodeLine{01233\ \ \ \ \ box\_corners\ =\ tf.constant([[0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5,\ 0.1],}
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.6,\ 0.1],}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.8,\ 0.1],}
+\DoxyCodeLine{01241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1],}
+\DoxyCodeLine{01242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.0,\ 0.1],}
+\DoxyCodeLine{01243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.1,\ 0.1],}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.2,\ 0.1]],\ tf.float32)}
+\DoxyCodeLine{01245\ \ \ \ \ match\_results\ =\ tf.constant([-\/1]\ *\ 12)}
+\DoxyCodeLine{01246\ \ \ \ \ match\_list\ =\ [matcher.Match(match\_results)]}
+\DoxyCodeLine{01247\ \ \ \ \ decoded\_boxlist\_list\ =\ []}
+\DoxyCodeLine{01248\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01249\ }
+\DoxyCodeLine{01250\ \ \ \ \ min\_negatives\_per\_image\_list\ =\ [0,\ 1,\ 2,\ 4,\ 5,\ 6]}
+\DoxyCodeLine{01251\ \ \ \ \ exp\_loc\_loss\_list\ =\ [0,}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80,}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1,}
+\DoxyCodeLine{01254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10,}
+\DoxyCodeLine{01255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10\ +\ 100,}
+\DoxyCodeLine{01256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80\ +\ 1\ +\ 2\ +\ 10\ +\ 100\ +\ 20]}
+\DoxyCodeLine{01257\ \ \ \ \ exp\_cls\_loss\_list\ =\ [0,}
+\DoxyCodeLine{01258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100,}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90,}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60,}
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60\ +\ 17,}
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 100\ +\ 90\ +\ 70\ +\ 60\ +\ 17\ +\ 13]}
+\DoxyCodeLine{01263\ }
+\DoxyCodeLine{01264\ \ \ \ \ \textcolor{keywordflow}{for}\ min\_negatives\_per\_image,\ exp\_loc\_loss,\ exp\_cls\_loss\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ min\_negatives\_per\_image\_list,\ exp\_loc\_loss\_list,\ exp\_cls\_loss\_list):}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ loss\_op\ =\ losses.HardExampleMiner(}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \ \ \ \ num\_hard\_examples=\textcolor{keywordtype}{None},\ iou\_threshold=0.9999,\ loss\_type=\textcolor{stringliteral}{'cls'},}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=1,\ loc\_loss\_weight=1,}
+\DoxyCodeLine{01269\ \ \ \ \ \ \ \ \ \ \ max\_negatives\_per\_positive=3,}
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \ \ min\_negatives\_per\_image=min\_negatives\_per\_image)}
+\DoxyCodeLine{01271\ \ \ \ \ \ \ (loc\_loss,\ cls\_loss)\ =\ loss\_op(location\_losses,\ cls\_losses,}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list,\ match\_list)}
+\DoxyCodeLine{01273\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01274\ \ \ \ \ \ \ \ \ loc\_loss\_output\ =\ sess.run(loc\_loss)}
+\DoxyCodeLine{01275\ \ \ \ \ \ \ \ \ self.assertAllClose(loc\_loss\_output,\ exp\_loc\_loss)}
+\DoxyCodeLine{01276\ \ \ \ \ \ \ \ \ cls\_loss\_output\ =\ sess.run(cls\_loss)}
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ self.assertAllClose(cls\_loss\_output,\ exp\_cls\_loss)}
+\DoxyCodeLine{01278\ }
+\DoxyCodeLine{01279\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a2a77a95a7c2a44a095359dc2f6807736}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_a2a77a95a7c2a44a095359dc2f6807736} 
+\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}!testHardMiningNMS@{testHardMiningNMS}}
+\index{testHardMiningNMS@{testHardMiningNMS}!detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+\doxysubsubsection{\texorpdfstring{testHardMiningNMS()}{testHardMiningNMS()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test.\+test\+Hard\+Mining\+NMS (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01151}{1151}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01151\ \ \ \textcolor{keyword}{def\ }testHardMiningNMS(self):}
+\DoxyCodeLine{01152\ \ \ \ \ location\_losses\ =\ tf.constant([[100,\ 90,\ 80,\ 0],}
+\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 2,\ 3]],\ tf.float32)}
+\DoxyCodeLine{01154\ \ \ \ \ cls\_losses\ =\ tf.constant([[0,\ 10,\ 50,\ 110],}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 6,\ 3,\ 0]],\ tf.float32)}
+\DoxyCodeLine{01156\ \ \ \ \ box\_corners\ =\ tf.constant([[0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.9,\ 0.9,\ 0.99,\ 0.99],}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9]],\ tf.float32)}
+\DoxyCodeLine{01160\ \ \ \ \ decoded\_boxlist\_list\ =\ []}
+\DoxyCodeLine{01161\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01162\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01163\ \ \ \ \ loss\_op\ =\ losses.HardExampleMiner(num\_hard\_examples=2,}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=0.5,}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loss\_type=\textcolor{stringliteral}{'cls'},}
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=1,}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loc\_loss\_weight=1)}
+\DoxyCodeLine{01168\ \ \ \ \ (loc\_loss,\ cls\_loss)\ =\ loss\_op(location\_losses,\ cls\_losses,}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list)}
+\DoxyCodeLine{01170\ \ \ \ \ exp\_loc\_loss\ =\ 0\ +\ 90\ +\ 0\ +\ 1}
+\DoxyCodeLine{01171\ \ \ \ \ exp\_cls\_loss\ =\ 110\ +\ 10\ +\ 9\ +\ 6}
+\DoxyCodeLine{01172\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ loc\_loss\_output\ =\ sess.run(loc\_loss)}
+\DoxyCodeLine{01174\ \ \ \ \ \ \ self.assertAllClose(loc\_loss\_output,\ exp\_loc\_loss)}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ cls\_loss\_output\ =\ sess.run(cls\_loss)}
+\DoxyCodeLine{01176\ \ \ \ \ \ \ self.assertAllClose(cls\_loss\_output,\ exp\_cls\_loss)}
+\DoxyCodeLine{01177\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_ad5f45c02b6faf5519dc858478e865031}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_ad5f45c02b6faf5519dc858478e865031} 
+\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}!testHardMiningWithBothLossType@{testHardMiningWithBothLossType}}
+\index{testHardMiningWithBothLossType@{testHardMiningWithBothLossType}!detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+\doxysubsubsection{\texorpdfstring{testHardMiningWithBothLossType()}{testHardMiningWithBothLossType()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test.\+test\+Hard\+Mining\+With\+Both\+Loss\+Type (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01124}{1124}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01124\ \ \ \textcolor{keyword}{def\ }testHardMiningWithBothLossType(self):}
+\DoxyCodeLine{01125\ \ \ \ \ location\_losses\ =\ tf.constant([[100,\ 90,\ 80,\ 0],}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 2,\ 3]],\ tf.float32)}
+\DoxyCodeLine{01127\ \ \ \ \ cls\_losses\ =\ tf.constant([[0,\ 10,\ 50,\ 110],}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 6,\ 3,\ 0]],\ tf.float32)}
+\DoxyCodeLine{01129\ \ \ \ \ box\_corners\ =\ tf.constant([[0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9]],\ tf.float32)}
+\DoxyCodeLine{01133\ \ \ \ \ decoded\_boxlist\_list\ =\ []}
+\DoxyCodeLine{01134\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01135\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01136\ \ \ \ \ loss\_op\ =\ losses.HardExampleMiner(num\_hard\_examples=1,}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=0.0,}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loss\_type=\textcolor{stringliteral}{'both'},}
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=1,}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loc\_loss\_weight=1)}
+\DoxyCodeLine{01141\ \ \ \ \ (loc\_loss,\ cls\_loss)\ =\ loss\_op(location\_losses,\ cls\_losses,}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list)}
+\DoxyCodeLine{01143\ \ \ \ \ exp\_loc\_loss\ =\ 80\ +\ 0}
+\DoxyCodeLine{01144\ \ \ \ \ exp\_cls\_loss\ =\ 50\ +\ 9}
+\DoxyCodeLine{01145\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ loc\_loss\_output\ =\ sess.run(loc\_loss)}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ self.assertAllClose(loc\_loss\_output,\ exp\_loc\_loss)}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ cls\_loss\_output\ =\ sess.run(cls\_loss)}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ self.assertAllClose(cls\_loss\_output,\ exp\_cls\_loss)}
+\DoxyCodeLine{01150\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_af29ba773420a4fc70110b2aad31c0faf}\label{classdetection__utils_1_1core_1_1losses__test_1_1_hard_example_miner_test_af29ba773420a4fc70110b2aad31c0faf} 
+\index{detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}!testHardMiningWithSingleLossType@{testHardMiningWithSingleLossType}}
+\index{testHardMiningWithSingleLossType@{testHardMiningWithSingleLossType}!detection\_utils.core.losses\_test.HardExampleMinerTest@{detection\_utils.core.losses\_test.HardExampleMinerTest}}
+\doxysubsubsection{\texorpdfstring{testHardMiningWithSingleLossType()}{testHardMiningWithSingleLossType()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Hard\+Example\+Miner\+Test.\+test\+Hard\+Mining\+With\+Single\+Loss\+Type (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l01096}{1096}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01096\ \ \ \textcolor{keyword}{def\ }testHardMiningWithSingleLossType(self):}
+\DoxyCodeLine{01097\ \ \ \ \ location\_losses\ =\ tf.constant([[100,\ 90,\ 80,\ 0],}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 2,\ 3]],\ tf.float32)}
+\DoxyCodeLine{01099\ \ \ \ \ cls\_losses\ =\ tf.constant([[0,\ 10,\ 50,\ 110],}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 6,\ 3,\ 0]],\ tf.float32)}
+\DoxyCodeLine{01101\ \ \ \ \ box\_corners\ =\ tf.constant([[0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9],}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.9,\ 0.9]],\ tf.float32)}
+\DoxyCodeLine{01105\ \ \ \ \ decoded\_boxlist\_list\ =\ []}
+\DoxyCodeLine{01106\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01107\ \ \ \ \ decoded\_boxlist\_list.append(box\_list.BoxList(box\_corners))}
+\DoxyCodeLine{01108\ \ \ \ \ \textcolor{comment}{\#\ Uses\ only\ location\ loss\ to\ select\ hard\ examples}}
+\DoxyCodeLine{01109\ \ \ \ \ loss\_op\ =\ losses.HardExampleMiner(num\_hard\_examples=1,}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=0.0,}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loss\_type=\textcolor{stringliteral}{'loc'},}
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cls\_loss\_weight=1,}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loc\_loss\_weight=1)}
+\DoxyCodeLine{01114\ \ \ \ \ (loc\_loss,\ cls\_loss)\ =\ loss\_op(location\_losses,\ cls\_losses,}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decoded\_boxlist\_list)}
+\DoxyCodeLine{01116\ \ \ \ \ exp\_loc\_loss\ =\ 100\ +\ 3}
+\DoxyCodeLine{01117\ \ \ \ \ exp\_cls\_loss\ =\ 0\ +\ 0}
+\DoxyCodeLine{01118\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ loc\_loss\_output\ =\ sess.run(loc\_loss)}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ self.assertAllClose(loc\_loss\_output,\ exp\_loc\_loss)}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ cls\_loss\_output\ =\ sess.run(cls\_loss)}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ self.assertAllClose(cls\_loss\_output,\ exp\_cls\_loss)}
+\DoxyCodeLine{01123\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses__test_8py}{losses\+\_\+test.\+py}}\end{DoxyCompactItemize}

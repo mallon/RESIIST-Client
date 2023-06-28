@@ -1,0 +1,454 @@
+\doxysection{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{dd/d8c/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{d0/d8f/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}})
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8}{num\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a515597ecf74af855815cb40f45641303}{get\+\_\+extra\+\_\+fields}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}{has\+\_\+field}} (self, field)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f}{add\+\_\+field}} (self, field, field\+\_\+data)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7}{get}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}{get\+\_\+field}} (self, field)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f}{get\+\_\+coordinates}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4}{\+\_\+is\+\_\+valid\+\_\+boxes}} (self, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}{data}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Box collection.
+
+BoxList represents a list of bounding boxes as numpy array, where each
+bounding box is represented as a row of 4 numbers,
+[y_min, x_min, y_max, x_max].  It is assumed that all bounding boxes within a
+given list correspond to a single image.
+
+Optionally, users can add additional related fields (such as
+objectness/classification scores).
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00025}{25}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs box collection.
+
+Args:
+  data: a numpy array of shape [N, 4] representing box coordinates
+
+Raises:
+  ValueError: if bbox data is not a numpy array
+  ValueError: if invalid dimensions for bbox data
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list_a09cb06c66268969141d2541ddedc8eac}{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list.\+Box\+Mask\+List}}.
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00037}{37}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ data):}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ box\ collection.}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ \ \ data:\ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ coordinates}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ Raises:}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ bbox\ data\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ numpy\ array}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ invalid\ dimensions\ \textcolor{keywordflow}{for}\ bbox\ data}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(data,\ np.ndarray):}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'data\ must\ be\ a\ numpy\ array.'})}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}\ len(data.shape)\ !=\ 2\ \textcolor{keywordflow}{or}\ data.shape[1]\ !=\ 4:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ dimensions\ for\ box\ data.'})}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ data.dtype\ !=\ np.float32\ \textcolor{keywordflow}{and}\ data.dtype\ !=\ np.float64:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ data\ type\ for\ box\ data:\ float\ is\ required.'})}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ self.\_is\_valid\_boxes(data):}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ box\ data.\ data\ must\ be\ a\ numpy\ array\ of\ '}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'N*[y\_min,\ x\_min,\ y\_max,\ x\_max]'})}
+\DoxyCodeLine{00056\ \ \ \ \ self.data\ =\ \{\textcolor{stringliteral}{'boxes'}:\ data\}}
+\DoxyCodeLine{00057\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_ab199d0f487bfe338f60503d85958bd17_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!\_is\_valid\_boxes@{\_is\_valid\_boxes}}
+\index{\_is\_valid\_boxes@{\_is\_valid\_boxes}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{\_is\_valid\_boxes()}{\_is\_valid\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+\_\+is\+\_\+valid\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Check whether data fullfills the format of N*[ymin, xmin, ymax, xmin].
+
+Args:
+  data: a numpy array of shape [N, 4] representing box coordinates
+
+Returns:
+  a boolean indicating whether all ymax of boxes are equal or greater than
+      ymin, and all xmax of boxes are equal or greater than xmin.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00123}{123}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{def\ }\_is\_valid\_boxes(self,\ data):}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Check\ whether\ data\ fullfills\ the\ format\ of\ N*[ymin,\ xmin,\ ymax,\ xmin].}}
+\DoxyCodeLine{00125\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00126\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00127\ \textcolor{stringliteral}{\ \ \ \ \ \ data:\ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ coordinates}}
+\DoxyCodeLine{00128\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00129\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00130\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ boolean\ indicating\ whether\ all\ ymax\ of\ boxes\ are\ equal\ }\textcolor{keywordflow}{or}\ greater\ than}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ ymin,\ \textcolor{keywordflow}{and}\ all\ xmax\ of\ boxes\ are\ equal\ \textcolor{keywordflow}{or}\ greater\ than\ xmin.}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ data.shape[0]\ >\ 0:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(data.shape[0]):}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ data[i,\ 0]\ >\ data[i,\ 2]\ \textcolor{keywordflow}{or}\ data[i,\ 1]\ >\ data[i,\ 3]:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8cebc0cc850fdb6bd24f7482da92a7a4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!add\_field@{add\_field}}
+\index{add\_field@{add\_field}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{add\_field()}{add\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+add\+\_\+field (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{field,  }\item[{}]{field\+\_\+data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Add data to a specified field.
+
+Args:
+  field: a string parameter used to speficy a related field to be accessed.
+  field_data: a numpy array of [N, ...] representing the data associated
+      with the field.
+Raises:
+  ValueError: if the field is already exist or the dimension of the field
+      data does not matches the number of boxes.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00069}{69}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{def\ }add\_field(self,\ field,\ field\_data):}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Add\ data\ to\ a\ specified\ field.}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ parameter\ used\ to\ speficy\ a\ related\ field\ to\ be\ accessed.}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ \ \ field\_data:\ a\ numpy\ array\ of\ [N,\ ...]\ representing\ the\ data\ associated}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ }\textcolor{keyword}{with}\ the\ field.}
+\DoxyCodeLine{00076\ \ \ \ \ Raises:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ the\ field\ \textcolor{keywordflow}{is}\ already\ exist\ \textcolor{keywordflow}{or}\ the\ dimension\ of\ the\ field}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ data\ does\ \textcolor{keywordflow}{not}\ matches\ the\ number\ of\ boxes.}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.has\_field(field):}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ '}\ +\ field\ +\ \textcolor{stringliteral}{'already\ exists'})}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}\ len(field\_data.shape)\ <\ 1\ \textcolor{keywordflow}{or}\ field\_data.shape[0]\ !=\ self.num\_boxes():}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ dimensions\ for\ field\ data'})}
+\DoxyCodeLine{00084\ \ \ \ \ self.data[field]\ =\ field\_data}
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_affb2391fa3a1c771fe87532056c97a7f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!get@{get}}
+\index{get@{get}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+get (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convenience function for accesssing box coordinates.
+
+Returns:
+  a numpy array of shape [N, 4] representing box corners
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00086}{86}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{def\ }get(self):}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convenience\ function\ for\ accesssing\ box\ coordinates.}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00090\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ box\ corners}}
+\DoxyCodeLine{00091\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00092\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.get\_field(\textcolor{stringliteral}{'boxes'})}
+\DoxyCodeLine{00093\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a0d94aba8d29c845f534a1babf1d3bcc7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!get\_coordinates@{get\_coordinates}}
+\index{get\_coordinates@{get\_coordinates}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{get\_coordinates()}{get\_coordinates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+get\+\_\+coordinates (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get corner coordinates of boxes.
+
+Returns:
+ a list of 4 1-d numpy arrays [y_min, x_min, y_max, x_max]
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00110}{110}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{def\ }get\_coordinates(self):}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ corner\ coordinates\ of\ boxes.}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00113\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{\ \ \ \ \ a\ list\ of\ 4\ 1-\/d\ numpy\ arrays\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00116\ \textcolor{stringliteral}{\ \ \ \ box\_coordinates\ =\ self.get()}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ \ \ y\_min\ =\ box\_coordinates[:,\ 0]}}
+\DoxyCodeLine{00118\ \textcolor{stringliteral}{\ \ \ \ x\_min\ =\ box\_coordinates[:,\ 1]}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ \ \ y\_max\ =\ box\_coordinates[:,\ 2]}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ \ \ x\_max\ =\ box\_coordinates[:,\ 3]}}
+\DoxyCodeLine{00121\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00122\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a5b435dd22197048490f2f19a13bd8e6f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a515597ecf74af855815cb40f45641303}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a515597ecf74af855815cb40f45641303} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!get\_extra\_fields@{get\_extra\_fields}}
+\index{get\_extra\_fields@{get\_extra\_fields}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{get\_extra\_fields()}{get\_extra\_fields()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+get\+\_\+extra\+\_\+fields (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return all non-box fields.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00062}{62}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{def\ }get\_extra\_fields(self):}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ all\ non-\/box\ fields."{}"{}"{}}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{return}\ [k\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ self.data.keys()\ \textcolor{keywordflow}{if}\ k\ !=\ \textcolor{stringliteral}{'boxes'}]}
+\DoxyCodeLine{00065\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!get\_field@{get\_field}}
+\index{get\_field@{get\_field}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{get\_field()}{get\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+get\+\_\+field (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{field }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Accesses data associated with the specified field in the box collection.
+
+Args:
+  field: a string parameter used to speficy a related field to be accessed.
+
+Returns:
+  a numpy 1-d array representing data of an associated field
+
+Raises:
+  ValueError: if invalid field
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00094}{94}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{def\ }get\_field(self,\ field):}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Accesses\ data\ associated\ with\ the\ specified\ field\ in\ the\ box\ collection.}}
+\DoxyCodeLine{00096\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00097\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00098\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ parameter\ used\ to\ speficy\ a\ related\ field\ to\ be\ accessed.}}
+\DoxyCodeLine{00099\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ numpy\ 1-\/d\ array\ representing\ data\ of\ an\ associated\ field}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ \ \ Raises:}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{\ \ \ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ invalid\ field}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00106\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ self.has\_field(field):}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'field\ \{\}\ does\ not\ exist'}.format(field))}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ self.data[field]}
+\DoxyCodeLine{00109\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a04e9626f97f4d23bb6cbf8e122b19dd8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!has\_field@{has\_field}}
+\index{has\_field@{has\_field}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{has\_field()}{has\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+has\+\_\+field (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00066}{66}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{def\ }has\_field(self,\ field):}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{return}\ field\ \textcolor{keywordflow}{in}\ self.data}
+\DoxyCodeLine{00068\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_aa2d246064d35155d7bd433540f5e6f84_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!num\_boxes@{num\_boxes}}
+\index{num\_boxes@{num\_boxes}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{num\_boxes()}{num\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+num\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return number of boxes held in collections.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00058}{58}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{def\ }num\_boxes(self):}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ number\ of\ boxes\ held\ in\ collections."{}"{}"{}}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ self.data[\textcolor{stringliteral}{'boxes'}].shape[0]}
+\DoxyCodeLine{00061\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d0d/classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a8dc94678539da67c471864817959d0c8_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d}\label{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list_a9215370506fcc6cdfe70c8ebf712257d} 
+\index{detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}!data@{data}}
+\index{data@{data}!detection\_utils.utils.np\_box\_list.BoxList@{detection\_utils.utils.np\_box\_list.BoxList}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list.\+Box\+List.\+data}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list_8py_source_l00056}{56}} of file \mbox{\hyperlink{np__box__list_8py_source}{np\+\_\+box\+\_\+list.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{np__box__list_8py}{np\+\_\+box\+\_\+list.\+py}}\end{DoxyCompactItemize}

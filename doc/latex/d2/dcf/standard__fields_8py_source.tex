@@ -1,0 +1,253 @@
+\doxysection{standard\+\_\+fields.\+py}
+\hypertarget{standard__fields_8py_source}{}\label{standard__fields_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/standard\_fields.py@{src/main/resources/processing/video/detections/detection\_utils/core/standard\_fields.py}}
+\mbox{\hyperlink{standard__fields_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1standard__fields}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Contains\ classes\ specifying\ naming\ conventions\ used\ for\ object\ detection.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00018}00018\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00019}00019\ \textcolor{stringliteral}{Specifies:}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ InputDataFields:\ standard\ fields\ used\ by\ reader/preprocessor/batcher.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ DetectionResultFields:\ standard\ fields\ returned\ by\ object\ detector.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ BoxListFields:\ standard\ field\ used\ by\ BoxList}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ TfExampleFields:\ standard\ fields\ }\textcolor{keywordflow}{for}\ tf-\/example\ data\ format\ (go/tf-\/example).}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00024}00024\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00025}00025\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00027}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields}{00027}}\ \textcolor{stringliteral}{class\ InputDataFields(object):}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ "{}"{}"{}Names\ for\ the\ input\ tensors.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00029}00029\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ Holds\ the\ standard\ data\ field\ names\ to\ use\ }\textcolor{keywordflow}{for}\ identifying\ input\ tensors.\ This}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00031}00031\ \ \ should\ be\ used\ by\ the\ decoder\ to\ identify\ keys\ \textcolor{keywordflow}{for}\ the\ returned\ tensor\_dict}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00032}00032\ \ \ containing\ input\ tensors.\ And\ it\ should\ be\ used\ by\ the\ model\ to\ identify\ the}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00033}00033\ \ \ tensors\ it\ needs.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00035}00035\ \ \ Attributes:}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00036}00036\ \ \ \ \ image:\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00037}00037\ \ \ \ \ image\_additional\_channels:\ additional\ channels.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00038}00038\ \ \ \ \ original\_image:\ image\ \textcolor{keywordflow}{in}\ the\ original\ input\ size.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00039}00039\ \ \ \ \ original\_image\_spatial\_shape:\ image\ \textcolor{keywordflow}{in}\ the\ original\ input\ size.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00040}00040\ \ \ \ \ key:\ unique\ key\ corresponding\ to\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00041}00041\ \ \ \ \ source\_id:\ source\ of\ the\ original\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00042}00042\ \ \ \ \ filename:\ original\ filename\ of\ the\ dataset\ (without\ common\ path).}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00043}00043\ \ \ \ \ groundtruth\_image\_classes:\ image-\/level\ \textcolor{keyword}{class\ }labels.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00044}00044\ \ \ \ \ groundtruth\_image\_confidences:\ image-\/level\ \textcolor{keyword}{class\ }confidences.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00045}00045\ \ \ \ \ groundtruth\_boxes:\ coordinates\ of\ the\ ground\ truth\ boxes\ \textcolor{keywordflow}{in}\ the\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00046}00046\ \ \ \ \ groundtruth\_classes:\ box-\/level\ \textcolor{keyword}{class\ }labels.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00047}00047\ \ \ \ \ groundtruth\_confidences:\ box-\/level\ \textcolor{keyword}{class\ }confidences.\ The\ shape\ should\ be}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00048}00048\ \ \ \ \ \ \ the\ same\ \textcolor{keyword}{as}\ the\ shape\ of\ groundtruth\_classes.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00049}00049\ \ \ \ \ groundtruth\_label\_types:\ box-\/level\ label\ types\ (e.g.\ explicit\ negative).}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00050}00050\ \ \ \ \ groundtruth\_is\_crowd:\ [DEPRECATED,\ use\ groundtruth\_group\_of\ instead]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00051}00051\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ the\ groundtruth\ a\ single\ object\ \textcolor{keywordflow}{or}\ a\ crowd.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00052}00052\ \ \ \ \ groundtruth\_area:\ area\ of\ a\ groundtruth\ segment.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00053}00053\ \ \ \ \ groundtruth\_difficult:\ \textcolor{keywordflow}{is}\ a\ \`{}difficult\`{}\ object}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00054}00054\ \ \ \ \ groundtruth\_group\_of:\ \textcolor{keywordflow}{is}\ a\ \`{}group\_of\`{}\ objects,\ e.g.\ multiple\ objects\ of\ the}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00055}00055\ \ \ \ \ \ \ same\ \textcolor{keyword}{class},\ forming\ a\ connected\ group,\ where\ instances\ are\ heavily}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00056}00056\ \ \ \ \ \ \ occluding\ each\ other.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00057}00057\ \ \ \ \ proposal\_boxes:\ coordinates\ of\ object\ proposal\ boxes.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00058}00058\ \ \ \ \ proposal\_objectness:\ objectness\ score\ of\ each\ proposal.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00059}00059\ \ \ \ \ groundtruth\_instance\_masks:\ ground\ truth\ instance\ masks.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00060}00060\ \ \ \ \ groundtruth\_instance\_boundaries:\ ground\ truth\ instance\ boundaries.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00061}00061\ \ \ \ \ groundtruth\_instance\_classes:\ instance\ mask-\/level\ \textcolor{keyword}{class\ }labels.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00062}00062\ \ \ \ \ groundtruth\_keypoints:\ ground\ truth\ keypoints.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00063}00063\ \ \ \ \ groundtruth\_keypoint\_visibilities:\ ground\ truth\ keypoint\ visibilities.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00064}00064\ \ \ \ \ groundtruth\_label\_weights:\ groundtruth\ label\ weights.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00065}00065\ \ \ \ \ groundtruth\_weights:\ groundtruth\ weight\ factor\ \textcolor{keywordflow}{for}\ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00066}00066\ \ \ \ \ num\_groundtruth\_boxes:\ number\ of\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00067}00067\ \ \ \ \ is\_annotated:\ whether\ an\ image\ has\ been\ labeled\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00068}00068\ \ \ \ \ true\_image\_shapes:\ true\ shapes\ of\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00069}00069\ \ \ \ \ \ \ images\ can\ be\ padded\ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00070}00070\ \ \ \ \ multiclass\_scores:\ the\ label\ score\ per\ \textcolor{keyword}{class\ }for\ each\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00071}00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00072}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ac18032cf55c0bd555f0c0c5334841538}{00072}}\ \textcolor{stringliteral}{\ \ image\ =\ 'image'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00073}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_abfe5cc81f52fcda0938dab8148d6e5b0}{00073}}\ \ \ image\_additional\_channels\ =\ \textcolor{stringliteral}{'image\_additional\_channels'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00074}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ae2bdad6d50dd89795a12d1c06479e42b}{00074}}\ \ \ original\_image\ =\ \textcolor{stringliteral}{'original\_image'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00075}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a09d246475cad6a93a37e63f85d975e28}{00075}}\ \ \ original\_image\_spatial\_shape\ =\ \textcolor{stringliteral}{'original\_image\_spatial\_shape'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00076}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a9fbd64aaa8ca5e13ba2e60867e57ca55}{00076}}\ \ \ key\ =\ \textcolor{stringliteral}{'key'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00077}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a3a7abbaac1ae736ede8e2780f6bd6d2f}{00077}}\ \ \ source\_id\ =\ \textcolor{stringliteral}{'source\_id'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00078}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a56d205e6985351bce04c3022b3e6cf0d}{00078}}\ \ \ filename\ =\ \textcolor{stringliteral}{'filename'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00079}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a1ba726b136d8791c0f9c4741129c05ad}{00079}}\ \ \ groundtruth\_image\_classes\ =\ \textcolor{stringliteral}{'groundtruth\_image\_classes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00080}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a43d6c1bb1876d0a08e46f423c85b692f}{00080}}\ \ \ groundtruth\_image\_confidences\ =\ \textcolor{stringliteral}{'groundtruth\_image\_confidences'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00081}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ae725566500d75a5f36ef2ad603f6097e}{00081}}\ \ \ groundtruth\_boxes\ =\ \textcolor{stringliteral}{'groundtruth\_boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00082}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a0de2b2be633966ec3209b9cfc03bbfe6}{00082}}\ \ \ groundtruth\_classes\ =\ \textcolor{stringliteral}{'groundtruth\_classes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00083}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a70c843cc15786a9e4a629538d6552225}{00083}}\ \ \ groundtruth\_confidences\ =\ \textcolor{stringliteral}{'groundtruth\_confidences'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00084}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a8f629bdf78e5bb966f84fcc6d018529f}{00084}}\ \ \ groundtruth\_label\_types\ =\ \textcolor{stringliteral}{'groundtruth\_label\_types'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00085}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_abfb3cd6da883813efbbe252e51208266}{00085}}\ \ \ groundtruth\_is\_crowd\ =\ \textcolor{stringliteral}{'groundtruth\_is\_crowd'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ad2848ffcead894822105b6fb9ea82062}{00086}}\ \ \ groundtruth\_area\ =\ \textcolor{stringliteral}{'groundtruth\_area'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00087}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a7190e254cd361fa9140f36417b5226f4}{00087}}\ \ \ groundtruth\_difficult\ =\ \textcolor{stringliteral}{'groundtruth\_difficult'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00088}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_aa902b8ecf30d582051c7216b1d7bbd9d}{00088}}\ \ \ groundtruth\_group\_of\ =\ \textcolor{stringliteral}{'groundtruth\_group\_of'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00089}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ae78b60bf4c0747a16cae44a28aa832f3}{00089}}\ \ \ proposal\_boxes\ =\ \textcolor{stringliteral}{'proposal\_boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00090}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a541707c32f661707aa11c48a5c410356}{00090}}\ \ \ proposal\_objectness\ =\ \textcolor{stringliteral}{'proposal\_objectness'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00091}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a64da68e5f049b7ff2d6a715ac148917f}{00091}}\ \ \ groundtruth\_instance\_masks\ =\ \textcolor{stringliteral}{'groundtruth\_instance\_masks'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00092}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a56ea360f47b7df839161e140f27ba24e}{00092}}\ \ \ groundtruth\_instance\_boundaries\ =\ \textcolor{stringliteral}{'groundtruth\_instance\_boundaries'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00093}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ac20af42ffc52ba0aa3b8189eb02a8c39}{00093}}\ \ \ groundtruth\_instance\_classes\ =\ \textcolor{stringliteral}{'groundtruth\_instance\_classes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00094}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a4ffefb6c967c9faa0614d17dbc30bc0c}{00094}}\ \ \ groundtruth\_keypoints\ =\ \textcolor{stringliteral}{'groundtruth\_keypoints'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00095}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a43c38e25b6e967d261fb81bdef5a77c0}{00095}}\ \ \ groundtruth\_keypoint\_visibilities\ =\ \textcolor{stringliteral}{'groundtruth\_keypoint\_visibilities'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00096}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_ae0063ee7d72541320ea62250e0265d3d}{00096}}\ \ \ groundtruth\_label\_weights\ =\ \textcolor{stringliteral}{'groundtruth\_label\_weights'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00097}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_abd615e7cf7d985245e40a734b2b31e96}{00097}}\ \ \ groundtruth\_weights\ =\ \textcolor{stringliteral}{'groundtruth\_weights'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00098}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_af968516dc4b5aeca3365a7f8d63e8607}{00098}}\ \ \ num\_groundtruth\_boxes\ =\ \textcolor{stringliteral}{'num\_groundtruth\_boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00099}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a8b6b0dcfe9ad91a8f330b99d28f03147}{00099}}\ \ \ is\_annotated\ =\ \textcolor{stringliteral}{'is\_annotated'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00100}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a0e284c4def9b12d33c31a8be8abcd054}{00100}}\ \ \ true\_image\_shape\ =\ \textcolor{stringliteral}{'true\_image\_shape'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00101}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_input_data_fields_a0d779336a23a6cd37852212e16cde544}{00101}}\ \ \ multiclass\_scores\ =\ \textcolor{stringliteral}{'multiclass\_scores'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00104}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields}{00104}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields}{DetectionResultFields}}(object):}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00105}00105\ \ \ \textcolor{stringliteral}{"{}"{}"{}Naming\ conventions\ for\ storing\ the\ output\ of\ the\ detector.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00106}00106\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ Attributes:}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ source\_id:\ source\ of\ the\ original\ image.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00109}00109\ \textcolor{stringliteral}{\ \ \ \ key:\ unique\ key\ corresponding\ to\ image.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00110}00110\ \textcolor{stringliteral}{\ \ \ \ detection\_boxes:\ coordinates\ of\ the\ detection\ boxes\ }\textcolor{keywordflow}{in}\ the\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00111}00111\ \ \ \ \ detection\_scores:\ detection\ scores\ \textcolor{keywordflow}{for}\ the\ detection\ boxes\ \textcolor{keywordflow}{in}\ the\ image.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00112}00112\ \ \ \ \ detection\_multiclass\_scores:\ \textcolor{keyword}{class\ }score\ distribution\ (including\ background)}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00113}00113\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ detection\ boxes\ \textcolor{keywordflow}{in}\ the\ image\ including\ background\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00114}00114\ \ \ \ \ detection\_classes:\ detection-\/level\ \textcolor{keyword}{class\ }labels.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00115}00115\ \ \ \ \ detection\_masks:\ contains\ a\ segmentation\ mask\ \textcolor{keywordflow}{for}\ each\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00116}00116\ \ \ \ \ detection\_boundaries:\ contains\ an\ object\ boundary\ \textcolor{keywordflow}{for}\ each\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00117}00117\ \ \ \ \ detection\_keypoints:\ contains\ detection\ keypoints\ \textcolor{keywordflow}{for}\ each\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00118}00118\ \ \ \ \ num\_detections:\ number\ of\ detections\ \textcolor{keywordflow}{in}\ the\ batch.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00119}00119\ \ \ \ \ raw\_detection\_boxes:\ contains\ decoded\ detection\ boxes\ without\ Non-\/Max}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00120}00120\ \ \ \ \ \ \ suppression.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00121}00121\ \ \ \ \ raw\_detection\_scores:\ contains\ \textcolor{keyword}{class\ }score\ logits\ for\ raw\ detection\ boxes.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00122}00122\ \ \ \ \ detection\_anchor\_indices:\ The\ anchor\ indices\ of\ the\ detections\ after\ NMS.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00123}00123\ \ \ \ \ detection\_features:\ contains\ extracted\ features\ \textcolor{keywordflow}{for}\ each\ detected\ box}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00124}00124\ \ \ \ \ \ \ after\ NMS.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00125}00125\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00126}00126\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00127}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a66b8a5b5addf323309c087a4f324d784}{00127}}\ \textcolor{stringliteral}{\ \ source\_id\ =\ 'source\_id'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00128}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_af02ff5038247a8584ea9b0427e45bdff}{00128}}\ \ \ key\ =\ \textcolor{stringliteral}{'key'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00129}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ab946827a42b5310fca40cbaab449b316}{00129}}\ \ \ detection\_boxes\ =\ \textcolor{stringliteral}{'detection\_boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a405a7a4ba3108cd57b7859ffdbe0a860}{00130}}\ \ \ detection\_scores\ =\ \textcolor{stringliteral}{'detection\_scores'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00131}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aaeebbbdd24db20d32c9e5ff3b2e5ee32}{00131}}\ \ \ detection\_multiclass\_scores\ =\ \textcolor{stringliteral}{'detection\_multiclass\_scores'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00132}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ad04c732a8e87fbb77b568ad11c161917}{00132}}\ \ \ detection\_features\ =\ \textcolor{stringliteral}{'detection\_features'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00133}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a1f9e72946be3196284c8fc89ed1f4e79}{00133}}\ \ \ detection\_classes\ =\ \textcolor{stringliteral}{'detection\_classes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00134}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a84cafcf633b1e06286d3aad63fbf018b}{00134}}\ \ \ detection\_masks\ =\ \textcolor{stringliteral}{'detection\_masks'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00135}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ae5a965e845e8534d3b95459c73ca9c95}{00135}}\ \ \ detection\_boundaries\ =\ \textcolor{stringliteral}{'detection\_boundaries'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00136}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a786915a04797c1f8b17dd81747c4c8ac}{00136}}\ \ \ detection\_keypoints\ =\ \textcolor{stringliteral}{'detection\_keypoints'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00137}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_afc8919582fe5d7c4ad9467a3fc3a22b0}{00137}}\ \ \ num\_detections\ =\ \textcolor{stringliteral}{'num\_detections'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00138}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aee5bf1db12df78f7d50c8786e98bd2df}{00138}}\ \ \ raw\_detection\_boxes\ =\ \textcolor{stringliteral}{'raw\_detection\_boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00139}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a22e031be01b80a49b0794896e1fafe72}{00139}}\ \ \ raw\_detection\_scores\ =\ \textcolor{stringliteral}{'raw\_detection\_scores'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00140}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a6f0e0dbffde072542ac878e24d2ae993}{00140}}\ \ \ detection\_anchor\_indices\ =\ \textcolor{stringliteral}{'detection\_anchor\_indices'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00143}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields}{00143}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields}{BoxListFields}}(object):}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00144}00144\ \ \ \textcolor{stringliteral}{"{}"{}"{}Naming\ conventions\ for\ BoxLists.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00145}00145\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ Attributes:}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ boxes:\ bounding\ box\ coordinates.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ \ \ classes:\ classes\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ scores:\ scores\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ \ \ weights:\ sample\ weights\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ \ \ objectness:\ objectness\ score\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ masks:\ masks\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ boundaries:\ boundaries\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00154}00154\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ keypoints\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00155}00155\ \textcolor{stringliteral}{\ \ \ \ keypoint\_heatmaps:\ keypoint\ heatmaps\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ \ \ is\_crowd:\ is\_crowd\ annotation\ per\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00158}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a3fdf81fe84a604d3e2f6c4602b1ed861}{00158}}\ \textcolor{stringliteral}{\ \ boxes\ =\ 'boxes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00159}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a28542fe773dcdd77a320433eee9e6ac0}{00159}}\ \ \ classes\ =\ \textcolor{stringliteral}{'classes'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00160}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a311bdb09ccb86c12f1a9be3532fe5994}{00160}}\ \ \ scores\ =\ \textcolor{stringliteral}{'scores'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00161}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a96efe9c3a67aa9d38528444f42e5f820}{00161}}\ \ \ weights\ =\ \textcolor{stringliteral}{'weights'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00162}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a3d9f437ecdbef3d4e203b0e2700843d9}{00162}}\ \ \ confidences\ =\ \textcolor{stringliteral}{'confidences'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00163}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_ab8ce1210dc90efc294ae52de718c8dd0}{00163}}\ \ \ objectness\ =\ \textcolor{stringliteral}{'objectness'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00164}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a2b2359ede0f3cc5fa6efb98551531cd7}{00164}}\ \ \ masks\ =\ \textcolor{stringliteral}{'masks'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00165}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_aa0be9a50393feb734d0bf96f2a218272}{00165}}\ \ \ boundaries\ =\ \textcolor{stringliteral}{'boundaries'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00166}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_ad8570db9c4610b6902717bf34eb7943b}{00166}}\ \ \ keypoints\ =\ \textcolor{stringliteral}{'keypoints'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00167}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a7bb55a2c65f9f5fa61d83d30e7868753}{00167}}\ \ \ keypoint\_heatmaps\ =\ \textcolor{stringliteral}{'keypoint\_heatmaps'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00168}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_box_list_fields_a59420346aa510c68fb187cf1284816da}{00168}}\ \ \ is\_crowd\ =\ \textcolor{stringliteral}{'is\_crowd'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00171}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields}{00171}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields}{TfExampleFields}}(object):}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00172}00172\ \ \ \textcolor{stringliteral}{"{}"{}"{}TF-\/example\ proto\ feature\ names\ for\ object\ detection.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00173}00173\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ Holds\ the\ standard\ feature\ names\ to\ load\ }\textcolor{keyword}{from}\ an\ Example\ proto\ \textcolor{keywordflow}{for}\ object}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00175}00175\ \ \ detection.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00177}00177\ \ \ Attributes:}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00178}00178\ \ \ \ \ image\_encoded:\ JPEG\ encoded\ string}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00179}00179\ \ \ \ \ image\_format:\ image\ format,\ e.g.\ \textcolor{stringliteral}{"{}JPEG"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00180}00180\ \ \ \ \ filename:\ filename}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00181}00181\ \ \ \ \ channels:\ number\ of\ channels\ of\ image}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00182}00182\ \ \ \ \ colorspace:\ colorspace,\ e.g.\ \textcolor{stringliteral}{"{}RGB"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00183}00183\ \ \ \ \ height:\ height\ of\ image\ \textcolor{keywordflow}{in}\ pixels,\ e.g.\ 462}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00184}00184\ \ \ \ \ width:\ width\ of\ image\ \textcolor{keywordflow}{in}\ pixels,\ e.g.\ 581}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00185}00185\ \ \ \ \ source\_id:\ original\ source\ of\ the\ image}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00186}00186\ \ \ \ \ image\_class\_text:\ image-\/level\ label\ \textcolor{keywordflow}{in}\ text\ format}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00187}00187\ \ \ \ \ image\_class\_label:\ image-\/level\ label\ \textcolor{keywordflow}{in}\ numerical\ format}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00188}00188\ \ \ \ \ object\_class\_text:\ labels\ \textcolor{keywordflow}{in}\ text\ format,\ e.g.\ [\textcolor{stringliteral}{"{}person"{}},\ \textcolor{stringliteral}{"{}cat"{}}]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00189}00189\ \ \ \ \ object\_class\_label:\ labels\ \textcolor{keywordflow}{in}\ numbers,\ e.g.\ [16,\ 8]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00190}00190\ \ \ \ \ object\_bbox\_xmin:\ xmin\ coordinates\ of\ groundtruth\ box,\ e.g.\ 10,\ 30}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00191}00191\ \ \ \ \ object\_bbox\_xmax:\ xmax\ coordinates\ of\ groundtruth\ box,\ e.g.\ 50,\ 40}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00192}00192\ \ \ \ \ object\_bbox\_ymin:\ ymin\ coordinates\ of\ groundtruth\ box,\ e.g.\ 40,\ 50}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00193}00193\ \ \ \ \ object\_bbox\_ymax:\ ymax\ coordinates\ of\ groundtruth\ box,\ e.g.\ 80,\ 70}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00194}00194\ \ \ \ \ object\_view:\ viewpoint\ of\ object,\ e.g.\ [\textcolor{stringliteral}{"{}frontal"{}},\ \textcolor{stringliteral}{"{}left"{}}]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00195}00195\ \ \ \ \ object\_truncated:\ \textcolor{keywordflow}{is}\ object\ truncated,\ e.g.\ [true,\ false]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00196}00196\ \ \ \ \ object\_occluded:\ \textcolor{keywordflow}{is}\ object\ occluded,\ e.g.\ [true,\ false]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00197}00197\ \ \ \ \ object\_difficult:\ \textcolor{keywordflow}{is}\ object\ difficult,\ e.g.\ [true,\ false]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00198}00198\ \ \ \ \ object\_group\_of:\ \textcolor{keywordflow}{is}\ object\ a\ single\ object\ \textcolor{keywordflow}{or}\ a\ group\ of\ objects}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00199}00199\ \ \ \ \ object\_depiction:\ \textcolor{keywordflow}{is}\ object\ a\ depiction}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00200}00200\ \ \ \ \ object\_is\_crowd:\ [DEPRECATED,\ use\ object\_group\_of\ instead]}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00201}00201\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ the\ object\ a\ single\ object\ \textcolor{keywordflow}{or}\ a\ crowd}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00202}00202\ \ \ \ \ object\_segment\_area:\ the\ area\ of\ the\ segment.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00203}00203\ \ \ \ \ object\_weight:\ a\ weight\ factor\ \textcolor{keywordflow}{for}\ the\ object\textcolor{stringliteral}{'s\ bounding\ box.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00204}00204\ \textcolor{stringliteral}{\ \ \ \ instance\_masks:\ instance\ segmentation\ masks.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ instance\_boundaries:\ instance\ boundaries.}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ instance\_classes:\ Classes\ }\textcolor{keywordflow}{for}\ each\ instance\ segmentation\ mask.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00207}00207\ \ \ \ \ detection\_class\_label:\ \textcolor{keyword}{class\ }label\ in\ numbers.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00208}00208\ \ \ \ \ detection\_bbox\_ymin:\ ymin\ coordinates\ of\ a\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00209}00209\ \ \ \ \ detection\_bbox\_xmin:\ xmin\ coordinates\ of\ a\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00210}00210\ \ \ \ \ detection\_bbox\_ymax:\ ymax\ coordinates\ of\ a\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00211}00211\ \ \ \ \ detection\_bbox\_xmax:\ xmax\ coordinates\ of\ a\ detection\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00212}00212\ \ \ \ \ detection\_score:\ detection\ score\ \textcolor{keywordflow}{for}\ the\ \textcolor{keyword}{class\ }label\ and\ box.}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00213}00213\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00214}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a2dafeb35dc8f78436a0407c38af541d2}{00214}}\ \textcolor{stringliteral}{\ \ image\_encoded\ =\ 'image/encoded'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00215}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a392c5f40dc7487b9f4b6735710c348b7}{00215}}\ \ \ image\_format\ =\ \textcolor{stringliteral}{'image/format'}\ \ \textcolor{comment}{\#\ format\ is\ reserved\ keyword}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00216}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_aad47f411026db29bc1653e727620a655}{00216}}\ \ \ filename\ =\ \textcolor{stringliteral}{'image/filename'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00217}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a65a967e78f49e0f687f5159407f7f390}{00217}}\ \ \ channels\ =\ \textcolor{stringliteral}{'image/channels'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00218}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a0c7cb4e5177e01b459558ab646bd7527}{00218}}\ \ \ colorspace\ =\ \textcolor{stringliteral}{'image/colorspace'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00219}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ae09749175be6ed50f1510c9f0c3f0f43}{00219}}\ \ \ height\ =\ \textcolor{stringliteral}{'image/height'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00220}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_acf06e85021338163912523cce304b18a}{00220}}\ \ \ width\ =\ \textcolor{stringliteral}{'image/width'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00221}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a1e68944dc7b598ffe9f2ddabc01d7e24}{00221}}\ \ \ source\_id\ =\ \textcolor{stringliteral}{'image/source\_id'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00222}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ad0e9f1c72ce8fe36c18a80c841bd3326}{00222}}\ \ \ image\_class\_text\ =\ \textcolor{stringliteral}{'image/class/text'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00223}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a2fcb9ac05e6dee1051fe0f219029f9b0}{00223}}\ \ \ image\_class\_label\ =\ \textcolor{stringliteral}{'image/class/label'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00224}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a997d483ad66977c7e15073ba49d94842}{00224}}\ \ \ object\_class\_text\ =\ \textcolor{stringliteral}{'image/object/class/text'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00225}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ae3e314425da3450f25d217586ba6704b}{00225}}\ \ \ object\_class\_label\ =\ \textcolor{stringliteral}{'image/object/class/label'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00226}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a89f0865a0f46abcb175788332818a88c}{00226}}\ \ \ object\_bbox\_ymin\ =\ \textcolor{stringliteral}{'image/object/bbox/ymin'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00227}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a712b010f8066dbcf9126a79a8f91b005}{00227}}\ \ \ object\_bbox\_xmin\ =\ \textcolor{stringliteral}{'image/object/bbox/xmin'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00228}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a78d85b3af8acc4611b1a5abe2d387b27}{00228}}\ \ \ object\_bbox\_ymax\ =\ \textcolor{stringliteral}{'image/object/bbox/ymax'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00229}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_aa7ab807923511815dea32ff3aa8d61a1}{00229}}\ \ \ object\_bbox\_xmax\ =\ \textcolor{stringliteral}{'image/object/bbox/xmax'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00230}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a44420a755d86f76a9fa7522399f7a333}{00230}}\ \ \ object\_view\ =\ \textcolor{stringliteral}{'image/object/view'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00231}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ae4cb81c8f0bd6fc6a3cd1fc9dfe5af30}{00231}}\ \ \ object\_truncated\ =\ \textcolor{stringliteral}{'image/object/truncated'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00232}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a806b5a6084d51f675bf31c90fa8c2931}{00232}}\ \ \ object\_occluded\ =\ \textcolor{stringliteral}{'image/object/occluded'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00233}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ae6e14b613999d01221b68ebdc67087ba}{00233}}\ \ \ object\_difficult\ =\ \textcolor{stringliteral}{'image/object/difficult'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00234}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a3c839549e44a1bacff80eaf8a0e0e2d5}{00234}}\ \ \ object\_group\_of\ =\ \textcolor{stringliteral}{'image/object/group\_of'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00235}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a7a4cb77dd90643439175de4dbd0f91c3}{00235}}\ \ \ object\_depiction\ =\ \textcolor{stringliteral}{'image/object/depiction'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00236}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a2537e0eb0b4ef8048f9cff3fead0d7f0}{00236}}\ \ \ object\_is\_crowd\ =\ \textcolor{stringliteral}{'image/object/is\_crowd'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00237}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a165e45279621b7a56fe0094d18b48eeb}{00237}}\ \ \ object\_segment\_area\ =\ \textcolor{stringliteral}{'image/object/segment/area'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00238}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ad9237bcb585b03891820ad39080eee29}{00238}}\ \ \ object\_weight\ =\ \textcolor{stringliteral}{'image/object/weight'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00239}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_abb19118c58ac2ff6db30dd2ce93104bd}{00239}}\ \ \ instance\_masks\ =\ \textcolor{stringliteral}{'image/segmentation/object'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00240}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a79d9451da12c622027445eccd1733e46}{00240}}\ \ \ instance\_boundaries\ =\ \textcolor{stringliteral}{'image/boundaries/object'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00241}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a294dd0ae0bd7aebd78162ae19cb87116}{00241}}\ \ \ instance\_classes\ =\ \textcolor{stringliteral}{'image/segmentation/object/class'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00242}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a66bddbaa60fbbbb90e8b9533a1515138}{00242}}\ \ \ detection\_class\_label\ =\ \textcolor{stringliteral}{'image/detection/label'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00243}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_afd73b66038d7c9bd95ba43ec02643c2a}{00243}}\ \ \ detection\_bbox\_ymin\ =\ \textcolor{stringliteral}{'image/detection/bbox/ymin'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00244}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_af05e7dc9bae65deeddaeb91778c65f61}{00244}}\ \ \ detection\_bbox\_xmin\ =\ \textcolor{stringliteral}{'image/detection/bbox/xmin'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00245}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a2abc0c05aa975d737912988b8303c39d}{00245}}\ \ \ detection\_bbox\_ymax\ =\ \textcolor{stringliteral}{'image/detection/bbox/ymax'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00246}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_ab0af1ea1d9165832ee7ec0461e820e59}{00246}}\ \ \ detection\_bbox\_xmax\ =\ \textcolor{stringliteral}{'image/detection/bbox/xmax'}}
+\DoxyCodeLine{\Hypertarget{standard__fields_8py_source_l00247}\mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_tf_example_fields_a209a9d235f7b65783c280b8509315fc0}{00247}}\ \ \ detection\_score\ =\ \textcolor{stringliteral}{'image/detection/score'}}
+
+\end{DoxyCode}

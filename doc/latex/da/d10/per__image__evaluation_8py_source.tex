@@ -1,0 +1,712 @@
+\doxysection{per\+\_\+image\+\_\+evaluation.\+py}
+\hypertarget{per__image__evaluation_8py_source}{}\label{per__image__evaluation_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/per\_image\_evaluation.py@{src/main/resources/processing/video/detections/detection\_utils/utils/per\_image\_evaluation.py}}
+\mbox{\hyperlink{per__image__evaluation_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1per__image__evaluation}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Evaluate\ Object\ Detection\ result\ on\ a\ single\ image.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00017}00017\ \textcolor{stringliteral}{Annotate\ each\ detected\ result\ as\ true\ positives\ or\ false\ positive\ according\ to}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00018}00018\ \textcolor{stringliteral}{a\ predefined\ IOU\ ratio.\ Non\ Maximum\ Supression\ is\ used\ by\ default.\ Multi\ class}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00019}00019\ \textcolor{stringliteral}{detection\ is\ supported\ by\ default.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00020}00020\ \textcolor{stringliteral}{Based\ on\ the\ settings,\ per\ image\ evaluation\ is\ either\ performed\ on\ boxes\ or}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00021}00021\ \textcolor{stringliteral}{on\ object\ masks.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00022}00022\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00025}00025\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00027}00027\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00028}00028\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00030}00030\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00031}00031\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00032}00032\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_mask\_list}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00033}00033\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_mask\_list\_ops}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00036}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation}{00036}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation}{PerImageEvaluation}}(object):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00037}00037\ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluate\ detection\ result\ of\ a\ single\ image."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00039}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac7e15f4c3da14c1ca8b16fb2003607eb}{00039}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac7e15f4c3da14c1ca8b16fb2003607eb}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_groundtruth\_classes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matching\_iou\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_iou\_threshold=0.3,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_max\_output\_boxes=50,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ group\_of\_weight=0.0):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00045}00045\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialized\ PerImageEvaluation\ by\ evaluation\ parameters.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00046}00046\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_groundtruth\_classes:\ Number\ of\ ground\ truth\ object\ classes}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ \ \ matching\_iou\_threshold:\ A\ ratio\ of\ area\ intersection\ to\ union,\ which\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00050}00050\ \ \ \ \ \ \ \ \ the\ threshold\ to\ consider\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ true\ positive\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00051}00051\ \ \ \ \ \ \ nms\_iou\_threshold:\ IOU\ threshold\ used\ \textcolor{keywordflow}{in}\ Non\ Maximum\ Suppression.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00052}00052\ \ \ \ \ \ \ nms\_max\_output\_boxes:\ Number\ of\ maximum\ output\ boxes\ \textcolor{keywordflow}{in}\ NMS.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00053}00053\ \ \ \ \ \ \ group\_of\_weight:\ Weight\ of\ the\ group-\/of\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00055}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac9c7877ef6e4093d1bfba7332ae8760a}{00055}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac9c7877ef6e4093d1bfba7332ae8760a}{matching\_iou\_threshold}}\ =\ matching\_iou\_threshold}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00056}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_adda86ebdf13667d2b1d5449067c0be10}{00056}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_adda86ebdf13667d2b1d5449067c0be10}{nms\_iou\_threshold}}\ =\ nms\_iou\_threshold}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aa853de08526af5047d1ff2f6abd930a3}{00057}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aa853de08526af5047d1ff2f6abd930a3}{nms\_max\_output\_boxes}}\ =\ nms\_max\_output\_boxes}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00058}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac57295b8b3c3e0b8892cb5fe42ab93e3}{00058}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac57295b8b3c3e0b8892cb5fe42ab93e3}{num\_groundtruth\_classes}}\ =\ num\_groundtruth\_classes}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00059}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a39bc39d1cf554c9347f5a486e72bc162}{00059}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a39bc39d1cf554c9347f5a486e72bc162}{group\_of\_weight}}\ =\ group\_of\_weight}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00060}00060\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a359f9f8e6e20cb1fefe8db9ad15c2413}{00061}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a359f9f8e6e20cb1fefe8db9ad15c2413}{compute\_object\_detection\_metrics}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00071}00071\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluates\ detections\ as\ being\ tp,\ fp\ or\ weighted\ from\ a\ single\ image.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00072}00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ The\ evaluation\ }\textcolor{keywordflow}{is}\ done\ \textcolor{keywordflow}{in}\ two\ stages:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00074}00074\ \ \ \ \ \ 1.\ All\ detections\ are\ matched\ to\ non\ group-\/of\ boxes;\ true\ positives\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ determined\ \textcolor{keywordflow}{and}\ detections\ matched\ to\ difficult\ boxes\ are\ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00076}00076\ \ \ \ \ \ 2.\ Detections\ that\ are\ determined\ \textcolor{keyword}{as}\ false\ positives\ are\ matched\ against}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ group-\/of\ boxes\ \textcolor{keywordflow}{and}\ weighted\ \textcolor{keywordflow}{if}\ matched.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00079}00079\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00080}00080\ \ \ \ \ \ \ detected\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 4],\ representing\ N}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ regions\ of\ detected\ object\ regions.\ Each\ row\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00083}00083\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 1],\ representing\ the}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00085}00085\ \ \ \ \ \ \ detected\_class\_labels:\ A\ integer\ numpy\ array\ of\ shape\ [N,\ 1],\ repreneting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00087}00087\ \ \ \ \ \ \ groundtruth\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [M,\ 4],\ representing\ M}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ regions\ of\ object\ instances\ \textcolor{keywordflow}{in}\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00089}00089\ \ \ \ \ \ \ groundtruth\_class\_labels:\ An\ integer\ numpy\ array\ of\ shape\ [M,\ 1],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ representing\ M\ \textcolor{keyword}{class\ }labels\ of\ object\ instances\ in\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00091}00091\ \ \ \ \ \ \ groundtruth\_is\_difficult\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ \textcolor{keywordflow}{is}\ a\ difficult\ instance\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00093}00093\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ has\ group-\/of\ tag}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00095}00095\ \ \ \ \ \ \ detected\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [N,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ width].\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ the\ metrics\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00097}00097\ \ \ \ \ \ \ groundtruth\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [M,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ width].\ Can\ have\ empty\ masks,\ i.e.\ where\ all\ values\ are\ 0.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00100}00100\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00101}00101\ \ \ \ \ \ \ scores:\ A\ list\ of\ C\ float\ numpy\ arrays.\ Each\ numpy\ array\ \textcolor{keywordflow}{is}\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ shape\ [K,\ 1],\ representing\ K\ scores\ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ label\ c}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00104}00104\ \ \ \ \ \ \ tp\_fp\_labels:\ A\ list\ of\ C\ boolean\ numpy\ arrays.\ Each\ numpy\ array}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ of\ shape\ [K,\ 1],\ representing\ K\ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ object\ instances\ detected\ \textcolor{keyword}{with}\ \textcolor{keyword}{class\ }label\ c}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00107}00107\ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image:\ a\ numpy\ integer\ array\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ shape\ [C,\ 1],\ indicating\ whether\ the\ correponding\ \textcolor{keyword}{class\ }has\ a\ least}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ one\ instance\ being\ correctly\ detected\ \textcolor{keywordflow}{in}\ the\ image}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00110}00110\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00111}00111\ \textcolor{stringliteral}{\ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_class\_labels,\ detected\_masks\ =\ (}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00112}00112\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a57623c9d1e54b91d8a486d5e2eda1e82}{\_remove\_invalid\_boxes}}(detected\_boxes,\ detected\_scores,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,\ detected\_masks))}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ scores,\ tp\_fp\_labels\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a32076b688ff432b73aac0fcc68b17436}{\_compute\_tp\_fp}}(}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_class\_labels=detected\_class\_labels,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_boxes=groundtruth\_boxes,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_class\_labels=groundtruth\_class\_labels,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list=groundtruth\_is\_difficult\_list,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list=groundtruth\_is\_group\_of\_list,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_masks=detected\_masks,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_masks=groundtruth\_masks)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00124}00124\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00125}00125\ \textcolor{stringliteral}{\ \ \ \ is\_class\_correctly\_detected\_in\_image\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a83a6e00d7375719fa651da784b46940c}{\_compute\_cor\_loc}}(}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00127}00127\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_class\_labels=detected\_class\_labels,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00129}00129\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_boxes=groundtruth\_boxes,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_class\_labels=groundtruth\_class\_labels,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_masks=detected\_masks,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_masks=groundtruth\_masks)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00133}00133\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ scores,\ tp\_fp\_labels,\ is\_class\_correctly\_detected\_in\_image}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00136}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a83a6e00d7375719fa651da784b46940c}{00136}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a83a6e00d7375719fa651da784b46940c}{\_compute\_cor\_loc}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00144}00144\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ CorLoc\ score\ for\ object\ detection\ result.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00145}00145\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 4],\ representing\ N}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ regions\ of\ detected\ object\ regions.\ Each\ row\ }\textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00150}00150\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 1],\ representing\ the}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00152}00152\ \ \ \ \ \ \ detected\_class\_labels:\ A\ integer\ numpy\ array\ of\ shape\ [N,\ 1],\ repreneting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00154}00154\ \ \ \ \ \ \ groundtruth\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [M,\ 4],\ representing\ M}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ regions\ of\ object\ instances\ \textcolor{keywordflow}{in}\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00156}00156\ \ \ \ \ \ \ groundtruth\_class\_labels:\ An\ integer\ numpy\ array\ of\ shape\ [M,\ 1],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ representing\ M\ \textcolor{keyword}{class\ }labels\ of\ object\ instances\ in\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00158}00158\ \ \ \ \ \ \ detected\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [N,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ width].\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ the\ scores\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00160}00160\ \ \ \ \ \ \ groundtruth\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [M,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00163}00163\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00164}00164\ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image:\ a\ numpy\ integer\ array\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ shape\ [C,\ 1],\ indicating\ whether\ the\ correponding\ \textcolor{keyword}{class\ }has\ a\ least}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ one\ instance\ being\ correctly\ detected\ \textcolor{keywordflow}{in}\ the\ image}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00168}00168\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00169}00169\ \ \ \ \ \ \ ValueError:\ If\ detected\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ but\ groundtruth\ masks\ are\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ the\ other\ way\ around.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00171}00171\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00172}00172\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ (detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None})\ \textcolor{keywordflow}{or}\ (detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00175}00175\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'If\ \`{}detected\_masks`\ is\ provided,\ then\ \`{}groundtruth\_masks`\ should\ '}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'also\ be\ provided.'})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00179}00179\ \ \ \ \ is\_class\_correctly\_detected\_in\_image\ =\ np.zeros(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac57295b8b3c3e0b8892cb5fe42ab93e3}{num\_groundtruth\_classes}},\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac57295b8b3c3e0b8892cb5fe42ab93e3}{num\_groundtruth\_classes}}):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00182}00182\ \ \ \ \ \ \ (gt\_boxes\_at\_ith\_class,\ gt\_masks\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00183}00183\ \ \ \ \ \ \ \ detected\_boxes\_at\_ith\_class,\ detected\_scores\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00184}00184\ \ \ \ \ \ \ \ detected\_masks\_at\_ith\_class)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a864a786dd34c74f837bf5dc7af4686b8}{\_get\_ith\_class\_arrays}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,\ groundtruth\_boxes,\ groundtruth\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,\ i)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00188}00188\ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image[i]\ =\ (}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_af55418d18d2ee482f6c7d2f8752016f9}{\_compute\_is\_class\_correctly\_detected\_in\_image}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores=detected\_scores\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes=gt\_boxes\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=detected\_masks\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=gt\_masks\_at\_ith\_class))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00196}00196\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_class\_correctly\_detected\_in\_image}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00198}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_af55418d18d2ee482f6c7d2f8752016f9}{00198}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_af55418d18d2ee482f6c7d2f8752016f9}{\_compute\_is\_class\_correctly\_detected\_in\_image}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00204}00204\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ CorLoc\ score\ for\ a\ single\ class.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00205}00205\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00207}00207\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ detected\ box}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00209}00209\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_scores:\ A\ 1-\/d\ numpy\ array\ of\ length\ N\ representing\ classification}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ score}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes:\ A\ numpy\ array\ of\ shape\ [M,\ 4]\ representing\ ground\ truth}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00213}00213\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_masks:\ (optional)\ A\ np.uint8\ numpy\ array\ of\ shape\ [N,\ height,}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00214}00214\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ width].\ If\ }\textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ the\ scores\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00215}00215\ \ \ \ \ \ \ groundtruth\_masks:\ (optional)\ A\ np.uint8\ numpy\ array\ of\ shape\ [M,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00218}00218\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00219}00219\ \ \ \ \ \ \ is\_class\_correctly\_detected\_in\_image:\ An\ integer\ 1\ \textcolor{keywordflow}{or}\ 0\ denoting\ whether\ a}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }is\ correctly\ detected\ in\ the\ image\ or\ not}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00221}00221\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00222}00222\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_boxes.size\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00223}00223\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_boxes.size\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ max\_score\_id\ =\ np.argmax(detected\_scores)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ mask\_mode\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ mask\_mode\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ mask\_mode:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ detected\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_data=np.expand\_dims(detected\_boxes[max\_score\_id],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mask\_data=np.expand\_dims(detected\_masks[max\_score\_id],\ axis=0))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ gt\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_data=groundtruth\_boxes,\ mask\_data=groundtruth\_masks)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ iou\ =\ np\_box\_mask\_list\_ops.iou(detected\_boxlist,\ gt\_boxlist)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ detected\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.expand\_dims(detected\_boxes[max\_score\_id,\ :],\ axis=0))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ gt\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(groundtruth\_boxes)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ iou\ =\ np\_box\_list\_ops.iou(detected\_boxlist,\ gt\_boxlist)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ np.max(iou)\ >=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac9c7877ef6e4093d1bfba7332ae8760a}{matching\_iou\_threshold}}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{return}\ 0}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00244}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a32076b688ff432b73aac0fcc68b17436}{00244}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a32076b688ff432b73aac0fcc68b17436}{\_compute\_tp\_fp}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00254}00254\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ true/false\ positives\ of\ detections\ of\ an\ image\ across\ all\ classes.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00255}00255\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00257}00257\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 4],\ representing\ N}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00258}00258\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ regions\ of\ detected\ object\ regions.\ Each\ row\ }\textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00260}00260\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,\ 1],\ representing\ the}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00261}00261\ \ \ \ \ \ \ \ \ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00262}00262\ \ \ \ \ \ \ detected\_class\_labels:\ A\ integer\ numpy\ array\ of\ shape\ [N,\ 1],\ repreneting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00264}00264\ \ \ \ \ \ \ groundtruth\_boxes:\ A\ float\ numpy\ array\ of\ shape\ [M,\ 4],\ representing\ M}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ regions\ of\ object\ instances\ \textcolor{keywordflow}{in}\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00266}00266\ \ \ \ \ \ \ groundtruth\_class\_labels:\ An\ integer\ numpy\ array\ of\ shape\ [M,\ 1],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ representing\ M\ \textcolor{keyword}{class\ }labels\ of\ object\ instances\ in\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00268}00268\ \ \ \ \ \ \ groundtruth\_is\_difficult\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ \textcolor{keywordflow}{is}\ a\ difficult\ instance\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00270}00270\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ has\ group-\/of\ tag}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00272}00272\ \ \ \ \ \ \ detected\_masks:\ (optional)\ A\ np.uint8\ numpy\ array\ of\ shape\ [N,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ width].\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ the\ scores\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00274}00274\ \ \ \ \ \ \ groundtruth\_masks:\ (optional)\ A\ np.uint8\ numpy\ array\ of\ shape\ [M,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00277}00277\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00278}00278\ \ \ \ \ \ \ result\_scores:\ A\ list\ of\ float\ numpy\ arrays.\ Each\ numpy\ array\ \textcolor{keywordflow}{is}\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ shape\ [K,\ 1],\ representing\ K\ scores\ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ label\ c}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00281}00281\ \ \ \ \ \ \ result\_tp\_fp\_labels:\ A\ list\ of\ boolean\ numpy\ array.\ Each\ numpy\ array\ \textcolor{keywordflow}{is}\ of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ shape\ [K,\ 1],\ representing\ K\ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label\ of\ object}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ instances\ detected\ \textcolor{keyword}{with}\ \textcolor{keyword}{class\ }label\ c}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00285}00285\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00286}00286\ \ \ \ \ \ \ ValueError:\ If\ detected\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ but\ groundtruth\ masks\ are\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ the\ other\ way\ around.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00288}00288\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00289}00289\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00290}00290\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Detected\ masks\ is\ available\ but\ groundtruth\ masks\ is\ not.'})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00292}00292\ \ \ \ \ \textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00293}00293\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Groundtruth\ masks\ is\ available\ but\ detected\ masks\ is\ not.'})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00296}00296\ \ \ \ \ result\_scores\ =\ []}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00297}00297\ \ \ \ \ result\_tp\_fp\_labels\ =\ []}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac57295b8b3c3e0b8892cb5fe42ab93e3}{num\_groundtruth\_classes}}):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00299}00299\ \ \ \ \ \ \ groundtruth\_is\_difficult\_list\_at\_ith\_class\ =\ (}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list[groundtruth\_class\_labels\ ==\ i])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00301}00301\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list\_at\_ith\_class\ =\ (}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list[groundtruth\_class\_labels\ ==\ i])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00303}00303\ \ \ \ \ \ \ (gt\_boxes\_at\_ith\_class,\ gt\_masks\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00304}00304\ \ \ \ \ \ \ \ detected\_boxes\_at\_ith\_class,\ detected\_scores\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00305}00305\ \ \ \ \ \ \ \ detected\_masks\_at\_ith\_class)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a864a786dd34c74f837bf5dc7af4686b8}{\_get\_ith\_class\_arrays}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,\ groundtruth\_boxes,\ groundtruth\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,\ i)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00309}00309\ \ \ \ \ \ \ scores,\ tp\_fp\_labels\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a9a407650a13ee9e9f7cb1ce517064bcb}{\_compute\_tp\_fp\_for\_single\_class}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ detected\_scores=detected\_scores\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes=gt\_boxes\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list=groundtruth\_is\_difficult\_list\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list=groundtruth\_is\_group\_of\_list\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ detected\_masks=detected\_masks\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=gt\_masks\_at\_ith\_class)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00317}00317\ \ \ \ \ \ \ result\_scores.append(scores)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00318}00318\ \ \ \ \ \ \ result\_tp\_fp\_labels.append(tp\_fp\_labels)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00319}00319\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_scores,\ result\_tp\_fp\_labels}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00321}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aba3232b0acf5a0af3b7953f925c01c14}{00321}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aba3232b0acf5a0af3b7953f925c01c14}{\_get\_overlaps\_and\_scores\_mask\_mode}}(self,\ detected\_boxes,\ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks,\ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00325}00325\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ overlaps\ and\ scores\ between\ detected\ and\ groudntruth\ masks.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00326}00326\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00327}00327\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00328}00328\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ detected\ box}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00329}00329\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00330}00330\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_scores:\ A\ 1-\/d\ numpy\ array\ of\ length\ N\ representing\ classification}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00331}00331\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ score}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_masks:\ A\ uint8\ numpy\ array\ of\ shape\ [N,\ height,\ width].\ If\ }\textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None},\ the\ scores\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00334}00334\ \ \ \ \ \ \ groundtruth\_boxes:\ A\ numpy\ array\ of\ shape\ [M,\ 4]\ representing\ ground\ truth}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ box\ coordinates}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00336}00336\ \ \ \ \ \ \ groundtruth\_masks:\ A\ uint8\ numpy\ array\ of\ shape\ [M,\ height,\ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00337}00337\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ has\ group-\/of\ tag.\ If\ a\ groundtruth\ box\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ group-\/of\ box,\ every\ detection\ matching\ this\ box\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00341}00341\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00342}00342\ \ \ \ \ \ \ iou:\ A\ float\ numpy\ array\ of\ size\ [num\_detected\_boxes,\ num\_gt\_boxes].\ If}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ gt\_non\_group\_of\_boxlist.num\_boxes()\ ==\ 0\ it\ will\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00344}00344\ \ \ \ \ \ \ ioa:\ A\ float\ numpy\ array\ of\ size\ [num\_detected\_boxes,\ num\_gt\_boxes].\ If}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ gt\_group\_of\_boxlist.num\_boxes()\ ==\ 0\ it\ will\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00346}00346\ \ \ \ \ \ \ scores:\ The\ score\ of\ the\ detected\ boxlist.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00347}00347\ \ \ \ \ \ \ num\_boxes:\ Number\ of\ non-\/maximum\ suppressed\ detected\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00348}00348\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00349}00349\ \textcolor{stringliteral}{\ \ \ \ detected\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00350}00350\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ box\_data=detected\_boxes,\ mask\_data=detected\_masks)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00351}00351\ \textcolor{stringliteral}{\ \ \ \ detected\_boxlist.add\_field('scores'},\ detected\_scores)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00352}00352\ \ \ \ \ detected\_boxlist\ =\ np\_box\_mask\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00353}00353\ \ \ \ \ \ \ \ \ detected\_boxlist,\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aa853de08526af5047d1ff2f6abd930a3}{nms\_max\_output\_boxes}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_adda86ebdf13667d2b1d5449067c0be10}{nms\_iou\_threshold}})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00354}00354\ \ \ \ \ gt\_non\_group\_of\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ box\_data=groundtruth\_boxes[\string~groundtruth\_is\_group\_of\_list],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ mask\_data=groundtruth\_masks[\string~groundtruth\_is\_group\_of\_list])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00357}00357\ \ \ \ \ gt\_group\_of\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__mask__list_1_1_box_mask_list}{np\_box\_mask\_list.BoxMaskList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ box\_data=groundtruth\_boxes[groundtruth\_is\_group\_of\_list],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ mask\_data=groundtruth\_masks[groundtruth\_is\_group\_of\_list])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00360}00360\ \ \ \ \ iou\ =\ np\_box\_mask\_list\_ops.iou(detected\_boxlist,\ gt\_non\_group\_of\_boxlist)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00361}00361\ \ \ \ \ ioa\ =\ np.transpose(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ np\_box\_mask\_list\_ops.ioa(gt\_group\_of\_boxlist,\ detected\_boxlist))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00363}00363\ \ \ \ \ scores\ =\ detected\_boxlist.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00364}00364\ \ \ \ \ num\_boxes\ =\ detected\_boxlist.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00365}00365\ \ \ \ \ \textcolor{keywordflow}{return}\ iou,\ ioa,\ scores,\ num\_boxes}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00367}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_afe14e2b25d8097b76c0d59b3a9960fe2}{00367}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_afe14e2b25d8097b76c0d59b3a9960fe2}{\_get\_overlaps\_and\_scores\_box\_mode}}(self,\ detected\_boxes,\ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00370}00370\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ overlaps\ and\ scores\ between\ detected\ and\ groudntruth\ boxes.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00371}00371\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00372}00372\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00373}00373\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ detected\ box}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00374}00374\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00375}00375\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_scores:\ A\ 1-\/d\ numpy\ array\ of\ length\ N\ representing\ classification}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00376}00376\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ score}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00377}00377\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes:\ A\ numpy\ array\ of\ shape\ [M,\ 4]\ representing\ ground\ truth}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00378}00378\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00379}00379\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_is\_group\_of\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00380}00380\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ has\ group-\/of\ tag.\ If\ a\ groundtruth\ box\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ group-\/of\ box,\ every\ detection\ matching\ this\ box\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00383}00383\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00384}00384\ \ \ \ \ \ \ iou:\ A\ float\ numpy\ array\ of\ size\ [num\_detected\_boxes,\ num\_gt\_boxes].\ If}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ gt\_non\_group\_of\_boxlist.num\_boxes()\ ==\ 0\ it\ will\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00386}00386\ \ \ \ \ \ \ ioa:\ A\ float\ numpy\ array\ of\ size\ [num\_detected\_boxes,\ num\_gt\_boxes].\ If}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ gt\_group\_of\_boxlist.num\_boxes()\ ==\ 0\ it\ will\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00388}00388\ \ \ \ \ \ \ scores:\ The\ score\ of\ the\ detected\ boxlist.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00389}00389\ \ \ \ \ \ \ num\_boxes:\ Number\ of\ non-\/maximum\ suppressed\ detected\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00390}00390\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00391}00391\ \textcolor{stringliteral}{\ \ \ \ detected\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(detected\_boxes)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00392}00392\ \textcolor{stringliteral}{\ \ \ \ detected\_boxlist.add\_field('scores'},\ detected\_scores)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00393}00393\ \ \ \ \ detected\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ detected\_boxlist,\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aa853de08526af5047d1ff2f6abd930a3}{nms\_max\_output\_boxes}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_adda86ebdf13667d2b1d5449067c0be10}{nms\_iou\_threshold}})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00395}00395\ \ \ \ \ gt\_non\_group\_of\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ groundtruth\_boxes[\string~groundtruth\_is\_group\_of\_list])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00397}00397\ \ \ \ \ gt\_group\_of\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ groundtruth\_boxes[groundtruth\_is\_group\_of\_list])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00399}00399\ \ \ \ \ iou\ =\ np\_box\_list\_ops.iou(detected\_boxlist,\ gt\_non\_group\_of\_boxlist)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00400}00400\ \ \ \ \ ioa\ =\ np.transpose(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ np\_box\_list\_ops.ioa(gt\_group\_of\_boxlist,\ detected\_boxlist))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00402}00402\ \ \ \ \ scores\ =\ detected\_boxlist.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00403}00403\ \ \ \ \ num\_boxes\ =\ detected\_boxlist.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00404}00404\ \ \ \ \ \textcolor{keywordflow}{return}\ iou,\ ioa,\ scores,\ num\_boxes}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00406}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a9a407650a13ee9e9f7cb1ce517064bcb}{00406}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a9a407650a13ee9e9f7cb1ce517064bcb}{\_compute\_tp\_fp\_for\_single\_class}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00414}00414\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ boxes\ detected\ with\ the\ same\ class\ from\ the\ same\ image\ as\ tp/fp.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00415}00415\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00416}00416\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00417}00417\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ numpy\ array\ of\ shape\ [N,\ 4]\ representing\ detected\ box}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00418}00418\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00419}00419\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_scores:\ A\ 1-\/d\ numpy\ array\ of\ length\ N\ representing\ classification}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00420}00420\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ score}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00421}00421\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes:\ A\ numpy\ array\ of\ shape\ [M,\ 4]\ representing\ ground\ truth}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00422}00422\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ box\ coordinates}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00423}00423\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_is\_difficult\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00424}00424\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ }\textcolor{keywordflow}{is}\ a\ difficult\ instance\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.\ If\ a}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ groundtruth\ box\ \textcolor{keywordflow}{is}\ difficult,\ every\ detection\ matching\ this\ box\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00426}00426\ \ \ \ \ \ \ \ \ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00427}00427\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list:\ A\ boolean\ numpy\ array\ of\ length\ M\ denoting}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00428}00428\ \ \ \ \ \ \ \ \ whether\ a\ ground\ truth\ box\ has\ group-\/of\ tag.\ If\ a\ groundtruth\ box\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00429}00429\ \ \ \ \ \ \ \ \ group-\/of\ box,\ every\ detection\ matching\ this\ box\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00430}00430\ \ \ \ \ \ \ detected\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [N,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00431}00431\ \ \ \ \ \ \ \ \ width].\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ the\ scores\ will\ be\ computed\ based\ on\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00432}00432\ \ \ \ \ \ \ groundtruth\_masks:\ (optional)\ A\ uint8\ numpy\ array\ of\ shape\ [M,\ height,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00435}00435\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00436}00436\ \ \ \ \ \ \ Two\ arrays\ of\ the\ same\ size,\ containing\ all\ boxes\ that\ were\ evaluated\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00437}00437\ \ \ \ \ \ \ being\ true\ positives\ \textcolor{keywordflow}{or}\ false\ positives;\ \textcolor{keywordflow}{if}\ a\ box\ matched\ to\ a\ difficult}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00438}00438\ \ \ \ \ \ \ box\ \textcolor{keywordflow}{or}\ to\ a\ group-\/of\ box,\ it\ \textcolor{keywordflow}{is}\ ignored.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00440}00440\ \ \ \ \ \ \ scores:\ A\ numpy\ array\ representing\ the\ detection\ scores.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00441}00441\ \ \ \ \ \ \ tp\_fp\_labels:\ a\ boolean\ numpy\ array\ indicating\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ true\ positive.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00443}00443\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00444}00444\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_boxes.size\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00445}00445\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.array([],\ dtype=float),\ np.array([],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00447}00447\ \ \ \ \ mask\_mode\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00448}00448\ \ \ \ \ \textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00449}00449\ \ \ \ \ \ \ mask\_mode\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00451}00451\ \ \ \ \ iou\ =\ np.ndarray([0,\ 0])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00452}00452\ \ \ \ \ ioa\ =\ np.ndarray([0,\ 0])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00453}00453\ \ \ \ \ iou\_mask\ =\ np.ndarray([0,\ 0])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00454}00454\ \ \ \ \ ioa\_mask\ =\ np.ndarray([0,\ 0])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00455}00455\ \ \ \ \ \textcolor{keywordflow}{if}\ mask\_mode:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00456}00456\ \ \ \ \ \ \ \textcolor{comment}{\#\ For\ Instance\ Segmentation\ Evaluation\ on\ Open\ Images\ V5,\ not\ all\ boxed}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00457}00457\ \ \ \ \ \ \ \textcolor{comment}{\#\ instances\ have\ corresponding\ segmentation\ annotations.\ Those\ boxes\ that}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00458}00458\ \ \ \ \ \ \ \textcolor{comment}{\#\ dont\ have\ segmentation\ annotations\ are\ represented\ as\ empty\ masks\ in}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00459}00459\ \ \ \ \ \ \ \textcolor{comment}{\#\ groundtruth\_masks\ nd\ array.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00460}00460\ \ \ \ \ \ \ mask\_presence\_indicator\ =\ (np.sum(groundtruth\_masks,\ axis=(1,\ 2))\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00461}00461\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00462}00462\ \ \ \ \ \ \ (iou\_mask,\ ioa\_mask,\ scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00463}00463\ \ \ \ \ \ \ \ num\_detected\_boxes)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_aba3232b0acf5a0af3b7953f925c01c14}{\_get\_overlaps\_and\_scores\_mask\_mode}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=detected\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes=groundtruth\_boxes[mask\_presence\_indicator,\ :],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks=groundtruth\_masks[mask\_presence\_indicator,\ :],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list=groundtruth\_is\_group\_of\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mask\_presence\_indicator])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00471}00471\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ sum(mask\_presence\_indicator)\ <\ len(mask\_presence\_indicator):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00472}00472\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Not\ all\ masks\ are\ present\ -\/\ some\ masks\ are\ empty}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00473}00473\ \ \ \ \ \ \ \ \ (iou,\ ioa,\ \_,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00474}00474\ \ \ \ \ \ \ \ \ \ num\_detected\_boxes)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_afe14e2b25d8097b76c0d59b3a9960fe2}{\_get\_overlaps\_and\_scores\_box\_mode}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes=groundtruth\_boxes[\string~mask\_presence\_indicator,\ :],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list=groundtruth\_is\_group\_of\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \string~mask\_presence\_indicator])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00480}00480\ \ \ \ \ \ \ num\_detected\_boxes\ =\ detected\_boxes.shape[0]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00481}00481\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00482}00482\ \ \ \ \ \ \ mask\_presence\_indicator\ =\ np.zeros(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list.shape,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00484}00484\ \ \ \ \ \ \ (iou,\ ioa,\ scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00485}00485\ \ \ \ \ \ \ \ num\_detected\_boxes)\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_afe14e2b25d8097b76c0d59b3a9960fe2}{\_get\_overlaps\_and\_scores\_box\_mode}}(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes=detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes=groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list=groundtruth\_is\_group\_of\_list)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00491}00491\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_boxes.size\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00492}00492\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scores,\ np.zeros(num\_detected\_boxes,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00494}00494\ \ \ \ \ tp\_fp\_labels\ =\ np.zeros(num\_detected\_boxes,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00495}00495\ \ \ \ \ is\_matched\_to\_box\ =\ np.zeros(num\_detected\_boxes,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00496}00496\ \ \ \ \ is\_matched\_to\_difficult\ =\ np.zeros(num\_detected\_boxes,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00497}00497\ \ \ \ \ is\_matched\_to\_group\_of\ =\ np.zeros(num\_detected\_boxes,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00499}00499\ \ \ \ \ \textcolor{keyword}{def\ }compute\_match\_iou(iou,\ groundtruth\_nongroup\_of\_is\_difficult\_list,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_box):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00501}00501\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ TP/FP\ for\ non\ group-\/of\ box\ matching.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00502}00502\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00503}00503\ \textcolor{stringliteral}{\ \ \ \ \ \ The\ function\ updates\ the\ following\ local\ variables:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00504}00504\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ tp\_fp\_labels\ -\/\ }\textcolor{keywordflow}{if}\ a\ box\ \textcolor{keywordflow}{is}\ matched\ to\ group-\/of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00505}00505\ \ \ \ \ \ \ \ \ is\_matched\_to\_difficult\ -\/\ the\ detections\ that\ were\ processed\ at\ this\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ matched\ to\ difficult\ box.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ is\_matched\_to\_box\ -\/\ the\ detections\ that\ were\ processed\ at\ this\ stage\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ marked\ \textcolor{keyword}{as}\ is\_box.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00510}00510\ \ \ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00511}00511\ \ \ \ \ \ \ \ \ iou:\ intersection-\/over-\/union\ matrix\ [num\_gt\_boxes]x[num\_det\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00512}00512\ \ \ \ \ \ \ \ \ groundtruth\_nongroup\_of\_is\_difficult\_list:\ boolean\ that\ specifies\ \textcolor{keywordflow}{if}\ gt}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ box\ \textcolor{keywordflow}{is}\ difficult.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ is\_box:\ boolean\ that\ specifies\ \textcolor{keywordflow}{if}\ currently\ boxes\ \textcolor{keywordflow}{or}\ masks\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ processed.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00516}00516\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00517}00517\ \textcolor{stringliteral}{\ \ \ \ \ \ max\_overlap\_gt\_ids\ =\ np.argmax(iou,\ axis=1)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00518}00518\ \textcolor{stringliteral}{\ \ \ \ \ \ is\_gt\_detected\ =\ np.zeros(iou.shape[1],\ dtype=bool)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00519}00519\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_detected\_boxes):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ gt\_id\ =\ max\_overlap\_gt\_ids[i]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ is\_evaluatable\ =\ (\textcolor{keywordflow}{not}\ tp\_fp\_labels[i]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ is\_matched\_to\_difficult[i]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou[i,\ gt\_id]\ >=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac9c7877ef6e4093d1bfba7332ae8760a}{matching\_iou\_threshold}}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ is\_matched\_to\_group\_of[i])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_evaluatable:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ groundtruth\_nongroup\_of\_is\_difficult\_list[gt\_id]:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ is\_gt\_detected[gt\_id]:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tp\_fp\_labels[i]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00529}00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_gt\_detected[gt\_id]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_matched\_to\_box[i]\ =\ is\_box}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ is\_matched\_to\_difficult[i]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00534}00534\ \ \ \ \ \textcolor{keyword}{def\ }compute\_match\_ioa(ioa,\ is\_box):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00535}00535\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ TP/FP\ for\ group-\/of\ box\ matching.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00536}00536\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00537}00537\ \textcolor{stringliteral}{\ \ \ \ \ \ The\ function\ updates\ the\ following\ local\ variables:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00538}00538\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ is\_matched\_to\_group\_of\ -\/\ }\textcolor{keywordflow}{if}\ a\ box\ \textcolor{keywordflow}{is}\ matched\ to\ group-\/of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00539}00539\ \ \ \ \ \ \ \ \ is\_matched\_to\_box\ -\/\ the\ detections\ that\ were\ processed\ at\ this\ stage\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ marked\ \textcolor{keyword}{as}\ is\_box.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00542}00542\ \ \ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ ioa:\ intersection-\/over-\/area\ matrix\ [num\_gt\_boxes]x[num\_det\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ is\_box:\ boolean\ that\ specifies\ \textcolor{keywordflow}{if}\ currently\ boxes\ \textcolor{keywordflow}{or}\ masks\ are}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ processed.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00547}00547\ \ \ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ scores\_group\_of:\ of\ detections\ matched\ to\ group-\/of\ boxes}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00549}00549\ \ \ \ \ \ \ \ \ [num\_groupof\_matched].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ tp\_fp\_labels\_group\_of:\ boolean\ array\ of\ size\ [num\_groupof\_matched],\ all}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ values\ are\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00552}00552\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00553}00553\ \textcolor{stringliteral}{\ \ \ \ \ \ scores\_group\_of\ =\ np.zeros(ioa.shape[1],\ dtype=float)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00554}00554\ \textcolor{stringliteral}{\ \ \ \ \ \ tp\_fp\_labels\_group\_of\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a39bc39d1cf554c9347f5a486e72bc162}{group\_of\_weight}}\ *\ np.ones(}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00555}00555\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ ioa.shape[1],\ dtype=float)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00556}00556\ \textcolor{stringliteral}{\ \ \ \ \ \ max\_overlap\_group\_of\_gt\_ids\ =\ np.argmax(ioa,\ axis=1)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00557}00557\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_detected\_boxes):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00558}00558\ \ \ \ \ \ \ \ \ gt\_id\ =\ max\_overlap\_group\_of\_gt\_ids[i]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00559}00559\ \ \ \ \ \ \ \ \ is\_evaluatable\ =\ (\textcolor{keywordflow}{not}\ tp\_fp\_labels[i]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ is\_matched\_to\_difficult[i]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ioa[i,\ gt\_id]\ >=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_ac9c7877ef6e4093d1bfba7332ae8760a}{matching\_iou\_threshold}}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ is\_matched\_to\_group\_of[i])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_evaluatable:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ is\_matched\_to\_group\_of[i]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ is\_matched\_to\_box[i]\ =\ is\_box}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ scores\_group\_of[gt\_id]\ =\ max(scores\_group\_of[gt\_id],\ scores[i])}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00567}00567\ \ \ \ \ \ \ selector\ =\ np.where((scores\_group\_of\ >\ 0)\ \&\ (tp\_fp\_labels\_group\_of\ >\ 0))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00568}00568\ \ \ \ \ \ \ scores\_group\_of\ =\ scores\_group\_of[selector]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00569}00569\ \ \ \ \ \ \ tp\_fp\_labels\_group\_of\ =\ tp\_fp\_labels\_group\_of[selector]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00570}00570\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00571}00571\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scores\_group\_of,\ tp\_fp\_labels\_group\_of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00573}00573\ \ \ \ \ \textcolor{comment}{\#\ The\ evaluation\ is\ done\ in\ two\ stages:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00574}00574\ \ \ \ \ \textcolor{comment}{\#\ 1.\ Evaluate\ all\ objects\ that\ actually\ have\ instance\ level\ masks.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00575}00575\ \ \ \ \ \textcolor{comment}{\#\ 2.\ Evaluate\ all\ objects\ that\ are\ not\ already\ evaluated\ as\ boxes.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00576}00576\ \ \ \ \ \textcolor{keywordflow}{if}\ iou\_mask.shape[1]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00577}00577\ \ \ \ \ \ \ groundtruth\_is\_difficult\_mask\_list\ =\ groundtruth\_is\_difficult\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ mask\_presence\_indicator]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00579}00579\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_mask\_list\ =\ groundtruth\_is\_group\_of\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ mask\_presence\_indicator]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00581}00581\ \ \ \ \ \ \ compute\_match\_iou(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ iou\_mask,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_mask\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \string~groundtruth\_is\_group\_of\_mask\_list],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ is\_box=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00586}00586\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00587}00587\ \ \ \ \ scores\_mask\_group\_of\ =\ np.ndarray([0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00588}00588\ \ \ \ \ tp\_fp\_labels\_mask\_group\_of\ =\ np.ndarray([0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00589}00589\ \ \ \ \ \textcolor{keywordflow}{if}\ ioa\_mask.shape[1]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00590}00590\ \ \ \ \ \ \ scores\_mask\_group\_of,\ tp\_fp\_labels\_mask\_group\_of\ =\ compute\_match\_ioa(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ ioa\_mask,\ is\_box=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00592}00592\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00593}00593\ \ \ \ \ \textcolor{comment}{\#\ Tp-\/fp\ evaluation\ for\ non-\/group\ of\ boxes\ (if\ any).}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00594}00594\ \ \ \ \ \textcolor{keywordflow}{if}\ iou.shape[1]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00595}00595\ \ \ \ \ \ \ groundtruth\_is\_difficult\_box\_list\ =\ groundtruth\_is\_difficult\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00596}00596\ \ \ \ \ \ \ \ \ \ \ \string~mask\_presence\_indicator]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00597}00597\ \ \ \ \ \ \ groundtruth\_is\_group\_of\_box\_list\ =\ groundtruth\_is\_group\_of\_list[}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \string~mask\_presence\_indicator]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00599}00599\ \ \ \ \ \ \ compute\_match\_iou(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ iou,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_difficult\_box\_list[\string~groundtruth\_is\_group\_of\_box\_list],}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ is\_box=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00604}00604\ \ \ \ \ scores\_box\_group\_of\ =\ np.ndarray([0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00605}00605\ \ \ \ \ tp\_fp\_labels\_box\_group\_of\ =\ np.ndarray([0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00606}00606\ \ \ \ \ \textcolor{keywordflow}{if}\ ioa.shape[1]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00607}00607\ \ \ \ \ \ \ scores\_box\_group\_of,\ tp\_fp\_labels\_box\_group\_of\ =\ compute\_match\_ioa(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ ioa,\ is\_box=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00609}00609\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00610}00610\ \ \ \ \ \textcolor{keywordflow}{if}\ mask\_mode:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00611}00611\ \ \ \ \ \ \ \textcolor{comment}{\#\ Note:\ here\ crowds\ are\ treated\ as\ ignore\ regions.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00612}00612\ \ \ \ \ \ \ valid\_entries\ =\ (\string~is\_matched\_to\_difficult\ \&\ \string~is\_matched\_to\_group\_of}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\ \string~is\_matched\_to\_box)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00614}00614\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.concatenate(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ (scores[valid\_entries],\ scores\_mask\_group\_of)),\ np.concatenate(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (tp\_fp\_labels[valid\_entries].astype(float),}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00617}00617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tp\_fp\_labels\_mask\_group\_of))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00618}00618\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00619}00619\ \ \ \ \ \ \ valid\_entries\ =\ (\string~is\_matched\_to\_difficult\ \&\ \string~is\_matched\_to\_group\_of)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00620}00620\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.concatenate(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ (scores[valid\_entries],\ scores\_box\_group\_of)),\ np.concatenate(}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (tp\_fp\_labels[valid\_entries].astype(float),}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tp\_fp\_labels\_box\_group\_of))}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00625}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a864a786dd34c74f837bf5dc7af4686b8}{00625}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a864a786dd34c74f837bf5dc7af4686b8}{\_get\_ith\_class\_arrays}}(self,\ detected\_boxes,\ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00626}00626\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks,\ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00627}00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,\ groundtruth\_masks,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00628}00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,\ class\_index):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00629}00629\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ numpy\ arrays\ belonging\ to\ class\ with\ index\ \`{}class\_index\`{}.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00630}00630\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00631}00631\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00632}00632\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_boxes:\ A\ numpy\ array\ containing\ detected\ boxes.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00633}00633\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_scores:\ A\ numpy\ array\ containing\ detected\ scores.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00634}00634\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_masks:\ A\ numpy\ array\ containing\ detected\ masks.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00635}00635\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_class\_labels:\ A\ numpy\ array\ containing\ detected\ }\textcolor{keyword}{class\ }labels.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00636}00636\ \ \ \ \ \ \ groundtruth\_boxes:\ A\ numpy\ array\ containing\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00637}00637\ \ \ \ \ \ \ groundtruth\_masks:\ A\ numpy\ array\ containing\ groundtruth\ masks.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00638}00638\ \ \ \ \ \ \ groundtruth\_class\_labels:\ A\ numpy\ array\ containing\ groundtruth\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00639}00639\ \ \ \ \ \ \ \ \ labels.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00640}00640\ \ \ \ \ \ \ class\_index:\ An\ integer\ index.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00641}00641\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00642}00642\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00643}00643\ \ \ \ \ \ \ gt\_boxes\_at\_ith\_class:\ A\ numpy\ array\ containing\ groundtruth\ boxes\ labeled}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00644}00644\ \ \ \ \ \ \ \ \ \textcolor{keyword}{as}\ ith\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00645}00645\ \ \ \ \ \ \ gt\_masks\_at\_ith\_class:\ A\ numpy\ array\ containing\ groundtruth\ masks\ labeled}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00646}00646\ \ \ \ \ \ \ \ \ \textcolor{keyword}{as}\ ith\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00647}00647\ \ \ \ \ \ \ detected\_boxes\_at\_ith\_class:\ A\ numpy\ array\ containing\ detected\ boxes}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00648}00648\ \ \ \ \ \ \ \ \ corresponding\ to\ the\ ith\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00649}00649\ \ \ \ \ \ \ detected\_scores\_at\_ith\_class:\ A\ numpy\ array\ containing\ detected\ scores}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00650}00650\ \ \ \ \ \ \ \ \ corresponding\ to\ the\ ith\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00651}00651\ \ \ \ \ \ \ detected\_masks\_at\_ith\_class:\ A\ numpy\ array\ containing\ detected\ masks}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00652}00652\ \ \ \ \ \ \ \ \ corresponding\ to\ the\ ith\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00653}00653\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00654}00654\ \textcolor{stringliteral}{\ \ \ \ selected\_groundtruth\ =\ (groundtruth\_class\_labels\ ==\ class\_index)}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00655}00655\ \textcolor{stringliteral}{\ \ \ \ gt\_boxes\_at\_ith\_class\ =\ groundtruth\_boxes[selected\_groundtruth]}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00656}00656\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ groundtruth\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00657}00657\ \ \ \ \ \ \ gt\_masks\_at\_ith\_class\ =\ groundtruth\_masks[selected\_groundtruth]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00658}00658\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00659}00659\ \ \ \ \ \ \ gt\_masks\_at\_ith\_class\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00660}00660\ \ \ \ \ selected\_detections\ =\ (detected\_class\_labels\ ==\ class\_index)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00661}00661\ \ \ \ \ detected\_boxes\_at\_ith\_class\ =\ detected\_boxes[selected\_detections]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00662}00662\ \ \ \ \ detected\_scores\_at\_ith\_class\ =\ detected\_scores[selected\_detections]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00663}00663\ \ \ \ \ \textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00664}00664\ \ \ \ \ \ \ detected\_masks\_at\_ith\_class\ =\ detected\_masks[selected\_detections]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00665}00665\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00666}00666\ \ \ \ \ \ \ detected\_masks\_at\_ith\_class\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00667}00667\ \ \ \ \ \textcolor{keywordflow}{return}\ (gt\_boxes\_at\_ith\_class,\ gt\_masks\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes\_at\_ith\_class,\ detected\_scores\_at\_ith\_class,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks\_at\_ith\_class)}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00670}00670\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00671}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a57623c9d1e54b91d8a486d5e2eda1e82}{00671}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__evaluation_1_1_per_image_evaluation_a57623c9d1e54b91d8a486d5e2eda1e82}{\_remove\_invalid\_boxes}}(self,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks=None):}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00676}00676\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Removes\ entries\ with\ invalid\ boxes.}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00677}00677\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00678}00678\ \textcolor{stringliteral}{\ \ \ \ A\ box\ }\textcolor{keywordflow}{is}\ invalid\ \textcolor{keywordflow}{if}\ either\ its\ xmax\ \textcolor{keywordflow}{is}\ smaller\ than\ its\ xmin,\ \textcolor{keywordflow}{or}\ its\ ymax}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00679}00679\ \ \ \ \ \textcolor{keywordflow}{is}\ smaller\ than\ its\ ymin.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00680}00680\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00681}00681\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00682}00682\ \ \ \ \ \ \ detected\_boxes:\ A\ float\ numpy\ array\ of\ size\ [num\_boxes,\ 4]\ containing\ box}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00683}00683\ \ \ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{in}\ [ymin,\ xmin,\ ymax,\ xmax]\ format.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00684}00684\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ size\ [num\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00685}00685\ \ \ \ \ \ \ detected\_class\_labels:\ A\ int32\ numpy\ array\ of\ size\ [num\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00686}00686\ \ \ \ \ \ \ detected\_masks:\ A\ uint8\ numpy\ array\ of\ size\ [num\_boxes,\ height,\ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00687}00687\ }
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00688}00688\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00689}00689\ \ \ \ \ \ \ valid\_detected\_boxes:\ A\ float\ numpy\ array\ of\ size\ [num\_valid\_boxes,\ 4]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00690}00690\ \ \ \ \ \ \ \ \ containing\ box\ coordinates\ \textcolor{keywordflow}{in}\ [ymin,\ xmin,\ ymax,\ xmax]\ format.}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00691}00691\ \ \ \ \ \ \ valid\_detected\_scores:\ A\ float\ numpy\ array\ of\ size\ [num\_valid\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00692}00692\ \ \ \ \ \ \ valid\_detected\_class\_labels:\ A\ int32\ numpy\ array\ of\ size}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00693}00693\ \ \ \ \ \ \ \ \ [num\_valid\_boxes].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00694}00694\ \ \ \ \ \ \ valid\_detected\_masks:\ A\ uint8\ numpy\ array\ of\ size}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00695}00695\ \ \ \ \ \ \ \ \ [num\_valid\_boxes,\ height,\ width].}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00696}00696\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00697}00697\ \textcolor{stringliteral}{\ \ \ \ valid\_indices\ =\ np.logical\_and(detected\_boxes[:,\ 0]\ <\ detected\_boxes[:,\ 2],}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00698}00698\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes[:,\ 1]\ <\ detected\_boxes[:,\ 3])}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00699}00699\ \textcolor{stringliteral}{\ \ \ \ detected\_boxes\ =\ detected\_boxes[valid\_indices]}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00700}00700\ \textcolor{stringliteral}{\ \ \ \ detected\_scores\ =\ detected\_scores[valid\_indices]}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00701}00701\ \textcolor{stringliteral}{\ \ \ \ detected\_class\_labels\ =\ detected\_class\_labels[valid\_indices]}}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00702}00702\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00703}00703\ \ \ \ \ \ \ detected\_masks\ =\ detected\_masks[valid\_indices]}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00704}00704\ \ \ \ \ \textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00705}00705\ \ \ \ \ \ \ \ \ detected\_boxes,\ detected\_scores,\ detected\_class\_labels,\ detected\_masks}
+\DoxyCodeLine{\Hypertarget{per__image__evaluation_8py_source_l00706}00706\ \ \ \ \ ]}
+
+\end{DoxyCode}

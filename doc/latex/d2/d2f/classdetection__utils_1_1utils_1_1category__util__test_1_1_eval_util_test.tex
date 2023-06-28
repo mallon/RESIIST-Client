@@ -1,0 +1,99 @@
+\doxysection{detection\+\_\+utils.\+utils.\+category\+\_\+util\+\_\+test.\+Eval\+Util\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test}{}\label{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test}\index{detection\_utils.utils.category\_util\_test.EvalUtilTest@{detection\_utils.utils.category\_util\_test.EvalUtilTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+category\+\_\+util\+\_\+test.\+Eval\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{d9/d77/classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+category\+\_\+util\+\_\+test.\+Eval\+Util\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{db/d0a/classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a78bba75ecedfcdace274aba10bdfce06}{test\+\_\+load\+\_\+categories\+\_\+from\+\_\+csv\+\_\+file}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a7c3f6777db3f506ce113dc25f8cae564}{test\+\_\+save\+\_\+categories\+\_\+to\+\_\+csv\+\_\+file}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{category__util__test_8py_source_l00029}{29}} of file \mbox{\hyperlink{category__util__test_8py_source}{category\+\_\+util\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a78bba75ecedfcdace274aba10bdfce06}\label{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a78bba75ecedfcdace274aba10bdfce06} 
+\index{detection\_utils.utils.category\_util\_test.EvalUtilTest@{detection\_utils.utils.category\_util\_test.EvalUtilTest}!test\_load\_categories\_from\_csv\_file@{test\_load\_categories\_from\_csv\_file}}
+\index{test\_load\_categories\_from\_csv\_file@{test\_load\_categories\_from\_csv\_file}!detection\_utils.utils.category\_util\_test.EvalUtilTest@{detection\_utils.utils.category\_util\_test.EvalUtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_load\_categories\_from\_csv\_file()}{test\_load\_categories\_from\_csv\_file()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+category\+\_\+util\+\_\+test.\+Eval\+Util\+Test.\+test\+\_\+load\+\_\+categories\+\_\+from\+\_\+csv\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{category__util__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{category__util__test_8py_source}{category\+\_\+util\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{def\ }test\_load\_categories\_from\_csv\_file(self):}
+\DoxyCodeLine{00032\ \ \ \ \ csv\_data\ =\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ 0,"{}cat"{}}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ 1,\textcolor{stringliteral}{"{}dog"{}}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ 2,\textcolor{stringliteral}{"{}bird"{}}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}.strip('\ ')}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ csv\_path\ =\ os.path.join(self.get\_temp\_dir(),\ 'test.csv'})}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.Open(csv\_path,\ \textcolor{stringliteral}{'wb'})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ f.write(csv\_data)}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ categories\ =\ category\_util.load\_categories\_from\_csv\_file(csv\_path)}
+\DoxyCodeLine{00042\ \ \ \ \ self.assertTrue(\{\textcolor{stringliteral}{'id'}:\ 0,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\}\ \textcolor{keywordflow}{in}\ categories)}
+\DoxyCodeLine{00043\ \ \ \ \ self.assertTrue(\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\}\ \textcolor{keywordflow}{in}\ categories)}
+\DoxyCodeLine{00044\ \ \ \ \ self.assertTrue(\{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'bird'}\}\ \textcolor{keywordflow}{in}\ categories)}
+\DoxyCodeLine{00045\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a7c3f6777db3f506ce113dc25f8cae564}\label{classdetection__utils_1_1utils_1_1category__util__test_1_1_eval_util_test_a7c3f6777db3f506ce113dc25f8cae564} 
+\index{detection\_utils.utils.category\_util\_test.EvalUtilTest@{detection\_utils.utils.category\_util\_test.EvalUtilTest}!test\_save\_categories\_to\_csv\_file@{test\_save\_categories\_to\_csv\_file}}
+\index{test\_save\_categories\_to\_csv\_file@{test\_save\_categories\_to\_csv\_file}!detection\_utils.utils.category\_util\_test.EvalUtilTest@{detection\_utils.utils.category\_util\_test.EvalUtilTest}}
+\doxysubsubsection{\texorpdfstring{test\_save\_categories\_to\_csv\_file()}{test\_save\_categories\_to\_csv\_file()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+category\+\_\+util\+\_\+test.\+Eval\+Util\+Test.\+test\+\_\+save\+\_\+categories\+\_\+to\+\_\+csv\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{category__util__test_8py_source_l00046}{46}} of file \mbox{\hyperlink{category__util__test_8py_source}{category\+\_\+util\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{def\ }test\_save\_categories\_to\_csv\_file(self):}
+\DoxyCodeLine{00047\ \ \ \ \ categories\ =\ [}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 0,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\},}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'bird'}\},}
+\DoxyCodeLine{00051\ \ \ \ \ ]}
+\DoxyCodeLine{00052\ \ \ \ \ csv\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'test.csv'})}
+\DoxyCodeLine{00053\ \ \ \ \ category\_util.save\_categories\_to\_csv\_file(categories,\ csv\_path)}
+\DoxyCodeLine{00054\ \ \ \ \ saved\_categories\ =\ category\_util.load\_categories\_from\_csv\_file(csv\_path)}
+\DoxyCodeLine{00055\ \ \ \ \ self.assertEqual(saved\_categories,\ categories)}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{category__util__test_8py}{category\+\_\+util\+\_\+test.\+py}}\end{DoxyCompactItemize}

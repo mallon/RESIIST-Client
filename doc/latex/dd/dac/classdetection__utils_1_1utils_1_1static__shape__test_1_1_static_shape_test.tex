@@ -1,0 +1,144 @@
+\doxysection{detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test}{}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test}\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{dc/d55/classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{db/da3/classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ae33ae51fc7974c5f3927fcacb51a164d}{test\+\_\+return\+\_\+correct\+\_\+batch\+Size}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a7164d78237afc6b28286118adf5fec13}{test\+\_\+return\+\_\+correct\+\_\+height}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a8b870593add0104a94324a17c3d65d84}{test\+\_\+return\+\_\+correct\+\_\+width}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_abf31b387489e0c46791d6be41fc16a97}{test\+\_\+return\+\_\+correct\+\_\+depth}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ad70ab3af7964dde909931d94eaf0fdb2}{test\+\_\+die\+\_\+on\+\_\+tensor\+\_\+shape\+\_\+with\+\_\+rank\+\_\+three}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00027}{27}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ad70ab3af7964dde909931d94eaf0fdb2}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ad70ab3af7964dde909931d94eaf0fdb2} 
+\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}!test\_die\_on\_tensor\_shape\_with\_rank\_three@{test\_die\_on\_tensor\_shape\_with\_rank\_three}}
+\index{test\_die\_on\_tensor\_shape\_with\_rank\_three@{test\_die\_on\_tensor\_shape\_with\_rank\_three}!detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_die\_on\_tensor\_shape\_with\_rank\_three()}{test\_die\_on\_tensor\_shape\_with\_rank\_three()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test.\+test\+\_\+die\+\_\+on\+\_\+tensor\+\_\+shape\+\_\+with\+\_\+rank\+\_\+three (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00045}{45}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{def\ }test\_die\_on\_tensor\_shape\_with\_rank\_three(self):}
+\DoxyCodeLine{00046\ \ \ \ \ tensor\_shape\ =\ tf.TensorShape(dims=[32,\ 299,\ 384])}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ static\_shape.get\_batch\_size(tensor\_shape)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ static\_shape.get\_height(tensor\_shape)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ static\_shape.get\_width(tensor\_shape)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ static\_shape.get\_depth(tensor\_shape)}
+\DoxyCodeLine{00052\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ae33ae51fc7974c5f3927fcacb51a164d}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_ae33ae51fc7974c5f3927fcacb51a164d} 
+\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}!test\_return\_correct\_batchSize@{test\_return\_correct\_batchSize}}
+\index{test\_return\_correct\_batchSize@{test\_return\_correct\_batchSize}!detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_correct\_batchSize()}{test\_return\_correct\_batchSize()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test.\+test\+\_\+return\+\_\+correct\+\_\+batch\+Size (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00029}{29}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{def\ }test\_return\_correct\_batchSize(self):}
+\DoxyCodeLine{00030\ \ \ \ \ tensor\_shape\ =\ tf.TensorShape(dims=[32,\ 299,\ 384,\ 3])}
+\DoxyCodeLine{00031\ \ \ \ \ self.assertEqual(32,\ static\_shape.get\_batch\_size(tensor\_shape))}
+\DoxyCodeLine{00032\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_abf31b387489e0c46791d6be41fc16a97}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_abf31b387489e0c46791d6be41fc16a97} 
+\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}!test\_return\_correct\_depth@{test\_return\_correct\_depth}}
+\index{test\_return\_correct\_depth@{test\_return\_correct\_depth}!detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_correct\_depth()}{test\_return\_correct\_depth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test.\+test\+\_\+return\+\_\+correct\+\_\+depth (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00041}{41}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{def\ }test\_return\_correct\_depth(self):}
+\DoxyCodeLine{00042\ \ \ \ \ tensor\_shape\ =\ tf.TensorShape(dims=[32,\ 299,\ 384,\ 3])}
+\DoxyCodeLine{00043\ \ \ \ \ self.assertEqual(3,\ static\_shape.get\_depth(tensor\_shape))}
+\DoxyCodeLine{00044\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a7164d78237afc6b28286118adf5fec13}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a7164d78237afc6b28286118adf5fec13} 
+\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}!test\_return\_correct\_height@{test\_return\_correct\_height}}
+\index{test\_return\_correct\_height@{test\_return\_correct\_height}!detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_correct\_height()}{test\_return\_correct\_height()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test.\+test\+\_\+return\+\_\+correct\+\_\+height (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00033}{33}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{def\ }test\_return\_correct\_height(self):}
+\DoxyCodeLine{00034\ \ \ \ \ tensor\_shape\ =\ tf.TensorShape(dims=[32,\ 299,\ 384,\ 3])}
+\DoxyCodeLine{00035\ \ \ \ \ self.assertEqual(299,\ static\_shape.get\_height(tensor\_shape))}
+\DoxyCodeLine{00036\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a8b870593add0104a94324a17c3d65d84}\label{classdetection__utils_1_1utils_1_1static__shape__test_1_1_static_shape_test_a8b870593add0104a94324a17c3d65d84} 
+\index{detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}!test\_return\_correct\_width@{test\_return\_correct\_width}}
+\index{test\_return\_correct\_width@{test\_return\_correct\_width}!detection\_utils.utils.static\_shape\_test.StaticShapeTest@{detection\_utils.utils.static\_shape\_test.StaticShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_return\_correct\_width()}{test\_return\_correct\_width()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+static\+\_\+shape\+\_\+test.\+Static\+Shape\+Test.\+test\+\_\+return\+\_\+correct\+\_\+width (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{static__shape__test_8py_source_l00037}{37}} of file \mbox{\hyperlink{static__shape__test_8py_source}{static\+\_\+shape\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{def\ }test\_return\_correct\_width(self):}
+\DoxyCodeLine{00038\ \ \ \ \ tensor\_shape\ =\ tf.TensorShape(dims=[32,\ 299,\ 384,\ 3])}
+\DoxyCodeLine{00039\ \ \ \ \ self.assertEqual(384,\ static\_shape.get\_width(tensor\_shape))}
+\DoxyCodeLine{00040\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{static__shape__test_8py}{static\+\_\+shape\+\_\+test.\+py}}\end{DoxyCompactItemize}

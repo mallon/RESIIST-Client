@@ -1,0 +1,225 @@
+\doxysection{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+ops Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1np__box__ops}{}\label{namespacedetection__utils_1_1utils_1_1np__box__ops}\index{detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}{area}} (boxes)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}{intersection}} (boxes1, boxes2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701}{iou}} (boxes1, boxes2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc}{ioa}} (boxes1, boxes2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Operations for [N, 4] numpy arrays representing bounding boxes.
+
+Example box operations that are supported:
+  * Areas: compute bounding box areas
+  * IOU: pairwise intersection-over-union scores
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92}\label{namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92} 
+\index{detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}!area@{area}}
+\index{area@{area}!detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}}
+\doxysubsubsection{\texorpdfstring{area()}{area()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+ops.\+area (\begin{DoxyParamCaption}\item[{}]{boxes }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes area of boxes.
+
+Args:
+  boxes: Numpy array with shape [N, 4] holding N boxes
+
+Returns:
+  a numpy array with shape [N*1] representing box areas
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__ops_8py_source_l00030}{30}} of file \mbox{\hyperlink{np__box__ops_8py_source}{np\+\_\+box\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \textcolor{keyword}{def\ }area(boxes):}
+\DoxyCodeLine{00031\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ area\ of\ boxes.}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ boxes:\ Numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ Returns:}
+\DoxyCodeLine{00037\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*1]\ representing\ box\ areas}
+\DoxyCodeLine{00038\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ (boxes[:,\ 2]\ -\/\ boxes[:,\ 0])\ *\ (boxes[:,\ 3]\ -\/\ boxes[:,\ 1])}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d5/d7a/namespacedetection__utils_1_1utils_1_1np__box__ops_a4a42810e392408d38c56984dd3fd3b92_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655}\label{namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655} 
+\index{detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}!intersection@{intersection}}
+\index{intersection@{intersection}!detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}}
+\doxysubsubsection{\texorpdfstring{intersection()}{intersection()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+ops.\+intersection (\begin{DoxyParamCaption}\item[{}]{boxes1,  }\item[{}]{boxes2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute pairwise intersection areas between boxes.
+
+Args:
+  boxes1: a numpy array with shape [N, 4] holding N boxes
+  boxes2: a numpy array with shape [M, 4] holding M boxes
+
+Returns:
+  a numpy array with shape [N*M] representing pairwise intersection area
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__ops_8py_source_l00042}{42}} of file \mbox{\hyperlink{np__box__ops_8py_source}{np\+\_\+box\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \textcolor{keyword}{def\ }intersection(boxes1,\ boxes2):}
+\DoxyCodeLine{00043\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ boxes.}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ boxes1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes}
+\DoxyCodeLine{00047\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ M\ boxes}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ Returns:}
+\DoxyCodeLine{00050\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area}
+\DoxyCodeLine{00051\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ [y\_min1,\ x\_min1,\ y\_max1,\ x\_max1]\ =\ np.split(boxes1,\ 4,\ axis=1)}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ [y\_min2,\ x\_min2,\ y\_max2,\ x\_max2]\ =\ np.split(boxes2,\ 4,\ axis=1)}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{\ \ all\_pairs\_min\_ymax\ =\ np.minimum(y\_max1,\ np.transpose(y\_max2))}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ all\_pairs\_max\_ymin\ =\ np.maximum(y\_min1,\ np.transpose(y\_min2))}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ intersect\_heights\ =\ np.maximum(}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ \ \ \ \ np.zeros(all\_pairs\_max\_ymin.shape),}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{\ \ \ \ \ \ all\_pairs\_min\_ymax\ -\/\ all\_pairs\_max\_ymin)}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ all\_pairs\_min\_xmax\ =\ np.minimum(x\_max1,\ np.transpose(x\_max2))}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ all\_pairs\_max\_xmin\ =\ np.maximum(x\_min1,\ np.transpose(x\_min2))}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ intersect\_widths\ =\ np.maximum(}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{\ \ \ \ \ \ np.zeros(all\_pairs\_max\_xmin.shape),}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ \ \ \ \ all\_pairs\_min\_xmax\ -\/\ all\_pairs\_max\_xmin)}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\_heights\ *\ intersect\_widths}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d5/d7a/namespacedetection__utils_1_1utils_1_1np__box__ops_aa518ed5c21c52d9fcffc26e837a44655_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc}\label{namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc} 
+\index{detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}!ioa@{ioa}}
+\index{ioa@{ioa}!detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}}
+\doxysubsubsection{\texorpdfstring{ioa()}{ioa()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+ops.\+ioa (\begin{DoxyParamCaption}\item[{}]{boxes1,  }\item[{}]{boxes2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-area between box collections.
+
+Intersection-over-area (ioa) between two boxes box1 and box2 is defined as
+their intersection area over box2's area. Note that ioa is not symmetric,
+that is, IOA(box1, box2) != IOA(box2, box1).
+
+Args:
+  boxes1: a numpy array with shape [N, 4] holding N boxes.
+  boxes2: a numpy array with shape [M, 4] holding N boxes.
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise ioa scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__ops_8py_source_l00086}{86}} of file \mbox{\hyperlink{np__box__ops_8py_source}{np\+\_\+box\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \textcolor{keyword}{def\ }ioa(boxes1,\ boxes2):}
+\DoxyCodeLine{00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ collections.}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ boxes\ box1\ }\textcolor{keywordflow}{and}\ box2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00090\ \ \ their\ intersection\ area\ over\ box2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{00091\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(box1,\ box2)\ !=\ IOA(box2,\ box1).}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ Args:}
+\DoxyCodeLine{00094\ \ \ \ \ boxes1:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{00095\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ Returns:}
+\DoxyCodeLine{00098\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{\ \ intersect\ =\ intersection(boxes1,\ boxes2)}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ areas\ =\ np.expand\_dims(area(boxes2),\ axis=0)}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\ /\ areas}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d5/d7a/namespacedetection__utils_1_1utils_1_1np__box__ops_aabbe2f765639ef0dfd901481a7d79bbc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701}\label{namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701} 
+\index{detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}!iou@{iou}}
+\index{iou@{iou}!detection\_utils.utils.np\_box\_ops@{detection\_utils.utils.np\_box\_ops}}
+\doxysubsubsection{\texorpdfstring{iou()}{iou()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+ops.\+iou (\begin{DoxyParamCaption}\item[{}]{boxes1,  }\item[{}]{boxes2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-union between box collections.
+
+Args:
+  boxes1: a numpy array with shape [N, 4] holding N boxes.
+  boxes2: a numpy array with shape [M, 4] holding N boxes.
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise iou scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__ops_8py_source_l00068}{68}} of file \mbox{\hyperlink{np__box__ops_8py_source}{np\+\_\+box\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \textcolor{keyword}{def\ }iou(boxes1,\ boxes2):}
+\DoxyCodeLine{00069\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ box\ collections.}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ boxes1:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{00073\ \ \ \ \ boxes2:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [M,\ 4]\ holding\ N\ boxes.}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ Returns:}
+\DoxyCodeLine{00076\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{00077\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00078\ \textcolor{stringliteral}{\ \ intersect\ =\ intersection(boxes1,\ boxes2)}}
+\DoxyCodeLine{00079\ \textcolor{stringliteral}{\ \ area1\ =\ area(boxes1)}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ area2\ =\ area(boxes2)}}
+\DoxyCodeLine{00081\ \textcolor{stringliteral}{\ \ union\ =\ np.expand\_dims(area1,\ axis=1)\ +\ np.expand\_dims(}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{\ \ \ \ \ \ area2,\ axis=0)\ -\/\ intersect}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ intersect\ /\ union}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d5/d7a/namespacedetection__utils_1_1utils_1_1np__box__ops_a69e815768fe6ec9b075c9024f8f91701_cgraph}
+\end{center}
+\end{figure}

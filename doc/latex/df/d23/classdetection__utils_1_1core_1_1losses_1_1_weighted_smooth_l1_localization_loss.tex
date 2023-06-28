@@ -1,0 +1,195 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss}\index{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{dc/d96/classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{d1/d14/classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, delta=1.\+0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, weights)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss}{detection\+\_\+utils.\+core.\+losses.\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0}{\+\_\+delta}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Smooth L1 localization loss function aka Huber Loss..
+
+The smooth L1_loss is defined elementwise as .5 x^2 if |x| <= delta and
+delta * (|x|- 0.5*delta) otherwise, where x is the difference between
+predictions and target.
+
+See also Equation (3) in the Fast R-CNN paper by Ross Girshick (ICCV 2015)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00144}{144}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d} 
+\index{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{delta = {\ttfamily 1.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  delta: delta for smooth L1 loss.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00154}{154}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ delta=1.0):}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00157\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00158\ \textcolor{stringliteral}{\ \ \ \ \ \ delta:\ delta\ }\textcolor{keywordflow}{for}\ smooth\ L1\ loss.}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00160\ \textcolor{stringliteral}{\ \ \ \ super(WeightedSmoothL1LocalizationLoss,\ self).\_\_init\_\_()}}
+\DoxyCodeLine{00161\ \textcolor{stringliteral}{\ \ \ \ self.\_delta\ =\ delta}}
+\DoxyCodeLine{00162\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{df/d23/classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{df/d23/classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_abc0b28eb08b090611695730272fac82d_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432} 
+\index{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{weights }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute loss function.
+
+Args:
+  prediction_tensor: A float tensor of shape [batch_size, num_anchors,
+    code_size] representing the (encoded) predicted locations of objects.
+  target_tensor: A float tensor of shape [batch_size, num_anchors,
+    code_size] representing the regression targets
+  weights: a float tensor of shape [batch_size, num_anchors]
+
+Returns:
+  loss: a float tensor of shape [batch_size, num_anchors] tensor
+    representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{detection\+\_\+utils.\+core.\+losses.\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00163}{163}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00163\ \ \ \textcolor{keyword}{def\ }\_compute\_loss(self,\ prediction\_tensor,\ target\_tensor,\ weights):}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ loss\ function.}}
+\DoxyCodeLine{00165\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00166\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00167\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{00168\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ (encoded)\ predicted\ locations\ of\ objects.}}
+\DoxyCodeLine{00169\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ A\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}}
+\DoxyCodeLine{00170\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ code\_size]\ representing\ the\ regression\ targets}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ \ \ \ \ weights:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00173\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00174\ \textcolor{stringliteral}{\ \ \ \ \ \ loss:\ a\ float\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ tensor}}
+\DoxyCodeLine{00175\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ the\ value\ of\ the\ loss\ function.}}
+\DoxyCodeLine{00176\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00177\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.reduce\_sum(tf.losses.huber\_loss(}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ target\_tensor,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ delta=self.\_delta,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ weights=tf.expand\_dims(weights,\ axis=2),}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ loss\_collection=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ reduction=tf.losses.Reduction.NONE}
+\DoxyCodeLine{00184\ \ \ \ \ ),\ axis=2)}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d23/classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0}\label{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_a5d030db122ef9b27011d28659e4538d0} 
+\index{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}!\_delta@{\_delta}}
+\index{\_delta@{\_delta}!detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss@{detection\_utils.core.losses.WeightedSmoothL1LocalizationLoss}}
+\doxysubsubsection{\texorpdfstring{\_delta}{\_delta}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss.\+\_\+delta\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00161}{161}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,229 @@
+\doxysection{detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields}{}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields}\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{db/d68/classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{d7/d35/classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a66b8a5b5addf323309c087a4f324d784}{source\+\_\+id}} = \textquotesingle{}source\+\_\+id\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_af02ff5038247a8584ea9b0427e45bdff}{key}} = \textquotesingle{}key\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ab946827a42b5310fca40cbaab449b316}{detection\+\_\+boxes}} = \textquotesingle{}detection\+\_\+boxes\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a405a7a4ba3108cd57b7859ffdbe0a860}{detection\+\_\+scores}} = \textquotesingle{}detection\+\_\+scores\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aaeebbbdd24db20d32c9e5ff3b2e5ee32}{detection\+\_\+multiclass\+\_\+scores}} = \textquotesingle{}detection\+\_\+multiclass\+\_\+scores\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ad04c732a8e87fbb77b568ad11c161917}{detection\+\_\+features}} = \textquotesingle{}detection\+\_\+features\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a1f9e72946be3196284c8fc89ed1f4e79}{detection\+\_\+classes}} = \textquotesingle{}detection\+\_\+classes\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a84cafcf633b1e06286d3aad63fbf018b}{detection\+\_\+masks}} = \textquotesingle{}detection\+\_\+masks\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ae5a965e845e8534d3b95459c73ca9c95}{detection\+\_\+boundaries}} = \textquotesingle{}detection\+\_\+boundaries\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a786915a04797c1f8b17dd81747c4c8ac}{detection\+\_\+keypoints}} = \textquotesingle{}detection\+\_\+keypoints\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_afc8919582fe5d7c4ad9467a3fc3a22b0}{num\+\_\+detections}} = \textquotesingle{}num\+\_\+detections\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aee5bf1db12df78f7d50c8786e98bd2df}{raw\+\_\+detection\+\_\+boxes}} = \textquotesingle{}raw\+\_\+detection\+\_\+boxes\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a22e031be01b80a49b0794896e1fafe72}{raw\+\_\+detection\+\_\+scores}} = \textquotesingle{}raw\+\_\+detection\+\_\+scores\textquotesingle{}
+\item 
+str \mbox{\hyperlink{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a6f0e0dbffde072542ac878e24d2ae993}{detection\+\_\+anchor\+\_\+indices}} = \textquotesingle{}detection\+\_\+anchor\+\_\+indices\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Naming conventions for storing the output of the detector.
+
+Attributes:
+  source_id: source of the original image.
+  key: unique key corresponding to image.
+  detection_boxes: coordinates of the detection boxes in the image.
+  detection_scores: detection scores for the detection boxes in the image.
+  detection_multiclass_scores: class score distribution (including background)
+    for detection boxes in the image including background class.
+  detection_classes: detection-level class labels.
+  detection_masks: contains a segmentation mask for each detection box.
+  detection_boundaries: contains an object boundary for each detection box.
+  detection_keypoints: contains detection keypoints for each detection box.
+  num_detections: number of detections in the batch.
+  raw_detection_boxes: contains decoded detection boxes without Non-Max
+    suppression.
+  raw_detection_scores: contains class score logits for raw detection boxes.
+  detection_anchor_indices: The anchor indices of the detections after NMS.
+  detection_features: contains extracted features for each detected box
+    after NMS.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00104}{104}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a6f0e0dbffde072542ac878e24d2ae993}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a6f0e0dbffde072542ac878e24d2ae993} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_anchor\_indices@{detection\_anchor\_indices}}
+\index{detection\_anchor\_indices@{detection\_anchor\_indices}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_anchor\_indices}{detection\_anchor\_indices}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+anchor\+\_\+indices = \textquotesingle{}detection\+\_\+anchor\+\_\+indices\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00140}{140}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ae5a965e845e8534d3b95459c73ca9c95}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ae5a965e845e8534d3b95459c73ca9c95} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_boundaries@{detection\_boundaries}}
+\index{detection\_boundaries@{detection\_boundaries}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_boundaries}{detection\_boundaries}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+boundaries = \textquotesingle{}detection\+\_\+boundaries\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00135}{135}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ab946827a42b5310fca40cbaab449b316}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ab946827a42b5310fca40cbaab449b316} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_boxes@{detection\_boxes}}
+\index{detection\_boxes@{detection\_boxes}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_boxes}{detection\_boxes}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+boxes = \textquotesingle{}detection\+\_\+boxes\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00129}{129}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a1f9e72946be3196284c8fc89ed1f4e79}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a1f9e72946be3196284c8fc89ed1f4e79} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_classes@{detection\_classes}}
+\index{detection\_classes@{detection\_classes}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_classes}{detection\_classes}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+classes = \textquotesingle{}detection\+\_\+classes\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00133}{133}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ad04c732a8e87fbb77b568ad11c161917}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_ad04c732a8e87fbb77b568ad11c161917} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_features@{detection\_features}}
+\index{detection\_features@{detection\_features}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_features}{detection\_features}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+features = \textquotesingle{}detection\+\_\+features\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00132}{132}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a786915a04797c1f8b17dd81747c4c8ac}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a786915a04797c1f8b17dd81747c4c8ac} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_keypoints@{detection\_keypoints}}
+\index{detection\_keypoints@{detection\_keypoints}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_keypoints}{detection\_keypoints}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+keypoints = \textquotesingle{}detection\+\_\+keypoints\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00136}{136}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a84cafcf633b1e06286d3aad63fbf018b}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a84cafcf633b1e06286d3aad63fbf018b} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_masks@{detection\_masks}}
+\index{detection\_masks@{detection\_masks}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_masks}{detection\_masks}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+masks = \textquotesingle{}detection\+\_\+masks\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00134}{134}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aaeebbbdd24db20d32c9e5ff3b2e5ee32}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aaeebbbdd24db20d32c9e5ff3b2e5ee32} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_multiclass\_scores@{detection\_multiclass\_scores}}
+\index{detection\_multiclass\_scores@{detection\_multiclass\_scores}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_multiclass\_scores}{detection\_multiclass\_scores}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+multiclass\+\_\+scores = \textquotesingle{}detection\+\_\+multiclass\+\_\+scores\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00131}{131}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a405a7a4ba3108cd57b7859ffdbe0a860}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a405a7a4ba3108cd57b7859ffdbe0a860} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!detection\_scores@{detection\_scores}}
+\index{detection\_scores@{detection\_scores}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{detection\_scores}{detection\_scores}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+detection\+\_\+scores = \textquotesingle{}detection\+\_\+scores\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00130}{130}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_af02ff5038247a8584ea9b0427e45bdff}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_af02ff5038247a8584ea9b0427e45bdff} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!key@{key}}
+\index{key@{key}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+key = \textquotesingle{}key\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00128}{128}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_afc8919582fe5d7c4ad9467a3fc3a22b0}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_afc8919582fe5d7c4ad9467a3fc3a22b0} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!num\_detections@{num\_detections}}
+\index{num\_detections@{num\_detections}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{num\_detections}{num\_detections}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+num\+\_\+detections = \textquotesingle{}num\+\_\+detections\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00137}{137}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aee5bf1db12df78f7d50c8786e98bd2df}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_aee5bf1db12df78f7d50c8786e98bd2df} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!raw\_detection\_boxes@{raw\_detection\_boxes}}
+\index{raw\_detection\_boxes@{raw\_detection\_boxes}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{raw\_detection\_boxes}{raw\_detection\_boxes}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+raw\+\_\+detection\+\_\+boxes = \textquotesingle{}raw\+\_\+detection\+\_\+boxes\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00138}{138}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a22e031be01b80a49b0794896e1fafe72}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a22e031be01b80a49b0794896e1fafe72} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!raw\_detection\_scores@{raw\_detection\_scores}}
+\index{raw\_detection\_scores@{raw\_detection\_scores}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{raw\_detection\_scores}{raw\_detection\_scores}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+raw\+\_\+detection\+\_\+scores = \textquotesingle{}raw\+\_\+detection\+\_\+scores\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00139}{139}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a66b8a5b5addf323309c087a4f324d784}\label{classdetection__utils_1_1core_1_1standard__fields_1_1_detection_result_fields_a66b8a5b5addf323309c087a4f324d784} 
+\index{detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}!source\_id@{source\_id}}
+\index{source\_id@{source\_id}!detection\_utils.core.standard\_fields.DetectionResultFields@{detection\_utils.core.standard\_fields.DetectionResultFields}}
+\doxysubsubsection{\texorpdfstring{source\_id}{source\_id}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+standard\+\_\+fields.\+Detection\+Result\+Fields.\+source\+\_\+id = \textquotesingle{}source\+\_\+id\textquotesingle{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{standard__fields_8py_source_l00127}{127}} of file \mbox{\hyperlink{standard__fields_8py_source}{standard\+\_\+fields.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{standard__fields_8py}{standard\+\_\+fields.\+py}}\end{DoxyCompactItemize}

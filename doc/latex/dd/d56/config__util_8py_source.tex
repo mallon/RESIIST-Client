@@ -1,0 +1,943 @@
+\doxysection{config\+\_\+util.\+py}
+\hypertarget{config__util_8py_source}{}\label{config__util_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/config\_util.py@{src/main/resources/processing/video/detections/detection\_utils/utils/config\_util.py}}
+\mbox{\hyperlink{config__util_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Functions\ for\ reading\ and\ updating\ configuration\ files."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00021}00021\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00022}00022\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00024}00024\ \textcolor{keyword}{from}\ google.protobuf\ \textcolor{keyword}{import}\ text\_format}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00026}00026\ \textcolor{keyword}{from}\ tensorflow.python.lib.io\ \textcolor{keyword}{import}\ file\_io}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00028}00028\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ eval\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00029}00029\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ graph\_rewriter\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00030}00030\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ input\_reader\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00031}00031\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ model\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00032}00032\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ pipeline\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00033}00033\ \textcolor{keyword}{from}\ object\_detection.protos\ \textcolor{keyword}{import}\ train\_pb2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00036}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae6fabaeac071f04fe75deff388afb7e8}{00036}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae6fabaeac071f04fe75deff388afb7e8}{get\_image\_resizer\_config}}(model\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00037}00037\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ image\ resizer\ config\ from\ a\ model\ config.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00038}00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ model\_config:\ A\ model\_pb2.DetectionModel.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00041}00041\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00043}00043\ \textcolor{stringliteral}{\ \ \ \ An\ image\_resizer\_pb2.ImageResizer.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00044}00044\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ If\ the\ model\ type\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ recognized.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00047}00047\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ meta\_architecture\ =\ model\_config.WhichOneof("{}model"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00049}00049\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}faster\_rcnn"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ model\_config.faster\_rcnn.image\_resizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00051}00051\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}ssd"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{return}\ model\_config.ssd.image\_resizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00054}00054\ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Unknown\ model\ type:\ \{\}"{}}.format(meta\_architecture))}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00057}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af5b4dc969baecb838abca30504b7df12}{00057}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af5b4dc969baecb838abca30504b7df12}{get\_spatial\_image\_size}}(image\_resizer\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00058}00058\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ expected\ spatial\ size\ of\ the\ output\ image\ from\ a\ given\ config.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00059}00059\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00060}00060\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00061}00061\ \textcolor{stringliteral}{\ \ \ \ image\_resizer\_config:\ An\ image\_resizer\_pb2.ImageResizer.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00062}00062\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ A\ list\ of\ two\ integers\ of\ the\ form\ [height,\ width].\ \`{}height\`{}\ }\textcolor{keywordflow}{and}\ \`{}width\`{}\ are}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00065}00065\ \ \ \ \ set\ \ -\/1\ \textcolor{keywordflow}{if}\ they\ cannot\ be\ determined\ during\ graph\ construction.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00067}00067\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00068}00068\ \ \ \ \ ValueError:\ If\ the\ model\ type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ recognized.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00069}00069\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ image\_resizer\_config.HasField(\textcolor{stringliteral}{"{}fixed\_shape\_resizer"{}}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ image\_resizer\_config.fixed\_shape\_resizer.height,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ image\_resizer\_config.fixed\_shape\_resizer.width}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00074}00074\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00075}00075\ \ \ \textcolor{keywordflow}{if}\ image\_resizer\_config.HasField(\textcolor{stringliteral}{"{}keep\_aspect\_ratio\_resizer"{}}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{if}\ image\_resizer\_config.keep\_aspect\_ratio\_resizer.pad\_to\_max\_dimension:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00077}00077\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [image\_resizer\_config.keep\_aspect\_ratio\_resizer.max\_dimension]\ *\ 2}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00079}00079\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [-\/1,\ -\/1]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00080}00080\ \ \ \textcolor{keywordflow}{if}\ image\_resizer\_config.HasField(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00081}00081\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}identity\_resizer"{}})\ \textcolor{keywordflow}{or}\ image\_resizer\_config.HasField(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}conditional\_shape\_resizer"{}}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ [-\/1,\ -\/1]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00084}00084\ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Unknown\ image\ resizer\ type."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00087}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{00087}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}(pipeline\_config\_path,\ config\_override=None):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00088}00088\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ config\ from\ a\ file\ containing\ pipeline\_pb2.TrainEvalPipelineConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00089}00089\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00091}00091\ \textcolor{stringliteral}{\ \ \ \ pipeline\_config\_path:\ Path\ to\ pipeline\_pb2.TrainEvalPipelineConfig\ text}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00092}00092\ \textcolor{stringliteral}{\ \ \ \ \ \ proto.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ config\_override:\ A\ pipeline\_pb2.TrainEvalPipelineConfig\ text\ proto\ to}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ \ \ override\ pipeline\_config\_path.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00095}00095\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00096}00096\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00097}00097\ \textcolor{stringliteral}{\ \ \ \ Dictionary\ of\ configuration\ objects.\ Keys\ are\ \`{}model\`{},\ \`{}train\_config\`{},}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ \ \ \ \ \`{}train\_input\_config\`{},\ \`{}eval\_config\`{},\ \`{}eval\_input\_config\`{}.\ Value\ are\ the}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ \ \ \ \ corresponding\ config\ objects.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ pipeline\_config\ =\ pipeline\_pb2.TrainEvalPipelineConfig()}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(pipeline\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00103}00103\ \ \ \ \ proto\_str\ =\ f.read()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00104}00104\ \ \ \ \ text\_format.Merge(proto\_str,\ pipeline\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00105}00105\ \ \ \textcolor{keywordflow}{if}\ config\_override:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00106}00106\ \ \ \ \ text\_format.Merge(config\_override,\ pipeline\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00107}00107\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a51de2f656abc8d98b01c19b3573cddd5}{create\_configs\_from\_pipeline\_proto}}(pipeline\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00110}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a51de2f656abc8d98b01c19b3573cddd5}{00110}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a51de2f656abc8d98b01c19b3573cddd5}{create\_configs\_from\_pipeline\_proto}}(pipeline\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00111}00111\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ configs\ dictionary\ from\ pipeline\_pb2.TrainEvalPipelineConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00112}00112\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00113}00113\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ \ \ pipeline\_config:\ pipeline\_pb2.TrainEvalPipelineConfig\ proto\ object.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00115}00115\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ Dictionary\ of\ configuration\ objects.\ Keys\ are\ \`{}model\`{},\ \`{}train\_config\`{},}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ \ \ \`{}train\_input\_config\`{},\ \`{}eval\_config\`{},\ \`{}eval\_input\_configs\`{}.\ Value\ are}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ \ \ the\ corresponding\ config\ objects\ }\textcolor{keywordflow}{or}\ list\ of\ config\ objects\ (only\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00120}00120\ \ \ \ \ \ \ eval\_input\_configs).}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00121}00121\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ configs\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ configs["{}model"{}}]\ =\ pipeline\_config.model}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00124}00124\ \ \ configs[\textcolor{stringliteral}{"{}train\_config"{}}]\ =\ pipeline\_config.train\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00125}00125\ \ \ configs[\textcolor{stringliteral}{"{}train\_input\_config"{}}]\ =\ pipeline\_config.train\_input\_reader}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00126}00126\ \ \ configs[\textcolor{stringliteral}{"{}eval\_config"{}}]\ =\ pipeline\_config.eval\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00127}00127\ \ \ configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}]\ =\ pipeline\_config.eval\_input\_reader}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00128}00128\ \ \ \textcolor{comment}{\#\ Keeps\ eval\_input\_config\ only\ for\ backwards\ compatibility.\ All\ clients\ should}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00129}00129\ \ \ \textcolor{comment}{\#\ read\ eval\_input\_configs\ instead.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00130}00130\ \ \ \textcolor{keywordflow}{if}\ configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00131}00131\ \ \ \ \ configs[\textcolor{stringliteral}{"{}eval\_input\_config"{}}]\ =\ configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}][0]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00132}00132\ \ \ \textcolor{keywordflow}{if}\ pipeline\_config.HasField(\textcolor{stringliteral}{"{}graph\_rewriter"{}}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00133}00133\ \ \ \ \ configs[\textcolor{stringliteral}{"{}graph\_rewriter\_config"{}}]\ =\ pipeline\_config.graph\_rewriter}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00135}00135\ \ \ \textcolor{keywordflow}{return}\ configs}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00138}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1fec9025be02f81e6e4256262fb128d3}{00138}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1fec9025be02f81e6e4256262fb128d3}{get\_graph\_rewriter\_config\_from\_file}}(graph\_rewriter\_config\_file):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00139}00139\ \ \ \textcolor{stringliteral}{"{}"{}"{}Parses\ config\ for\ graph\ rewriter.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00140}00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00142}00142\ \textcolor{stringliteral}{\ \ \ \ graph\_rewriter\_config\_file:\ file\ path\ to\ the\ graph\ rewriter\ config.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00143}00143\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ \ \ graph\_rewriter\_pb2.GraphRewriter\ proto}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ graph\_rewriter\_config\ =\ graph\_rewriter\_pb2.GraphRewriter()}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(graph\_rewriter\_config\_file,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00149}00149\ \ \ \ \ text\_format.Merge(f.read(),\ graph\_rewriter\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00150}00150\ \ \ \textcolor{keywordflow}{return}\ graph\_rewriter\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00153}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_add05cdbae1bc2f741fabae5923dc4505}{00153}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_add05cdbae1bc2f741fabae5923dc4505}{create\_pipeline\_proto\_from\_configs}}(configs):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00154}00154\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ pipeline\_pb2.TrainEvalPipelineConfig\ from\ configs\ dictionary.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00155}00155\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00156}00156\ \textcolor{stringliteral}{\ \ This\ function\ performs\ the\ inverse\ operation\ of}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a51de2f656abc8d98b01c19b3573cddd5}{create\_configs\_from\_pipeline\_proto}}().}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00158}00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00159}00159\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00160}00160\ \textcolor{stringliteral}{\ \ \ \ configs:\ Dictionary\ of\ configs.\ See\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}().}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00161}00161\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00162}00162\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00163}00163\ \textcolor{stringliteral}{\ \ \ \ A\ fully\ populated\ pipeline\_pb2.TrainEvalPipelineConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00165}00165\ \textcolor{stringliteral}{\ \ pipeline\_config\ =\ pipeline\_pb2.TrainEvalPipelineConfig()}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00166}00166\ \textcolor{stringliteral}{\ \ pipeline\_config.model.CopyFrom(configs["{}model"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00167}00167\ \ \ pipeline\_config.train\_config.CopyFrom(configs[\textcolor{stringliteral}{"{}train\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00168}00168\ \ \ pipeline\_config.train\_input\_reader.CopyFrom(configs[\textcolor{stringliteral}{"{}train\_input\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00169}00169\ \ \ pipeline\_config.eval\_config.CopyFrom(configs[\textcolor{stringliteral}{"{}eval\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00170}00170\ \ \ pipeline\_config.eval\_input\_reader.extend(configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00171}00171\ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}graph\_rewriter\_config"{}}\ \textcolor{keywordflow}{in}\ configs:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00172}00172\ \ \ \ \ pipeline\_config.graph\_rewriter.CopyFrom(configs[\textcolor{stringliteral}{"{}graph\_rewriter\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00173}00173\ \ \ \textcolor{keywordflow}{return}\ pipeline\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00176}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ac2be3ea91d3646f54e45ffb8ad3b29ae}{00176}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ac2be3ea91d3646f54e45ffb8ad3b29ae}{save\_pipeline\_config}}(pipeline\_config,\ directory):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00177}00177\ \ \ \textcolor{stringliteral}{"{}"{}"{}Saves\ a\ pipeline\ config\ text\ file\ to\ disk.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00178}00178\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00179}00179\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00180}00180\ \textcolor{stringliteral}{\ \ \ \ pipeline\_config:\ A\ pipeline\_pb2.TrainEvalPipelineConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ \ \ directory:\ The\ model\ directory\ into\ which\ the\ pipeline\ config\ file\ will\ be}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ \ \ \ \ saved.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ file\_io.file\_exists(directory):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00185}00185\ \ \ \ \ file\_io.recursive\_create\_dir(directory)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00186}00186\ \ \ pipeline\_config\_path\ =\ os.path.join(directory,\ \textcolor{stringliteral}{"{}pipeline.config"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00187}00187\ \ \ config\_text\ =\ text\_format.MessageToString(pipeline\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00188}00188\ \ \ \textcolor{keyword}{with}\ tf.gfile.Open(pipeline\_config\_path,\ \textcolor{stringliteral}{"{}wb"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00189}00189\ \ \ \ \ tf.logging.info(\textcolor{stringliteral}{"{}Writing\ pipeline\ config\ file\ to\ \%s"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pipeline\_config\_path)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00191}00191\ \ \ \ \ f.write(config\_text)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00194}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{00194}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}(model\_config\_path="{}"{},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ train\_config\_path="{}"{},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ train\_input\_config\_path="{}"{},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_config\_path="{}"{},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_input\_config\_path="{}"{},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graph\_rewriter\_config\_path="{}"{}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00200}00200\ \ \ \textcolor{stringliteral}{"{}"{}"{}Reads\ training\ configuration\ from\ multiple\ config\ files.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00201}00201\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ \ \ model\_config\_path:\ Path\ to\ model\_pb2.DetectionModel.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00204}00204\ \textcolor{stringliteral}{\ \ \ \ train\_config\_path:\ Path\ to\ train\_pb2.TrainConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ \ \ train\_input\_config\_path:\ Path\ to\ input\_reader\_pb2.InputReader.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00206}00206\ \textcolor{stringliteral}{\ \ \ \ eval\_config\_path:\ Path\ to\ eval\_pb2.EvalConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00207}00207\ \textcolor{stringliteral}{\ \ \ \ eval\_input\_config\_path:\ Path\ to\ input\_reader\_pb2.InputReader.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00208}00208\ \textcolor{stringliteral}{\ \ \ \ graph\_rewriter\_config\_path:\ Path\ to\ graph\_rewriter\_pb2.GraphRewriter.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00209}00209\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ Dictionary\ of\ configuration\ objects.\ Keys\ are\ \`{}model\`{},\ \`{}train\_config\`{},}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ \`{}train\_input\_config\`{},\ \`{}eval\_config\`{},\ \`{}eval\_input\_config\`{}.\ Key/Values\ are}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00213}00213\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ returned\ only\ }\textcolor{keywordflow}{for}\ valid\ (non-\/empty)\ strings.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00214}00214\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00215}00215\ \textcolor{stringliteral}{\ \ configs\ =\ \{\}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00216}00216\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ model\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00217}00217\ \ \ \ \ model\_config\ =\ model\_pb2.DetectionModel()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00218}00218\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(model\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00219}00219\ \ \ \ \ \ \ text\_format.Merge(f.read(),\ model\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00220}00220\ \ \ \ \ \ \ configs[\textcolor{stringliteral}{"{}model"{}}]\ =\ model\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00222}00222\ \ \ \textcolor{keywordflow}{if}\ train\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00223}00223\ \ \ \ \ train\_config\ =\ train\_pb2.TrainConfig()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00224}00224\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(train\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00225}00225\ \ \ \ \ \ \ text\_format.Merge(f.read(),\ train\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00226}00226\ \ \ \ \ \ \ configs[\textcolor{stringliteral}{"{}train\_config"{}}]\ =\ train\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00228}00228\ \ \ \textcolor{keywordflow}{if}\ train\_input\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00229}00229\ \ \ \ \ train\_input\_config\ =\ input\_reader\_pb2.InputReader()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00230}00230\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(train\_input\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00231}00231\ \ \ \ \ \ \ text\_format.Merge(f.read(),\ train\_input\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00232}00232\ \ \ \ \ \ \ configs[\textcolor{stringliteral}{"{}train\_input\_config"{}}]\ =\ train\_input\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00234}00234\ \ \ \textcolor{keywordflow}{if}\ eval\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00235}00235\ \ \ \ \ eval\_config\ =\ eval\_pb2.EvalConfig()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00236}00236\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(eval\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00237}00237\ \ \ \ \ \ \ text\_format.Merge(f.read(),\ eval\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00238}00238\ \ \ \ \ \ \ configs[\textcolor{stringliteral}{"{}eval\_config"{}}]\ =\ eval\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00240}00240\ \ \ \textcolor{keywordflow}{if}\ eval\_input\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00241}00241\ \ \ \ \ eval\_input\_config\ =\ input\_reader\_pb2.InputReader()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00242}00242\ \ \ \ \ \textcolor{keyword}{with}\ tf.gfile.GFile(eval\_input\_config\_path,\ \textcolor{stringliteral}{"{}r"{}})\ \textcolor{keyword}{as}\ f:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00243}00243\ \ \ \ \ \ \ text\_format.Merge(f.read(),\ eval\_input\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00244}00244\ \ \ \ \ \ \ configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}]\ =\ [eval\_input\_config]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00246}00246\ \ \ \textcolor{keywordflow}{if}\ graph\_rewriter\_config\_path:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00247}00247\ \ \ \ \ configs[\textcolor{stringliteral}{"{}graph\_rewriter\_config"{}}]\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1fec9025be02f81e6e4256262fb128d3}{get\_graph\_rewriter\_config\_from\_file}}(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ graph\_rewriter\_config\_path)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00250}00250\ \ \ \textcolor{keywordflow}{return}\ configs}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00253}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a12cc74ed6e4804a4bf824c48e78a4d48}{00253}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a12cc74ed6e4804a4bf824c48e78a4d48}{get\_number\_of\_classes}}(model\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00254}00254\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ number\ of\ classes\ for\ a\ detection\ model.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00255}00255\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00257}00257\ \textcolor{stringliteral}{\ \ \ \ model\_config:\ A\ model\_pb2.DetectionModel.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00258}00258\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00259}00259\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00260}00260\ \textcolor{stringliteral}{\ \ \ \ Number\ of\ classes.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00261}00261\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00262}00262\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00263}00263\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ If\ the\ model\ type\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ recognized.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00264}00264\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00265}00265\ \textcolor{stringliteral}{\ \ meta\_architecture\ =\ model\_config.WhichOneof("{}model"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00266}00266\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}faster\_rcnn"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{return}\ model\_config.faster\_rcnn.num\_classes}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00268}00268\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}ssd"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ model\_config.ssd.num\_classes}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00271}00271\ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Expected\ the\ model\ to\ be\ one\ of\ 'faster\_rcnn'\ or\ 'ssd'."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00274}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a2a3694680c610f61962c1e61d89fb6a3}{00274}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a2a3694680c610f61962c1e61d89fb6a3}{get\_optimizer\_type}}(train\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00275}00275\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ optimizer\ type\ for\ training.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00276}00276\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00277}00277\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ \ \ train\_config:\ A\ train\_pb2.TrainConfig.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00279}00279\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00280}00280\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00281}00281\ \textcolor{stringliteral}{\ \ \ \ The\ type\ of\ the\ optimizer}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00282}00282\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00283}00283\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ train\_config.optimizer.WhichOneof(\textcolor{stringliteral}{"{}optimizer"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00286}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae628e198e2bc04a04320dcfc851407b8}{00286}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae628e198e2bc04a04320dcfc851407b8}{get\_learning\_rate\_type}}(optimizer\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00287}00287\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ learning\ rate\ type\ for\ training.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00288}00288\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00289}00289\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00290}00290\ \textcolor{stringliteral}{\ \ \ \ optimizer\_config:\ An\ optimizer\_pb2.Optimizer.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00291}00291\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00292}00292\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00293}00293\ \textcolor{stringliteral}{\ \ \ \ The\ type\ of\ the\ learning\ rate.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00294}00294\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00295}00295\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ optimizer\_config.learning\_rate.WhichOneof(\textcolor{stringliteral}{"{}learning\_rate"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00298}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1afd19204a0e033f4a835631c6256fcb}{00298}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1afd19204a0e033f4a835631c6256fcb}{\_is\_generic\_key}}(key):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00299}00299\ \ \ \textcolor{stringliteral}{"{}"{}"{}Determines\ whether\ the\ key\ starts\ with\ a\ generic\ config\ dictionary\ key."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00300}00300\ \ \ \textcolor{keywordflow}{for}\ prefix\ \textcolor{keywordflow}{in}\ [}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00301}00301\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}graph\_rewriter\_config"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00302}00302\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}model"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00303}00303\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}train\_input\_config"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00304}00304\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}train\_config"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00305}00305\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}eval\_config"{}}]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00306}00306\ \ \ \ \ \textcolor{keywordflow}{if}\ key.startswith(prefix\ +\ \textcolor{stringliteral}{"{}."{}}):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00307}00307\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00308}00308\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00311}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a675b0f5fc95154f70c5493bb169ed2d5}{00311}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a675b0f5fc95154f70c5493bb169ed2d5}{\_check\_and\_convert\_legacy\_input\_config\_key}}(key):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00312}00312\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ key\ and\ converts\ legacy\ input\ config\ update\ to\ specific\ update.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00313}00313\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00314}00314\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00315}00315\ \textcolor{stringliteral}{\ \ \ \ key:\ string\ indicates\ the\ target\ of\ update\ operation.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00316}00316\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00317}00317\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00318}00318\ \textcolor{stringliteral}{\ \ \ \ is\_valid\_input\_config\_key:\ A\ boolean\ indicating\ whether\ the\ input\ key\ }\textcolor{keywordflow}{is}\ to}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00319}00319\ \ \ \ \ \ \ update\ input\ config(s).}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00320}00320\ \ \ \ \ key\_name:\ \textcolor{stringliteral}{'eval\_input\_configs'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'train\_input\_config'}\ string\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00321}00321\ \ \ \ \ \ \ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}\ true.\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00322}00322\ \ \ \ \ \ \ false.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00323}00323\ \ \ \ \ input\_name:\ always\ returns\ \textcolor{keywordtype}{None}\ since\ legacy\ input\ config\ key\ never}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00324}00324\ \ \ \ \ \ \ specifies\ the\ target\ input\ config.\ Keeping\ this\ output\ only\ to\ match\ the}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00325}00325\ \ \ \ \ \ \ output\ form\ defined\ \textcolor{keywordflow}{for}\ input\ config\ update.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00326}00326\ \ \ \ \ field\_name:\ the\ field\ name\ \textcolor{keywordflow}{in}\ input\ config.\ \`{}key\`{}\ itself\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00327}00327\ \ \ \ \ \ \ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}\ false.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00328}00328\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00329}00329\ \textcolor{stringliteral}{\ \ key\_name\ =\ }\textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00330}00330\ \ \ input\_name\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00331}00331\ \ \ field\_name\ =\ key}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00332}00332\ \ \ is\_valid\_input\_config\_key\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00333}00333\ \ \ \textcolor{keywordflow}{if}\ field\_name\ ==\ \textcolor{stringliteral}{"{}train\_shuffle"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00334}00334\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}train\_input\_config"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00335}00335\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}shuffle"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00336}00336\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}eval\_shuffle"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00337}00337\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}eval\_input\_configs"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00338}00338\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}shuffle"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00339}00339\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}train\_input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00340}00340\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}train\_input\_config"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00341}00341\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}input\_path"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00342}00342\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}eval\_input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00343}00343\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}eval\_input\_configs"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00344}00344\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}input\_path"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00345}00345\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}append\_train\_input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00346}00346\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}train\_input\_config"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00347}00347\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}input\_path"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00348}00348\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}append\_eval\_input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00349}00349\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}eval\_input\_configs"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00350}00350\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}input\_path"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00351}00351\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00352}00352\ \ \ \ \ is\_valid\_input\_config\_key\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00354}00354\ \ \ \textcolor{keywordflow}{return}\ is\_valid\_input\_config\_key,\ key\_name,\ input\_name,\ field\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00357}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ada9d1aa61c91cb7c19aca37ac948e595}{00357}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ada9d1aa61c91cb7c19aca37ac948e595}{check\_and\_parse\_input\_config\_key}}(configs,\ key):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00358}00358\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ key\ and\ returns\ specific\ fields\ if\ key\ is\ valid\ input\ config\ update.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00359}00359\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00360}00360\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00361}00361\ \textcolor{stringliteral}{\ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ }\textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00362}00362\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00363}00363\ \ \ \ \ key:\ string\ indicates\ the\ target\ of\ update\ operation.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00365}00365\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00366}00366\ \ \ \ \ is\_valid\_input\_config\_key:\ A\ boolean\ indicate\ whether\ the\ input\ key\ \textcolor{keywordflow}{is}\ to}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00367}00367\ \ \ \ \ \ \ update\ input\ config(s).}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00368}00368\ \ \ \ \ key\_name:\ \textcolor{stringliteral}{'eval\_input\_configs'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'train\_input\_config'}\ string\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00369}00369\ \ \ \ \ \ \ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}\ true.\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00370}00370\ \ \ \ \ \ \ false.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00371}00371\ \ \ \ \ input\_name:\ the\ name\ of\ the\ input\ config\ to\ be\ updated.\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00372}00372\ \ \ \ \ \ \ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}\ false.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00373}00373\ \ \ \ \ field\_name:\ the\ field\ name\ \textcolor{keywordflow}{in}\ input\ config.\ \`{}key\`{}\ itself\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00374}00374\ \ \ \ \ \ \ is\_valid\_input\_config\_key\ \textcolor{keywordflow}{is}\ false.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00376}00376\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00377}00377\ \ \ \ \ ValueError:\ when\ the\ input\ key\ format\ doesn\textcolor{stringliteral}{'t\ match\ any\ known\ formats.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00378}00378\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ key\_name\ doesn\textcolor{stringliteral}{'t\ match\ '}eval\_input\_configs\textcolor{stringliteral}{'\ or}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00379}00379\ \textcolor{stringliteral}{\ \ \ \ \ \ 'train\_input\_config'}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00380}00380\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ input\_name\ doesn\textcolor{stringliteral}{'t\ match\ any\ name\ in\ train\ or\ eval\ input}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00381}00381\ \textcolor{stringliteral}{\ \ \ \ \ \ configs.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00382}00382\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ field\_name\ doesn\textcolor{stringliteral}{'t\ match\ any\ supported\ fields.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00383}00383\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00384}00384\ \textcolor{stringliteral}{\ \ key\_name\ =\ }\textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00385}00385\ \ \ input\_name\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00386}00386\ \ \ field\_name\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00387}00387\ \ \ fields\ =\ key.split(\textcolor{stringliteral}{"{}:"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00388}00388\ \ \ \textcolor{keywordflow}{if}\ len(fields)\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00389}00389\ \ \ \ \ field\_name\ =\ key}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00390}00390\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a675b0f5fc95154f70c5493bb169ed2d5}{\_check\_and\_convert\_legacy\_input\_config\_key}}(key)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00391}00391\ \ \ \textcolor{keywordflow}{elif}\ len(fields)\ ==\ 3:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00392}00392\ \ \ \ \ key\_name\ =\ fields[0]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00393}00393\ \ \ \ \ input\_name\ =\ fields[1]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00394}00394\ \ \ \ \ field\_name\ =\ fields[2]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00395}00395\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00396}00396\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Invalid\ key\ format\ when\ overriding\ configs."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00398}00398\ \ \ \textcolor{comment}{\#\ Checks\ if\ key\_name\ is\ valid\ for\ specific\ update.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00399}00399\ \ \ \textcolor{keywordflow}{if}\ key\_name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [\textcolor{stringliteral}{"{}eval\_input\_configs"{}},\ \textcolor{stringliteral}{"{}train\_input\_config"{}}]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00400}00400\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Invalid\ key\_name\ when\ overriding\ input\ config."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00402}00402\ \ \ \textcolor{comment}{\#\ Checks\ if\ input\_name\ is\ valid\ for\ specific\ update.\ For\ train\ input\ config\ it}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00403}00403\ \ \ \textcolor{comment}{\#\ should\ match\ configs[key\_name].name,\ for\ eval\ input\ configs\ it\ should\ match}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00404}00404\ \ \ \textcolor{comment}{\#\ the\ name\ field\ of\ one\ of\ the\ eval\_input\_configs.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00405}00405\ \ \ \textcolor{keywordflow}{if}\ isinstance(configs[key\_name],\ input\_reader\_pb2.InputReader):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00406}00406\ \ \ \ \ is\_valid\_input\_name\ =\ configs[key\_name].name\ ==\ input\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00407}00407\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00408}00408\ \ \ \ \ is\_valid\_input\_name\ =\ input\_name\ \textcolor{keywordflow}{in}\ [}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ eval\_input\_config.name\ \textcolor{keywordflow}{for}\ eval\_input\_config\ \textcolor{keywordflow}{in}\ configs[key\_name]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00410}00410\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00411}00411\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ is\_valid\_input\_name:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00412}00412\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Invalid\ input\_name\ when\ overriding\ input\ config."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00414}00414\ \ \ \textcolor{comment}{\#\ Checks\ if\ field\_name\ is\ valid\ for\ specific\ update.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00415}00415\ \ \ \textcolor{keywordflow}{if}\ field\_name\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00416}00416\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}input\_path"{}},\ \textcolor{stringliteral}{"{}label\_map\_path"{}},\ \textcolor{stringliteral}{"{}shuffle"{}},\ \textcolor{stringliteral}{"{}mask\_type"{}},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00417}00417\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sample\_1\_of\_n\_examples"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00418}00418\ \ \ ]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00419}00419\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Invalid\ field\_name\ when\ overriding\ input\ config."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00421}00421\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True},\ key\_name,\ input\_name,\ field\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00424}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ab3043d32f30436830c3ab65005071152}{00424}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ab3043d32f30436830c3ab65005071152}{merge\_external\_params\_with\_configs}}(configs,\ hparams=None,\ kwargs\_dict=None):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00425}00425\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ dictionary\ based\ on\ supplied\ parameters.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00426}00426\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00427}00427\ \textcolor{stringliteral}{\ \ This\ utility\ }\textcolor{keywordflow}{is}\ \textcolor{keywordflow}{for}\ modifying\ specific\ fields\ \textcolor{keywordflow}{in}\ the\ object\ detection\ configs.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00428}00428\ \ \ Say\ that\ one\ would\ like\ to\ experiment\ \textcolor{keyword}{with}\ different\ learning\ rates,\ momentum}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00429}00429\ \ \ values,\ \textcolor{keywordflow}{or}\ batch\ sizes.\ Rather\ than\ creating\ a\ new\ config\ text\ file\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00430}00430\ \ \ experiment,\ one\ can\ use\ a\ single\ base\ config\ file,\ \textcolor{keywordflow}{and}\ update\ particular}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00431}00431\ \ \ values.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00433}00433\ \ \ There\ are\ two\ types\ of\ field\ overrides:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00434}00434\ \ \ 1.\ Strategy-\/based\ overrides,\ which\ update\ multiple\ relevant\ configuration}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00435}00435\ \ \ options.\ For\ example,\ updating\ \`{}learning\_rate\`{}\ will\ update\ both\ the\ warmup\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00436}00436\ \ \ final\ learning\ rates.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00437}00437\ \ \ In\ this\ case\ key\ can\ be\ one\ of\ the\ following\ formats:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00438}00438\ \ \ \ \ \ \ 1.\ legacy\ update:\ single\ string\ that\ indicates\ the\ attribute\ to\ be}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00439}00439\ \ \ \ \ \ \ \ \ updated.\ E.g.\ \textcolor{stringliteral}{'label\_map\_path'},\ \textcolor{stringliteral}{'eval\_input\_path'},\ \textcolor{stringliteral}{'shuffle'}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00440}00440\ \ \ \ \ \ \ \ \ Note\ that\ when\ updating\ fields\ (e.g.\ eval\_input\_path,\ eval\_shuffle)\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00441}00441\ \ \ \ \ \ \ \ \ eval\_input\_configs,\ the\ override\ will\ only\ be\ applied\ when}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ eval\_input\_configs\ has\ exactly\ 1\ element.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00443}00443\ \ \ \ \ \ \ 2.\ specific\ update:\ colon\ separated\ string\ that\ indicates\ which\ field\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00444}00444\ \ \ \ \ \ \ \ \ which\ input\_config\ to\ update.\ It\ should\ have\ 3\ fields:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00445}00445\ \ \ \ \ \ \ \ \ -\/\ key\_name:\ Name\ of\ the\ input\ config\ we\ should\ update,\ either}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'train\_input\_config'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'eval\_input\_configs'}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00447}00447\ \ \ \ \ \ \ \ \ -\/\ input\_name:\ a\ \textcolor{stringliteral}{'name'}\ that\ can\ be\ used\ to\ identify\ elements,\ especially}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ when\ configs[key\_name]\ \textcolor{keywordflow}{is}\ a\ repeated\ field.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00449}00449\ \ \ \ \ \ \ \ \ -\/\ field\_name:\ name\ of\ the\ field\ that\ you\ want\ to\ override.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ For\ example,\ given\ configs\ dict\ \textcolor{keyword}{as}\ below:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ configs\ =\ \{}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'model'}:\ \{...\}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'train\_config'}:\ \{...\}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'train\_input\_config'}:\ \{...\}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'eval\_config'}:\ \{...\}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'eval\_input\_configs'}:\ [\{\ name:\textcolor{stringliteral}{"{}eval\_coco"{}},\ ...\},}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ name:\textcolor{stringliteral}{"{}eval\_voc"{}},\ ...\ \}]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ Assume\ we\ want\ to\ update\ the\ input\_path\ of\ the\ eval\_input\_config}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ whose\ name\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{'eval\_coco'}.\ The\ \`{}key\`{}\ would\ then\ be:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00461}00461\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'eval\_input\_configs:eval\_coco:input\_path'}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00462}00462\ \ \ 2.\ Generic\ key/value,\ which\ update\ a\ specific\ parameter\ based\ on\ namespaced}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00463}00463\ \ \ configuration\ keys.\ For\ example,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00464}00464\ \ \ \`{}model.ssd.loss.hard\_example\_miner.max\_negatives\_per\_positive\`{}\ will\ update\ the}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00465}00465\ \ \ hard\ example\ miner\ configuration\ \textcolor{keywordflow}{for}\ an\ SSD\ model\ config.\ Generic\ overrides}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00466}00466\ \ \ are\ automatically\ detected\ based\ on\ the\ namespaced\ keys.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00468}00468\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00469}00469\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00470}00470\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00471}00471\ \ \ \ \ hparams:\ A\ \`{}HParams\`{}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00472}00472\ \ \ \ \ kwargs\_dict:\ Extra\ keyword\ arguments\ that\ are\ treated\ the\ same\ way\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00473}00473\ \ \ \ \ \ \ attribute/value\ pairs\ \textcolor{keywordflow}{in}\ \`{}hparams\`{}.\ Note\ that\ hyperparameters\ \textcolor{keyword}{with}\ the}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00474}00474\ \ \ \ \ \ \ same\ names\ will\ override\ keyword\ arguments.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00475}00475\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00476}00476\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00477}00477\ \ \ \ \ \`{}configs\`{}\ dictionary.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00479}00479\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00480}00480\ \ \ \ \ ValueError:\ when\ the\ key\ string\ doesn\textcolor{stringliteral}{'t\ match\ any\ of\ its\ allowed\ formats.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00481}00481\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00482}00482\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00483}00483\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ kwargs\_dict\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00484}00484\ \ \ \ \ kwargs\_dict\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00485}00485\ \ \ \textcolor{keywordflow}{if}\ hparams:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00486}00486\ \ \ \ \ kwargs\_dict.update(hparams.values())}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00487}00487\ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ kwargs\_dict.items():}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00488}00488\ \ \ \ \ tf.logging.info(\textcolor{stringliteral}{"{}Maybe\ overwriting\ \%s:\ \%s"{}},\ key,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00489}00489\ \ \ \ \ \textcolor{comment}{\#\ pylint:\ disable=g-\/explicit-\/bool-\/comparison}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00490}00490\ \ \ \ \ \textcolor{keywordflow}{if}\ value\ ==\ \textcolor{stringliteral}{"{}"{}}\ \textcolor{keywordflow}{or}\ value\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00491}00491\ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00492}00492\ \ \ \ \ \textcolor{comment}{\#\ pylint:\ enable=g-\/explicit-\/bool-\/comparison}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00493}00493\ \ \ \ \ \textcolor{keywordflow}{elif}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8ce18cd9e4c73b4538127d6c864c70a1}{\_maybe\_update\_config\_with\_key\_value}}(configs,\ key,\ value):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00494}00494\ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00495}00495\ \ \ \ \ \textcolor{keywordflow}{elif}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1afd19204a0e033f4a835631c6256fcb}{\_is\_generic\_key}}(key):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00496}00496\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae8eafda761ab4e3c47ac66a52692623f}{\_update\_generic}}(configs,\ key,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00497}00497\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00498}00498\ \ \ \ \ \ \ tf.logging.info(\textcolor{stringliteral}{"{}Ignoring\ config\ override\ key:\ \%s"{}},\ key)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00499}00499\ \ \ \textcolor{keywordflow}{return}\ configs}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00502}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8ce18cd9e4c73b4538127d6c864c70a1}{00502}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8ce18cd9e4c73b4538127d6c864c70a1}{\_maybe\_update\_config\_with\_key\_value}}(configs,\ key,\ value):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00503}00503\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ key\ type\ and\ updates\ \`{}configs\`{}\ with\ the\ key\ value\ pair\ accordingly.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00504}00504\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00505}00505\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00506}00506\ \textcolor{stringliteral}{\ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ }\textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00507}00507\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00508}00508\ \ \ \ \ key:\ String\ indicates\ the\ field(s)\ to\ be\ updated.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00509}00509\ \ \ \ \ value:\ Value\ used\ to\ override\ existing\ field\ value.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00511}00511\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00512}00512\ \ \ \ \ A\ boolean\ value\ that\ indicates\ whether\ the\ override\ succeeds.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00514}00514\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00515}00515\ \ \ \ \ ValueError:\ when\ the\ key\ string\ doesn\textcolor{stringliteral}{'t\ match\ any\ of\ the\ formats\ above.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00516}00516\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00517}00517\ \textcolor{stringliteral}{\ \ is\_valid\_input\_config\_key,\ key\_name,\ input\_name,\ field\_name\ =\ (}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00518}00518\ \textcolor{stringliteral}{\ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ada9d1aa61c91cb7c19aca37ac948e595}{check\_and\_parse\_input\_config\_key}}(configs,\ key))}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00519}00519\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ is\_valid\_input\_config\_key:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00520}00520\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aec633efc11dada097a5f5f4a5443e7c0}{update\_input\_reader\_config}}(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ configs,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ key\_name=key\_name,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ input\_name=input\_name,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ field\_name=field\_name,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ value=value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00526}00526\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}learning\_rate"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00527}00527\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aea51ca0a5850f4583d7a9da1e0c473ee}{\_update\_initial\_learning\_rate}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00528}00528\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}batch\_size"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00529}00529\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a16a2c90e0360148ff7c706f561fe5756}{\_update\_batch\_size}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00530}00530\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}momentum\_optimizer\_value"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00531}00531\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8f35c6713fc10af0437ad3143a6c2491}{\_update\_momentum\_optimizer\_value}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00532}00532\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}classification\_localization\_weight\_ratio"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00533}00533\ \ \ \ \ \textcolor{comment}{\#\ Localization\ weight\ is\ fixed\ to\ 1.0.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00534}00534\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a43e0a8ac9c5caa772594b4a1de41c82c}{\_update\_classification\_localization\_weight\_ratio}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00535}00535\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}focal\_loss\_gamma"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00536}00536\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a97d600014f7f37498c7f712d79fe0726}{\_update\_focal\_loss\_gamma}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00537}00537\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}focal\_loss\_alpha"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00538}00538\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a260d621fd191f30c51a850cc9348b2fe}{\_update\_focal\_loss\_alpha}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00539}00539\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}train\_steps"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00540}00540\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a34626ed7c43ac6344750dc68e5fa9060}{\_update\_train\_steps}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00541}00541\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}label\_map\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00542}00542\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a190bdc1b975720a622f37e577e05da88}{\_update\_label\_map\_path}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00543}00543\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}mask\_type"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00544}00544\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5e0af053a1c4fd04c2a1246217f83c49}{\_update\_mask\_type}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00545}00545\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}sample\_1\_of\_n\_eval\_examples"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00546}00546\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{\_update\_all\_eval\_input\_configs}}(configs,\ \textcolor{stringliteral}{"{}sample\_1\_of\_n\_examples"{}},\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00547}00547\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}eval\_num\_epochs"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00548}00548\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{\_update\_all\_eval\_input\_configs}}(configs,\ \textcolor{stringliteral}{"{}num\_epochs"{}},\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00549}00549\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}eval\_with\_moving\_averages"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00550}00550\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a14d4259331e70706789c4af64678d9d9}{\_update\_use\_moving\_averages}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00551}00551\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}retain\_original\_images\_in\_eval"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00552}00552\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_acbe654692f2c90f363a0b7f66b685b48}{\_update\_retain\_original\_images}}(configs[\textcolor{stringliteral}{"{}eval\_config"{}}],\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00553}00553\ \ \ \textcolor{keywordflow}{elif}\ field\_name\ ==\ \textcolor{stringliteral}{"{}use\_bfloat16"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00554}00554\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5ea1da28e469a6236d18798257663ceb}{\_update\_use\_bfloat16}}(configs,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00555}00555\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00556}00556\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00557}00557\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00558}00558\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00560}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aa70e8f930a96dd12172200ac0382c9a0}{00560}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aa70e8f930a96dd12172200ac0382c9a0}{\_update\_tf\_record\_input\_path}}(input\_config,\ input\_path):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00561}00561\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ input\ configuration\ to\ reflect\ a\ new\ input\ path.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00562}00562\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00563}00563\ \textcolor{stringliteral}{\ \ The\ input\_config\ object\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00564}00564\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00565}00565\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00566}00566\ \ \ \ \ input\_config:\ A\ input\_reader\_pb2.InputReader.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00567}00567\ \ \ \ \ input\_path:\ A\ path\ to\ data\ \textcolor{keywordflow}{or}\ list\ of\ paths.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00569}00569\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00570}00570\ \ \ \ \ TypeError:\ \textcolor{keywordflow}{if}\ input\ reader\ type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \`{}tf\_record\_input\_reader\`{}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00571}00571\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00572}00572\ \textcolor{stringliteral}{\ \ input\_reader\_type\ =\ input\_config.WhichOneof("{}input\_reader"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00573}00573\ \ \ \textcolor{keywordflow}{if}\ input\_reader\_type\ ==\ \textcolor{stringliteral}{"{}tf\_record\_input\_reader"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00574}00574\ \ \ \ \ input\_config.tf\_record\_input\_reader.ClearField(\textcolor{stringliteral}{"{}input\_path"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00575}00575\ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(input\_path,\ list):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00576}00576\ \ \ \ \ \ \ input\_config.tf\_record\_input\_reader.input\_path.extend(input\_path)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00577}00577\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00578}00578\ \ \ \ \ \ \ input\_config.tf\_record\_input\_reader.input\_path.append(input\_path)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00579}00579\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00580}00580\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Input\ reader\ type\ must\ be\ \`{}tf\_record\_input\_reader`."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00583}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aec633efc11dada097a5f5f4a5443e7c0}{00583}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aec633efc11dada097a5f5f4a5443e7c0}{update\_input\_reader\_config}}(configs,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\_name=None,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_name=None,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field\_name=None,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value=None,}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ path\_updater=\_update\_tf\_record\_input\_path):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00589}00589\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ specified\ input\ reader\ config\ field.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00590}00590\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00591}00591\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00592}00592\ \textcolor{stringliteral}{\ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ }\textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00593}00593\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00594}00594\ \ \ \ \ key\_name:\ Name\ of\ the\ input\ config\ we\ should\ update,\ either}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00595}00595\ \ \ \ \ \ \ \textcolor{stringliteral}{'train\_input\_config'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'eval\_input\_configs'}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00596}00596\ \ \ \ \ input\_name:\ String\ name\ used\ to\ identify\ input\ config\ to\ update\ \textcolor{keyword}{with}.\ Should}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00597}00597\ \ \ \ \ \ \ be\ either\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ value\ of\ the\ \textcolor{stringliteral}{'name'}\ field\ \textcolor{keywordflow}{in}\ one\ of\ the\ input\ reader}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00598}00598\ \ \ \ \ \ \ configs.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00599}00599\ \ \ \ \ field\_name:\ Field\ name\ \textcolor{keywordflow}{in}\ input\_reader\_pb2.InputReader.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00600}00600\ \ \ \ \ value:\ Value\ used\ to\ override\ existing\ field\ value.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00601}00601\ \ \ \ \ path\_updater:\ helper\ function\ used\ to\ update\ the\ input\ path.\ Only\ used\ when}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00602}00602\ \ \ \ \ \ \ field\_name\ \textcolor{keywordflow}{is}\ \textcolor{stringliteral}{"{}input\_path"{}}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00604}00604\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00605}00605\ \ \ \ \ ValueError:\ when\ input\ field\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00606}00606\ \ \ \ \ ValueError:\ when\ input\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ number\ of\ eval\_input\_readers\ does}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00607}00607\ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ equal\ to\ 1.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00608}00608\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00609}00609\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(configs[key\_name],\ input\_reader\_pb2.InputReader):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00610}00610\ \ \ \ \ \textcolor{comment}{\#\ Updates\ singular\ input\_config\ object.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00611}00611\ \ \ \ \ target\_input\_config\ =\ configs[key\_name]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00612}00612\ \ \ \ \ \textcolor{keywordflow}{if}\ field\_name\ ==\ \textcolor{stringliteral}{"{}input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00613}00613\ \ \ \ \ \ \ path\_updater(input\_config=target\_input\_config,\ input\_path=value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00614}00614\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00615}00615\ \ \ \ \ \ \ setattr(target\_input\_config,\ field\_name,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00616}00616\ \ \ \textcolor{keywordflow}{elif}\ input\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ len(configs[key\_name])\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00617}00617\ \ \ \ \ \textcolor{comment}{\#\ Updates\ first\ (and\ the\ only)\ object\ of\ input\_config\ list.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00618}00618\ \ \ \ \ target\_input\_config\ =\ configs[key\_name][0]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00619}00619\ \ \ \ \ \textcolor{keywordflow}{if}\ field\_name\ ==\ \textcolor{stringliteral}{"{}input\_path"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00620}00620\ \ \ \ \ \ \ path\_updater(input\_config=target\_input\_config,\ input\_path=value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00621}00621\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00622}00622\ \ \ \ \ \ \ setattr(target\_input\_config,\ field\_name,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00623}00623\ \ \ \textcolor{keywordflow}{elif}\ input\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}\ len(configs[key\_name]):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00624}00624\ \ \ \ \ \textcolor{comment}{\#\ Updates\ input\_config\ whose\ name\ matches\ input\_name.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00625}00625\ \ \ \ \ update\_count\ =\ 0}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00626}00626\ \ \ \ \ \textcolor{keywordflow}{for}\ input\_config\ \textcolor{keywordflow}{in}\ configs[key\_name]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00627}00627\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ input\_config.name\ ==\ input\_name:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00628}00628\ \ \ \ \ \ \ \ \ setattr(input\_config,\ field\_name,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00629}00629\ \ \ \ \ \ \ \ \ update\_count\ =\ update\_count\ +\ 1}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00630}00630\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ update\_count:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00631}00631\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Input\ name\ \{\}\ not\ found\ when\ overriding."{}}.format(input\_name))}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00633}00633\ \ \ \ \ \textcolor{keywordflow}{elif}\ update\_count\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00634}00634\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Duplicate\ input\ name\ found\ when\ overriding."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00635}00635\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00636}00636\ \ \ \ \ key\_name\ =\ \textcolor{stringliteral}{"{}None"{}}\ \textcolor{keywordflow}{if}\ key\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ key\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00637}00637\ \ \ \ \ input\_name\ =\ \textcolor{stringliteral}{"{}None"{}}\ \textcolor{keywordflow}{if}\ input\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ input\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00638}00638\ \ \ \ \ field\_name\ =\ \textcolor{stringliteral}{"{}None"{}}\ \textcolor{keywordflow}{if}\ field\_name\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ field\_name}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00639}00639\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Unknown\ input\ config\ overriding:\ "{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}key\_name:\{\},\ input\_name:\{\},\ field\_name:\{\}."{}}.format(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\_name,\ input\_name,\ field\_name))}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00642}00642\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00644}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aea51ca0a5850f4583d7a9da1e0c473ee}{00644}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_aea51ca0a5850f4583d7a9da1e0c473ee}{\_update\_initial\_learning\_rate}}(configs,\ learning\_rate):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00645}00645\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ to\ reflect\ the\ new\ initial\ learning\ rate.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00646}00646\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00647}00647\ \textcolor{stringliteral}{\ \ This\ function\ updates\ the\ initial\ learning\ rate.\ For\ learning\ rate\ schedules,}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00648}00648\ \textcolor{stringliteral}{\ \ all\ other\ defined\ learning\ rates\ }\textcolor{keywordflow}{in}\ the\ pipeline\ config\ are\ scaled\ to\ maintain}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00649}00649\ \ \ their\ same\ ratio\ \textcolor{keyword}{with}\ the\ initial\ learning\ rate.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00650}00650\ \ \ The\ configs\ dictionary\ \textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00652}00652\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00653}00653\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00654}00654\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00655}00655\ \ \ \ \ learning\_rate:\ Initial\ learning\ rate\ \textcolor{keywordflow}{for}\ optimizer.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00656}00656\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00657}00657\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00658}00658\ \ \ \ \ TypeError:\ \textcolor{keywordflow}{if}\ optimizer\ type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ supported,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ learning\ rate\ type\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00659}00659\ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ supported.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00660}00660\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00661}00661\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00662}00662\ \textcolor{stringliteral}{\ \ optimizer\_type\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a2a3694680c610f61962c1e61d89fb6a3}{get\_optimizer\_type}}(configs["{}train\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00663}00663\ \ \ \textcolor{keywordflow}{if}\ optimizer\_type\ ==\ \textcolor{stringliteral}{"{}rms\_prop\_optimizer"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00664}00664\ \ \ \ \ optimizer\_config\ =\ configs[\textcolor{stringliteral}{"{}train\_config"{}}].optimizer.rms\_prop\_optimizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00665}00665\ \ \ \textcolor{keywordflow}{elif}\ optimizer\_type\ ==\ \textcolor{stringliteral}{"{}momentum\_optimizer"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00666}00666\ \ \ \ \ optimizer\_config\ =\ configs[\textcolor{stringliteral}{"{}train\_config"{}}].optimizer.momentum\_optimizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00667}00667\ \ \ \textcolor{keywordflow}{elif}\ optimizer\_type\ ==\ \textcolor{stringliteral}{"{}adam\_optimizer"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00668}00668\ \ \ \ \ optimizer\_config\ =\ configs[\textcolor{stringliteral}{"{}train\_config"{}}].optimizer.adam\_optimizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00669}00669\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00670}00670\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Optimizer\ \%s\ is\ not\ supported."{}}\ \%\ optimizer\_type)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00671}00671\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00672}00672\ \ \ learning\_rate\_type\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae628e198e2bc04a04320dcfc851407b8}{get\_learning\_rate\_type}}(optimizer\_config)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00673}00673\ \ \ \textcolor{keywordflow}{if}\ learning\_rate\_type\ ==\ \textcolor{stringliteral}{"{}constant\_learning\_rate"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00674}00674\ \ \ \ \ constant\_lr\ =\ optimizer\_config.learning\_rate.constant\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00675}00675\ \ \ \ \ constant\_lr.learning\_rate\ =\ learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00676}00676\ \ \ \textcolor{keywordflow}{elif}\ learning\_rate\_type\ ==\ \textcolor{stringliteral}{"{}exponential\_decay\_learning\_rate"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00677}00677\ \ \ \ \ exponential\_lr\ =\ (}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ optimizer\_config.learning\_rate.exponential\_decay\_learning\_rate)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00679}00679\ \ \ \ \ exponential\_lr.initial\_learning\_rate\ =\ learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00680}00680\ \ \ \textcolor{keywordflow}{elif}\ learning\_rate\_type\ ==\ \textcolor{stringliteral}{"{}manual\_step\_learning\_rate"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00681}00681\ \ \ \ \ manual\_lr\ =\ optimizer\_config.learning\_rate.manual\_step\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00682}00682\ \ \ \ \ original\_learning\_rate\ =\ manual\_lr.initial\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00683}00683\ \ \ \ \ learning\_rate\_scaling\ =\ float(learning\_rate)\ /\ original\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00684}00684\ \ \ \ \ manual\_lr.initial\_learning\_rate\ =\ learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00685}00685\ \ \ \ \ \textcolor{keywordflow}{for}\ schedule\ \textcolor{keywordflow}{in}\ manual\_lr.schedule:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00686}00686\ \ \ \ \ \ \ schedule.learning\_rate\ *=\ learning\_rate\_scaling}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00687}00687\ \ \ \textcolor{keywordflow}{elif}\ learning\_rate\_type\ ==\ \textcolor{stringliteral}{"{}cosine\_decay\_learning\_rate"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00688}00688\ \ \ \ \ cosine\_lr\ =\ optimizer\_config.learning\_rate.cosine\_decay\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00689}00689\ \ \ \ \ learning\_rate\_base\ =\ cosine\_lr.learning\_rate\_base}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00690}00690\ \ \ \ \ warmup\_learning\_rate\ =\ cosine\_lr.warmup\_learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00691}00691\ \ \ \ \ warmup\_scale\_factor\ =\ warmup\_learning\_rate\ /\ learning\_rate\_base}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00692}00692\ \ \ \ \ cosine\_lr.learning\_rate\_base\ =\ learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00693}00693\ \ \ \ \ cosine\_lr.warmup\_learning\_rate\ =\ warmup\_scale\_factor\ *\ learning\_rate}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00694}00694\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00695}00695\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Learning\ rate\ \%s\ is\ not\ supported."{}}\ \%\ learning\_rate\_type)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00696}00696\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00697}00697\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00698}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a16a2c90e0360148ff7c706f561fe5756}{00698}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a16a2c90e0360148ff7c706f561fe5756}{\_update\_batch\_size}}(configs,\ batch\_size):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00699}00699\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ to\ reflect\ the\ new\ training\ batch\ size.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00700}00700\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00701}00701\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00702}00702\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00703}00703\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00704}00704\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00705}00705\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00706}00706\ \ \ \ \ batch\_size:\ Batch\ size\ to\ use\ \textcolor{keywordflow}{for}\ training\ (Ideally\ a\ power\ of\ 2).\ Inputs}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00707}00707\ \ \ \ \ \ \ are\ rounded,\ \textcolor{keywordflow}{and}\ capped\ to\ be\ 1\ \textcolor{keywordflow}{or}\ greater.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00708}00708\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00709}00709\ \textcolor{stringliteral}{\ \ configs["{}train\_config"{}}].batch\_size\ =\ max(1,\ int(round(batch\_size)))}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00710}00710\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00712}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1ea8cd2a20065330c9081aacc75e71e7}{00712}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1ea8cd2a20065330c9081aacc75e71e7}{\_validate\_message\_has\_field}}(message,\ field):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00713}00713\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ message.HasField(field):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00714}00714\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Expecting\ message\ to\ have\ field\ \%s"{}}\ \%\ field)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00715}00715\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00716}00716\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00717}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae8eafda761ab4e3c47ac66a52692623f}{00717}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_ae8eafda761ab4e3c47ac66a52692623f}{\_update\_generic}}(configs,\ key,\ value):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00718}00718\ \ \ \textcolor{stringliteral}{"{}"{}"{}Update\ a\ pipeline\ configuration\ parameter\ based\ on\ a\ generic\ key/value.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00719}00719\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00720}00720\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00721}00721\ \textcolor{stringliteral}{\ \ \ \ configs:\ Dictionary\ of\ pipeline\ configuration\ protos.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00722}00722\ \textcolor{stringliteral}{\ \ \ \ key:\ A\ string\ key,\ dot-\/delimited\ to\ represent\ the\ argument\ key.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00723}00723\ \textcolor{stringliteral}{\ \ \ \ \ \ e.g.\ "{}model.ssd.train\_config.batch\_size"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00724}00724\ \ \ \ \ value:\ A\ value\ to\ set\ the\ argument\ to.\ The\ type\ of\ the\ value\ must\ match\ the}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00725}00725\ \ \ \ \ \ \ type\ \textcolor{keywordflow}{for}\ the\ protocol\ buffer.\ Note\ that\ setting\ the\ wrong\ type\ will}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00726}00726\ \ \ \ \ \ \ result\ \textcolor{keywordflow}{in}\ a\ TypeError.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00727}00727\ \ \ \ \ \ \ e.g.\ 42}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00728}00728\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00729}00729\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00730}00730\ \ \ \ \ ValueError\ \textcolor{keywordflow}{if}\ the\ message\ key\ does\ \textcolor{keywordflow}{not}\ match\ the\ existing\ proto\ fields.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00731}00731\ \ \ \ \ TypeError\ the\ value\ type\ doesn\textcolor{stringliteral}{'t\ match\ the\ protobuf\ field\ type.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00732}00732\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00733}00733\ \textcolor{stringliteral}{\ \ fields\ =\ key.split("{}."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00734}00734\ \ \ first\_field\ =\ fields.pop(0)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00735}00735\ \ \ last\_field\ =\ fields.pop()}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00736}00736\ \ \ message\ =\ configs[first\_field]}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00737}00737\ \ \ \textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00738}00738\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1ea8cd2a20065330c9081aacc75e71e7}{\_validate\_message\_has\_field}}(message,\ field)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00739}00739\ \ \ \ \ message\ =\ getattr(message,\ field)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00740}00740\ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a1ea8cd2a20065330c9081aacc75e71e7}{\_validate\_message\_has\_field}}(message,\ last\_field)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00741}00741\ \ \ setattr(message,\ last\_field,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00743}00743\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00744}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8f35c6713fc10af0437ad3143a6c2491}{00744}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a8f35c6713fc10af0437ad3143a6c2491}{\_update\_momentum\_optimizer\_value}}(configs,\ momentum):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00745}00745\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ to\ reflect\ the\ new\ momentum\ value.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00746}00746\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00747}00747\ \textcolor{stringliteral}{\ \ Momentum\ }\textcolor{keywordflow}{is}\ only\ supported\ \textcolor{keywordflow}{for}\ RMSPropOptimizer\ \textcolor{keywordflow}{and}\ MomentumOptimizer.\ For\ any}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00748}00748\ \ \ other\ optimizer,\ no\ changes\ take\ place.\ The\ configs\ dictionary\ \textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00749}00749\ \ \ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00750}00750\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00751}00751\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00752}00752\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00753}00753\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00754}00754\ \ \ \ \ momentum:\ New\ momentum\ value.\ Values\ are\ clipped\ at\ 0.0\ \textcolor{keywordflow}{and}\ 1.0.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00755}00755\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00756}00756\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00757}00757\ \ \ \ \ TypeError:\ If\ the\ optimizer\ type\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \`{}rms\_prop\_optimizer\`{}\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00758}00758\ \ \ \ \ \`{}momentum\_optimizer\`{}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00759}00759\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00760}00760\ \textcolor{stringliteral}{\ \ optimizer\_type\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a2a3694680c610f61962c1e61d89fb6a3}{get\_optimizer\_type}}(configs["{}train\_config"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00761}00761\ \ \ \textcolor{keywordflow}{if}\ optimizer\_type\ ==\ \textcolor{stringliteral}{"{}rms\_prop\_optimizer"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00762}00762\ \ \ \ \ optimizer\_config\ =\ configs[\textcolor{stringliteral}{"{}train\_config"{}}].optimizer.rms\_prop\_optimizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00763}00763\ \ \ \textcolor{keywordflow}{elif}\ optimizer\_type\ ==\ \textcolor{stringliteral}{"{}momentum\_optimizer"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00764}00764\ \ \ \ \ optimizer\_config\ =\ configs[\textcolor{stringliteral}{"{}train\_config"{}}].optimizer.momentum\_optimizer}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00765}00765\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00766}00766\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Optimizer\ type\ must\ be\ one\ of\ \`{}rms\_prop\_optimizer`\ or\ "{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\`{}momentum\_optimizer`."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00768}00768\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00769}00769\ \ \ optimizer\_config.momentum\_optimizer\_value\ =\ min(max(0.0,\ momentum),\ 1.0)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00770}00770\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00771}00771\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00772}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a43e0a8ac9c5caa772594b4a1de41c82c}{00772}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a43e0a8ac9c5caa772594b4a1de41c82c}{\_update\_classification\_localization\_weight\_ratio}}(configs,\ ratio):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00773}00773\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ classification/localization\ weight\ loss\ ratio.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00774}00774\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00775}00775\ \textcolor{stringliteral}{\ \ Detection\ models\ usually\ define\ a\ loss\ weight\ }\textcolor{keywordflow}{for}\ both\ classification\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00776}00776\ \ \ objectness.\ This\ function\ updates\ the\ weights\ such\ that\ the\ ratio\ between}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00777}00777\ \ \ classification\ weight\ to\ localization\ weight\ \textcolor{keywordflow}{is}\ the\ ratio\ provided.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00778}00778\ \ \ Arbitrarily,\ localization\ weight\ \textcolor{keywordflow}{is}\ set\ to\ 1.0.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00779}00779\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00780}00780\ \ \ Note\ that\ \textcolor{keywordflow}{in}\ the\ case\ of\ Faster\ R-\/CNN,\ this\ same\ ratio\ \textcolor{keywordflow}{is}\ applied\ to\ the\ first}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00781}00781\ \ \ stage\ objectness\ loss\ weight\ relative\ to\ localization\ loss\ weight.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00782}00782\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00783}00783\ \ \ The\ configs\ dictionary\ \textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00784}00784\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00785}00785\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00786}00786\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00787}00787\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00788}00788\ \ \ \ \ ratio:\ Desired\ ratio\ of\ classification\ (\textcolor{keywordflow}{and}/\textcolor{keywordflow}{or}\ objectness)\ loss\ weight\ to}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00789}00789\ \ \ \ \ \ \ localization\ loss\ weight.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00790}00790\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00791}00791\ \textcolor{stringliteral}{\ \ meta\_architecture\ =\ configs["{}model"{}}].WhichOneof(\textcolor{stringliteral}{"{}model"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00792}00792\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}faster\_rcnn"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00793}00793\ \ \ \ \ model\ =\ configs[\textcolor{stringliteral}{"{}model"{}}].faster\_rcnn}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00794}00794\ \ \ \ \ model.first\_stage\_localization\_loss\_weight\ =\ 1.0}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00795}00795\ \ \ \ \ model.first\_stage\_objectness\_loss\_weight\ =\ ratio}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00796}00796\ \ \ \ \ model.second\_stage\_localization\_loss\_weight\ =\ 1.0}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00797}00797\ \ \ \ \ model.second\_stage\_classification\_loss\_weight\ =\ ratio}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00798}00798\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}ssd"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00799}00799\ \ \ \ \ model\ =\ configs[\textcolor{stringliteral}{"{}model"{}}].ssd}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00800}00800\ \ \ \ \ model.loss.localization\_weight\ =\ 1.0}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00801}00801\ \ \ \ \ model.loss.classification\_weight\ =\ ratio}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00802}00802\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00803}00803\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00804}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a570ccbd70e8e1b5a8c288f2348441fe4}{00804}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a570ccbd70e8e1b5a8c288f2348441fe4}{\_get\_classification\_loss}}(model\_config):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00805}00805\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ classification\ loss\ for\ a\ model."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00806}00806\ \ \ meta\_architecture\ =\ model\_config.WhichOneof(\textcolor{stringliteral}{"{}model"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00807}00807\ \ \ \textcolor{keywordflow}{if}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}faster\_rcnn"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00808}00808\ \ \ \ \ model\ =\ model\_config.faster\_rcnn}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00809}00809\ \ \ \ \ classification\_loss\ =\ model.second\_stage\_classification\_loss}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00810}00810\ \ \ \textcolor{keywordflow}{elif}\ meta\_architecture\ ==\ \textcolor{stringliteral}{"{}ssd"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00811}00811\ \ \ \ \ model\ =\ model\_config.ssd}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00812}00812\ \ \ \ \ classification\_loss\ =\ model.loss.classification\_loss}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00813}00813\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00814}00814\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Did\ not\ recognize\ the\ model\ architecture."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00815}00815\ \ \ \textcolor{keywordflow}{return}\ classification\_loss}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00816}00816\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00817}00817\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00818}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a97d600014f7f37498c7f712d79fe0726}{00818}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a97d600014f7f37498c7f712d79fe0726}{\_update\_focal\_loss\_gamma}}(configs,\ gamma):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00819}00819\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ gamma\ value\ for\ a\ sigmoid\ focal\ loss.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00820}00820\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00821}00821\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00822}00822\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00823}00823\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00824}00824\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00825}00825\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00826}00826\ \ \ \ \ gamma:\ Exponent\ term\ \textcolor{keywordflow}{in}\ focal\ loss.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00827}00827\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00828}00828\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00829}00829\ \ \ \ \ TypeError:\ If\ the\ classification\ loss\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \`{}weighted\_sigmoid\_focal\`{}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00830}00830\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00831}00831\ \textcolor{stringliteral}{\ \ classification\_loss\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a570ccbd70e8e1b5a8c288f2348441fe4}{\_get\_classification\_loss}}(configs["{}model"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00832}00832\ \ \ classification\_loss\_type\ =\ classification\_loss.WhichOneof(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00833}00833\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}classification\_loss"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00834}00834\ \ \ \textcolor{keywordflow}{if}\ classification\_loss\_type\ !=\ \textcolor{stringliteral}{"{}weighted\_sigmoid\_focal"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00835}00835\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Classification\ loss\ must\ be\ \`{}weighted\_sigmoid\_focal`."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00836}00836\ \ \ classification\_loss.weighted\_sigmoid\_focal.gamma\ =\ gamma}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00837}00837\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00838}00838\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00839}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a260d621fd191f30c51a850cc9348b2fe}{00839}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a260d621fd191f30c51a850cc9348b2fe}{\_update\_focal\_loss\_alpha}}(configs,\ alpha):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00840}00840\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ alpha\ value\ for\ a\ sigmoid\ focal\ loss.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00841}00841\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00842}00842\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00843}00843\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00844}00844\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00845}00845\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00846}00846\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00847}00847\ \ \ \ \ alpha:\ Class\ weight\ multiplier\ \textcolor{keywordflow}{for}\ sigmoid\ loss.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00848}00848\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00849}00849\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00850}00850\ \ \ \ \ TypeError:\ If\ the\ classification\ loss\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \`{}weighted\_sigmoid\_focal\`{}.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00851}00851\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00852}00852\ \textcolor{stringliteral}{\ \ classification\_loss\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a570ccbd70e8e1b5a8c288f2348441fe4}{\_get\_classification\_loss}}(configs["{}model"{}}])}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00853}00853\ \ \ classification\_loss\_type\ =\ classification\_loss.WhichOneof(}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00854}00854\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}classification\_loss"{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00855}00855\ \ \ \textcolor{keywordflow}{if}\ classification\_loss\_type\ !=\ \textcolor{stringliteral}{"{}weighted\_sigmoid\_focal"{}}:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00856}00856\ \ \ \ \ \textcolor{keywordflow}{raise}\ TypeError(\textcolor{stringliteral}{"{}Classification\ loss\ must\ be\ \`{}weighted\_sigmoid\_focal`."{}})}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00857}00857\ \ \ classification\_loss.weighted\_sigmoid\_focal.alpha\ =\ alpha}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00858}00858\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00860}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a34626ed7c43ac6344750dc68e5fa9060}{00860}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a34626ed7c43ac6344750dc68e5fa9060}{\_update\_train\_steps}}(configs,\ train\_steps):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00861}00861\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ to\ reflect\ new\ number\ of\ training\ steps."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00862}00862\ \ \ configs[\textcolor{stringliteral}{"{}train\_config"{}}].num\_steps\ =\ int(train\_steps)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00863}00863\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00864}00864\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00865}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{00865}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{\_update\_all\_eval\_input\_configs}}(configs,\ field,\ value):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00866}00866\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ content\ of\ \`{}field\`{}\ with\ \`{}value\`{}\ for\ all\ eval\ input\ configs."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00867}00867\ \ \ \textcolor{keywordflow}{for}\ eval\_input\_config\ \textcolor{keywordflow}{in}\ configs[\textcolor{stringliteral}{"{}eval\_input\_configs"{}}]:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00868}00868\ \ \ \ \ setattr(eval\_input\_config,\ field,\ value)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00869}00869\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00870}00870\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00871}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a190bdc1b975720a622f37e577e05da88}{00871}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a190bdc1b975720a622f37e577e05da88}{\_update\_label\_map\_path}}(configs,\ label\_map\_path):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00872}00872\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ label\ map\ path\ for\ both\ train\ and\ eval\ input\ readers.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00873}00873\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00874}00874\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00875}00875\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00876}00876\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00877}00877\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00878}00878\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00879}00879\ \ \ \ \ label\_map\_path:\ New\ path\ to\ \`{}StringIntLabelMap\`{}\ pbtxt\ file.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00880}00880\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00881}00881\ \textcolor{stringliteral}{\ \ configs["{}train\_input\_config"{}}].label\_map\_path\ =\ label\_map\_path}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00882}00882\ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{\_update\_all\_eval\_input\_configs}}(configs,\ \textcolor{stringliteral}{"{}label\_map\_path"{}},\ label\_map\_path)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00883}00883\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00884}00884\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00885}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5e0af053a1c4fd04c2a1246217f83c49}{00885}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5e0af053a1c4fd04c2a1246217f83c49}{\_update\_mask\_type}}(configs,\ mask\_type):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00886}00886\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ mask\ type\ for\ both\ train\ and\ eval\ input\ readers.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00887}00887\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00888}00888\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00889}00889\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00890}00890\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00891}00891\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00892}00892\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00893}00893\ \ \ \ \ mask\_type:\ A\ string\ name\ representing\ a\ value\ of}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00894}00894\ \ \ \ \ \ \ input\_reader\_pb2.InstanceMaskType}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00895}00895\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00896}00896\ \textcolor{stringliteral}{\ \ configs["{}train\_input\_config"{}}].mask\_type\ =\ mask\_type}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00897}00897\ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_af272f04ee7c85adedc950c9e7b7dda5a}{\_update\_all\_eval\_input\_configs}}(configs,\ \textcolor{stringliteral}{"{}mask\_type"{}},\ mask\_type)}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00898}00898\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00899}00899\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00900}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a14d4259331e70706789c4af64678d9d9}{00900}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a14d4259331e70706789c4af64678d9d9}{\_update\_use\_moving\_averages}}(configs,\ use\_moving\_averages):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00901}00901\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ the\ eval\ config\ option\ to\ use\ or\ not\ use\ moving\ averages.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00902}00902\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00903}00903\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00904}00904\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00905}00905\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00906}00906\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00907}00907\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00908}00908\ \ \ \ \ use\_moving\_averages:\ Boolean\ indicating\ whether\ moving\ average\ variables}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00909}00909\ \ \ \ \ \ \ should\ be\ loaded\ during\ evaluation.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00910}00910\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00911}00911\ \textcolor{stringliteral}{\ \ configs["{}eval\_config"{}}].use\_moving\_averages\ =\ use\_moving\_averages}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00912}00912\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00913}00913\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00914}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_acbe654692f2c90f363a0b7f66b685b48}{00914}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_acbe654692f2c90f363a0b7f66b685b48}{\_update\_retain\_original\_images}}(eval\_config,\ retain\_original\_images):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00915}00915\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ eval\ config\ with\ option\ to\ retain\ original\ images.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00916}00916\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00917}00917\ \textcolor{stringliteral}{\ \ The\ eval\_config\ object\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00918}00918\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00919}00919\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00920}00920\ \ \ \ \ eval\_config:\ A\ eval\_pb2.EvalConfig.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00921}00921\ \ \ \ \ retain\_original\_images:\ Boolean\ indicating\ whether\ to\ retain\ original\ images}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00922}00922\ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ eval\ mode.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00923}00923\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00924}00924\ \textcolor{stringliteral}{\ \ eval\_config.retain\_original\_images\ =\ retain\_original\_images}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00925}00925\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00926}00926\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00927}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5ea1da28e469a6236d18798257663ceb}{00927}}\ \textcolor{stringliteral}{}\textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a5ea1da28e469a6236d18798257663ceb}{\_update\_use\_bfloat16}}(configs,\ use\_bfloat16):}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00928}00928\ \ \ \textcolor{stringliteral}{"{}"{}"{}Updates\ \`{}configs\`{}\ to\ reflect\ the\ new\ setup\ on\ whether\ to\ use\ bfloat16.}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00929}00929\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00930}00930\ \textcolor{stringliteral}{\ \ The\ configs\ dictionary\ }\textcolor{keywordflow}{is}\ updated\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ hence\ \textcolor{keywordflow}{not}\ returned.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00931}00931\ }
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00932}00932\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00933}00933\ \ \ \ \ configs:\ Dictionary\ of\ configuration\ objects.\ See\ outputs\ \textcolor{keyword}{from}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00934}00934\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_abd4dcba02c151ea65da249e583ab86f7}{get\_configs\_from\_pipeline\_file}}()\ \textcolor{keywordflow}{or}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1config__util_a983a8e5832a5a92b1a826f24b922d7e7}{get\_configs\_from\_multiple\_files}}().}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00935}00935\ \ \ \ \ use\_bfloat16:\ A\ bool,\ indicating\ whether\ to\ use\ bfloat16\ \textcolor{keywordflow}{for}\ training.}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00936}00936\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{config__util_8py_source_l00937}00937\ \textcolor{stringliteral}{\ \ configs["{}train\_config"{}}].use\_bfloat16\ =\ use\_bfloat16}
+
+\end{DoxyCode}

@@ -1,0 +1,221 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{}\label{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}\index{detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d7c/classdetection__utils_1_1utils_1_1test__case_1_1_test_case__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{d8/d24/classdetection__utils_1_1utils_1_1test__case_1_1_test_case__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Extends tf.test.TestCase to optionally allow running tests on TPU.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__case_8py_source_l00033}{33}} of file \mbox{\hyperlink{test__case_8py_source}{test\+\_\+case.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}\label{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9} 
+\index{detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}!execute@{execute}}
+\index{execute@{execute}!detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case.\+execute (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{graph\+\_\+fn,  }\item[{}]{inputs }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs the graph, creates a test session and returns the results.
+
+The graph is executed either on TPU or CPU based on the `tpu_test` flag.
+
+Args:
+  graph_fn: a callable that constructs the tensorflow graph to test. The
+    arguments of this function should correspond to `inputs`.
+  inputs: a list of numpy arrays to feed input to the computation graph.
+
+Returns:
+  A list of numpy arrays or a scalar returned from executing the tensorflow
+  graph.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__case_8py_source_l00091}{91}} of file \mbox{\hyperlink{test__case_8py_source}{test\+\_\+case.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{def\ }execute(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ creates\ a\ test\ session\ and\ returns\ the\ results.}}
+\DoxyCodeLine{00093\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00094\ \textcolor{stringliteral}{\ \ \ \ The\ graph\ }\textcolor{keywordflow}{is}\ executed\ either\ on\ TPU\ \textcolor{keywordflow}{or}\ CPU\ based\ on\ the\ \`{}tpu\_test\`{}\ flag.}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ Args:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ Returns:}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ \textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00105\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ FLAGS.tpu\_test:}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.execute\_tpu(graph\_fn,\ inputs)}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.execute\_cpu(graph\_fn,\ inputs)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d57/classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}\label{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36} 
+\index{detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}!execute\_cpu@{execute\_cpu}}
+\index{execute\_cpu@{execute\_cpu}!detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}}
+\doxysubsubsection{\texorpdfstring{execute\_cpu()}{execute\_cpu()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case.\+execute\+\_\+cpu (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{graph\+\_\+fn,  }\item[{}]{inputs }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs the graph, executes it on CPU and returns the result.
+
+Args:
+  graph_fn: a callable that constructs the tensorflow graph to test. The
+    arguments of this function should correspond to `inputs`.
+  inputs: a list of numpy arrays to feed input to the computation graph.
+
+Returns:
+  A list of numpy arrays or a scalar returned from executing the tensorflow
+  graph.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__case_8py_source_l00064}{64}} of file \mbox{\hyperlink{test__case_8py_source}{test\+\_\+case.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{def\ }execute\_cpu(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ executes\ it\ on\ CPU\ and\ returns\ the\ result.}}
+\DoxyCodeLine{00066\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ }\textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ self.test\_session(graph=tf.Graph())\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ placeholders\ =\ [tf.placeholder\_with\_default(v,\ v.shape)\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ results\ =\ graph\_fn(*placeholders)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ sess.run([tf.global\_variables\_initializer(),\ tf.tables\_initializer(),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.local\_variables\_initializer()])}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ materialized\_results\ =\ sess.run(results,\ feed\_dict=dict(zip(placeholders,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs)))}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(materialized\_results,\ \textcolor{stringliteral}{'\_\_len\_\_'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ len(materialized\_results)\ ==\ 1\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ (isinstance(materialized\_results,\ list)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ isinstance(materialized\_results,\ tuple))):}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ materialized\_results\ =\ materialized\_results[0]}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ materialized\_results}
+\DoxyCodeLine{00090\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d9/d57/classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}\label{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05} 
+\index{detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}!execute\_tpu@{execute\_tpu}}
+\index{execute\_tpu@{execute\_tpu}!detection\_utils.utils.test\_case.TestCase@{detection\_utils.utils.test\_case.TestCase}}
+\doxysubsubsection{\texorpdfstring{execute\_tpu()}{execute\_tpu()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case.\+execute\+\_\+tpu (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{graph\+\_\+fn,  }\item[{}]{inputs }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs the graph, executes it on TPU and returns the result.
+
+Args:
+  graph_fn: a callable that constructs the tensorflow graph to test. The
+    arguments of this function should correspond to `inputs`.
+  inputs: a list of numpy arrays to feed input to the computation graph.
+
+Returns:
+  A list of numpy arrays or a scalar returned from executing the tensorflow
+  graph.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__case_8py_source_l00036}{36}} of file \mbox{\hyperlink{test__case_8py_source}{test\+\_\+case.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{def\ }execute\_tpu(self,\ graph\_fn,\ inputs):}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ the\ graph,\ executes\ it\ on\ TPU\ and\ returns\ the\ result.}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ \ \ graph\_fn:\ a\ callable\ that\ constructs\ the\ tensorflow\ graph\ to\ test.\ The}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ arguments\ of\ this\ function\ should\ correspond\ to\ \`{}inputs\`{}.}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ \ \ \ \ inputs:\ a\ list\ of\ numpy\ arrays\ to\ feed\ input\ to\ the\ computation\ graph.}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ numpy\ arrays\ }\textcolor{keywordflow}{or}\ a\ scalar\ returned\ \textcolor{keyword}{from}\ executing\ the\ tensorflow}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ graph.}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ self.test\_session(graph=tf.Graph())\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ placeholders\ =\ [tf.placeholder\_with\_default(v,\ v.shape)\ \textcolor{keywordflow}{for}\ v\ \textcolor{keywordflow}{in}\ inputs]}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ tpu\_computation\ =\ tpu.rewrite(graph\_fn,\ placeholders)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ sess.run(tpu.initialize\_system())}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ sess.run([tf.global\_variables\_initializer(),\ tf.tables\_initializer(),}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.local\_variables\_initializer()])}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ materialized\_results\ =\ sess.run(tpu\_computation,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=dict(zip(placeholders,\ inputs)))}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ sess.run(tpu.shutdown\_system())}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(materialized\_results,\ \textcolor{stringliteral}{'\_\_len\_\_'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ len(materialized\_results)\ ==\ 1\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ (isinstance(materialized\_results,\ list)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ isinstance(materialized\_results,\ tuple))):}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ materialized\_results\ =\ materialized\_results[0]}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ materialized\_results}
+\DoxyCodeLine{00063\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{d9/d57/classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{test__case_8py}{test\+\_\+case.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,365 @@
+\doxysection{detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator}{}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator}\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{dd/dc6/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{d0/db4/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a8cd656f08dc5b206ee5aab67ac13c690}{name\+\_\+scope}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a9022afb5b34bcc8ebb0c31e772f37be0}{check\+\_\+num\+\_\+anchors}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a2b2865e7297e2bebbc046e5001490fe6}{num\+\_\+anchors\+\_\+per\+\_\+location}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a056b06570c0c3e993a6e08cc3e255bd7}{generate}} (self, feature\+\_\+map\+\_\+shape\+\_\+list, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_ac0800b31f15c43e3183462d03694a6dc}{\+\_\+generate}} (self, feature\+\_\+map\+\_\+shape\+\_\+list, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a6bcccf2dfc6c11d4bb3c7db06c5acd73}{\+\_\+assert\+\_\+correct\+\_\+number\+\_\+of\+\_\+anchors}} (self, anchors\+\_\+list, feature\+\_\+map\+\_\+shape\+\_\+list)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class for anchor generators.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00044}{44}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a6bcccf2dfc6c11d4bb3c7db06c5acd73}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a6bcccf2dfc6c11d4bb3c7db06c5acd73} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!\_assert\_correct\_number\_of\_anchors@{\_assert\_correct\_number\_of\_anchors}}
+\index{\_assert\_correct\_number\_of\_anchors@{\_assert\_correct\_number\_of\_anchors}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{\_assert\_correct\_number\_of\_anchors()}{\_assert\_correct\_number\_of\_anchors()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+\_\+assert\+\_\+correct\+\_\+number\+\_\+of\+\_\+anchors (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{anchors\+\_\+list,  }\item[{}]{feature\+\_\+map\+\_\+shape\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Assert that correct number of anchors was generated.
+
+Args:
+  anchors_list: A list of box_list.BoxList object holding anchors generated.
+  feature_map_shape_list: list of (height, width) pairs in the format
+    [(height_0, width_0), (height_1, width_1), ...] that the generated
+    anchors must align with.
+Returns:
+  Op that raises InvalidArgumentError if the number of anchors does not
+    match the number of expected anchors.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00133}{133}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feature\_map\_shape\_list):}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Assert\ that\ correct\ number\ of\ anchors\ was\ generated.}}
+\DoxyCodeLine{00136\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00137\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00138\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors\_list:\ A\ list\ of\ box\_list.BoxList\ object\ holding\ anchors\ generated.}}
+\DoxyCodeLine{00139\ \textcolor{stringliteral}{\ \ \ \ \ \ feature\_map\_shape\_list:\ list\ of\ (height,\ width)\ pairs\ }\textcolor{keywordflow}{in}\ the\ format}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ [(height\_0,\ width\_0),\ (height\_1,\ width\_1),\ ...]\ that\ the\ generated}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ anchors\ must\ align\ \textcolor{keyword}{with}.}
+\DoxyCodeLine{00142\ \ \ \ \ Returns:}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ Op\ that\ raises\ InvalidArgumentError\ \textcolor{keywordflow}{if}\ the\ number\ of\ anchors\ does\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ match\ the\ number\ of\ expected\ anchors.}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ \ \ expected\_num\_anchors\ =\ 0}}
+\DoxyCodeLine{00147\ \textcolor{stringliteral}{\ \ \ \ actual\_num\_anchors\ =\ 0}}
+\DoxyCodeLine{00148\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{for}\ num\_anchors\_per\_location,\ feature\_map\_shape,\ anchors\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ self.num\_anchors\_per\_location(),\ feature\_map\_shape\_list,\ anchors\_list):}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ expected\_num\_anchors\ +=\ (num\_anchors\_per\_location}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ feature\_map\_shape[0]}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ feature\_map\_shape[1])}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ actual\_num\_anchors\ +=\ anchors.num\_boxes()}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.assert\_equal(expected\_num\_anchors,\ actual\_num\_anchors)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a6bcccf2dfc6c11d4bb3c7db06c5acd73_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a6bcccf2dfc6c11d4bb3c7db06c5acd73_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_ac0800b31f15c43e3183462d03694a6dc}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_ac0800b31f15c43e3183462d03694a6dc} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!\_generate@{\_generate}}
+\index{\_generate@{\_generate}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{\_generate()}{\_generate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+\_\+generate (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{feature\+\_\+map\+\_\+shape\+\_\+list,  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}To be overridden by implementations.
+
+Args:
+  feature_map_shape_list: list of (height, width) pairs in the format
+    [(height_0, width_0), (height_1, width_1), ...] that the generated
+    anchors must align with.
+  **params: parameters for anchor generation op
+
+Returns:
+  boxes_list: a list of BoxList, each holding a collection of N anchor
+    boxes.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00118}{118}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{def\ }\_generate(self,\ feature\_map\_shape\_list,\ **params):}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}To\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00121\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00122\ \textcolor{stringliteral}{\ \ \ \ \ \ feature\_map\_shape\_list:\ list\ of\ (height,\ width)\ pairs\ }\textcolor{keywordflow}{in}\ the\ format}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ [(height\_0,\ width\_0),\ (height\_1,\ width\_1),\ ...]\ that\ the\ generated}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ anchors\ must\ align\ \textcolor{keyword}{with}.}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ **params:\ parameters\ \textcolor{keywordflow}{for}\ anchor\ generation\ op}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ Returns:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ boxes\_list:\ a\ list\ of\ BoxList,\ each\ holding\ a\ collection\ of\ N\ anchor}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ boxes.}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00131\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00132\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_ac0800b31f15c43e3183462d03694a6dc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a9022afb5b34bcc8ebb0c31e772f37be0}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a9022afb5b34bcc8ebb0c31e772f37be0} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!check\_num\_anchors@{check\_num\_anchors}}
+\index{check\_num\_anchors@{check\_num\_anchors}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{check\_num\_anchors()}{check\_num\_anchors()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+check\+\_\+num\+\_\+anchors (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Whether to dynamically check the number of anchors generated.
+
+Can be overridden by implementations that would like to disable this
+behavior.
+
+Returns:
+  a boolean controlling whether the Generate function should dynamically
+  check the number of anchors generated against the mathematically
+  expected number of anchors.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00059}{59}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{def\ }check\_num\_anchors(self):}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Whether\ to\ dynamically\ check\ the\ number\ of\ anchors\ generated.}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ \ \ Can\ be\ overridden\ by\ implementations\ that\ would\ like\ to\ disable\ this}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{\ \ \ \ behavior.}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00066\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ boolean\ controlling\ whether\ the\ Generate\ function\ should\ dynamically}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ \ \ \ \ check\ the\ number\ of\ anchors\ generated\ against\ the\ mathematically}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ \ \ \ \ expected\ number\ of\ anchors.}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00071\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a9022afb5b34bcc8ebb0c31e772f37be0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a056b06570c0c3e993a6e08cc3e255bd7}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a056b06570c0c3e993a6e08cc3e255bd7} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!generate@{generate}}
+\index{generate@{generate}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+generate (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{feature\+\_\+map\+\_\+shape\+\_\+list,  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generates a collection of bounding boxes to be used as anchors.
+
+TODO(rathodv): remove **params from argument list and make stride and
+  offsets (for multiple_grid_anchor_generator) constructor arguments.
+
+Args:
+  feature_map_shape_list: list of (height, width) pairs in the format
+    [(height_0, width_0), (height_1, width_1), ...] that the generated
+    anchors must align with.  Pairs can be provided as 1-dimensional
+    integer tensors of length 2 or simply as tuples of integers.
+  **params: parameters for anchor generation op
+
+Returns:
+  boxes_list: a list of BoxLists each holding anchor boxes corresponding to
+    the input feature map shapes.
+
+Raises:
+  ValueError: if the number of feature map shapes does not match the length
+    of NumAnchorsPerLocation.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00082}{82}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{def\ }generate(self,\ feature\_map\_shape\_list,\ **params):}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Generates\ a\ collection\ of\ bounding\ boxes\ to\ be\ used\ as\ anchors.}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{\ \ \ \ TODO(rathodv):\ remove\ **params\ }\textcolor{keyword}{from}\ argument\ list\ \textcolor{keywordflow}{and}\ make\ stride\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ offsets\ (\textcolor{keywordflow}{for}\ multiple\_grid\_anchor\_generator)\ constructor\ arguments.}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ Args:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ feature\_map\_shape\_list:\ list\ of\ (height,\ width)\ pairs\ \textcolor{keywordflow}{in}\ the\ format}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ [(height\_0,\ width\_0),\ (height\_1,\ width\_1),\ ...]\ that\ the\ generated}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ anchors\ must\ align\ \textcolor{keyword}{with}.\ \ Pairs\ can\ be\ provided\ \textcolor{keyword}{as}\ 1-\/dimensional}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ integer\ tensors\ of\ length\ 2\ \textcolor{keywordflow}{or}\ simply\ \textcolor{keyword}{as}\ tuples\ of\ integers.}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ **params:\ parameters\ \textcolor{keywordflow}{for}\ anchor\ generation\ op}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ Returns:}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ boxes\_list:\ a\ list\ of\ BoxLists\ each\ holding\ anchor\ boxes\ corresponding\ to}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ the\ input\ feature\ map\ shapes.}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ Raises:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ the\ number\ of\ feature\ map\ shapes\ does\ \textcolor{keywordflow}{not}\ match\ the\ length}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ of\ NumAnchorsPerLocation.}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.check\_num\_anchors\ \textcolor{keywordflow}{and}\ (}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ len(feature\_map\_shape\_list)\ !=\ len(self.num\_anchors\_per\_location())):}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Number\ of\ feature\ maps\ is\ expected\ to\ equal\ the\ length\ '}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'of\ \`{}num\_anchors\_per\_location`.'})}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{with}\ tf.name\_scope(self.name\_scope()):}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ anchors\_list\ =\ self.\_generate(feature\_map\_shape\_list,\ **params)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.check\_num\_anchors:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_assert\_correct\_number\_of\_anchors(}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors\_list,\ feature\_map\_shape\_list)]):}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ item\ \textcolor{keywordflow}{in}\ anchors\_list:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ item.set(tf.identity(item.get()))}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ anchors\_list}
+\DoxyCodeLine{00116\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a056b06570c0c3e993a6e08cc3e255bd7_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a8cd656f08dc5b206ee5aab67ac13c690}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a8cd656f08dc5b206ee5aab67ac13c690} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!name\_scope@{name\_scope}}
+\index{name\_scope@{name\_scope}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{name\_scope()}{name\_scope()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+name\+\_\+scope (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Name scope.
+
+Must be defined by implementations.
+
+Returns:
+  a string representing the name scope of the anchor generation operation.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00048}{48}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{def\ }name\_scope(self):}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Name\ scope.}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ Must\ be\ defined\ by\ implementations.}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ string\ representing\ the\ name\ scope\ of\ the\ anchor\ generation\ operation.}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00057\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a8cd656f08dc5b206ee5aab67ac13c690_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a2b2865e7297e2bebbc046e5001490fe6}\label{classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a2b2865e7297e2bebbc046e5001490fe6} 
+\index{detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}!num\_anchors\_per\_location@{num\_anchors\_per\_location}}
+\index{num\_anchors\_per\_location@{num\_anchors\_per\_location}!detection\_utils.core.anchor\_generator.AnchorGenerator@{detection\_utils.core.anchor\_generator.AnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{num\_anchors\_per\_location()}{num\_anchors\_per\_location()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+anchor\+\_\+generator.\+Anchor\+Generator.\+num\+\_\+anchors\+\_\+per\+\_\+location (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the number of anchors per spatial location.
+
+Returns:
+  a list of integers, one for each expected feature map to be passed to
+  the `generate` function.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{anchor__generator_8py_source_l00073}{73}} of file \mbox{\hyperlink{anchor__generator_8py_source}{anchor\+\_\+generator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{def\ }num\_anchors\_per\_location(self):}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ number\ of\ anchors\ per\ spatial\ location.}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ list\ of\ integers,\ one\ }\textcolor{keywordflow}{for}\ each\ expected\ feature\ map\ to\ be\ passed\ to}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ the\ \`{}generate\`{}\ function.}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00081\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/dbd/classdetection__utils_1_1core_1_1anchor__generator_1_1_anchor_generator_a2b2865e7297e2bebbc046e5001490fe6_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{anchor__generator_8py}{anchor\+\_\+generator.\+py}}\end{DoxyCompactItemize}

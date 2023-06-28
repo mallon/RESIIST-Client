@@ -1,0 +1,115 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Retain\+Ground\+Truth\+With\+Positive\+Classes Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes}\index{detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses@{detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Retain\+Ground\+Truth\+With\+Positive\+Classes\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{da/df8/classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Retain\+Ground\+Truth\+With\+Positive\+Classes\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{d2/d71/classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes_ad4f4beea1b43ecdc541e0be21da367f2}{test\+\_\+filter\+\_\+groundtruth\+\_\+with\+\_\+positive\+\_\+classes}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00574}{574}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes_ad4f4beea1b43ecdc541e0be21da367f2}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_retain_ground_truth_with_positive_classes_ad4f4beea1b43ecdc541e0be21da367f2} 
+\index{detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses@{detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses}!test\_filter\_groundtruth\_with\_positive\_classes@{test\_filter\_groundtruth\_with\_positive\_classes}}
+\index{test\_filter\_groundtruth\_with\_positive\_classes@{test\_filter\_groundtruth\_with\_positive\_classes}!detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses@{detection\_utils.utils.ops\_test.RetainGroundTruthWithPositiveClasses}}
+\doxysubsubsection{\texorpdfstring{test\_filter\_groundtruth\_with\_positive\_classes()}{test\_filter\_groundtruth\_with\_positive\_classes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Retain\+Ground\+Truth\+With\+Positive\+Classes.\+test\+\_\+filter\+\_\+groundtruth\+\_\+with\+\_\+positive\+\_\+classes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00576}{576}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00576\ \ \ \textcolor{keyword}{def\ }test\_filter\_groundtruth\_with\_positive\_classes(self):}
+\DoxyCodeLine{00577\ \ \ \ \ input\_image\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3))}
+\DoxyCodeLine{00578\ \ \ \ \ input\_boxes\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 4))}
+\DoxyCodeLine{00579\ \ \ \ \ input\_classes\ =\ tf.placeholder(tf.int32,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00580\ \ \ \ \ input\_is\_crowd\ =\ tf.placeholder(tf.bool,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00581\ \ \ \ \ input\_area\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00582\ \ \ \ \ input\_difficult\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00583\ \ \ \ \ input\_label\_types\ =\ tf.placeholder(tf.string,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00584\ \ \ \ \ input\_confidences\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00585\ \ \ \ \ valid\_indices\ =\ tf.placeholder(tf.int32,\ shape=(\textcolor{keywordtype}{None},))}
+\DoxyCodeLine{00586\ \ \ \ \ input\_tensors\ =\ \{}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ fields.InputDataFields.image:\ input\_image,}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:\ input\_boxes,}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ input\_classes,}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ input\_is\_crowd,}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ input\_area,}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_difficult:\ input\_difficult,}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types:\ input\_label\_types,}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ input\_confidences,}
+\DoxyCodeLine{00595\ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \ \ output\_tensors\ =\ ops.retain\_groundtruth\_with\_positive\_classes(input\_tensors)}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ image\_tensor\ =\ np.random.rand(224,\ 224,\ 3)}
+\DoxyCodeLine{00599\ \ \ \ \ feed\_dict\ =\ \{}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ input\_image:\ image\_tensor,}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ input\_boxes:}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ np.array([[0.2,\ 0.4,\ 0.1,\ 0.8],\ [0.2,\ 0.4,\ 1.0,\ 0.8]],\ dtype=np.float),}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ input\_classes:\ np.array([1,\ 0],\ dtype=np.int32),}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ input\_is\_crowd:\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=np.bool),}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ input\_area:\ np.array([32,\ 48],\ dtype=np.float32),}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ input\_difficult:\ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=np.bool),}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ input\_label\_types:}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ np.array([\textcolor{stringliteral}{'APPROPRIATE'},\ \textcolor{stringliteral}{'INCORRECT'}],\ dtype=np.string\_),}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ input\_confidences:\ np.array([0.99,\ 0.5],\ dtype=np.float32),}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ valid\_indices:\ np.array([0],\ dtype=np.int32),}
+\DoxyCodeLine{00611\ \ \ \ \ \}}
+\DoxyCodeLine{00612\ \ \ \ \ expected\_tensors\ =\ \{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ fields.InputDataFields.image:\ image\_tensor,}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes:\ [[0.2,\ 0.4,\ 0.1,\ 0.8]],}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes:\ [1],}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd:\ [\textcolor{keyword}{False}],}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area:\ [32],}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_difficult:\ [\textcolor{keyword}{True}],}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types:\ [six.b(\textcolor{stringliteral}{'APPROPRIATE'})],}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences:\ [0.99],}
+\DoxyCodeLine{00621\ \ \ \ \ \}}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ output\_tensors\ =\ sess.run(output\_tensors,\ feed\_dict=feed\_dict)}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.image,}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes,}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_area,}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_confidences]:}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ self.assertAllClose(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ [fields.InputDataFields.groundtruth\_classes,}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_is\_crowd,}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_label\_types]:}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ self.assertAllEqual(expected\_tensors[key],\ output\_tensors[key])}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

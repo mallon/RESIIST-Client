@@ -1,0 +1,74 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+entrypoints.\+Acquisition\+And\+Decision Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision}\index{com.axellience.resiist.client.entrypoints.AcquisitionAndDecision@{com.axellience.resiist.client.entrypoints.AcquisitionAndDecision}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+entrypoints.\+Acquisition\+And\+Decision\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{de/d0d/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision_a2977947e1ddcb6776fa237ec2a97602f}{main}} (String\mbox{[}$\,$\mbox{]} args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_acquisition_and_decision_8java_source_l00009}{9}} of file \mbox{\hyperlink{_acquisition_and_decision_8java_source}{Acquisition\+And\+Decision.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision_a2977947e1ddcb6776fa237ec2a97602f}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision_a2977947e1ddcb6776fa237ec2a97602f} 
+\index{com.axellience.resiist.client.entrypoints.AcquisitionAndDecision@{com.axellience.resiist.client.entrypoints.AcquisitionAndDecision}!main@{main}}
+\index{main@{main}!com.axellience.resiist.client.entrypoints.AcquisitionAndDecision@{com.axellience.resiist.client.entrypoints.AcquisitionAndDecision}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily static void com.\+axellience.\+resiist.\+client.\+entrypoints.\+Acquisition\+And\+Decision.\+main (\begin{DoxyParamCaption}\item[{String\mbox{[}$\,$\mbox{]}}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_acquisition_and_decision_8java_source_l00011}{11}} of file \mbox{\hyperlink{_acquisition_and_decision_8java_source}{Acquisition\+And\+Decision.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ AcquisitionToIntegration\ acquisitionToIntegration\ =}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ AcquisitionToIntegration(InterpretationRuleGenerator.getInstance(),}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ResilienceRuleDefiner.getInstance());}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ DecisionMaking\ decisionMaking\ =\ \textcolor{keyword}{new}\ DecisionMaking();}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ AccessApplication\ accessApplication\ =}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AccessApplication.getInstance(acquisitionToIntegration,\ decisionMaking);}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{boolean}\ loginDone\ =\ accessApplication.isLoginDone();}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Thread.sleep(2);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (loginDone)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (InterruptedException\ e)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/df1/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_acquisition_and_decision_a2977947e1ddcb6776fa237ec2a97602f_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/entrypoints/\mbox{\hyperlink{_acquisition_and_decision_8java}{Acquisition\+And\+Decision.\+java}}\end{DoxyCompactItemize}

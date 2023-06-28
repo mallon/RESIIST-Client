@@ -1,0 +1,115 @@
+\doxysection{event\+Detection Namespace Reference}
+\hypertarget{namespaceevent_detection}{}\label{namespaceevent_detection}\index{eventDetection@{eventDetection}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceevent_detection_a392d54b44e5f1d829e1fa6b8b67961da}{start\+Detection}} (frame\+To\+Analyse, object\+Name\+To\+Detect\+List, all\+Element\+Ids)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespaceevent_detection_a7c2d68f65101a468e0b64a18b542911f}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS}} = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}
+\item 
+int \mbox{\hyperlink{namespaceevent_detection_a3144303b85efb4a975cd84682e58c87d}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT}} = 8081
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceevent_detection_a392d54b44e5f1d829e1fa6b8b67961da}\label{namespaceevent_detection_a392d54b44e5f1d829e1fa6b8b67961da} 
+\index{eventDetection@{eventDetection}!startDetection@{startDetection}}
+\index{startDetection@{startDetection}!eventDetection@{eventDetection}}
+\doxysubsubsection{\texorpdfstring{startDetection()}{startDetection()}}
+{\footnotesize\ttfamily event\+Detection.\+start\+Detection (\begin{DoxyParamCaption}\item[{}]{frame\+To\+Analyse,  }\item[{}]{object\+Name\+To\+Detect\+List,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event_detection_8py_source_l00038}{38}} of file \mbox{\hyperlink{event_detection_8py_source}{event\+Detection.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \textcolor{keyword}{def\ }startDetection(frameToAnalyse,\ objectNameToDetectList,\ allElementIds):}
+\DoxyCodeLine{00039\ \ \ \ \ print(\textcolor{stringliteral}{"{}Starting\ event\ detection..."{}})}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{\#\ load\ the\ trained\ model\ from\ disk}}
+\DoxyCodeLine{00041\ \ \ \ \ tensorflow.keras.backend.clear\_session()}
+\DoxyCodeLine{00042\ \ \ \ \ model\ =\ load\_model(config.MODEL\_PATH)}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{\#\ initialize\ the\ predictions\ queue}}
+\DoxyCodeLine{00045\ \ \ \ \ Q\ =\ deque(maxlen=128)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ (W,\ H)\ =\ (\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None})}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{\#for\ frameToAnalyse\ in\ copiedFrames:\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{\#\ if\ the\ frame\ dimensions\ are\ empty,\ grab\ them}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ W\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ H\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ (H,\ W)\ =\ frameToAnalyse.shape[:2]}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{\#\ clone\ the\ output\ frame,\ then\ convert\ it\ from\ BGR\ to\ RGB}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{\#\ ordering\ and\ resize\ the\ frame\ to\ a\ fixed\ 224x224}}
+\DoxyCodeLine{00056\ \ \ \ \ frameToAnalyse\ =\ cv2.cvtColor(frameToAnalyse,\ cv2.COLOR\_BGR2RGB)}
+\DoxyCodeLine{00057\ \ \ \ \ frameToAnalyse\ =\ cv2.resize(frameToAnalyse,\ (224,\ 224))}
+\DoxyCodeLine{00058\ \ \ \ \ frameToAnalyse\ =\ frameToAnalyse.astype(\textcolor{stringliteral}{"{}float32"{}})}
+\DoxyCodeLine{00059\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{\#\ make\ predictions\ on\ the\ frame\ and\ then\ update\ the\ predictions}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{\#\ queue}}
+\DoxyCodeLine{00062\ \ \ \ \ expandedFrame\ =\ np.expand\_dims(frameToAnalyse,\ axis=0)}
+\DoxyCodeLine{00063\ \ \ \ \ preds\ =\ model.predict(expandedFrame)[0]}
+\DoxyCodeLine{00064\ \ \ \ \ Q.append(preds)\ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{\#\ perform\ prediction\ averaging\ over\ the\ current\ history\ of}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{\#\ previous\ predictions}}
+\DoxyCodeLine{00068\ \ \ \ \ results\ =\ np.array(Q).mean(axis=0)}
+\DoxyCodeLine{00069\ \ \ \ \ i\ =\ np.argmax(results)}
+\DoxyCodeLine{00070\ \ \ \ \ label\ =\ config.CLASSES[i]}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}\ label\ \textcolor{keywordflow}{in}\ (objectNameToDetectList)\ :\ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Proba.\ :\ "{}}\ +\ str(np.max(results)))}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ draw\ the\ activity\ on\ the\ output\ frame}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{global}\ text}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ text\ =\ \textcolor{stringliteral}{"{}\{\}"{}}.format(label)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(text)],\ text,\ \textcolor{stringliteral}{"{}1"{}}]}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(label\_crit\_value)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Event\ recognized:\ "{}}\ +\ label)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ msg\ =\ label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ our\_socket.close()}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceevent_detection_a7c2d68f65101a468e0b64a18b542911f}\label{namespaceevent_detection_a7c2d68f65101a468e0b64a18b542911f} 
+\index{eventDetection@{eventDetection}!INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}}
+\index{INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}!eventDetection@{eventDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_ADRESS}{INTEGRATION\_NETWORK\_ADRESS}}
+{\footnotesize\ttfamily str event\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{event_detection_8py_source_l00035}{35}} of file \mbox{\hyperlink{event_detection_8py_source}{event\+Detection.\+py}}.
+
+\Hypertarget{namespaceevent_detection_a3144303b85efb4a975cd84682e58c87d}\label{namespaceevent_detection_a3144303b85efb4a975cd84682e58c87d} 
+\index{eventDetection@{eventDetection}!INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}}
+\index{INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}!eventDetection@{eventDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_PORT}{INTEGRATION\_NETWORK\_PORT}}
+{\footnotesize\ttfamily int event\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT = 8081}
+
+
+
+Definition at line \mbox{\hyperlink{event_detection_8py_source_l00036}{36}} of file \mbox{\hyperlink{event_detection_8py_source}{event\+Detection.\+py}}.
+

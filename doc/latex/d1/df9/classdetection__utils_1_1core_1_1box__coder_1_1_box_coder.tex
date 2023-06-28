@@ -1,0 +1,306 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder}{}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder}\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{d9/d8a/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{db/d05/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047}{code\+\_\+size}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69}{encode}} (self, boxes, anchors)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a}{decode}} (self, rel\+\_\+codes, anchors)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e}{\+\_\+encode}} (self, boxes, anchors)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1}{\+\_\+decode}} (self, rel\+\_\+codes, anchors)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class for box coder.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00050}{50}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1} 
+\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}!\_decode@{\_decode}}
+\index{\_decode@{\_decode}!detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+\doxysubsubsection{\texorpdfstring{\_decode()}{\_decode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder.\+\_\+decode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{rel\+\_\+codes,  }\item[{}]{anchors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Method to be overriden by implementations.
+
+Args:
+  rel_codes: a tensor representing N relative-encoded boxes
+  anchors: BoxList of anchors
+
+Returns:
+  boxlist: BoxList holding N boxes encoded in the ordinary way (i.e.,
+    with corners y_min, x_min, y_max, x_max)
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder__test_1_1_mock_box_coder_a8264c16d9f1826d0e18f06fda19cd1dd}{detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Mock\+Box\+Coder}}.
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00108}{108}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{def\ }\_decode(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overriden\ by\ implementations.}}
+\DoxyCodeLine{00110\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00111\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{\ \ \ \ \ \ rel\_codes:\ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{00113\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ anchors}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00116\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes\ encoded\ }\textcolor{keywordflow}{in}\ the\ ordinary\ way\ (i.e.,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ corners\ y\_min,\ x\_min,\ y\_max,\ x\_max)}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a83c6521d15810ecddb6aed8d94d3f3f1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e} 
+\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}!\_encode@{\_encode}}
+\index{\_encode@{\_encode}!detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+\doxysubsubsection{\texorpdfstring{\_encode()}{\_encode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder.\+\_\+encode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{boxes,  }\item[{}]{anchors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Method to be overriden by implementations.
+
+Args:
+  boxes: BoxList holding N boxes to be encoded
+  anchors: BoxList of N anchors
+
+Returns:
+  a tensor representing N relative-encoded boxes
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder__test_1_1_mock_box_coder_aafe7e4c18f573e6ae677689c10e2fa8e}{detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Mock\+Box\+Coder}}.
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00095}{95}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{def\ }\_encode(self,\ boxes,\ anchors):}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overriden\ by\ implementations.}}
+\DoxyCodeLine{00097\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00098\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00099\ \textcolor{stringliteral}{\ \ \ \ \ \ boxes:\ BoxList\ holding\ N\ boxes\ to\ be\ encoded}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ N\ anchors}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00105\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00106\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_afc44a73b8f420a787e6172dfbf13e75e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047} 
+\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}!code\_size@{code\_size}}
+\index{code\_size@{code\_size}!detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+\doxysubsubsection{\texorpdfstring{code\_size()}{code\_size()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder.\+code\+\_\+size (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the size of each code.
+
+This number is a constant and should agree with the output of the `encode`
+op (e.g. if rel_codes is the output of self.encode(...), then it should have
+shape [N, code_size()]).  This abstractproperty should be overridden by
+implementations.
+
+Returns:
+  an integer constant
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder__test_1_1_mock_box_coder_ad50486c00425b285281da1b25980cee1}{detection\+\_\+utils.\+core.\+box\+\_\+coder\+\_\+test.\+Mock\+Box\+Coder}}.
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00054}{54}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{def\ }code\_size(self):}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Return\ the\ size\ of\ each\ code.}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ \ \ This\ number\ }\textcolor{keywordflow}{is}\ a\ constant\ \textcolor{keywordflow}{and}\ should\ agree\ \textcolor{keyword}{with}\ the\ output\ of\ the\ \`{}encode\`{}}
+\DoxyCodeLine{00058\ \ \ \ \ op\ (e.g.\ \textcolor{keywordflow}{if}\ rel\_codes\ \textcolor{keywordflow}{is}\ the\ output\ of\ self.encode(...),\ then\ it\ should\ have}
+\DoxyCodeLine{00059\ \ \ \ \ shape\ [N,\ code\_size()]).\ \ This\ abstractproperty\ should\ be\ overridden\ by}
+\DoxyCodeLine{00060\ \ \ \ \ implementations.}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ Returns:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ an\ integer\ constant}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00066\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac7c7fb9f133305eccdef890e2bf3f047_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a} 
+\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}!decode@{decode}}
+\index{decode@{decode}!detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder.\+decode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{rel\+\_\+codes,  }\item[{}]{anchors }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Decode boxes that are encoded relative to an anchor collection.
+
+Args:
+  rel_codes: a tensor representing N relative-encoded boxes
+  anchors: BoxList of anchors
+
+Returns:
+  boxlist: BoxList holding N boxes encoded in the ordinary way (i.e.,
+    with corners y_min, x_min, y_max, x_max)
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00080}{80}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{def\ }decode(self,\ rel\_codes,\ anchors):}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Decode\ boxes\ that\ are\ encoded\ relative\ to\ an\ anchor\ collection.}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{\ \ \ \ \ \ rel\_codes:\ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ anchors}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00087\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes\ encoded\ }\textcolor{keywordflow}{in}\ the\ ordinary\ way\ (i.e.,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ corners\ y\_min,\ x\_min,\ y\_max,\ x\_max)}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00091\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'Decode'}):}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_decode(rel\_codes,\ anchors)}
+\DoxyCodeLine{00093\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_a14a09579a37bd86ad6f0b84597f1810a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69}\label{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69} 
+\index{detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}!encode@{encode}}
+\index{encode@{encode}!detection\_utils.core.box\_coder.BoxCoder@{detection\_utils.core.box\_coder.BoxCoder}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+Box\+Coder.\+encode (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{boxes,  }\item[{}]{anchors }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Encode a box list relative to an anchor collection.
+
+Args:
+  boxes: BoxList holding N boxes to be encoded
+  anchors: BoxList of N anchors
+
+Returns:
+  a tensor representing N relative-encoded boxes
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00067}{67}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{def\ }encode(self,\ boxes,\ anchors):}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Encode\ a\ box\ list\ relative\ to\ an\ anchor\ collection.}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{\ \ \ \ \ \ boxes:\ BoxList\ holding\ N\ boxes\ to\ be\ encoded}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ BoxList\ of\ N\ anchors}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ \ \ \ \ a\ tensor\ representing\ N\ relative-\/encoded\ boxes}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'Encode'}):}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_encode(boxes,\ anchors)}
+\DoxyCodeLine{00079\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df9/classdetection__utils_1_1core_1_1box__coder_1_1_box_coder_ac70c90fc100afe1b593c80be649ffd69_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__coder_8py}{box\+\_\+coder.\+py}}\end{DoxyCompactItemize}

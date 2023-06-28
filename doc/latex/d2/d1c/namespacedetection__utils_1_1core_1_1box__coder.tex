@@ -1,0 +1,158 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+coder Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1box__coder}{}\label{namespacedetection__utils_1_1core_1_1box__coder}\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__coder_1_1_box_coder}{Box\+Coder}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_abc3dd015bbcd84aed7102a7c6db8db41}{batch\+\_\+decode}} (encoded\+\_\+boxes, box\+\_\+coder, anchors)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a29907ac584e6fe0ef606f1b75189fa4e}{FASTER\+\_\+\+RCNN}} = \textquotesingle{}faster\+\_\+rcnn\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a61314a639ca2e5a5f43edabbb9ac9f4d}{KEYPOINT}} = \textquotesingle{}keypoint\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_a560cfe3acf9537d79ebc8f3767263354}{MEAN\+\_\+\+STDDEV}} = \textquotesingle{}mean\+\_\+stddev\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1box__coder_aafde485147a77d91fb7c20596d1a24df}{SQUARE}} = \textquotesingle{}square\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Base box coder.
+
+Box coders convert between coordinate frames, namely image-centric
+(with (0,0) on the top left of image) and anchor-centric (with (0,0) being
+defined by a specific anchor).
+
+Users of a BoxCoder can call two methods:
+ encode: which encodes a box with respect to a given anchor
+  (or rather, a tensor of boxes wrt a corresponding tensor of anchors) and
+ decode: which inverts this encoding with a decode operation.
+In both cases, the arguments are assumed to be in 1-1 correspondence already;
+it is not the job of a BoxCoder to perform matching.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1box__coder_abc3dd015bbcd84aed7102a7c6db8db41}\label{namespacedetection__utils_1_1core_1_1box__coder_abc3dd015bbcd84aed7102a7c6db8db41} 
+\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}!batch\_decode@{batch\_decode}}
+\index{batch\_decode@{batch\_decode}!detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection{\texorpdfstring{batch\_decode()}{batch\_decode()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+coder.\+batch\+\_\+decode (\begin{DoxyParamCaption}\item[{}]{encoded\+\_\+boxes,  }\item[{}]{box\+\_\+coder,  }\item[{}]{anchors }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Decode a batch of encoded boxes.
+
+This op takes a batch of encoded bounding boxes and transforms
+them to a batch of bounding boxes specified by their corners in
+the order of [y_min, x_min, y_max, x_max].
+
+Args:
+  encoded_boxes: a float32 tensor of shape [batch_size, num_anchors,
+    code_size] representing the location of the objects.
+  box_coder: a BoxCoder object.
+  anchors: a BoxList of anchors used to encode `encoded_boxes`.
+
+Returns:
+  decoded_boxes: a float32 tensor of shape [batch_size, num_anchors,
+    coder_size] representing the corners of the objects in the order
+    of [y_min, x_min, y_max, x_max].
+
+Raises:
+  ValueError: if batch sizes of the inputs are inconsistent, or if
+  the number of anchors inferred from encoded_boxes and anchors are
+  inconsistent.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00122}{122}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00122\ \textcolor{keyword}{def\ }batch\_decode(encoded\_boxes,\ box\_coder,\ anchors):}
+\DoxyCodeLine{00123\ \ \ \textcolor{stringliteral}{"{}"{}"{}Decode\ a\ batch\ of\ encoded\ boxes.}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00125\ \textcolor{stringliteral}{\ \ This\ op\ takes\ a\ batch\ of\ encoded\ bounding\ boxes\ }\textcolor{keywordflow}{and}\ transforms}
+\DoxyCodeLine{00126\ \ \ them\ to\ a\ batch\ of\ bounding\ boxes\ specified\ by\ their\ corners\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00127\ \ \ the\ order\ of\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ Args:}
+\DoxyCodeLine{00130\ \ \ \ \ encoded\_boxes:\ a\ float32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ code\_size]\ representing\ the\ location\ of\ the\ objects.}
+\DoxyCodeLine{00132\ \ \ \ \ box\_coder:\ a\ BoxCoder\ object.}
+\DoxyCodeLine{00133\ \ \ \ \ anchors:\ a\ BoxList\ of\ anchors\ used\ to\ encode\ \`{}encoded\_boxes\`{}.}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ Returns:}
+\DoxyCodeLine{00136\ \ \ \ \ decoded\_boxes:\ a\ float32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ coder\_size]\ representing\ the\ corners\ of\ the\ objects\ \textcolor{keywordflow}{in}\ the\ order}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ of\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ Raises:}
+\DoxyCodeLine{00141\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ batch\ sizes\ of\ the\ inputs\ are\ inconsistent,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{00142\ \ \ \ \ the\ number\ of\ anchors\ inferred\ \textcolor{keyword}{from}\ encoded\_boxes\ \textcolor{keywordflow}{and}\ anchors\ are}
+\DoxyCodeLine{00143\ \ \ \ \ inconsistent.}
+\DoxyCodeLine{00144\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00145\ \textcolor{stringliteral}{\ \ encoded\_boxes.get\_shape().assert\_has\_rank(3)}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ (shape\_utils.get\_dim\_as\_int(encoded\_boxes.get\_shape()[1])}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ !=\ anchors.num\_boxes\_static()):}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ number\ of\ anchors\ inferred\ from\ encoded\_boxes'}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\ and\ anchors\ are\ inconsistent:\ shape[1]\ of\ encoded\_boxes'}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\ \%s\ should\ be\ equal\ to\ the\ number\ of\ anchors:\ \%s.'}\ \%}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (shape\_utils.get\_dim\_as\_int(encoded\_boxes.get\_shape()[1]),}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors.num\_boxes\_static()))}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ decoded\_boxes\ =\ tf.stack([}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ box\_coder.decode(boxes,\ anchors).get()}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ boxes\ \textcolor{keywordflow}{in}\ tf.unstack(encoded\_boxes)}
+\DoxyCodeLine{00157\ \ \ ])}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordflow}{return}\ decoded\_boxes}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1core_1_1box__coder_a29907ac584e6fe0ef606f1b75189fa4e}\label{namespacedetection__utils_1_1core_1_1box__coder_a29907ac584e6fe0ef606f1b75189fa4e} 
+\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}!FASTER\_RCNN@{FASTER\_RCNN}}
+\index{FASTER\_RCNN@{FASTER\_RCNN}!detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection{\texorpdfstring{FASTER\_RCNN}{FASTER\_RCNN}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+box\+\_\+coder.\+FASTER\+\_\+\+RCNN = \textquotesingle{}faster\+\_\+rcnn\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00044}{44}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1core_1_1box__coder_a61314a639ca2e5a5f43edabbb9ac9f4d}\label{namespacedetection__utils_1_1core_1_1box__coder_a61314a639ca2e5a5f43edabbb9ac9f4d} 
+\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}!KEYPOINT@{KEYPOINT}}
+\index{KEYPOINT@{KEYPOINT}!detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection{\texorpdfstring{KEYPOINT}{KEYPOINT}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+box\+\_\+coder.\+KEYPOINT = \textquotesingle{}keypoint\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00045}{45}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1core_1_1box__coder_a560cfe3acf9537d79ebc8f3767263354}\label{namespacedetection__utils_1_1core_1_1box__coder_a560cfe3acf9537d79ebc8f3767263354} 
+\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}!MEAN\_STDDEV@{MEAN\_STDDEV}}
+\index{MEAN\_STDDEV@{MEAN\_STDDEV}!detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection{\texorpdfstring{MEAN\_STDDEV}{MEAN\_STDDEV}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+box\+\_\+coder.\+MEAN\+\_\+\+STDDEV = \textquotesingle{}mean\+\_\+stddev\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00046}{46}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1core_1_1box__coder_aafde485147a77d91fb7c20596d1a24df}\label{namespacedetection__utils_1_1core_1_1box__coder_aafde485147a77d91fb7c20596d1a24df} 
+\index{detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}!SQUARE@{SQUARE}}
+\index{SQUARE@{SQUARE}!detection\_utils.core.box\_coder@{detection\_utils.core.box\_coder}}
+\doxysubsubsection{\texorpdfstring{SQUARE}{SQUARE}}
+{\footnotesize\ttfamily str detection\+\_\+utils.\+core.\+box\+\_\+coder.\+SQUARE = \textquotesingle{}square\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{box__coder_8py_source_l00047}{47}} of file \mbox{\hyperlink{box__coder_8py_source}{box\+\_\+coder.\+py}}.
+

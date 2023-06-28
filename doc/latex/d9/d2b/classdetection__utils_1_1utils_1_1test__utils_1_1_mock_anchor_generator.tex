@@ -1,0 +1,127 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator}{}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator}\index{detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{d4/d32/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{d1/db3/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da}{name\+\_\+scope}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813}{num\+\_\+anchors\+\_\+per\+\_\+location}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea}{\+\_\+generate}} (self, feature\+\_\+map\+\_\+shape\+\_\+list)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Mock anchor generator.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00127}{127}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea} 
+\index{detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}!\_generate@{\_generate}}
+\index{\_generate@{\_generate}!detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{\_generate()}{\_generate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator.\+\_\+generate (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{feature\+\_\+map\+\_\+shape\+\_\+list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00136}{136}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{def\ }\_generate(self,\ feature\_map\_shape\_list):}
+\DoxyCodeLine{00137\ \ \ \ \ num\_anchors\ =\ sum([shape[0]\ *\ shape[1]\ \textcolor{keywordflow}{for}\ shape\ \textcolor{keywordflow}{in}\ feature\_map\_shape\_list])}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_list.BoxList(tf.zeros((num\_anchors,\ 4),\ dtype=tf.float32))}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d2b/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a8441b0105f05bd8392a9e703a2b4c1ea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da} 
+\index{detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}!name\_scope@{name\_scope}}
+\index{name\_scope@{name\_scope}!detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{name\_scope()}{name\_scope()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator.\+name\+\_\+scope (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00130}{130}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{def\ }name\_scope(self):}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{'MockAnchorGenerator'}}
+\DoxyCodeLine{00132\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d2b/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_a1a27c5f63924e9ddadefc875f4a034da_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813}\label{classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813} 
+\index{detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}!num\_anchors\_per\_location@{num\_anchors\_per\_location}}
+\index{num\_anchors\_per\_location@{num\_anchors\_per\_location}!detection\_utils.utils.test\_utils.MockAnchorGenerator@{detection\_utils.utils.test\_utils.MockAnchorGenerator}}
+\doxysubsubsection{\texorpdfstring{num\_anchors\_per\_location()}{num\_anchors\_per\_location()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils.\+Mock\+Anchor\+Generator.\+num\+\_\+anchors\+\_\+per\+\_\+location (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils_8py_source_l00133}{133}} of file \mbox{\hyperlink{test__utils_8py_source}{test\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{def\ }num\_anchors\_per\_location(self):}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ [1]}
+\DoxyCodeLine{00135\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d2b/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator_ab604cdae5fe8f4f15cb0634e217cf813_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{test__utils_8py}{test\+\_\+utils.\+py}}\end{DoxyCompactItemize}

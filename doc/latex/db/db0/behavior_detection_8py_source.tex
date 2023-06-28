@@ -1,0 +1,133 @@
+\doxysection{behavior\+Detection.\+py}
+\hypertarget{behavior_detection_8py_source}{}\label{behavior_detection_8py_source}\index{src/main/resources/processing/video/detections/behavior\_detection/behaviorDetection.py@{src/main/resources/processing/video/detections/behavior\_detection/behaviorDetection.py}}
+\mbox{\hyperlink{behavior_detection_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00001}\mbox{\hyperlink{namespacebehavior_detection}{00001}}\ \textcolor{comment}{\#!/usr/bin/env\ python}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00002}00002\ \textcolor{comment}{\#\ coding:\ utf-\/8}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00004}00004\ \textcolor{keyword}{import}\ numpy}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00005}00005\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00006}00006\ \textcolor{keyword}{import}\ six.moves.urllib\ \textcolor{keyword}{as}\ urllib}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00007}00007\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00008}00008\ \textcolor{keyword}{import}\ tarfile}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00009}00009\ \textcolor{keyword}{import}\ tensorflow}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00010}00010\ \textcolor{keyword}{import}\ zipfile}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00011}00011\ \textcolor{keyword}{import}\ sys}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00012}00012\ \textcolor{keyword}{import}\ socket}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00013}00013\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00014}00014\ \textcolor{keyword}{import}\ math}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00015}00015\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ deque}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00016}00016\ \textcolor{keyword}{import}\ argparse}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00017}00017\ \textcolor{keyword}{import}\ threading}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00018}00018\ \textcolor{keyword}{import}\ imutils}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00019}00019\ \textcolor{keyword}{from}\ multiprocessing\ \textcolor{keyword}{import}\ Process}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00021}00021\ \textcolor{comment}{\#\ OpenCV\ library\ to\ capture\ images}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00022}00022\ \textcolor{keyword}{import}\ cv2}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00024}00024\ \textcolor{keyword}{from}\ collections\ \textcolor{keyword}{import}\ defaultdict}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00025}00025\ \textcolor{keyword}{from}\ io\ \textcolor{keyword}{import}\ StringIO}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00026}00026\ \textcolor{keyword}{from}\ PIL\ \textcolor{keyword}{import}\ Image}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00028}\mbox{\hyperlink{namespacebehavior_detection_aa0653579499f6e458ae6220662933880}{00028}}\ CURRENT\_PYTHON\_PATH=os.getcwd()\ +\ \textcolor{stringliteral}{"{}/src/main/resources"{}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00029}\mbox{\hyperlink{namespacebehavior_detection_afbd724311e2683ec8ab5758a25893e87}{00029}}\ EXTRACTION\_TO\_INTEGRATION\_PATH\ =\ CURRENT\_PYTHON\_PATH\ +\ \textcolor{stringliteral}{'/processing/video/detections/'}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00031}00031\ sys.path.insert(0,\ EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'detection\_utils'})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00032}00032\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ ops\ \textcolor{keyword}{as}\ detectionUtils}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00033}00033\ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00034}00034\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ label\_map\_util}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00035}00035\ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00036}00036\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ visualization\_utils\ \textcolor{keyword}{as}\ visualizationUtils}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00038}00038\ \textcolor{keyword}{import}\ logging;}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00039}00039\ logging.disable(logging.INFO);}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00040}00040\ logging.disable(logging.DEBUG);}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00041}00041\ \textcolor{comment}{\#logging.disable(logging.CRITICAL);}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00042}00042\ logging.disable(logging.WARNING);}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00043}00043\ \textcolor{comment}{\#logging.disable(logging.ERROR);}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00045}00045\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00046}00046\ os.environ[\textcolor{stringliteral}{'TF\_CPP\_MIN\_LOG\_LEVEL'}]\ =\ \textcolor{stringliteral}{'2'}\ \ \textcolor{comment}{\#\ or\ any\ \{'0',\ '1',\ '2'\}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00047}00047\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00048}00048\ \ \ \textcolor{comment}{\#Level\ |\ Level\ for\ Humans\ |\ Level\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00049}00049\ \ \textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00050}00050\ \ \ \textcolor{comment}{\#0\ \ \ \ \ |\ DEBUG\ \ \ \ \ \ \ \ \ \ \ \ |\ [Default]\ Print\ all\ messages\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00051}00051\ \ \ \textcolor{comment}{\#1\ \ \ \ \ |\ INFO\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ messages\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00052}00052\ \ \ \textcolor{comment}{\#2\ \ \ \ \ |\ WARNING\ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ INFO\ \&\ WARNING\ messages\ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00053}00053\ \ \ \textcolor{comment}{\#3\ \ \ \ \ |\ ERROR\ \ \ \ \ \ \ \ \ \ \ \ |\ Filter\ out\ all\ messages\ \ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00055}00055\ \textcolor{comment}{\#For\ Java\ caller}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00056}00056\ CURRENT\_PYTHON\_PATH=os.getcwd()\ +\ \textcolor{stringliteral}{"{}/src/main/resources"{}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00057}00057\ EXTRACTION\_TO\_INTEGRATION\_PATH\ =\ CURRENT\_PYTHON\_PATH\ +\ \textcolor{stringliteral}{'/processing/video/detections/'}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00058}\mbox{\hyperlink{namespacebehavior_detection_a88832094c78381cbcf1424f8fb112d63}{00058}}\ SPECIFIC\_PATH=EXTRACTION\_TO\_INTEGRATION\_PATH\ +\ \textcolor{stringliteral}{'behavior\_detection/human-\/activity-\/recognition/'}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00060}00060\ \textcolor{comment}{\#required\ model\ and\ the\ frozen\ inference\ graph}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00061}00061\ \textcolor{comment}{\#\ Which\ model\ to\ download.}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00062}\mbox{\hyperlink{namespacebehavior_detection_a64efca9fd132fa787376f09aaa61d87a}{00062}}\ MODEL\_PATH\ =\ SPECIFIC\_PATH}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00064}00064\ \textcolor{comment}{\#\ Path\ to\ frozen\ detection\ graph.\ This\ is\ the\ actual\ model\ that\ is\ used\ for\ the\ object\ detection.}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00065}\mbox{\hyperlink{namespacebehavior_detection_ad515f456eb0c6a50e8bdff3f2fd76d07}{00065}}\ PATH\_TO\_FROZEN\_GRAPH\ =\ MODEL\_PATH\ +\ \textcolor{stringliteral}{'resnet-\/34\_kinetics.onnx'}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00067}00067\ \textcolor{comment}{\#\ List\ of\ the\ strings\ that\ is\ used\ to\ add\ correct\ label\ for\ each\ box.}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00068}\mbox{\hyperlink{namespacebehavior_detection_a766b73fd72cd8ee9b327c060757f8990}{00068}}\ PATH\_TO\_LABELS\ =\ os.path.join(\textcolor{stringliteral}{'data'},\ SPECIFIC\_PATH\ +\ \textcolor{stringliteral}{'action\_recognition\_kinetics.txt'})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00069}\mbox{\hyperlink{namespacebehavior_detection_a43f75cd8ce13999c71b56de9637b16e4}{00069}}\ CLASSES\ =\ open(PATH\_TO\_LABELS).read().strip().split(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00071}\mbox{\hyperlink{namespacebehavior_detection_a8713ba5f5fafd8bb663808c5f5166c0d}{00071}}\ IMAGE\_SIZE\ =\ 112}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00072}\mbox{\hyperlink{namespacebehavior_detection_a58437dae3af66311fd9feb1cff413943}{00072}}\ IMAGE\_NUMBER\ =\ 16}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00073}\mbox{\hyperlink{namespacebehavior_detection_a11d438cfcf8c62bec9ebccd643ce81bf}{00073}}\ INTEGRATION\_NETWORK\_ADRESS\ =\ \textcolor{stringliteral}{'127.0.0.1'}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00074}\mbox{\hyperlink{namespacebehavior_detection_a0e89e9893dae8c45ce84b6a75f96e353}{00074}}\ INTEGRATION\_NETWORK\_PORT\ =\ 8081}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00075}\mbox{\hyperlink{namespacebehavior_detection_a579b80f34b4207b695f1b2c01105a7ad}{00075}}\ higher\_proba\_label\ =\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00078}\mbox{\hyperlink{namespacebehavior_detection_a1b6339b0c9616dd402e6c91486681aef}{00078}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacebehavior_detection_a1b6339b0c9616dd402e6c91486681aef}{startDetection}}(framesToAnalyse,\ objectNameToDetectList,\ allElementIds):\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00079}00079\ \ \ \ \ print(\textcolor{stringliteral}{"{}Starting\ activity\ detection..."{}})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00080}00080\ \ \ \ \ detection\_graph\ =\ cv2.dnn.readNet(PATH\_TO\_FROZEN\_GRAPH)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00081}00081\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00082}00082\ \ \ \ \ internalFrames\ =\ deque(maxlen=IMAGE\_NUMBER)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{for}\ frameToAnalyse\ \textcolor{keywordflow}{in}\ framesToAnalyse:}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ internalFrames.append(frameToAnalyse)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00086}00086\ \ \ \ \ \textcolor{comment}{\#\ now\ that\ our\ frames\ array\ is\ filled\ we\ can\ construct\ our\ blob\ \ \ }}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00087}00087\ \ \ \ \ blob\ =\ cv2.dnn.blobFromImages(internalFrames,\ 1.0,\ (IMAGE\_SIZE,\ IMAGE\_SIZE),\ (114.7748,\ 107.7354,\ 99.4750),\ swapRB=\textcolor{keyword}{True},\ crop=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00088}00088\ \ \ \ \ blob\ =\ numpy.transpose(blob,\ (1,\ 0,\ 2,\ 3))\ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00089}00089\ \ \ \ \ blob\ =\ numpy.expand\_dims(blob,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00090}00090\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00091}00091\ \ \ \ \ \textcolor{comment}{\#\ pass\ the\ blob\ through\ the\ network\ to\ obtain\ our\ human\ activity}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00092}00092\ \ \ \ \ \textcolor{comment}{\#\ recognition\ predictions}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00093}00093\ \ \ \ \ detection\_graph.setInput(blob)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00094}00094\ \ \ \ \ outputs\ =\ detection\_graph.forward()}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00095}00095\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{global}\ higher\_proba\_label\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00097}00097\ \ \ \ \ higherDistance\ =\ numpy.max(outputs)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00098}00098\ \ \ \ \ higher\_proba\_label\ =\ CLASSES[numpy.argmax(outputs)]}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00099}00099\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00100}00100\ \ \ \ \ print(\textcolor{stringliteral}{"{}objectNameToDetectList:"{}})}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00101}00101\ \ \ \ \ print(*objectNameToDetectList)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00102}00102\ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Activity\ recognized\ :\ "{}}\ +\ higher\_proba\_label)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00103}00103\ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ higherDistance:\ "{}}\ +\ str(higherDistance))}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00104}00104\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (higher\_proba\_label\ \textcolor{keywordflow}{in}\ objectNameToDetectList)\ \textcolor{keywordflow}{and}\ higherDistance\ >=\ 5:\ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(higher\_proba\_label)],\ higher\_proba\_label,\ \textcolor{stringliteral}{"{}1"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Targeted\ activity\ recognized\ -\/\ HERE:\ "{}}\ +\ higher\_proba\_label\_crit\_value\_string)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ our\_socket.close()}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(objectToDetect)],\ objectToDetect,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Targeted\ activity\ not\ recognized:\ "{}}\ +\ higher\_proba\_label\_crit\_value\_string)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{\Hypertarget{behavior_detection_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}

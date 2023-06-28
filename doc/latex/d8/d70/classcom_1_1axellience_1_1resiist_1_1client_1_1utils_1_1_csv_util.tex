@@ -1,0 +1,377 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util}\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d5/d53/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Mapping\+Iterator$<$ Map$<$ String, String $>$ $>$ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2}{read\+CSVFile}} (String csv\+File\+Path)
+\item 
+String \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd}{create\+File\+With\+One\+Colum\+And\+Some\+Linesn\+Only}} (String csv\+File\+Path, String element\+Name, int each\+XLines)
+\item 
+File \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b}{create\+CSVFile}} (String file\+Name, String separator, Map$<$ String, Map$<$ String, String $>$ $>$ row\+Titles\+And\+Values)
+\item 
+boolean \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257}{is\+ACSVFile}} (String file\+Path)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ String $>$ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}{to\+Csv\+Lines}} (Map$<$ String, Map$<$ String, String $>$ $>$ row\+Titles\+And\+Values, String separator)
+\item 
+String \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{to\+Csv\+Cells}} (List$<$ String $>$ cell\+Names, String separator, int starting\+Index)
+\item 
+String\+Builder \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}{get\+First\+And\+Empty\+Cells}} (String first\+Not\+Empty\+Cell\+Name, String separator, int starting\+Index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static final Logger \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}{LOGGER}} = Logger.\+get\+Logger(Csv\+Util.\+class.\+get\+Name())
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00024}{24}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!createCSVFile@{createCSVFile}}
+\index{createCSVFile@{createCSVFile}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{createCSVFile()}{createCSVFile()}}
+{\footnotesize\ttfamily File com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+create\+CSVFile (\begin{DoxyParamCaption}\item[{String}]{file\+Name,  }\item[{String}]{separator,  }\item[{Map$<$ String, Map$<$ String, String $>$ $>$}]{row\+Titles\+And\+Values }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00092}{92}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ List<String>\ rows\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}{toCsvLines}}(rowTitlesAndValues,\ separator);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rows.isEmpty())}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(fileName);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ Path\ csvFilePath\ =\ csvFile.toPath();}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ (BufferedWriter\ bufferedWriter\ =\ Files.newBufferedWriter(csvFilePath))\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ bufferedWriter.write(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ bufferedWriter.flush();}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (String\ row\ :\ rows)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rows.indexOf(row)\ !=\ 0)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Files.write(csvFilePath,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.lineSeparator().getBytes(StandardCharsets.UTF\_8),}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StandardOpenOption.APPEND);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Files.write(csvFilePath,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ row.getBytes(StandardCharsets.UTF\_8),}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StandardOpenOption.APPEND);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ csvFile;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a746978fa493feaa7f0a1379fe8c6c47b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!createFileWithOneColumAndSomeLinesnOnly@{createFileWithOneColumAndSomeLinesnOnly}}
+\index{createFileWithOneColumAndSomeLinesnOnly@{createFileWithOneColumAndSomeLinesnOnly}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{createFileWithOneColumAndSomeLinesnOnly()}{createFileWithOneColumAndSomeLinesnOnly()}}
+{\footnotesize\ttfamily String com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+create\+File\+With\+One\+Colum\+And\+Some\+Linesn\+Only (\begin{DoxyParamCaption}\item[{String}]{csv\+File\+Path,  }\item[{String}]{element\+Name,  }\item[{int}]{each\+XLines }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00043}{43}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ elementName\ =\ elementName.replace(\textcolor{stringliteral}{"{}\ "{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(csvFilePath);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ String\ csvFileName\ =\ csvFile.getName();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ String\ newCSVFileName\ =\ csvFile.getParentFile().getPath()}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ File.separator}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ csvFileName}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}\_"{}}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ elementName.replace(\textcolor{stringliteral}{"{}\#"{}},\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \textcolor{stringliteral}{"{}.csv"{}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}csvFilePath\ :\ "{}}\ +\ csvFilePath);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}newCSVFileName\ :\ "{}}\ +\ newCSVFileName);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ Integer\ elementNameColumnIndex\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ (BufferedReader\ br\ =\ \textcolor{keyword}{new}\ BufferedReader(\textcolor{keyword}{new}\ FileReader(csvFile));}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FileWriter\ csvWriter\ =\ \textcolor{keyword}{new}\ FileWriter(newCSVFileName);)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ File(newCSVFileName).createNewFile();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ String\ line\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ csvWriter.write(\textcolor{stringliteral}{"{}Values"{}}\ +\ System.lineSeparator());}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ int\ lineNumber\ =\ 0;}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((line\ =\ br.readLine())\ !=\ \textcolor{keyword}{null})\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(line);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ (lineNumber\ ==\ 1\ ||\ lineNumber\ \%\ eachXLines\ ==\ 0)\ \{}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String[]\ cols\ =\ line.split(\textcolor{stringliteral}{"{};"{}});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ cols.length\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ col\ =\ cols[i];}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ col.replace(\textcolor{stringliteral}{"{}\ "{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (elementName.equals(col))\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elementNameColumnIndex\ =\ i;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (elementNameColumnIndex\ !=\ \textcolor{keyword}{null}\ \&\&\ i\ ==\ elementNameColumnIndex)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ csvWriter.write(col\ +\ System.lineSeparator());}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ lineNumber++;}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ newCSVFileName;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a891fd34e72711b9d4934b9692202cbdd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!getFirstAndEmptyCells@{getFirstAndEmptyCells}}
+\index{getFirstAndEmptyCells@{getFirstAndEmptyCells}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{getFirstAndEmptyCells()}{getFirstAndEmptyCells()}}
+{\footnotesize\ttfamily String\+Builder com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+get\+First\+And\+Empty\+Cells (\begin{DoxyParamCaption}\item[{String}]{first\+Not\+Empty\+Cell\+Name,  }\item[{String}]{separator,  }\item[{int}]{starting\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00163}{163}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00165\ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ StringBuilder\ emptyCells\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ startingIndex;\ i++)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ emptyCells.append(separator);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ emptyCells.append(firstNotEmptyCellName);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ emptyCells;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!isACSVFile@{isACSVFile}}
+\index{isACSVFile@{isACSVFile}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{isACSVFile()}{isACSVFile()}}
+{\footnotesize\ttfamily boolean com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+is\+ACSVFile (\begin{DoxyParamCaption}\item[{String}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00175}{175}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00176\ \ \ \ \ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ filePath.endsWith(\textcolor{stringliteral}{"{}csv"{}});}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_a3ee77ffef5594ee1e7afdcd5b24d7257_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!readCSVFile@{readCSVFile}}
+\index{readCSVFile@{readCSVFile}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{readCSVFile()}{readCSVFile()}}
+{\footnotesize\ttfamily Mapping\+Iterator$<$ Map$<$ String, String $>$ $>$ com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+read\+CSVFile (\begin{DoxyParamCaption}\item[{String}]{csv\+File\+Path }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00028}{28}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ MappingIterator<Map<String,\ String>>\ it\ =\ \textcolor{keyword}{null};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ File\ csvFile\ =\ \textcolor{keyword}{new}\ File(csvFilePath);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ CsvMapper\ mapper\ =\ \textcolor{keyword}{new}\ CsvMapper();}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ CsvSchema\ schema\ =\ CsvSchema.emptySchema().withHeader();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ it\ =\ mapper.readerFor(Map.class).with(schema).readValues(csvFile);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}{LOGGER}}.log(Level.SEVERE,\ \textcolor{stringliteral}{"{}***No\ CSV\ found\ !***"{}});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ it;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af80888a141eca660a74a353d296049d2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!toCsvCells@{toCsvCells}}
+\index{toCsvCells@{toCsvCells}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{toCsvCells()}{toCsvCells()}}
+{\footnotesize\ttfamily String com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+to\+Csv\+Cells (\begin{DoxyParamCaption}\item[{List$<$ String $>$}]{cell\+Names,  }\item[{String}]{separator,  }\item[{int}]{starting\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00149}{149}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00150\ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ StringBuilder\ cells\ =\ \textcolor{keyword}{new}\ StringBuilder();}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ cells.append(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ab9b78f7af563ae95aaf35e84da528b77}{getFirstAndEmptyCells}}(cellNames.get(0),\ separator,\ startingIndex));}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ cellNames.remove(0);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (String\ cellName\ :\ cellNames)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ String\ fullCelll\ =\ separator\ +\ cellName;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ cells.append(fullCelll);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cells.toString();}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!toCsvLines@{toCsvLines}}
+\index{toCsvLines@{toCsvLines}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{toCsvLines()}{toCsvLines()}}
+{\footnotesize\ttfamily List$<$ String $>$ com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+to\+Csv\+Lines (\begin{DoxyParamCaption}\item[{Map$<$ String, Map$<$ String, String $>$ $>$}]{row\+Titles\+And\+Values,  }\item[{String}]{separator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00124}{124}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ List<String>\ rows\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ List<String>\ columnTitles\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ String\ emptyCellForRowAndColumnTitleGap\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ columnTitles.add(emptyCellForRowAndColumnTitleGap);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Entry<String,\ Map<String,\ String>>\ entry\ :\ rowTitlesAndValues.entrySet())\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ List<String>\ values\ =\ \textcolor{keyword}{new}\ ArrayList<>();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ values.add(entry.getKey());}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (Entry<String,\ String>\ columnTitleAndCellValue\ :\ entry.getValue().entrySet())\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!columnTitles.contains(columnTitleAndCellValue.getKey()))}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ columnTitles.add(columnTitleAndCellValue.getKey());}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values.add(columnTitleAndCellValue.getValue());}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ rows.add(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{toCsvCells}}(values,\ separator,\ 0));}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ rows.add(0,\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_ae198c9493765d1ca211236c7a841cd5d}{toCsvCells}}(columnTitles,\ separator,\ 0));}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rows;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d70/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_adbd175791d4046e77ec12a11315da5ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_csv_util_af69294a819cbe10a7ab28393870b3e3e} 
+\index{com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}!LOGGER@{LOGGER}}
+\index{LOGGER@{LOGGER}!com.axellience.resiist.client.utils.CsvUtil@{com.axellience.resiist.client.utils.CsvUtil}}
+\doxysubsubsection{\texorpdfstring{LOGGER}{LOGGER}}
+{\footnotesize\ttfamily final Logger com.\+axellience.\+resiist.\+client.\+utils.\+Csv\+Util.\+LOGGER = Logger.\+get\+Logger(Csv\+Util.\+class.\+get\+Name())\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_csv_util_8java_source_l00026}{26}} of file \mbox{\hyperlink{_csv_util_8java_source}{Csv\+Util.\+java}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/utils/\mbox{\hyperlink{_csv_util_8java}{Csv\+Util.\+java}}\end{DoxyCompactItemize}

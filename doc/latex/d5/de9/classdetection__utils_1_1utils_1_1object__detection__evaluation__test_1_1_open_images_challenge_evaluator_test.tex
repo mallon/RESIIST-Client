@@ -1,0 +1,292 @@
+\doxysection{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+Challenge\+Evaluator\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test}{}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test}\index{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+Challenge\+Evaluator\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d0/def/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+Challenge\+Evaluator\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d4/d4a/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a5665e2dd5189f67f6ada504a0c25a197}{test\+\_\+returns\+\_\+correct\+\_\+detection\+\_\+metric\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a187c9b7f321048c2497f486981d2cab9}{test\+\_\+returns\+\_\+correct\+\_\+instance\+\_\+segm\+\_\+metric\+\_\+values}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00109}{109}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a5665e2dd5189f67f6ada504a0c25a197}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a5665e2dd5189f67f6ada504a0c25a197} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest}!test\_returns\_correct\_detection\_metric\_values@{test\_returns\_correct\_detection\_metric\_values}}
+\index{test\_returns\_correct\_detection\_metric\_values@{test\_returns\_correct\_detection\_metric\_values}!detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest}}
+\doxysubsubsection{\texorpdfstring{test\_returns\_correct\_detection\_metric\_values()}{test\_returns\_correct\_detection\_metric\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+Challenge\+Evaluator\+Test.\+test\+\_\+returns\+\_\+correct\+\_\+detection\+\_\+metric\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00111}{111}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{def\ }test\_returns\_correct\_detection\_metric\_values(self):}
+\DoxyCodeLine{00112\ \ \ \ \ categories\ =\ [\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{00115\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{00118\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}}
+\DoxyCodeLine{00121\ \ \ \ \ \}]}
+\DoxyCodeLine{00122\ \ \ \ \ oivchallenge\_evaluator\ =\ (}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ object\_detection\_evaluation.OpenImagesChallengeEvaluator(}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ categories,\ evaluate\_masks=\textcolor{keyword}{False},\ group\_of\_weight=0.5))}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00127\ \ \ \ \ groundtruth\_boxes\ =\ np.array(}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{00129\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{00130\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{00131\ \ \ \ \ groundtruth\_verified\_labels\ =\ np.array([1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{00132\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_image\_classes:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_verified\_labels,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00143\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00144\ \ \ \ \ groundtruth\_boxes\ =\ np.array(}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{00146\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00147\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{00148\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00157\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00158\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00159\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00160\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00167\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00168\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120]],\ dtype=float)}
+\DoxyCodeLine{00170\ \ \ \ \ detected\_class\_labels\ =\ np.array([2,\ 2],\ dtype=int)}
+\DoxyCodeLine{00171\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8],\ dtype=float)}
+\DoxyCodeLine{00172\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00181\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00182\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220],}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ [10,\ 10,\ 11,\ 11]],}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00186\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{00187\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.5,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00188\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00197\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00198\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00199\ \ \ \ \ detected\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00200\ \ \ \ \ detected\_scores\ =\ np.array([0.5],\ dtype=float)}
+\DoxyCodeLine{00201\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00210\ \ \ \ \ metrics\ =\ oivchallenge\_evaluator.evaluate()}
+\DoxyCodeLine{00211\ \ \ \ \ expected\_metric\_name\ =\ \textcolor{stringliteral}{'OpenImagesDetectionChallenge'}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/dog'}],}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ 0.3333333333)}
+\DoxyCodeLine{00217\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/elephant'}],}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ 0.333333333333)}
+\DoxyCodeLine{00221\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/cat'}],}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ 0.142857142857)}
+\DoxyCodeLine{00225\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ 0.269841269)}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ oivchallenge\_evaluator.clear()}
+\DoxyCodeLine{00230\ \ \ \ \ self.assertFalse(oivchallenge\_evaluator.\_image\_ids)}
+\DoxyCodeLine{00231\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a187c9b7f321048c2497f486981d2cab9}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_challenge_evaluator_test_a187c9b7f321048c2497f486981d2cab9} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest}!test\_returns\_correct\_instance\_segm\_metric\_values@{test\_returns\_correct\_instance\_segm\_metric\_values}}
+\index{test\_returns\_correct\_instance\_segm\_metric\_values@{test\_returns\_correct\_instance\_segm\_metric\_values}!detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesChallengeEvaluatorTest}}
+\doxysubsubsection{\texorpdfstring{test\_returns\_correct\_instance\_segm\_metric\_values()}{test\_returns\_correct\_instance\_segm\_metric\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+Challenge\+Evaluator\+Test.\+test\+\_\+returns\+\_\+correct\+\_\+instance\+\_\+segm\+\_\+metric\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00232}{232}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{def\ }test\_returns\_correct\_instance\_segm\_metric\_values(self):}
+\DoxyCodeLine{00233\ \ \ \ \ categories\ =\ [\{\textcolor{stringliteral}{'id'}:\ 1,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}\},\ \{\textcolor{stringliteral}{'id'}:\ 2,\ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}\}]}
+\DoxyCodeLine{00234\ \ \ \ \ oivchallenge\_evaluator\ =\ (}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ object\_detection\_evaluation.OpenImagesChallengeEvaluator(}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ categories,\ evaluate\_masks=\textcolor{keyword}{True}))}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00239\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00241\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([1,\ 2,\ 1],\ dtype=int)}
+\DoxyCodeLine{00242\ \ \ \ \ groundtruth\_is\_group\_of\_list\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=bool)}
+\DoxyCodeLine{00243\ \ \ \ \ groundtruth\_verified\_labels\ =\ np.array([1,\ 2,\ 3],\ dtype=int)}
+\DoxyCodeLine{00244\ \ \ \ \ groundtruth\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{00246\ \ \ \ \ zero\_mask\ =\ np.array([[0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{00248\ \ \ \ \ groundtruth\_masks\ =\ np.stack([groundtruth\_mask\_0,\ zero\_mask,\ zero\_mask],}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{00250\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_image\_classes:}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_verified\_labels,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00263\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00264\ \ \ \ \ groundtruth\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00265\ \ \ \ \ groundtruth\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00266\ \ \ \ \ groundtruth\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{00268\ \ \ \ \ groundtruth\_masks\ =\ np.stack([groundtruth\_mask\_0],\ axis=0)}
+\DoxyCodeLine{00269\ \ \ \ \ oivchallenge\_evaluator.add\_single\_ground\_truth\_image\_info(}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_instance\_masks:}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_masks}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00278\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00279\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 2,\ 2],\ [2,\ 2,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{00280\ \ \ \ \ detection\_mask\_0\ =\ np.array([[1,\ 1,\ 0,\ 0],\ [1,\ 1,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{00282\ \ \ \ \ detected\_masks\ =\ np.stack([detection\_mask\_0,\ zero\_mask],\ axis=0)}
+\DoxyCodeLine{00283\ \ \ \ \ detected\_class\_labels\ =\ np.array([2,\ 1],\ dtype=int)}
+\DoxyCodeLine{00284\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8],\ dtype=float)}
+\DoxyCodeLine{00285\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00296\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00297\ \ \ \ \ detected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00298\ \ \ \ \ detected\_class\_labels\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00299\ \ \ \ \ detected\_scores\ =\ np.array([0.5],\ dtype=float)}
+\DoxyCodeLine{00300\ \ \ \ \ detected\_mask\_0\ =\ np.array([[1,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.uint8)}
+\DoxyCodeLine{00302\ \ \ \ \ detected\_masks\ =\ np.stack([detected\_mask\_0],\ axis=0)}
+\DoxyCodeLine{00303\ \ \ \ \ oivchallenge\_evaluator.add\_single\_detected\_image\_info(}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ image\_key,\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels,}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_masks:}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_masks}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{00314\ \ \ \ \ metrics\ =\ oivchallenge\_evaluator.evaluate()}
+\DoxyCodeLine{00315\ \ \ \ \ expected\_metric\_name\ =\ \textcolor{stringliteral}{'OpenImagesInstanceSegmentationChallenge'}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/dog'}],}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ 1.0)}
+\DoxyCodeLine{00320\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ metrics[}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_PerformanceByCategory/AP@0.5IOU/cat'}],}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ 0)}
+\DoxyCodeLine{00324\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ metrics[expected\_metric\_name\ +\ \textcolor{stringliteral}{'\_Precision/mAP@0.5IOU'}],\ 0.5)}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ oivchallenge\_evaluator.clear()}
+\DoxyCodeLine{00328\ \ \ \ \ self.assertFalse(oivchallenge\_evaluator.\_image\_ids)}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{object__detection__evaluation__test_8py}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}\end{DoxyCompactItemize}

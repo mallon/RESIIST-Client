@@ -1,0 +1,1127 @@
+\doxysection{post\+\_\+processing.\+py}
+\hypertarget{post__processing_8py_source}{}\label{post__processing_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/post\_processing.py@{src/main/resources/processing/video/detections/detection\_utils/core/post\_processing.py}}
+\mbox{\hyperlink{post__processing_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Post-\/processing\ operations\ on\ detected\ boxes."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00021}00021\ \textcolor{keyword}{import}\ collections}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00023}00023\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00024}00024\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00025}00025\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00027}00027\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00028}00028\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00029}00029\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00030}00030\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ shape\_utils}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00032}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aaa179acbbda14bd507b72a2fb36b0fef}{00032}}\ \_NMS\_TILE\_SIZE\ =\ 512}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00035}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{00035}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{batch\_iou}}(boxes1,\ boxes2):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00036}00036\ \ \ \textcolor{stringliteral}{"{}"{}"{}Calculates\ the\ overlap\ between\ proposal\ and\ ground\ truth\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00037}00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ Some\ \`{}boxes2\`{}\ may\ have\ been\ padded.\ \ The\ returned\ \`{}iou\`{}\ tensor\ }\textcolor{keywordflow}{for}\ these}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00039}00039\ \ \ boxes\ will\ be\ -\/1.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00041}00041\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00042}00042\ \ \ \ \ boxes1:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [batch\_size,\ N,\ 4].\ N\ \textcolor{keywordflow}{is}\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00043}00043\ \ \ \ \ \ \ proposals\ before\ groundtruth\ assignment.\ The\ last\ dimension\ \textcolor{keywordflow}{is}\ the\ pixel}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00044}00044\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{in}\ [ymin,\ xmin,\ ymax,\ xmax]\ form.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00045}00045\ \ \ \ \ boxes2:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [batch\_size,\ MAX\_NUM\_INSTANCES,\ 4].\ This}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00046}00046\ \ \ \ \ \ \ tensor\ might\ have\ paddings\ \textcolor{keyword}{with}\ a\ negative\ value.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00048}00048\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00049}00049\ \ \ \ \ iou:\ a\ tensor\ \textcolor{keyword}{with}\ \textcolor{keyword}{as}\ a\ shape\ of\ [batch\_size,\ N,\ MAX\_NUM\_INSTANCES].}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00050}00050\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(\textcolor{stringliteral}{'BatchIOU'}):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00052}00052\ \ \ \ \ y1\_min,\ x1\_min,\ y1\_max,\ x1\_max\ =\ tf.split(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ value=boxes1,\ num\_or\_size\_splits=4,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00054}00054\ \ \ \ \ y2\_min,\ x2\_min,\ y2\_max,\ x2\_max\ =\ tf.split(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ value=boxes2,\ num\_or\_size\_splits=4,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00057}00057\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ the\ intersection\ area.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00058}00058\ \ \ \ \ intersection\_xmin\ =\ tf.maximum(x1\_min,\ tf.transpose(x2\_min,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00059}00059\ \ \ \ \ intersection\_xmax\ =\ tf.minimum(x1\_max,\ tf.transpose(x2\_max,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00060}00060\ \ \ \ \ intersection\_ymin\ =\ tf.maximum(y1\_min,\ tf.transpose(y2\_min,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00061}00061\ \ \ \ \ intersection\_ymax\ =\ tf.minimum(y1\_max,\ tf.transpose(y2\_max,\ [0,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00062}00062\ \ \ \ \ intersection\_area\ =\ tf.maximum(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ (intersection\_xmax\ -\/\ intersection\_xmin),\ 0)\ *\ tf.maximum(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ (intersection\_ymax\ -\/\ intersection\_ymin),\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00066}00066\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ the\ union\ area.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00067}00067\ \ \ \ \ area1\ =\ (y1\_max\ -\/\ y1\_min)\ *\ (x1\_max\ -\/\ x1\_min)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00068}00068\ \ \ \ \ area2\ =\ (y2\_max\ -\/\ y2\_min)\ *\ (x2\_max\ -\/\ x2\_min)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00069}00069\ \ \ \ \ \textcolor{comment}{\#\ Adds\ a\ small\ epsilon\ to\ avoid\ divide-\/by-\/zero.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00070}00070\ \ \ \ \ union\_area\ =\ area1\ +\ tf.transpose(area2,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 2,\ 1])\ -\/\ intersection\_area\ +\ 1e-\/8}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00073}00073\ \ \ \ \ \textcolor{comment}{\#\ Calculates\ IoU.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00074}00074\ \ \ \ \ iou\ =\ intersection\_area\ /\ union\_area}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00076}00076\ \ \ \ \ \textcolor{comment}{\#\ Fills\ -\/1\ for\ padded\ ground\ truth\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00077}00077\ \ \ \ \ padding\_mask\ =\ tf.logical\_and(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ tf.less(intersection\_xmax,\ 0),\ tf.less(intersection\_ymax,\ 0))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00079}00079\ \ \ \ \ iou\ =\ tf.where(padding\_mask,\ -\/tf.ones\_like(iou),\ iou)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{return}\ iou}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00084}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a259919b31e1b3880168781f2907ecf75}{00084}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a259919b31e1b3880168781f2907ecf75}{\_self\_suppression}}(iou,\ iou\_threshold,\ loop\_condition,\ iou\_sum):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00085}00085\ \ \ \textcolor{stringliteral}{"{}"{}"{}Bounding-\/boxes\ self-\/suppression\ loop\ body.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00086}00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ \ \ iou:\ A\ float\ Tensor\ }\textcolor{keyword}{with}\ shape\ [1,\ num\_boxes,\ max\_num\_instance]:\ IOUs.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00089}00089\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00090}00090\ \ \ \ \ loop\_condition:\ The\ loop\ condition\ returned\ \textcolor{keyword}{from}\ last\ iteration.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00091}00091\ \ \ \ \ iou\_sum:\ iou\_sum\_new\ returned\ \textcolor{keyword}{from}\ last\ iteration.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00093}00093\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00094}00094\ \ \ \ \ iou\_suppressed:\ A\ float\ Tensor\ \textcolor{keyword}{with}\ shape\ [1,\ num\_boxes,\ max\_num\_instance],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IOU\ after\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00096}00096\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00097}00097\ \ \ \ \ loop\_condition:\ Bool\ Tensor\ of\ shape\ [],\ the\ loop\ condition.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00098}00098\ \ \ \ \ iou\_sum\_new:\ The\ new\ IOU\ sum.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00099}00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00100}00100\ \textcolor{stringliteral}{\ \ del\ loop\_condition}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ can\_suppress\_others\ =\ tf.cast(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(tf.reduce\_max(iou,\ 1)\ <=\ iou\_threshold,\ [1,\ -\/1,\ 1]),\ iou.dtype)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ iou\_suppressed\ =\ tf.reshape(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.cast(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.reduce\_max(can\_suppress\_others\ *\ iou,\ 1)\ <=\ iou\_threshold,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00106}00106\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ iou.dtype),\ [1,\ -\/1,\ 1])\ *\ iou}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ iou\_sum\_new\ =\ tf.reduce\_sum(iou\_suppressed,\ [1,\ 2])}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00109}00109\ \ \ \ \ \ \ iou\_suppressed,\ iou\_threshold,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00110}00110\ \ \ \ \ \ \ tf.reduce\_any(iou\_sum\ -\/\ iou\_sum\_new\ >\ iou\_threshold),\ iou\_sum\_new}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00111}00111\ \ \ ]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00114}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6}{00114}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a7a9bf16a47c1a7fa60bd230b8936bfa6}{\_cross\_suppression}}(boxes,\ box\_slice,\ iou\_threshold,\ inner\_idx):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00115}00115\ \ \ \textcolor{stringliteral}{"{}"{}"{}Bounding-\/boxes\ cross-\/suppression\ loop\ body.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00116}00116\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ boxes:\ A\ float\ Tensor\ of\ shape\ [1,\ anchors,\ 4],\ representing\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ \ \ box\_slice:\ A\ float\ Tensor\ of\ shape\ [1,\ \_NMS\_TILE\_SIZE,\ 4],\ the\ box\ tile}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ \ \ returned\ }\textcolor{keyword}{from}\ last\ iteration}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00121}00121\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00122}00122\ \ \ \ \ inner\_idx:\ A\ scalar,\ representing\ inner\ index.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00124}00124\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00125}00125\ \ \ \ \ boxes:\ A\ float\ Tensor\ of\ shape\ [1,\ anchors,\ 4],\ representing\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00126}00126\ \ \ \ \ ret\_slice:\ A\ float\ Tensor\ of\ shape\ [1,\ \_NMS\_TILE\_SIZE,\ 4],\ the\ box\ tile}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ after\ suppression}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00128}00128\ \ \ \ \ iou\_threshold:\ A\ scalar,\ representing\ IOU\ threshold.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00129}00129\ \ \ \ \ inner\_idx:\ A\ scalar,\ inner\ index\ incremented.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00130}00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ new\_slice\ =\ tf.slice(boxes,\ [0,\ inner\_idx\ *\ \_NMS\_TILE\_SIZE,\ 0],}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ \_NMS\_TILE\_SIZE,\ 4])}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ iou\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{batch\_iou}}(new\_slice,\ box\_slice)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ ret\_slice\ =\ tf.expand\_dims(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00135}00135\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.cast(tf.reduce\_all(iou\ <\ iou\_threshold,\ [1]),\ box\_slice.dtype),}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ \ \ 2)\ *\ box\_slice}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ boxes,\ ret\_slice,\ iou\_threshold,\ inner\_idx\ +\ 1}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00140}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386}{00140}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a36bbe3e1836346ce651409440b335386}{\_suppression\_loop\_body}}(boxes,\ iou\_threshold,\ output\_size,\ idx):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00141}00141\ \ \ \textcolor{stringliteral}{"{}"{}"{}Process\ boxes\ in\ the\ range\ [idx*\_NMS\_TILE\_SIZE,\ (idx+1)*\_NMS\_TILE\_SIZE).}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00142}00142\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ tensor\ }\textcolor{keyword}{with}\ a\ shape\ of\ [1,\ anchors,\ 4].}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00145}00145\ \ \ \ \ iou\_threshold:\ a\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ whether\ boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00146}00146\ \ \ \ \ \ \ overlap\ too\ much\ \textcolor{keyword}{with}\ respect\ to\ IOU.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00147}00147\ \ \ \ \ output\_size:\ an\ int32\ tensor\ of\ size\ [1].\ Representing\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00148}00148\ \ \ \ \ \ \ selected\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00149}00149\ \ \ \ \ idx:\ an\ integer\ scalar\ representing\ induction\ variable.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00151}00151\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00152}00152\ \ \ \ \ boxes:\ updated\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00153}00153\ \ \ \ \ iou\_threshold:\ \textcolor{keywordflow}{pass}\ down\ iou\_threshold\ to\ the\ next\ iteration.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00154}00154\ \ \ \ \ output\_size:\ the\ updated\ output\_size.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00155}00155\ \ \ \ \ idx:\ the\ updated\ induction\ variable.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00156}00156\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00157}00157\ \textcolor{stringliteral}{\ \ num\_tiles\ =\ tf.shape(boxes)[1]\ //\ \_NMS\_TILE\_SIZE}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00158}00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00159}00159\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Iterates\ over\ tiles\ that\ can\ possibly\ suppress\ the\ current\ tile.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00160}00160\ \ \ box\_slice\ =\ tf.slice(boxes,\ [0,\ idx\ *\ \_NMS\_TILE\_SIZE,\ 0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ \_NMS\_TILE\_SIZE,\ 4])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00162}00162\ \ \ \_,\ box\_slice,\ \_,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00163}00163\ \ \ \ \ \ \ \textcolor{keyword}{lambda}\ \_boxes,\ \_box\_slice,\ \_threshold,\ inner\_idx:\ inner\_idx\ <\ idx,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00164}00164\ \ \ \ \ \ \ \_cross\_suppression,\ [boxes,\ box\_slice,\ iou\_threshold,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant(0)])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00167}00167\ \ \ \textcolor{comment}{\#\ Iterates\ over\ the\ current\ tile\ to\ compute\ self-\/suppression.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00168}00168\ \ \ iou\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{batch\_iou}}(box\_slice,\ box\_slice)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00169}00169\ \ \ mask\ =\ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00170}00170\ \ \ \ \ \ \ tf.reshape(tf.range(\_NMS\_TILE\_SIZE),\ [1,\ -\/1])\ >\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ tf.range(\_NMS\_TILE\_SIZE),\ [-\/1,\ 1]),\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00172}00172\ \ \ iou\ *=\ tf.cast(tf.logical\_and(mask,\ iou\ >=\ iou\_threshold),\ iou.dtype)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00173}00173\ \ \ suppressed\_iou,\ \_,\ \_,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00174}00174\ \ \ \ \ \ \ \textcolor{keyword}{lambda}\ \_iou,\ \_threshold,\ loop\_condition,\ \_iou\_sum:\ loop\_condition,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00175}00175\ \ \ \ \ \ \ \_self\_suppression,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00176}00176\ \ \ \ \ \ \ [iou,\ iou\_threshold,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00177}00177\ \ \ \ \ \ \ \ tf.constant(\textcolor{keyword}{True}),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00178}00178\ \ \ \ \ \ \ \ tf.reduce\_sum(iou,\ [1,\ 2])])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00179}00179\ \ \ suppressed\_box\ =\ tf.reduce\_sum(suppressed\_iou,\ 1)\ >\ 0}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00180}00180\ \ \ box\_slice\ *=\ tf.expand\_dims(1.0\ -\/\ tf.cast(suppressed\_box,\ box\_slice.dtype),\ 2)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00182}00182\ \ \ \textcolor{comment}{\#\ Uses\ box\_slice\ to\ update\ the\ input\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00183}00183\ \ \ mask\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00184}00184\ \ \ \ \ \ \ tf.cast(tf.equal(tf.range(num\_tiles),\ idx),\ boxes.dtype),\ [1,\ -\/1,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00185}00185\ \ \ boxes\ =\ tf.tile(tf.expand\_dims(box\_slice,\ [1]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ num\_tiles,\ 1,\ 1])\ *\ mask\ +\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,\ [1,\ num\_tiles,\ \_NMS\_TILE\_SIZE,\ 4])\ *\ (1\ -\/\ mask)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00188}00188\ \ \ boxes\ =\ tf.reshape(boxes,\ [1,\ -\/1,\ 4])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00190}00190\ \ \ \textcolor{comment}{\#\ Updates\ output\_size.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00191}00191\ \ \ output\_size\ +=\ tf.reduce\_sum(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00192}00192\ \ \ \ \ \ \ tf.cast(tf.reduce\_any(box\_slice\ >\ 0,\ [2]),\ tf.int32),\ [1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00193}00193\ \ \ \textcolor{keywordflow}{return}\ boxes,\ iou\_threshold,\ output\_size,\ idx\ +\ 1}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00196}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}{00196}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}{partitioned\_non\_max\_suppression\_padded}}(boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=float(\textcolor{stringliteral}{'-\/inf'})):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00201}00201\ \ \ \textcolor{stringliteral}{"{}"{}"{}A\ tiled\ version\ of\ [\`{}tf.image.non\_max\_suppression\_padded\`{}](https://www.tensorflow.org/api\_docs/python/tf/image/non\_max\_suppression\_padded).}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00202}00202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ The\ overall\ design\ of\ the\ algorithm\ }\textcolor{keywordflow}{is}\ to\ handle\ boxes\ tile-\/by-\/tile:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00205}00205\ \ \ boxes\ =\ boxes.pad\_to\_multiple\_of(tile\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00206}00206\ \ \ num\_tiles\ =\ len(boxes)\ //\ tile\_size}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00207}00207\ \ \ output\_boxes\ =\ []}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00208}00208\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_tiles):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00209}00209\ \ \ \ \ box\_tile\ =\ boxes[i*tile\_size\ :\ (i+1)*tile\_size]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{for}\ j\ \textcolor{keywordflow}{in}\ range(i\ -\/\ 1):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00211}00211\ \ \ \ \ \ \ suppressing\_tile\ =\ boxes[j*tile\_size\ :\ (j+1)*tile\_size]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00212}00212\ \ \ \ \ \ \ iou\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a612ecf46d8c84ee42d5fb8cce480d2c5}{batch\_iou}}(box\_tile,\ suppressing\_tile)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00213}00213\ \ \ \ \ \ \ \textcolor{comment}{\#\ if\ the\ box\ is\ suppressed\ in\ iou,\ clear\ it\ to\ a\ dot}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00214}00214\ \ \ \ \ \ \ box\_tile\ *=\ \_update\_boxes(iou)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00215}00215\ \ \ \ \ \textcolor{comment}{\#\ Iteratively\ handle\ the\ diagonal\ tile.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00216}00216\ \ \ \ \ iou\ =\ \_box\_overlap(box\_tile,\ box\_tile)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00217}00217\ \ \ \ \ iou\_changed\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00218}00218\ \ \ \ \ \textcolor{keywordflow}{while}\ iou\_changed:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00219}00219\ \ \ \ \ \ \ \textcolor{comment}{\#\ boxes\ that\ are\ not\ suppressed\ by\ anything\ else}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00220}00220\ \ \ \ \ \ \ suppressing\_boxes\ =\ \_get\_suppressing\_boxes(iou)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00221}00221\ \ \ \ \ \ \ \textcolor{comment}{\#\ boxes\ that\ are\ suppressed\ by\ suppressing\_boxes}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00222}00222\ \ \ \ \ \ \ suppressed\_boxes\ =\ \_get\_suppressed\_boxes(iou,\ suppressing\_boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00223}00223\ \ \ \ \ \ \ \textcolor{comment}{\#\ clear\ iou\ to\ 0\ for\ boxes\ that\ are\ suppressed,\ as\ they\ cannot\ be\ used}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00224}00224\ \ \ \ \ \ \ \textcolor{comment}{\#\ to\ suppress\ other\ boxes\ any\ more}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00225}00225\ \ \ \ \ \ \ new\_iou\ =\ \_clear\_iou(iou,\ suppressed\_boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00226}00226\ \ \ \ \ \ \ iou\_changed\ =\ (new\_iou\ !=\ iou)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00227}00227\ \ \ \ \ \ \ iou\ =\ new\_iou}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00228}00228\ \ \ \ \ \textcolor{comment}{\#\ remaining\ boxes\ that\ can\ still\ suppress\ others,\ are\ selected\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00229}00229\ \ \ \ \ output\_boxes.append(\_get\_suppressing\_boxes(iou))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00230}00230\ \ \ \ \ \textcolor{keywordflow}{if}\ len(output\_boxes)\ >=\ max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00231}00231\ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00233}00233\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00234}00234\ \ \ \ \ boxes:\ A\ 2-\/D\ float\ \`{}Tensor\`{}\ of\ shape\ \`{}[num\_boxes,\ 4]\`{}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00235}00235\ \ \ \ \ scores:\ A\ 1-\/D\ float\ \`{}Tensor\`{}\ of\ shape\ \`{}[num\_boxes]\`{}\ representing\ a\ single}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00236}00236\ \ \ \ \ \ \ score\ corresponding\ to\ each\ box\ (each\ row\ of\ boxes).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00237}00237\ \ \ \ \ max\_output\_size:\ a\ scalar\ integer\ \`{}Tensor\`{}\ representing\ the\ maximum\ number}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00238}00238\ \ \ \ \ \ \ of\ boxes\ to\ be\ selected\ by\ non\ max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00239}00239\ \ \ \ \ iou\_threshold:\ a\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ whether\ boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00240}00240\ \ \ \ \ \ \ overlap\ too\ much\ \textcolor{keyword}{with}\ respect\ to\ IOU.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00241}00241\ \ \ \ \ score\_threshold:\ A\ float\ representing\ the\ threshold\ \textcolor{keywordflow}{for}\ deciding\ when\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00242}00242\ \ \ \ \ \ \ remove\ boxes\ based\ on\ score.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00244}00244\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00245}00245\ \ \ \ \ selected\_indices:\ a\ tensor\ of\ shape\ [anchors].}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00246}00246\ \ \ \ \ num\_valid\_boxes:\ a\ scalar\ int\ tensor.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00247}00247\ \ \ \ \ nms\_proposals:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [anchors,\ 4].\ It\ has}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00248}00248\ \ \ \ \ \ \ same\ dtype\ \textcolor{keyword}{as}\ input\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00249}00249\ \ \ \ \ nms\_scores:\ a\ tensor\ \textcolor{keyword}{with}\ a\ shape\ of\ [anchors].\ It\ has\ same}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00250}00250\ \ \ \ \ \ \ dtype\ \textcolor{keyword}{as}\ input\ scores.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00251}00251\ \ \ \ \ argsort\_ids:\ a\ tensor\ of\ shape\ [anchors],\ mapping\ \textcolor{keyword}{from}\ input\ order\ of\ boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00252}00252\ \ \ \ \ \ \ to\ output\ order\ of\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00253}00253\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00254}00254\ \textcolor{stringliteral}{\ \ num\_boxes\ =\ tf.shape(boxes)[0]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00255}00255\ \textcolor{stringliteral}{\ \ pad\ =\ tf.cast(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ceil(tf.cast(num\_boxes,\ tf.float32)\ /\ \_NMS\_TILE\_SIZE),}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00257}00257\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.int32)\ *\ \_NMS\_TILE\_SIZE\ -\/\ num\_boxes}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00258}00258\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00259}00259\ \textcolor{stringliteral}{\ \ scores,\ argsort\_ids\ =\ tf.nn.top\_k(scores,\ k=num\_boxes,\ sorted=}\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00260}00260\ \ \ boxes\ =\ tf.gather(boxes,\ argsort\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00261}00261\ \ \ num\_boxes\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00262}00262\ \ \ num\_boxes\ +=\ pad}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00263}00263\ \ \ boxes\ =\ tf.pad(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00264}00264\ \ \ \ \ \ \ tf.cast(boxes,\ tf.float32),\ [[0,\ pad],\ [0,\ 0]],\ constant\_values=-\/1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00265}00265\ \ \ scores\ =\ tf.pad(tf.cast(scores,\ tf.float32),\ [[0,\ pad]])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00267}00267\ \ \ \textcolor{comment}{\#\ mask\ boxes\ to\ -\/1\ by\ score\ threshold}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00268}00268\ \ \ scores\_mask\ =\ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00269}00269\ \ \ \ \ \ \ tf.cast(scores\ >\ score\_threshold,\ boxes.dtype),\ axis=1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00270}00270\ \ \ boxes\ =\ ((boxes\ +\ 1.)\ *\ scores\_mask)\ -\/\ 1.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00272}00272\ \ \ boxes\ =\ tf.expand\_dims(boxes,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00273}00273\ \ \ scores\ =\ tf.expand\_dims(scores,\ axis=0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00275}00275\ \ \ \textcolor{keyword}{def\ }\_loop\_cond(unused\_boxes,\ unused\_threshold,\ output\_size,\ idx):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00276}00276\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.logical\_and(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ tf.reduce\_min(output\_size)\ <\ max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ idx\ <\ num\_boxes\ //\ \_NMS\_TILE\_SIZE)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00280}00280\ \ \ selected\_boxes,\ \_,\ output\_size,\ \_\ =\ tf.while\_loop(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00281}00281\ \ \ \ \ \ \ \_loop\_cond,\ \_suppression\_loop\_body,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00282}00282\ \ \ \ \ \ \ [boxes,\ iou\_threshold,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00283}00283\ \ \ \ \ \ \ \ tf.zeros([1],\ tf.int32),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00284}00284\ \ \ \ \ \ \ \ tf.constant(0)])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00285}00285\ \ \ idx\ =\ num\_boxes\ -\/\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00286}00286\ \ \ \ \ \ \ tf.nn.top\_k(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ tf.cast(tf.reduce\_any(selected\_boxes\ >\ 0,\ [2]),\ tf.int32)\ *}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(tf.range(num\_boxes,\ 0,\ -\/1),\ 0),\ max\_output\_size)[0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00289}00289\ \ \ \ \ \ \ tf.int32)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00290}00290\ \ \ idx\ =\ tf.minimum(idx,\ num\_boxes\ -\/\ 1\ -\/\ pad)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00291}00291\ \ \ idx\ =\ tf.reshape(idx\ +\ tf.reshape(tf.range(1)\ *\ num\_boxes,\ [-\/1,\ 1]),\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00292}00292\ \ \ num\_valid\_boxes\ =\ tf.reduce\_sum(output\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00293}00293\ \ \ \textcolor{keywordflow}{return}\ (idx,\ num\_valid\_boxes,\ tf.reshape(boxes,\ [-\/1,\ 4]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ tf.reshape(scores,\ [-\/1]),\ argsort\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00297}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}{00297}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}{\_validate\_boxes\_scores\_iou\_thresh}}(boxes,\ scores,\ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00299}00299\ \ \ \textcolor{stringliteral}{"{}"{}"{}Validates\ boxes,\ scores\ and\ iou\_thresh.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00300}00300\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00301}00301\ \textcolor{stringliteral}{\ \ This\ function\ validates\ the\ boxes,\ scores,\ iou\_thresh}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00302}00302\ \textcolor{stringliteral}{\ \ \ \ \ }\textcolor{keywordflow}{and}\ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True},\ clip\_window\ must\ be\ specified.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00304}00304\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00305}00305\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00306}00306\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00307}00307\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00308}00308\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00309}00309\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00310}00310\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00311}00311\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00312}00312\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00313}00313\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00314}00314\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00315}00315\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00316}00316\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00317}00317\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00318}00318\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00320}00320\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00321}00321\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00322}00322\ \ \ \ \ have\ a\ valid\ scores\ field.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00323}00323\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00324}00324\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <=\ iou\_thresh\ <=\ 1.0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00325}00325\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'iou\_thresh\ must\ be\ between\ 0\ and\ 1'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00326}00326\ \ \ \textcolor{keywordflow}{if}\ scores.shape.ndims\ !=\ 2:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00327}00327\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ be\ of\ rank\ 2'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00328}00328\ \ \ \textcolor{keywordflow}{if}\ shape\_utils.get\_dim\_as\_int(scores.shape[1])\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00329}00329\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ must\ have\ statically\ defined\ second\ '}\ \textcolor{stringliteral}{'dimension'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00330}00330\ \ \ \textcolor{keywordflow}{if}\ boxes.shape.ndims\ !=\ 3:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxes\ must\ be\ of\ rank\ 3.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00332}00332\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (shape\_utils.get\_dim\_as\_int(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00333}00333\ \ \ \ \ \ \ boxes.shape[1])\ ==\ shape\_utils.get\_dim\_as\_int(scores.shape[1])\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(boxes.shape[1])\ ==\ 1):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'second\ dimension\ of\ boxes\ must\ be\ either\ 1\ or\ equal\ '}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ the\ second\ dimension\ of\ scores'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00337}00337\ \ \ \textcolor{keywordflow}{if}\ shape\_utils.get\_dim\_as\_int(boxes.shape[2])\ !=\ 4:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00338}00338\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'last\ dimension\ of\ boxes\ must\ be\ of\ size\ 4.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00339}00339\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{and}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00340}00340\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'if\ change\_coordinate\_frame\ is\ True,\ then\ a\ clip\_window'}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'must\ be\ specified.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00344}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}{00344}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}{\_clip\_window\_prune\_boxes}}(sorted\_boxes,\ clip\_window,\ pad\_to\_max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00346}00346\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prune\ boxes\ with\ zero\ area.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00347}00347\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00348}00348\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00349}00349\ \textcolor{stringliteral}{\ \ \ \ sorted\_boxes:\ A\ BoxList\ containing\ k\ detections.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00350}00350\ \textcolor{stringliteral}{\ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00351}00351\ \textcolor{stringliteral}{\ \ \ \ \ \ representing\ the\ window\ to\ clip\ }\textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00352}00352\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00353}00353\ \ \ \ \ pad\_to\_max\_output\_size:\ flag\ indicating\ whether\ to\ pad\ to\ max\ output\ size\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00354}00354\ \ \ \ \ \ \ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00355}00355\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00356}00356\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00357}00357\ \ \ \ \ \ \ provided).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00359}00359\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00360}00360\ \ \ \ \ sorted\_boxes:\ A\ BoxList\ containing\ k\ detections\ after\ pruning.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00361}00361\ \ \ \ \ num\_valid\_nms\_boxes\_cumulative:\ Number\ of\ valid\ NMS\ boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00362}00362\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00363}00363\ \textcolor{stringliteral}{\ \ sorted\_boxes\ =\ box\_list\_ops.clip\_to\_window(}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00364}00364\ \textcolor{stringliteral}{\ \ \ \ \ \ sorted\_boxes,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00365}00365\ \textcolor{stringliteral}{\ \ \ \ \ \ clip\_window,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00366}00366\ \textcolor{stringliteral}{\ \ \ \ \ \ filter\_nonoverlapping=}\textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00367}00367\ \ \ \textcolor{comment}{\#\ Set\ the\ scores\ of\ boxes\ with\ zero\ area\ to\ -\/1\ to\ keep\ the\ default}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00368}00368\ \ \ \textcolor{comment}{\#\ behaviour\ of\ pruning\ out\ zero\ area\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00369}00369\ \ \ sorted\_boxes\_size\ =\ tf.shape(sorted\_boxes.get())[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00370}00370\ \ \ non\_zero\_box\_area\ =\ tf.cast(box\_list\_ops.area(sorted\_boxes),\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00371}00371\ \ \ sorted\_boxes\_scores\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00372}00372\ \ \ \ \ \ \ non\_zero\_box\_area,\ sorted\_boxes.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00373}00373\ \ \ \ \ \ \ -\/1\ *\ tf.ones(sorted\_boxes\_size))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00374}00374\ \ \ sorted\_boxes.add\_field(fields.BoxListFields.scores,\ sorted\_boxes\_scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00375}00375\ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.reduce\_sum(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00376}00376\ \ \ \ \ \ \ tf.cast(tf.greater\_equal(sorted\_boxes\_scores,\ 0),\ tf.int32))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00377}00377\ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(sorted\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00379}00379\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00380}00380\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.change\_coordinate\_frame(sorted\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00382}00382\ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00385}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006}{00385}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006}{multiclass\_non\_max\_suppression}}(boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size=0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ masks=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaries=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=0.0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00399}00399\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00400}00400\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00401}00401\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00402}00402\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00403}00403\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ independently\ \textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class\ }for}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00404}00404\ \ \ which\ scores\ are\ provided\ (via\ the\ scores\ field\ of\ the\ input\ box\_list),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00405}00405\ \ \ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided\ threshold\ prior\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00406}00406\ \ \ applying\ NMS.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00407}00407\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00408}00408\ \ \ Please\ note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ performed\ on\ *all*\ classes,\ therefore\ any}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00409}00409\ \ \ background\ classes\ should\ be\ removed\ prior\ to\ calling\ this\ function.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00411}00411\ \ \ Selected\ boxes\ are\ guaranteed\ to\ be\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order\ by\ score\ (but}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00412}00412\ \ \ the\ sort\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ guaranteed\ to\ be\ stable).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00414}00414\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00415}00415\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00416}00416\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00417}00417\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00418}00418\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00419}00419\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00420}00420\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00421}00421\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00422}00422\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00423}00423\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00424}00424\ \ \ \ \ max\_size\_per\_class:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00425}00425\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00426}00426\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00427}00427\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00428}00428\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00429}00429\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00430}00430\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00431}00431\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00432}00432\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ provided)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00433}00433\ \ \ \ \ masks:\ (optional)\ a\ [k,\ q,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00434}00434\ \ \ \ \ \ \ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00435}00435\ \ \ \ \ \ \ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00436}00436\ \ \ \ \ boundaries:\ (optional)\ a\ [k,\ q,\ boundary\_height,\ boundary\_width]\ float32}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00437}00437\ \ \ \ \ \ \ tensor\ containing\ box\ boundaries.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00438}00438\ \ \ \ \ \ \ depending\ on\ whether\ a\ separate\ boundary\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00439}00439\ \ \ \ \ pad\_to\_max\_output\_size:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00440}00440\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}.\ Defaults\ to\ false.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00441}00441\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00442}00442\ \ \ \ \ \ \ tensors\ whose\ first\ dimensions\ are\ all\ of\ size\ \`{}k\`{}.\ After\ non-\/maximum}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00443}00443\ \ \ \ \ \ \ suppression,\ all\ tensors\ corresponding\ to\ the\ selected\ boxes\ will\ be}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00444}00444\ \ \ \ \ \ \ added\ to\ resulting\ BoxList.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00445}00445\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00446}00446\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00447}00447\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00448}00448\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00449}00449\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00450}00450\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00452}00452\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00453}00453\ \ \ \ \ A\ tuple\ of\ sorted\_boxes\ \textcolor{keywordflow}{and}\ num\_valid\_nms\_boxes.\ The\ sorted\_boxes\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00454}00454\ \ \ \ \ \ \ BoxList\ holds\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00455}00455\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00456}00456\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.\ The}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00457}00457\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ \textcolor{keywordflow}{is}\ a\ 0-\/D\ integer\ tensor\ representing\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00458}00458\ \ \ \ \ \ \ valid\ elements\ \textcolor{keywordflow}{in}\ \`{}BoxList\`{},\ \textcolor{keyword}{with}\ the\ valid\ elements\ appearing\ first.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00459}00459\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00460}00460\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00461}00461\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}\ have}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00462}00462\ \ \ \ \ \ \ a\ valid\ scores\ field.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00463}00463\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ Soft\ NMS\ (tf.image.non\_max\_suppression\_with\_scores)\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00464}00464\ \ \ \ \ \ \ supported\ \textcolor{keywordflow}{in}\ the\ current\ TF\ version\ \textcolor{keywordflow}{and}\ \`{}soft\_nms\_sigma\`{}\ \textcolor{keywordflow}{is}\ nonzero.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00465}00465\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00466}00466\ \textcolor{stringliteral}{\ \ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}{\_validate\_boxes\_scores\_iou\_thresh}}(boxes,\ scores,\ iou\_thresh,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00467}00467\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00468}00468\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{and}\ soft\_nms\_sigma\ !=\ 0.0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00469}00469\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ (soft\_nms\_sigma\ !=\ 0.0)\ is\ currently\ not\ '}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'supported\ when\ pad\_to\_max\_output\_size\ is\ True.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00472}00472\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MultiClassNonMaxSuppression'}):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00473}00473\ \ \ \ \ num\_scores\ =\ tf.shape(scores)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00474}00474\ \ \ \ \ num\_classes\ =\ shape\_utils.get\_dim\_as\_int(scores.get\_shape()[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00475}00475\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00476}00476\ \ \ \ \ selected\_boxes\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00477}00477\ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.constant(0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00478}00478\ \ \ \ \ per\_class\_boxes\_list\ =\ tf.unstack(boxes,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00479}00479\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00480}00480\ \ \ \ \ \ \ per\_class\_masks\_list\ =\ tf.unstack(masks,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00481}00481\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00482}00482\ \ \ \ \ \ \ per\_class\_boundaries\_list\ =\ tf.unstack(boundaries,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00483}00483\ \ \ \ \ boxes\_ids\ =\ (range(num\_classes)\ \textcolor{keywordflow}{if}\ len(per\_class\_boxes\_list)\ >\ 1}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ [0]\ *\ num\_classes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00485}00485\ \ \ \ \ \textcolor{keywordflow}{for}\ class\_idx,\ boxes\_idx\ \textcolor{keywordflow}{in}\ zip(range(num\_classes),\ boxes\_ids):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00486}00486\ \ \ \ \ \ \ per\_class\_boxes\ =\ per\_class\_boxes\_list[boxes\_idx]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00487}00487\ \ \ \ \ \ \ boxlist\_and\_class\_scores\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(per\_class\_boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00488}00488\ \ \ \ \ \ \ class\_scores\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ tf.slice(scores,\ [0,\ class\_idx],\ tf.stack([num\_scores,\ 1])),\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00491}00491\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00493}00493\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00494}00494\ \ \ \ \ \ \ \ \ per\_class\_masks\ =\ per\_class\_masks\_list[boxes\_idx]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.masks,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_class\_masks)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00497}00497\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00498}00498\ \ \ \ \ \ \ \ \ per\_class\_boundaries\ =\ per\_class\_boundaries\_list[boxes\_idx]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.boundaries,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_class\_boundaries)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00501}00501\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00502}00502\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ additional\_fields.items():}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(key,\ tensor)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00505}00505\ \ \ \ \ \ \ nms\_result\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00506}00506\ \ \ \ \ \ \ selected\_scores\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00507}00507\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ max\_selection\_size\ =\ max\_size\_per\_class}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ (selected\_indices,\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00510}00510\ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'boxes'}],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00511}00511\ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'scores'}],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \_)\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}{partitioned\_non\_max\_suppression\_padded}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00517}00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00521}00521\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ max\_selection\_size\ =\ tf.minimum(max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.num\_boxes())}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(tf.image,\ \textcolor{stringliteral}{'non\_max\_suppression\_with\_scores'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ tf.compat.forward\_compatible(2019,\ 6,\ 6)):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ (selected\_indices,\ selected\_scores}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ )\ =\ tf.image.non\_max\_suppression\_with\_scores(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00529}00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ selected\_scores\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00539}00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00541}00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.float32)],\ -\/1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ soft\_nms\_sigma\ !=\ 0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ not\ supported\ in\ current\ TF\ version!'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00555}00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00560}00560\ \ \ \ \ \ \ \textcolor{comment}{\#\ Make\ the\ scores\ -\/1\ for\ invalid\ boxes.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00561}00561\ \ \ \ \ \ \ valid\_nms\_boxes\_indices\ =\ tf.less(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ tf.range(max\_selection\_size),\ num\_valid\_nms\_boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00563}00563\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00564}00564\ \ \ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ tf.where(valid\_nms\_boxes\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00567}00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_scores,\ -\/1*tf.ones(max\_selection\_size)))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00568}00568\ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ +=\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00569}00569\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00570}00570\ \ \ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.classes,\ (tf.zeros\_like(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00572}00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nms\_result.get\_field(fields.BoxListFields.scores))\ +\ class\_idx))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00573}00573\ \ \ \ \ \ \ selected\_boxes\_list.append(nms\_result)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00574}00574\ \ \ \ \ selected\_boxes\ =\ box\_list\_ops.concatenate(selected\_boxes\_list)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00575}00575\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(selected\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00576}00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00577}00577\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00578}00578\ \ \ \ \ \ \ \textcolor{comment}{\#\ When\ pad\_to\_max\_output\_size\ is\ False,\ it\ prunes\ the\ boxes\ with\ zero}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00579}00579\ \ \ \ \ \ \ \textcolor{comment}{\#\ area.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00580}00580\ \ \ \ \ \ \ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}{\_clip\_window\_prune\_boxes}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ clip\_window,\ pad\_to\_max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00583}00583\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00584}00584\ \ \ \ \ \textcolor{keywordflow}{if}\ max\_total\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00585}00585\ \ \ \ \ \ \ max\_total\_size\ =\ tf.minimum(max\_total\_size,\ sorted\_boxes.num\_boxes())}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00586}00586\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,\ tf.range(max\_total\_size))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00587}00587\ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ max\_total\_size\ >\ num\_valid\_nms\_boxes\_cumulative,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\_cumulative,\ max\_total\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00590}00590\ \ \ \ \ \textcolor{comment}{\#\ Select\ only\ the\ valid\ boxes\ if\ pad\_to\_max\_output\_size\ is\ False.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00591}00591\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00592}00592\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ tf.range(num\_valid\_nms\_boxes\_cumulative))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00594}00594\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00595}00595\ \ \ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes\_cumulative}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00598}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d}{00598}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d}{class\_agnostic\_non\_max\_suppression}}(boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_classes\_per\_detection=1,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size=0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00604}00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00606}00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ masks=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaries=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=0.0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00611}00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00612}00612\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class-\/agnostic\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00613}00613\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00614}00614\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00615}00615\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00616}00616\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ on\ all\ the\ boxes\ using}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00617}00617\ \ \ max\ scores\ across\ all\ classes\ \textcolor{keywordflow}{for}\ which\ scores\ are\ provided\ (via\ the\ scores}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00618}00618\ \ \ field\ of\ the\ input\ box\_list),\ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00619}00619\ \ \ threshold\ prior\ to\ applying\ NMS.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00620}00620\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00621}00621\ \ \ Please\ note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ performed\ \textcolor{keywordflow}{in}\ a\ \textcolor{keyword}{class}-\/agnostic\ way,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00622}00622\ \ \ therefore\ any\ background\ classes\ should\ be\ removed\ prior\ to\ calling\ this}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00623}00623\ \ \ function.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00625}00625\ \ \ Selected\ boxes\ are\ guaranteed\ to\ be\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order\ by\ score\ (but}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00626}00626\ \ \ the\ sort\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ guaranteed\ to\ be\ stable).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00628}00628\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00629}00629\ \ \ \ \ boxes:\ A\ [k,\ q,\ 4]\ float32\ tensor\ containing\ k\ detections.\ \`{}q\`{}\ can\ be\ either}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00630}00630\ \ \ \ \ \ \ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ box\ \textcolor{keywordflow}{is}\ predicted}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00631}00631\ \ \ \ \ \ \ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00632}00632\ \ \ \ \ scores:\ A\ [k,\ num\_classes]\ float32\ tensor\ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00633}00633\ \ \ \ \ \ \ the\ k\ detections.\ The\ scores\ have\ to\ be\ non-\/negative\ when}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00634}00634\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00635}00635\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00636}00636\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00637}00637\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00638}00638\ \ \ \ \ max\_classes\_per\_detection:\ maximum\ number\ of\ retained\ classes\ per\ detection}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00639}00639\ \ \ \ \ \ \ box\ \textcolor{keywordflow}{in}\ \textcolor{keyword}{class}-\/agnostic\ NMS.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00640}00640\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00641}00641\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00642}00642\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00643}00643\ \ \ \ \ \ \ representing\ the\ window\ to\ clip\ \textcolor{keywordflow}{and}\ normalize\ boxes\ to\ before\ performing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00644}00644\ \ \ \ \ \ \ non-\/max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00645}00645\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00646}00646\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00647}00647\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00648}00648\ \ \ \ \ masks:\ (optional)\ a\ [k,\ q,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00649}00649\ \ \ \ \ \ \ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1\ depending}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00650}00650\ \ \ \ \ \ \ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00651}00651\ \ \ \ \ boundaries:\ (optional)\ a\ [k,\ q,\ boundary\_height,\ boundary\_width]\ float32}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00652}00652\ \ \ \ \ \ \ tensor\ containing\ box\ boundaries.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes\ \textcolor{keywordflow}{or}\ 1}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00653}00653\ \ \ \ \ \ \ depending\ on\ whether\ a\ separate\ boundary\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00654}00654\ \ \ \ \ pad\_to\_max\_output\_size:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00655}00655\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}.\ Defaults\ to\ false.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00656}00656\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00657}00657\ \ \ \ \ \ \ tensors\ whose\ first\ dimensions\ are\ all\ of\ size\ \`{}k\`{}.\ After\ non-\/maximum}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00658}00658\ \ \ \ \ \ \ suppression,\ all\ tensors\ corresponding\ to\ the\ selected\ boxes\ will\ be\ added}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00659}00659\ \ \ \ \ \ \ to\ resulting\ BoxList.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00660}00660\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00661}00661\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00662}00662\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00663}00663\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00664}00664\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00665}00665\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00666}00666\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00667}00667\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00668}00668\ \ \ \ \ A\ tuple\ of\ sorted\_boxes\ \textcolor{keywordflow}{and}\ num\_valid\_nms\_boxes.\ The\ sorted\_boxes\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00669}00669\ \ \ \ \ \ \ BoxList\ holds\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00670}00670\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00671}00671\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.\ The}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00672}00672\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ \textcolor{keywordflow}{is}\ a\ 0-\/D\ integer\ tensor\ representing\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00673}00673\ \ \ \ \ \ \ valid\ elements\ \textcolor{keywordflow}{in}\ \`{}BoxList\`{},\ \textcolor{keyword}{with}\ the\ valid\ elements\ appearing\ first.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00674}00674\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00675}00675\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00676}00676\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}\ have}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00677}00677\ \ \ \ \ \ \ a\ valid\ scores\ field\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ non-\/zero\ soft\_nms\_sigma\ \textcolor{keywordflow}{is}\ provided\ when}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00678}00678\ \ \ \ \ \ \ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00679}00679\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00680}00680\ \textcolor{stringliteral}{\ \ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a1def87e6a8b8fad1ca56f6b3985f69d1}{\_validate\_boxes\_scores\_iou\_thresh}}(boxes,\ scores,\ iou\_thresh,}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00681}00681\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame,\ clip\_window)}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00682}00682\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{and}\ soft\_nms\_sigma\ !=\ 0.0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00683}00683\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ (soft\_nms\_sigma\ !=\ 0.0)\ is\ currently\ not\ '}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00684}00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'supported\ when\ pad\_to\_max\_output\_size\ is\ True.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00685}00685\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00686}00686\ \ \ \textcolor{keywordflow}{if}\ max\_classes\_per\_detection\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00687}00687\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Max\ classes\ per\ detection\ box\ >1\ not\ supported.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00688}00688\ \ \ q\ =\ shape\_utils.get\_dim\_as\_int(boxes.shape[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00689}00689\ \ \ \textcolor{keywordflow}{if}\ q\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00690}00690\ \ \ \ \ class\_ids\ =\ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00691}00691\ \ \ \ \ \ \ \ \ tf.argmax(scores,\ axis=1,\ output\_type=tf.int32),\ axis=1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00692}00692\ \ \ \ \ boxes\ =\ tf.batch\_gather(boxes,\ class\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00693}00693\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00694}00694\ \ \ \ \ \ \ masks\ =\ tf.batch\_gather(masks,\ class\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00695}00695\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00696}00696\ \ \ \ \ \ \ boundaries\ =\ tf.batch\_gather(boundaries,\ class\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00697}00697\ \ \ boxes\ =\ tf.squeeze(boxes,\ axis=[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00698}00698\ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00699}00699\ \ \ \ \ masks\ =\ tf.squeeze(masks,\ axis=[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00700}00700\ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00701}00701\ \ \ \ \ boundaries\ =\ tf.squeeze(boundaries,\ axis=[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00702}00702\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00703}00703\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ClassAgnosticNonMaxSuppression'}):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00704}00704\ \ \ \ \ boxlist\_and\_class\_scores\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00705}00705\ \ \ \ \ max\_scores\ =\ tf.reduce\_max(scores,\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00706}00706\ \ \ \ \ classes\_with\_max\_scores\ =\ tf.argmax(scores,\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00707}00707\ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.scores,\ max\_scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00708}00708\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00709}00709\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.masks,\ masks)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00710}00710\ \ \ \ \ \textcolor{keywordflow}{if}\ boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00711}00711\ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(fields.BoxListFields.boundaries,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaries)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00713}00713\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00714}00714\ \ \ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00715}00715\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ additional\_fields.items():}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00716}00716\ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.add\_field(key,\ tensor)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00718}00718\ \ \ \ \ nms\_result\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00719}00719\ \ \ \ \ selected\_scores\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00720}00720\ \ \ \ \ \textcolor{keywordflow}{if}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00721}00721\ \ \ \ \ \ \ max\_selection\_size\ =\ max\_total\_size}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00722}00722\ \ \ \ \ \ \ (selected\_indices,\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00723}00723\ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'boxes'}],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00724}00724\ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.data[\textcolor{stringliteral}{'scores'}],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00725}00725\ \ \ \ \ \ \ \ argsort\_ids)\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_afdb21198d6a9443ec277742c9938612b}{partitioned\_non\_max\_suppression\_padded}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00729}00729\ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00730}00730\ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00731}00731\ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00733}00733\ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00734}00734\ \ \ \ \ \ \ classes\_with\_max\_scores\ =\ tf.gather(classes\_with\_max\_scores,\ argsort\_ids)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00735}00735\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00736}00736\ \ \ \ \ \ \ max\_selection\_size\ =\ tf.minimum(max\_total\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.num\_boxes())}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00738}00738\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasattr(tf.image,\ \textcolor{stringliteral}{'non\_max\_suppression\_with\_scores'})\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00739}00739\ \ \ \ \ \ \ \ \ \ \ tf.compat.forward\_compatible(2019,\ 6,\ 6)):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00740}00740\ \ \ \ \ \ \ \ \ (selected\_indices,\ selected\_scores}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00741}00741\ \ \ \ \ \ \ \ \ )\ =\ tf.image.non\_max\_suppression\_with\_scores(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00742}00742\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00748}00748\ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00749}00749\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat([}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size\ -\/\ num\_valid\_nms\_boxes,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00752}00752\ \ \ \ \ \ \ \ \ ],\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00753}00753\ \ \ \ \ \ \ \ \ selected\_scores\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00755}00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.float32)],\ -\/1)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00756}00756\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00757}00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00758}00758\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00759}00759\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ soft\_nms\_sigma\ !=\ 0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Soft\ NMS\ not\ supported\ in\ current\ TF\ version!'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00761}00761\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.image.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get(),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_and\_class\_scores.get\_field(fields.BoxListFields.scores),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00764}00764\ \ \ \ \ \ \ \ \ \ \ \ \ max\_selection\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00767}00767\ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.shape(selected\_indices)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00768}00768\ \ \ \ \ \ \ \ \ selected\_indices\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ [selected\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00770}00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.zeros(max\_selection\_size-\/num\_valid\_nms\_boxes,\ tf.int32)],\ 0)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00771}00771\ \ \ \ \ \ \ \ \ nms\_result\ =\ box\_list\_ops.gather(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00773}00773\ \ \ \ \ \ \ \ \ selected\_scores\ =\ nms\_result.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00774}00774\ \ \ \ \ valid\_nms\_boxes\_indices\ =\ tf.less(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00775}00775\ \ \ \ \ \ \ \ \ tf.range(max\_selection\_size),\ num\_valid\_nms\_boxes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00776}00776\ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00777}00777\ \ \ \ \ \ \ \ \ fields.BoxListFields.scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00778}00778\ \ \ \ \ \ \ \ \ tf.where(valid\_nms\_boxes\_indices,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00779}00779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\_scores,\ -\/1*tf.ones(max\_selection\_size)))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00780}00780\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00781}00781\ \ \ \ \ selected\_classes\ =\ tf.gather(classes\_with\_max\_scores,\ selected\_indices)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00782}00782\ \ \ \ \ nms\_result.add\_field(fields.BoxListFields.classes,\ selected\_classes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00783}00783\ \ \ \ \ selected\_boxes\ =\ nms\_result}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00784}00784\ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.sort\_by\_field(selected\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00785}00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00786}00786\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00787}00787\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00788}00788\ \ \ \ \ \ \ \textcolor{comment}{\#\ When\ pad\_to\_max\_output\_size\ is\ False,\ it\ prunes\ the\ boxes\ with\ zero}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00789}00789\ \ \ \ \ \ \ \textcolor{comment}{\#\ area.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00790}00790\ \ \ \ \ \ \ sorted\_boxes,\ num\_valid\_nms\_boxes\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_aa52731af79c1f94bed50a291b05060ce}{\_clip\_window\_prune\_boxes}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00791}00791\ \ \ \ \ \ \ \ \ \ \ sorted\_boxes,\ clip\_window,\ pad\_to\_max\_output\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00792}00792\ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00793}00793\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00794}00794\ \ \ \ \ \textcolor{keywordflow}{if}\ max\_total\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00795}00795\ \ \ \ \ \ \ max\_total\_size\ =\ tf.minimum(max\_total\_size,\ sorted\_boxes.num\_boxes())}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00796}00796\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,\ tf.range(max\_total\_size))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00797}00797\ \ \ \ \ \ \ num\_valid\_nms\_boxes\ =\ tf.where(max\_total\_size\ >\ num\_valid\_nms\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00798}00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_valid\_nms\_boxes,\ max\_total\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00799}00799\ \ \ \ \ \textcolor{comment}{\#\ Select\ only\ the\ valid\ boxes\ if\ pad\_to\_max\_output\_size\ is\ False.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00800}00800\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ pad\_to\_max\_output\_size:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00801}00801\ \ \ \ \ \ \ sorted\_boxes\ =\ box\_list\_ops.gather(sorted\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00802}00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.range(num\_valid\_nms\_boxes))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00803}00803\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00804}00804\ \ \ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes,\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00805}00805\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00806}00806\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00807}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000}{00807}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a766a437a0d89839c4e6828b54205d000}{batch\_multiclass\_non\_max\_suppression}}(boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00808}00808\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00809}00809\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00810}00810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00812}00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size=0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00813}00813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00815}00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_valid\_boxes=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00816}00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ masks=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=0.0,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_static\_shapes=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=32,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_class\_agnostic\_nms=False,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00823}00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_classes\_per\_detection=1):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00824}00824\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression\ that\ operates\ on\ a\ batch.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00825}00825\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00826}00826\ \textcolor{stringliteral}{\ \ This\ op\ }\textcolor{keywordflow}{is}\ similar\ to\ \`{}multiclass\_non\_max\_suppression\`{}\ but\ operates\ on\ a\ batch}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00827}00827\ \ \ of\ boxes\ \textcolor{keywordflow}{and}\ scores.\ See\ documentation\ \textcolor{keywordflow}{for}\ \`{}multiclass\_non\_max\_suppression\`{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00828}00828\ \ \ \textcolor{keywordflow}{for}\ details.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00829}00829\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00830}00830\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00831}00831\ \ \ \ \ boxes:\ A\ [batch\_size,\ num\_anchors,\ q,\ 4]\ float32\ tensor\ containing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00832}00832\ \ \ \ \ \ \ detections.\ If\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ 1\ then\ same\ boxes\ are\ used\ \textcolor{keywordflow}{for}\ all\ classes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00833}00833\ \ \ \ \ \ \ otherwise,\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ equal\ to\ number\ of\ classes,\ \textcolor{keyword}{class}-\/specific\ boxes\ are}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00834}00834\ \ \ \ \ \ \ used.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00835}00835\ \ \ \ \ scores:\ A\ [batch\_size,\ num\_anchors,\ num\_classes]\ float32\ tensor\ containing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00836}00836\ \ \ \ \ \ \ the\ scores\ \textcolor{keywordflow}{for}\ each\ of\ the\ \`{}num\_anchors\`{}\ detections.\ The\ scores\ have\ to\ be}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00837}00837\ \ \ \ \ \ \ non-\/negative\ when\ use\_static\_shapes\ \textcolor{keywordflow}{is}\ set\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00838}00838\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00839}00839\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (new\ boxes\ that\ have\ high\ IOU\ overlap}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00840}00840\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00841}00841\ \ \ \ \ max\_size\_per\_class:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00842}00842\ \ \ \ \ max\_total\_size:\ maximum\ number\ of\ boxes\ retained\ over\ all\ classes.\ By}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00843}00843\ \ \ \ \ \ \ default\ returns\ all\ boxes\ retained\ after\ capping\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00844}00844\ \ \ \ \ clip\_window:\ A\ float32\ tensor\ of\ shape\ [batch\_size,\ 4]\ \ where\ each\ entry\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00845}00845\ \ \ \ \ \ \ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max]\ representing\ the\ window\ to\ clip}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00846}00846\ \ \ \ \ \ \ boxes\ to\ before\ performing\ non-\/max\ suppression.\ This\ argument\ can\ also\ be}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00847}00847\ \ \ \ \ \ \ a\ tensor\ of\ shape\ [4]\ \textcolor{keywordflow}{in}\ which\ case,\ the\ same\ clip\ window\ \textcolor{keywordflow}{is}\ applied\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00848}00848\ \ \ \ \ \ \ all\ images\ \textcolor{keywordflow}{in}\ the\ batch.\ If\ clip\_widow\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None},\ all\ boxes\ are\ used\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00849}00849\ \ \ \ \ \ \ perform\ non-\/max\ suppression.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00850}00850\ \ \ \ \ change\_coordinate\_frame:\ Whether\ to\ normalize\ coordinates\ after\ clipping}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00851}00851\ \ \ \ \ \ \ relative\ to\ clip\_window\ (this\ can\ only\ be\ set\ to\ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ a\ clip\_window\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00852}00852\ \ \ \ \ \ \ provided)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00853}00853\ \ \ \ \ num\_valid\_boxes:\ (optional)\ a\ Tensor\ of\ type\ \`{}int32\`{}.\ A\ 1-\/D\ tensor\ of\ shape}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00854}00854\ \ \ \ \ \ \ [batch\_size]\ representing\ the\ number\ of\ valid\ boxes\ to\ be\ considered\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00855}00855\ \ \ \ \ \ \ each\ image\ \textcolor{keywordflow}{in}\ the\ batch.\ \ This\ parameter\ allows\ \textcolor{keywordflow}{for}\ ignoring\ zero}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00856}00856\ \ \ \ \ \ \ paddings.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00857}00857\ \ \ \ \ masks:\ (optional)\ a\ [batch\_size,\ num\_anchors,\ q,\ mask\_height,\ mask\_width]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00858}00858\ \ \ \ \ \ \ float32\ tensor\ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00859}00859\ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00860}00860\ \ \ \ \ additional\_fields:\ (optional)\ If\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},\ a\ dictionary\ that\ maps\ keys\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00861}00861\ \ \ \ \ \ \ tensors\ whose\ dimensions\ are\ [batch\_size,\ num\_anchors,\ ...].}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00862}00862\ \ \ \ \ soft\_nms\_sigma:\ A\ scalar\ float\ representing\ the\ Soft\ NMS\ sigma\ parameter;}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00863}00863\ \ \ \ \ \ \ See\ Bodla\ et\ al,\ https://arxiv.org/abs/1704.04503).\ \ When}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00864}00864\ \ \ \ \ \ \ \`{}soft\_nms\_sigma=0.0\`{}\ (which\ \textcolor{keywordflow}{is}\ default),\ we\ fall\ back\ to\ standard\ (hard)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00865}00865\ \ \ \ \ \ \ NMS.\ \ Soft\ NMS\ \textcolor{keywordflow}{is}\ currently\ only\ supported\ when\ pad\_to\_max\_output\_size\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00866}00866\ \ \ \ \ \ \ \textcolor{keyword}{False}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00867}00867\ \ \ \ \ scope:\ tf\ scope\ name.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00868}00868\ \ \ \ \ use\_static\_shapes:\ If\ true,\ the\ output\ nmsed\ boxes\ are\ padded\ to\ be\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00869}00869\ \ \ \ \ \ \ length\ \`{}max\_size\_per\_class\`{}\ \textcolor{keywordflow}{and}\ it\ doesn\textcolor{stringliteral}{'t\ clip\ boxes\ to\ max\_total\_size.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00870}00870\ \textcolor{stringliteral}{\ \ \ \ \ \ Defaults\ to\ false.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00871}00871\ \textcolor{stringliteral}{\ \ \ \ parallel\_iterations:\ (optional)\ number\ of\ batch\ items\ to\ process\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00872}00872\ \ \ \ \ \ \ parallel.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00873}00873\ \ \ \ \ use\_class\_agnostic\_nms:\ If\ true,\ this\ uses\ \textcolor{keyword}{class}-\/agnostic\ non\ max}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00874}00874\ \ \ \ \ \ \ suppression}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00875}00875\ \ \ \ \ max\_classes\_per\_detection:\ Maximum\ number\ of\ retained\ classes\ per\ detection}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00876}00876\ \ \ \ \ \ \ box\ \textcolor{keywordflow}{in}\ \textcolor{keyword}{class}-\/agnostic\ NMS.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00877}00877\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00878}00878\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00879}00879\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_boxes'}:\ A\ [batch\_size,\ max\_detections,\ 4]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00880}00880\ \ \ \ \ \ \ containing\ the\ non-\/max\ suppressed\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00881}00881\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_scores'}:\ A\ [batch\_size,\ max\_detections]\ float32\ tensor\ containing}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00882}00882\ \ \ \ \ \ \ the\ scores\ \textcolor{keywordflow}{for}\ the\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00883}00883\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_classes'}:\ A\ [batch\_size,\ max\_detections]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00884}00884\ \ \ \ \ \ \ containing\ the\ \textcolor{keyword}{class\ }for\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00885}00885\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_masks'}:\ (optional)\ a}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00886}00886\ \ \ \ \ \ \ [batch\_size,\ max\_detections,\ mask\_height,\ mask\_width]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00887}00887\ \ \ \ \ \ \ containing\ masks\ \textcolor{keywordflow}{for}\ each\ selected\ box.\ This\ \textcolor{keywordflow}{is}\ set\ to\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ input}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00888}00888\ \ \ \ \ \ \ \`{}masks\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00889}00889\ \ \ \ \ \textcolor{stringliteral}{'nmsed\_additional\_fields'}:\ (optional)\ a\ dictionary\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00890}00890\ \ \ \ \ \ \ [batch\_size,\ max\_detections,\ ...]\ float32\ tensors\ corresponding\ to\ the}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00891}00891\ \ \ \ \ \ \ tensors\ specified\ \textcolor{keywordflow}{in}\ the\ input\ \`{}additional\_fields\`{}.\ This\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ returned}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00892}00892\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ input\ \`{}additional\_fields\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00893}00893\ \ \ \ \ \textcolor{stringliteral}{'num\_detections'}:\ A\ [batch\_size]\ int32\ tensor\ indicating\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00894}00894\ \ \ \ \ \ \ valid\ detections\ per\ batch\ item.\ Only\ the\ top\ num\_detections[i]\ entries\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00895}00895\ \ \ \ \ \ \ nms\_boxes[i],\ nms\_scores[i]\ \textcolor{keywordflow}{and}\ nms\_class[i]\ are\ valid.\ The\ rest\ of\ the}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00896}00896\ \ \ \ \ \ \ entries\ are\ zero\ paddings.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00897}00897\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00898}00898\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00899}00899\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{in}\ boxes.shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ 1\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ equal\ to\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00900}00900\ \ \ \ \ \ \ classes\ \textcolor{keyword}{as}\ inferred\ \textcolor{keyword}{from}\ scores.shape.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00901}00901\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00902}00902\ \textcolor{stringliteral}{\ \ q\ =\ shape\_utils.get\_dim\_as\_int(boxes.shape[2])}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00903}00903\ \textcolor{stringliteral}{\ \ num\_classes\ =\ shape\_utils.get\_dim\_as\_int(scores.shape[2])}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00904}00904\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ q\ !=\ 1\ \textcolor{keywordflow}{and}\ q\ !=\ num\_classes:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00905}00905\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'third\ dimension\ of\ boxes\ must\ be\ either\ 1\ or\ equal\ '}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00906}00906\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'to\ the\ third\ dimension\ of\ scores'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00907}00907\ \ \ \textcolor{keywordflow}{if}\ change\_coordinate\_frame\ \textcolor{keywordflow}{and}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00908}00908\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'if\ change\_coordinate\_frame\ is\ True,\ then\ a\ clip\_window'}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00909}00909\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'must\ be\ specified.'})}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00910}00910\ \ \ original\_masks\ =\ masks}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00911}00911\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00912}00912\ \ \ \textcolor{comment}{\#\ Create\ ordered\ dictionary\ using\ the\ sorted\ keys\ from}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00913}00913\ \ \ \textcolor{comment}{\#\ additional\ fields\ to\ ensure\ getting\ the\ same\ key\ value\ assignment}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00914}00914\ \ \ \textcolor{comment}{\#\ in\ \_single\_image\_nms\_fn().\ The\ dictionary\ is\ thus\ a\ sorted\ version\ of}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00915}00915\ \ \ \textcolor{comment}{\#\ additional\_fields.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00916}00916\ \ \ \textcolor{keywordflow}{if}\ additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00917}00917\ \ \ \ \ ordered\_additional\_fields\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00918}00918\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00919}00919\ \ \ \ \ ordered\_additional\_fields\ =\ collections.OrderedDict(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00920}00920\ \ \ \ \ \ \ \ \ sorted(additional\_fields.items(),\ key=\textcolor{keyword}{lambda}\ item:\ item[0]))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00921}00921\ \ \ del\ additional\_fields}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00922}00922\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'BatchMultiClassNonMaxSuppression'}):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00923}00923\ \ \ \ \ boxes\_shape\ =\ boxes.shape}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00924}00924\ \ \ \ \ batch\_size\ =\ shape\_utils.get\_dim\_as\_int(boxes\_shape[0])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00925}00925\ \ \ \ \ num\_anchors\ =\ shape\_utils.get\_dim\_as\_int(boxes\_shape[1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00926}00926\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00927}00927\ \ \ \ \ \textcolor{keywordflow}{if}\ batch\_size\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00928}00928\ \ \ \ \ \ \ batch\_size\ =\ tf.shape(boxes)[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00929}00929\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_anchors\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00930}00930\ \ \ \ \ \ \ num\_anchors\ =\ tf.shape(boxes)[1]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00931}00931\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00932}00932\ \ \ \ \ \textcolor{comment}{\#\ If\ num\ valid\ boxes\ aren't\ provided,\ create\ one\ and\ mark\ all\ boxes\ as}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00933}00933\ \ \ \ \ \textcolor{comment}{\#\ valid.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00934}00934\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_valid\_boxes\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00935}00935\ \ \ \ \ \ \ num\_valid\_boxes\ =\ tf.ones([batch\_size],\ dtype=tf.int32)\ *\ num\_anchors}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00936}00936\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00937}00937\ \ \ \ \ \textcolor{comment}{\#\ If\ masks\ aren't\ provided,\ create\ dummy\ masks\ so\ we\ can\ only\ have\ one\ copy}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00938}00938\ \ \ \ \ \textcolor{comment}{\#\ of\ \_single\_image\_nms\_fn\ and\ discard\ the\ dummy\ masks\ after\ map\_fn.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00939}00939\ \ \ \ \ \textcolor{keywordflow}{if}\ masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00940}00940\ \ \ \ \ \ \ masks\_shape\ =\ tf.stack([batch\_size,\ num\_anchors,\ q,\ 1,\ 1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00941}00941\ \ \ \ \ \ \ masks\ =\ tf.zeros(masks\_shape)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00942}00942\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00943}00943\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00944}00944\ \ \ \ \ \ \ clip\_window\ =\ tf.stack([}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00945}00945\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_min(boxes[:,\ :,\ :,\ 0]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00946}00946\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_min(boxes[:,\ :,\ :,\ 1]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00947}00947\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_max(boxes[:,\ :,\ :,\ 2]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00948}00948\ \ \ \ \ \ \ \ \ \ \ tf.reduce\_max(boxes[:,\ :,\ :,\ 3])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00949}00949\ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00950}00950\ \ \ \ \ \textcolor{keywordflow}{if}\ clip\_window.shape.ndims\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00951}00951\ \ \ \ \ \ \ clip\_window\ =\ tf.tile(tf.expand\_dims(clip\_window,\ 0),\ [batch\_size,\ 1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00952}00952\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00953}00953\ \ \ \ \ \textcolor{keyword}{def\ }\_single\_image\_nms\_fn(args):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00954}00954\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ NMS\ on\ a\ single\ image\ and\ returns\ padded\ output.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00955}00955\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00956}00956\ \textcolor{stringliteral}{\ \ \ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00957}00957\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ args:\ A\ list\ of\ tensors\ consisting\ of\ the\ following:}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00958}00958\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ per\_image\_boxes\ -\/\ A\ [num\_anchors,\ q,\ 4]\ float32\ tensor\ containing}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00959}00959\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ detections.\ If\ \`{}q\`{}\ }\textcolor{keywordflow}{is}\ 1\ then\ same\ boxes\ are\ used\ \textcolor{keywordflow}{for}\ all\ classes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00960}00960\ \ \ \ \ \ \ \ \ \ \ \ \ otherwise,\ \textcolor{keywordflow}{if}\ \`{}q\`{}\ \textcolor{keywordflow}{is}\ equal\ to\ number\ of\ classes,\ \textcolor{keyword}{class}-\/specific}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00961}00961\ \ \ \ \ \ \ \ \ \ \ \ \ boxes\ are\ used.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00962}00962\ \ \ \ \ \ \ \ \ \ \ per\_image\_scores\ -\/\ A\ [num\_anchors,\ num\_classes]\ float32\ tensor}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00963}00963\ \ \ \ \ \ \ \ \ \ \ \ \ containing\ the\ scores\ \textcolor{keywordflow}{for}\ each\ of\ the\ \`{}num\_anchors\`{}\ detections.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ per\_image\_masks\ -\/\ A\ [num\_anchors,\ q,\ mask\_height,\ mask\_width]\ float32}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00965}00965\ \ \ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ box\ masks.\ \`{}q\`{}\ can\ be\ either\ number\ of\ classes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00966}00966\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ 1\ depending\ on\ whether\ a\ separate\ mask\ \textcolor{keywordflow}{is}\ predicted\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00967}00967\ \ \ \ \ \ \ \ \ \ \ per\_image\_clip\_window\ -\/\ A\ 1D\ float32\ tensor\ of\ the\ form}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00968}00968\ \ \ \ \ \ \ \ \ \ \ \ \ [ymin,\ xmin,\ ymax,\ xmax]\ representing\ the\ window\ to\ clip\ the\ boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00969}00969\ \ \ \ \ \ \ \ \ \ \ \ \ to.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00970}00970\ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields\ -\/\ (optional)\ A\ variable\ number\ of\ float32}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00971}00971\ \ \ \ \ \ \ \ \ \ \ \ \ tensors\ each\ \textcolor{keyword}{with}\ size\ [num\_anchors,\ ...].}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ per\_image\_num\_valid\_boxes\ -\/\ A\ tensor\ of\ type\ \`{}int32\`{}.\ A\ 1-\/D\ tensor\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00973}00973\ \ \ \ \ \ \ \ \ \ \ \ \ shape\ [batch\_size]\ representing\ the\ number\ of\ valid\ boxes\ to\ be}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00974}00974\ \ \ \ \ \ \ \ \ \ \ \ \ considered\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the\ batch.\ \ This\ parameter\ allows\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00975}00975\ \ \ \ \ \ \ \ \ \ \ \ \ ignoring\ zero\ paddings.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00976}00976\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00977}00977\ \ \ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00978}00978\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_boxes'}:\ A\ [max\_detections,\ 4]\ float32\ tensor\ containing\ the}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00979}00979\ \ \ \ \ \ \ \ \ \ \ non-\/max\ suppressed\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00980}00980\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_scores'}:\ A\ [max\_detections]\ float32\ tensor\ containing\ the\ scores}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00981}00981\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ the\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00982}00982\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_classes'}:\ A\ [max\_detections]\ float32\ tensor\ containing\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00983}00983\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ boxes.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00984}00984\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_masks'}:\ (optional)\ a\ [max\_detections,\ mask\_height,\ mask\_width]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00985}00985\ \ \ \ \ \ \ \ \ \ \ float32\ tensor\ containing\ masks\ \textcolor{keywordflow}{for}\ each\ selected\ box.\ This\ \textcolor{keywordflow}{is}\ set\ to}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00986}00986\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ input\ \`{}masks\`{}\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00987}00987\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nmsed\_additional\_fields'}:\ \ (optional)\ A\ variable\ number\ of\ float32}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00988}00988\ \ \ \ \ \ \ \ \ \ \ tensors\ each\ \textcolor{keyword}{with}\ size\ [max\_detections,\ ...]\ corresponding\ to\ the}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00989}00989\ \ \ \ \ \ \ \ \ \ \ input\ \`{}per\_image\_additional\_fields\`{}.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00990}00990\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'num\_detections'}:\ A\ [batch\_size]\ int32\ tensor\ indicating\ the\ number\ of}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00991}00991\ \ \ \ \ \ \ \ \ \ \ valid\ detections\ per\ batch\ item.\ Only\ the\ top\ num\_detections[i]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00992}00992\ \ \ \ \ \ \ \ \ \ \ entries\ \textcolor{keywordflow}{in}\ nms\_boxes[i],\ nms\_scores[i]\ \textcolor{keywordflow}{and}\ nms\_class[i]\ are\ valid.\ The}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00993}00993\ \ \ \ \ \ \ \ \ \ \ rest\ of\ the\ entries\ are\ zero\ paddings.}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00994}00994\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00995}00995\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_boxes\ =\ args[0]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00996}00996\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_scores\ =\ args[1]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00997}00997\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_masks\ =\ args[2]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00998}00998\ \textcolor{stringliteral}{\ \ \ \ \ \ per\_image\_clip\_window\ =\ args[3]}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l00999}00999\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{comment}{\#\ Make\ sure\ that\ the\ order\ of\ elements\ passed\ in\ args\ is\ aligned\ with}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01000}01000\ \ \ \ \ \ \ \textcolor{comment}{\#\ the\ iteration\ order\ of\ ordered\_additional\_fields}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01001}01001\ \ \ \ \ \ \ per\_image\_additional\_fields\ =\ \{}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01002}01002\ \ \ \ \ \ \ \ \ \ \ key:\ value}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01003}01003\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ zip(ordered\_additional\_fields,\ args[4:-\/1])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01004}01004\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01005}01005\ \ \ \ \ \ \ per\_image\_num\_valid\_boxes\ =\ args[-\/1]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01006}01006\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ use\_static\_shapes:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01007}01007\ \ \ \ \ \ \ \ \ total\_proposals\ =\ tf.shape(per\_image\_scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01008}01008\ \ \ \ \ \ \ \ \ per\_image\_scores\ =\ tf.where(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01009}01009\ \ \ \ \ \ \ \ \ \ \ \ \ tf.less(tf.range(total\_proposals[0]),\ per\_image\_num\_valid\_boxes),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01010}01010\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01011}01011\ \ \ \ \ \ \ \ \ \ \ \ \ tf.fill(total\_proposals,\ np.finfo(\textcolor{stringliteral}{'float32'}).min))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01012}01012\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01013}01013\ \ \ \ \ \ \ \ \ per\_image\_boxes\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01014}01014\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_boxes,\ 3\ *\ [0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01015}01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1,\ -\/1])),\ [-\/1,\ q,\ 4])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01016}01016\ \ \ \ \ \ \ \ \ per\_image\_scores\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01017}01017\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_scores,\ [0,\ 0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01018}01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1])),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01019}01019\ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ num\_classes])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01020}01020\ \ \ \ \ \ \ \ \ per\_image\_masks\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01021}01021\ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(per\_image\_masks,\ 4\ *\ [0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01022}01022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes,\ -\/1,\ -\/1,\ -\/1])),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1,\ q,\ shape\_utils.get\_dim\_as\_int(per\_image\_masks.shape[2]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01024}01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(per\_image\_masks.shape[3])])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01025}01025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ per\_image\_additional\_fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ tensor\ \textcolor{keywordflow}{in}\ per\_image\_additional\_fields.items():}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01027}01027\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_shape\ =\ tensor.get\_shape()}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_dim\ =\ len(additional\_field\_shape)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01029}01029\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields[key]\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01030}01030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.slice(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01031}01031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_additional\_fields[key],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01032}01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_field\_dim\ *\ [0],}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01033}01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.stack([per\_image\_num\_valid\_boxes]\ +}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01034}01034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (additional\_field\_dim\ -\/\ 1)\ *\ [-\/1])),\ [-\/1]\ +\ [}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01035}01035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape\_utils.get\_dim\_as\_int(dim)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01036}01036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ additional\_field\_shape[1:]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01037}01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01038}01038\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ use\_class\_agnostic\_nms:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01039}01039\ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ num\_valid\_nms\_boxes\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a0d33e143f24dc55fe43809b17882217d}{class\_agnostic\_non\_max\_suppression}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01040}01040\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01041}01041\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01042}01042\ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01043}01043\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01044}01044\ \ \ \ \ \ \ \ \ \ \ \ \ max\_classes\_per\_detection,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01045}01045\ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01046}01046\ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=per\_image\_clip\_window,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01047}01047\ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=change\_coordinate\_frame,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01048}01048\ \ \ \ \ \ \ \ \ \ \ \ \ masks=per\_image\_masks,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01049}01049\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=use\_static\_shapes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01050}01050\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=per\_image\_additional\_fields,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01051}01051\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01052}01052\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01053}01053\ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ num\_valid\_nms\_boxes\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1post__processing_a58b5edbb0a9b33010aae722c82050006}{multiclass\_non\_max\_suppression}}(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01054}01054\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_boxes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01055}01055\ \ \ \ \ \ \ \ \ \ \ \ \ per\_image\_scores,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01056}01056\ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01057}01057\ \ \ \ \ \ \ \ \ \ \ \ \ iou\_thresh,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01058}01058\ \ \ \ \ \ \ \ \ \ \ \ \ max\_size\_per\_class,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01059}01059\ \ \ \ \ \ \ \ \ \ \ \ \ max\_total\_size,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01060}01060\ \ \ \ \ \ \ \ \ \ \ \ \ clip\_window=per\_image\_clip\_window,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01061}01061\ \ \ \ \ \ \ \ \ \ \ \ \ change\_coordinate\_frame=change\_coordinate\_frame,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ masks=per\_image\_masks,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01063}01063\ \ \ \ \ \ \ \ \ \ \ \ \ pad\_to\_max\_output\_size=use\_static\_shapes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01064}01064\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_fields=per\_image\_additional\_fields,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01065}01065\ \ \ \ \ \ \ \ \ \ \ \ \ soft\_nms\_sigma=soft\_nms\_sigma)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01066}01066\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01067}01067\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ use\_static\_shapes:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01068}01068\ \ \ \ \ \ \ \ \ nmsed\_boxlist\ =\ box\_list\_ops.pad\_or\_clip\_box\_list(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01069}01069\ \ \ \ \ \ \ \ \ \ \ \ \ nmsed\_boxlist,\ max\_total\_size)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01070}01070\ \ \ \ \ \ \ num\_detections\ =\ num\_valid\_nms\_boxes}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01071}01071\ \ \ \ \ \ \ nmsed\_boxes\ =\ nmsed\_boxlist.get()}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01072}01072\ \ \ \ \ \ \ nmsed\_scores\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.scores)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01073}01073\ \ \ \ \ \ \ nmsed\_classes\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.classes)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01074}01074\ \ \ \ \ \ \ nmsed\_masks\ =\ nmsed\_boxlist.get\_field(fields.BoxListFields.masks)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01075}01075\ \ \ \ \ \ \ nmsed\_additional\_fields\ =\ []}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01076}01076\ \ \ \ \ \ \ \textcolor{comment}{\#\ Sorting\ is\ needed\ here\ to\ ensure\ that\ the\ values\ stored\ in}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01077}01077\ \ \ \ \ \ \ \textcolor{comment}{\#\ nmsed\_additional\_fields\ are\ always\ kept\ in\ the\ same\ order}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01078}01078\ \ \ \ \ \ \ \textcolor{comment}{\#\ across\ different\ execution\ runs.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01079}01079\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ sorted(per\_image\_additional\_fields.keys()):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01080}01080\ \ \ \ \ \ \ \ \ nmsed\_additional\_fields.append(nmsed\_boxlist.get\_field(key))}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01081}01081\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ([nmsed\_boxes,\ nmsed\_scores,\ nmsed\_classes,\ nmsed\_masks]\ +}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01082}01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nmsed\_additional\_fields\ +\ [num\_detections])}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01083}01083\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01084}01084\ \ \ \ \ num\_additional\_fields\ =\ 0}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01085}01085\ \ \ \ \ \textcolor{keywordflow}{if}\ ordered\_additional\_fields:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01086}01086\ \ \ \ \ \ \ num\_additional\_fields\ =\ len(ordered\_additional\_fields)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01087}01087\ \ \ \ \ num\_nmsed\_outputs\ =\ 4\ +\ num\_additional\_fields}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01088}01088\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01089}01089\ \ \ \ \ batch\_outputs\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01090}01090\ \ \ \ \ \ \ \ \ \_single\_image\_nms\_fn,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01091}01091\ \ \ \ \ \ \ \ \ elems=([boxes,\ scores,\ masks,\ clip\_window]\ +}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01092}01092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ list(ordered\_additional\_fields.values())\ +\ [num\_valid\_boxes]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01093}01093\ \ \ \ \ \ \ \ \ dtype=(num\_nmsed\_outputs\ *\ [tf.float32]\ +\ [tf.int32]),}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01094}01094\ \ \ \ \ \ \ \ \ parallel\_iterations=parallel\_iterations)}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01095}01095\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01096}01096\ \ \ \ \ batch\_nmsed\_boxes\ =\ batch\_outputs[0]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01097}01097\ \ \ \ \ batch\_nmsed\_scores\ =\ batch\_outputs[1]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01098}01098\ \ \ \ \ batch\_nmsed\_classes\ =\ batch\_outputs[2]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01099}01099\ \ \ \ \ batch\_nmsed\_masks\ =\ batch\_outputs[3]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01100}01100\ \ \ \ \ batch\_nmsed\_values\ =\ batch\_outputs[4:-\/1]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01101}01101\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01102}01102\ \ \ \ \ batch\_nmsed\_additional\_fields\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01103}01103\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_additional\_fields\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01104}01104\ \ \ \ \ \ \ \textcolor{comment}{\#\ Sort\ the\ keys\ to\ ensure\ arranging\ elements\ in\ same\ order\ as}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01105}01105\ \ \ \ \ \ \ \textcolor{comment}{\#\ in\ \_single\_image\_nms\_fn.}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01106}01106\ \ \ \ \ \ \ batch\_nmsed\_keys\ =\ list(ordered\_additional\_fields.keys())}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01107}01107\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(batch\_nmsed\_keys)):}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01108}01108\ \ \ \ \ \ \ \ \ batch\_nmsed\_additional\_fields[}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01109}01109\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_nmsed\_keys[i]]\ =\ batch\_nmsed\_values[i]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01110}01110\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01111}01111\ \ \ \ \ batch\_num\_detections\ =\ batch\_outputs[-\/1]}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01112}01112\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01113}01113\ \ \ \ \ \textcolor{keywordflow}{if}\ original\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01114}01114\ \ \ \ \ \ \ batch\_nmsed\_masks\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01115}01115\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01116}01116\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ ordered\_additional\_fields:}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01117}01117\ \ \ \ \ \ \ batch\_nmsed\_additional\_fields\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01118}01118\ }
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01119}01119\ \ \ \ \ \textcolor{keywordflow}{return}\ (batch\_nmsed\_boxes,\ batch\_nmsed\_scores,\ batch\_nmsed\_classes,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01120}01120\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_nmsed\_masks,\ batch\_nmsed\_additional\_fields,}
+\DoxyCodeLine{\Hypertarget{post__processing_8py_source_l01121}01121\ \ \ \ \ \ \ \ \ \ \ \ \ batch\_num\_detections)}
+
+\end{DoxyCode}

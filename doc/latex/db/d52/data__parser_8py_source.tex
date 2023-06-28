@@ -1,0 +1,51 @@
+\doxysection{data\+\_\+parser.\+py}
+\hypertarget{data__parser_8py_source}{}\label{data__parser_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/data\_parser.py@{src/main/resources/processing/video/detections/detection\_utils/core/data\_parser.py}}
+\mbox{\hyperlink{data__parser_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1data__parser}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Interface\ for\ data\ parsers.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00017}00017\ \textcolor{stringliteral}{Data\ parser\ parses\ input\ data\ and\ returns\ a\ dictionary\ of\ numpy\ arrays}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00018}00018\ \textcolor{stringliteral}{keyed\ by\ the\ entries\ in\ standard\_fields.py.\ Since\ the\ parser\ parses\ records}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00019}00019\ \textcolor{stringliteral}{to\ numpy\ arrays\ (materialized\ tensors)\ directly,\ it\ is\ used\ to\ read\ data\ for}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00020}00020\ \textcolor{stringliteral}{evaluation/visualization;\ to\ parse\ the\ data\ during\ training,\ DataDecoder\ should}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00021}00021\ \textcolor{stringliteral}{be\ used.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00022}00022\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00025}00025\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00026}00026\ \textcolor{keyword}{from}\ abc\ \textcolor{keyword}{import}\ ABCMeta}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00027}00027\ \textcolor{keyword}{from}\ abc\ \textcolor{keyword}{import}\ abstractmethod}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00028}00028\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1core_1_1data__parser_1_1_data_to_numpy_parser}{00031}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1data__parser_1_1_data_to_numpy_parser}{DataToNumpyParser}}(six.with\_metaclass(ABCMeta,\ object)):}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00032}00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ interface\ for\ data\ parser\ that\ produces\ numpy\ arrays."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00034}00034\ \ \ \textcolor{preprocessor}{@abstractmethod}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00035}\mbox{\hyperlink{classdetection__utils_1_1core_1_1data__parser_1_1_data_to_numpy_parser_ab96d0d34018288c305fb050092d72a7a}{00035}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1data__parser_1_1_data_to_numpy_parser_ab96d0d34018288c305fb050092d72a7a}{parse}}(self,\ input\_data):}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00036}00036\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Parses\ input\ and\ returns\ a\ numpy\ array\ or\ a\ dictionary\ of\ numpy\ arrays.}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00037}00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ \ \ input\_data:\ an\ input\ data}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00040}00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ numpy\ array\ }\textcolor{keywordflow}{or}\ a\ dictionary\ of\ numpy\ arrays\ \textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None},\ \textcolor{keywordflow}{if}\ input}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00043}00043\ \ \ \ \ \ \ cannot\ be\ parsed.}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00044}00044\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{data__parser_8py_source_l00045}00045\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+
+\end{DoxyCode}

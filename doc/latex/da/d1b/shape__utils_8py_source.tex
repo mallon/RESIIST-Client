@@ -1,0 +1,473 @@
+\doxysection{shape\+\_\+utils.\+py}
+\hypertarget{shape__utils_8py_source}{}\label{shape__utils_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/shape\_utils.py@{src/main/resources/processing/video/detections/detection\_utils/utils/shape\_utils.py}}
+\mbox{\hyperlink{shape__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Utils\ used\ to\ manipulate\ tensor\ shapes."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00022}00022\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00025}00025\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ static\_shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00028}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a4242130317b726719d430d77b294373c}{00028}}\ get\_dim\_as\_int\ =\ static\_shape.get\_dim\_as\_int}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00031}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}{00031}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}{\_is\_tensor}}(t):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00032}00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ boolean\ indicating\ whether\ the\ input\ is\ a\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00033}00033\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ to\ be\ tested.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ a\ boolean\ that\ indicates\ whether\ t\ }\textcolor{keywordflow}{is}\ a\ tensor.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00039}00039\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ isinstance(t,\ (tf.Tensor,\ tf.SparseTensor,\ tf.Variable))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00043}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}{00043}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}{\_set\_dim\_0}}(t,\ d0):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00044}00044\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sets\ the\ 0-\/th\ dimension\ of\ the\ input\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00045}00045\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00046}00046\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00047}00047\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00048}00048\ \ \ \ \ d0:\ an\ integer\ indicating\ the\ 0-\/th\ dimension\ of\ the\ input\ tensor.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00050}00050\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00051}00051\ \ \ \ \ the\ tensor\ t\ \textcolor{keyword}{with}\ the\ 0-\/th\ dimension\ set.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00052}00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ t\_shape\ =\ t.get\_shape().as\_list()}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ t\_shape[0]\ =\ d0}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ t.set\_shape(t\_shape)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ t}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00059}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17}{00059}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17}{pad\_tensor}}(t,\ length):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00060}00060\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pads\ the\ input\ tensor\ with\ 0s\ along\ the\ first\ dimension\ up\ to\ the\ length.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00061}00061\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00063}00063\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00064}00064\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00065}00065\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ padding,\ assuming\ length\ <=\ t.shape[0].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00067}00067\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00068}00068\ \ \ \ \ padded\_t:\ the\ padded\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the\ length}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00069}00069\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ padded\_t\ \textcolor{keywordflow}{is}\ set\ to\ length}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00070}00070\ \ \ \ \ \ \ statically.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00071}00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ t\_rank\ =\ tf.rank(t)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ t\_shape\ =\ tf.shape(t)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ t\_d0\ =\ t\_shape[0]}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ pad\_d0\ =\ tf.expand\_dims(length\ -\/\ t\_d0,\ 0)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ pad\_shape\ =\ tf.cond(}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.greater(t\_rank,\ 1),\ }\textcolor{keyword}{lambda}:\ tf.concat([pad\_d0,\ t\_shape[1:]],\ 0),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00078}00078\ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.expand\_dims(length\ -\/\ t\_d0,\ 0))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00079}00079\ \ \ padded\_t\ =\ tf.concat([t,\ tf.zeros(pad\_shape,\ dtype=t.dtype)],\ 0)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00080}00080\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}{\_is\_tensor}}(length):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00081}00081\ \ \ \ \ padded\_t\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}{\_set\_dim\_0}}(padded\_t,\ length)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00082}00082\ \ \ \textcolor{keywordflow}{return}\ padded\_t}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00085}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd}{00085}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd}{clip\_tensor}}(t,\ length):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00086}00086\ \ \ \textcolor{stringliteral}{"{}"{}"{}Clips\ the\ input\ tensor\ along\ the\ first\ dimension\ up\ to\ the\ length.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00087}00087\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00088}00088\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00090}00090\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00091}00091\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ clipping,\ assuming\ length\ <=\ t.shape[0].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00093}00093\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00094}00094\ \ \ \ \ clipped\_t:\ the\ clipped\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00095}00095\ \ \ \ \ \ \ length\ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ clipped\_t\ \textcolor{keywordflow}{is}\ set\ to\ length}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00096}00096\ \ \ \ \ \ \ statically.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00097}00097\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00098}00098\ \textcolor{stringliteral}{\ \ clipped\_t\ =\ tf.gather(t,\ tf.range(length))}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00099}00099\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}{\_is\_tensor}}(length):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00100}00100\ \ \ \ \ clipped\_t\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}{\_set\_dim\_0}}(clipped\_t,\ length)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00101}00101\ \ \ \textcolor{keywordflow}{return}\ clipped\_t}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00104}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259}{00104}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259}{pad\_or\_clip\_tensor}}(t,\ length):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00105}00105\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ or\ clip\ the\ input\ tensor\ along\ the\ first\ dimension.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00106}00106\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00107}00107\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00109}00109\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00110}00110\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ processing.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00112}00112\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00113}00113\ \ \ \ \ processed\_t:\ the\ processed\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00114}00114\ \ \ \ \ \ \ length\ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ the\ processed\ tensor\ \textcolor{keywordflow}{is}\ set}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00115}00115\ \ \ \ \ \ \ to\ length\ statically.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00116}00116\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47}{pad\_or\_clip\_nd}}(t,\ [length]\ +\ t.shape.as\_list()[1:])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00120}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47}{00120}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47}{pad\_or\_clip\_nd}}(tensor,\ output\_shape):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00121}00121\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ or\ Clip\ given\ tensor\ to\ the\ output\ shape.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00122}00122\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ tensor:\ Input\ tensor\ to\ pad\ }\textcolor{keywordflow}{or}\ clip.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00125}00125\ \ \ \ \ output\_shape:\ A\ list\ of\ integers\ /\ scalar\ tensors\ (\textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dynamic\ dim)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00126}00126\ \ \ \ \ \ \ representing\ the\ size\ to\ pad\ \textcolor{keywordflow}{or}\ clip\ each\ dimension\ of\ the\ input\ tensor.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00128}00128\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00129}00129\ \ \ \ \ Input\ tensor\ padded\ \textcolor{keywordflow}{and}\ clipped\ to\ the\ output\ shape.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00130}00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00131}00131\ \textcolor{stringliteral}{\ \ tensor\_shape\ =\ tf.shape(tensor)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ clip\_size\ =\ [}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00133}00133\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.where(tensor\_shape[i]\ -\/\ shape\ >\ 0,\ shape,\ -\/1)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00134}00134\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{keywordflow}{if}\ shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ -\/1\ \textcolor{keywordflow}{for}\ i,\ shape\ \textcolor{keywordflow}{in}\ enumerate(output\_shape)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00135}00135\ \ \ ]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00136}00136\ \ \ clipped\_tensor\ =\ tf.slice(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00137}00137\ \ \ \ \ \ \ tensor,}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00138}00138\ \ \ \ \ \ \ begin=tf.zeros(len(clip\_size),\ dtype=tf.int32),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00139}00139\ \ \ \ \ \ \ size=clip\_size)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00141}00141\ \ \ \textcolor{comment}{\#\ Pad\ tensor\ if\ the\ shape\ of\ clipped\ tensor\ is\ smaller\ than\ the\ expected}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00142}00142\ \ \ \textcolor{comment}{\#\ shape.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00143}00143\ \ \ clipped\_tensor\_shape\ =\ tf.shape(clipped\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00144}00144\ \ \ trailing\_paddings\ =\ [}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00145}00145\ \ \ \ \ \ \ shape\ -\/\ clipped\_tensor\_shape[i]\ \textcolor{keywordflow}{if}\ shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ 0}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00146}00146\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ shape\ \textcolor{keywordflow}{in}\ enumerate(output\_shape)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00147}00147\ \ \ ]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00148}00148\ \ \ paddings\ =\ tf.stack(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00149}00149\ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ tf.zeros(len(trailing\_paddings),\ dtype=tf.int32),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ trailing\_paddings}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00152}00152\ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00153}00153\ \ \ \ \ \ \ axis=1)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00154}00154\ \ \ padded\_tensor\ =\ tf.pad(clipped\_tensor,\ paddings=paddings)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00155}00155\ \ \ output\_static\_shape\ =\ [}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00156}00156\ \ \ \ \ \ \ dim\ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(dim,\ tf.Tensor)\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ output\_shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00157}00157\ \ \ ]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00158}00158\ \ \ padded\_tensor.set\_shape(output\_static\_shape)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00159}00159\ \ \ \textcolor{keywordflow}{return}\ padded\_tensor}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00162}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}{00162}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}{combined\_static\_and\_dynamic\_shape}}(tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00163}00163\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ containing\ static\ and\ dynamic\ values\ for\ the\ dimensions.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00164}00164\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00165}00165\ \textcolor{stringliteral}{\ \ Returns\ a\ list\ of\ static\ }\textcolor{keywordflow}{and}\ dynamic\ values\ \textcolor{keywordflow}{for}\ shape\ dimensions.\ This\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00166}00166\ \ \ useful\ to\ preserve\ static\ shapes\ when\ available\ \textcolor{keywordflow}{in}\ reshape\ operation.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00168}00168\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00169}00169\ \ \ \ \ tensor:\ A\ tensor\ of\ any\ type.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00171}00171\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00172}00172\ \ \ \ \ A\ list\ of\ size\ tensor.shape.ndims\ containing\ integers\ \textcolor{keywordflow}{or}\ a\ scalar\ tensor.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00173}00173\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ static\_tensor\_shape\ =\ tensor.shape.as\_list()}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00175}00175\ \textcolor{stringliteral}{\ \ dynamic\_tensor\_shape\ =\ tf.shape(tensor)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00176}00176\ \textcolor{stringliteral}{\ \ combined\_shape\ =\ []}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00177}00177\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ index,\ dim\ \textcolor{keywordflow}{in}\ enumerate(static\_tensor\_shape):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{if}\ dim\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00179}00179\ \ \ \ \ \ \ combined\_shape.append(dim)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00181}00181\ \ \ \ \ \ \ combined\_shape.append(dynamic\_tensor\_shape[index])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00182}00182\ \ \ \textcolor{keywordflow}{return}\ combined\_shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00185}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_adbdc407bf10ad7dc672f5ac1ae2404c1}{00185}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_adbdc407bf10ad7dc672f5ac1ae2404c1}{static\_or\_dynamic\_map\_fn}}(fn,\ elems,\ dtype=None,}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=32,\ back\_prop=True):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00187}00187\ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ map\_fn\ as\ a\ (static)\ for\ loop\ when\ possible.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00188}00188\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00189}00189\ \textcolor{stringliteral}{\ \ This\ function\ rewrites\ the\ map\_fn\ }\textcolor{keyword}{as}\ an\ explicit\ unstack\ input\ -\/>\ \textcolor{keywordflow}{for}\ loop}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00190}00190\ \ \ over\ function\ calls\ -\/>\ stack\ result\ combination.\ \ This\ allows\ our\ graphs\ to}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00191}00191\ \ \ be\ acyclic\ when\ the\ batch\ size\ \textcolor{keywordflow}{is}\ static.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00192}00192\ \ \ For\ comparison,\ see\ https://www.tensorflow.org/api\_docs/python/tf/map\_fn.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00194}00194\ \ \ Note\ that\ \`{}static\_or\_dynamic\_map\_fn\`{}\ currently\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ *fully*\ interchangeable}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00195}00195\ \ \ \textcolor{keyword}{with}\ the\ default\ tf.map\_fn\ function\ \textcolor{keyword}{as}\ it\ does\ \textcolor{keywordflow}{not}\ accept\ nested\ inputs\ (only}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00196}00196\ \ \ Tensors\ \textcolor{keywordflow}{or}\ lists\ of\ Tensors).\ \ Likewise,\ the\ output\ of\ \`{}fn\`{}\ can\ only\ be\ a}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00197}00197\ \ \ Tensor\ \textcolor{keywordflow}{or}\ list\ of\ Tensors.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00199}00199\ \ \ TODO(jonathanhuang):\ make\ this\ function\ fully\ interchangeable\ \textcolor{keyword}{with}\ tf.map\_fn.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00201}00201\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00202}00202\ \ \ \ \ fn:\ The\ callable\ to\ be\ performed.\ It\ accepts\ one\ argument,\ which\ will\ have}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00203}00203\ \ \ \ \ \ \ the\ same\ structure\ \textcolor{keyword}{as}\ elems.\ Its\ output\ must\ have\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00204}00204\ \ \ \ \ \ \ same\ structure\ \textcolor{keyword}{as}\ elems.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00205}00205\ \ \ \ \ elems:\ A\ tensor\ \textcolor{keywordflow}{or}\ list\ of\ tensors,\ each\ of\ which\ will}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00206}00206\ \ \ \ \ \ \ be\ unpacked\ along\ their\ first\ dimension.\ The\ sequence\ of\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00207}00207\ \ \ \ \ \ \ resulting\ slices\ will\ be\ applied\ to\ fn.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00208}00208\ \ \ \ \ dtype:\ \ (optional)\ The\ output\ type(s)\ of\ fn.\ If\ fn\ returns\ a\ structure\ of}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00209}00209\ \ \ \ \ \ \ Tensors\ differing\ \textcolor{keyword}{from}\ the\ structure\ of\ elems,\ then\ dtype\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ optional}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00210}00210\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ must\ have\ the\ same\ structure\ \textcolor{keyword}{as}\ the\ output\ of\ fn.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00211}00211\ \ \ \ \ parallel\_iterations:\ (optional)\ number\ of\ batch\ items\ to\ process\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00212}00212\ \ \ \ \ \ \ parallel.\ \ This\ flag\ \textcolor{keywordflow}{is}\ only\ used\ \textcolor{keywordflow}{if}\ the\ native\ tf.map\_fn\ \textcolor{keywordflow}{is}\ used}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00213}00213\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ defaults\ to\ 32\ instead\ of\ 10\ (unlike\ the\ standard\ tf.map\_fn\ default).}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00214}00214\ \ \ \ \ back\_prop:\ (optional)\ \textcolor{keyword}{True}\ enables\ support\ \textcolor{keywordflow}{for}\ back\ propagation.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00215}00215\ \ \ \ \ \ \ This\ flag\ \textcolor{keywordflow}{is}\ only\ used\ \textcolor{keywordflow}{if}\ the\ native\ tf.map\_fn\ \textcolor{keywordflow}{is}\ used.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00217}00217\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00218}00218\ \ \ \ \ A\ tensor\ \textcolor{keywordflow}{or}\ sequence\ of\ tensors.\ Each\ tensor\ packs\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00219}00219\ \ \ \ \ results\ of\ applying\ fn\ to\ tensors\ unpacked\ \textcolor{keyword}{from}\ elems\ along\ the\ first}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00220}00220\ \ \ \ \ dimension,\ \textcolor{keyword}{from}\ first\ to\ last.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00221}00221\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00222}00222\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}elems\`{}\ a\ Tensor\ \textcolor{keywordflow}{or}\ a\ list\ of\ Tensors.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00223}00223\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}fn\`{}\ does\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{return}\ a\ Tensor\ \textcolor{keywordflow}{or}\ list\ of\ Tensors}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00224}00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00225}00225\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(elems,\ list):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00226}00226\ \ \ \ \ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00227}00227\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(elem,\ tf.Tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'})}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00230}00230\ \ \ \ \ elem\_shapes\ =\ [elem.shape.as\_list()\ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00231}00231\ \ \ \ \ \textcolor{comment}{\#\ Fall\ back\ on\ tf.map\_fn\ if\ shapes\ of\ each\ entry\ of\ \`{}elems`\ are\ None\ or\ fail}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00232}00232\ \ \ \ \ \textcolor{comment}{\#\ to\ all\ be\ the\ same\ size\ along\ the\ batch\ dimension.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00233}00233\ \ \ \ \ \textcolor{keywordflow}{for}\ elem\_shape\ \textcolor{keywordflow}{in}\ elem\_shapes:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00234}00234\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ elem\_shape\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ elem\_shape[0]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ elem\_shape[0]\ !=\ elem\_shapes[0][0]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.map\_fn(fn,\ elems,\ dtype,\ parallel\_iterations,\ back\_prop)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00237}00237\ \ \ \ \ arg\_tuples\ =\ zip(*[tf.unstack(elem)\ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00238}00238\ \ \ \ \ outputs\ =\ [fn(arg\_tuple)\ \textcolor{keywordflow}{for}\ arg\_tuple\ \textcolor{keywordflow}{in}\ arg\_tuples]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00239}00239\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00240}00240\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(elems,\ tf.Tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00241}00241\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'})}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00242}00242\ \ \ \ \ elems\_shape\ =\ elems.shape.as\_list()}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ elems\_shape\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ elems\_shape[0]:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00244}00244\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.map\_fn(fn,\ elems,\ dtype,\ parallel\_iterations,\ back\_prop)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00245}00245\ \ \ \ \ outputs\ =\ [fn(arg)\ \textcolor{keywordflow}{for}\ arg\ \textcolor{keywordflow}{in}\ tf.unstack(elems)]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00246}00246\ \ \ \textcolor{comment}{\#\ Stack\ \`{}outputs`,\ which\ is\ a\ list\ of\ Tensors\ or\ list\ of\ lists\ of\ Tensors}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00247}00247\ \ \ \textcolor{keywordflow}{if}\ all([isinstance(output,\ tf.Tensor)\ \textcolor{keywordflow}{for}\ output\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.stack(outputs)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00249}00249\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00250}00250\ \ \ \ \ \textcolor{keywordflow}{if}\ all([isinstance(output,\ list)\ \textcolor{keywordflow}{for}\ output\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00251}00251\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ all([all(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ [isinstance(entry,\ tf.Tensor)\ \textcolor{keywordflow}{for}\ entry\ \textcolor{keywordflow}{in}\ output\_list])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ output\_list\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [tf.stack(output\_tuple)\ \textcolor{keywordflow}{for}\ output\_tuple\ \textcolor{keywordflow}{in}\ zip(*outputs)]}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00255}00255\ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}fn`\ should\ return\ a\ Tensor\ or\ a\ list\ of\ Tensors.'})}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00258}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a0ea44d81f5ae2db5c0cbe745f0b2be12}{00258}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a0ea44d81f5ae2db5c0cbe745f0b2be12}{check\_min\_image\_dim}}(min\_dim,\ image\_tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00259}00259\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ that\ the\ image\ width/height\ are\ greater\ than\ some\ number.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00260}00260\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00261}00261\ \textcolor{stringliteral}{\ \ This\ function\ }\textcolor{keywordflow}{is}\ used\ to\ check\ that\ the\ width\ \textcolor{keywordflow}{and}\ height\ of\ an\ image\ are\ above}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00262}00262\ \ \ a\ certain\ value.\ If\ the\ image\ shape\ \textcolor{keywordflow}{is}\ static,\ this\ function\ will\ perform\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00263}00263\ \ \ check\ at\ graph\ construction\ time.\ Otherwise,\ \textcolor{keywordflow}{if}\ the\ image\ shape\ varies,\ an}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00264}00264\ \ \ Assertion\ control\ dependency\ will\ be\ added\ to\ the\ graph.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00266}00266\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00267}00267\ \ \ \ \ min\_dim:\ The\ minimum\ number\ of\ pixels\ along\ the\ width\ \textcolor{keywordflow}{and}\ height\ of\ the}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ image.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00269}00269\ \ \ \ \ image\_tensor:\ The\ image\ tensor\ to\ check\ size\ \textcolor{keywordflow}{for}.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00271}00271\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00272}00272\ \ \ \ \ If\ \`{}image\_tensor\`{}\ has\ dynamic\ size,\ \textcolor{keywordflow}{return}\ \`{}image\_tensor\`{}\ \textcolor{keyword}{with}\ a\ Assert}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00273}00273\ \ \ \ \ control\ dependency.\ Otherwise\ returns\ image\_tensor.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00275}00275\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00276}00276\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}image\_tensor\`{}\textcolor{stringliteral}{'s'}\ width\ \textcolor{keywordflow}{or}\ height\ \textcolor{keywordflow}{is}\ smaller\ than\ \`{}min\_dim\`{}.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00277}00277\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00278}00278\ \textcolor{stringliteral}{\ \ image\_shape\ =\ image\_tensor.get\_shape()}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00279}00279\ \textcolor{stringliteral}{\ \ image\_height\ =\ static\_shape.get\_height(image\_shape)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00280}00280\ \textcolor{stringliteral}{\ \ image\_width\ =\ static\_shape.get\_width(image\_shape)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00281}00281\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ image\_height\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ image\_width\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00282}00282\ \ \ \ \ shape\_assert\ =\ tf.Assert(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ tf.logical\_and(tf.greater\_equal(tf.shape(image\_tensor)[1],\ min\_dim),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.greater\_equal(tf.shape(image\_tensor)[2],\ min\_dim)),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'image\ size\ must\ be\ >=\ \{\}\ in\ both\ height\ and\ width.'}.format(min\_dim)])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00286}00286\ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([shape\_assert]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00287}00287\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.identity(image\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00289}00289\ \ \ \textcolor{keywordflow}{if}\ image\_height\ <\ min\_dim\ \textcolor{keywordflow}{or}\ image\_width\ <\ min\_dim:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00290}00290\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image\ size\ must\ be\ >=\ \%d\ in\ both\ height\ and\ width;\ image\ dim\ =\ \%d,\%d'}\ \%}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ (min\_dim,\ image\_height,\ image\_width))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00294}00294\ \ \ \textcolor{keywordflow}{return}\ image\_tensor}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00297}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2f267cce441a3d8f39062fe394ea4324}{00297}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2f267cce441a3d8f39062fe394ea4324}{assert\_shape\_equal}}(shape\_a,\ shape\_b):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00298}00298\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ that\ shape\_a\ and\ shape\_b\ are\ equal.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00299}00299\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00300}00300\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ static,\ raises\ a\ ValueError\ when\ the\ shapes}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00301}00301\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00302}00302\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00303}00303\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ dynamic,\ raises\ a\ tf\ InvalidArgumentError\ when\ the\ shapes}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00304}00304\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00305}00305\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00306}00306\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00307}00307\ \textcolor{stringliteral}{\ \ \ \ shape\_a:\ a\ list\ containing\ shape\ of\ the\ first\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00308}00308\ \textcolor{stringliteral}{\ \ \ \ shape\_b:\ a\ list\ containing\ shape\ of\ the\ second\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00309}00309\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00310}00310\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00311}00311\ \textcolor{stringliteral}{\ \ \ \ Either\ a\ tf.no\_op()\ when\ shapes\ are\ all\ static\ }\textcolor{keywordflow}{and}\ a\ tf.assert\_equal()\ op}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00312}00312\ \ \ \ \ when\ the\ shapes\ are\ dynamic.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00314}00314\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00315}00315\ \ \ \ \ ValueError:\ When\ shapes\ are\ both\ static\ \textcolor{keywordflow}{and}\ unequal.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00316}00316\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00317}00317\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ (all(isinstance(dim,\ int)\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ shape\_a)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00318}00318\ \ \ \ \ \ \ all(isinstance(dim,\ int)\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ shape\_b)):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00319}00319\ \ \ \ \ \textcolor{keywordflow}{if}\ shape\_a\ !=\ shape\_b:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00320}00320\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unequal\ shapes\ \{\},\ \{\}'}.format(shape\_a,\ shape\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{else}:\ \textcolor{keywordflow}{return}\ tf.no\_op()}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00322}00322\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.assert\_equal(shape\_a,\ shape\_b)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00326}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ac0ee78b7cd7535a2604b585f6067b07a}{00326}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ac0ee78b7cd7535a2604b585f6067b07a}{assert\_shape\_equal\_along\_first\_dimension}}(shape\_a,\ shape\_b):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00327}00327\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ that\ shape\_a\ and\ shape\_b\ are\ the\ same\ along\ the\ 0th-\/dimension.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00328}00328\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00329}00329\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ static,\ raises\ a\ ValueError\ when\ the\ shapes}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00330}00330\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00331}00331\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ dynamic,\ raises\ a\ tf\ InvalidArgumentError\ when\ the\ shapes}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00333}00333\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00334}00334\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00335}00335\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00336}00336\ \textcolor{stringliteral}{\ \ \ \ shape\_a:\ a\ list\ containing\ shape\ of\ the\ first\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00337}00337\ \textcolor{stringliteral}{\ \ \ \ shape\_b:\ a\ list\ containing\ shape\ of\ the\ second\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00338}00338\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00339}00339\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00340}00340\ \textcolor{stringliteral}{\ \ \ \ Either\ a\ tf.no\_op()\ when\ shapes\ are\ all\ static\ }\textcolor{keywordflow}{and}\ a\ tf.assert\_equal()\ op}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00341}00341\ \ \ \ \ when\ the\ shapes\ are\ dynamic.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00343}00343\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00344}00344\ \ \ \ \ ValueError:\ When\ shapes\ are\ both\ static\ \textcolor{keywordflow}{and}\ unequal.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00345}00345\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00346}00346\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(shape\_a[0],\ int)\ \textcolor{keywordflow}{and}\ isinstance(shape\_b[0],\ int):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00347}00347\ \ \ \ \ \textcolor{keywordflow}{if}\ shape\_a[0]\ !=\ shape\_b[0]:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00348}00348\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unequal\ first\ dimension\ \{\},\ \{\}'}.format(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ shape\_a[0],\ shape\_b[0]))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00350}00350\ \ \ \ \ \textcolor{keywordflow}{else}:\ \textcolor{keywordflow}{return}\ tf.no\_op()}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00351}00351\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00352}00352\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.assert\_equal(shape\_a[0],\ shape\_b[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00355}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_aec335b009bd21b97b82c51d993591424}{00355}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_aec335b009bd21b97b82c51d993591424}{assert\_box\_normalized}}(boxes,\ maximum\_normalized\_coordinate=1.1):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00356}00356\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ the\ input\ box\ tensor\ is\ normalized.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00357}00357\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00358}00358\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00359}00359\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ tensor\ of\ shape\ [N,\ 4]\ where\ N\ }\textcolor{keywordflow}{is}\ the\ number\ of\ boxes.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00360}00360\ \ \ \ \ maximum\_normalized\_coordinate:\ Maximum\ coordinate\ value\ to\ be\ considered}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00361}00361\ \ \ \ \ \ \ \textcolor{keyword}{as}\ normalized,\ default\ to\ 1.1.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00363}00363\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00364}00364\ \ \ \ \ a\ tf.Assert\ op\ which\ fails\ when\ the\ input\ box\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ normalized.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00366}00366\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00367}00367\ \ \ \ \ ValueError:\ When\ the\ input\ box\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ normalized.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00368}00368\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00369}00369\ \textcolor{stringliteral}{\ \ box\_minimum\ =\ tf.reduce\_min(boxes)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00370}00370\ \textcolor{stringliteral}{\ \ box\_maximum\ =\ tf.reduce\_max(boxes)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00371}00371\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.Assert(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00372}00372\ \ \ \ \ \ \ tf.logical\_and(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ tf.less\_equal(box\_maximum,\ maximum\_normalized\_coordinate),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ tf.greater\_equal(box\_minimum,\ 0)),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00375}00375\ \ \ \ \ \ \ [boxes])}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00378}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}{00378}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}{flatten\_dimensions}}(inputs,\ first,\ last):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00379}00379\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flattens\ \`{}K-\/d\`{}\ tensor\ along\ [first,\ last)\ dimensions.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00380}00380\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00381}00381\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00382}00382\ \ \ [D0,\ D1,\ ...,\ D(first)\ *\ D(first+1)\ *\ ...\ *\ D(last-\/1),\ D(last),\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00384}00384\ \ \ Example:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00385}00385\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ initial\ shape\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00386}00386\ \ \ new\_tensor\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}{flatten\_dimensions}}(inputs,\ last=4,\ first=2)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00387}00387\ \ \ new\_tensor.shape\ -\/>\ [10,\ 100,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00389}00389\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00390}00390\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00391}00391\ \ \ \ \ first:\ first\ value\ \textcolor{keywordflow}{for}\ the\ range\ of\ dimensions\ to\ flatten.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00392}00392\ \ \ \ \ last:\ last\ value\ \textcolor{keywordflow}{for}\ the\ range\ of\ dimensions\ to\ flatten.\ Note\ that\ the\ last}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00393}00393\ \ \ \ \ \ \ dimension\ itself\ \textcolor{keywordflow}{is}\ excluded.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00395}00395\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00396}00396\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00397}00397\ \ \ \ \ [D0,\ D1,\ ...,\ D(first)\ *\ D(first\ +\ 1)\ *\ ...\ *\ D(last\ -\/\ 1),\ D(last),\ ...,}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00398}00398\ \ \ \ \ \ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00400}00400\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00401}00401\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ first\ \textcolor{keywordflow}{and}\ last\ arguments\ are\ incorrect.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00402}00402\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00403}00403\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ first\ >=\ inputs.shape.ndims\ \textcolor{keywordflow}{or}\ last\ >\ inputs.shape.ndims:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00404}00404\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}first`\ and\ \`{}last`\ must\ be\ less\ than\ inputs.shape.ndims.\ '}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'found\ \{\}\ and\ \{\}\ respectively\ while\ ndims\ is\ \{\}'}.format(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ first,\ last,\ inputs.shape.ndims))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00407}00407\ \ \ shape\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}{combined\_static\_and\_dynamic\_shape}}(inputs)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00408}00408\ \ \ flattened\_dim\_prod\ =\ tf.reduce\_prod(shape[first:last],}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keepdims=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00410}00410\ \ \ new\_shape\ =\ tf.concat([shape[:first],\ flattened\_dim\_prod,}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape[last:]],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00412}00412\ \ \ \textcolor{keywordflow}{return}\ tf.reshape(inputs,\ new\_shape)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00415}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5}{00415}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5}{flatten\_first\_n\_dimensions}}(inputs,\ n):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00416}00416\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flattens\ \`{}K-\/d\`{}\ tensor\ along\ first\ n\ dimension\ to\ be\ a\ \`{}(K-\/n+1)-\/d\`{}\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00417}00417\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00418}00418\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00419}00419\ \ \ [D0\ *\ D1\ *\ ...\ *\ D(n-\/1),\ D(n),\ ...\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00421}00421\ \ \ Example:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00422}00422\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ initial\ shape\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00423}00423\ \ \ new\_tensor\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5}{flatten\_first\_n\_dimensions}}(inputs,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00424}00424\ \ \ new\_tensor.shape\ -\/>\ [50,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00426}00426\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00427}00427\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00428}00428\ \ \ \ \ n:\ The\ number\ of\ dimensions\ to\ flatten.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00430}00430\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00431}00431\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0\ *\ D1\ *\ ...\ *\ D(n-\/1),\ D(n),\ ...\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00432}00432\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00433}00433\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}{flatten\_dimensions}}(inputs,\ first=0,\ last=n)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00435}00435\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00436}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b}{00436}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b}{expand\_first\_dimension}}(inputs,\ dims):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00437}00437\ \ \ \textcolor{stringliteral}{"{}"{}"{}Expands\ \`{}K-\/d\`{}\ tensor\ along\ first\ dimension\ to\ be\ a\ \`{}(K+n-\/1)-\/d\`{}\ tensor.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00438}00438\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00439}00439\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00440}00440\ \ \ [dims[0],\ dims[1],\ ...,\ dims[-\/1],\ D1,\ ...,\ D(k-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00442}00442\ \ \ Example:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00443}00443\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [50,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00444}00444\ \ \ new\_tensor\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b}{expand\_first\_dimension}}(inputs,\ [10,\ 5]).}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00445}00445\ \ \ new\_tensor.shape\ -\/>\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00447}00447\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00448}00448\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00449}00449\ \ \ \ \ dims:\ List\ \textcolor{keyword}{with}\ new\ dimensions\ to\ expand\ first\ axis\ into.\ The\ length\ of}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00450}00450\ \ \ \ \ \ \ \`{}dims\`{}\ \textcolor{keywordflow}{is}\ typically\ 2\ \textcolor{keywordflow}{or}\ larger.}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00452}00452\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00453}00453\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape\ [dims[0],\ dims[1],\ ...,\ dims[-\/1],\ D1,\ ...,\ D(k-\/1)].}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00454}00454\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00455}00455\ \textcolor{stringliteral}{\ \ inputs\_shape\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}{combined\_static\_and\_dynamic\_shape}}(inputs)}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00456}00456\ \textcolor{stringliteral}{\ \ expanded\_shape\ =\ tf.stack(dims\ +\ inputs\_shape[1:])}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00457}00457\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00458}00458\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Verify\ that\ it\ is\ possible\ to\ expand\ the\ first\ axis\ of\ inputs.}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00459}00459\ \ \ assert\_op\ =\ tf.assert\_equal(}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00460}00460\ \ \ \ \ \ \ inputs\_shape[0],\ tf.reduce\_prod(tf.stack(dims)),}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00461}00461\ \ \ \ \ \ \ message=(\textcolor{stringliteral}{'First\ dimension\ of\ \`{}inputs`\ cannot\ be\ expanded\ into\ provided\ '}}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\`{}dims`'}))}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00463}00463\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00464}00464\ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([assert\_op]):}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00465}00465\ \ \ \ \ inputs\_reshaped\ =\ tf.reshape(inputs,\ expanded\_shape)}
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{shape__utils_8py_source_l00467}00467\ \ \ \textcolor{keywordflow}{return}\ inputs\_reshaped}
+
+\end{DoxyCode}

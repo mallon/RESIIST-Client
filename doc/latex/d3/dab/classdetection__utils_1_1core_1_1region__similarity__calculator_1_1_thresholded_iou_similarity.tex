@@ -1,0 +1,186 @@
+\doxysection{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity}{}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity}\index{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{db/d4a/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{d2/d52/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, iou\+\_\+threshold=0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator}{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Region\+Similarity\+Calculator}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a3ba30b3ae84c561d50ccd1547b886266}{compare}} (self, boxlist1, boxlist2, scope=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e}{\+\_\+compare}} (self, boxlist1, boxlist2)
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{\+\_\+compare}} (self, boxlist1, boxlist2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb}{\+\_\+iou\+\_\+threshold}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Class to compute similarity based on thresholded IOU and score.
+
+This class computes pairwise similarity between two BoxLists based on IOU and
+a 'score' present in boxlist1. If IOU > threshold, then the entry in the
+output pairwise tensor will contain `score`, otherwise 0.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00122}{122}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1} 
+\index{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{iou\+\_\+threshold = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize the ThresholdedIouSimilarity.
+
+Args:
+  iou_threshold: For a given pair of boxes, if the IOU is > iou_threshold,
+    then the comparison result will be the foreground probability of
+    the first box, otherwise it will be zero.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00130}{130}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ iou\_threshold=0):}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialize\ the\ ThresholdedIouSimilarity.}}
+\DoxyCodeLine{00132\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ \ \ iou\_threshold:\ For\ a\ given\ pair\ of\ boxes,\ }\textcolor{keywordflow}{if}\ the\ IOU\ \textcolor{keywordflow}{is}\ >\ iou\_threshold,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ then\ the\ comparison\ result\ will\ be\ the\ foreground\ probability\ of}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ the\ first\ box,\ otherwise\ it\ will\ be\ zero.}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00138\ \textcolor{stringliteral}{\ \ \ \ super(ThresholdedIouSimilarity,\ self).\_\_init\_\_()}}
+\DoxyCodeLine{00139\ \textcolor{stringliteral}{\ \ \ \ self.\_iou\_threshold\ =\ iou\_threshold}}
+\DoxyCodeLine{00140\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{d3/dab/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{d3/dab/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab395b86f806942cf31ec3f16c81b34f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e} 
+\index{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}!\_compare@{\_compare}}
+\index{\_compare@{\_compare}!detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}}
+\doxysubsubsection{\texorpdfstring{\_compare()}{\_compare()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity.\+\_\+compare (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{boxlist1,  }\item[{}]{boxlist2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute pairwise IOU similarity between the two BoxLists and score.
+
+Args:
+  boxlist1: BoxList holding N boxes. Must have a score field.
+  boxlist2: BoxList holding M boxes.
+
+Returns:
+  A tensor with shape [N, M] representing scores threholded by pairwise
+  iou scores.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_region_similarity_calculator_a705260979a0c5f70e81bd09b73c10ca7}{detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Region\+Similarity\+Calculator}}.
+
+
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00141}{141}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{def\ }\_compare(self,\ boxlist1,\ boxlist2):}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ IOU\ similarity\ between\ the\ two\ BoxLists\ and\ score.}}
+\DoxyCodeLine{00143\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00144\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00145\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.\ Must\ have\ a\ score\ field.}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}}
+\DoxyCodeLine{00147\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00148\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00149\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ scores\ threholded\ by\ pairwise}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ iou\ scores.}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ \ \ ious\ =\ box\_list\_ops.iou(boxlist1,\ boxlist2)}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{\ \ \ \ scores\ =\ boxlist1.get\_field(fields.BoxListFields.scores)}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ \ \ scores\ =\ tf.expand\_dims(scores,\ axis=1)}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\ \ \ \ row\_replicated\_scores\ =\ tf.tile(scores,\ [1,\ tf.shape(ious)[-\/1]])}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{\ \ \ \ thresholded\_ious\ =\ tf.where(ious\ >\ self.\_iou\_threshold,}}
+\DoxyCodeLine{00157\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ row\_replicated\_scores,\ tf.zeros\_like(ious))}}
+\DoxyCodeLine{00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00159\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ thresholded\_ious}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dab/classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_a08d97539ee2915847711a431c3575f8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb}\label{classdetection__utils_1_1core_1_1region__similarity__calculator_1_1_thresholded_iou_similarity_ab06460831217f52331a49cb8550515eb} 
+\index{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}!\_iou\_threshold@{\_iou\_threshold}}
+\index{\_iou\_threshold@{\_iou\_threshold}!detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity@{detection\_utils.core.region\_similarity\_calculator.ThresholdedIouSimilarity}}
+\doxysubsubsection{\texorpdfstring{\_iou\_threshold}{\_iou\_threshold}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+region\+\_\+similarity\+\_\+calculator.\+Thresholded\+Iou\+Similarity.\+\_\+iou\+\_\+threshold\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{region__similarity__calculator_8py_source_l00139}{139}} of file \mbox{\hyperlink{region__similarity__calculator_8py_source}{region\+\_\+similarity\+\_\+calculator.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{region__similarity__calculator_8py}{region\+\_\+similarity\+\_\+calculator.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,1070 @@
+\doxysection{visualization\+\_\+utils.\+py}
+\hypertarget{visualization__utils_8py_source}{}\label{visualization__utils_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/visualization\_utils.py@{src/main/resources/processing/video/detections/detection\_utils/utils/visualization\_utils.py}}
+\mbox{\hyperlink{visualization__utils_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}A\ set\ of\ functions\ that\ are\ used\ for\ visualization.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00018}00018\ \textcolor{stringliteral}{These\ functions\ often\ receive\ an\ image,\ perform\ some\ visualization\ on\ the\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00019}00019\ \textcolor{stringliteral}{The\ functions\ do\ not\ return\ a\ value,\ instead\ they\ modify\ the\ image\ itself.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00020}00020\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00022}00022\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00026}00026\ \textcolor{keyword}{import}\ abc}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00027}00027\ \textcolor{keyword}{import}\ collections}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00028}00028\ \textcolor{comment}{\#\ Set\ headless-\/friendly\ backend.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00029}00029\ \textcolor{keyword}{import}\ matplotlib;\ matplotlib.use(\textcolor{stringliteral}{'Agg'})\ \ \textcolor{comment}{\#\ pylint:\ disable=multiple-\/statements}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00030}00030\ \textcolor{keyword}{import}\ matplotlib.pyplot\ \textcolor{keyword}{as}\ plt\ \ \textcolor{comment}{\#\ pylint:\ disable=g-\/import-\/not-\/at-\/top}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00031}00031\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00032}00032\ \textcolor{keyword}{import}\ PIL.Image\ \textcolor{keyword}{as}\ Image}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00033}00033\ \textcolor{keyword}{import}\ PIL.ImageColor\ \textcolor{keyword}{as}\ ImageColor}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00034}00034\ \textcolor{keyword}{import}\ PIL.ImageDraw\ \textcolor{keyword}{as}\ ImageDraw}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00035}00035\ \textcolor{keyword}{import}\ PIL.ImageFont\ \textcolor{keyword}{as}\ ImageFont}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00036}00036\ \textcolor{keyword}{import}\ six}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00037}00037\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00038}00038\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ zip}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00039}00039\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00041}00041\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1core}{detection\_utils.core}}\ \textcolor{keyword}{import}\ standard\_fields\ \textcolor{keyword}{as}\ fields}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00042}00042\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils}{detection\_utils.utils}}\ \textcolor{keyword}{import}\ shape\_utils}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00044}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_acb7f2875c77fc214f9b318c4e528ef7c}{00044}}\ \_TITLE\_LEFT\_MARGIN\ =\ 10}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00045}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aef982c82b683f01cada807f5c3ee44b5}{00045}}\ \_TITLE\_TOP\_MARGIN\ =\ 10}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00046}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a87ee9f18825dfebbf697c98df9c9365e}{00046}}\ STANDARD\_COLORS\ =\ [}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00047}00047\ \ \ \ \ \textcolor{stringliteral}{'AliceBlue'},\ \textcolor{stringliteral}{'Chartreuse'},\ \textcolor{stringliteral}{'Aqua'},\ \textcolor{stringliteral}{'Aquamarine'},\ \textcolor{stringliteral}{'Azure'},\ \textcolor{stringliteral}{'Beige'},\ \textcolor{stringliteral}{'Bisque'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00048}00048\ \ \ \ \ \textcolor{stringliteral}{'BlanchedAlmond'},\ \textcolor{stringliteral}{'BlueViolet'},\ \textcolor{stringliteral}{'BurlyWood'},\ \textcolor{stringliteral}{'CadetBlue'},\ \textcolor{stringliteral}{'AntiqueWhite'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00049}00049\ \ \ \ \ \textcolor{stringliteral}{'Chocolate'},\ \textcolor{stringliteral}{'Coral'},\ \textcolor{stringliteral}{'CornflowerBlue'},\ \textcolor{stringliteral}{'Cornsilk'},\ \textcolor{stringliteral}{'Crimson'},\ \textcolor{stringliteral}{'Cyan'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00050}00050\ \ \ \ \ \textcolor{stringliteral}{'DarkCyan'},\ \textcolor{stringliteral}{'DarkGoldenRod'},\ \textcolor{stringliteral}{'DarkGrey'},\ \textcolor{stringliteral}{'DarkKhaki'},\ \textcolor{stringliteral}{'DarkOrange'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00051}00051\ \ \ \ \ \textcolor{stringliteral}{'DarkOrchid'},\ \textcolor{stringliteral}{'DarkSalmon'},\ \textcolor{stringliteral}{'DarkSeaGreen'},\ \textcolor{stringliteral}{'DarkTurquoise'},\ \textcolor{stringliteral}{'DarkViolet'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00052}00052\ \ \ \ \ \textcolor{stringliteral}{'DeepPink'},\ \textcolor{stringliteral}{'DeepSkyBlue'},\ \textcolor{stringliteral}{'DodgerBlue'},\ \textcolor{stringliteral}{'FireBrick'},\ \textcolor{stringliteral}{'FloralWhite'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00053}00053\ \ \ \ \ \textcolor{stringliteral}{'ForestGreen'},\ \textcolor{stringliteral}{'Fuchsia'},\ \textcolor{stringliteral}{'Gainsboro'},\ \textcolor{stringliteral}{'GhostWhite'},\ \textcolor{stringliteral}{'Gold'},\ \textcolor{stringliteral}{'GoldenRod'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{'Salmon'},\ \textcolor{stringliteral}{'Tan'},\ \textcolor{stringliteral}{'HoneyDew'},\ \textcolor{stringliteral}{'HotPink'},\ \textcolor{stringliteral}{'IndianRed'},\ \textcolor{stringliteral}{'Ivory'},\ \textcolor{stringliteral}{'Khaki'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00055}00055\ \ \ \ \ \textcolor{stringliteral}{'Lavender'},\ \textcolor{stringliteral}{'LavenderBlush'},\ \textcolor{stringliteral}{'LawnGreen'},\ \textcolor{stringliteral}{'LemonChiffon'},\ \textcolor{stringliteral}{'LightBlue'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00056}00056\ \ \ \ \ \textcolor{stringliteral}{'LightCoral'},\ \textcolor{stringliteral}{'LightCyan'},\ \textcolor{stringliteral}{'LightGoldenRodYellow'},\ \textcolor{stringliteral}{'LightGray'},\ \textcolor{stringliteral}{'LightGrey'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00057}00057\ \ \ \ \ \textcolor{stringliteral}{'LightGreen'},\ \textcolor{stringliteral}{'LightPink'},\ \textcolor{stringliteral}{'LightSalmon'},\ \textcolor{stringliteral}{'LightSeaGreen'},\ \textcolor{stringliteral}{'LightSkyBlue'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00058}00058\ \ \ \ \ \textcolor{stringliteral}{'LightSlateGray'},\ \textcolor{stringliteral}{'LightSlateGrey'},\ \textcolor{stringliteral}{'LightSteelBlue'},\ \textcolor{stringliteral}{'LightYellow'},\ \textcolor{stringliteral}{'Lime'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00059}00059\ \ \ \ \ \textcolor{stringliteral}{'LimeGreen'},\ \textcolor{stringliteral}{'Linen'},\ \textcolor{stringliteral}{'Magenta'},\ \textcolor{stringliteral}{'MediumAquaMarine'},\ \textcolor{stringliteral}{'MediumOrchid'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00060}00060\ \ \ \ \ \textcolor{stringliteral}{'MediumPurple'},\ \textcolor{stringliteral}{'MediumSeaGreen'},\ \textcolor{stringliteral}{'MediumSlateBlue'},\ \textcolor{stringliteral}{'MediumSpringGreen'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00061}00061\ \ \ \ \ \textcolor{stringliteral}{'MediumTurquoise'},\ \textcolor{stringliteral}{'MediumVioletRed'},\ \textcolor{stringliteral}{'MintCream'},\ \textcolor{stringliteral}{'MistyRose'},\ \textcolor{stringliteral}{'Moccasin'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00062}00062\ \ \ \ \ \textcolor{stringliteral}{'NavajoWhite'},\ \textcolor{stringliteral}{'OldLace'},\ \textcolor{stringliteral}{'Olive'},\ \textcolor{stringliteral}{'OliveDrab'},\ \textcolor{stringliteral}{'Orange'},\ \textcolor{stringliteral}{'OrangeRed'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{'Orchid'},\ \textcolor{stringliteral}{'PaleGoldenRod'},\ \textcolor{stringliteral}{'PaleGreen'},\ \textcolor{stringliteral}{'PaleTurquoise'},\ \textcolor{stringliteral}{'PaleVioletRed'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{'PapayaWhip'},\ \textcolor{stringliteral}{'PeachPuff'},\ \textcolor{stringliteral}{'Peru'},\ \textcolor{stringliteral}{'Pink'},\ \textcolor{stringliteral}{'Plum'},\ \textcolor{stringliteral}{'PowderBlue'},\ \textcolor{stringliteral}{'Purple'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{'Red'},\ \textcolor{stringliteral}{'RosyBrown'},\ \textcolor{stringliteral}{'RoyalBlue'},\ \textcolor{stringliteral}{'SaddleBrown'},\ \textcolor{stringliteral}{'Green'},\ \textcolor{stringliteral}{'SandyBrown'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00066}00066\ \ \ \ \ \textcolor{stringliteral}{'SeaGreen'},\ \textcolor{stringliteral}{'SeaShell'},\ \textcolor{stringliteral}{'Sienna'},\ \textcolor{stringliteral}{'Silver'},\ \textcolor{stringliteral}{'SkyBlue'},\ \textcolor{stringliteral}{'SlateBlue'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00067}00067\ \ \ \ \ \textcolor{stringliteral}{'SlateGray'},\ \textcolor{stringliteral}{'SlateGrey'},\ \textcolor{stringliteral}{'Snow'},\ \textcolor{stringliteral}{'SpringGreen'},\ \textcolor{stringliteral}{'SteelBlue'},\ \textcolor{stringliteral}{'GreenYellow'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00068}00068\ \ \ \ \ \textcolor{stringliteral}{'Teal'},\ \textcolor{stringliteral}{'Thistle'},\ \textcolor{stringliteral}{'Tomato'},\ \textcolor{stringliteral}{'Turquoise'},\ \textcolor{stringliteral}{'Violet'},\ \textcolor{stringliteral}{'Wheat'},\ \textcolor{stringliteral}{'White'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00069}00069\ \ \ \ \ \textcolor{stringliteral}{'WhiteSmoke'},\ \textcolor{stringliteral}{'Yellow'},\ \textcolor{stringliteral}{'YellowGreen'}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00070}00070\ ]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00073}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a521c295cfcb33cb4585fda0fe0c1e638}{00073}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a521c295cfcb33cb4585fda0fe0c1e638}{\_get\_multiplier\_for\_color\_randomness}}():}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00074}00074\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ multiplier\ to\ get\ semi-\/random\ colors\ from\ successive\ indices.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00075}00075\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ This\ function\ computes\ a\ prime\ number,\ p,\ }\textcolor{keywordflow}{in}\ the\ range\ [2,\ 17]\ that:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00077}00077\ \ \ -\/\ \textcolor{keywordflow}{is}\ closest\ to\ len(STANDARD\_COLORS)\ /\ 10}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00078}00078\ \ \ -\/\ does\ \textcolor{keywordflow}{not}\ divide\ len(STANDARD\_COLORS)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00080}00080\ \ \ If\ no\ prime\ numbers\ \textcolor{keywordflow}{in}\ that\ range\ satisfy\ the\ constraints,\ p\ \textcolor{keywordflow}{is}\ returned\ \textcolor{keyword}{as}\ 1.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00082}00082\ \ \ Once\ p\ \textcolor{keywordflow}{is}\ established,\ it\ can\ be\ used\ \textcolor{keyword}{as}\ a\ multiplier\ to\ select}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00083}00083\ \ \ non-\/consecutive\ colors\ \textcolor{keyword}{from}\ STANDARD\_COLORS:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00084}00084\ \ \ colors\ =\ [(p\ *\ i)\ \%\ len(STANDARD\_COLORS)\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(20)]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00085}00085\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ num\_colors\ =\ len(STANDARD\_COLORS)}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ prime\_candidates\ =\ [5,\ 7,\ 11,\ 13,\ 17]}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Remove\ all\ prime\ candidates\ that\ divide\ the\ number\ of\ colors.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00090}00090\ \ \ prime\_candidates\ =\ [p\ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ prime\_candidates\ \textcolor{keywordflow}{if}\ num\_colors\ \%\ p]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00091}00091\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ prime\_candidates:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{return}\ 1}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00094}00094\ \ \ \textcolor{comment}{\#\ Return\ the\ closest\ prime\ number\ to\ num\_colors\ /\ 10.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00095}00095\ \ \ abs\_distance\ =\ [np.abs(num\_colors\ /\ 10.\ -\/\ p)\ \textcolor{keywordflow}{for}\ p\ \textcolor{keywordflow}{in}\ prime\_candidates]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00096}00096\ \ \ num\_candidates\ =\ len(abs\_distance)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00097}00097\ \ \ inds\ =\ [i\ \textcolor{keywordflow}{for}\ \_,\ i\ \textcolor{keywordflow}{in}\ sorted(zip(abs\_distance,\ range(num\_candidates)))]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00098}00098\ \ \ \textcolor{keywordflow}{return}\ prime\_candidates[inds[0]]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00101}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_adfeaa6a59948654708159dbef5181bd2}{00101}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_adfeaa6a59948654708159dbef5181bd2}{save\_image\_array\_as\_png}}(image,\ output\_path):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00102}00102\ \ \ \textcolor{stringliteral}{"{}"{}"{}Saves\ an\ image\ (represented\ as\ a\ numpy\ array)\ to\ PNG.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00103}00103\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00104}00104\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00105}00105\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [height,\ width,\ 3].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00106}00106\ \ \ \ \ output\_path:\ path\ to\ which\ image\ should\ be\ written.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00107}00107\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00108}00108\ \textcolor{stringliteral}{\ \ image\_pil\ =\ Image.fromarray(np.uint8(image)).convert('RGB'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00109}00109\ \ \ \textcolor{keyword}{with}\ tf.gfile.Open(output\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ fid:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00110}00110\ \ \ \ \ image\_pil.save(fid,\ \textcolor{stringliteral}{'PNG'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00113}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a17b582d2f74010a1e7470aaeb6098c26}{00113}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a17b582d2f74010a1e7470aaeb6098c26}{encode\_image\_array\_as\_png\_str}}(image):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00114}00114\ \ \ \textcolor{stringliteral}{"{}"{}"{}Encodes\ a\ numpy\ array\ into\ a\ PNG\ string.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00115}00115\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [height,\ width,\ 3].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00119}00119\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00120}00120\ \ \ \ \ PNG\ encoded\ image\ string.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00121}00121\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ image\_pil\ =\ Image.fromarray(np.uint8(image))}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ output\ =\ six.BytesIO()}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ image\_pil.save(output,\ format='PNG'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00125}00125\ \ \ png\_string\ =\ output.getvalue()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00126}00126\ \ \ output.close()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00127}00127\ \ \ \textcolor{keywordflow}{return}\ png\_string}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00130}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a121cf53554f0ecbfb67c9a41eabae767}{00130}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a121cf53554f0ecbfb67c9a41eabae767}{draw\_bounding\_box\_on\_image\_array}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thickness=4,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\_list=(),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00139}00139\ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ a\ bounding\ box\ to\ an\ image\ (numpy\ array).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00140}00140\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00141}00141\ \textcolor{stringliteral}{\ \ Bounding\ box\ coordinates\ can\ be\ specified\ }\textcolor{keywordflow}{in}\ either\ absolute\ (pixel)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00142}00142\ \ \ normalized\ coordinates\ by\ setting\ the\ use\_normalized\_coordinates\ argument.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00144}00144\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00145}00145\ \ \ \ \ image:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [height,\ width,\ 3].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00146}00146\ \ \ \ \ ymin:\ ymin\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00147}00147\ \ \ \ \ xmin:\ xmin\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00148}00148\ \ \ \ \ ymax:\ ymax\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00149}00149\ \ \ \ \ xmax:\ xmax\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00150}00150\ \ \ \ \ color:\ color\ to\ draw\ bounding\ box.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00151}00151\ \ \ \ \ thickness:\ line\ thickness.\ Default\ value\ \textcolor{keywordflow}{is}\ 4.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00152}00152\ \ \ \ \ display\_str\_list:\ list\ of\ strings\ to\ display\ \textcolor{keywordflow}{in}\ box}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (each\ to\ be\ shown\ on\ its\ own\ line).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00154}00154\ \ \ \ \ use\_normalized\_coordinates:\ If\ \textcolor{keyword}{True}\ (default),\ treat\ coordinates}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00155}00155\ \ \ \ \ \ \ ymin,\ xmin,\ ymax,\ xmax\ \textcolor{keyword}{as}\ relative\ to\ the\ image.\ \ Otherwise\ treat}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00156}00156\ \ \ \ \ \ \ coordinates\ \textcolor{keyword}{as}\ absolute.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00157}00157\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00158}00158\ \textcolor{stringliteral}{\ \ image\_pil\ =\ Image.fromarray(np.uint8(image)).convert('RGB'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00159}00159\ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1064f3d1260799013d8600bcd753a371}{draw\_bounding\_box\_on\_image}}(image\_pil,\ ymin,\ xmin,\ ymax,\ xmax,\ color,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thickness,\ display\_str\_list,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00162}00162\ \ \ np.copyto(image,\ np.array(image\_pil))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00165}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1064f3d1260799013d8600bcd753a371}{00165}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1064f3d1260799013d8600bcd753a371}{draw\_bounding\_box\_on\_image}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xmax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thickness=4,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\_list=(),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=\textcolor{keyword}{True}):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00174}00174\ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ a\ bounding\ box\ to\ an\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00175}00175\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00176}00176\ \textcolor{stringliteral}{\ \ Bounding\ box\ coordinates\ can\ be\ specified\ }\textcolor{keywordflow}{in}\ either\ absolute\ (pixel)\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00177}00177\ \ \ normalized\ coordinates\ by\ setting\ the\ use\_normalized\_coordinates\ argument.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00179}00179\ \ \ Each\ string\ \textcolor{keywordflow}{in}\ display\_str\_list\ \textcolor{keywordflow}{is}\ displayed\ on\ a\ separate\ line\ above\ the}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00180}00180\ \ \ bounding\ box\ \textcolor{keywordflow}{in}\ black\ text\ on\ a\ rectangle\ filled\ \textcolor{keyword}{with}\ the\ input\ \textcolor{stringliteral}{'color'}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00181}00181\ \ \ If\ the\ top\ of\ the\ bounding\ box\ extends\ to\ the\ edge\ of\ the\ image,\ the\ strings}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00182}00182\ \ \ are\ displayed\ below\ the\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00184}00184\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00185}00185\ \ \ \ \ image:\ a\ PIL.Image\ object.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00186}00186\ \ \ \ \ ymin:\ ymin\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00187}00187\ \ \ \ \ xmin:\ xmin\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00188}00188\ \ \ \ \ ymax:\ ymax\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00189}00189\ \ \ \ \ xmax:\ xmax\ of\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00190}00190\ \ \ \ \ color:\ color\ to\ draw\ bounding\ box.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00191}00191\ \ \ \ \ thickness:\ line\ thickness.\ Default\ value\ \textcolor{keywordflow}{is}\ 4.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00192}00192\ \ \ \ \ display\_str\_list:\ list\ of\ strings\ to\ display\ \textcolor{keywordflow}{in}\ box}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (each\ to\ be\ shown\ on\ its\ own\ line).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00194}00194\ \ \ \ \ use\_normalized\_coordinates:\ If\ \textcolor{keyword}{True}\ (default),\ treat\ coordinates}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00195}00195\ \ \ \ \ \ \ ymin,\ xmin,\ ymax,\ xmax\ \textcolor{keyword}{as}\ relative\ to\ the\ image.\ \ Otherwise\ treat}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00196}00196\ \ \ \ \ \ \ coordinates\ \textcolor{keyword}{as}\ absolute.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00197}00197\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00198}00198\ \textcolor{stringliteral}{\ \ draw\ =\ ImageDraw.Draw(image)}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00199}00199\ \textcolor{stringliteral}{\ \ im\_width,\ im\_height\ =\ image.size}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00200}00200\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ use\_normalized\_coordinates:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00201}00201\ \ \ \ \ (left,\ right,\ top,\ bottom)\ =\ (xmin\ *\ im\_width,\ xmax\ *\ im\_width,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ymin\ *\ im\_height,\ ymax\ *\ im\_height)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00203}00203\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00204}00204\ \ \ \ \ (left,\ right,\ top,\ bottom)\ =\ (xmin,\ xmax,\ ymin,\ ymax)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00205}00205\ \ \ draw.line([(left,\ top),\ (left,\ bottom),\ (right,\ bottom),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ (right,\ top),\ (left,\ top)],\ width=thickness,\ fill=color)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00207}00207\ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00208}00208\ \ \ \ \ font\ =\ ImageFont.truetype(\textcolor{stringliteral}{'arial.ttf'},\ 24)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00209}00209\ \ \ \textcolor{keywordflow}{except}\ IOError:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00210}00210\ \ \ \ \ font\ =\ ImageFont.load\_default()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00212}00212\ \ \ \textcolor{comment}{\#\ If\ the\ total\ height\ of\ the\ display\ strings\ added\ to\ the\ top\ of\ the\ bounding}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00213}00213\ \ \ \textcolor{comment}{\#\ box\ exceeds\ the\ top\ of\ the\ image,\ stack\ the\ strings\ below\ the\ bounding\ box}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00214}00214\ \ \ \textcolor{comment}{\#\ instead\ of\ above.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00215}00215\ \ \ display\_str\_heights\ =\ [font.getsize(ds)[1]\ \textcolor{keywordflow}{for}\ ds\ \textcolor{keywordflow}{in}\ display\_str\_list]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00216}00216\ \ \ \textcolor{comment}{\#\ Each\ display\_str\ has\ a\ top\ and\ bottom\ margin\ of\ 0.05x.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00217}00217\ \ \ total\_display\_str\_height\ =\ (1\ +\ 2\ *\ 0.05)\ *\ sum(display\_str\_heights)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00219}00219\ \ \ \textcolor{keywordflow}{if}\ top\ >\ total\_display\_str\_height:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00220}00220\ \ \ \ \ text\_bottom\ =\ top}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00221}00221\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00222}00222\ \ \ \ \ text\_bottom\ =\ bottom\ +\ total\_display\_str\_height}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00223}00223\ \ \ \textcolor{comment}{\#\ Reverse\ list\ and\ print\ from\ bottom\ to\ top.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00224}00224\ \ \ \textcolor{keywordflow}{for}\ display\_str\ \textcolor{keywordflow}{in}\ display\_str\_list[::-\/1]:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00225}00225\ \ \ \ \ text\_width,\ text\_height\ =\ font.getsize(display\_str)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00226}00226\ \ \ \ \ margin\ =\ np.ceil(0.05\ *\ text\_height)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00227}00227\ \ \ \ \ draw.rectangle(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ [(left,\ text\_bottom\ -\/\ text\_height\ -\/\ 2\ *\ margin),\ (left\ +\ text\_width,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ text\_bottom)],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ fill=color)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00231}00231\ \ \ \ \ draw.text(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ (left\ +\ margin,\ text\_bottom\ -\/\ text\_height\ -\/\ margin),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ display\_str,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ fill=\textcolor{stringliteral}{'black'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ font=font)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00236}00236\ \ \ \ \ text\_bottom\ -\/=\ text\_height\ -\/\ 2\ *\ margin}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00239}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a0c01fb801e4579539cae665927064aaa}{00239}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a0c01fb801e4579539cae665927064aaa}{draw\_bounding\_boxes\_on\_image\_array}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thickness=4,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\_list\_list=()):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00244}00244\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ bounding\ boxes\ on\ image\ (numpy\ array).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00245}00245\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00246}00246\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00247}00247\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ numpy\ array\ object.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00248}00248\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ 2\ dimensional\ numpy\ array\ of\ [N,\ 4]:\ (ymin,\ xmin,\ ymax,\ xmax).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00249}00249\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ The\ coordinates\ are\ }\textcolor{keywordflow}{in}\ normalized\ format\ between\ [0,\ 1].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00250}00250\ \ \ \ \ color:\ color\ to\ draw\ bounding\ box.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00251}00251\ \ \ \ \ thickness:\ line\ thickness.\ Default\ value\ \textcolor{keywordflow}{is}\ 4.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00252}00252\ \ \ \ \ display\_str\_list\_list:\ list\ of\ list\ of\ strings.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ list\ of\ strings\ \textcolor{keywordflow}{for}\ each\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ reason\ to\ \textcolor{keywordflow}{pass}\ a\ list\ of\ strings\ \textcolor{keywordflow}{for}\ a}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bounding\ box\ \textcolor{keywordflow}{is}\ that\ it\ might\ contain}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiple\ labels.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00258}00258\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00259}00259\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ boxes\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ [N,\ 4]\ array}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00260}00260\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00261}00261\ \textcolor{stringliteral}{\ \ image\_pil\ =\ Image.fromarray(image)}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00262}00262\ \textcolor{stringliteral}{\ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ae4e37447355d56d16e00b34e3b514927}{draw\_bounding\_boxes\_on\_image}}(image\_pil,\ boxes,\ color,\ thickness,}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00263}00263\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\_list\_list)}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00264}00264\ \textcolor{stringliteral}{\ \ np.copyto(image,\ np.array(image\_pil))}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00265}00265\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00266}00266\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00267}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ae4e37447355d56d16e00b34e3b514927}{00267}}\ \textcolor{stringliteral}{}\textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ae4e37447355d56d16e00b34e3b514927}{draw\_bounding\_boxes\_on\_image}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thickness=4,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\_list\_list=()):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00272}00272\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ bounding\ boxes\ on\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00273}00273\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00274}00274\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00275}00275\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ PIL.Image\ object.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ 2\ dimensional\ numpy\ array\ of\ [N,\ 4]:\ (ymin,\ xmin,\ ymax,\ xmax).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00277}00277\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ The\ coordinates\ are\ }\textcolor{keywordflow}{in}\ normalized\ format\ between\ [0,\ 1].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00278}00278\ \ \ \ \ color:\ color\ to\ draw\ bounding\ box.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00279}00279\ \ \ \ \ thickness:\ line\ thickness.\ Default\ value\ \textcolor{keywordflow}{is}\ 4.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00280}00280\ \ \ \ \ display\_str\_list\_list:\ list\ of\ list\ of\ strings.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ list\ of\ strings\ \textcolor{keywordflow}{for}\ each\ bounding\ box.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ reason\ to\ \textcolor{keywordflow}{pass}\ a\ list\ of\ strings\ \textcolor{keywordflow}{for}\ a}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bounding\ box\ \textcolor{keywordflow}{is}\ that\ it\ might\ contain}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiple\ labels.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00286}00286\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00287}00287\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ boxes\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ [N,\ 4]\ array}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00288}00288\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00289}00289\ \textcolor{stringliteral}{\ \ boxes\_shape\ =\ boxes.shape}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00290}00290\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxes\_shape:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00291}00291\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00292}00292\ \ \ \textcolor{keywordflow}{if}\ len(boxes\_shape)\ !=\ 2\ \textcolor{keywordflow}{or}\ boxes\_shape[1]\ !=\ 4:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00293}00293\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Input\ must\ be\ of\ size\ [N,\ 4]'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00294}00294\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(boxes\_shape[0]):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00295}00295\ \ \ \ \ display\_str\_list\ =\ ()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00296}00296\ \ \ \ \ \textcolor{keywordflow}{if}\ display\_str\_list\_list:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00297}00297\ \ \ \ \ \ \ display\_str\_list\ =\ display\_str\_list\_list[i]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00298}00298\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1064f3d1260799013d8600bcd753a371}{draw\_bounding\_box\_on\_image}}(image,\ boxes[i,\ 0],\ boxes[i,\ 1],\ boxes[i,\ 2],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes[i,\ 3],\ color,\ thickness,\ display\_str\_list)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00302}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a8fa3976e327d6f527038c42711513e5a}{00302}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a8fa3976e327d6f527038c42711513e5a}{create\_visualization\_fn}}(category\_index,\ include\_masks=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ include\_keypoints=False,\ include\_track\_ids=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **kwargs):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00305}00305\ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructs\ a\ visualization\ function\ that\ can\ be\ wrapped\ in\ a\ py\_func.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00306}00306\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00307}00307\ \textcolor{stringliteral}{\ \ py\_funcs\ only\ accept\ positional\ arguments.\ This\ function\ returns\ a\ suitable}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00308}00308\ \textcolor{stringliteral}{\ \ function\ }\textcolor{keyword}{with}\ the\ correct\ positional\ argument\ mapping.\ The\ positional}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00309}00309\ \ \ arguments\ \textcolor{keywordflow}{in}\ order\ are:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00310}00310\ \ \ 0:\ image}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00311}00311\ \ \ 1:\ boxes}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00312}00312\ \ \ 2:\ classes}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00313}00313\ \ \ 3:\ scores}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00314}00314\ \ \ [4-\/6]:\ masks\ (optional)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00315}00315\ \ \ [4-\/6]:\ keypoints\ (optional)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00316}00316\ \ \ [4-\/6]:\ track\_ids\ (optional)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00318}00318\ \ \ -\/-\/\ Example\ 1\ -\/-\/}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00319}00319\ \ \ vis\_only\_masks\_fn\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a8fa3976e327d6f527038c42711513e5a}{create\_visualization\_fn}}(category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00320}00320\ \ \ \ \ include\_masks=\textcolor{keyword}{True},\ include\_keypoints=\textcolor{keyword}{False},\ include\_track\_ids=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00321}00321\ \ \ \ \ **kwargs)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00322}00322\ \ \ image\ =\ tf.py\_func(vis\_only\_masks\_fn,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inp=[image,\ boxes,\ classes,\ scores,\ masks],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tout=tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00326}00326\ \ \ -\/-\/\ Example\ 2\ -\/-\/}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00327}00327\ \ \ vis\_masks\_and\_track\_ids\_fn\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a8fa3976e327d6f527038c42711513e5a}{create\_visualization\_fn}}(category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00328}00328\ \ \ \ \ include\_masks=\textcolor{keyword}{True},\ include\_keypoints=\textcolor{keyword}{False},\ include\_track\_ids=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00329}00329\ \ \ \ \ **kwargs)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00330}00330\ \ \ image\ =\ tf.py\_func(vis\_masks\_and\_track\_ids\_fn,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inp=[image,\ boxes,\ classes,\ scores,\ masks,\ track\_ids],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Tout=tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00334}00334\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00335}00335\ \ \ \ \ category\_index:\ a\ dict\ that\ maps\ integer\ ids\ to\ category\ dicts.\ e.g.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00336}00336\ \ \ \ \ \ \ \{1:\ \{1:\ \textcolor{stringliteral}{'dog'}\},\ 2:\ \{2:\ \textcolor{stringliteral}{'cat'}\},\ ...\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00337}00337\ \ \ \ \ include\_masks:\ Whether\ masks\ should\ be\ expected\ \textcolor{keyword}{as}\ a\ positional\ argument\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00338}00338\ \ \ \ \ \ \ the\ returned\ function.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00339}00339\ \ \ \ \ include\_keypoints:\ Whether\ keypoints\ should\ be\ expected\ \textcolor{keyword}{as}\ a\ positional}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00340}00340\ \ \ \ \ \ \ argument\ \textcolor{keywordflow}{in}\ the\ returned\ function.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00341}00341\ \ \ \ \ include\_track\_ids:\ Whether\ track\ ids\ should\ be\ expected\ \textcolor{keyword}{as}\ a\ positional}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00342}00342\ \ \ \ \ \ \ argument\ \textcolor{keywordflow}{in}\ the\ returned\ function.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00343}00343\ \ \ \ \ **kwargs:\ Additional\ kwargs\ that\ will\ be\ passed\ to}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00344}00344\ \ \ \ \ \ \ visualize\_boxes\_and\_labels\_on\_image\_array.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00346}00346\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00347}00347\ \ \ \ \ Returns\ a\ function\ that\ only\ takes\ tensors\ \textcolor{keyword}{as}\ positional\ arguments.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00348}00348\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00349}00349\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00350}00350\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }visualization\_py\_func\_fn(*args):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00351}00351\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Visualization\ function\ that\ can\ be\ wrapped\ in\ a\ tf.py\_func.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00352}00352\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00353}00353\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00354}00354\ \textcolor{stringliteral}{\ \ \ \ \ \ *args:\ First\ 4\ positional\ arguments\ must\ be:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00355}00355\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ image\ -\/\ uint8\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ (img\_height,\ img\_width,\ 3).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ boxes\ -\/\ a\ numpy\ array\ of\ shape\ [N,\ 4].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ classes\ -\/\ a\ numpy\ array\ of\ shape\ [N].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ scores\ -\/\ a\ numpy\ array\ of\ shape\ [N]\ \textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ -\/-\/\ Optional\ positional\ arguments\ -\/-\/}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ instance\_masks\ -\/\ a\ numpy\ array\ of\ shape\ [N,\ image\_height,\ image\_width].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ keypoints\ -\/\ a\ numpy\ array\ of\ shape\ [N,\ num\_keypoints,\ 2].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ track\_ids\ -\/\ a\ numpy\ array\ of\ shape\ [N]\ \textcolor{keyword}{with}\ unique\ track\ ids.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00364}00364\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00365}00365\ \ \ \ \ \ \ uint8\ numpy\ array\ \textcolor{keyword}{with}\ shape\ (img\_height,\ img\_width,\ 3)\ \textcolor{keyword}{with}\ overlaid}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00366}00366\ \ \ \ \ \ \ boxes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00367}00367\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00368}00368\ \textcolor{stringliteral}{\ \ \ \ image\ =\ args[0]}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00369}00369\ \textcolor{stringliteral}{\ \ \ \ boxes\ =\ args[1]}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00370}00370\ \textcolor{stringliteral}{\ \ \ \ classes\ =\ args[2]}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00371}00371\ \textcolor{stringliteral}{\ \ \ \ scores\ =\ args[3]}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00372}00372\ \textcolor{stringliteral}{\ \ \ \ masks\ =\ keypoints\ =\ track\_ids\ =\ }\textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00373}00373\ \ \ \ \ pos\_arg\_ptr\ =\ 4\ \ \textcolor{comment}{\#\ Positional\ argument\ for\ first\ optional\ tensor\ (masks).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00374}00374\ \ \ \ \ \textcolor{keywordflow}{if}\ include\_masks:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00375}00375\ \ \ \ \ \ \ masks\ =\ args[pos\_arg\_ptr]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00376}00376\ \ \ \ \ \ \ pos\_arg\_ptr\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00377}00377\ \ \ \ \ \textcolor{keywordflow}{if}\ include\_keypoints:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00378}00378\ \ \ \ \ \ \ keypoints\ =\ args[pos\_arg\_ptr]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00379}00379\ \ \ \ \ \ \ pos\_arg\_ptr\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{if}\ include\_track\_ids:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00381}00381\ \ \ \ \ \ \ track\_ids\ =\ args[pos\_arg\_ptr]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00383}00383\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaec057971ef040480be47b65a8b33820}{visualize\_boxes\_and\_labels\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ classes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ category\_index=category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ instance\_masks=masks,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ keypoints=keypoints,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ track\_ids=track\_ids,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ **kwargs)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00393}00393\ \ \ \textcolor{keywordflow}{return}\ visualization\_py\_func\_fn}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00396}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a70424938bb1be0da62f6b57aa8038d5d}{00396}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a70424938bb1be0da62f6b57aa8038d5d}{\_resize\_original\_image}}(image,\ image\_shape):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00397}00397\ \ \ image\ =\ tf.expand\_dims(image,\ 0)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00398}00398\ \ \ image\ =\ tf.image.resize\_images(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00399}00399\ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00400}00400\ \ \ \ \ \ \ image\_shape,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00401}00401\ \ \ \ \ \ \ method=tf.image.ResizeMethod.NEAREST\_NEIGHBOR,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00402}00402\ \ \ \ \ \ \ align\_corners=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00403}00403\ \ \ \textcolor{keywordflow}{return}\ tf.cast(tf.squeeze(image,\ 0),\ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00406}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a665477bffdb8bd92973f82fc0a95a398}{00406}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a665477bffdb8bd92973f82fc0a95a398}{draw\_bounding\_boxes\_on\_image\_tensors}}(images,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ classes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ original\_image\_spatial\_shape=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ true\_image\_shape=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ instance\_masks=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keypoints=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ track\_ids=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=20,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_score\_thresh=0.2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00419}00419\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ bounding\ boxes,\ masks,\ and\ keypoints\ on\ batch\ of\ image\ tensors.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00420}00420\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00421}00421\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00422}00422\ \textcolor{stringliteral}{\ \ \ \ images:\ A\ 4D\ uint8\ image\ tensor\ of\ shape\ [N,\ H,\ W,\ C].\ If\ C\ >\ 3,\ additional}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00423}00423\ \textcolor{stringliteral}{\ \ \ \ \ \ channels\ will\ be\ ignored.\ If\ C\ =\ 1,\ then\ we\ convert\ the\ images\ to\ RGB}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00424}00424\ \textcolor{stringliteral}{\ \ \ \ \ \ images.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00425}00425\ \textcolor{stringliteral}{\ \ \ \ boxes:\ [N,\ max\_detections,\ 4]\ float32\ tensor\ of\ detection\ boxes.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00426}00426\ \textcolor{stringliteral}{\ \ \ \ classes:\ [N,\ max\_detections]\ int\ tensor\ of\ detection\ classes.\ Note\ that}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00427}00427\ \textcolor{stringliteral}{\ \ \ \ \ \ classes\ are\ 1-\/indexed.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00428}00428\ \textcolor{stringliteral}{\ \ \ \ scores:\ [N,\ max\_detections]\ float32\ tensor\ of\ detection\ scores.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00429}00429\ \textcolor{stringliteral}{\ \ \ \ category\_index:\ a\ dict\ that\ maps\ integer\ ids\ to\ category\ dicts.\ e.g.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00430}00430\ \textcolor{stringliteral}{\ \ \ \ \ \ \{1:\ \{1:\ 'dog'}\},\ 2:\ \{2:\ \textcolor{stringliteral}{'cat'}\},\ ...\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00431}00431\ \ \ \ \ original\_image\_spatial\_shape:\ [N,\ 2]\ tensor\ containing\ the\ spatial\ size\ of}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00432}00432\ \ \ \ \ \ \ the\ original\ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00433}00433\ \ \ \ \ true\_image\_shape:\ [N,\ 3]\ tensor\ containing\ the\ spatial\ size\ of\ unpadded}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00434}00434\ \ \ \ \ \ \ original\_image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00435}00435\ \ \ \ \ instance\_masks:\ A\ 4D\ uint8\ tensor\ of\ shape\ [N,\ max\_detection,\ H,\ W]\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00436}00436\ \ \ \ \ \ \ instance\ masks.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00437}00437\ \ \ \ \ keypoints:\ A\ 4D\ float32\ tensor\ of\ shape\ [N,\ max\_detection,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00438}00438\ \ \ \ \ \ \ \textcolor{keyword}{with}\ keypoints.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00439}00439\ \ \ \ \ track\_ids:\ [N,\ max\_detections]\ int32\ tensor\ of\ unique\ tracks\ ids\ (i.e.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00440}00440\ \ \ \ \ \ \ instance\ ids\ \textcolor{keywordflow}{for}\ each\ object).\ If\ provided,\ the\ color-\/coding\ of\ boxes\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00441}00441\ \ \ \ \ \ \ dictated\ by\ these\ ids,\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ classes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00442}00442\ \ \ \ \ max\_boxes\_to\_draw:\ Maximum\ number\ of\ boxes\ to\ draw\ on\ an\ image.\ Default\ 20.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00443}00443\ \ \ \ \ min\_score\_thresh:\ Minimum\ score\ threshold\ \textcolor{keywordflow}{for}\ visualization.\ Default\ 0.2.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00444}00444\ \ \ \ \ use\_normalized\_coordinates:\ Whether\ to\ assume\ boxes\ \textcolor{keywordflow}{and}\ kepoints\ are\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00445}00445\ \ \ \ \ \ \ normalized\ coordinates\ (\textcolor{keyword}{as}\ opposed\ to\ absolute\ coordiantes).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00446}00446\ \ \ \ \ \ \ Default\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00448}00448\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00449}00449\ \ \ \ \ 4D\ image\ tensor\ of\ type\ uint8,\ \textcolor{keyword}{with}\ boxes\ drawn\ on\ top.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00450}00450\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00451}00451\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Additional\ channels\ are\ being\ ignored.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00452}00452\ \ \ \textcolor{keywordflow}{if}\ images.shape[3]\ >\ 3:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00453}00453\ \ \ \ \ images\ =\ images[:,\ :,\ :,\ 0:3]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00454}00454\ \ \ \textcolor{keywordflow}{elif}\ images.shape[3]\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00455}00455\ \ \ \ \ images\ =\ tf.image.grayscale\_to\_rgb(images)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00456}00456\ \ \ visualization\_keyword\_args\ =\ \{}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00457}00457\ \ \ \ \ \ \ \textcolor{stringliteral}{'use\_normalized\_coordinates'}:\ use\_normalized\_coordinates,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00458}00458\ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_boxes\_to\_draw'}:\ max\_boxes\_to\_draw,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00459}00459\ \ \ \ \ \ \ \textcolor{stringliteral}{'min\_score\_thresh'}:\ min\_score\_thresh,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00460}00460\ \ \ \ \ \ \ \textcolor{stringliteral}{'agnostic\_mode'}:\ \textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00461}00461\ \ \ \ \ \ \ \textcolor{stringliteral}{'line\_thickness'}:\ 4}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00462}00462\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00463}00463\ \ \ \textcolor{keywordflow}{if}\ true\_image\_shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00464}00464\ \ \ \ \ true\_shapes\ =\ tf.constant(-\/1,\ shape=[images.shape.as\_list()[0],\ 3])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00465}00465\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00466}00466\ \ \ \ \ true\_shapes\ =\ true\_image\_shape}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00467}00467\ \ \ \textcolor{keywordflow}{if}\ original\_image\_spatial\_shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00468}00468\ \ \ \ \ original\_shapes\ =\ tf.constant(-\/1,\ shape=[images.shape.as\_list()[0],\ 2])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00469}00469\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00470}00470\ \ \ \ \ original\_shapes\ =\ original\_image\_spatial\_shape}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00472}00472\ \ \ visualize\_boxes\_fn\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a8fa3976e327d6f527038c42711513e5a}{create\_visualization\_fn}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00473}00473\ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00474}00474\ \ \ \ \ \ \ include\_masks=instance\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00475}00475\ \ \ \ \ \ \ include\_keypoints=keypoints\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00476}00476\ \ \ \ \ \ \ include\_track\_ids=track\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00477}00477\ \ \ \ \ \ \ **visualization\_keyword\_args)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00479}00479\ \ \ elems\ =\ [true\_shapes,\ original\_shapes,\ images,\ boxes,\ classes,\ scores]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00480}00480\ \ \ \textcolor{keywordflow}{if}\ instance\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00481}00481\ \ \ \ \ elems.append(instance\_masks)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00482}00482\ \ \ \textcolor{keywordflow}{if}\ keypoints\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00483}00483\ \ \ \ \ elems.append(keypoints)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00484}00484\ \ \ \textcolor{keywordflow}{if}\ track\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00485}00485\ \ \ \ \ elems.append(track\_ids)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00486}00486\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00487}00487\ \ \ \textcolor{keyword}{def\ }draw\_boxes(image\_and\_detections):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00488}00488\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ boxes\ on\ image."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00489}00489\ \ \ \ \ true\_shape\ =\ image\_and\_detections[0]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00490}00490\ \ \ \ \ original\_shape\ =\ image\_and\_detections[1]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00491}00491\ \ \ \ \ \textcolor{keywordflow}{if}\ true\_image\_shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00492}00492\ \ \ \ \ \ \ image\ =\ shape\_utils.pad\_or\_clip\_nd(image\_and\_detections[2],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [true\_shape[0],\ true\_shape[1],\ 3])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00494}00494\ \ \ \ \ \textcolor{keywordflow}{if}\ original\_image\_spatial\_shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00495}00495\ \ \ \ \ \ \ image\_and\_detections[2]\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a70424938bb1be0da62f6b57aa8038d5d}{\_resize\_original\_image}}(image,\ original\_shape)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00497}00497\ \ \ \ \ image\_with\_boxes\ =\ tf.py\_func(visualize\_boxes\_fn,\ image\_and\_detections[2:],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00499}00499\ \ \ \ \ \textcolor{keywordflow}{return}\ image\_with\_boxes}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00501}00501\ \ \ images\ =\ tf.map\_fn(draw\_boxes,\ elems,\ dtype=tf.uint8,\ back\_prop=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00502}00502\ \ \ \textcolor{keywordflow}{return}\ images}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00503}00503\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00505}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1db841e68d4267e5d084aa393fcd5412}{00505}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1db841e68d4267e5d084aa393fcd5412}{draw\_side\_by\_side\_evaluation\_image}}(eval\_dict,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=20,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_score\_thresh=0.2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00510}00510\ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ a\ side-\/by-\/side\ image\ with\ detections\ and\ groundtruth.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00511}00511\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00512}00512\ \textcolor{stringliteral}{\ \ Bounding\ boxes\ (}\textcolor{keywordflow}{and}\ instance\ masks,\ \textcolor{keywordflow}{if}\ available)\ are\ visualized\ on\ both}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00513}00513\ \ \ subimages.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00515}00515\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00516}00516\ \ \ \ \ eval\_dict:\ The\ evaluation\ dictionary\ returned\ by}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00517}00517\ \ \ \ \ \ \ eval\_util.result\_dict\_for\_batched\_example()\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00518}00518\ \ \ \ \ \ \ eval\_util.result\_dict\_for\_single\_example().}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00519}00519\ \ \ \ \ category\_index:\ A\ category\ index\ (dictionary)\ produced\ \textcolor{keyword}{from}\ a\ labelmap.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00520}00520\ \ \ \ \ max\_boxes\_to\_draw:\ The\ maximum\ number\ of\ boxes\ to\ draw\ \textcolor{keywordflow}{for}\ detections.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00521}00521\ \ \ \ \ min\_score\_thresh:\ The\ minimum\ score\ threshold\ \textcolor{keywordflow}{for}\ showing\ detections.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00522}00522\ \ \ \ \ use\_normalized\_coordinates:\ Whether\ to\ assume\ boxes\ \textcolor{keywordflow}{and}\ kepoints\ are\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00523}00523\ \ \ \ \ \ \ normalized\ coordinates\ (\textcolor{keyword}{as}\ opposed\ to\ absolute\ coordiantes).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00524}00524\ \ \ \ \ \ \ Default\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00525}00525\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00526}00526\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00527}00527\ \ \ \ \ A\ list\ of\ [1,\ H,\ 2\ *\ W,\ C]\ uint8\ tensor.\ The\ subimage\ on\ the\ left}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00528}00528\ \ \ \ \ \ \ corresponds\ to\ detections,\ \textcolor{keywordflow}{while}\ the\ subimage\ on\ the\ right\ corresponds\ to}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00529}00529\ \ \ \ \ \ \ groundtruth.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00530}00530\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00531}00531\ \textcolor{stringliteral}{\ \ detection\_fields\ =\ fields.DetectionResultFields()}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00532}00532\ \textcolor{stringliteral}{\ \ input\_data\_fields\ =\ fields.InputDataFields()}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00533}00533\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00534}00534\ \textcolor{stringliteral}{\ \ images\_with\_detections\_list\ =\ []}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00535}00535\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00536}00536\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Add\ the\ batch\ dimension\ if\ the\ eval\_dict\ is\ for\ single\ example.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00537}00537\ \ \ \textcolor{keywordflow}{if}\ len(eval\_dict[detection\_fields.detection\_classes].shape)\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00538}00538\ \ \ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ eval\_dict:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00539}00539\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ key\ !=\ input\_data\_fields.original\_image:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ eval\_dict[key]\ =\ tf.expand\_dims(eval\_dict[key],\ 0)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00542}00542\ \ \ \textcolor{keywordflow}{for}\ indx\ \textcolor{keywordflow}{in}\ range(eval\_dict[input\_data\_fields.original\_image].shape[0]):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00543}00543\ \ \ \ \ instance\_masks\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00544}00544\ \ \ \ \ \textcolor{keywordflow}{if}\ detection\_fields.detection\_masks\ \textcolor{keywordflow}{in}\ eval\_dict:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00545}00545\ \ \ \ \ \ \ instance\_masks\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[detection\_fields.detection\_masks][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00549}00549\ \ \ \ \ keypoints\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00550}00550\ \ \ \ \ \textcolor{keywordflow}{if}\ detection\_fields.detection\_keypoints\ \textcolor{keywordflow}{in}\ eval\_dict:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00551}00551\ \ \ \ \ \ \ keypoints\ =\ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ eval\_dict[detection\_fields.detection\_keypoints][indx],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00553}00553\ \ \ \ \ groundtruth\_instance\_masks\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00554}00554\ \ \ \ \ \textcolor{keywordflow}{if}\ input\_data\_fields.groundtruth\_instance\_masks\ \textcolor{keywordflow}{in}\ eval\_dict:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00555}00555\ \ \ \ \ \ \ groundtruth\_instance\_masks\ =\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.groundtruth\_instance\_masks][indx],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis=0),\ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00560}00560\ \ \ \ \ images\_with\_detections\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a665477bffdb8bd92973f82fc0a95a398}{draw\_bounding\_boxes\_on\_image\_tensors}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00561}00561\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.original\_image][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[detection\_fields.detection\_boxes][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[detection\_fields.detection\_classes][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00567}00567\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00568}00568\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[detection\_fields.detection\_scores][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00569}00569\ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00570}00570\ \ \ \ \ \ \ \ \ original\_image\_spatial\_shape=tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.original\_image\_spatial\_shape][indx],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00572}00572\ \ \ \ \ \ \ \ \ \ \ \ \ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00573}00573\ \ \ \ \ \ \ \ \ true\_image\_shape=tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.true\_image\_shape][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00575}00575\ \ \ \ \ \ \ \ \ instance\_masks=instance\_masks,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00576}00576\ \ \ \ \ \ \ \ \ keypoints=keypoints,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00577}00577\ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=max\_boxes\_to\_draw,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00578}00578\ \ \ \ \ \ \ \ \ min\_score\_thresh=min\_score\_thresh,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00579}00579\ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00580}00580\ \ \ \ \ images\_with\_groundtruth\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a665477bffdb8bd92973f82fc0a95a398}{draw\_bounding\_boxes\_on\_image\_tensors}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.original\_image][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00583}00583\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.groundtruth\_boxes][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.groundtruth\_classes][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00587}00587\ \ \ \ \ \ \ \ \ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ tf.ones\_like(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.groundtruth\_classes][indx],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00592}00592\ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ original\_image\_spatial\_shape=tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.original\_image\_spatial\_shape][indx],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00596}00596\ \ \ \ \ \ \ \ \ true\_image\_shape=tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ eval\_dict[input\_data\_fields.true\_image\_shape][indx],\ axis=0),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ instance\_masks=groundtruth\_instance\_masks,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00599}00599\ \ \ \ \ \ \ \ \ keypoints=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00600}00600\ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=\textcolor{keywordtype}{None},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ min\_score\_thresh=0.0,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00603}00603\ \ \ \ \ images\_with\_detections\_list.append(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00604}00604\ \ \ \ \ \ \ \ \ tf.concat([images\_with\_detections,\ images\_with\_groundtruth],\ axis=2))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00605}00605\ \ \ \textcolor{keywordflow}{return}\ images\_with\_detections\_list}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00607}00607\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00608}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a5448bb2b15d4a131bccbd369c22a84d6}{00608}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a5448bb2b15d4a131bccbd369c22a84d6}{draw\_keypoints\_on\_image\_array}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keypoints,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00611}00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ radius=2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00612}00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00613}00613\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ keypoints\ on\ an\ image\ (numpy\ array).}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00614}00614\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00615}00615\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00616}00616\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [height,\ width,\ 3].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00617}00617\ \ \ \ \ keypoints:\ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [num\_keypoints,\ 2].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00618}00618\ \ \ \ \ color:\ color\ to\ draw\ the\ keypoints\ \textcolor{keyword}{with}.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00619}00619\ \ \ \ \ radius:\ keypoint\ radius.\ Default\ value\ \textcolor{keywordflow}{is}\ 2.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00620}00620\ \ \ \ \ use\_normalized\_coordinates:\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{True}\ (default),\ treat\ keypoint\ values\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00621}00621\ \ \ \ \ \ \ relative\ to\ the\ image.\ \ Otherwise\ treat\ them\ \textcolor{keyword}{as}\ absolute.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00622}00622\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00623}00623\ \textcolor{stringliteral}{\ \ image\_pil\ =\ Image.fromarray(np.uint8(image)).convert('RGB'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00624}00624\ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaa2b6f54ba484b4733af80083ffa25f8}{draw\_keypoints\_on\_image}}(image\_pil,\ keypoints,\ color,\ radius,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00625}00625\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00626}00626\ \ \ np.copyto(image,\ np.array(image\_pil))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00628}00628\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00629}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaa2b6f54ba484b4733af80083ffa25f8}{00629}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaa2b6f54ba484b4733af80083ffa25f8}{draw\_keypoints\_on\_image}}(image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keypoints,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00631}00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color='red',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ radius=2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00634}00634\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ keypoints\ on\ an\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00635}00635\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00636}00636\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00637}00637\ \textcolor{stringliteral}{\ \ \ \ image:\ a\ PIL.Image\ object.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00638}00638\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [num\_keypoints,\ 2].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00639}00639\ \ \ \ \ color:\ color\ to\ draw\ the\ keypoints\ \textcolor{keyword}{with}.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00640}00640\ \ \ \ \ radius:\ keypoint\ radius.\ Default\ value\ \textcolor{keywordflow}{is}\ 2.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00641}00641\ \ \ \ \ use\_normalized\_coordinates:\ \textcolor{keywordflow}{if}\ \textcolor{keyword}{True}\ (default),\ treat\ keypoint\ values\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00642}00642\ \ \ \ \ \ \ relative\ to\ the\ image.\ \ Otherwise\ treat\ them\ \textcolor{keyword}{as}\ absolute.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00643}00643\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00644}00644\ \textcolor{stringliteral}{\ \ draw\ =\ ImageDraw.Draw(image)}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00645}00645\ \textcolor{stringliteral}{\ \ im\_width,\ im\_height\ =\ image.size}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00646}00646\ \textcolor{stringliteral}{\ \ keypoints\_x\ =\ [k[1]\ }\textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ keypoints]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00647}00647\ \ \ keypoints\_y\ =\ [k[0]\ \textcolor{keywordflow}{for}\ k\ \textcolor{keywordflow}{in}\ keypoints]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00648}00648\ \ \ \textcolor{keywordflow}{if}\ use\_normalized\_coordinates:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00649}00649\ \ \ \ \ keypoints\_x\ =\ tuple([im\_width\ *\ x\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ keypoints\_x])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00650}00650\ \ \ \ \ keypoints\_y\ =\ tuple([im\_height\ *\ y\ \textcolor{keywordflow}{for}\ y\ \textcolor{keywordflow}{in}\ keypoints\_y])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00651}00651\ \ \ \textcolor{keywordflow}{for}\ keypoint\_x,\ keypoint\_y\ \textcolor{keywordflow}{in}\ zip(keypoints\_x,\ keypoints\_y):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00652}00652\ \ \ \ \ draw.ellipse([(keypoint\_x\ -\/\ radius,\ keypoint\_y\ -\/\ radius),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (keypoint\_x\ +\ radius,\ keypoint\_y\ +\ radius)],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outline=color,\ fill=color)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00655}00655\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00656}00656\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00657}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaba6cbd6669ebd30da276e34af7b6d9b}{00657}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaba6cbd6669ebd30da276e34af7b6d9b}{draw\_mask\_on\_image\_array}}(image,\ mask,\ color='red',\ alpha=0.4):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00658}00658\ \ \ \textcolor{stringliteral}{"{}"{}"{}Draws\ mask\ on\ an\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00659}00659\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00660}00660\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00661}00661\ \textcolor{stringliteral}{\ \ \ \ image:\ uint8\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ (img\_height,\ img\_height,\ 3)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00662}00662\ \ \ \ \ mask:\ a\ uint8\ numpy\ array\ of\ shape\ (img\_height,\ img\_height)\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00663}00663\ \ \ \ \ \ \ values\ between\ either\ 0\ \textcolor{keywordflow}{or}\ 1.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00664}00664\ \ \ \ \ color:\ color\ to\ draw\ the\ keypoints\ \textcolor{keyword}{with}.\ Default\ \textcolor{keywordflow}{is}\ red.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00665}00665\ \ \ \ \ alpha:\ transparency\ value\ between\ 0\ \textcolor{keywordflow}{and}\ 1.\ (default:\ 0.4)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00666}00666\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00667}00667\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00668}00668\ \ \ \ \ ValueError:\ On\ incorrect\ data\ type\ \textcolor{keywordflow}{for}\ image\ \textcolor{keywordflow}{or}\ masks.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00669}00669\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00670}00670\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ image.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00671}00671\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}image`\ not\ of\ type\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00672}00672\ \ \ \textcolor{keywordflow}{if}\ mask.dtype\ !=\ np.uint8:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00673}00673\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}mask`\ not\ of\ type\ np.uint8'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00674}00674\ \ \ \textcolor{keywordflow}{if}\ np.any(np.logical\_and(mask\ !=\ 1,\ mask\ !=\ 0)):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00675}00675\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}mask`\ elements\ should\ be\ in\ [0,\ 1]'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00676}00676\ \ \ \textcolor{keywordflow}{if}\ image.shape[:2]\ !=\ mask.shape:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00677}00677\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ image\ has\ spatial\ dimensions\ \%s\ but\ the\ mask\ has\ '}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dimensions\ \%s'}\ \%\ (image.shape[:2],\ mask.shape))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00679}00679\ \ \ rgb\ =\ ImageColor.getrgb(color)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00680}00680\ \ \ pil\_image\ =\ Image.fromarray(image)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00682}00682\ \ \ solid\_color\ =\ np.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00683}00683\ \ \ \ \ \ \ np.ones\_like(mask),\ axis=2)\ *\ np.reshape(list(rgb),\ [1,\ 1,\ 3])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00684}00684\ \ \ pil\_solid\_color\ =\ Image.fromarray(np.uint8(solid\_color)).convert(\textcolor{stringliteral}{'RGBA'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00685}00685\ \ \ pil\_mask\ =\ Image.fromarray(np.uint8(255.0*alpha*mask)).convert(\textcolor{stringliteral}{'L'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00686}00686\ \ \ pil\_image\ =\ Image.composite(pil\_solid\_color,\ pil\_image,\ pil\_mask)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00687}00687\ \ \ np.copyto(image,\ np.array(pil\_image.convert(\textcolor{stringliteral}{'RGB'})))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00688}00688\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00689}00689\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00690}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaec057971ef040480be47b65a8b33820}{00690}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaec057971ef040480be47b65a8b33820}{visualize\_boxes\_and\_labels\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00691}00691\ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00692}00692\ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00693}00693\ \ \ \ \ classes,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00694}00694\ \ \ \ \ scores,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00695}00695\ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00696}00696\ \ \ \ \ instance\_masks=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00697}00697\ \ \ \ \ instance\_boundaries=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00698}00698\ \ \ \ \ keypoints=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00699}00699\ \ \ \ \ track\_ids=None,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00700}00700\ \ \ \ \ use\_normalized\_coordinates=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00701}00701\ \ \ \ \ max\_boxes\_to\_draw=20,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00702}00702\ \ \ \ \ min\_score\_thresh=.5,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00703}00703\ \ \ \ \ agnostic\_mode=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00704}00704\ \ \ \ \ line\_thickness=4,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00705}00705\ \ \ \ \ groundtruth\_box\_visualization\_color='black',}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00706}00706\ \ \ \ \ skip\_scores=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00707}00707\ \ \ \ \ skip\_labels=False,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00708}00708\ \ \ \ \ skip\_track\_ids=False):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00709}00709\ \ \ \textcolor{stringliteral}{"{}"{}"{}Overlay\ labeled\ boxes\ on\ an\ image\ with\ formatted\ scores\ and\ label\ names.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00710}00710\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00711}00711\ \textcolor{stringliteral}{\ \ This\ function\ groups\ boxes\ that\ correspond\ to\ the\ same\ location}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00712}00712\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{and}\ creates\ a\ display\ string\ \textcolor{keywordflow}{for}\ each\ detection\ \textcolor{keywordflow}{and}\ overlays\ these}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00713}00713\ \ \ on\ the\ image.\ Note\ that\ this\ function\ modifies\ the\ image\ \textcolor{keywordflow}{in}\ place,\ \textcolor{keywordflow}{and}\ returns}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00714}00714\ \ \ that\ same\ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00715}00715\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00716}00716\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00717}00717\ \ \ \ \ image:\ uint8\ numpy\ array\ \textcolor{keyword}{with}\ shape\ (img\_height,\ img\_width,\ 3)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00718}00718\ \ \ \ \ boxes:\ a\ numpy\ array\ of\ shape\ [N,\ 4]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00719}00719\ \ \ \ \ classes:\ a\ numpy\ array\ of\ shape\ [N].\ Note\ that\ \textcolor{keyword}{class\ }indices\ are\ 1-\/based,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00720}00720\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ match\ the\ keys\ \textcolor{keywordflow}{in}\ the\ label\ map.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00721}00721\ \ \ \ \ scores:\ a\ numpy\ array\ of\ shape\ [N]\ \textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}.\ \ If\ scores=\textcolor{keywordtype}{None},\ then}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00722}00722\ \ \ \ \ \ \ this\ function\ assumes\ that\ the\ boxes\ to\ be\ plotted\ are\ groundtruth}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00723}00723\ \ \ \ \ \ \ boxes\ \textcolor{keywordflow}{and}\ plot\ all\ boxes\ \textcolor{keyword}{as}\ black\ \textcolor{keyword}{with}\ no\ classes\ \textcolor{keywordflow}{or}\ scores.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00724}00724\ \ \ \ \ category\_index:\ a\ dict\ containing\ category\ dictionaries\ (each\ holding}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00725}00725\ \ \ \ \ \ \ category\ index\ \`{}id\`{}\ \textcolor{keywordflow}{and}\ category\ name\ \`{}name\`{})\ keyed\ by\ category\ indices.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00726}00726\ \ \ \ \ instance\_masks:\ a\ numpy\ array\ of\ shape\ [N,\ image\_height,\ image\_width]\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00727}00727\ \ \ \ \ \ \ values\ ranging\ between\ 0\ \textcolor{keywordflow}{and}\ 1,\ can\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00728}00728\ \ \ \ \ instance\_boundaries:\ a\ numpy\ array\ of\ shape\ [N,\ image\_height,\ image\_width]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00729}00729\ \ \ \ \ \ \ \textcolor{keyword}{with}\ values\ ranging\ between\ 0\ \textcolor{keywordflow}{and}\ 1,\ can\ be\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00730}00730\ \ \ \ \ keypoints:\ a\ numpy\ array\ of\ shape\ [N,\ num\_keypoints,\ 2],\ can}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00731}00731\ \ \ \ \ \ \ be\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00732}00732\ \ \ \ \ track\_ids:\ a\ numpy\ array\ of\ shape\ [N]\ \textcolor{keyword}{with}\ unique\ track\ ids.\ If\ provided,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00733}00733\ \ \ \ \ \ \ color-\/coding\ of\ boxes\ will\ be\ determined\ by\ these\ ids,\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{not}\ the\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00734}00734\ \ \ \ \ \ \ indices.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00735}00735\ \ \ \ \ use\_normalized\_coordinates:\ whether\ boxes\ \textcolor{keywordflow}{is}\ to\ be\ interpreted\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00736}00736\ \ \ \ \ \ \ normalized\ coordinates\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00737}00737\ \ \ \ \ max\_boxes\_to\_draw:\ maximum\ number\ of\ boxes\ to\ visualize.\ \ If\ \textcolor{keywordtype}{None},\ draw}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00738}00738\ \ \ \ \ \ \ all\ boxes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00739}00739\ \ \ \ \ min\_score\_thresh:\ minimum\ score\ threshold\ \textcolor{keywordflow}{for}\ a\ box\ to\ be\ visualized}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00740}00740\ \ \ \ \ agnostic\_mode:\ boolean\ (default:\ \textcolor{keyword}{False})\ controlling\ whether\ to\ evaluate\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00741}00741\ \ \ \ \ \ \ \textcolor{keyword}{class}-\/agnostic\ mode\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.\ \ This\ mode\ will\ display\ scores\ but\ ignore}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00742}00742\ \ \ \ \ \ \ classes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00743}00743\ \ \ \ \ line\_thickness:\ integer\ (default:\ 4)\ controlling\ line\ width\ of\ the\ boxes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00744}00744\ \ \ \ \ groundtruth\_box\_visualization\_color:\ box\ color\ \textcolor{keywordflow}{for}\ visualizing\ groundtruth}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00745}00745\ \ \ \ \ \ \ boxes}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00746}00746\ \ \ \ \ skip\_scores:\ whether\ to\ skip\ score\ when\ drawing\ a\ single\ detection}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00747}00747\ \ \ \ \ skip\_labels:\ whether\ to\ skip\ label\ when\ drawing\ a\ single\ detection}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00748}00748\ \ \ \ \ skip\_track\_ids:\ whether\ to\ skip\ track\ id\ when\ drawing\ a\ single\ detection}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00749}00749\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00750}00750\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00751}00751\ \ \ \ \ uint8\ numpy\ array\ \textcolor{keyword}{with}\ shape\ (img\_height,\ img\_width,\ 3)\ \textcolor{keyword}{with}\ overlaid\ boxes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00752}00752\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00753}00753\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Create\ a\ display\ string\ (and\ color)\ for\ every\ box\ location,\ group\ any\ boxes}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00754}00754\ \ \ \textcolor{comment}{\#\ that\ correspond\ to\ the\ same\ location.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00755}00755\ \ \ box\_to\_display\_str\_map\ =\ collections.defaultdict(list)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00756}00756\ \ \ box\_to\_color\_map\ =\ collections.defaultdict(str)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00757}00757\ \ \ box\_to\_instance\_masks\_map\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00758}00758\ \ \ box\_to\_instance\_boundaries\_map\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00759}00759\ \ \ box\_to\_keypoints\_map\ =\ collections.defaultdict(list)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00760}00760\ \ \ box\_to\_track\_ids\_map\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00761}00761\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ max\_boxes\_to\_draw:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00762}00762\ \ \ \ \ max\_boxes\_to\_draw\ =\ boxes.shape[0]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00763}00763\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(min(max\_boxes\_to\_draw,\ boxes.shape[0])):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00764}00764\ \ \ \ \ \textcolor{keywordflow}{if}\ scores\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ scores[i]\ >\ min\_score\_thresh:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00765}00765\ \ \ \ \ \ \ box\ =\ tuple(boxes[i].tolist())}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00766}00766\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ instance\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00767}00767\ \ \ \ \ \ \ \ \ box\_to\_instance\_masks\_map[box]\ =\ instance\_masks[i]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00768}00768\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ instance\_boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00769}00769\ \ \ \ \ \ \ \ \ box\_to\_instance\_boundaries\_map[box]\ =\ instance\_boundaries[i]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00770}00770\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ keypoints\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00771}00771\ \ \ \ \ \ \ \ \ box\_to\_keypoints\_map[box].extend(keypoints[i])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00772}00772\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ track\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00773}00773\ \ \ \ \ \ \ \ \ box\_to\_track\_ids\_map[box]\ =\ track\_ids[i]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00774}00774\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ scores\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00775}00775\ \ \ \ \ \ \ \ \ box\_to\_color\_map[box]\ =\ groundtruth\_box\_visualization\_color}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00776}00776\ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00777}00777\ \ \ \ \ \ \ \ \ display\_str\ =\ \textcolor{stringliteral}{''}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00778}00778\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ skip\_labels:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00779}00779\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ agnostic\_mode:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00780}00780\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ classes[i]\ \textcolor{keywordflow}{in}\ six.viewkeys(category\_index):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00781}00781\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_name\ =\ category\_index[classes[i]][\textcolor{stringliteral}{'name'}]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00782}00782\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00783}00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ class\_name\ =\ \textcolor{stringliteral}{'N/A'}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00784}00784\ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\ =\ str(class\_name)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00785}00785\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ skip\_scores:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00786}00786\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ display\_str:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00787}00787\ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\ =\ \textcolor{stringliteral}{'\{\}\%'}.format(int(100*scores[i]))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00788}00788\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00789}00789\ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\ =\ \textcolor{stringliteral}{'\{\}:\ \{\}\%'}.format(display\_str,\ int(100*scores[i]))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00790}00790\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ skip\_track\_ids\ \textcolor{keywordflow}{and}\ track\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00791}00791\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ display\_str:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00792}00792\ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\ =\ \textcolor{stringliteral}{'ID\ \{\}'}.format(track\_ids[i])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00793}00793\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00794}00794\ \ \ \ \ \ \ \ \ \ \ \ \ display\_str\ =\ \textcolor{stringliteral}{'\{\}:\ ID\ \{\}'}.format(display\_str,\ track\_ids[i])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00795}00795\ \ \ \ \ \ \ \ \ box\_to\_display\_str\_map[box].append(display\_str)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00796}00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ agnostic\_mode:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00797}00797\ \ \ \ \ \ \ \ \ \ \ box\_to\_color\_map[box]\ =\ \textcolor{stringliteral}{'DarkOrange'}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00798}00798\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ track\_ids\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00799}00799\ \ \ \ \ \ \ \ \ \ \ prime\_multipler\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a521c295cfcb33cb4585fda0fe0c1e638}{\_get\_multiplier\_for\_color\_randomness}}()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00800}00800\ \ \ \ \ \ \ \ \ \ \ box\_to\_color\_map[box]\ =\ STANDARD\_COLORS[}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (prime\_multipler\ *\ track\_ids[i])\ \%\ len(STANDARD\_COLORS)]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00802}00802\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00803}00803\ \ \ \ \ \ \ \ \ \ \ box\_to\_color\_map[box]\ =\ STANDARD\_COLORS[}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00804}00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ classes[i]\ \%\ len(STANDARD\_COLORS)]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00805}00805\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00806}00806\ \ \ \textcolor{comment}{\#\ Draw\ all\ boxes\ onto\ image.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00807}00807\ \ \ \textcolor{keywordflow}{for}\ box,\ color\ \textcolor{keywordflow}{in}\ box\_to\_color\_map.items():}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00808}00808\ \ \ \ \ ymin,\ xmin,\ ymax,\ xmax\ =\ box}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00809}00809\ \ \ \ \ \textcolor{keywordflow}{if}\ instance\_masks\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00810}00810\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaba6cbd6669ebd30da276e34af7b6d9b}{draw\_mask\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00812}00812\ \ \ \ \ \ \ \ \ \ \ box\_to\_instance\_masks\_map[box],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00813}00813\ \ \ \ \ \ \ \ \ \ \ color=color}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00814}00814\ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00815}00815\ \ \ \ \ \textcolor{keywordflow}{if}\ instance\_boundaries\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00816}00816\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_aaba6cbd6669ebd30da276e34af7b6d9b}{draw\_mask\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ box\_to\_instance\_boundaries\_map[box],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ color=\textcolor{stringliteral}{'red'},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ alpha=1.0}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00821}00821\ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00822}00822\ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a121cf53554f0ecbfb67c9a41eabae767}{draw\_bounding\_box\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00823}00823\ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00824}00824\ \ \ \ \ \ \ \ \ ymin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00825}00825\ \ \ \ \ \ \ \ \ xmin,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00826}00826\ \ \ \ \ \ \ \ \ ymax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00827}00827\ \ \ \ \ \ \ \ \ xmax,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00828}00828\ \ \ \ \ \ \ \ \ color=color,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00829}00829\ \ \ \ \ \ \ \ \ thickness=line\_thickness,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00830}00830\ \ \ \ \ \ \ \ \ display\_str\_list=box\_to\_display\_str\_map[box],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00831}00831\ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00832}00832\ \ \ \ \ \textcolor{keywordflow}{if}\ keypoints\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00833}00833\ \ \ \ \ \ \ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a5448bb2b15d4a131bccbd369c22a84d6}{draw\_keypoints\_on\_image\_array}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00834}00834\ \ \ \ \ \ \ \ \ \ \ image,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00835}00835\ \ \ \ \ \ \ \ \ \ \ box\_to\_keypoints\_map[box],}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ color=color,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ radius=line\_thickness\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00838}00838\ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=use\_normalized\_coordinates)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00839}00839\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00840}00840\ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00841}00841\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00842}00842\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00843}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ab8076d165246bc56681ce1ee4eb266cb}{00843}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ab8076d165246bc56681ce1ee4eb266cb}{add\_cdf\_image\_summary}}(values,\ name):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00844}00844\ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ a\ tf.summary.image\ for\ a\ CDF\ plot\ of\ the\ values.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00845}00845\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00846}00846\ \textcolor{stringliteral}{\ \ Normalizes\ \`{}values\`{}\ such\ that\ they\ sum\ to\ 1,\ plots\ the\ cumulative\ distribution}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00847}00847\ \textcolor{stringliteral}{\ \ function\ }\textcolor{keywordflow}{and}\ creates\ a\ tf\ image\ summary.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00848}00848\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00849}00849\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00850}00850\ \ \ \ \ values:\ a\ 1-\/D\ float32\ tensor\ containing\ the\ values.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00851}00851\ \ \ \ \ name:\ name\ \textcolor{keywordflow}{for}\ the\ image\ summary.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00852}00852\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00853}00853\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }cdf\_plot(values):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00854}00854\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Numpy\ function\ to\ plot\ CDF."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00855}00855\ \ \ \ \ normalized\_values\ =\ values\ /\ np.sum(values)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00856}00856\ \ \ \ \ sorted\_values\ =\ np.sort(normalized\_values)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00857}00857\ \ \ \ \ cumulative\_values\ =\ np.cumsum(sorted\_values)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00858}00858\ \ \ \ \ fraction\_of\_examples\ =\ (np.arange(cumulative\_values.size,\ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00859}00859\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ cumulative\_values.size)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00860}00860\ \ \ \ \ fig\ =\ plt.figure(frameon=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00861}00861\ \ \ \ \ ax\ =\ fig.add\_subplot(\textcolor{stringliteral}{'111'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00862}00862\ \ \ \ \ ax.plot(fraction\_of\_examples,\ cumulative\_values)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00863}00863\ \ \ \ \ ax.set\_ylabel(\textcolor{stringliteral}{'cumulative\ normalized\ values'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00864}00864\ \ \ \ \ ax.set\_xlabel(\textcolor{stringliteral}{'fraction\ of\ examples'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00865}00865\ \ \ \ \ fig.canvas.draw()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00866}00866\ \ \ \ \ width,\ height\ =\ fig.get\_size\_inches()\ *\ fig.get\_dpi()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00867}00867\ \ \ \ \ image\ =\ np.fromstring(fig.canvas.tostring\_rgb(),\ dtype=\textcolor{stringliteral}{'uint8'}).reshape(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00868}00868\ \ \ \ \ \ \ \ \ 1,\ int(height),\ int(width),\ 3)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00869}00869\ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00870}00870\ \ \ cdf\_plot\ =\ tf.py\_func(cdf\_plot,\ [values],\ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00871}00871\ \ \ tf.summary.image(name,\ cdf\_plot)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00872}00872\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00873}00873\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00874}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ad29d11b536260b135e47601d8ddcff35}{00874}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_ad29d11b536260b135e47601d8ddcff35}{add\_hist\_image\_summary}}(values,\ bins,\ name):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00875}00875\ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ a\ tf.summary.image\ for\ a\ histogram\ plot\ of\ the\ values.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00876}00876\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00877}00877\ \textcolor{stringliteral}{\ \ Plots\ the\ histogram\ of\ values\ }\textcolor{keywordflow}{and}\ creates\ a\ tf\ image\ summary.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00878}00878\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00879}00879\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00880}00880\ \ \ \ \ values:\ a\ 1-\/D\ float32\ tensor\ containing\ the\ values.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00881}00881\ \ \ \ \ bins:\ bin\ edges\ which\ will\ be\ directly\ passed\ to\ np.histogram.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00882}00882\ \ \ \ \ name:\ name\ \textcolor{keywordflow}{for}\ the\ image\ summary.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00883}00883\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00884}00884\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00885}00885\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }hist\_plot(values,\ bins):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00886}00886\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Numpy\ function\ to\ plot\ hist."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00887}00887\ \ \ \ \ fig\ =\ plt.figure(frameon=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00888}00888\ \ \ \ \ ax\ =\ fig.add\_subplot(\textcolor{stringliteral}{'111'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00889}00889\ \ \ \ \ y,\ x\ =\ np.histogram(values,\ bins=bins)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00890}00890\ \ \ \ \ ax.plot(x[:-\/1],\ y)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00891}00891\ \ \ \ \ ax.set\_ylabel(\textcolor{stringliteral}{'count'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00892}00892\ \ \ \ \ ax.set\_xlabel(\textcolor{stringliteral}{'value'})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00893}00893\ \ \ \ \ fig.canvas.draw()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00894}00894\ \ \ \ \ width,\ height\ =\ fig.get\_size\_inches()\ *\ fig.get\_dpi()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00895}00895\ \ \ \ \ image\ =\ np.fromstring(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00896}00896\ \ \ \ \ \ \ \ \ fig.canvas.tostring\_rgb(),\ dtype=\textcolor{stringliteral}{'uint8'}).reshape(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00897}00897\ \ \ \ \ \ \ \ \ \ \ \ \ 1,\ int(height),\ int(width),\ 3)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00898}00898\ \ \ \ \ \textcolor{keywordflow}{return}\ image}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00899}00899\ \ \ hist\_plot\ =\ tf.py\_func(hist\_plot,\ [values,\ bins],\ tf.uint8)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00900}00900\ \ \ tf.summary.image(name,\ hist\_plot)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00902}00902\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00903}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization}{00903}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization}{EvalMetricOpsVisualization}}(six.with\_metaclass(abc.ABCMeta,\ object)):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00904}00904\ \ \ \textcolor{stringliteral}{"{}"{}"{}Abstract\ base\ class\ responsible\ for\ visualizations\ during\ evaluation.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00905}00905\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00906}00906\ \textcolor{stringliteral}{\ \ Currently,\ summary\ images\ are\ }\textcolor{keywordflow}{not}\ run\ during\ evaluation.\ One\ way\ to\ produce}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00907}00907\ \ \ evaluation\ images\ \textcolor{keywordflow}{in}\ Tensorboard\ \textcolor{keywordflow}{is}\ to\ provide\ tf.summary.image\ strings\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00908}00908\ \ \ \`{}value\_ops\`{}\ \textcolor{keywordflow}{in}\ tf.estimator.EstimatorSpec\textcolor{stringliteral}{'s\ \`{}eval\_metric\_ops`.\ This\ class\ is}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00909}00909\ \textcolor{stringliteral}{\ \ responsible\ }\textcolor{keywordflow}{for}\ accruing\ images\ (\textcolor{keyword}{with}\ overlaid\ detections\ \textcolor{keywordflow}{and}\ groundtruth)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00910}00910\ \ \ \textcolor{keywordflow}{and}\ returning\ a\ dictionary\ that\ can\ be\ passed\ to\ \`{}eval\_metric\_ops\`{}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00911}00911\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00912}00912\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00913}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a10e3b6af6ff5b2fbcd310f64d1da110a}{00913}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a10e3b6af6ff5b2fbcd310f64d1da110a}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00914}00914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00915}00915\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_examples\_to\_draw=5,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00916}00916\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=20,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00917}00917\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_score\_thresh=0.2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00918}00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00919}00919\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ summary\_name\_prefix='evaluation\_image'):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00920}00920\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Creates\ an\ EvalMetricOpsVisualization.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00921}00921\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00922}00922\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00923}00923\ \textcolor{stringliteral}{\ \ \ \ \ \ category\_index:\ A\ category\ index\ (dictionary)\ produced\ }\textcolor{keyword}{from}\ a\ labelmap.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00924}00924\ \ \ \ \ \ \ max\_examples\_to\_draw:\ The\ maximum\ number\ of\ example\ summaries\ to\ produce.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00925}00925\ \ \ \ \ \ \ max\_boxes\_to\_draw:\ The\ maximum\ number\ of\ boxes\ to\ draw\ \textcolor{keywordflow}{for}\ detections.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00926}00926\ \ \ \ \ \ \ min\_score\_thresh:\ The\ minimum\ score\ threshold\ \textcolor{keywordflow}{for}\ showing\ detections.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00927}00927\ \ \ \ \ \ \ use\_normalized\_coordinates:\ Whether\ to\ assume\ boxes\ \textcolor{keywordflow}{and}\ kepoints\ are\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00928}00928\ \ \ \ \ \ \ \ \ normalized\ coordinates\ (\textcolor{keyword}{as}\ opposed\ to\ absolute\ coordiantes).}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00929}00929\ \ \ \ \ \ \ \ \ Default\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{True}.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00930}00930\ \ \ \ \ \ \ summary\_name\_prefix:\ A\ string\ prefix\ \textcolor{keywordflow}{for}\ each\ image\ summary.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00931}00931\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00932}00932\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00933}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9}{00933}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9}{\_category\_index}}\ =\ category\_index}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00934}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{00934}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}\ =\ max\_examples\_to\_draw}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00935}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c}{00935}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c}{\_max\_boxes\_to\_draw}}\ =\ max\_boxes\_to\_draw}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00936}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358}{00936}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358}{\_min\_score\_thresh}}\ =\ min\_score\_thresh}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00937}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c}{00937}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c}{\_use\_normalized\_coordinates}}\ =\ use\_normalized\_coordinates}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00938}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9}{00938}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9}{\_summary\_name\_prefix}}\ =\ summary\_name\_prefix}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00939}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{00939}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}}\ =\ []}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00940}00940\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00941}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f}{00941}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f}{clear}}(self):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00942}00942\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}}\ =\ []}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00943}00943\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00944}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}{00944}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}{add\_images}}(self,\ images):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00945}00945\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Store\ a\ list\ of\ images,\ each\ with\ shape\ [1,\ H,\ W,\ C]."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00946}00946\ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}})\ >=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00947}00947\ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00948}00948\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00949}00949\ \ \ \ \ \textcolor{comment}{\#\ Store\ images\ and\ clip\ list\ if\ necessary.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00950}00950\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}}.extend(images)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00951}00951\ \ \ \ \ \textcolor{keywordflow}{if}\ len(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}})\ >\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00952}00952\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}}[self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}:]\ =\ []}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00953}00953\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00954}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d}{00954}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a211586a6c5593c10f28edd3d414b5f7d}{get\_estimator\_eval\_metric\_ops}}(self,\ eval\_dict):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00955}00955\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ metric\ ops\ for\ use\ in\ tf.estimator.EstimatorSpec.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00956}00956\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00957}00957\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00958}00958\ \textcolor{stringliteral}{\ \ \ \ \ \ eval\_dict:\ A\ dictionary\ that\ holds\ an\ image,\ groundtruth,\ }\textcolor{keywordflow}{and}\ detections}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00959}00959\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ a\ batched\ example.\ Note\ that,\ we\ use\ only\ the\ first\ example\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00960}00960\ \ \ \ \ \ \ \ \ visualization.\ See\ eval\_util.result\_dict\_for\_batched\_example()\ \textcolor{keywordflow}{for}\ a}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00961}00961\ \ \ \ \ \ \ \ \ convenient\ method\ \textcolor{keywordflow}{for}\ constructing\ such\ a\ dictionary.\ The\ dictionary}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00962}00962\ \ \ \ \ \ \ \ \ contains}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00963}00963\ \ \ \ \ \ \ \ \ fields.InputDataFields.original\_image:\ [batch\_size,\ H,\ W,\ 3]\ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00964}00964\ \ \ \ \ \ \ \ \ fields.InputDataFields.original\_image\_spatial\_shape:\ [batch\_size,\ 2]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00965}00965\ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ the\ size\ of\ the\ original\ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00966}00966\ \ \ \ \ \ \ \ \ fields.InputDataFields.true\_image\_shape:\ [batch\_size,\ 3]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00967}00967\ \ \ \ \ \ \ \ \ \ \ tensor\ containing\ the\ spatial\ size\ of\ the\ upadded\ original\ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00968}00968\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_boxes\ -\/\ [batch\_size,\ num\_boxes,\ 4]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00969}00969\ \ \ \ \ \ \ \ \ \ \ float32\ tensor\ \textcolor{keyword}{with}\ groundtruth\ boxes\ \textcolor{keywordflow}{in}\ range\ [0.0,\ 1.0].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00970}00970\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_classes\ -\/\ [batch\_size,\ num\_boxes]}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00971}00971\ \ \ \ \ \ \ \ \ \ \ int64\ tensor\ \textcolor{keyword}{with}\ 1-\/indexed\ groundtruth\ classes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00972}00972\ \ \ \ \ \ \ \ \ fields.InputDataFields.groundtruth\_instance\_masks\ -\/\ (optional)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00973}00973\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ H,\ W]\ int64\ tensor\ \textcolor{keyword}{with}\ instance\ masks.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00974}00974\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_boxes\ -\/\ [batch\_size,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00975}00975\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes,\ 4]\ float32\ tensor\ \textcolor{keyword}{with}\ detection\ boxes\ \textcolor{keywordflow}{in}\ range\ [0.0,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00976}00976\ \ \ \ \ \ \ \ \ \ \ 1.0].}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00977}00977\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_classes\ -\/\ [batch\_size,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00978}00978\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes]\ int64\ tensor\ \textcolor{keyword}{with}\ 1-\/indexed\ detection\ classes.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00979}00979\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_scores\ -\/\ [batch\_size,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00980}00980\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes]\ float32\ tensor\ \textcolor{keyword}{with}\ detection\ scores.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00981}00981\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_masks\ -\/\ (optional)\ [batch\_size,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00982}00982\ \ \ \ \ \ \ \ \ \ \ max\_num\_boxes,\ H,\ W]\ float32\ tensor\ of\ binarized\ masks.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00983}00983\ \ \ \ \ \ \ \ \ fields.DetectionResultFields.detection\_keypoints\ -\/\ (optional)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00984}00984\ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ max\_num\_boxes,\ num\_keypoints,\ 2]\ float32\ tensor\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00985}00985\ \ \ \ \ \ \ \ \ \ \ keypoints.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00986}00986\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00987}00987\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00988}00988\ \ \ \ \ \ \ A\ dictionary\ of\ image\ summary\ names\ to\ tuple\ of\ (value\_op,\ update\_op).\ The}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00989}00989\ \ \ \ \ \ \ \`{}update\_op\`{}\ \textcolor{keywordflow}{is}\ the\ same\ \textcolor{keywordflow}{for}\ all\ items\ \textcolor{keywordflow}{in}\ the\ dictionary,\ \textcolor{keywordflow}{and}\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00990}00990\ \ \ \ \ \ \ responsible\ \textcolor{keywordflow}{for}\ saving\ a\ single\ side-\/by-\/side\ image\ \textcolor{keyword}{with}\ detections\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00991}00991\ \ \ \ \ \ \ groundtruth.\ Each\ \`{}value\_op\`{}\ holds\ the\ tf.summary.image\ string\ \textcolor{keywordflow}{for}\ a\ given}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00992}00992\ \ \ \ \ \ \ image.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00993}00993\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00994}00994\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00995}00995\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00996}00996\ \ \ \ \ images\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8}{images\_from\_evaluation\_dict}}(eval\_dict)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00997}00997\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00998}00998\ \ \ \ \ \textcolor{keyword}{def\ }get\_images():}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l00999}00999\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ images,\ padded\ to\ self.\_max\_images\_to\_draw."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01000}01000\ \ \ \ \ \ \ images\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_afcd5ca3d18c18693f060ac62643e9186}{\_images}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01001}01001\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ len(images)\ <\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01002}01002\ \ \ \ \ \ \ \ \ images.append(np.array(0,\ dtype=np.uint8))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01003}01003\ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_af908fa44f5174ae89d7f5dab8922883f}{clear}}()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01004}01004\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ images}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01005}01005\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01006}01006\ \ \ \ \ \textcolor{keyword}{def\ }image\_summary\_or\_default\_string(summary\_name,\ image):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01007}01007\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ image\ summaries\ for\ non-\/padded\ elements."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01008}01008\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cond(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01009}01009\ \ \ \ \ \ \ \ \ \ \ tf.equal(tf.size(tf.shape(image)),\ 4),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01010}01010\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.summary.image(summary\_name,\ image),}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01011}01011\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.constant(\textcolor{stringliteral}{''}))}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01012}01012\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01013}01013\ \ \ \ \ \textcolor{keywordflow}{if}\ tf.executing\_eagerly():}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01014}01014\ \ \ \ \ \ \ update\_op\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}{add\_images}}([[images[0]]])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01015}01015\ \ \ \ \ \ \ image\_tensors\ =\ get\_images()}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01016}01016\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01017}01017\ \ \ \ \ \ \ update\_op\ =\ tf.py\_func(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a6011a9039997ab37f17b533e35f043f9}{add\_images}},\ [[images[0]]],\ [])}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01018}01018\ \ \ \ \ \ \ image\_tensors\ =\ tf.py\_func(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01019}01019\ \ \ \ \ \ \ \ \ \ \ get\_images,\ [],\ [tf.uint8]\ *\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a7bced2cd060b95f52cb304066f7c60e4}{\_max\_examples\_to\_draw}})}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01020}01020\ \ \ \ \ eval\_metric\_ops\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01021}01021\ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ image\ \textcolor{keywordflow}{in}\ enumerate(image\_tensors):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01022}01022\ \ \ \ \ \ \ summary\_name\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a4d34c9df8eb2b84e8e84a7a8302e32e9}{\_summary\_name\_prefix}}\ +\ \textcolor{stringliteral}{'/'}\ +\ str(i)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01023}01023\ \ \ \ \ \ \ value\_op\ =\ image\_summary\_or\_default\_string(summary\_name,\ image)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01024}01024\ \ \ \ \ \ \ eval\_metric\_ops[summary\_name]\ =\ (value\_op,\ update\_op)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01025}01025\ \ \ \ \ \textcolor{keywordflow}{return}\ eval\_metric\_ops}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01026}01026\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01027}01027\ \ \ \textcolor{preprocessor}{@abc.abstractmethod}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01028}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8}{01028}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ad3522c233040eb2713a9451a61aaf7f8}{images\_from\_evaluation\_dict}}(self,\ eval\_dict):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01029}01029\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ evaluation\ dictionary\ into\ a\ list\ of\ image\ tensors.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01030}01030\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01031}01031\ \textcolor{stringliteral}{\ \ \ \ To\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01032}01032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01033}01033\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01034}01034\ \textcolor{stringliteral}{\ \ \ \ \ \ eval\_dict:\ A\ dictionary\ }\textcolor{keyword}{with}\ all\ the\ necessary\ information\ \textcolor{keywordflow}{for}\ producing}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01035}01035\ \ \ \ \ \ \ \ \ visualizations.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01036}01036\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01037}01037\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01038}01038\ \ \ \ \ \ \ A\ list\ of\ [1,\ H,\ W,\ C]\ uint8\ tensors.}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01039}01039\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01040}01040\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{raise}\ NotImplementedError}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01041}01041\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01042}01042\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01043}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections}{01043}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections}{VisualizeSingleFrameDetections}}(\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization}{EvalMetricOpsVisualization}}):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01044}01044\ \ \ \textcolor{stringliteral}{"{}"{}"{}Class\ responsible\ for\ single-\/frame\ object\ detection\ visualizations."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01045}01045\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01046}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_acfc99b8f011f91efc18ff8093cc4bdf7}{01046}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_acfc99b8f011f91efc18ff8093cc4bdf7}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01047}01047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01048}01048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_examples\_to\_draw=5,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01049}01049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=20,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01050}01050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ min\_score\_thresh=0.2,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01051}01051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=True,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01052}01052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ summary\_name\_prefix='Detections\_Left\_Groundtruth\_Right'):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01053}01053\ \ \ \ \ super(VisualizeSingleFrameDetections,\ self).\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_acfc99b8f011f91efc18ff8093cc4bdf7}{\_\_init\_\_}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01054}01054\ \ \ \ \ \ \ \ \ category\_index=category\_index,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01055}01055\ \ \ \ \ \ \ \ \ max\_examples\_to\_draw=max\_examples\_to\_draw,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01056}01056\ \ \ \ \ \ \ \ \ max\_boxes\_to\_draw=max\_boxes\_to\_draw,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01057}01057\ \ \ \ \ \ \ \ \ min\_score\_thresh=min\_score\_thresh,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01058}01058\ \ \ \ \ \ \ \ \ use\_normalized\_coordinates=use\_normalized\_coordinates,}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01059}01059\ \ \ \ \ \ \ \ \ summary\_name\_prefix=summary\_name\_prefix)}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01060}01060\ }
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01061}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a296e28f10b1a31fe35c301e0b0fd9f3d}{01061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a296e28f10b1a31fe35c301e0b0fd9f3d}{images\_from\_evaluation\_dict}}(self,\ eval\_dict):}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01062}01062\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1visualization__utils_a1db841e68d4267e5d084aa393fcd5412}{draw\_side\_by\_side\_evaluation\_image}}(}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01063}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_aad0c3d91781713ed63cc1106032f3598}{01063}}\ \ \ \ \ \ \ \ \ eval\_dict,\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a90ba135bae28c872f5aba430088475c9}{\_category\_index}}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_aad0c3d91781713ed63cc1106032f3598}{\_category\_index}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a3e2020d49a1b9ada78c0f6b4633c2c2c}{\_max\_boxes\_to\_draw}}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a2b7f9e73377c307f68d4da257583f453}{\_max\_boxes\_to\_draw}},}
+\DoxyCodeLine{\Hypertarget{visualization__utils_8py_source_l01064}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a7d1869111032edcac10f420fd748f735}{01064}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_a5ff886f932e16adefcca7046d967a358}{\_min\_score\_thresh}}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a7d1869111032edcac10f420fd748f735}{\_min\_score\_thresh}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_eval_metric_ops_visualization_ab4cc41b90dbe95c5a6628683c55d4d0c}{\_use\_normalized\_coordinates}}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1visualization__utils_1_1_visualize_single_frame_detections_a1afe1b2b77b709fdf1d3ae1daf4eb4a8}{\_use\_normalized\_coordinates}})}
+
+\end{DoxyCode}

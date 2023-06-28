@@ -1,0 +1,218 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses.\+Loss Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses_1_1_loss}{}\label{classdetection__utils_1_1core_1_1losses_1_1_loss}\index{detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses.\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d18/classdetection__utils_1_1core_1_1losses_1_1_loss__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses.\+Loss\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{da/d5e/classdetection__utils_1_1core_1_1losses_1_1_loss__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, prediction\+\_\+tensor, target\+\_\+tensor, ignore\+\_\+nan\+\_\+targets=False, losses\+\_\+mask=None, scope=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}{\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor}} (self, tensor, losses\+\_\+mask)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}{\+\_\+compute\+\_\+loss}} (self, prediction\+\_\+tensor, target\+\_\+tensor, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class for loss functions.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00044}{44}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843}\label{classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843} 
+\index{detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Loss.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{}]{ignore\+\_\+nan\+\_\+targets = {\ttfamily False},  }\item[{}]{losses\+\_\+mask = {\ttfamily None},  }\item[{}]{scope = {\ttfamily None},  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Call the loss function.
+
+Args:
+  prediction_tensor: an N-d tensor of shape [batch, anchors, ...]
+    representing predicted quantities.
+  target_tensor: an N-d tensor of shape [batch, anchors, ...] representing
+    regression or classification targets.
+  ignore_nan_targets: whether to ignore nan targets in the loss computation.
+    E.g. can be used if the target tensor is missing groundtruth data that
+    shouldn't be factored into the loss.
+  losses_mask: A [batch] boolean tensor that indicates whether losses should
+    be applied to individual images in the batch. For elements that
+    are False, corresponding prediction, target, and weight tensors will not
+    contribute to loss computation. If None, no filtering will take place
+    prior to loss computation.
+  scope: Op scope name. Defaults to 'Loss' if None.
+  **params: Additional keyword arguments for specific implementations of
+          the Loss.
+
+Returns:
+  loss: a tensor representing the value of the loss function.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00047}{47}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ **params):}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Call\ the\ loss\ function.}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ representing\ predicted\ quantities.}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]\ representing}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ regression\ }\textcolor{keywordflow}{or}\ classification\ targets.}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ ignore\_nan\_targets:\ whether\ to\ ignore\ nan\ targets\ \textcolor{keywordflow}{in}\ the\ loss\ computation.}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ E.g.\ can\ be\ used\ \textcolor{keywordflow}{if}\ the\ target\ tensor\ \textcolor{keywordflow}{is}\ missing\ groundtruth\ data\ that}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ shouldn\textcolor{stringliteral}{'t\ be\ factored\ into\ the\ loss.}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ \ \ \ \ losses\_mask:\ A\ [batch]\ boolean\ tensor\ that\ indicates\ whether\ losses\ should}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ be\ applied\ to\ individual\ images\ }\textcolor{keywordflow}{in}\ the\ batch.\ For\ elements\ that}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ are\ \textcolor{keyword}{False},\ corresponding\ prediction,\ target,\ \textcolor{keywordflow}{and}\ weight\ tensors\ will\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ contribute\ to\ loss\ computation.\ If\ \textcolor{keywordtype}{None},\ no\ filtering\ will\ take\ place}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ prior\ to\ loss\ computation.}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ scope:\ Op\ scope\ name.\ Defaults\ to\ \textcolor{stringliteral}{'Loss'}\ \textcolor{keywordflow}{if}\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ Loss.}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ Returns:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ loss:\ a\ tensor\ representing\ the\ value\ of\ the\ loss\ function.}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Loss'},}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [prediction\_tensor,\ target\_tensor,\ params])\ \textcolor{keyword}{as}\ scope:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ignore\_nan\_targets:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ target\_tensor\ =\ tf.where(tf.is\_nan(target\_tensor),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_tensor)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ losses\_mask\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ tensor\_multiplier\ =\ self.\_get\_loss\_multiplier\_for\_tensor(}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ prediction\_tensor,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ prediction\_tensor\ *=\ tensor\_multiplier}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ target\_tensor\ *=\ tensor\_multiplier}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'weights'}\ \textcolor{keywordflow}{in}\ params:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}]\ =\ tf.convert\_to\_tensor(params[\textcolor{stringliteral}{'weights'}])}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ weights\_multiplier\ =\ self.\_get\_loss\_multiplier\_for\_tensor(}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}],}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ params[\textcolor{stringliteral}{'weights'}]\ *=\ weights\_multiplier}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_compute\_loss(prediction\_tensor,\ target\_tensor,\ **params)}
+\DoxyCodeLine{00096\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d09/classdetection__utils_1_1core_1_1losses_1_1_loss_a8555bca99fcc03e1fd78e25e3b2e8843_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7}\label{classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7} 
+\index{detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}!\_compute\_loss@{\_compute\_loss}}
+\index{\_compute\_loss@{\_compute\_loss}!detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}}
+\doxysubsubsection{\texorpdfstring{\_compute\_loss()}{\_compute\_loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Loss.\+\_\+compute\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+tensor,  }\item[{}]{target\+\_\+tensor,  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Method to be overridden by implementations.
+
+Args:
+  prediction_tensor: a tensor representing predicted quantities
+  target_tensor: a tensor representing regression or classification targets
+  **params: Additional keyword arguments for specific implementations of
+          the Loss.
+
+Returns:
+  loss: an N-d tensor of shape [batch, anchors, ...] containing the loss per
+    anchor
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_l2_localization_loss_aaee905ead7ab9ffd710cdcfee0ffed81}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+L2\+Localization\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_smooth_l1_localization_loss_ac0d45f835b9f05f34490955109ec1432}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Smooth\+L1\+Localization\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_i_o_u_localization_loss_ab954132a3ba751ba0d64828ebb3c18d3}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+IOULocalization\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_loss_a15a0162c97856f7ba8a5c1121017d853}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_softmax_classification_against_logits_loss_a34c03e1dffb28a11c360679afedec8e4}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Softmax\+Classification\+Against\+Logits\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_bootstrapped_sigmoid_classification_loss_a4587575bad0c453943b4faf57527853c}{detection\+\_\+utils.\+core.\+losses.\+Bootstrapped\+Sigmoid\+Classification\+Loss}}, \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_weighted_sigmoid_classification_loss_ac42b20743e94260a6d6d838f654f2ddb}{detection\+\_\+utils.\+core.\+losses.\+Weighted\+Sigmoid\+Classification\+Loss}}, and \mbox{\hyperlink{classdetection__utils_1_1core_1_1losses_1_1_sigmoid_focal_classification_loss_abd4817631560e14e14c853c01c069732}{detection\+\_\+utils.\+core.\+losses.\+Sigmoid\+Focal\+Classification\+Loss}}.
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00102}{102}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{def\ }\_compute\_loss(self,\ prediction\_tensor,\ target\_tensor,\ **params):}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Method\ to\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00105\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00106\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_tensor:\ a\ tensor\ representing\ predicted\ quantities}}
+\DoxyCodeLine{00107\ \textcolor{stringliteral}{\ \ \ \ \ \ target\_tensor:\ a\ tensor\ representing\ regression\ }\textcolor{keywordflow}{or}\ classification\ targets}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ Loss.}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ Returns:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ loss:\ an\ N-\/d\ tensor\ of\ shape\ [batch,\ anchors,\ ...]\ containing\ the\ loss\ per}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ anchor}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d09/classdetection__utils_1_1core_1_1losses_1_1_loss_ae772289a8be37a802e11150c81e7ece7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144}\label{classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144} 
+\index{detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}!\_get\_loss\_multiplier\_for\_tensor@{\_get\_loss\_multiplier\_for\_tensor}}
+\index{\_get\_loss\_multiplier\_for\_tensor@{\_get\_loss\_multiplier\_for\_tensor}!detection\_utils.core.losses.Loss@{detection\_utils.core.losses.Loss}}
+\doxysubsubsection{\texorpdfstring{\_get\_loss\_multiplier\_for\_tensor()}{\_get\_loss\_multiplier\_for\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses.\+Loss.\+\_\+get\+\_\+loss\+\_\+multiplier\+\_\+for\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{tensor,  }\item[{}]{losses\+\_\+mask }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{losses_8py_source_l00097}{97}} of file \mbox{\hyperlink{losses_8py_source}{losses.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{def\ }\_get\_loss\_multiplier\_for\_tensor(self,\ tensor,\ losses\_mask):}
+\DoxyCodeLine{00098\ \ \ \ \ loss\_multiplier\_shape\ =\ tf.stack([-\/1]\ +\ [1]\ *\ (len(tensor.shape)\ -\/\ 1))}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.cast(tf.reshape(losses\_mask,\ loss\_multiplier\_shape),\ tf.float32)}
+\DoxyCodeLine{00100\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d09/classdetection__utils_1_1core_1_1losses_1_1_loss_aadcefe6d066fd31b3b5a2542d3fef144_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses_8py}{losses.\+py}}\end{DoxyCompactItemize}

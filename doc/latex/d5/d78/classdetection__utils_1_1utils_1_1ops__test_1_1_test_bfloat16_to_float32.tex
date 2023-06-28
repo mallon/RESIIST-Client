@@ -1,0 +1,107 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Bfloat16\+To\+Float32 Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32}\index{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32@{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Bfloat16\+To\+Float32\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{db/db0/classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Bfloat16\+To\+Float32\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{d9/d16/classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a63e1ac304eb137e15895bd4ec9bba65a}{test\+\_\+convert\+\_\+list}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a3f0259fee5583d97d1d8fcca1b18ef00}{test\+\_\+convert\+\_\+tensor\+\_\+dict}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case}{detection\+\_\+utils.\+utils.\+test\+\_\+case.\+Test\+Case}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a9c2a9604a235b1e61445e36ad3227e05}{execute\+\_\+tpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_a045a0f66c0daf695c7f0326933d7cd36}{execute\+\_\+cpu}} (self, graph\+\_\+fn, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__case_1_1_test_case_aa63733ab104c7557d917a98bef6ac8d9}{execute}} (self, graph\+\_\+fn, inputs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01384}{1384}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a63e1ac304eb137e15895bd4ec9bba65a}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a63e1ac304eb137e15895bd4ec9bba65a} 
+\index{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32@{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32}!test\_convert\_list@{test\_convert\_list}}
+\index{test\_convert\_list@{test\_convert\_list}!detection\_utils.utils.ops\_test.TestBfloat16ToFloat32@{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32}}
+\doxysubsubsection{\texorpdfstring{test\_convert\_list()}{test\_convert\_list()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Bfloat16\+To\+Float32.\+test\+\_\+convert\+\_\+list (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01386}{1386}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01386\ \ \ \textcolor{keyword}{def\ }test\_convert\_list(self):}
+\DoxyCodeLine{01387\ \ \ \ \ var\_list\ =\ [}
+\DoxyCodeLine{01388\ \ \ \ \ \ \ \ \ tf.constant([1.],\ dtype=tf.bfloat16),}
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ tf.constant([2],\ dtype=tf.int32)}
+\DoxyCodeLine{01390\ \ \ \ \ ]}
+\DoxyCodeLine{01391\ \ \ \ \ casted\_var\_list\ =\ ops.bfloat16\_to\_float32\_nested(var\_list)}
+\DoxyCodeLine{01392\ \ \ \ \ self.assertEqual(casted\_var\_list[0].dtype,\ tf.float32)}
+\DoxyCodeLine{01393\ \ \ \ \ self.assertEqual(casted\_var\_list[1].dtype,\ tf.int32)}
+\DoxyCodeLine{01394\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a3f0259fee5583d97d1d8fcca1b18ef00}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_test_bfloat16_to_float32_a3f0259fee5583d97d1d8fcca1b18ef00} 
+\index{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32@{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32}!test\_convert\_tensor\_dict@{test\_convert\_tensor\_dict}}
+\index{test\_convert\_tensor\_dict@{test\_convert\_tensor\_dict}!detection\_utils.utils.ops\_test.TestBfloat16ToFloat32@{detection\_utils.utils.ops\_test.TestBfloat16ToFloat32}}
+\doxysubsubsection{\texorpdfstring{test\_convert\_tensor\_dict()}{test\_convert\_tensor\_dict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Test\+Bfloat16\+To\+Float32.\+test\+\_\+convert\+\_\+tensor\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01395}{1395}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01395\ \ \ \textcolor{keyword}{def\ }test\_convert\_tensor\_dict(self):}
+\DoxyCodeLine{01396\ \ \ \ \ tensor\_dict\ =\ \{}
+\DoxyCodeLine{01397\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'key1'}:\ tf.constant([1.],\ dtype=tf.bfloat16),}
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'key2'}:\ [}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant([0.5],\ dtype=tf.bfloat16),}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \ \ \ \ tf.constant([7],\ dtype=tf.int32),}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{01402\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'key3'}:\ tf.constant([2],\ dtype=tf.uint8),}
+\DoxyCodeLine{01403\ \ \ \ \ \}}
+\DoxyCodeLine{01404\ \ \ \ \ tensor\_dict\ =\ ops.bfloat16\_to\_float32\_nested(tensor\_dict)}
+\DoxyCodeLine{01405\ }
+\DoxyCodeLine{01406\ \ \ \ \ self.assertEqual(tensor\_dict[\textcolor{stringliteral}{'key1'}].dtype,\ tf.float32)}
+\DoxyCodeLine{01407\ \ \ \ \ self.assertEqual(tensor\_dict[\textcolor{stringliteral}{'key2'}][0].dtype,\ tf.float32)}
+\DoxyCodeLine{01408\ \ \ \ \ self.assertEqual(tensor\_dict[\textcolor{stringliteral}{'key2'}][1].dtype,\ tf.int32)}
+\DoxyCodeLine{01409\ \ \ \ \ self.assertEqual(tensor\_dict[\textcolor{stringliteral}{'key3'}].dtype,\ tf.uint8)}
+\DoxyCodeLine{01410\ }
+\DoxyCodeLine{01411\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,250 @@
+\doxysection{variables\+\_\+helper\+\_\+test.\+py}
+\hypertarget{variables__helper__test_8py_source}{}\label{variables__helper__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/variables\_helper\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/variables\_helper\_test.py}}
+\mbox{\hyperlink{variables__helper__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1variables__helper__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.utils.variables\_helper."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00024}00024\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ variables\_helper}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00029}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test}{00029}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test}{FilterVariablesTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{00031}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{return}\ [tf.Variable(1.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/biases'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/biases'})]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ad9dc2e7062e62e5b1ca8f2fad9ab4c51}{00037}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ad9dc2e7062e62e5b1ca8f2fad9ab4c51}{test\_return\_all\_variables\_when\_empty\_regex}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00038}00038\ \ \ \ \ variables\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00039}00039\ \ \ \ \ out\_variables\ =\ variables\_helper.filter\_variables(variables,\ [\textcolor{stringliteral}{''}])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00040}00040\ \ \ \ \ self.assertItemsEqual(out\_variables,\ variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00042}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ae79b5ccc64efa8efd332ce7a8ad3dc93}{00042}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ae79b5ccc64efa8efd332ce7a8ad3dc93}{test\_return\_variables\_which\_do\_not\_match\_single\_regex}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00043}00043\ \ \ \ \ variables\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00044}00044\ \ \ \ \ out\_variables\ =\ variables\_helper.filter\_variables(variables,}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'FeatureExtractor/.*'}])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00046}00046\ \ \ \ \ self.assertItemsEqual(out\_variables,\ variables[2:])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00048}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_abd85b56c56c1e63dbadf3f43f636f12c}{00048}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_abd85b56c56c1e63dbadf3f43f636f12c}{test\_return\_variables\_which\_do\_not\_match\_any\_regex\_in\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00049}00049\ \ \ \ \ variables\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00050}00050\ \ \ \ \ out\_variables\ =\ variables\_helper.filter\_variables(variables,\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'FeatureExtractor.*biases'},\ \textcolor{stringliteral}{'StackProposalGenerator.*biases'}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00052}00052\ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00053}00053\ \ \ \ \ self.assertItemsEqual(out\_variables,\ [variables[0],\ variables[2]])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00055}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ac6269679aea73d281c8331abad1a399b}{00055}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_ac6269679aea73d281c8331abad1a399b}{test\_return\_variables\_matching\_empty\_regex\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00056}00056\ \ \ \ \ variables\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00057}00057\ \ \ \ \ out\_variables\ =\ variables\_helper.filter\_variables(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ variables,\ [\textcolor{stringliteral}{''}],\ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00059}00059\ \ \ \ \ self.assertItemsEqual(out\_variables,\ [])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af525964d5804f54afbe9e797e43a220d}{00061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af525964d5804f54afbe9e797e43a220d}{test\_return\_variables\_matching\_some\_regex\_in\_list}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00062}00062\ \ \ \ \ variables\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_filter_variables_test_af1ea4c600893129f4418cb773183e66c}{\_create\_variables}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00063}00063\ \ \ \ \ out\_variables\ =\ variables\_helper.filter\_variables(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ variables,}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'FeatureExtractor.*biases'},\ \textcolor{stringliteral}{'StackProposalGenerator.*biases'}],}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ invert=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00067}00067\ \ \ \ \ self.assertItemsEqual(out\_variables,\ [variables[1],\ variables[3]])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00070}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test}{00070}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test}{MultiplyGradientsMatchingRegexTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00072}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_ae05649911418e6fce6c8854324da3cdf}{00072}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_ae05649911418e6fce6c8854324da3cdf}{\_create\_grads\_and\_vars}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{return}\ [(tf.constant(1.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/weights'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(2.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(2.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/biases'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(3.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(3.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/weights'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(4.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(4.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/biases'}))]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00082}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_a351b045cb5f2ff84cba4b3b12cd281e9}{00082}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_a351b045cb5f2ff84cba4b3b12cd281e9}{test\_multiply\_all\_feature\_extractor\_variables}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00083}00083\ \ \ \ \ grads\_and\_vars\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_ae05649911418e6fce6c8854324da3cdf}{\_create\_grads\_and\_vars}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00084}00084\ \ \ \ \ regex\_list\ =\ [\textcolor{stringliteral}{'FeatureExtractor/.*'}]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00085}00085\ \ \ \ \ multiplier\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00086}00086\ \ \ \ \ grads\_and\_vars\ =\ variables\_helper.multiply\_gradients\_matching\_regex(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ grads\_and\_vars,\ regex\_list,\ multiplier)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00088}00088\ \ \ \ \ exp\_output\ =\ [(0.0,\ 1.0),\ (0.0,\ 2.0),\ (3.0,\ 3.0),\ (4.0,\ 4.0)]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00089}00089\ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00090}00090\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00091}00091\ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00092}00092\ \ \ \ \ \ \ output\ =\ sess.run(grads\_and\_vars)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00093}00093\ \ \ \ \ \ \ self.assertItemsEqual(output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00095}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_a171b8b547b13a192f6843aa856ec7b18}{00095}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_a171b8b547b13a192f6843aa856ec7b18}{test\_multiply\_all\_bias\_variables}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00096}00096\ \ \ \ \ grads\_and\_vars\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test_ae05649911418e6fce6c8854324da3cdf}{\_create\_grads\_and\_vars}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00097}00097\ \ \ \ \ regex\_list\ =\ [\textcolor{stringliteral}{'.*/biases'}]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00098}00098\ \ \ \ \ multiplier\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00099}00099\ \ \ \ \ grads\_and\_vars\ =\ variables\_helper.multiply\_gradients\_matching\_regex(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ grads\_and\_vars,\ regex\_list,\ multiplier)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00101}00101\ \ \ \ \ exp\_output\ =\ [(1.0,\ 1.0),\ (0.0,\ 2.0),\ (3.0,\ 3.0),\ (0.0,\ 4.0)]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00102}00102\ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00103}00103\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00104}00104\ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00105}00105\ \ \ \ \ \ \ output\ =\ sess.run(grads\_and\_vars)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00106}00106\ \ \ \ \ \ \ self.assertItemsEqual(output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00109}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test}{00109}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test}{FreezeGradientsMatchingRegexTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00111}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test_ad35e3d05962f7d03ce2d07ab23227093}{00111}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test_ad35e3d05962f7d03ce2d07ab23227093}{\_create\_grads\_and\_vars}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00112}00112\ \ \ \ \ \textcolor{keywordflow}{return}\ [(tf.constant(1.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/weights'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(2.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(2.0,\ name=\textcolor{stringliteral}{'FeatureExtractor/InceptionV3/biases'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(3.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(3.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/weights'})),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ (tf.constant(4.0),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(4.0,\ name=\textcolor{stringliteral}{'StackProposalGenerator/biases'}))]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00121}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test_aaa2356e409f754f5dfc08c7359080c33}{00121}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test_aaa2356e409f754f5dfc08c7359080c33}{test\_freeze\_all\_feature\_extractor\_variables}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00122}00122\ \ \ \ \ grads\_and\_vars\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_freeze_gradients_matching_regex_test_ad35e3d05962f7d03ce2d07ab23227093}{\_create\_grads\_and\_vars}}()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00123}00123\ \ \ \ \ regex\_list\ =\ [\textcolor{stringliteral}{'FeatureExtractor/.*'}]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00124}00124\ \ \ \ \ grads\_and\_vars\ =\ variables\_helper.freeze\_gradients\_matching\_regex(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ grads\_and\_vars,\ regex\_list)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00126}00126\ \ \ \ \ exp\_output\ =\ [(3.0,\ 3.0),\ (4.0,\ 4.0)]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00127}00127\ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00128}00128\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00129}00129\ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00130}00130\ \ \ \ \ \ \ output\ =\ sess.run(grads\_and\_vars)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00131}00131\ \ \ \ \ \ \ self.assertItemsEqual(output,\ exp\_output)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00134}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test}{00134}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test}{GetVariablesAvailableInCheckpointTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00136}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a16db76ca51c7bba93368a1503544bfde}{00136}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a16db76ca51c7bba93368a1503544bfde}{test\_return\_all\_variables\_from\_checkpoint}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00137}00137\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00138}00138\ \ \ \ \ \ \ variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'biases'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00141}00141\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00142}00142\ \ \ \ \ \ \ checkpoint\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'model.ckpt'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00143}00143\ \ \ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00144}00144\ \ \ \ \ \ \ saver\ =\ tf.train.Saver(variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00145}00145\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ saver.save(sess,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00148}00148\ \ \ \ \ \ \ out\_variables\ =\ variables\_helper.get\_variables\_available\_in\_checkpoint(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ variables,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00150}00150\ \ \ \ \ self.assertItemsEqual(out\_variables,\ variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00152}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_afe9ff3013ce890607108755280475730}{00152}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_afe9ff3013ce890607108755280475730}{test\_return\_all\_variables\_from\_checkpoint\_with\_partition}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00153}00153\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00154}00154\ \ \ \ \ \ \ partitioner\ =\ tf.fixed\_size\_partitioner(2)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00155}00155\ \ \ \ \ \ \ variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ tf.get\_variable(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'weights'},\ shape=(2,\ 2),\ partitioner=partitioner),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ tf.Variable([1.0,\ 2.0],\ name=\textcolor{stringliteral}{'biases'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00159}00159\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00160}00160\ \ \ \ \ \ \ checkpoint\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'model.ckpt'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00161}00161\ \ \ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00162}00162\ \ \ \ \ \ \ saver\ =\ tf.train.Saver(variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00163}00163\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ saver.save(sess,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00166}00166\ \ \ \ \ \ \ out\_variables\ =\ variables\_helper.get\_variables\_available\_in\_checkpoint(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ variables,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00168}00168\ \ \ \ \ self.assertItemsEqual(out\_variables,\ variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00170}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a146b8b2e3de71398ab91ce223d126eac}{00170}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a146b8b2e3de71398ab91ce223d126eac}{test\_return\_variables\_available\_in\_checkpoint}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00171}00171\ \ \ \ \ checkpoint\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'model.ckpt'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00172}00172\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00173}00173\ \ \ \ \ \ \ weight\_variable\ =\ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'weights'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00174}00174\ \ \ \ \ \ \ global\_step\ =\ tf.train.get\_or\_create\_global\_step()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00175}00175\ \ \ \ \ \ \ graph1\_variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ weight\_variable,}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ global\_step}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00178}00178\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00179}00179\ \ \ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00180}00180\ \ \ \ \ \ \ saver\ =\ tf.train.Saver(graph1\_variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00181}00181\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ saver.save(sess,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00185}00185\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00186}00186\ \ \ \ \ \ \ graph2\_variables\ =\ graph1\_variables\ +\ [tf.Variable(1.0,\ name=\textcolor{stringliteral}{'biases'})]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00187}00187\ \ \ \ \ \ \ out\_variables\ =\ variables\_helper.get\_variables\_available\_in\_checkpoint(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ graph2\_variables,\ checkpoint\_path,\ include\_global\_step=\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00189}00189\ \ \ \ \ self.assertItemsEqual(out\_variables,\ [weight\_variable])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00191}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a637e91ccad692a5ff7f53cfdbd1b7981}{00191}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_a637e91ccad692a5ff7f53cfdbd1b7981}{test\_return\_variables\_available\_an\_checkpoint\_with\_dict\_inputs}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00192}00192\ \ \ \ \ checkpoint\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'model.ckpt'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00193}00193\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00194}00194\ \ \ \ \ \ \ graph1\_variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'ckpt\_weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00196}00196\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00197}00197\ \ \ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00198}00198\ \ \ \ \ \ \ saver\ =\ tf.train.Saver(graph1\_variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00199}00199\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ saver.save(sess,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00203}00203\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00204}00204\ \ \ \ \ \ \ graph2\_variables\_dict\ =\ \{}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ckpt\_weights'}:\ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'ckpt\_biases'}:\ tf.Variable(1.0,\ name=\textcolor{stringliteral}{'biases'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00207}00207\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00208}00208\ \ \ \ \ \ \ out\_variables\ =\ variables\_helper.get\_variables\_available\_in\_checkpoint(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ graph2\_variables\_dict,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00211}00211\ \ \ \ \ self.assertTrue(isinstance(out\_variables,\ dict))}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00212}00212\ \ \ \ \ self.assertItemsEqual(list(out\_variables.keys()),\ [\textcolor{stringliteral}{'ckpt\_weights'}])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00213}00213\ \ \ \ \ self.assertTrue(out\_variables[\textcolor{stringliteral}{'ckpt\_weights'}].op.name\ ==\ \textcolor{stringliteral}{'weights'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00215}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_ab20c89491c4fbcd1f81a1c3da4174582}{00215}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1variables__helper__test_1_1_get_variables_available_in_checkpoint_test_ab20c89491c4fbcd1f81a1c3da4174582}{test\_return\_variables\_with\_correct\_sizes}}(self):}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00216}00216\ \ \ \ \ checkpoint\_path\ =\ os.path.join(self.get\_temp\_dir(),\ \textcolor{stringliteral}{'model.ckpt'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00217}00217\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00218}00218\ \ \ \ \ \ \ bias\_variable\ =\ tf.Variable(3.0,\ name=\textcolor{stringliteral}{'biases'})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00219}00219\ \ \ \ \ \ \ global\_step\ =\ tf.train.get\_or\_create\_global\_step()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00220}00220\ \ \ \ \ \ \ graph1\_variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ tf.Variable([[1.0,\ 2.0],\ [3.0,\ 4.0]],\ name=\textcolor{stringliteral}{'weights'}),}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ bias\_variable,}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ global\_step}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00224}00224\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00225}00225\ \ \ \ \ \ \ init\_op\ =\ tf.global\_variables\_initializer()}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00226}00226\ \ \ \ \ \ \ saver\ =\ tf.train.Saver(graph1\_variables)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00227}00227\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ sess.run(init\_op)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ saver.save(sess,\ checkpoint\_path)}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00231}00231\ \ \ \ \ \textcolor{keyword}{with}\ tf.Graph().as\_default():}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00232}00232\ \ \ \ \ \ \ graph2\_variables\ =\ [}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ tf.Variable([1.0,\ 2.0],\ name=\textcolor{stringliteral}{'weights'}),\ \ \textcolor{comment}{\#\ New\ variable\ shape.}}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ bias\_variable,}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ global\_step}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00236}00236\ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00238}00238\ \ \ \ \ out\_variables\ =\ variables\_helper.get\_variables\_available\_in\_checkpoint(}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ graph2\_variables,\ checkpoint\_path,\ include\_global\_step=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00240}00240\ \ \ \ \ self.assertItemsEqual(out\_variables,\ [bias\_variable,\ global\_step])}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00243}00243\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{variables__helper__test_8py_source_l00244}00244\ \ \ tf.test.main()}
+
+\end{DoxyCode}

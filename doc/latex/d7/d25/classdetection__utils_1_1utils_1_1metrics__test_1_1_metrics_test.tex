@@ -1,0 +1,285 @@
+\doxysection{detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test}{}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test}\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{d2/d40/classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{d7/d2e/classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ad3f5ee863952a3edc8b4830113b1f517}{test\+\_\+compute\+\_\+cor\+\_\+loc}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_acbbe270393c6d3404988991b8a4fa6ba}{test\+\_\+compute\+\_\+cor\+\_\+loc\+\_\+nans}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0c209f4ddc8302398067586fd6ed64d2}{test\+\_\+compute\+\_\+precision\+\_\+recall}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_afdd7f4999a5badd038a2655ff0f193c7}{test\+\_\+compute\+\_\+precision\+\_\+recall\+\_\+float}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0dc62a69b571b041724d131603682902}{test\+\_\+compute\+\_\+average\+\_\+precision}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a66dc7fc915fe615e80980c92fadabc8b}{test\+\_\+compute\+\_\+precision\+\_\+recall\+\_\+and\+\_\+ap\+\_\+no\+\_\+groundtruth}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ae079512414660928b17f2d07bcf9cc07}{test\+\_\+compute\+\_\+recall\+\_\+at\+\_\+k}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a9434b0ba76f91b229b6ac89b6009f2d4}{test\+\_\+compute\+\_\+median\+\_\+rank\+\_\+at\+\_\+k}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00027}{27}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0dc62a69b571b041724d131603682902}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0dc62a69b571b041724d131603682902} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_average\_precision@{test\_compute\_average\_precision}}
+\index{test\_compute\_average\_precision@{test\_compute\_average\_precision}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_average\_precision()}{test\_compute\_average\_precision()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+average\+\_\+precision (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00077}{77}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{def\ }test\_compute\_average\_precision(self):}
+\DoxyCodeLine{00078\ \ \ \ \ precision\ =\ np.array([0.8,\ 0.76,\ 0.9,\ 0.65,\ 0.7,\ 0.5,\ 0.55,\ 0],\ dtype=float)}
+\DoxyCodeLine{00079\ \ \ \ \ recall\ =\ np.array([0.3,\ 0.3,\ 0.4,\ 0.4,\ 0.45,\ 0.45,\ 0.5,\ 0.5],\ dtype=float)}
+\DoxyCodeLine{00080\ \ \ \ \ processed\_precision\ =\ np.array(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ [0.9,\ 0.9,\ 0.9,\ 0.7,\ 0.7,\ 0.55,\ 0.55,\ 0],\ dtype=float)}
+\DoxyCodeLine{00082\ \ \ \ \ recall\_interval\ =\ np.array([0.3,\ 0,\ 0.1,\ 0,\ 0.05,\ 0,\ 0.05,\ 0],\ dtype=float)}
+\DoxyCodeLine{00083\ \ \ \ \ expected\_mean\_ap\ =\ np.sum(recall\_interval\ *\ processed\_precision)}
+\DoxyCodeLine{00084\ \ \ \ \ mean\_ap\ =\ metrics.compute\_average\_precision(precision,\ recall)}
+\DoxyCodeLine{00085\ \ \ \ \ self.assertAlmostEqual(expected\_mean\_ap,\ mean\_ap)}
+\DoxyCodeLine{00086\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ad3f5ee863952a3edc8b4830113b1f517}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ad3f5ee863952a3edc8b4830113b1f517} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_cor\_loc@{test\_compute\_cor\_loc}}
+\index{test\_compute\_cor\_loc@{test\_compute\_cor\_loc}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_cor\_loc()}{test\_compute\_cor\_loc()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+cor\+\_\+loc (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00029}{29}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{def\ }test\_compute\_cor\_loc(self):}
+\DoxyCodeLine{00030\ \ \ \ \ num\_gt\_imgs\_per\_class\ =\ np.array([100,\ 1,\ 5,\ 1,\ 1],\ dtype=int)}
+\DoxyCodeLine{00031\ \ \ \ \ num\_images\_correctly\_detected\_per\_class\ =\ np.array(}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ [10,\ 0,\ 1,\ 0,\ 0],\ dtype=int)}
+\DoxyCodeLine{00033\ \ \ \ \ corloc\ =\ metrics.compute\_cor\_loc(num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class)}
+\DoxyCodeLine{00035\ \ \ \ \ expected\_corloc\ =\ np.array([0.1,\ 0,\ 0.2,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{00036\ \ \ \ \ self.assertTrue(np.allclose(corloc,\ expected\_corloc))}
+\DoxyCodeLine{00037\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_acbbe270393c6d3404988991b8a4fa6ba}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_acbbe270393c6d3404988991b8a4fa6ba} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_cor\_loc\_nans@{test\_compute\_cor\_loc\_nans}}
+\index{test\_compute\_cor\_loc\_nans@{test\_compute\_cor\_loc\_nans}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_cor\_loc\_nans()}{test\_compute\_cor\_loc\_nans()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+cor\+\_\+loc\+\_\+nans (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00038}{38}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{def\ }test\_compute\_cor\_loc\_nans(self):}
+\DoxyCodeLine{00039\ \ \ \ \ num\_gt\_imgs\_per\_class\ =\ np.array([100,\ 0,\ 0,\ 1,\ 1],\ dtype=int)}
+\DoxyCodeLine{00040\ \ \ \ \ num\_images\_correctly\_detected\_per\_class\ =\ np.array(}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ [10,\ 0,\ 1,\ 0,\ 0],\ dtype=int)}
+\DoxyCodeLine{00042\ \ \ \ \ corloc\ =\ metrics.compute\_cor\_loc(num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class)}
+\DoxyCodeLine{00044\ \ \ \ \ expected\_corloc\ =\ np.array([0.1,\ np.nan,\ np.nan,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{00045\ \ \ \ \ self.assertAllClose(corloc,\ expected\_corloc)}
+\DoxyCodeLine{00046\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a9434b0ba76f91b229b6ac89b6009f2d4}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a9434b0ba76f91b229b6ac89b6009f2d4} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_median\_rank\_at\_k@{test\_compute\_median\_rank\_at\_k}}
+\index{test\_compute\_median\_rank\_at\_k@{test\_compute\_median\_rank\_at\_k}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_median\_rank\_at\_k()}{test\_compute\_median\_rank\_at\_k()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+median\+\_\+rank\+\_\+at\+\_\+k (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00123}{123}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{def\ }test\_compute\_median\_rank\_at\_k(self):}
+\DoxyCodeLine{00124\ \ \ \ \ tp\_fp\ =\ [}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ np.array([1,\ 0,\ 0],\ dtype=float),}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ np.array([0,\ 0.1],\ dtype=float),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ np.array([0,\ 0,\ 0,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{00128\ \ \ \ \ ]}
+\DoxyCodeLine{00129\ \ \ \ \ tp\_fp\_bool\ =\ [}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=bool),}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=float),}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=float)}
+\DoxyCodeLine{00133\ \ \ \ \ ]}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ median\_ranks\_1\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 1)}
+\DoxyCodeLine{00136\ \ \ \ \ median\_ranks\_3\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 3)}
+\DoxyCodeLine{00137\ \ \ \ \ median\_ranks\_5\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp,\ 5)}
+\DoxyCodeLine{00138\ \ \ \ \ median\_ranks\_3\_bool\ =\ metrics.compute\_median\_rank\_at\_k(tp\_fp\_bool,\ 3)}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ self.assertEquals(median\_ranks\_1,\ 0)}
+\DoxyCodeLine{00141\ \ \ \ \ self.assertEquals(median\_ranks\_3,\ 0.5)}
+\DoxyCodeLine{00142\ \ \ \ \ self.assertEquals(median\_ranks\_3\_bool,\ 0.5)}
+\DoxyCodeLine{00143\ \ \ \ \ self.assertEquals(median\_ranks\_5,\ 0.5)}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0c209f4ddc8302398067586fd6ed64d2}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a0c209f4ddc8302398067586fd6ed64d2} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_precision\_recall@{test\_compute\_precision\_recall}}
+\index{test\_compute\_precision\_recall@{test\_compute\_precision\_recall}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_precision\_recall()}{test\_compute\_precision\_recall()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+precision\+\_\+recall (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00047}{47}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{def\ }test\_compute\_precision\_recall(self):}
+\DoxyCodeLine{00048\ \ \ \ \ num\_gt\ =\ 10}
+\DoxyCodeLine{00049\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{00050\ \ \ \ \ labels\ =\ np.array([0,\ 1,\ 1,\ 0,\ 0,\ 1],\ dtype=bool)}
+\DoxyCodeLine{00051\ \ \ \ \ labels\_float\_type\ =\ np.array([0,\ 1,\ 1,\ 0,\ 0,\ 1],\ dtype=float)}
+\DoxyCodeLine{00052\ \ \ \ \ accumulated\_tp\_count\ =\ np.array([0,\ 1,\ 1,\ 2,\ 2,\ 3],\ dtype=float)}
+\DoxyCodeLine{00053\ \ \ \ \ expected\_precision\ =\ accumulated\_tp\_count\ /\ np.array([1,\ 2,\ 3,\ 4,\ 5,\ 6])}
+\DoxyCodeLine{00054\ \ \ \ \ expected\_recall\ =\ accumulated\_tp\_count\ /\ num\_gt}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(scores,\ labels,\ num\_gt)}
+\DoxyCodeLine{00057\ \ \ \ \ precision\_float\_type,\ recall\_float\_type\ =\ metrics.compute\_precision\_recall(}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ scores,\ labels\_float\_type,\ num\_gt)}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ self.assertAllClose(precision,\ expected\_precision)}
+\DoxyCodeLine{00061\ \ \ \ \ self.assertAllClose(recall,\ expected\_recall)}
+\DoxyCodeLine{00062\ \ \ \ \ self.assertAllClose(precision\_float\_type,\ expected\_precision)}
+\DoxyCodeLine{00063\ \ \ \ \ self.assertAllClose(recall\_float\_type,\ expected\_recall)}
+\DoxyCodeLine{00064\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a66dc7fc915fe615e80980c92fadabc8b}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_a66dc7fc915fe615e80980c92fadabc8b} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth@{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth}}
+\index{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth@{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth()}{test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+precision\+\_\+recall\+\_\+and\+\_\+ap\+\_\+no\+\_\+groundtruth (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00087}{87}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{def\ }test\_compute\_precision\_recall\_and\_ap\_no\_groundtruth(self):}
+\DoxyCodeLine{00088\ \ \ \ \ num\_gt\ =\ 0}
+\DoxyCodeLine{00089\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{00090\ \ \ \ \ labels\ =\ np.array([0,\ 0,\ 0,\ 0,\ 0,\ 0],\ dtype=bool)}
+\DoxyCodeLine{00091\ \ \ \ \ expected\_precision\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00092\ \ \ \ \ expected\_recall\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{00093\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(scores,\ labels,\ num\_gt)}
+\DoxyCodeLine{00094\ \ \ \ \ self.assertEquals(precision,\ expected\_precision)}
+\DoxyCodeLine{00095\ \ \ \ \ self.assertEquals(recall,\ expected\_recall)}
+\DoxyCodeLine{00096\ \ \ \ \ ap\ =\ metrics.compute\_average\_precision(precision,\ recall)}
+\DoxyCodeLine{00097\ \ \ \ \ self.assertTrue(np.isnan(ap))}
+\DoxyCodeLine{00098\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_afdd7f4999a5badd038a2655ff0f193c7}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_afdd7f4999a5badd038a2655ff0f193c7} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_precision\_recall\_float@{test\_compute\_precision\_recall\_float}}
+\index{test\_compute\_precision\_recall\_float@{test\_compute\_precision\_recall\_float}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_precision\_recall\_float()}{test\_compute\_precision\_recall\_float()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+precision\+\_\+recall\+\_\+float (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00065}{65}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{def\ }test\_compute\_precision\_recall\_float(self):}
+\DoxyCodeLine{00066\ \ \ \ \ num\_gt\ =\ 10}
+\DoxyCodeLine{00067\ \ \ \ \ scores\ =\ np.array([0.4,\ 0.3,\ 0.6,\ 0.2,\ 0.7,\ 0.1],\ dtype=float)}
+\DoxyCodeLine{00068\ \ \ \ \ labels\_float\ =\ np.array([0,\ 1,\ 1,\ 0.5,\ 0,\ 1],\ dtype=float)}
+\DoxyCodeLine{00069\ \ \ \ \ expected\_precision\ =\ np.array(}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ [0.,\ 0.5,\ 0.33333333,\ 0.5,\ 0.55555556,\ 0.63636364],\ dtype=float)}
+\DoxyCodeLine{00071\ \ \ \ \ expected\_recall\ =\ np.array([0.,\ 0.1,\ 0.1,\ 0.2,\ 0.25,\ 0.35],\ dtype=float)}
+\DoxyCodeLine{00072\ \ \ \ \ precision,\ recall\ =\ metrics.compute\_precision\_recall(}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ scores,\ labels\_float,\ num\_gt)}
+\DoxyCodeLine{00074\ \ \ \ \ self.assertAllClose(precision,\ expected\_precision)}
+\DoxyCodeLine{00075\ \ \ \ \ self.assertAllClose(recall,\ expected\_recall)}
+\DoxyCodeLine{00076\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ae079512414660928b17f2d07bcf9cc07}\label{classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test_ae079512414660928b17f2d07bcf9cc07} 
+\index{detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}!test\_compute\_recall\_at\_k@{test\_compute\_recall\_at\_k}}
+\index{test\_compute\_recall\_at\_k@{test\_compute\_recall\_at\_k}!detection\_utils.utils.metrics\_test.MetricsTest@{detection\_utils.utils.metrics\_test.MetricsTest}}
+\doxysubsubsection{\texorpdfstring{test\_compute\_recall\_at\_k()}{test\_compute\_recall\_at\_k()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+metrics\+\_\+test.\+Metrics\+Test.\+test\+\_\+compute\+\_\+recall\+\_\+at\+\_\+k (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{metrics__test_8py_source_l00099}{99}} of file \mbox{\hyperlink{metrics__test_8py_source}{metrics\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{def\ }test\_compute\_recall\_at\_k(self):}
+\DoxyCodeLine{00100\ \ \ \ \ num\_gt\ =\ 4}
+\DoxyCodeLine{00101\ \ \ \ \ tp\_fp\ =\ [}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ np.array([1,\ 0,\ 0],\ dtype=float),}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ np.array([0,\ 1],\ dtype=float),}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ np.array([0,\ 0,\ 0,\ 0,\ 0],\ dtype=float)}
+\DoxyCodeLine{00105\ \ \ \ \ ]}
+\DoxyCodeLine{00106\ \ \ \ \ tp\_fp\_bool\ =\ [}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=bool),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True}],\ dtype=float),}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}],\ dtype=float)}
+\DoxyCodeLine{00110\ \ \ \ \ ]}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ recall\_1\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 1)}
+\DoxyCodeLine{00113\ \ \ \ \ recall\_3\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 3)}
+\DoxyCodeLine{00114\ \ \ \ \ recall\_5\ =\ metrics.compute\_recall\_at\_k(tp\_fp,\ num\_gt,\ 5)}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ recall\_3\_bool\ =\ metrics.compute\_recall\_at\_k(tp\_fp\_bool,\ num\_gt,\ 3)}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ self.assertAlmostEqual(recall\_1,\ 0.25)}
+\DoxyCodeLine{00119\ \ \ \ \ self.assertAlmostEqual(recall\_3,\ 0.5)}
+\DoxyCodeLine{00120\ \ \ \ \ self.assertAlmostEqual(recall\_3\_bool,\ 0.5)}
+\DoxyCodeLine{00121\ \ \ \ \ self.assertAlmostEqual(recall\_5,\ 0.5)}
+\DoxyCodeLine{00122\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{metrics__test_8py}{metrics\+\_\+test.\+py}}\end{DoxyCompactItemize}

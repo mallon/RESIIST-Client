@@ -1,0 +1,235 @@
+\doxysection{per\+\_\+image\+\_\+vrd\+\_\+evaluation.\+py}
+\hypertarget{per__image__vrd__evaluation_8py_source}{}\label{per__image__vrd__evaluation_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/per\_image\_vrd\_evaluation.py@{src/main/resources/processing/video/detections/detection\_utils/utils/per\_image\_vrd\_evaluation.py}}
+\mbox{\hyperlink{per__image__vrd__evaluation_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1per__image__vrd__evaluation}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Evaluates\ Visual\ Relations\ Detection(VRD)\ result\ evaluation\ on\ an\ image.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00016}00016\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00017}00017\ \textcolor{stringliteral}{Annotate\ each\ VRD\ result\ as\ true\ positives\ or\ false\ positive\ according\ to}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00018}00018\ \textcolor{stringliteral}{a\ predefined\ IOU\ ratio.\ Multi-\/class\ detection\ is\ supported\ by\ default.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00019}00019\ \textcolor{stringliteral}{Based\ on\ the\ settings,\ per\ image\ evaluation\ is\ performed\ either\ on\ phrase}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00020}00020\ \textcolor{stringliteral}{detection\ subtask\ or\ on\ relation\ detection\ subtask.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00022}00022\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00023}00023\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00026}00026\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00027}00027\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00029}00029\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00030}00030\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00033}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation}{00033}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation}{PerImageVRDEvaluation}}(object):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00034}00034\ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluate\ vrd\ result\ of\ a\ single\ image."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00036}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a68fd33e73f7977552c5944d944b4352e}{00036}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a68fd33e73f7977552c5944d944b4352e}{\_\_init\_\_}}(self,\ matching\_iou\_threshold=0.5):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00037}00037\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialized\ PerImageVRDEvaluation\ by\ evaluation\ parameters.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00038}00038\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ \ \ \ \ matching\_iou\_threshold:\ A\ ratio\ of\ area\ intersection\ to\ union,\ which\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ the\ threshold\ to\ consider\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ true\ positive\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not};}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{in}\ phrase\ detection\ subtask.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00043}00043\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}{00044}}\ \textcolor{stringliteral}{\ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}{matching\_iou\_threshold}}\ =\ matching\_iou\_threshold}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00045}00045\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00046}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb}{00046}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a614da6e68cf41643b969a33ad6a01fbb}{compute\_detection\_tp\_fp}}(self,\ detected\_box\_tuples,\ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_tuples,\ groundtruth\_box\_tuples,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_tuples):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00049}00049\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluates\ VRD\ as\ being\ tp,\ fp\ from\ a\ single\ image.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00050}00050\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00056}00056\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,],\ representing}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ the\ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00058}00058\ \ \ \ \ \ \ detected\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ representing\ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00061}00061\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max].}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00065}00065\ \ \ \ \ \ \ groundtruth\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [M,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ representing\ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00069}00069\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00070}00070\ \ \ \ \ \ \ scores:\ A\ single\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,],\ representing\ N\ scores}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class},\ sorted\ \textcolor{keywordflow}{in}\ descentent\ order.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00072}00072\ \ \ \ \ \ \ tp\_fp\_labels:\ A\ single\ boolean\ numpy\ array\ of\ shape\ [N,],\ representing\ N}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label,\ one\ label\ per\ tuple.\ The\ labels\ are\ sorted}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ so\ that\ the\ order\ of\ the\ labels\ matches\ the\ order\ of\ the\ scores.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00075}00075\ \ \ \ \ \ \ result\_mapping:\ A\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,]\ \textcolor{keyword}{with}\ original\ index\ of\ each}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ entry.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00077}00077\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00078}00078\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ \ \ scores,\ tp\_fp\_labels,\ result\_mapping\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26}{\_compute\_tp\_fp}}(}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_box\_tuples=detected\_box\_tuples,}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_scores=detected\_scores,}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detected\_class\_tuples=detected\_class\_tuples,}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_box\_tuples=groundtruth\_box\_tuples,}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_class\_tuples=groundtruth\_class\_tuples)}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00085}00085\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ scores,\ tp\_fp\_labels,\ result\_mapping}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00088}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26}{00088}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a0d4aa4c313c5cdb9562f1a76ed8a4d26}{\_compute\_tp\_fp}}(self,\ detected\_box\_tuples,\ detected\_scores,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_tuples,\ groundtruth\_box\_tuples,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_tuples):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00091}00091\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ as\ true/false\ positives\ detection\ tuples\ across\ all\ classes.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00092}00092\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00093}00093\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00094}00094\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00098}00098\ \ \ \ \ \ \ detected\_scores:\ A\ float\ numpy\ array\ of\ shape\ [N,],\ representing}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ the\ confidence\ scores\ of\ the\ detected\ N\ object\ instances.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00100}00100\ \ \ \ \ \ \ detected\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ representing\ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00103}00103\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00107}00107\ \ \ \ \ \ \ groundtruth\_class\_tuples:\ A\ numpy\ array\ of\ structures\ shape\ [M,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ representing\ \ the\ \textcolor{keyword}{class\ }labels\ of\ the\ corresponding\ bounding\ boxes\ and}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ possibly\ additional\ classes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00111}00111\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00112}00112\ \ \ \ \ \ \ scores:\ A\ single\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,],\ representing\ N\ scores}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ detected\ \textcolor{keyword}{with}\ object\ \textcolor{keyword}{class},\ sorted\ \textcolor{keywordflow}{in}\ descentent\ order.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00114}00114\ \ \ \ \ \ \ tp\_fp\_labels:\ A\ single\ boolean\ numpy\ array\ of\ shape\ [N,],\ representing\ N}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{True}/\textcolor{keyword}{False}\ positive\ label,\ one\ label\ per\ tuple.\ The\ labels\ are\ sorted}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ so\ that\ the\ order\ of\ the\ labels\ matches\ the\ order\ of\ the\ scores.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00117}00117\ \ \ \ \ \ \ result\_mapping:\ A\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,]\ \textcolor{keyword}{with}\ original\ index\ of\ each}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ entry.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00119}00119\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ \ \ unique\_gt\_tuples\ =\ np.unique(}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ np.concatenate((groundtruth\_class\_tuples,\ detected\_class\_tuples)))}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ \ \ result\_scores\ =\ []}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00123}00123\ \textcolor{stringliteral}{\ \ \ \ result\_tp\_fp\_labels\ =\ []}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00124}00124\ \textcolor{stringliteral}{\ \ \ \ result\_mapping\ =\ []}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00125}00125\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00126}00126\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{for}\ unique\_tuple\ \textcolor{keywordflow}{in}\ unique\_gt\_tuples:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00127}00127\ \ \ \ \ \ \ detections\_selector\ =\ (detected\_class\_tuples\ ==\ unique\_tuple)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00128}00128\ \ \ \ \ \ \ gt\_selector\ =\ (groundtruth\_class\_tuples\ ==\ unique\_tuple)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00130}00130\ \ \ \ \ \ \ selector\_mapping\ =\ np.where(detections\_selector)[0]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00132}00132\ \ \ \ \ \ \ detection\_scores\_per\_tuple\ =\ detected\_scores[detections\_selector]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00133}00133\ \ \ \ \ \ \ detection\_box\_per\_tuple\ =\ detected\_box\_tuples[detections\_selector]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00135}00135\ \ \ \ \ \ \ sorted\_indices\ =\ np.argsort(detection\_scores\_per\_tuple)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00136}00136\ \ \ \ \ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00138}00138\ \ \ \ \ \ \ tp\_fp\_labels\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651}{\_compute\_tp\_fp\_for\_single\_class}}(}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ detected\_box\_tuples=detection\_box\_per\_tuple[sorted\_indices],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples=groundtruth\_box\_tuples[gt\_selector])}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00141}00141\ \ \ \ \ \ \ result\_scores.append(detection\_scores\_per\_tuple[sorted\_indices])}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00142}00142\ \ \ \ \ \ \ result\_tp\_fp\_labels.append(tp\_fp\_labels)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00143}00143\ \ \ \ \ \ \ result\_mapping.append(selector\_mapping[sorted\_indices])}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}\ result\_scores:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00146}00146\ \ \ \ \ \ \ result\_scores\ =\ np.concatenate(result\_scores)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00147}00147\ \ \ \ \ \ \ result\_tp\_fp\_labels\ =\ np.concatenate(result\_tp\_fp\_labels)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00148}00148\ \ \ \ \ \ \ result\_mapping\ =\ np.concatenate(result\_mapping)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00150}00150\ \ \ \ \ \ \ result\_scores\ =\ np.array([],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00151}00151\ \ \ \ \ \ \ result\_tp\_fp\_labels\ =\ np.array([],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00152}00152\ \ \ \ \ \ \ result\_mapping\ =\ np.array([],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00154}00154\ \ \ \ \ sorted\_indices\ =\ np.argsort(result\_scores)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00155}00155\ \ \ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_scores[sorted\_indices],\ result\_tp\_fp\_labels[}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ sorted\_indices],\ result\_mapping[sorted\_indices]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00160}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836}{00160}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836}{\_get\_overlaps\_and\_scores\_relation\_tuples}}(self,\ detected\_box\_tuples,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00162}00162\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ overlaps\ and\ scores\ between\ detected\ and\ groundtruth\ tuples.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00163}00163\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ \ \ Both\ detections\ }\textcolor{keywordflow}{and}\ groundtruth\ boxes\ have\ the\ same\ \textcolor{keyword}{class\ }tuples.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00166}00166\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00167}00167\ \ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00171}00171\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00176}00176\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00177}00177\ \ \ \ \ \ \ result\_iou:\ A\ float\ numpy\ array\ of\ size}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ [num\_detected\_tuples,\ num\_gt\_box\_tuples].}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00179}00179\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00180}00180\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ \ \ result\_iou\ =\ np.ones(}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ (detected\_box\_tuples.shape[0],\ groundtruth\_box\_tuples.shape[0]),}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ dtype=float)}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ detected\_box\_tuples.dtype.fields:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00185}00185\ \ \ \ \ \ \ detected\_boxlist\_field\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(detected\_box\_tuples[field])}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00186}00186\ \ \ \ \ \ \ gt\_boxlist\_field\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(groundtruth\_box\_tuples[field])}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00187}00187\ \ \ \ \ \ \ iou\_field\ =\ np\_box\_list\_ops.iou(detected\_boxlist\_field,\ gt\_boxlist\_field)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00188}00188\ \ \ \ \ \ \ result\_iou\ =\ np.minimum(iou\_field,\ result\_iou)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_iou}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00191}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651}{00191}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_ab4adb454823e7241475915411570a651}{\_compute\_tp\_fp\_for\_single\_class}}(self,\ detected\_box\_tuples,}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_box\_tuples):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00193}00193\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Labels\ boxes\ detected\ with\ the\ same\ class\ from\ the\ same\ image\ as\ tp/fp.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00194}00194\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00195}00195\ \textcolor{stringliteral}{\ \ \ \ Detection\ boxes\ are\ expected\ to\ be\ already\ sorted\ by\ score.}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00197}00197\ \textcolor{stringliteral}{\ \ \ \ \ \ detected\_box\_tuples:\ A\ numpy\ array\ of\ structures\ }\textcolor{keyword}{with}\ shape\ [N,],}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ representing\ N\ tuples,\ each\ tuple\ containing\ the\ same\ number\ of\ named}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00201}00201\ \ \ \ \ \ \ groundtruth\_box\_tuples:\ A\ float\ numpy\ array\ of\ structures\ \textcolor{keyword}{with}\ the\ shape}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ [M,],\ representing\ M\ tuples,\ each\ tuple\ containing\ the\ same\ number}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ of\ named\ bounding\ boxes.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ Each\ box\ \textcolor{keywordflow}{is}\ of\ the\ format\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00206}00206\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00207}00207\ \ \ \ \ \ \ tp\_fp\_labels:\ a\ boolean\ numpy\ array\ indicating\ whether\ a\ detection\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ true\ positive.}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00209}00209\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ detected\_box\_tuples.size\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00211}00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ np.array([],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00213}00213\ \ \ \ \ min\_iou\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_aa60d7eaf939f5280cdf1ffea0f869836}{\_get\_overlaps\_and\_scores\_relation\_tuples}}(}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ detected\_box\_tuples,\ groundtruth\_box\_tuples)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00216}00216\ \ \ \ \ num\_detected\_tuples\ =\ detected\_box\_tuples.shape[0]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00217}00217\ \ \ \ \ tp\_fp\_labels\ =\ np.zeros(num\_detected\_tuples,\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{if}\ min\_iou.shape[1]\ >\ 0:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00220}00220\ \ \ \ \ \ \ max\_overlap\_gt\_ids\ =\ np.argmax(min\_iou,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00221}00221\ \ \ \ \ \ \ is\_gt\_tuple\_detected\ =\ np.zeros(min\_iou.shape[1],\ dtype=bool)}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00222}00222\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_detected\_tuples):}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ gt\_id\ =\ max\_overlap\_gt\_ids[i]}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ min\_iou[i,\ gt\_id]\ >=\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1per__image__vrd__evaluation_1_1_per_image_v_r_d_evaluation_a28c5c93132dbc0538d24a60f246bda49}{matching\_iou\_threshold}}:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ is\_gt\_tuple\_detected[gt\_id]:}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ tp\_fp\_labels[i]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ is\_gt\_tuple\_detected[gt\_id]\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{per__image__vrd__evaluation_8py_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{return}\ tp\_fp\_labels}
+
+\end{DoxyCode}

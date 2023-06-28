@@ -1,0 +1,264 @@
+\doxysection{Object\+Detection Namespace Reference}
+\hypertarget{namespace_object_detection}{}\label{namespace_object_detection}\index{ObjectDetection@{ObjectDetection}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_object_detection_a3d3b73fa84526efa6e63917b7b6ab205}{get\+Frozen\+Graph\+Of\+Targeted\+Model}} (frozen\+Graph\+Path)
+\item 
+\mbox{\hyperlink{namespace_object_detection_ace2a4ee6024a3db2e45e0bbe7f373ad2}{start\+Detection}} (frame\+To\+Analyse, object\+Name\+To\+Detect\+List, all\+Element\+Ids)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a29c082981c6d6252bc750f69c6d65935}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} = os.\+getcwd() + \"{}/src/main/resources\"{}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a4d07142c75f1136e41a38ed0fe30f3ac}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} = \mbox{\hyperlink{namespace_object_detection_a29c082981c6d6252bc750f69c6d65935}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}{SPECIFIC\+\_\+\+PATH}} = \mbox{\hyperlink{namespace_object_detection_a4d07142c75f1136e41a38ed0fe30f3ac}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \textquotesingle{}/object\+\_\+detection/trained\+Model\+And\+Labels/\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a6f7712e278eb8c20a3f6c24994c785f9}{MODEL\+\_\+\+PATH}} = \mbox{\hyperlink{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}ssd\+\_\+mobilenet\+\_\+v1\+\_\+coco\+\_\+2017\+\_\+11\+\_\+17\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a9d085fdb97f9cc8c2ea985d11cc5c0c8}{PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH}} = \mbox{\hyperlink{namespace_object_detection_a6f7712e278eb8c20a3f6c24994c785f9}{MODEL\+\_\+\+PATH}} + \textquotesingle{}/frozen\+\_\+inference\+\_\+graph.\+pb\textquotesingle{}
+\item 
+str \mbox{\hyperlink{namespace_object_detection_aca258e2762d072fb1078df5d1831a11e}{PATH\+\_\+\+TO\+\_\+\+LABELS}} = \mbox{\hyperlink{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}mscoco\+\_\+label\+\_\+map.\+pbtxt\textquotesingle{}
+\item 
+tuple \mbox{\hyperlink{namespace_object_detection_a66dc0d926c6e707ff476a026765ff4f3}{IMAGE\+\_\+\+SIZE}} = (12, 8)
+\item 
+str \mbox{\hyperlink{namespace_object_detection_a0f1c660343663eb79c8029870a71524f}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS}} = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}
+\item 
+int \mbox{\hyperlink{namespace_object_detection_aae51c7889f494aab5ebe4a524a186b40}{INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT}} = 8081
+\item 
+\mbox{\hyperlink{namespace_object_detection_a352a4bc6a4b27876c8589862cc4ac2df}{category\+\_\+index}} = \mbox{\hyperlink{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}{label\+\_\+map\+\_\+util.\+create\+\_\+category\+\_\+index\+\_\+from\+\_\+labelmap}}(\mbox{\hyperlink{namespace_object_detection_aca258e2762d072fb1078df5d1831a11e}{PATH\+\_\+\+TO\+\_\+\+LABELS}}, use\+\_\+display\+\_\+name=True)
+\item 
+\mbox{\hyperlink{namespace_object_detection_a66942b53329f98a606ec5b45dec96a52}{frozen\+Graph}} = \mbox{\hyperlink{namespace_object_detection_a3d3b73fa84526efa6e63917b7b6ab205}{get\+Frozen\+Graph\+Of\+Targeted\+Model}}(\mbox{\hyperlink{namespace_object_detection_a9d085fdb97f9cc8c2ea985d11cc5c0c8}{PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_object_detection_a3d3b73fa84526efa6e63917b7b6ab205}\label{namespace_object_detection_a3d3b73fa84526efa6e63917b7b6ab205} 
+\index{ObjectDetection@{ObjectDetection}!getFrozenGraphOfTargetedModel@{getFrozenGraphOfTargetedModel}}
+\index{getFrozenGraphOfTargetedModel@{getFrozenGraphOfTargetedModel}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{getFrozenGraphOfTargetedModel()}{getFrozenGraphOfTargetedModel()}}
+{\footnotesize\ttfamily Object\+Detection.\+get\+Frozen\+Graph\+Of\+Targeted\+Model (\begin{DoxyParamCaption}\item[{}]{frozen\+Graph\+Path }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00069}{69}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \textcolor{keyword}{def\ }getFrozenGraphOfTargetedModel(frozenGraphPath):\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ detection\_graph\ =\ tensorflow.Graph()}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{with}\ detection\_graph.as\_default():}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ od\_graph\_def\ =\ tensorflow.GraphDef()\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{comment}{\#\ 'b'\ for\ right\ on\ block\ special\ file}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{comment}{\#\ special\ file\ ==>\ file\ read\ by\ a\ particular\ driver\ device}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tensorflow.gfile.GFile(frozenGraphPath,\ \textcolor{stringliteral}{'rb'})\ \textcolor{keyword}{as}\ fileInput:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ serialized\_graph\ =\ fileInput.read()}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ od\_graph\_def.ParseFromString(serialized\_graph)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ tensorflow.import\_graph\_def(od\_graph\_def,\ name=\textcolor{stringliteral}{''})}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ detection\_graph}
+\DoxyCodeLine{00081\ }
+
+\end{DoxyCode}
+\Hypertarget{namespace_object_detection_ace2a4ee6024a3db2e45e0bbe7f373ad2}\label{namespace_object_detection_ace2a4ee6024a3db2e45e0bbe7f373ad2} 
+\index{ObjectDetection@{ObjectDetection}!startDetection@{startDetection}}
+\index{startDetection@{startDetection}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{startDetection()}{startDetection()}}
+{\footnotesize\ttfamily Object\+Detection.\+start\+Detection (\begin{DoxyParamCaption}\item[{}]{frame\+To\+Analyse,  }\item[{}]{object\+Name\+To\+Detect\+List,  }\item[{}]{all\+Element\+Ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00088}{88}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088\ \textcolor{keyword}{def\ }startDetection(frameToAnalyse,\ objectNameToDetectList,\ allElementIds):}
+\DoxyCodeLine{00089\ \ \ \ \ print(\textcolor{stringliteral}{"{}Starting\ object\ detection..."{}})}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{\#for\ frameToAnalyse\ in\ copiedFrames:\ \ }}
+\DoxyCodeLine{00091\ \ \ \ \ frameToAnalyseExpanded\ =\ numpy.expand\_dims(frameToAnalyse,\ axis=0)}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{with}\ frozenGraph.as\_default():}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tensorflow.Session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Definite\ input\ and\ output\ Tensors\ for\ detection\_graph}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ image\_tensor\ =\ frozenGraph.get\_tensor\_by\_name(\textcolor{stringliteral}{'image\_tensor:0'})}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Each\ box\ represents\ a\ part\ of\ the\ image\ where\ a\ particular\ object\ was\ detected.}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ detection\_boxes\ =\ frozenGraph.get\_tensor\_by\_name(\textcolor{stringliteral}{'detection\_boxes:0'})}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Each\ score\ represent\ how\ level\ of\ confidence\ for\ each\ of\ the\ objects.}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Score\ is\ shown\ on\ the\ result\ image,\ together\ with\ the\ class\ label.}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ detection\_scores\ =\ frozenGraph.get\_tensor\_by\_name(\textcolor{stringliteral}{'detection\_scores:0'})}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ detection\_classes\ =\ frozenGraph.get\_tensor\_by\_name(\textcolor{stringliteral}{'detection\_classes:0'})}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ num\_detections\ =\ frozenGraph.get\_tensor\_by\_name(\textcolor{stringliteral}{'num\_detections:0'})}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Actual\ detection.}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ (boxes,\ scores,\ classes,\ nums)\ =\ sess.run(}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [detection\_boxes,\ detection\_scores,\ detection\_classes,\ num\_detections],}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{image\_tensor:\ frameToAnalyseExpanded\})}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ counter=0}
+\DoxyCodeLine{00113\ \ \ \ \ vehiculesToDetectList\ =\ []}
+\DoxyCodeLine{00114\ \ \ \ \ isMotorizedVehiculeDetection\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}vehicules"{}}\ \textcolor{keywordflow}{in}\ objectNameToDetectList:}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ vehiculesToDetectList.append(\textcolor{stringliteral}{"{}bus"{}})}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ vehiculesToDetectList.append(\textcolor{stringliteral}{"{}truck"{}})}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ vehiculesToDetectList.append(\textcolor{stringliteral}{"{}car"{}})}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ vehiculesToDetectList.append(\textcolor{stringliteral}{"{}motorcycle"{}})}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{for}\ index,value\ \textcolor{keywordflow}{in}\ enumerate(classes[0]):}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ categoryName\ =\ category\_index.get(value)[\textcolor{stringliteral}{'name'}]}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ scores[0,index]\ >\ 0.5\ \textcolor{keywordflow}{and}\ (categoryName\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ \textcolor{keywordflow}{or}\ categoryName\ \textcolor{keywordflow}{in}\ vehiculesToDetectList):}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ categoryName\ \textcolor{keywordflow}{in}\ vehiculesToDetectList:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isMotorizedVehiculeDetection\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ counter\ =\ counter+1}
+\DoxyCodeLine{00127\ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}\ counter\ !=\ 0:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isMotorizedVehiculeDetection:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Detected\ vehicule\ number\ :\ "{}}\ +\ str(counter))}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#logging.info("{}[INFO]\ Detected\ vehicule\ number\ :\ "{}\ +\ str(counter))}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(\textcolor{stringliteral}{"{}vehicules"{}})],\ \textcolor{stringliteral}{"{}vehicules"{}},\ str(counter)]}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ isMotorizedVehiculeDetection\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}[INFO]\ Detected\ person\ number\ :\ "{}}\ +\ str(counter))}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#logging.info("{}[INFO]\ Detected\ person\ number\ :\ "{}\ +\ str(counter))}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(categoryName)],\ categoryName,\ str(counter)]}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#label\_crit\_value\ =\ [elementId,\ objectNameToDetectList[0],\ str(counter)]}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(label\_crit\_value)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}HERE\ -\/-\/\ "{}}\ +\ label\_crit\_value\_string)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ msg\ =\ label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ our\_socket.close()}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{else}\ :}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ objectToDetect\ \textcolor{keywordflow}{in}\ objectNameToDetectList\ :}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\ =\ [allElementIds[objectNameToDetectList.index(categoryName)],\ categoryName,\ \textcolor{stringliteral}{"{}0"{}}]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ higher\_proba\_label\_crit\_value\_string\ =\ \textcolor{stringliteral}{','}.join(higher\_proba\_label\_crit\_value)\ \ \ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ print(higher\_proba\_label\_crit\_value\_string)\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket\ =\ socket.socket(socket.AF\_INET,\ socket.SOCK\_STREAM)}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.connect(\ (INTEGRATION\_NETWORK\_ADRESS,\ INTEGRATION\_NETWORK\_PORT)\ )\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ higher\_proba\_label\_crit\_value\_string\ +\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.send(msg.encode(\textcolor{stringliteral}{'utf8'}))}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ our\_socket.close()}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_object_detection_a352a4bc6a4b27876c8589862cc4ac2df}\label{namespace_object_detection_a352a4bc6a4b27876c8589862cc4ac2df} 
+\index{ObjectDetection@{ObjectDetection}!category\_index@{category\_index}}
+\index{category\_index@{category\_index}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{category\_index}{category\_index}}
+{\footnotesize\ttfamily Object\+Detection.\+category\+\_\+index = \mbox{\hyperlink{namespacelabel__map__util_a3a211e8f03cc0dc5e48be04dca5282af}{label\+\_\+map\+\_\+util.\+create\+\_\+category\+\_\+index\+\_\+from\+\_\+labelmap}}(\mbox{\hyperlink{namespace_object_detection_aca258e2762d072fb1078df5d1831a11e}{PATH\+\_\+\+TO\+\_\+\+LABELS}}, use\+\_\+display\+\_\+name=True)}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00066}{66}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a29c082981c6d6252bc750f69c6d65935}\label{namespace_object_detection_a29c082981c6d6252bc750f69c6d65935} 
+\index{ObjectDetection@{ObjectDetection}!CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}}
+\index{CURRENT\_PYTHON\_PATH@{CURRENT\_PYTHON\_PATH}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_PYTHON\_PATH}{CURRENT\_PYTHON\_PATH}}
+{\footnotesize\ttfamily str Object\+Detection.\+CURRENT\+\_\+\+PYTHON\+\_\+\+PATH = os.\+getcwd() + \"{}/src/main/resources\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00044}{44}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a4d07142c75f1136e41a38ed0fe30f3ac}\label{namespace_object_detection_a4d07142c75f1136e41a38ed0fe30f3ac} 
+\index{ObjectDetection@{ObjectDetection}!EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+\index{EXTRACTION\_TO\_INTEGRATION\_PATH@{EXTRACTION\_TO\_INTEGRATION\_PATH}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{EXTRACTION\_TO\_INTEGRATION\_PATH}{EXTRACTION\_TO\_INTEGRATION\_PATH}}
+{\footnotesize\ttfamily str Object\+Detection.\+EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH = \mbox{\hyperlink{namespace_object_detection_a29c082981c6d6252bc750f69c6d65935}{CURRENT\+\_\+\+PYTHON\+\_\+\+PATH}} + \textquotesingle{}/processing/video/detections/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00045}{45}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a66942b53329f98a606ec5b45dec96a52}\label{namespace_object_detection_a66942b53329f98a606ec5b45dec96a52} 
+\index{ObjectDetection@{ObjectDetection}!frozenGraph@{frozenGraph}}
+\index{frozenGraph@{frozenGraph}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{frozenGraph}{frozenGraph}}
+{\footnotesize\ttfamily Object\+Detection.\+frozen\+Graph = \mbox{\hyperlink{namespace_object_detection_a3d3b73fa84526efa6e63917b7b6ab205}{get\+Frozen\+Graph\+Of\+Targeted\+Model}}(\mbox{\hyperlink{namespace_object_detection_a9d085fdb97f9cc8c2ea985d11cc5c0c8}{PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH}})}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00082}{82}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a66dc0d926c6e707ff476a026765ff4f3}\label{namespace_object_detection_a66dc0d926c6e707ff476a026765ff4f3} 
+\index{ObjectDetection@{ObjectDetection}!IMAGE\_SIZE@{IMAGE\_SIZE}}
+\index{IMAGE\_SIZE@{IMAGE\_SIZE}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{IMAGE\_SIZE}{IMAGE\_SIZE}}
+{\footnotesize\ttfamily tuple Object\+Detection.\+IMAGE\+\_\+\+SIZE = (12, 8)}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00060}{60}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a0f1c660343663eb79c8029870a71524f}\label{namespace_object_detection_a0f1c660343663eb79c8029870a71524f} 
+\index{ObjectDetection@{ObjectDetection}!INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}}
+\index{INTEGRATION\_NETWORK\_ADRESS@{INTEGRATION\_NETWORK\_ADRESS}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_ADRESS}{INTEGRATION\_NETWORK\_ADRESS}}
+{\footnotesize\ttfamily str Object\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+ADRESS = \textquotesingle{}127.\+0.\+0.\+1\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00062}{62}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_aae51c7889f494aab5ebe4a524a186b40}\label{namespace_object_detection_aae51c7889f494aab5ebe4a524a186b40} 
+\index{ObjectDetection@{ObjectDetection}!INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}}
+\index{INTEGRATION\_NETWORK\_PORT@{INTEGRATION\_NETWORK\_PORT}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{INTEGRATION\_NETWORK\_PORT}{INTEGRATION\_NETWORK\_PORT}}
+{\footnotesize\ttfamily int Object\+Detection.\+INTEGRATION\+\_\+\+NETWORK\+\_\+\+PORT = 8081}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00063}{63}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a6f7712e278eb8c20a3f6c24994c785f9}\label{namespace_object_detection_a6f7712e278eb8c20a3f6c24994c785f9} 
+\index{ObjectDetection@{ObjectDetection}!MODEL\_PATH@{MODEL\_PATH}}
+\index{MODEL\_PATH@{MODEL\_PATH}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{MODEL\_PATH}{MODEL\_PATH}}
+{\footnotesize\ttfamily str Object\+Detection.\+MODEL\+\_\+\+PATH = \mbox{\hyperlink{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}ssd\+\_\+mobilenet\+\_\+v1\+\_\+coco\+\_\+2017\+\_\+11\+\_\+17\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00050}{50}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a9d085fdb97f9cc8c2ea985d11cc5c0c8}\label{namespace_object_detection_a9d085fdb97f9cc8c2ea985d11cc5c0c8} 
+\index{ObjectDetection@{ObjectDetection}!PATH\_TO\_FROZEN\_GRAPH@{PATH\_TO\_FROZEN\_GRAPH}}
+\index{PATH\_TO\_FROZEN\_GRAPH@{PATH\_TO\_FROZEN\_GRAPH}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{PATH\_TO\_FROZEN\_GRAPH}{PATH\_TO\_FROZEN\_GRAPH}}
+{\footnotesize\ttfamily str Object\+Detection.\+PATH\+\_\+\+TO\+\_\+\+FROZEN\+\_\+\+GRAPH = \mbox{\hyperlink{namespace_object_detection_a6f7712e278eb8c20a3f6c24994c785f9}{MODEL\+\_\+\+PATH}} + \textquotesingle{}/frozen\+\_\+inference\+\_\+graph.\+pb\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00053}{53}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_aca258e2762d072fb1078df5d1831a11e}\label{namespace_object_detection_aca258e2762d072fb1078df5d1831a11e} 
+\index{ObjectDetection@{ObjectDetection}!PATH\_TO\_LABELS@{PATH\_TO\_LABELS}}
+\index{PATH\_TO\_LABELS@{PATH\_TO\_LABELS}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{PATH\_TO\_LABELS}{PATH\_TO\_LABELS}}
+{\footnotesize\ttfamily str Object\+Detection.\+PATH\+\_\+\+TO\+\_\+\+LABELS = \mbox{\hyperlink{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}{SPECIFIC\+\_\+\+PATH}} + \textquotesingle{}mscoco\+\_\+label\+\_\+map.\+pbtxt\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00057}{57}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+
+\Hypertarget{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0}\label{namespace_object_detection_a87b1fa1ccd0016fae05b333d239e12e0} 
+\index{ObjectDetection@{ObjectDetection}!SPECIFIC\_PATH@{SPECIFIC\_PATH}}
+\index{SPECIFIC\_PATH@{SPECIFIC\_PATH}!ObjectDetection@{ObjectDetection}}
+\doxysubsubsection{\texorpdfstring{SPECIFIC\_PATH}{SPECIFIC\_PATH}}
+{\footnotesize\ttfamily str Object\+Detection.\+SPECIFIC\+\_\+\+PATH = \mbox{\hyperlink{namespace_object_detection_a4d07142c75f1136e41a38ed0fe30f3ac}{EXTRACTION\+\_\+\+TO\+\_\+\+INTEGRATION\+\_\+\+PATH}} + \textquotesingle{}/object\+\_\+detection/trained\+Model\+And\+Labels/\textquotesingle{}}
+
+
+
+Definition at line \mbox{\hyperlink{_object_detection_8py_source_l00046}{46}} of file \mbox{\hyperlink{_object_detection_8py_source}{Object\+Detection.\+py}}.
+

@@ -1,0 +1,424 @@
+\doxysection{np\+\_\+box\+\_\+list\+\_\+ops\+\_\+test.\+py}
+\hypertarget{np__box__list__ops__test_8py_source}{}\label{np__box__list__ops__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_list\_ops\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_list\_ops\_test.py}}
+\mbox{\hyperlink{np__box__list__ops__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.utils.np\_box\_list\_ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00025}00025\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00026}00026\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_list\_ops}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00029}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test}{00029}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test}{AreaRelatedTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00031}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a34e79ac47d9f3d72a162b194d5682564}{00031}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a34e79ac47d9f3d72a162b194d5682564}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00032}00032\ \ \ \ \ boxes1\ =\ np.array([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00034}00034\ \ \ \ \ boxes2\ =\ np.array([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ab9ad3e86104bb042259945f832ca0072}{00037}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ab9ad3e86104bb042259945f832ca0072}{boxlist1}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes1)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00038}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a3a92666b9bdee864d3247cd572f7353a}{00038}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a3a92666b9bdee864d3247cd572f7353a}{boxlist2}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes2)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00040}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a603d7dcb082b9f08f0599addee7796c9}{00040}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a603d7dcb082b9f08f0599addee7796c9}{test\_area}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00041}00041\ \ \ \ \ areas\ =\ np\_box\_list\_ops.area(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ab9ad3e86104bb042259945f832ca0072}{boxlist1}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00042}00042\ \ \ \ \ expected\_areas\ =\ np.array([6.0,\ 5.0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00043}00043\ \ \ \ \ self.assertAllClose(expected\_areas,\ areas)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00045}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ac5f5ab2aad7349a6a372e5da1fae1e27}{00045}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ac5f5ab2aad7349a6a372e5da1fae1e27}{test\_intersection}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00046}00046\ \ \ \ \ intersection\ =\ np\_box\_list\_ops.intersection(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ab9ad3e86104bb042259945f832ca0072}{boxlist1}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a3a92666b9bdee864d3247cd572f7353a}{boxlist2}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00047}00047\ \ \ \ \ expected\_intersection\ =\ np.array([[2.0,\ 0.0,\ 6.0],\ [1.0,\ 0.0,\ 5.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00049}00049\ \ \ \ \ self.assertAllClose(intersection,\ expected\_intersection)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00051}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aecf084c7123c369030de90a01cb5aabe}{00051}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aecf084c7123c369030de90a01cb5aabe}{test\_iou}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00052}00052\ \ \ \ \ iou\ =\ np\_box\_list\_ops.iou(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ab9ad3e86104bb042259945f832ca0072}{boxlist1}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a3a92666b9bdee864d3247cd572f7353a}{boxlist2}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00053}00053\ \ \ \ \ expected\_iou\ =\ np.array([[2.0\ /\ 16.0,\ 0.0,\ 6.0\ /\ 400.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0\ /\ 16.0,\ 0.0,\ 5.0\ /\ 400.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00056}00056\ \ \ \ \ self.assertAllClose(iou,\ expected\_iou)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00058}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a75305992ed77cc0d1a8dfb93859fc4a4}{00058}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a75305992ed77cc0d1a8dfb93859fc4a4}{test\_ioa}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00059}00059\ \ \ \ \ boxlist1\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00063}00063\ \ \ \ \ boxlist2\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.25,\ 1.0,\ 1.0],\ [0.0,\ 0.0,\ 1.0,\ 1.0]],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00066}00066\ \ \ \ \ ioa21\ =\ np\_box\_list\_ops.ioa(boxlist2,\ boxlist1)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00067}00067\ \ \ \ \ expected\_ioa21\ =\ np.array([[0.5,\ 0.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00070}00070\ \ \ \ \ self.assertAllClose(ioa21,\ expected\_ioa21)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00072}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ac02cd48b96d8f2cafdcaa30587023a1a}{00072}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_ac02cd48b96d8f2cafdcaa30587023a1a}{test\_scale}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00073}00073\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00077}00077\ \ \ \ \ boxlist\_scaled\ =\ np\_box\_list\_ops.scale(boxlist,\ 2.0,\ 3.0)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00078}00078\ \ \ \ \ expected\_boxlist\_scaled\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.75,\ 1.5,\ 2.25],\ [0.0,\ 0.0,\ 1.0,\ 2.25]],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00081}00081\ \ \ \ \ self.assertAllClose(expected\_boxlist\_scaled.get(),\ boxlist\_scaled.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00083}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a88c87bb9aea5c7c02ad95bcb7b94510b}{00083}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a88c87bb9aea5c7c02ad95bcb7b94510b}{test\_clip\_to\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00084}00084\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/0.2,\ -\/0.3,\ 0.7,\ 1.5]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00089}00089\ \ \ \ \ boxlist\_clipped\ =\ np\_box\_list\_ops.clip\_to\_window(boxlist,}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.0,\ 1.0])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00091}00091\ \ \ \ \ expected\_boxlist\_clipped\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.7,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00096}00096\ \ \ \ \ self.assertAllClose(expected\_boxlist\_clipped.get(),\ boxlist\_clipped.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00098}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aa91b2183cbaf25eba806cbf40ca46700}{00098}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aa91b2183cbaf25eba806cbf40ca46700}{test\_prune\_outside\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00099}00099\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/0.2,\ -\/0.3,\ 0.7,\ 1.5]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00104}00104\ \ \ \ \ boxlist\_pruned,\ \_\ =\ np\_box\_list\_ops.prune\_outside\_window(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ boxlist,\ [0.0,\ 0.0,\ 1.0,\ 1.0])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00106}00106\ \ \ \ \ expected\_boxlist\_pruned\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00110}00110\ \ \ \ \ self.assertAllClose(expected\_boxlist\_pruned.get(),\ boxlist\_pruned.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00112}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_af0b146a041ca019c4cf4452e7748f6f6}{00112}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_af0b146a041ca019c4cf4452e7748f6f6}{test\_concatenate}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00113}00113\ \ \ \ \ boxlist1\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00117}00117\ \ \ \ \ boxlist2\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.5,\ 0.25,\ 1.0,\ 1.0],\ [0.0,\ 0.0,\ 1.0,\ 1.0]],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00120}00120\ \ \ \ \ boxlists\ =\ [boxlist1,\ boxlist2]}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00121}00121\ \ \ \ \ boxlist\_concatenated\ =\ np\_box\_list\_ops.concatenate(boxlists)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00122}00122\ \ \ \ \ boxlist\_concatenated\_expected\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.25,\ 1.0,\ 1.0],\ [0.0,\ 0.0,\ 1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00127}00127\ \ \ \ \ self.assertAllClose(boxlist\_concatenated\_expected.get(),}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxlist\_concatenated.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a5fe661c5876ce38b76f1afe1ff754dea}{00130}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_a5fe661c5876ce38b76f1afe1ff754dea}{test\_change\_coordinate\_frame}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00131}00131\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00135}00135\ \ \ \ \ boxlist\_coord\ =\ np\_box\_list\_ops.change\_coordinate\_frame(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ boxlist,\ np.array([0,\ 0,\ 0.5,\ 0.5],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00137}00137\ \ \ \ \ expected\_boxlist\_coord\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ np.array([[0.5,\ 0.5,\ 1.5,\ 1.5],\ [0,\ 0,\ 1.0,\ 1.5]],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00139}00139\ \ \ \ \ self.assertAllClose(boxlist\_coord.get(),\ expected\_boxlist\_coord.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00141}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aa36d2d8a80b9c05f1812c1bc4c44bbb5}{00141}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_area_related_test_aa36d2d8a80b9c05f1812c1bc4c44bbb5}{test\_filter\_scores\_greater\_than}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00142}00142\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.25,\ 0.25,\ 0.75,\ 0.75],\ [0.0,\ 0.0,\ 0.5,\ 0.75]],\ dtype=}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00146}00146\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ np.array([0.8,\ 0.2],\ np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00147}00147\ \ \ \ \ boxlist\_greater\ =\ np\_box\_list\_ops.filter\_scores\_greater\_than(boxlist,\ 0.5)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00149}00149\ \ \ \ \ expected\_boxlist\_greater\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ np.array([[0.25,\ 0.25,\ 0.75,\ 0.75]],\ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00152}00152\ \ \ \ \ self.assertAllClose(boxlist\_greater.get(),\ expected\_boxlist\_greater.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00155}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test}{00155}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test}{GatherOpsTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00157}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_aa405650993ecfa6c72f6f0cbd4be9773}{00157}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_aa405650993ecfa6c72f6f0cbd4be9773}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00158}00158\ \ \ \ \ boxes\ =\ np.array([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00161}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{00161}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00162}00162\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}.add\_field(\textcolor{stringliteral}{'scores'},\ np.array([0.5,\ 0.7,\ 0.9],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00163}00163\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}.add\_field(\textcolor{stringliteral}{'labels'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([[0,\ 0,\ 0,\ 1,\ 0],\ [0,\ 1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 1]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00168}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_aa82ad9b88709df020325b8608e075847}{00168}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_aa82ad9b88709df020325b8608e075847}{test\_gather\_with\_out\_of\_range\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00169}00169\ \ \ \ \ indices\ =\ np.array([3,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00170}00170\ \ \ \ \ boxlist\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00171}00171\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00172}00172\ \ \ \ \ \ \ np\_box\_list\_ops.gather(boxlist,\ indices)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00174}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e0455e9fdd36bf978d2de380c00d24d}{00174}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e0455e9fdd36bf978d2de380c00d24d}{test\_gather\_with\_invalid\_multidimensional\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00175}00175\ \ \ \ \ indices\ =\ np.array([[0,\ 1],\ [1,\ 2]],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00176}00176\ \ \ \ \ boxlist\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00177}00177\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00178}00178\ \ \ \ \ \ \ np\_box\_list\_ops.gather(boxlist,\ indices)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00180}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a1ee20432f23b59c76f0e0e54a5461e32}{00180}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a1ee20432f23b59c76f0e0e54a5461e32}{test\_gather\_without\_fields\_specified}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00181}00181\ \ \ \ \ indices\ =\ np.array([2,\ 0,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00182}00182\ \ \ \ \ boxlist\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00183}00183\ \ \ \ \ subboxlist\ =\ np\_box\_list\_ops.gather(boxlist,\ indices)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00185}00185\ \ \ \ \ expected\_scores\ =\ np.array([0.9,\ 0.5,\ 0.7],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00186}00186\ \ \ \ \ self.assertAllClose(expected\_scores,\ subboxlist.get\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00188}00188\ \ \ \ \ expected\_boxes\ =\ np.array([[0.0,\ 0.0,\ 20.0,\ 20.0],\ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00191}00191\ \ \ \ \ self.assertAllClose(expected\_boxes,\ subboxlist.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00193}00193\ \ \ \ \ expected\_labels\ =\ np.array([[0,\ 0,\ 0,\ 0,\ 1],\ [0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00196}00196\ \ \ \ \ self.assertAllClose(expected\_labels,\ subboxlist.get\_field(\textcolor{stringliteral}{'labels'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00198}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a9aa02948d54649c378ba57825a79dc17}{00198}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a9aa02948d54649c378ba57825a79dc17}{test\_gather\_with\_invalid\_field\_specified}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00199}00199\ \ \ \ \ indices\ =\ np.array([2,\ 0,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00200}00200\ \ \ \ \ boxlist\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00202}00202\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00203}00203\ \ \ \ \ \ \ np\_box\_list\_ops.gather(boxlist,\ indices,\ \textcolor{stringliteral}{'labels'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00206}00206\ \ \ \ \ \ \ np\_box\_list\_ops.gather(boxlist,\ indices,\ [\textcolor{stringliteral}{'objectness'}])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00208}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a4a2602dfd8b594cddd909d7329965b18}{00208}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a4a2602dfd8b594cddd909d7329965b18}{test\_gather\_with\_fields\_specified}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00209}00209\ \ \ \ \ indices\ =\ np.array([2,\ 0,\ 1],\ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00210}00210\ \ \ \ \ boxlist\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_gather_ops_test_a6e210b122507e89826399a3cdf0526c8}{boxlist}}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00211}00211\ \ \ \ \ subboxlist\ =\ np\_box\_list\_ops.gather(boxlist,\ indices,\ [\textcolor{stringliteral}{'labels'}])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00213}00213\ \ \ \ \ self.assertFalse(subboxlist.has\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00215}00215\ \ \ \ \ expected\_boxes\ =\ np.array([[0.0,\ 0.0,\ 20.0,\ 20.0],\ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00218}00218\ \ \ \ \ self.assertAllClose(expected\_boxes,\ subboxlist.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00220}00220\ \ \ \ \ expected\_labels\ =\ np.array([[0,\ 0,\ 0,\ 0,\ 1],\ [0,\ 0,\ 0,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0,\ 0,\ 0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00223}00223\ \ \ \ \ self.assertAllClose(expected\_labels,\ subboxlist.get\_field(\textcolor{stringliteral}{'labels'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00226}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test}{00226}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test}{SortByFieldTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00228}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a96be5e41647185aa799a338a92a4cc0a}{00228}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a96be5e41647185aa799a338a92a4cc0a}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00229}00229\ \ \ \ \ boxes\ =\ np.array([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00232}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{00232}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00233}00233\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}}.add\_field(\textcolor{stringliteral}{'scores'},\ np.array([0.5,\ 0.9,\ 0.4],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00234}00234\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}}.add\_field(\textcolor{stringliteral}{'labels'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([[0,\ 0,\ 0,\ 1,\ 0],\ [0,\ 1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 1]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=int))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00239}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_aeec4799224810d455dabfacd516f41a7}{00239}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_aeec4799224810d455dabfacd516f41a7}{test\_with\_invalid\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00240}00240\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00241}00241\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}},\ \textcolor{stringliteral}{'objectness'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00242}00242\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00243}00243\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}},\ \textcolor{stringliteral}{'labels'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00245}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a0b3cdbc9fd66d41ed7b5c694820191f0}{00245}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a0b3cdbc9fd66d41ed7b5c694820191f0}{test\_with\_invalid\_sorting\_order}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00246}00246\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00247}00247\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}},\ \textcolor{stringliteral}{'scores'},\ \textcolor{stringliteral}{'Descending'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00249}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a672b8aa94b0a86afa1a2cf7c7368eca1}{00249}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a672b8aa94b0a86afa1a2cf7c7368eca1}{test\_with\_descending\_sorting}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00250}00250\ \ \ \ \ sorted\_boxlist\ =\ np\_box\_list\_ops.sort\_by\_field(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}},\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00252}00252\ \ \ \ \ expected\_boxes\ =\ np.array([[14.0,\ 14.0,\ 15.0,\ 15.0],\ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00255}00255\ \ \ \ \ self.assertAllClose(expected\_boxes,\ sorted\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00257}00257\ \ \ \ \ expected\_scores\ =\ np.array([0.9,\ 0.5,\ 0.4],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00258}00258\ \ \ \ \ self.assertAllClose(expected\_scores,\ sorted\_boxlist.get\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00260}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a7b241e9a1a888f5aed23d9dab4b1fc7f}{00260}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_a7b241e9a1a888f5aed23d9dab4b1fc7f}{test\_with\_ascending\_sorting}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00261}00261\ \ \ \ \ sorted\_boxlist\ =\ np\_box\_list\_ops.sort\_by\_field(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_sort_by_field_test_ab4e2c05a5ba958eea890a51c8c312f56}{boxlist}},\ \textcolor{stringliteral}{'scores'},\ np\_box\_list\_ops.SortOrder.ASCEND)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00264}00264\ \ \ \ \ expected\_boxes\ =\ np.array([[0.0,\ 0.0,\ 20.0,\ 20.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3.0,\ 4.0,\ 6.0,\ 8.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [14.0,\ 14.0,\ 15.0,\ 15.0],],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00268}00268\ \ \ \ \ self.assertAllClose(expected\_boxes,\ sorted\_boxlist.get())}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00270}00270\ \ \ \ \ expected\_scores\ =\ np.array([0.4,\ 0.5,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00271}00271\ \ \ \ \ self.assertAllClose(expected\_scores,\ sorted\_boxlist.get\_field(\textcolor{stringliteral}{'scores'}))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00274}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test}{00274}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test}{NonMaximumSuppressionTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00276}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a82aa451f10c0ec9c84f82b33d21bb63c}{00276}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a82aa451f10c0ec9c84f82b33d21bb63c}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00277}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{00277}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}}\ =\ np.array([[0,\ 0,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0.1,\ 1,\ 1.1],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ -\/0.1,\ 1,\ 0.9],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10,\ 1,\ 11],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 10.1,\ 1,\ 11.1],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00284}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ac98101155b723b9e7982dfffe77caf1d}{00284}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ac98101155b723b9e7982dfffe77caf1d}{\_boxlist}}\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00286}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a516e84d8a7d810dee3f995457824cbb0}{00286}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a516e84d8a7d810dee3f995457824cbb0}{test\_with\_no\_scores\_field}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00287}00287\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00288}00288\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00289}00289\ \ \ \ \ iou\_threshold\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00291}00291\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00292}00292\ \ \ \ \ \ \ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00295}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ac4a827aa3150e9c7b1090e071f30667e}{00295}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ac4a827aa3150e9c7b1090e071f30667e}{test\_nms\_disabled\_max\_output\_size\_equals\_three}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00296}00296\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00297}00297\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([.9,\ .75,\ .6,\ .95,\ .2,\ .3],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00299}00299\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00300}00300\ \ \ \ \ iou\_threshold\ =\ 1.\ \ \textcolor{comment}{\#\ No\ NMS}}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00302}00302\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 10,\ 1,\ 11],\ [0,\ 0,\ 1,\ 1],\ [0,\ 0.1,\ 1,\ 1.1]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00304}00304\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00305}00305\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00306}00306\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00308}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a6f66cd398809b6d3d4a3ddecdb6a6475}{00308}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a6f66cd398809b6d3d4a3ddecdb6a6475}{test\_select\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00309}00309\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00310}00310\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([.9,\ .75,\ .6,\ .95,\ .2,\ .3],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00312}00312\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00313}00313\ \ \ \ \ iou\_threshold\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00314}00314\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00315}00315\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 10,\ 1,\ 11],\ [0,\ 0,\ 1,\ 1],\ [0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00317}00317\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00318}00318\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00319}00319\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00321}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_aed122462a9aa8eadedec511d510b0ade}{00321}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_aed122462a9aa8eadedec511d510b0ade}{test\_select\_at\_most\_two\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00322}00322\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00323}00323\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([.9,\ .75,\ .6,\ .95,\ .5,\ .3],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00325}00325\ \ \ \ \ max\_output\_size\ =\ 2}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00326}00326\ \ \ \ \ iou\_threshold\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00328}00328\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 10,\ 1,\ 11],\ [0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00329}00329\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00331}00331\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00333}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ada3a46fd264a5678ad122805ddfec4e3}{00333}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ada3a46fd264a5678ad122805ddfec4e3}{test\_select\_at\_most\_thirty\_from\_three\_clusters}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00334}00334\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_af9fedfe3c3650ab6be9307fe68d01a49}{\_boxes}})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00335}00335\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.array([.9,\ .75,\ .6,\ .95,\ .5,\ .3],\ dtype=float))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00337}00337\ \ \ \ \ max\_output\_size\ =\ 30}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00338}00338\ \ \ \ \ iou\_threshold\ =\ 0.5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00340}00340\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 10,\ 1,\ 11],\ [0,\ 0,\ 1,\ 1],\ [0,\ 100,\ 1,\ 101]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00342}00342\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00344}00344\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00346}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ab89711744db460c1c27bac7f78010681}{00346}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_ab89711744db460c1c27bac7f78010681}{test\_select\_from\_ten\_indentical\_boxes}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00347}00347\ \ \ \ \ boxes\ =\ np.array(10\ *\ [[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00348}00348\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00349}00349\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ np.array(10\ *\ [0.8]))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00350}00350\ \ \ \ \ iou\_threshold\ =\ .5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00351}00351\ \ \ \ \ max\_output\_size\ =\ 3}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00352}00352\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00353}00353\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00355}00355\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00357}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a68f74c4dfb2a55249b5820daa9371e06}{00357}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a68f74c4dfb2a55249b5820daa9371e06}{test\_different\_iou\_threshold}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00358}00358\ \ \ \ \ boxes\ =\ np.array([[0,\ 0,\ 20,\ 100],\ [0,\ 0,\ 20,\ 80],\ [200,\ 200,\ 210,\ 300],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [200,\ 200,\ 210,\ 250]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00361}00361\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00362}00362\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ np.array([0.9,\ 0.8,\ 0.7,\ 0.6]))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00363}00363\ \ \ \ \ max\_output\_size\ =\ 4}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00365}00365\ \ \ \ \ iou\_threshold\ =\ .4}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00366}00366\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 0,\ 20,\ 100],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [200,\ 200,\ 210,\ 300],],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00369}00369\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00371}00371\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00373}00373\ \ \ \ \ iou\_threshold\ =\ .5}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00374}00374\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 0,\ 20,\ 100],\ [200,\ 200,\ 210,\ 300],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [200,\ 200,\ 210,\ 250]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00377}00377\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00379}00379\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00380}00380\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00381}00381\ \ \ \ \ iou\_threshold\ =\ .8}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00382}00382\ \ \ \ \ expected\_boxes\ =\ np.array([[0,\ 0,\ 20,\ 100],\ [0,\ 0,\ 20,\ 80],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [200,\ 200,\ 210,\ 300],\ [200,\ 200,\ 210,\ 250]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00385}00385\ \ \ \ \ nms\_boxlist\ =\ np\_box\_list\_ops.non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ boxlist,\ max\_output\_size,\ iou\_threshold)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00387}00387\ \ \ \ \ self.assertAllClose(nms\_boxlist.get(),\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00389}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a433b4c57bad05439db26244c41f43ba1}{00389}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops__test_1_1_non_maximum_suppression_test_a433b4c57bad05439db26244c41f43ba1}{test\_multiclass\_nms}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00390}00390\ \ \ \ \ boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list_1_1_box_list}{np\_box\_list.BoxList}}(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ np.array(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ [[0.2,\ 0.4,\ 0.8,\ 0.8],\ [0.4,\ 0.2,\ 0.8,\ 0.8],\ [0.6,\ 0.0,\ 1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32))}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00394}00394\ \ \ \ \ scores\ =\ np.array([[-\/0.2,\ 0.1,\ 0.5,\ -\/0.4,\ 0.3],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.7,\ -\/0.7,\ 0.6,\ 0.2,\ -\/0.9],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.4,\ 0.34,\ -\/0.9,\ 0.2,\ 0.31]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00398}00398\ \ \ \ \ boxlist.add\_field(\textcolor{stringliteral}{'scores'},\ scores)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00399}00399\ \ \ \ \ boxlist\_clean\ =\ np\_box\_list\_ops.multi\_class\_non\_max\_suppression(}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ boxlist,\ score\_thresh=0.25,\ iou\_thresh=0.1,\ max\_output\_size=3)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00402}00402\ \ \ \ \ scores\_clean\ =\ boxlist\_clean.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00403}00403\ \ \ \ \ classes\_clean\ =\ boxlist\_clean.get\_field(\textcolor{stringliteral}{'classes'})}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00404}00404\ \ \ \ \ boxes\ =\ boxlist\_clean.get()}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00405}00405\ \ \ \ \ expected\_scores\ =\ np.array([0.7,\ 0.6,\ 0.34,\ 0.31])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00406}00406\ \ \ \ \ expected\_classes\ =\ np.array([0,\ 2,\ 1,\ 4])}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00407}00407\ \ \ \ \ expected\_boxes\ =\ np.array([[0.4,\ 0.2,\ 0.8,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.4,\ 0.2,\ 0.8,\ 0.8],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.0,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.0,\ 1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00412}00412\ \ \ \ \ self.assertAllClose(scores\_clean,\ expected\_scores)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00413}00413\ \ \ \ \ self.assertAllClose(classes\_clean,\ expected\_classes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00414}00414\ \ \ \ \ self.assertAllClose(boxes,\ expected\_boxes)}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00417}00417\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{np__box__list__ops__test_8py_source_l00418}00418\ \ \ tf.test.main()}
+
+\end{DoxyCode}

@@ -1,0 +1,146 @@
+\doxysection{detection\+\_\+utils.\+core.\+prefetcher\+\_\+test.\+Prefetcher\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test}{}\label{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test}\index{detection\_utils.core.prefetcher\_test.PrefetcherTest@{detection\_utils.core.prefetcher\_test.PrefetcherTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+prefetcher\+\_\+test.\+Prefetcher\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{dc/d2c/classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+prefetcher\+\_\+test.\+Prefetcher\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{de/def/classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1d30836e01aaa985c2e88238721f5179}{test\+\_\+prefetch\+\_\+tensors\+\_\+with\+\_\+fully\+\_\+defined\+\_\+shapes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1cb0654bae7c554047b62987e8b3be46}{test\+\_\+prefetch\+\_\+tensors\+\_\+with\+\_\+partially\+\_\+defined\+\_\+shapes}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{prefetcher__test_8py_source_l00029}{29}} of file \mbox{\hyperlink{prefetcher__test_8py_source}{prefetcher\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1d30836e01aaa985c2e88238721f5179}\label{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1d30836e01aaa985c2e88238721f5179} 
+\index{detection\_utils.core.prefetcher\_test.PrefetcherTest@{detection\_utils.core.prefetcher\_test.PrefetcherTest}!test\_prefetch\_tensors\_with\_fully\_defined\_shapes@{test\_prefetch\_tensors\_with\_fully\_defined\_shapes}}
+\index{test\_prefetch\_tensors\_with\_fully\_defined\_shapes@{test\_prefetch\_tensors\_with\_fully\_defined\_shapes}!detection\_utils.core.prefetcher\_test.PrefetcherTest@{detection\_utils.core.prefetcher\_test.PrefetcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_prefetch\_tensors\_with\_fully\_defined\_shapes()}{test\_prefetch\_tensors\_with\_fully\_defined\_shapes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+prefetcher\+\_\+test.\+Prefetcher\+Test.\+test\+\_\+prefetch\+\_\+tensors\+\_\+with\+\_\+fully\+\_\+defined\+\_\+shapes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{prefetcher__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{prefetcher__test_8py_source}{prefetcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{def\ }test\_prefetch\_tensors\_with\_fully\_defined\_shapes(self):}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ batch\_size\ =\ 10}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ image\_size\ =\ 32}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ num\_batches\ =\ 5}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(0,\ dtype=tf.int64))}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ image\ =\ tf.random\_normal([batch\_size,\ image\_size,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_size,\ 3],}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'images'})}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ label\ =\ tf.random\_uniform([batch\_size,\ 1],\ 0,\ 10,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.int32,\ name=\textcolor{stringliteral}{'labels'})}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ prefetch\_queue\ =\ prefetcher.prefetch(tensor\_dict=\{\textcolor{stringliteral}{'counter'}:\ counter,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'}:\ image,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}:\ label\},}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ capacity=100)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ tensor\_dict\ =\ prefetch\_queue.dequeue()}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ self.assertAllEqual(tensor\_dict[\textcolor{stringliteral}{'image'}].get\_shape().as\_list(),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ image\_size,\ image\_size,\ 3])}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ self.assertAllEqual(tensor\_dict[\textcolor{stringliteral}{'label'}].get\_shape().as\_list(),}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ 1])}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ results\ =\ sess.run(tensor\_dict)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ self.assertEquals(results[\textcolor{stringliteral}{'image'}].shape,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (batch\_size,\ image\_size,\ image\_size,\ 3))}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ self.assertEquals(results[\textcolor{stringliteral}{'label'}].shape,\ (batch\_size,\ 1))}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ sess.run(tensor\_dict)}
+\DoxyCodeLine{00065\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1cb0654bae7c554047b62987e8b3be46}\label{classdetection__utils_1_1core_1_1prefetcher__test_1_1_prefetcher_test_a1cb0654bae7c554047b62987e8b3be46} 
+\index{detection\_utils.core.prefetcher\_test.PrefetcherTest@{detection\_utils.core.prefetcher\_test.PrefetcherTest}!test\_prefetch\_tensors\_with\_partially\_defined\_shapes@{test\_prefetch\_tensors\_with\_partially\_defined\_shapes}}
+\index{test\_prefetch\_tensors\_with\_partially\_defined\_shapes@{test\_prefetch\_tensors\_with\_partially\_defined\_shapes}!detection\_utils.core.prefetcher\_test.PrefetcherTest@{detection\_utils.core.prefetcher\_test.PrefetcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_prefetch\_tensors\_with\_partially\_defined\_shapes()}{test\_prefetch\_tensors\_with\_partially\_defined\_shapes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+prefetcher\+\_\+test.\+Prefetcher\+Test.\+test\+\_\+prefetch\+\_\+tensors\+\_\+with\+\_\+partially\+\_\+defined\+\_\+shapes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{prefetcher__test_8py_source_l00066}{66}} of file \mbox{\hyperlink{prefetcher__test_8py_source}{prefetcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{def\ }test\_prefetch\_tensors\_with\_partially\_defined\_shapes(self):}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ batch\_size\ =\ 10}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ image\_size\ =\ 32}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ num\_batches\ =\ 5}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(0,\ dtype=tf.int64))}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ image\ =\ tf.random\_normal([batch\_size,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(image\_size),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.Variable(image\_size),\ 3],}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{'image'})}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ image.set\_shape([batch\_size,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ label\ =\ tf.random\_uniform([batch\_size,\ tf.Variable(1)],\ 0,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 10,\ dtype=tf.int32,\ name=\textcolor{stringliteral}{'label'})}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ label.set\_shape([batch\_size,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ prefetch\_queue\ =\ prefetcher.prefetch(tensor\_dict=\{\textcolor{stringliteral}{'counter'}:\ counter,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image'}:\ image,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'label'}:\ label\},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ capacity=100)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ tensor\_dict\ =\ prefetch\_queue.dequeue()}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ self.assertAllEqual(tensor\_dict[\textcolor{stringliteral}{'image'}].get\_shape().as\_list(),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ self.assertAllEqual(tensor\_dict[\textcolor{stringliteral}{'label'}].get\_shape().as\_list(),}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ results\ =\ sess.run(tensor\_dict)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ self.assertEquals(results[\textcolor{stringliteral}{'image'}].shape,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (batch\_size,\ image\_size,\ image\_size,\ 3))}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ self.assertEquals(results[\textcolor{stringliteral}{'label'}].shape,\ (batch\_size,\ 1))}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ sess.run(tensor\_dict)}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{prefetcher__test_8py}{prefetcher\+\_\+test.\+py}}\end{DoxyCompactItemize}

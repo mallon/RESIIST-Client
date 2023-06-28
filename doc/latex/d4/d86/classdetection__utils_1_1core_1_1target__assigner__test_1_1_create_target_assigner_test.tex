@@ -1,0 +1,96 @@
+\doxysection{detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Create\+Target\+Assigner\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test}{}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test}\index{detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest@{detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Create\+Target\+Assigner\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{de/d50/classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Create\+Target\+Assigner\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{da/d29/classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test_a7cf0f3a9dbcc62570932f89457390cc0}{test\+\_\+create\+\_\+target\+\_\+assigner}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l01193}{1193}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test_a7cf0f3a9dbcc62570932f89457390cc0}\label{classdetection__utils_1_1core_1_1target__assigner__test_1_1_create_target_assigner_test_a7cf0f3a9dbcc62570932f89457390cc0} 
+\index{detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest@{detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest}!test\_create\_target\_assigner@{test\_create\_target\_assigner}}
+\index{test\_create\_target\_assigner@{test\_create\_target\_assigner}!detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest@{detection\_utils.core.target\_assigner\_test.CreateTargetAssignerTest}}
+\doxysubsubsection{\texorpdfstring{test\_create\_target\_assigner()}{test\_create\_target\_assigner()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+target\+\_\+assigner\+\_\+test.\+Create\+Target\+Assigner\+Test.\+test\+\_\+create\+\_\+target\+\_\+assigner (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tests that named constructor gives working target assigners.
+
+TODO(rathodv): Make this test more general.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{target__assigner__test_8py_source_l01195}{1195}} of file \mbox{\hyperlink{target__assigner__test_8py_source}{target\+\_\+assigner\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01195\ \ \ \textcolor{keyword}{def\ }test\_create\_target\_assigner(self):}
+\DoxyCodeLine{01196\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ that\ named\ constructor\ gives\ working\ target\ assigners.}}
+\DoxyCodeLine{01197\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{01198\ \textcolor{stringliteral}{\ \ \ \ TODO(rathodv):\ Make\ this\ test\ more\ general.}}
+\DoxyCodeLine{01199\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{01200\ \textcolor{stringliteral}{\ \ \ \ corners\ =\ [[0.0,\ 0.0,\ 1.0,\ 1.0]]}}
+\DoxyCodeLine{01201\ \textcolor{stringliteral}{\ \ \ \ groundtruth\ =\ box\_list.BoxList(tf.constant(corners))}}
+\DoxyCodeLine{01202\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{01203\ \textcolor{stringliteral}{\ \ \ \ priors\ =\ box\_list.BoxList(tf.constant(corners))}}
+\DoxyCodeLine{01204\ \textcolor{stringliteral}{\ \ \ \ multibox\_ta\ =\ (targetassigner}}
+\DoxyCodeLine{01205\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner('Multibox'},\ stage=\textcolor{stringliteral}{'proposal'}))}
+\DoxyCodeLine{01206\ \ \ \ \ multibox\_ta.assign(priors,\ groundtruth)}
+\DoxyCodeLine{01207\ \ \ \ \ \textcolor{comment}{\#\ No\ tests\ on\ output,\ as\ that\ may\ vary\ arbitrarily\ as\ new\ target\ assigners}}
+\DoxyCodeLine{01208\ \ \ \ \ \textcolor{comment}{\#\ are\ added.\ As\ long\ as\ it\ is\ constructed\ correctly\ and\ runs\ without\ errors,}}
+\DoxyCodeLine{01209\ \ \ \ \ \textcolor{comment}{\#\ tests\ on\ the\ individual\ assigners\ cover\ correctness\ of\ the\ assignments.}}
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01211\ \ \ \ \ anchors\ =\ box\_list.BoxList(tf.constant(corners))}
+\DoxyCodeLine{01212\ \ \ \ \ faster\_rcnn\_proposals\_ta\ =\ (targetassigner}
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FasterRCNN'},}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'proposal'}))}
+\DoxyCodeLine{01215\ \ \ \ \ faster\_rcnn\_proposals\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \ \ \ \ fast\_rcnn\_ta\ =\ (targetassigner}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FastRCNN'}))}
+\DoxyCodeLine{01219\ \ \ \ \ fast\_rcnn\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \ \ \ \ faster\_rcnn\_detection\_ta\ =\ (targetassigner}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .create\_target\_assigner(\textcolor{stringliteral}{'FasterRCNN'},}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'detection'}))}
+\DoxyCodeLine{01224\ \ \ \ \ faster\_rcnn\_detection\_ta.assign(anchors,\ groundtruth)}
+\DoxyCodeLine{01225\ }
+\DoxyCodeLine{01226\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ targetassigner.create\_target\_assigner(\textcolor{stringliteral}{'InvalidDetector'},}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stage=\textcolor{stringliteral}{'invalid\_stage'})}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{target__assigner__test_8py}{target\+\_\+assigner\+\_\+test.\+py}}\end{DoxyCompactItemize}

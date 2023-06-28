@@ -1,0 +1,117 @@
+\doxysection{Fonc\+Evolution.\+java}
+\hypertarget{_fonc_evolution_8java_source}{}\label{_fonc_evolution_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/FoncEvolution.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/FoncEvolution.java}}
+\mbox{\hyperlink{_fonc_evolution_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.basicfunction;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.util.Random;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00005}00005\ \textcolor{keyword}{import}\ org.apache.commons.math3.distribution.NormalDistribution;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00006}00006\ \textcolor{keyword}{import}\ org.apache.commons.math3.distribution.PoissonDistribution;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.apache.commons.math3.distribution.WeibullDistribution;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00009}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution}{00009}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution}{FoncEvolution}}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00011}00011\ \ \ \ \ \textcolor{comment}{//\ Voir\ comment\ borner}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00013}00013\ \ \ \ \ \textcolor{comment}{//\ Loi\ normale\ de\ parametre\ l'esperence\ et\ la\ variance}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00015}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_ab352677291bd7f7d21f822891697afdf}{00015}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_ab352677291bd7f7d21f822891697afdf}{FE1}}(\textcolor{keywordtype}{double}\ mean,\ \textcolor{keywordtype}{double}\ sd)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00019}00019\ \ \ \ \ \ \ \ \ NormalDistribution\ normal\ =\ \textcolor{keyword}{new}\ NormalDistribution(mean,\ sd);}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00020}00020\ \ \ \ \ \ \ \ \ variable\ =\ normal.sample();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ prend}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ une}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ valeur}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ de\ notre}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ distribution.}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00027}00027\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ Loi\ de\ weibull\ de\ parametre\ lambda=echelle\ >\ 0\ et\ k=forme\ >\ 0}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00031}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_af0f881b2f0020e8c65f2420b8c767216}{00031}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_af0f881b2f0020e8c65f2420b8c767216}{FE2}}(\textcolor{keywordtype}{double}\ lambda,\ \textcolor{keywordtype}{double}\ k)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ WeibullDistribution\ weibull\ =\ \textcolor{keyword}{new}\ WeibullDistribution(k,\ lambda);}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ variable\ =\ weibull.sample();}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00042}00042\ \ \ \ \ \textcolor{comment}{//\ Loi\ de\ poisson\ de\ parametre\ lambda}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00044}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a221d411ffe96335aa43cecb039a00918}{00044}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a221d411ffe96335aa43cecb039a00918}{FE3}}(\textcolor{keywordtype}{double}\ param)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ PoissonDistribution\ poisson\ =\ \textcolor{keyword}{new}\ PoissonDistribution(param);}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ variable\ =\ poisson.sample();\ \textcolor{comment}{//\ prend\ une\ valeur\ de\ notre\ distribution.}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ Identite}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00056}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a08670354b644bb39362223a316b664eb}{00056}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a08670354b644bb39362223a316b664eb}{FE4}}(\textcolor{keywordtype}{double}\ valeur)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00057}00057\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ valeur;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Variation\ de\ la\ valeur\ aleatoirement\ entre\ deux\ limites\ FE2min\ et\ FE2max}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00062}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_aba52b76edaaf8557342203f040e5a747}{00062}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_aba52b76edaaf8557342203f040e5a747}{FE5}}(\textcolor{keywordtype}{boolean}\ isValeurEntre0et1,\ \textcolor{keywordtype}{int}\ borneinf,\ \textcolor{keywordtype}{int}\ bornesup)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00063}00063\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ Random\ r\ =\ \textcolor{keyword}{new}\ Random();}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ result\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isValeurEntre0et1\ ==\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ r.nextDouble();}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ r.nextInt(bornesup\ -\/\ borneinf)\ +\ borneinf;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00074}00074\ \ \ \ \ \textcolor{comment}{//\ Fonction\ lineraire\ (croissant\ et\ decroissant)\ de\ la\ forme\ f(x)=ax+b\ si}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//\ a<0\ decroissante\ si\ a>0\ croissante.}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00077}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a1fd86a48364d4da27e01bb70132bad28}{00077}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a1fd86a48364d4da27e01bb70132bad28}{FE7}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b,\ \textcolor{keywordtype}{double}\ x)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00078}00078\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ variable\ =\ a\ *\ x\ +\ b;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//\ Fonction\ exponentielle\ (croissant\ et\ decroissant)\ de\ la\ forme\ f(x)=a(c)\string^x}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//\ si\ 0\ <\ c\ <\ 1\ decroissante,}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ si\ c\ >\ 1\ la\ fonction\ est\ croissante.}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00089}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a5368cc056ae37743f86952b3e667589a}{00089}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a5368cc056ae37743f86952b3e667589a}{FE8}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ c,\ \textcolor{keywordtype}{double}\ x)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00090}00090\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ variable\ =\ a\ *\ Math.pow(a,\ x);}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//\ Fonction\ logarithmique\ (\ croissant\ decroissant)\ de\ la\ forme\ f(x)=}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ a*logc(b)\ si\ 0\ <\ c\ <\ 1\ decroissante,}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//\ si\ c\ >\ 1\ la\ fonction\ est\ croissante.\ S'ecrit\ aussi\ f(x)\ =\ a*(ln(x)/ln(c))}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00102}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a310a9cfc4b622f4031c612af0457edf2}{00102}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_evolution_a310a9cfc4b622f4031c612af0457edf2}{FE9}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ c,\ \textcolor{keywordtype}{double}\ x)}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00103}00103\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ variable\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ variable\ =\ a\ *\ (Math.log(x)\ /\ Math.log(c));}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ variable;}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_fonc_evolution_8java_source_l00111}00111\ \}}
+
+\end{DoxyCode}

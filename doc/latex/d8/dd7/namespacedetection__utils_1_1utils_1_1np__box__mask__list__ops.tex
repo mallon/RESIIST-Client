@@ -1,0 +1,873 @@
+\doxysection{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops}{}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops}\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}{box\+\_\+list\+\_\+to\+\_\+box\+\_\+mask\+\_\+list}} (boxlist)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae10614b2815f18739420825f1e230e7d}{area}} (box\+\_\+mask\+\_\+list)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac9ae150db8a15572283e83aa90b04441}{intersection}} (box\+\_\+mask\+\_\+list1, box\+\_\+mask\+\_\+list2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_adfd81e5ae2b983f98bb0194fc80c0e54}{iou}} (box\+\_\+mask\+\_\+list1, box\+\_\+mask\+\_\+list2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1}{ioa}} (box\+\_\+mask\+\_\+list1, box\+\_\+mask\+\_\+list2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}{gather}} (box\+\_\+mask\+\_\+list, indices, fields=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd}{sort\+\_\+by\+\_\+field}} (box\+\_\+mask\+\_\+list, field, order=\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops_1_1_sort_order_aecde42d8b3cc4e57c6279fb9ed8c73de}{np\+\_\+box\+\_\+list\+\_\+ops.\+Sort\+Order.\+DESCEND}})
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0}{non\+\_\+max\+\_\+suppression}} (box\+\_\+mask\+\_\+list, max\+\_\+output\+\_\+size=10000, iou\+\_\+threshold=1.\+0, score\+\_\+threshold=-\/10.\+0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c}{multi\+\_\+class\+\_\+non\+\_\+max\+\_\+suppression}} (box\+\_\+mask\+\_\+list, score\+\_\+thresh, iou\+\_\+thresh, max\+\_\+output\+\_\+size)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109}{prune\+\_\+non\+\_\+overlapping\+\_\+masks}} (box\+\_\+mask\+\_\+list1, box\+\_\+mask\+\_\+list2, minoverlap=0.\+0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea}{concatenate}} (box\+\_\+mask\+\_\+lists, fields=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}{filter\+\_\+scores\+\_\+greater\+\_\+than}} (box\+\_\+mask\+\_\+list, thresh)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Operations for np_box_mask_list.BoxMaskList.
+
+Example box operations that are supported:
+  * Areas: compute bounding box areas
+  * IOU: pairwise intersection-over-union scores
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae10614b2815f18739420825f1e230e7d}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae10614b2815f18739420825f1e230e7d} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!area@{area}}
+\index{area@{area}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{area()}{area()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+area (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes area of masks.
+
+Args:
+  box_mask_list: np_box_mask_list.BoxMaskList holding N boxes and masks
+
+Returns:
+  a numpy array with shape [N*1] representing mask areas
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00058}{58}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \textcolor{keyword}{def\ }area(box\_mask\_list):}
+\DoxyCodeLine{00059\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ area\ of\ masks.}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ Returns:}
+\DoxyCodeLine{00065\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*1]\ representing\ mask\ areas}
+\DoxyCodeLine{00066\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.area(box\_mask\_list.get\_masks())}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!box\_list\_to\_box\_mask\_list@{box\_list\_to\_box\_mask\_list}}
+\index{box\_list\_to\_box\_mask\_list@{box\_list\_to\_box\_mask\_list}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{box\_list\_to\_box\_mask\_list()}{box\_list\_to\_box\_mask\_list()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+box\+\_\+list\+\_\+to\+\_\+box\+\_\+mask\+\_\+list (\begin{DoxyParamCaption}\item[{}]{boxlist }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Converts a BoxList containing 'masks' into a BoxMaskList.
+
+Args:
+  boxlist: An np_box_list.BoxList object.
+
+Returns:
+  An np_box_mask_list.BoxMaskList object.
+
+Raises:
+  ValueError: If boxlist does not contain `masks` as a field.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00034}{34}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \textcolor{keyword}{def\ }box\_list\_to\_box\_mask\_list(boxlist):}
+\DoxyCodeLine{00035\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ a\ BoxList\ containing\ 'masks'\ into\ a\ BoxMaskList.}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ An\ np\_box\_list.BoxList\ object.}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ An\ np\_box\_mask\_list.BoxMaskList\ object.}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ If\ boxlist\ does\ }\textcolor{keywordflow}{not}\ contain\ \`{}masks\`{}\ \textcolor{keyword}{as}\ a\ field.}
+\DoxyCodeLine{00045\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(\textcolor{stringliteral}{'masks'}):}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlist\ does\ not\ contain\ mask\ field.'})}
+\DoxyCodeLine{00048\ \ \ box\_mask\_list\ =\ np\_box\_mask\_list.BoxMaskList(}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ box\_data=boxlist.get(),}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ mask\_data=boxlist.get\_field(\textcolor{stringliteral}{'masks'}))}
+\DoxyCodeLine{00051\ \ \ extra\_fields\ =\ boxlist.get\_extra\_fields()}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordflow}{for}\ key\ \textcolor{keywordflow}{in}\ extra\_fields:}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ key\ !=\ \textcolor{stringliteral}{'masks'}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ box\_mask\_list.data[key]\ =\ boxlist.get\_field(key)}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a483cf98eda65a9a970b6574cdda19df5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!concatenate@{concatenate}}
+\index{concatenate@{concatenate}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{concatenate()}{concatenate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+concatenate (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+lists,  }\item[{}]{fields = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Concatenate list of box_mask_lists.
+
+This op concatenates a list of input box_mask_lists into a larger
+box_mask_list.  It also
+handles concatenation of box_mask_list fields as long as the field tensor
+shapes are equal except for the first dimension.
+
+Args:
+  box_mask_lists: list of np_box_mask_list.BoxMaskList objects
+  fields: optional list of fields to also concatenate.  By default, all
+    fields from the first BoxMaskList in the list are included in the
+    concatenation.
+
+Returns:
+  a box_mask_list with number of boxes equal to
+    sum([box_mask_list.num_boxes() for box_mask_list in box_mask_list])
+Raises:
+  ValueError: if box_mask_lists is invalid (i.e., is not a list, is empty, or
+    contains non box_mask_list objects), or if requested fields are not
+    contained in all box_mask_lists
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00345}{345}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00345\ \textcolor{keyword}{def\ }concatenate(box\_mask\_lists,\ fields=None):}
+\DoxyCodeLine{00346\ \ \ \textcolor{stringliteral}{"{}"{}"{}Concatenate\ list\ of\ box\_mask\_lists.}}
+\DoxyCodeLine{00347\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00348\ \textcolor{stringliteral}{\ \ This\ op\ concatenates\ a\ list\ of\ input\ box\_mask\_lists\ into\ a\ larger}}
+\DoxyCodeLine{00349\ \textcolor{stringliteral}{\ \ box\_mask\_list.\ \ It\ also}}
+\DoxyCodeLine{00350\ \textcolor{stringliteral}{\ \ handles\ concatenation\ of\ box\_mask\_list\ fields\ }\textcolor{keyword}{as}\ long\ \textcolor{keyword}{as}\ the\ field\ tensor}
+\DoxyCodeLine{00351\ \ \ shapes\ are\ equal\ \textcolor{keywordflow}{except}\ \textcolor{keywordflow}{for}\ the\ first\ dimension.}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ Args:}
+\DoxyCodeLine{00354\ \ \ \ \ box\_mask\_lists:\ list\ of\ np\_box\_mask\_list.BoxMaskList\ objects}
+\DoxyCodeLine{00355\ \ \ \ \ fields:\ optional\ list\ of\ fields\ to\ also\ concatenate.\ \ By\ default,\ all}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ fields\ \textcolor{keyword}{from}\ the\ first\ BoxMaskList\ \textcolor{keywordflow}{in}\ the\ list\ are\ included\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ concatenation.}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ Returns:}
+\DoxyCodeLine{00360\ \ \ \ \ a\ box\_mask\_list\ \textcolor{keyword}{with}\ number\ of\ boxes\ equal\ to}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ sum([box\_mask\_list.num\_boxes()\ \textcolor{keywordflow}{for}\ box\_mask\_list\ \textcolor{keywordflow}{in}\ box\_mask\_list])}
+\DoxyCodeLine{00362\ \ \ Raises:}
+\DoxyCodeLine{00363\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ box\_mask\_lists\ \textcolor{keywordflow}{is}\ invalid\ (i.e.,\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ list,\ \textcolor{keywordflow}{is}\ empty,\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ contains\ non\ box\_mask\_list\ objects),\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ requested\ fields\ are\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ contained\ \textcolor{keywordflow}{in}\ all\ box\_mask\_lists}
+\DoxyCodeLine{00366\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00367\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'masks'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ fields.append(\textcolor{stringliteral}{'masks'})}
+\DoxyCodeLine{00370\ \ \ \textcolor{keywordflow}{return}\ box\_list\_to\_box\_mask\_list(}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ np\_box\_list\_ops.concatenate(boxlists=box\_mask\_lists,\ fields=fields))}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_aa2aa4f03779340c3a941e347100838ea_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!filter\_scores\_greater\_than@{filter\_scores\_greater\_than}}
+\index{filter\_scores\_greater\_than@{filter\_scores\_greater\_than}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{filter\_scores\_greater\_than()}{filter\_scores\_greater\_than()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+filter\+\_\+scores\+\_\+greater\+\_\+than (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list,  }\item[{}]{thresh }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Filter to keep only boxes and masks with score exceeding a given threshold.
+
+This op keeps the collection of boxes and masks whose corresponding scores are
+greater than the input threshold.
+
+Args:
+  box_mask_list: BoxMaskList holding N boxes and masks.  Must contain a
+    'scores' field representing detection scores.
+  thresh: scalar threshold
+
+Returns:
+  a BoxMaskList holding M boxes and masks where M <= N
+
+Raises:
+  ValueError: if box_mask_list not a np_box_mask_list.BoxMaskList object or
+    if it does not have a scores field
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00374}{374}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00374\ \textcolor{keyword}{def\ }filter\_scores\_greater\_than(box\_mask\_list,\ thresh):}
+\DoxyCodeLine{00375\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filter\ to\ keep\ only\ boxes\ and\ masks\ with\ score\ exceeding\ a\ given\ threshold.}}
+\DoxyCodeLine{00376\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00377\ \textcolor{stringliteral}{\ \ This\ op\ keeps\ the\ collection\ of\ boxes\ }\textcolor{keywordflow}{and}\ masks\ whose\ corresponding\ scores\ are}
+\DoxyCodeLine{00378\ \ \ greater\ than\ the\ input\ threshold.}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ Args:}
+\DoxyCodeLine{00381\ \ \ \ \ box\_mask\_list:\ BoxMaskList\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks.\ \ Must\ contain\ a}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.}
+\DoxyCodeLine{00383\ \ \ \ \ thresh:\ scalar\ threshold}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ Returns:}
+\DoxyCodeLine{00386\ \ \ \ \ a\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks\ where\ M\ <=\ N}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ Raises:}
+\DoxyCodeLine{00389\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ box\_mask\_list\ \textcolor{keywordflow}{not}\ a\ np\_box\_mask\_list.BoxMaskList\ object\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ it\ does\ \textcolor{keywordflow}{not}\ have\ a\ scores\ field}
+\DoxyCodeLine{00391\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00392\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_mask\_list,\ np\_box\_mask\_list.BoxMaskList):}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_mask\_list\ must\ be\ a\ BoxMaskList'})}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ box\_mask\_list\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{00396\ \ \ scores\ =\ box\_mask\_list.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ >\ 2:}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{00399\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 2\ \textcolor{keywordflow}{and}\ scores.shape[1]\ !=\ 1:}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ have\ shape\ '}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'consistent\ with\ [None,\ 1]'})}
+\DoxyCodeLine{00402\ \ \ high\_score\_indices\ =\ np.reshape(np.where(np.greater(scores,\ thresh)),}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1]).astype(np.int32)}
+\DoxyCodeLine{00404\ \ \ \textcolor{keywordflow}{return}\ gather(box\_mask\_list,\ high\_score\_indices)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac819b8a25c5e75b6057f5d358f57822b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!gather@{gather}}
+\index{gather@{gather}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{gather()}{gather()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+gather (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list,  }\item[{}]{indices,  }\item[{}]{fields = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gather boxes from np_box_mask_list.BoxMaskList according to indices.
+
+By default, gather returns boxes corresponding to the input index list, as
+well as all additional fields stored in the box_mask_list (indexing into the
+first dimension).  However one can optionally only gather from a
+subset of fields.
+
+Args:
+  box_mask_list: np_box_mask_list.BoxMaskList holding N boxes
+  indices: a 1-d numpy array of type int_
+  fields: (optional) list of fields to also gather from.  If None (default),
+      all fields are gathered from.  Pass an empty fields list to only gather
+      the box coordinates.
+
+Returns:
+  subbox_mask_list: a np_box_mask_list.BoxMaskList corresponding to the subset
+      of the input box_mask_list specified by indices
+
+Raises:
+  ValueError: if specified field is not contained in box_mask_list or if the
+      indices are not of type int_
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00115}{115}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115\ \textcolor{keyword}{def\ }gather(box\_mask\_list,\ indices,\ fields=None):}
+\DoxyCodeLine{00116\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gather\ boxes\ from\ np\_box\_mask\_list.BoxMaskList\ according\ to\ indices.}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00118\ \textcolor{stringliteral}{\ \ By\ default,\ gather\ returns\ boxes\ corresponding\ to\ the\ input\ index\ list,\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{00119\ \ \ well\ \textcolor{keyword}{as}\ all\ additional\ fields\ stored\ \textcolor{keywordflow}{in}\ the\ box\_mask\_list\ (indexing\ into\ the}
+\DoxyCodeLine{00120\ \ \ first\ dimension).\ \ However\ one\ can\ optionally\ only\ gather\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{00121\ \ \ subset\ of\ fields.}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ Args:}
+\DoxyCodeLine{00124\ \ \ \ \ box\_mask\_list:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes}
+\DoxyCodeLine{00125\ \ \ \ \ indices:\ a\ 1-\/d\ numpy\ array\ of\ type\ int\_}
+\DoxyCodeLine{00126\ \ \ \ \ fields:\ (optional)\ list\ of\ fields\ to\ also\ gather\ \textcolor{keyword}{from}.\ \ If\ \textcolor{keywordtype}{None}\ (default),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ all\ fields\ are\ gathered\ \textcolor{keyword}{from}.\ \ Pass\ an\ empty\ fields\ list\ to\ only\ gather}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ the\ box\ coordinates.}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ Returns:}
+\DoxyCodeLine{00131\ \ \ \ \ subbox\_mask\_list:\ a\ np\_box\_mask\_list.BoxMaskList\ corresponding\ to\ the\ subset}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ of\ the\ input\ box\_mask\_list\ specified\ by\ indices}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ Raises:}
+\DoxyCodeLine{00135\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ specified\ field\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ contained\ \textcolor{keywordflow}{in}\ box\_mask\_list\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ indices\ are\ \textcolor{keywordflow}{not}\ of\ type\ int\_}
+\DoxyCodeLine{00137\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00138\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'masks'}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ fields.append(\textcolor{stringliteral}{'masks'})}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordflow}{return}\ box\_list\_to\_box\_mask\_list(}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ np\_box\_list\_ops.gather(}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ boxlist=box\_mask\_list,\ indices=indices,\ fields=fields))}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a431c110b9e3a636ee4ee56b8362ca008_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac9ae150db8a15572283e83aa90b04441}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac9ae150db8a15572283e83aa90b04441} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!intersection@{intersection}}
+\index{intersection@{intersection}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{intersection()}{intersection()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+intersection (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list1,  }\item[{}]{box\+\_\+mask\+\_\+list2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute pairwise intersection areas between masks.
+
+Args:
+  box_mask_list1: BoxMaskList holding N boxes and masks
+  box_mask_list2: BoxMaskList holding M boxes and masks
+
+Returns:
+  a numpy array with shape [N*M] representing pairwise intersection area
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00070}{70}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \textcolor{keyword}{def\ }intersection(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ masks.}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list1:\ BoxMaskList\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00075\ \ \ \ \ box\_mask\_list2:\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ Returns:}
+\DoxyCodeLine{00078\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area}
+\DoxyCodeLine{00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.intersection(box\_mask\_list1.get\_masks(),}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!ioa@{ioa}}
+\index{ioa@{ioa}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{ioa()}{ioa()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+ioa (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list1,  }\item[{}]{box\+\_\+mask\+\_\+list2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-area between box and mask collections.
+
+Intersection-over-area (ioa) between two masks mask1 and mask2 is defined as
+their intersection area over mask2's area. Note that ioa is not symmetric,
+that is, IOA(mask1, mask2) != IOA(mask2, mask1).
+
+Args:
+  box_mask_list1: np_box_mask_list.BoxMaskList holding N boxes and masks
+  box_mask_list2: np_box_mask_list.BoxMaskList holding M boxes and masks
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise ioa scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00098}{98}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00098\ \textcolor{keyword}{def\ }ioa(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{00099\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ and\ mask\ collections.}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ masks\ mask1\ }\textcolor{keywordflow}{and}\ mask2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00102\ \ \ their\ intersection\ area\ over\ mask2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(mask1,\ mask2)\ !=\ IOA(mask2,\ mask1).}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ Args:}
+\DoxyCodeLine{00106\ \ \ \ \ box\_mask\_list1:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00107\ \ \ \ \ box\_mask\_list2:\ np\_box\_mask\_list.BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ Returns:}
+\DoxyCodeLine{00110\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{00111\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.ioa(box\_mask\_list1.get\_masks(),\ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae2c680a3f3b3186d93b4775f72b650b1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_adfd81e5ae2b983f98bb0194fc80c0e54}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_adfd81e5ae2b983f98bb0194fc80c0e54} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!iou@{iou}}
+\index{iou@{iou}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{iou()}{iou()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+iou (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list1,  }\item[{}]{box\+\_\+mask\+\_\+list2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-union between box and mask collections.
+
+Args:
+  box_mask_list1: BoxMaskList holding N boxes and masks
+  box_mask_list2: BoxMaskList holding M boxes and masks
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise iou scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00084}{84}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \textcolor{keyword}{def\ }iou(box\_mask\_list1,\ box\_mask\_list2):}
+\DoxyCodeLine{00085\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ box\ and\ mask\ collections.}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00087\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ \ \ box\_mask\_list1:\ BoxMaskList\ holding\ N\ boxes\ }\textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00089\ \ \ \ \ box\_mask\_list2:\ BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ Returns:}
+\DoxyCodeLine{00092\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{00093\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00094\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_mask\_ops.iou(box\_mask\_list1.get\_masks(),}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_mask\_list2.get\_masks())}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!multi\_class\_non\_max\_suppression@{multi\_class\_non\_max\_suppression}}
+\index{multi\_class\_non\_max\_suppression@{multi\_class\_non\_max\_suppression}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{multi\_class\_non\_max\_suppression()}{multi\_class\_non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+multi\+\_\+class\+\_\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list,  }\item[{}]{score\+\_\+thresh,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{max\+\_\+output\+\_\+size }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Multi-class version of non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes.  It operates independently for each class for
+which scores are provided (via the scores field of the input box_list),
+pruning boxes with score less than a provided threshold prior to
+applying NMS.
+
+Args:
+  box_mask_list: np_box_mask_list.BoxMaskList holding N boxes.  Must contain a
+    'scores' field representing detection scores.  This scores field is a
+    tensor that can be 1 dimensional (in the case of a single class) or
+    2-dimensional, in which case we assume that it takes the
+    shape [num_boxes, num_classes]. We further assume that this rank is known
+    statically and that scores.shape[1] is also known (i.e., the number of
+    classes is fixed and known at graph construction time).
+  score_thresh: scalar threshold for score (low scoring boxes are removed).
+  iou_thresh: scalar threshold for IOU (boxes that that high IOU overlap
+    with previously selected boxes are removed).
+  max_output_size: maximum number of retained boxes per class.
+
+Returns:
+  a box_mask_list holding M boxes with a rank-1 scores field representing
+    corresponding scores for each box with scores sorted in decreasing order
+    and a rank-1 classes field representing a class label for each box.
+Raises:
+  ValueError: if iou_thresh is not in [0, 1] or if input box_mask_list does
+    not have a valid scores field.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00243}{243}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size):}
+\DoxyCodeLine{00245\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{00246\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00247\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00248\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00249\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ independently\ \textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class\ }for}
+\DoxyCodeLine{00250\ \ \ which\ scores\ are\ provided\ (via\ the\ scores\ field\ of\ the\ input\ box\_list),}
+\DoxyCodeLine{00251\ \ \ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided\ threshold\ prior\ to}
+\DoxyCodeLine{00252\ \ \ applying\ NMS.}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ Args:}
+\DoxyCodeLine{00255\ \ \ \ \ box\_mask\_list:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes.\ \ Must\ contain\ a}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.\ \ This\ scores\ field\ \textcolor{keywordflow}{is}\ a}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ tensor\ that\ can\ be\ 1\ dimensional\ (\textcolor{keywordflow}{in}\ the\ case\ of\ a\ single\ \textcolor{keyword}{class})\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ 2-\/dimensional,\ \textcolor{keywordflow}{in}\ which\ case\ we\ assume\ that\ it\ takes\ the}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ shape\ [num\_boxes,\ num\_classes].\ We\ further\ assume\ that\ this\ rank\ \textcolor{keywordflow}{is}\ known}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ statically\ \textcolor{keywordflow}{and}\ that\ scores.shape[1]\ \textcolor{keywordflow}{is}\ also\ known\ (i.e.,\ the\ number\ of}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ classes\ \textcolor{keywordflow}{is}\ fixed\ \textcolor{keywordflow}{and}\ known\ at\ graph\ construction\ time).}
+\DoxyCodeLine{00262\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{00263\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (boxes\ that\ that\ high\ IOU\ overlap}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00265\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ Returns:}
+\DoxyCodeLine{00268\ \ \ \ \ a\ box\_mask\_list\ holding\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.}
+\DoxyCodeLine{00271\ \ \ Raises:}
+\DoxyCodeLine{00272\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ box\_mask\_list\ does}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \textcolor{keywordflow}{not}\ have\ a\ valid\ scores\ field.}
+\DoxyCodeLine{00274\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00275\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <=\ iou\_thresh\ <=\ 1.0:}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'thresh\ must\ be\ between\ 0\ and\ 1'})}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_mask\_list,\ np\_box\_mask\_list.BoxMaskList):}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_mask\_list\ must\ be\ a\ box\_mask\_list'})}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ box\_mask\_list\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{00281\ \ \ scores\ =\ box\_mask\_list.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 1:}
+\DoxyCodeLine{00283\ \ \ \ \ scores\ =\ np.reshape(scores,\ [-\/1,\ 1])}
+\DoxyCodeLine{00284\ \ \ \textcolor{keywordflow}{elif}\ len(scores.shape)\ ==\ 2:}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{if}\ scores.shape[1]\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ have\ statically\ defined\ second\ '}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dimension'})}
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ be\ of\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ num\_boxes\ =\ box\_mask\_list.num\_boxes()}
+\DoxyCodeLine{00292\ \ \ num\_scores\ =\ scores.shape[0]}
+\DoxyCodeLine{00293\ \ \ num\_classes\ =\ scores.shape[1]}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordflow}{if}\ num\_boxes\ !=\ num\_scores:}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Incorrect\ scores\ field\ length:\ actual\ vs\ expected.'})}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ selected\_boxes\_list\ =\ []}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordflow}{for}\ class\_idx\ \textcolor{keywordflow}{in}\ range(num\_classes):}
+\DoxyCodeLine{00300\ \ \ \ \ box\_mask\_list\_and\_class\_scores\ =\ np\_box\_mask\_list.BoxMaskList(}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ box\_data=box\_mask\_list.get(),}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ mask\_data=box\_mask\_list.get\_masks())}
+\DoxyCodeLine{00303\ \ \ \ \ class\_scores\ =\ np.reshape(scores[0:num\_scores,\ class\_idx],\ [-\/1])}
+\DoxyCodeLine{00304\ \ \ \ \ box\_mask\_list\_and\_class\_scores.add\_field(\textcolor{stringliteral}{'scores'},\ class\_scores)}
+\DoxyCodeLine{00305\ \ \ \ \ box\_mask\_list\_filt\ =\ filter\_scores\_greater\_than(}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ box\_mask\_list\_and\_class\_scores,\ score\_thresh)}
+\DoxyCodeLine{00307\ \ \ \ \ nms\_result\ =\ non\_max\_suppression(}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ box\_mask\_list\_filt,}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ max\_output\_size=max\_output\_size,}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00312\ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'classes'},}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ np.zeros\_like(nms\_result.get\_field(\textcolor{stringliteral}{'scores'}))\ +\ class\_idx)}
+\DoxyCodeLine{00315\ \ \ \ \ selected\_boxes\_list.append(nms\_result)}
+\DoxyCodeLine{00316\ \ \ selected\_boxes\ =\ np\_box\_list\_ops.concatenate(selected\_boxes\_list)}
+\DoxyCodeLine{00317\ \ \ sorted\_boxes\ =\ np\_box\_list\_ops.sort\_by\_field(selected\_boxes,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordflow}{return}\ box\_list\_to\_box\_mask\_list(boxlist=sorted\_boxes)}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ae08cab155dc5dd24884ee56677193c8c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!non\_max\_suppression@{non\_max\_suppression}}
+\index{non\_max\_suppression@{non\_max\_suppression}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{non\_max\_suppression()}{non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list,  }\item[{}]{max\+\_\+output\+\_\+size = {\ttfamily 10000},  }\item[{}]{iou\+\_\+threshold = {\ttfamily 1.0},  }\item[{}]{score\+\_\+threshold = {\ttfamily -\/10.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes. In each iteration, the detected bounding box with
+highest score in the available pool is selected.
+
+Args:
+  box_mask_list: np_box_mask_list.BoxMaskList holding N boxes.  Must contain
+    a 'scores' field representing detection scores. All scores belong to the
+    same class.
+  max_output_size: maximum number of retained boxes
+  iou_threshold: intersection over union threshold.
+  score_threshold: minimum score threshold. Remove the boxes with scores
+                   less than this value. Default value is set to -10. A very
+                   low threshold to pass pretty much all the boxes, unless
+                   the user sets a different score threshold.
+
+Returns:
+  an np_box_mask_list.BoxMaskList holding M boxes where M <= max_output_size
+
+Raises:
+  ValueError: if 'scores' field does not exist
+  ValueError: if threshold is not in [0, 1]
+  ValueError: if max_output_size < 0
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00166}{166}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=-\/10.0):}
+\DoxyCodeLine{00170\ \ \ \textcolor{stringliteral}{"{}"{}"{}Non\ maximum\ suppression.}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00173\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00174\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ In\ each\ iteration,\ the\ detected\ bounding\ box\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00175\ \ \ highest\ score\ \textcolor{keywordflow}{in}\ the\ available\ pool\ \textcolor{keywordflow}{is}\ selected.}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ Args:}
+\DoxyCodeLine{00178\ \ \ \ \ box\_mask\_list:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes.\ \ Must\ contain}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ a\ \textcolor{stringliteral}{'scores'}\ field\ representing\ detection\ scores.\ All\ scores\ belong\ to\ the}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ same\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00181\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes}
+\DoxyCodeLine{00182\ \ \ \ \ iou\_threshold:\ intersection\ over\ union\ threshold.}
+\DoxyCodeLine{00183\ \ \ \ \ score\_threshold:\ minimum\ score\ threshold.\ Remove\ the\ boxes\ \textcolor{keyword}{with}\ scores}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ less\ than\ this\ value.\ Default\ value\ \textcolor{keywordflow}{is}\ set\ to\ -\/10.\ A\ very}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ low\ threshold\ to\ \textcolor{keywordflow}{pass}\ pretty\ much\ all\ the\ boxes,\ unless}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ user\ sets\ a\ different\ score\ threshold.}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ Returns:}
+\DoxyCodeLine{00189\ \ \ \ \ an\ np\_box\_mask\_list.BoxMaskList\ holding\ M\ boxes\ where\ M\ <=\ max\_output\_size}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ Raises:}
+\DoxyCodeLine{00192\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'scores'}\ field\ does\ \textcolor{keywordflow}{not}\ exist}
+\DoxyCodeLine{00193\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ threshold\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]}
+\DoxyCodeLine{00194\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0}
+\DoxyCodeLine{00195\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ box\_mask\_list.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ scores\ does\ not\ exist'})}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ <\ 0.\ \textcolor{keywordflow}{or}\ iou\_threshold\ >\ 1.0:}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'IOU\ threshold\ must\ be\ in\ [0,\ 1]'})}
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0:}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'max\_output\_size\ must\ be\ bigger\ than\ 0.'})}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ box\_mask\_list\ =\ filter\_scores\_greater\_than(box\_mask\_list,\ score\_threshold)}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordflow}{if}\ box\_mask\_list.num\_boxes()\ ==\ 0:}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ box\_mask\_list\ =\ sort\_by\_field(box\_mask\_list,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{comment}{\#\ Prevent\ further\ computation\ if\ NMS\ is\ disabled.}}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ ==\ 1.0:}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{if}\ box\_mask\_list.num\_boxes()\ >\ max\_output\_size:}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ selected\_indices\ =\ np.arange(max\_output\_size)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gather(box\_mask\_list,\ selected\_indices)}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ box\_mask\_list}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ masks\ =\ box\_mask\_list.get\_masks()}
+\DoxyCodeLine{00218\ \ \ num\_masks\ =\ box\_mask\_list.num\_boxes()}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{\#\ is\_index\_valid\ is\ True\ only\ for\ all\ remaining\ valid\ boxes,}}
+\DoxyCodeLine{00221\ \ \ is\_index\_valid\ =\ np.full(num\_masks,\ 1,\ dtype=bool)}
+\DoxyCodeLine{00222\ \ \ selected\_indices\ =\ []}
+\DoxyCodeLine{00223\ \ \ num\_output\ =\ 0}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_masks):}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_output\ <\ max\_output\_size:}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_index\_valid[i]:}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ num\_output\ +=\ 1}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ selected\_indices.append(i)}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ is\_index\_valid[i]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ valid\_indices\ =\ np.where(is\_index\_valid)[0]}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ valid\_indices.size\ ==\ 0:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np\_mask\_ops.iou(}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ np.expand\_dims(masks[i],\ axis=0),\ masks[valid\_indices])}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np.squeeze(intersect\_over\_union,\ axis=0)}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices]\ =\ np.logical\_and(}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices],}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ intersect\_over\_union\ <=\ iou\_threshold)}
+\DoxyCodeLine{00240\ \ \ \textcolor{keywordflow}{return}\ gather(box\_mask\_list,\ np.array(selected\_indices))}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a58966e46073d45a3a30a35e13290eba0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!prune\_non\_overlapping\_masks@{prune\_non\_overlapping\_masks}}
+\index{prune\_non\_overlapping\_masks@{prune\_non\_overlapping\_masks}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{prune\_non\_overlapping\_masks()}{prune\_non\_overlapping\_masks()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+prune\+\_\+non\+\_\+overlapping\+\_\+masks (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list1,  }\item[{}]{box\+\_\+mask\+\_\+list2,  }\item[{}]{minoverlap = {\ttfamily 0.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Prunes the boxes in list1 that overlap less than thresh with list2.
+
+For each mask in box_mask_list1, we want its IOA to be more than minoverlap
+with at least one of the masks in box_mask_list2. If it does not, we remove
+it. If the masks are not full size image, we do the pruning based on boxes.
+
+Args:
+  box_mask_list1: np_box_mask_list.BoxMaskList holding N boxes and masks.
+  box_mask_list2: np_box_mask_list.BoxMaskList holding M boxes and masks.
+  minoverlap: Minimum required overlap between boxes, to count them as
+              overlapping.
+
+Returns:
+  A pruned box_mask_list with size [N', 4].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00321}{321}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00321\ \textcolor{keyword}{def\ }prune\_non\_overlapping\_masks(box\_mask\_list1,\ box\_mask\_list2,\ minoverlap=0.0):}
+\DoxyCodeLine{00322\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ the\ boxes\ in\ list1\ that\ overlap\ less\ than\ thresh\ with\ list2.}}
+\DoxyCodeLine{00323\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00324\ \textcolor{stringliteral}{\ \ For\ each\ mask\ }\textcolor{keywordflow}{in}\ box\_mask\_list1,\ we\ want\ its\ IOA\ to\ be\ more\ than\ minoverlap}
+\DoxyCodeLine{00325\ \ \ \textcolor{keyword}{with}\ at\ least\ one\ of\ the\ masks\ \textcolor{keywordflow}{in}\ box\_mask\_list2.\ If\ it\ does\ \textcolor{keywordflow}{not},\ we\ remove}
+\DoxyCodeLine{00326\ \ \ it.\ If\ the\ masks\ are\ \textcolor{keywordflow}{not}\ full\ size\ image,\ we\ do\ the\ pruning\ based\ on\ boxes.}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \ \ Args:}
+\DoxyCodeLine{00329\ \ \ \ \ box\_mask\_list1:\ np\_box\_mask\_list.BoxMaskList\ holding\ N\ boxes\ \textcolor{keywordflow}{and}\ masks.}
+\DoxyCodeLine{00330\ \ \ \ \ box\_mask\_list2:\ np\_box\_mask\_list.BoxMaskList\ holding\ M\ boxes\ \textcolor{keywordflow}{and}\ masks.}
+\DoxyCodeLine{00331\ \ \ \ \ minoverlap:\ Minimum\ required\ overlap\ between\ boxes,\ to\ count\ them\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overlapping.}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ Returns:}
+\DoxyCodeLine{00335\ \ \ \ \ A\ pruned\ box\_mask\_list\ \textcolor{keyword}{with}\ size\ [N\textcolor{stringliteral}{',\ 4].}}
+\DoxyCodeLine{00336\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00337\ \textcolor{stringliteral}{\ \ intersection\_over\_area\ =\ ioa(box\_mask\_list2,\ box\_mask\_list1)\ \ }\textcolor{comment}{\#\ [M,\ N]\ tensor}}
+\DoxyCodeLine{00338\ \ \ intersection\_over\_area\ =\ np.amax(intersection\_over\_area,\ axis=0)\ \ \textcolor{comment}{\#\ [N]\ tensor}}
+\DoxyCodeLine{00339\ \ \ keep\_bool\ =\ np.greater\_equal(intersection\_over\_area,\ np.array(minoverlap))}
+\DoxyCodeLine{00340\ \ \ keep\_inds\ =\ np.nonzero(keep\_bool)[0]}
+\DoxyCodeLine{00341\ \ \ new\_box\_mask\_list1\ =\ gather(box\_mask\_list1,\ keep\_inds)}
+\DoxyCodeLine{00342\ \ \ \textcolor{keywordflow}{return}\ new\_box\_mask\_list1}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_a5fa478ac378bfccd0e8377df0707f109_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd}\label{namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd} 
+\index{detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}!sort\_by\_field@{sort\_by\_field}}
+\index{sort\_by\_field@{sort\_by\_field}!detection\_utils.utils.np\_box\_mask\_list\_ops@{detection\_utils.utils.np\_box\_mask\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{sort\_by\_field()}{sort\_by\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+sort\+\_\+by\+\_\+field (\begin{DoxyParamCaption}\item[{}]{box\+\_\+mask\+\_\+list,  }\item[{}]{field,  }\item[{}]{order = {\ttfamily \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops_1_1_sort_order_aecde42d8b3cc4e57c6279fb9ed8c73de}{np\+\_\+box\+\_\+list\+\_\+ops.\+Sort\+Order.\+DESCEND}}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sort boxes and associated fields according to a scalar field.
+
+A common use case is reordering the boxes according to descending scores.
+
+Args:
+  box_mask_list: BoxMaskList holding N boxes.
+  field: A BoxMaskList field for sorting and reordering the BoxMaskList.
+  order: (Optional) 'descend' or 'ascend'. Default is descend.
+
+Returns:
+  sorted_box_mask_list: A sorted BoxMaskList with the field in the specified
+    order.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__mask__list__ops_8py_source_l00146}{146}} of file \mbox{\hyperlink{np__box__mask__list__ops_8py_source}{np\+\_\+box\+\_\+mask\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ order=np\_box\_list\_ops.SortOrder.DESCEND):}
+\DoxyCodeLine{00148\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sort\ boxes\ and\ associated\ fields\ according\ to\ a\ scalar\ field.}}
+\DoxyCodeLine{00149\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00150\ \textcolor{stringliteral}{\ \ A\ common\ use\ case\ }\textcolor{keywordflow}{is}\ reordering\ the\ boxes\ according\ to\ descending\ scores.}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ Args:}
+\DoxyCodeLine{00153\ \ \ \ \ box\_mask\_list:\ BoxMaskList\ holding\ N\ boxes.}
+\DoxyCodeLine{00154\ \ \ \ \ field:\ A\ BoxMaskList\ field\ \textcolor{keywordflow}{for}\ sorting\ \textcolor{keywordflow}{and}\ reordering\ the\ BoxMaskList.}
+\DoxyCodeLine{00155\ \ \ \ \ order:\ (Optional)\ \textcolor{stringliteral}{'descend'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'ascend'}.\ Default\ \textcolor{keywordflow}{is}\ descend.}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ Returns:}
+\DoxyCodeLine{00158\ \ \ \ \ sorted\_box\_mask\_list:\ A\ sorted\ BoxMaskList\ \textcolor{keyword}{with}\ the\ field\ \textcolor{keywordflow}{in}\ the\ specified}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ order.}
+\DoxyCodeLine{00160\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00161\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ box\_list\_to\_box\_mask\_list(}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ np\_box\_list\_ops.sort\_by\_field(}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ boxlist=box\_mask\_list,\ field=field,\ order=order))}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dd7/namespacedetection__utils_1_1utils_1_1np__box__mask__list__ops_ac311851be4c304e126b6874f581647dd_icgraph}
+\end{center}
+\end{figure}

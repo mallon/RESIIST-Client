@@ -1,0 +1,1051 @@
+\doxysection{detection\+\_\+utils.\+utils.\+shape\+\_\+utils Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils}{}\label{namespacedetection__utils_1_1utils_1_1shape__utils}\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}{\+\_\+is\+\_\+tensor}} (t)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}{\+\_\+set\+\_\+dim\+\_\+0}} (t, d0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17}{pad\+\_\+tensor}} (t, length)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd}{clip\+\_\+tensor}} (t, length)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259}{pad\+\_\+or\+\_\+clip\+\_\+tensor}} (t, length)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47}{pad\+\_\+or\+\_\+clip\+\_\+nd}} (tensor, output\+\_\+shape)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}{combined\+\_\+static\+\_\+and\+\_\+dynamic\+\_\+shape}} (tensor)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_adbdc407bf10ad7dc672f5ac1ae2404c1}{static\+\_\+or\+\_\+dynamic\+\_\+map\+\_\+fn}} (fn, elems, dtype=None, parallel\+\_\+iterations=32, back\+\_\+prop=True)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a0ea44d81f5ae2db5c0cbe745f0b2be12}{check\+\_\+min\+\_\+image\+\_\+dim}} (min\+\_\+dim, image\+\_\+tensor)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a2f267cce441a3d8f39062fe394ea4324}{assert\+\_\+shape\+\_\+equal}} (shape\+\_\+a, shape\+\_\+b)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ac0ee78b7cd7535a2604b585f6067b07a}{assert\+\_\+shape\+\_\+equal\+\_\+along\+\_\+first\+\_\+dimension}} (shape\+\_\+a, shape\+\_\+b)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_aec335b009bd21b97b82c51d993591424}{assert\+\_\+box\+\_\+normalized}} (boxes, maximum\+\_\+normalized\+\_\+coordinate=1.\+1)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}{flatten\+\_\+dimensions}} (inputs, first, last)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5}{flatten\+\_\+first\+\_\+n\+\_\+dimensions}} (inputs, n)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b}{expand\+\_\+first\+\_\+dimension}} (inputs, dims)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils_a4242130317b726719d430d77b294373c}{get\+\_\+dim\+\_\+as\+\_\+int}} = static\+\_\+shape.\+get\+\_\+dim\+\_\+as\+\_\+int
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utils used to manipulate tensor shapes.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!\_is\_tensor@{\_is\_tensor}}
+\index{\_is\_tensor@{\_is\_tensor}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{\_is\_tensor()}{\_is\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+\_\+is\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns a boolean indicating whether the input is a tensor.
+
+Args:
+  t: the input to be tested.
+
+Returns:
+  a boolean that indicates whether t is a tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00031}{31}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \textcolor{keyword}{def\ }\_is\_tensor(t):}
+\DoxyCodeLine{00032\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ boolean\ indicating\ whether\ the\ input\ is\ a\ tensor.}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ to\ be\ tested.}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ a\ boolean\ that\ indicates\ whether\ t\ }\textcolor{keywordflow}{is}\ a\ tensor.}
+\DoxyCodeLine{00039\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ isinstance(t,\ (tf.Tensor,\ tf.SparseTensor,\ tf.Variable))}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a40cccc95c5977459bd034bc0a18ddf28_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!\_set\_dim\_0@{\_set\_dim\_0}}
+\index{\_set\_dim\_0@{\_set\_dim\_0}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{\_set\_dim\_0()}{\_set\_dim\_0()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+\_\+set\+\_\+dim\+\_\+0 (\begin{DoxyParamCaption}\item[{}]{t,  }\item[{}]{d0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Sets the 0-th dimension of the input tensor.
+
+Args:
+  t: the input tensor, assuming the rank is at least 1.
+  d0: an integer indicating the 0-th dimension of the input tensor.
+
+Returns:
+  the tensor t with the 0-th dimension set.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00043}{43}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \textcolor{keyword}{def\ }\_set\_dim\_0(t,\ d0):}
+\DoxyCodeLine{00044\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sets\ the\ 0-\/th\ dimension\ of\ the\ input\ tensor.}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{00048\ \ \ \ \ d0:\ an\ integer\ indicating\ the\ 0-\/th\ dimension\ of\ the\ input\ tensor.}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ Returns:}
+\DoxyCodeLine{00051\ \ \ \ \ the\ tensor\ t\ \textcolor{keyword}{with}\ the\ 0-\/th\ dimension\ set.}
+\DoxyCodeLine{00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ t\_shape\ =\ t.get\_shape().as\_list()}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ t\_shape[0]\ =\ d0}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{\ \ t.set\_shape(t\_shape)}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ t}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a9495102c38b0c97f6e5ef53f4e8948c9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_aec335b009bd21b97b82c51d993591424}\label{namespacedetection__utils_1_1utils_1_1shape__utils_aec335b009bd21b97b82c51d993591424} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!assert\_box\_normalized@{assert\_box\_normalized}}
+\index{assert\_box\_normalized@{assert\_box\_normalized}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_box\_normalized()}{assert\_box\_normalized()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+assert\+\_\+box\+\_\+normalized (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{maximum\+\_\+normalized\+\_\+coordinate = {\ttfamily 1.1} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Asserts the input box tensor is normalized.
+
+Args:
+  boxes: a tensor of shape [N, 4] where N is the number of boxes.
+  maximum_normalized_coordinate: Maximum coordinate value to be considered
+    as normalized, default to 1.1.
+
+Returns:
+  a tf.Assert op which fails when the input box tensor is not normalized.
+
+Raises:
+  ValueError: When the input box tensor is not normalized.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00355}{355}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00355\ \textcolor{keyword}{def\ }assert\_box\_normalized(boxes,\ maximum\_normalized\_coordinate=1.1):}
+\DoxyCodeLine{00356\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ the\ input\ box\ tensor\ is\ normalized.}}
+\DoxyCodeLine{00357\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00358\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00359\ \textcolor{stringliteral}{\ \ \ \ boxes:\ a\ tensor\ of\ shape\ [N,\ 4]\ where\ N\ }\textcolor{keywordflow}{is}\ the\ number\ of\ boxes.}
+\DoxyCodeLine{00360\ \ \ \ \ maximum\_normalized\_coordinate:\ Maximum\ coordinate\ value\ to\ be\ considered}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keyword}{as}\ normalized,\ default\ to\ 1.1.}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ Returns:}
+\DoxyCodeLine{00364\ \ \ \ \ a\ tf.Assert\ op\ which\ fails\ when\ the\ input\ box\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ normalized.}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ Raises:}
+\DoxyCodeLine{00367\ \ \ \ \ ValueError:\ When\ the\ input\ box\ tensor\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ normalized.}
+\DoxyCodeLine{00368\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00369\ \textcolor{stringliteral}{\ \ box\_minimum\ =\ tf.reduce\_min(boxes)}}
+\DoxyCodeLine{00370\ \textcolor{stringliteral}{\ \ box\_maximum\ =\ tf.reduce\_max(boxes)}}
+\DoxyCodeLine{00371\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.Assert(}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ tf.logical\_and(}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ tf.less\_equal(box\_maximum,\ maximum\_normalized\_coordinate),}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ tf.greater\_equal(box\_minimum,\ 0)),}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ [boxes])}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a2f267cce441a3d8f39062fe394ea4324}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a2f267cce441a3d8f39062fe394ea4324} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!assert\_shape\_equal@{assert\_shape\_equal}}
+\index{assert\_shape\_equal@{assert\_shape\_equal}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_shape\_equal()}{assert\_shape\_equal()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+assert\+\_\+shape\+\_\+equal (\begin{DoxyParamCaption}\item[{}]{shape\+\_\+a,  }\item[{}]{shape\+\_\+b }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Asserts that shape_a and shape_b are equal.
+
+If the shapes are static, raises a ValueError when the shapes
+mismatch.
+
+If the shapes are dynamic, raises a tf InvalidArgumentError when the shapes
+mismatch.
+
+Args:
+  shape_a: a list containing shape of the first tensor.
+  shape_b: a list containing shape of the second tensor.
+
+Returns:
+  Either a tf.no_op() when shapes are all static and a tf.assert_equal() op
+  when the shapes are dynamic.
+
+Raises:
+  ValueError: When shapes are both static and unequal.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00297}{297}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00297\ \textcolor{keyword}{def\ }assert\_shape\_equal(shape\_a,\ shape\_b):}
+\DoxyCodeLine{00298\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ that\ shape\_a\ and\ shape\_b\ are\ equal.}}
+\DoxyCodeLine{00299\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00300\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ static,\ raises\ a\ ValueError\ when\ the\ shapes}}
+\DoxyCodeLine{00301\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{00302\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00303\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ dynamic,\ raises\ a\ tf\ InvalidArgumentError\ when\ the\ shapes}}
+\DoxyCodeLine{00304\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{00305\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00306\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00307\ \textcolor{stringliteral}{\ \ \ \ shape\_a:\ a\ list\ containing\ shape\ of\ the\ first\ tensor.}}
+\DoxyCodeLine{00308\ \textcolor{stringliteral}{\ \ \ \ shape\_b:\ a\ list\ containing\ shape\ of\ the\ second\ tensor.}}
+\DoxyCodeLine{00309\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00310\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00311\ \textcolor{stringliteral}{\ \ \ \ Either\ a\ tf.no\_op()\ when\ shapes\ are\ all\ static\ }\textcolor{keywordflow}{and}\ a\ tf.assert\_equal()\ op}
+\DoxyCodeLine{00312\ \ \ \ \ when\ the\ shapes\ are\ dynamic.}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ Raises:}
+\DoxyCodeLine{00315\ \ \ \ \ ValueError:\ When\ shapes\ are\ both\ static\ \textcolor{keywordflow}{and}\ unequal.}
+\DoxyCodeLine{00316\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00317\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ (all(isinstance(dim,\ int)\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ shape\_a)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ all(isinstance(dim,\ int)\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ shape\_b)):}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{if}\ shape\_a\ !=\ shape\_b:}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unequal\ shapes\ \{\},\ \{\}'}.format(shape\_a,\ shape\_b))}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{else}:\ \textcolor{keywordflow}{return}\ tf.no\_op()}
+\DoxyCodeLine{00322\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.assert\_equal(shape\_a,\ shape\_b)}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_ac0ee78b7cd7535a2604b585f6067b07a}\label{namespacedetection__utils_1_1utils_1_1shape__utils_ac0ee78b7cd7535a2604b585f6067b07a} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!assert\_shape\_equal\_along\_first\_dimension@{assert\_shape\_equal\_along\_first\_dimension}}
+\index{assert\_shape\_equal\_along\_first\_dimension@{assert\_shape\_equal\_along\_first\_dimension}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_shape\_equal\_along\_first\_dimension()}{assert\_shape\_equal\_along\_first\_dimension()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+assert\+\_\+shape\+\_\+equal\+\_\+along\+\_\+first\+\_\+dimension (\begin{DoxyParamCaption}\item[{}]{shape\+\_\+a,  }\item[{}]{shape\+\_\+b }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Asserts that shape_a and shape_b are the same along the 0th-dimension.
+
+If the shapes are static, raises a ValueError when the shapes
+mismatch.
+
+If the shapes are dynamic, raises a tf InvalidArgumentError when the shapes
+mismatch.
+
+Args:
+  shape_a: a list containing shape of the first tensor.
+  shape_b: a list containing shape of the second tensor.
+
+Returns:
+  Either a tf.no_op() when shapes are all static and a tf.assert_equal() op
+  when the shapes are dynamic.
+
+Raises:
+  ValueError: When shapes are both static and unequal.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00326}{326}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00326\ \textcolor{keyword}{def\ }assert\_shape\_equal\_along\_first\_dimension(shape\_a,\ shape\_b):}
+\DoxyCodeLine{00327\ \ \ \textcolor{stringliteral}{"{}"{}"{}Asserts\ that\ shape\_a\ and\ shape\_b\ are\ the\ same\ along\ the\ 0th-\/dimension.}}
+\DoxyCodeLine{00328\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00329\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ static,\ raises\ a\ ValueError\ when\ the\ shapes}}
+\DoxyCodeLine{00330\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{00331\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00332\ \textcolor{stringliteral}{\ \ If\ the\ shapes\ are\ dynamic,\ raises\ a\ tf\ InvalidArgumentError\ when\ the\ shapes}}
+\DoxyCodeLine{00333\ \textcolor{stringliteral}{\ \ mismatch.}}
+\DoxyCodeLine{00334\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00335\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00336\ \textcolor{stringliteral}{\ \ \ \ shape\_a:\ a\ list\ containing\ shape\ of\ the\ first\ tensor.}}
+\DoxyCodeLine{00337\ \textcolor{stringliteral}{\ \ \ \ shape\_b:\ a\ list\ containing\ shape\ of\ the\ second\ tensor.}}
+\DoxyCodeLine{00338\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00339\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00340\ \textcolor{stringliteral}{\ \ \ \ Either\ a\ tf.no\_op()\ when\ shapes\ are\ all\ static\ }\textcolor{keywordflow}{and}\ a\ tf.assert\_equal()\ op}
+\DoxyCodeLine{00341\ \ \ \ \ when\ the\ shapes\ are\ dynamic.}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ Raises:}
+\DoxyCodeLine{00344\ \ \ \ \ ValueError:\ When\ shapes\ are\ both\ static\ \textcolor{keywordflow}{and}\ unequal.}
+\DoxyCodeLine{00345\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00346\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(shape\_a[0],\ int)\ \textcolor{keywordflow}{and}\ isinstance(shape\_b[0],\ int):}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{if}\ shape\_a[0]\ !=\ shape\_b[0]:}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Unequal\ first\ dimension\ \{\},\ \{\}'}.format(}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ shape\_a[0],\ shape\_b[0]))}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{else}:\ \textcolor{keywordflow}{return}\ tf.no\_op()}
+\DoxyCodeLine{00351\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.assert\_equal(shape\_a[0],\ shape\_b[0])}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a0ea44d81f5ae2db5c0cbe745f0b2be12}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a0ea44d81f5ae2db5c0cbe745f0b2be12} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!check\_min\_image\_dim@{check\_min\_image\_dim}}
+\index{check\_min\_image\_dim@{check\_min\_image\_dim}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{check\_min\_image\_dim()}{check\_min\_image\_dim()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+check\+\_\+min\+\_\+image\+\_\+dim (\begin{DoxyParamCaption}\item[{}]{min\+\_\+dim,  }\item[{}]{image\+\_\+tensor }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Checks that the image width/height are greater than some number.
+
+This function is used to check that the width and height of an image are above
+a certain value. If the image shape is static, this function will perform the
+check at graph construction time. Otherwise, if the image shape varies, an
+Assertion control dependency will be added to the graph.
+
+Args:
+  min_dim: The minimum number of pixels along the width and height of the
+           image.
+  image_tensor: The image tensor to check size for.
+
+Returns:
+  If `image_tensor` has dynamic size, return `image_tensor` with a Assert
+  control dependency. Otherwise returns image_tensor.
+
+Raises:
+  ValueError: if `image_tensor`'s' width or height is smaller than `min_dim`.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00258}{258}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00258\ \textcolor{keyword}{def\ }check\_min\_image\_dim(min\_dim,\ image\_tensor):}
+\DoxyCodeLine{00259\ \ \ \textcolor{stringliteral}{"{}"{}"{}Checks\ that\ the\ image\ width/height\ are\ greater\ than\ some\ number.}}
+\DoxyCodeLine{00260\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00261\ \textcolor{stringliteral}{\ \ This\ function\ }\textcolor{keywordflow}{is}\ used\ to\ check\ that\ the\ width\ \textcolor{keywordflow}{and}\ height\ of\ an\ image\ are\ above}
+\DoxyCodeLine{00262\ \ \ a\ certain\ value.\ If\ the\ image\ shape\ \textcolor{keywordflow}{is}\ static,\ this\ function\ will\ perform\ the}
+\DoxyCodeLine{00263\ \ \ check\ at\ graph\ construction\ time.\ Otherwise,\ \textcolor{keywordflow}{if}\ the\ image\ shape\ varies,\ an}
+\DoxyCodeLine{00264\ \ \ Assertion\ control\ dependency\ will\ be\ added\ to\ the\ graph.}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ Args:}
+\DoxyCodeLine{00267\ \ \ \ \ min\_dim:\ The\ minimum\ number\ of\ pixels\ along\ the\ width\ \textcolor{keywordflow}{and}\ height\ of\ the}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ image.}
+\DoxyCodeLine{00269\ \ \ \ \ image\_tensor:\ The\ image\ tensor\ to\ check\ size\ \textcolor{keywordflow}{for}.}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ Returns:}
+\DoxyCodeLine{00272\ \ \ \ \ If\ \`{}image\_tensor\`{}\ has\ dynamic\ size,\ \textcolor{keywordflow}{return}\ \`{}image\_tensor\`{}\ \textcolor{keyword}{with}\ a\ Assert}
+\DoxyCodeLine{00273\ \ \ \ \ control\ dependency.\ Otherwise\ returns\ image\_tensor.}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ Raises:}
+\DoxyCodeLine{00276\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}image\_tensor\`{}\textcolor{stringliteral}{'s'}\ width\ \textcolor{keywordflow}{or}\ height\ \textcolor{keywordflow}{is}\ smaller\ than\ \`{}min\_dim\`{}.}
+\DoxyCodeLine{00277\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00278\ \textcolor{stringliteral}{\ \ image\_shape\ =\ image\_tensor.get\_shape()}}
+\DoxyCodeLine{00279\ \textcolor{stringliteral}{\ \ image\_height\ =\ static\_shape.get\_height(image\_shape)}}
+\DoxyCodeLine{00280\ \textcolor{stringliteral}{\ \ image\_width\ =\ static\_shape.get\_width(image\_shape)}}
+\DoxyCodeLine{00281\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ image\_height\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ image\_width\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00282\ \ \ \ \ shape\_assert\ =\ tf.Assert(}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ tf.logical\_and(tf.greater\_equal(tf.shape(image\_tensor)[1],\ min\_dim),}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.greater\_equal(tf.shape(image\_tensor)[2],\ min\_dim)),}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'image\ size\ must\ be\ >=\ \{\}\ in\ both\ height\ and\ width.'}.format(min\_dim)])}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([shape\_assert]):}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.identity(image\_tensor)}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordflow}{if}\ image\_height\ <\ min\_dim\ \textcolor{keywordflow}{or}\ image\_width\ <\ min\_dim:}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'image\ size\ must\ be\ >=\ \%d\ in\ both\ height\ and\ width;\ image\ dim\ =\ \%d,\%d'}\ \%}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ (min\_dim,\ image\_height,\ image\_width))}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \textcolor{keywordflow}{return}\ image\_tensor}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!clip\_tensor@{clip\_tensor}}
+\index{clip\_tensor@{clip\_tensor}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{clip\_tensor()}{clip\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+clip\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{t,  }\item[{}]{length }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Clips the input tensor along the first dimension up to the length.
+
+Args:
+  t: the input tensor, assuming the rank is at least 1.
+  length: a tensor of shape [1]  or an integer, indicating the first dimension
+    of the input tensor t after clipping, assuming length <= t.shape[0].
+
+Returns:
+  clipped_t: the clipped tensor, whose first dimension is length. If the
+    length is an integer, the first dimension of clipped_t is set to length
+    statically.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00085}{85}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \textcolor{keyword}{def\ }clip\_tensor(t,\ length):}
+\DoxyCodeLine{00086\ \ \ \textcolor{stringliteral}{"{}"{}"{}Clips\ the\ input\ tensor\ along\ the\ first\ dimension\ up\ to\ the\ length.}}
+\DoxyCodeLine{00087\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{00090\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ clipping,\ assuming\ length\ <=\ t.shape[0].}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ Returns:}
+\DoxyCodeLine{00094\ \ \ \ \ clipped\_t:\ the\ clipped\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ length\ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ clipped\_t\ \textcolor{keywordflow}{is}\ set\ to\ length}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ statically.}
+\DoxyCodeLine{00097\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00098\ \textcolor{stringliteral}{\ \ clipped\_t\ =\ tf.gather(t,\ tf.range(length))}}
+\DoxyCodeLine{00099\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \_is\_tensor(length):}
+\DoxyCodeLine{00100\ \ \ \ \ clipped\_t\ =\ \_set\_dim\_0(clipped\_t,\ length)}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{return}\ clipped\_t}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a961e10f2d22914e41c721971f98670fd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!combined\_static\_and\_dynamic\_shape@{combined\_static\_and\_dynamic\_shape}}
+\index{combined\_static\_and\_dynamic\_shape@{combined\_static\_and\_dynamic\_shape}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{combined\_static\_and\_dynamic\_shape()}{combined\_static\_and\_dynamic\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+combined\+\_\+static\+\_\+and\+\_\+dynamic\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{tensor }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a list containing static and dynamic values for the dimensions.
+
+Returns a list of static and dynamic values for shape dimensions. This is
+useful to preserve static shapes when available in reshape operation.
+
+Args:
+  tensor: A tensor of any type.
+
+Returns:
+  A list of size tensor.shape.ndims containing integers or a scalar tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00162}{162}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00162\ \textcolor{keyword}{def\ }combined\_static\_and\_dynamic\_shape(tensor):}
+\DoxyCodeLine{00163\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ containing\ static\ and\ dynamic\ values\ for\ the\ dimensions.}}
+\DoxyCodeLine{00164\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00165\ \textcolor{stringliteral}{\ \ Returns\ a\ list\ of\ static\ }\textcolor{keywordflow}{and}\ dynamic\ values\ \textcolor{keywordflow}{for}\ shape\ dimensions.\ This\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00166\ \ \ useful\ to\ preserve\ static\ shapes\ when\ available\ \textcolor{keywordflow}{in}\ reshape\ operation.}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ Args:}
+\DoxyCodeLine{00169\ \ \ \ \ tensor:\ A\ tensor\ of\ any\ type.}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ Returns:}
+\DoxyCodeLine{00172\ \ \ \ \ A\ list\ of\ size\ tensor.shape.ndims\ containing\ integers\ \textcolor{keywordflow}{or}\ a\ scalar\ tensor.}
+\DoxyCodeLine{00173\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00174\ \textcolor{stringliteral}{\ \ static\_tensor\_shape\ =\ tensor.shape.as\_list()}}
+\DoxyCodeLine{00175\ \textcolor{stringliteral}{\ \ dynamic\_tensor\_shape\ =\ tf.shape(tensor)}}
+\DoxyCodeLine{00176\ \textcolor{stringliteral}{\ \ combined\_shape\ =\ []}}
+\DoxyCodeLine{00177\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ index,\ dim\ \textcolor{keywordflow}{in}\ enumerate(static\_tensor\_shape):}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{if}\ dim\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ combined\_shape.append(dim)}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ combined\_shape.append(dynamic\_tensor\_shape[index])}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{return}\ combined\_shape}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a2716d6d75b6e5d892f11298d31dbd226_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b}\label{namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!expand\_first\_dimension@{expand\_first\_dimension}}
+\index{expand\_first\_dimension@{expand\_first\_dimension}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{expand\_first\_dimension()}{expand\_first\_dimension()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+expand\+\_\+first\+\_\+dimension (\begin{DoxyParamCaption}\item[{}]{inputs,  }\item[{}]{dims }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Expands `K-d` tensor along first dimension to be a `(K+n-1)-d` tensor.
+
+Converts `inputs` with shape [D0, D1, ..., D(K-1)] into a tensor of shape
+[dims[0], dims[1], ..., dims[-1], D1, ..., D(k-1)].
+
+Example:
+`inputs` is a tensor with shape [50, 20, 20, 3].
+new_tensor = expand_first_dimension(inputs, [10, 5]).
+new_tensor.shape -> [10, 5, 20, 20, 3].
+
+Args:
+  inputs: a tensor with shape [D0, D1, ..., D(K-1)].
+  dims: List with new dimensions to expand first axis into. The length of
+    `dims` is typically 2 or larger.
+
+Returns:
+  a tensor with shape [dims[0], dims[1], ..., dims[-1], D1, ..., D(k-1)].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00436}{436}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00436\ \textcolor{keyword}{def\ }expand\_first\_dimension(inputs,\ dims):}
+\DoxyCodeLine{00437\ \ \ \textcolor{stringliteral}{"{}"{}"{}Expands\ \`{}K-\/d\`{}\ tensor\ along\ first\ dimension\ to\ be\ a\ \`{}(K+n-\/1)-\/d\`{}\ tensor.}}
+\DoxyCodeLine{00438\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00439\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{00440\ \ \ [dims[0],\ dims[1],\ ...,\ dims[-\/1],\ D1,\ ...,\ D(k-\/1)].}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ Example:}
+\DoxyCodeLine{00443\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [50,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{00444\ \ \ new\_tensor\ =\ expand\_first\_dimension(inputs,\ [10,\ 5]).}
+\DoxyCodeLine{00445\ \ \ new\_tensor.shape\ -\/>\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ Args:}
+\DoxyCodeLine{00448\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{00449\ \ \ \ \ dims:\ List\ \textcolor{keyword}{with}\ new\ dimensions\ to\ expand\ first\ axis\ into.\ The\ length\ of}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \`{}dims\`{}\ \textcolor{keywordflow}{is}\ typically\ 2\ \textcolor{keywordflow}{or}\ larger.}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ Returns:}
+\DoxyCodeLine{00453\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape\ [dims[0],\ dims[1],\ ...,\ dims[-\/1],\ D1,\ ...,\ D(k-\/1)].}
+\DoxyCodeLine{00454\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00455\ \textcolor{stringliteral}{\ \ inputs\_shape\ =\ combined\_static\_and\_dynamic\_shape(inputs)}}
+\DoxyCodeLine{00456\ \textcolor{stringliteral}{\ \ expanded\_shape\ =\ tf.stack(dims\ +\ inputs\_shape[1:])}}
+\DoxyCodeLine{00457\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00458\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ Verify\ that\ it\ is\ possible\ to\ expand\ the\ first\ axis\ of\ inputs.}}
+\DoxyCodeLine{00459\ \ \ assert\_op\ =\ tf.assert\_equal(}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ inputs\_shape[0],\ tf.reduce\_prod(tf.stack(dims)),}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ message=(\textcolor{stringliteral}{'First\ dimension\ of\ \`{}inputs`\ cannot\ be\ expanded\ into\ provided\ '}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'\`{}dims`'}))}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([assert\_op]):}
+\DoxyCodeLine{00465\ \ \ \ \ inputs\_reshaped\ =\ tf.reshape(inputs,\ expanded\_shape)}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \textcolor{keywordflow}{return}\ inputs\_reshaped}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_ae9b0d9bf4014378f0008105db0fc066b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!flatten\_dimensions@{flatten\_dimensions}}
+\index{flatten\_dimensions@{flatten\_dimensions}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{flatten\_dimensions()}{flatten\_dimensions()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+flatten\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{inputs,  }\item[{}]{first,  }\item[{}]{last }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flattens `K-d` tensor along [first, last) dimensions.
+
+Converts `inputs` with shape [D0, D1, ..., D(K-1)] into a tensor of shape
+[D0, D1, ..., D(first) * D(first+1) * ... * D(last-1), D(last), ..., D(K-1)].
+
+Example:
+`inputs` is a tensor with initial shape [10, 5, 20, 20, 3].
+new_tensor = flatten_dimensions(inputs, last=4, first=2)
+new_tensor.shape -> [10, 100, 20, 3].
+
+Args:
+  inputs: a tensor with shape [D0, D1, ..., D(K-1)].
+  first: first value for the range of dimensions to flatten.
+  last: last value for the range of dimensions to flatten. Note that the last
+    dimension itself is excluded.
+
+Returns:
+  a tensor with shape
+  [D0, D1, ..., D(first) * D(first + 1) * ... * D(last - 1), D(last), ...,
+   D(K-1)].
+
+Raises:
+  ValueError: if first and last arguments are incorrect.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00378}{378}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00378\ \textcolor{keyword}{def\ }flatten\_dimensions(inputs,\ first,\ last):}
+\DoxyCodeLine{00379\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flattens\ \`{}K-\/d\`{}\ tensor\ along\ [first,\ last)\ dimensions.}}
+\DoxyCodeLine{00380\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00381\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{00382\ \ \ [D0,\ D1,\ ...,\ D(first)\ *\ D(first+1)\ *\ ...\ *\ D(last-\/1),\ D(last),\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ Example:}
+\DoxyCodeLine{00385\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ initial\ shape\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{00386\ \ \ new\_tensor\ =\ flatten\_dimensions(inputs,\ last=4,\ first=2)}
+\DoxyCodeLine{00387\ \ \ new\_tensor.shape\ -\/>\ [10,\ 100,\ 20,\ 3].}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ Args:}
+\DoxyCodeLine{00390\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{00391\ \ \ \ \ first:\ first\ value\ \textcolor{keywordflow}{for}\ the\ range\ of\ dimensions\ to\ flatten.}
+\DoxyCodeLine{00392\ \ \ \ \ last:\ last\ value\ \textcolor{keywordflow}{for}\ the\ range\ of\ dimensions\ to\ flatten.\ Note\ that\ the\ last}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ dimension\ itself\ \textcolor{keywordflow}{is}\ excluded.}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ Returns:}
+\DoxyCodeLine{00396\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape}
+\DoxyCodeLine{00397\ \ \ \ \ [D0,\ D1,\ ...,\ D(first)\ *\ D(first\ +\ 1)\ *\ ...\ *\ D(last\ -\/\ 1),\ D(last),\ ...,}
+\DoxyCodeLine{00398\ \ \ \ \ \ D(K-\/1)].}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ Raises:}
+\DoxyCodeLine{00401\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ first\ \textcolor{keywordflow}{and}\ last\ arguments\ are\ incorrect.}
+\DoxyCodeLine{00402\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00403\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ first\ >=\ inputs.shape.ndims\ \textcolor{keywordflow}{or}\ last\ >\ inputs.shape.ndims:}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}first`\ and\ \`{}last`\ must\ be\ less\ than\ inputs.shape.ndims.\ '}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'found\ \{\}\ and\ \{\}\ respectively\ while\ ndims\ is\ \{\}'}.format(}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ first,\ last,\ inputs.shape.ndims))}
+\DoxyCodeLine{00407\ \ \ shape\ =\ combined\_static\_and\_dynamic\_shape(inputs)}
+\DoxyCodeLine{00408\ \ \ flattened\_dim\_prod\ =\ tf.reduce\_prod(shape[first:last],}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keepdims=\textcolor{keyword}{True})}
+\DoxyCodeLine{00410\ \ \ new\_shape\ =\ tf.concat([shape[:first],\ flattened\_dim\_prod,}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shape[last:]],\ axis=0)}
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordflow}{return}\ tf.reshape(inputs,\ new\_shape)}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a5ef07eddf0a0dff4b0c84c4ff23426e7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5}\label{namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!flatten\_first\_n\_dimensions@{flatten\_first\_n\_dimensions}}
+\index{flatten\_first\_n\_dimensions@{flatten\_first\_n\_dimensions}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{flatten\_first\_n\_dimensions()}{flatten\_first\_n\_dimensions()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+flatten\+\_\+first\+\_\+n\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{inputs,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flattens `K-d` tensor along first n dimension to be a `(K-n+1)-d` tensor.
+
+Converts `inputs` with shape [D0, D1, ..., D(K-1)] into a tensor of shape
+[D0 * D1 * ... * D(n-1), D(n), ... D(K-1)].
+
+Example:
+`inputs` is a tensor with initial shape [10, 5, 20, 20, 3].
+new_tensor = flatten_first_n_dimensions(inputs, 2)
+new_tensor.shape -> [50, 20, 20, 3].
+
+Args:
+  inputs: a tensor with shape [D0, D1, ..., D(K-1)].
+  n: The number of dimensions to flatten.
+
+Returns:
+  a tensor with shape [D0 * D1 * ... * D(n-1), D(n), ... D(K-1)].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00415}{415}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00415\ \textcolor{keyword}{def\ }flatten\_first\_n\_dimensions(inputs,\ n):}
+\DoxyCodeLine{00416\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flattens\ \`{}K-\/d\`{}\ tensor\ along\ first\ n\ dimension\ to\ be\ a\ \`{}(K-\/n+1)-\/d\`{}\ tensor.}}
+\DoxyCodeLine{00417\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00418\ \textcolor{stringliteral}{\ \ Converts\ \`{}inputs\`{}\ }\textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)]\ into\ a\ tensor\ of\ shape}
+\DoxyCodeLine{00419\ \ \ [D0\ *\ D1\ *\ ...\ *\ D(n-\/1),\ D(n),\ ...\ D(K-\/1)].}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ Example:}
+\DoxyCodeLine{00422\ \ \ \`{}inputs\`{}\ \textcolor{keywordflow}{is}\ a\ tensor\ \textcolor{keyword}{with}\ initial\ shape\ [10,\ 5,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{00423\ \ \ new\_tensor\ =\ flatten\_first\_n\_dimensions(inputs,\ 2)}
+\DoxyCodeLine{00424\ \ \ new\_tensor.shape\ -\/>\ [50,\ 20,\ 20,\ 3].}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ Args:}
+\DoxyCodeLine{00427\ \ \ \ \ inputs:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0,\ D1,\ ...,\ D(K-\/1)].}
+\DoxyCodeLine{00428\ \ \ \ \ n:\ The\ number\ of\ dimensions\ to\ flatten.}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ Returns:}
+\DoxyCodeLine{00431\ \ \ \ \ a\ tensor\ \textcolor{keyword}{with}\ shape\ [D0\ *\ D1\ *\ ...\ *\ D(n-\/1),\ D(n),\ ...\ D(K-\/1)].}
+\DoxyCodeLine{00432\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00433\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ flatten\_dimensions(inputs,\ first=0,\ last=n)}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_ad2d28655bc7c097813412148740044f5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!pad\_or\_clip\_nd@{pad\_or\_clip\_nd}}
+\index{pad\_or\_clip\_nd@{pad\_or\_clip\_nd}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{pad\_or\_clip\_nd()}{pad\_or\_clip\_nd()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+pad\+\_\+or\+\_\+clip\+\_\+nd (\begin{DoxyParamCaption}\item[{}]{tensor,  }\item[{}]{output\+\_\+shape }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pad or Clip given tensor to the output shape.
+
+Args:
+  tensor: Input tensor to pad or clip.
+  output_shape: A list of integers / scalar tensors (or None for dynamic dim)
+    representing the size to pad or clip each dimension of the input tensor.
+
+Returns:
+  Input tensor padded and clipped to the output shape.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00120}{120}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \textcolor{keyword}{def\ }pad\_or\_clip\_nd(tensor,\ output\_shape):}
+\DoxyCodeLine{00121\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ or\ Clip\ given\ tensor\ to\ the\ output\ shape.}}
+\DoxyCodeLine{00122\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00123\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{\ \ \ \ tensor:\ Input\ tensor\ to\ pad\ }\textcolor{keywordflow}{or}\ clip.}
+\DoxyCodeLine{00125\ \ \ \ \ output\_shape:\ A\ list\ of\ integers\ /\ scalar\ tensors\ (\textcolor{keywordflow}{or}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dynamic\ dim)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ representing\ the\ size\ to\ pad\ \textcolor{keywordflow}{or}\ clip\ each\ dimension\ of\ the\ input\ tensor.}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ Returns:}
+\DoxyCodeLine{00129\ \ \ \ \ Input\ tensor\ padded\ \textcolor{keywordflow}{and}\ clipped\ to\ the\ output\ shape.}
+\DoxyCodeLine{00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00131\ \textcolor{stringliteral}{\ \ tensor\_shape\ =\ tf.shape(tensor)}}
+\DoxyCodeLine{00132\ \textcolor{stringliteral}{\ \ clip\_size\ =\ [}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.where(tensor\_shape[i]\ -\/\ shape\ >\ 0,\ shape,\ -\/1)}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ \ \ }\textcolor{keywordflow}{if}\ shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ -\/1\ \textcolor{keywordflow}{for}\ i,\ shape\ \textcolor{keywordflow}{in}\ enumerate(output\_shape)}
+\DoxyCodeLine{00135\ \ \ ]}
+\DoxyCodeLine{00136\ \ \ clipped\_tensor\ =\ tf.slice(}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ tensor,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ begin=tf.zeros(len(clip\_size),\ dtype=tf.int32),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ size=clip\_size)}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{\#\ Pad\ tensor\ if\ the\ shape\ of\ clipped\ tensor\ is\ smaller\ than\ the\ expected}}
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{\#\ shape.}}
+\DoxyCodeLine{00143\ \ \ clipped\_tensor\_shape\ =\ tf.shape(clipped\_tensor)}
+\DoxyCodeLine{00144\ \ \ trailing\_paddings\ =\ [}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ shape\ -\/\ clipped\_tensor\_shape[i]\ \textcolor{keywordflow}{if}\ shape\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ 0}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ shape\ \textcolor{keywordflow}{in}\ enumerate(output\_shape)}
+\DoxyCodeLine{00147\ \ \ ]}
+\DoxyCodeLine{00148\ \ \ paddings\ =\ tf.stack(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ [}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ tf.zeros(len(trailing\_paddings),\ dtype=tf.int32),}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ trailing\_paddings}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ ],}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ axis=1)}
+\DoxyCodeLine{00154\ \ \ padded\_tensor\ =\ tf.pad(clipped\_tensor,\ paddings=paddings)}
+\DoxyCodeLine{00155\ \ \ output\_static\_shape\ =\ [}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ dim\ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(dim,\ tf.Tensor)\ \textcolor{keywordflow}{else}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ output\_shape}
+\DoxyCodeLine{00157\ \ \ ]}
+\DoxyCodeLine{00158\ \ \ padded\_tensor.set\_shape(output\_static\_shape)}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ padded\_tensor}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a972697b6b4ab2bfdd42fe3013a28fa47_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259}\label{namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!pad\_or\_clip\_tensor@{pad\_or\_clip\_tensor}}
+\index{pad\_or\_clip\_tensor@{pad\_or\_clip\_tensor}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{pad\_or\_clip\_tensor()}{pad\_or\_clip\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+pad\+\_\+or\+\_\+clip\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{t,  }\item[{}]{length }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pad or clip the input tensor along the first dimension.
+
+Args:
+  t: the input tensor, assuming the rank is at least 1.
+  length: a tensor of shape [1]  or an integer, indicating the first dimension
+    of the input tensor t after processing.
+
+Returns:
+  processed_t: the processed tensor, whose first dimension is length. If the
+    length is an integer, the first dimension of the processed tensor is set
+    to length statically.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00104}{104}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00104\ \textcolor{keyword}{def\ }pad\_or\_clip\_tensor(t,\ length):}
+\DoxyCodeLine{00105\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pad\ or\ clip\ the\ input\ tensor\ along\ the\ first\ dimension.}}
+\DoxyCodeLine{00106\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00107\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00108\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{00109\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ processing.}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ Returns:}
+\DoxyCodeLine{00113\ \ \ \ \ processed\_t:\ the\ processed\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ length\ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ the\ processed\ tensor\ \textcolor{keywordflow}{is}\ set}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ to\ length\ statically.}
+\DoxyCodeLine{00116\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ pad\_or\_clip\_nd(t,\ [length]\ +\ t.shape.as\_list()[1:])}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_ae0526aa315e20a9497646fcf174bc259_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!pad\_tensor@{pad\_tensor}}
+\index{pad\_tensor@{pad\_tensor}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{pad\_tensor()}{pad\_tensor()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+pad\+\_\+tensor (\begin{DoxyParamCaption}\item[{}]{t,  }\item[{}]{length }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pads the input tensor with 0s along the first dimension up to the length.
+
+Args:
+  t: the input tensor, assuming the rank is at least 1.
+  length: a tensor of shape [1]  or an integer, indicating the first dimension
+    of the input tensor t after padding, assuming length <= t.shape[0].
+
+Returns:
+  padded_t: the padded tensor, whose first dimension is length. If the length
+    is an integer, the first dimension of padded_t is set to length
+    statically.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00059}{59}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ \textcolor{keyword}{def\ }pad\_tensor(t,\ length):}
+\DoxyCodeLine{00060\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pads\ the\ input\ tensor\ with\ 0s\ along\ the\ first\ dimension\ up\ to\ the\ length.}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{\ \ \ \ t:\ the\ input\ tensor,\ assuming\ the\ rank\ }\textcolor{keywordflow}{is}\ at\ least\ 1.}
+\DoxyCodeLine{00064\ \ \ \ \ length:\ a\ tensor\ of\ shape\ [1]\ \ \textcolor{keywordflow}{or}\ an\ integer,\ indicating\ the\ first\ dimension}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ of\ the\ input\ tensor\ t\ after\ padding,\ assuming\ length\ <=\ t.shape[0].}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ Returns:}
+\DoxyCodeLine{00068\ \ \ \ \ padded\_t:\ the\ padded\ tensor,\ whose\ first\ dimension\ \textcolor{keywordflow}{is}\ length.\ If\ the\ length}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keywordflow}{is}\ an\ integer,\ the\ first\ dimension\ of\ padded\_t\ \textcolor{keywordflow}{is}\ set\ to\ length}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ statically.}
+\DoxyCodeLine{00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ t\_rank\ =\ tf.rank(t)}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ t\_shape\ =\ tf.shape(t)}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ t\_d0\ =\ t\_shape[0]}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ pad\_d0\ =\ tf.expand\_dims(length\ -\/\ t\_d0,\ 0)}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{\ \ pad\_shape\ =\ tf.cond(}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.greater(t\_rank,\ 1),\ }\textcolor{keyword}{lambda}:\ tf.concat([pad\_d0,\ t\_shape[1:]],\ 0),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keyword}{lambda}:\ tf.expand\_dims(length\ -\/\ t\_d0,\ 0))}
+\DoxyCodeLine{00079\ \ \ padded\_t\ =\ tf.concat([t,\ tf.zeros(pad\_shape,\ dtype=t.dtype)],\ 0)}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ \_is\_tensor(length):}
+\DoxyCodeLine{00081\ \ \ \ \ padded\_t\ =\ \_set\_dim\_0(padded\_t,\ length)}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ padded\_t}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dcd/namespacedetection__utils_1_1utils_1_1shape__utils_a43f88839ad82816f16c5dfc9a80fde17_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_adbdc407bf10ad7dc672f5ac1ae2404c1}\label{namespacedetection__utils_1_1utils_1_1shape__utils_adbdc407bf10ad7dc672f5ac1ae2404c1} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!static\_or\_dynamic\_map\_fn@{static\_or\_dynamic\_map\_fn}}
+\index{static\_or\_dynamic\_map\_fn@{static\_or\_dynamic\_map\_fn}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{static\_or\_dynamic\_map\_fn()}{static\_or\_dynamic\_map\_fn()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+static\+\_\+or\+\_\+dynamic\+\_\+map\+\_\+fn (\begin{DoxyParamCaption}\item[{}]{fn,  }\item[{}]{elems,  }\item[{}]{dtype = {\ttfamily None},  }\item[{}]{parallel\+\_\+iterations = {\ttfamily 32},  }\item[{}]{back\+\_\+prop = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Runs map_fn as a (static) for loop when possible.
+
+This function rewrites the map_fn as an explicit unstack input -> for loop
+over function calls -> stack result combination.  This allows our graphs to
+be acyclic when the batch size is static.
+For comparison, see https://www.tensorflow.org/api_docs/python/tf/map_fn.
+
+Note that `static_or_dynamic_map_fn` currently is not *fully* interchangeable
+with the default tf.map_fn function as it does not accept nested inputs (only
+Tensors or lists of Tensors).  Likewise, the output of `fn` can only be a
+Tensor or list of Tensors.
+
+TODO(jonathanhuang): make this function fully interchangeable with tf.map_fn.
+
+Args:
+  fn: The callable to be performed. It accepts one argument, which will have
+    the same structure as elems. Its output must have the
+    same structure as elems.
+  elems: A tensor or list of tensors, each of which will
+    be unpacked along their first dimension. The sequence of the
+    resulting slices will be applied to fn.
+  dtype:  (optional) The output type(s) of fn. If fn returns a structure of
+    Tensors differing from the structure of elems, then dtype is not optional
+    and must have the same structure as the output of fn.
+  parallel_iterations: (optional) number of batch items to process in
+    parallel.  This flag is only used if the native tf.map_fn is used
+    and defaults to 32 instead of 10 (unlike the standard tf.map_fn default).
+  back_prop: (optional) True enables support for back propagation.
+    This flag is only used if the native tf.map_fn is used.
+
+Returns:
+  A tensor or sequence of tensors. Each tensor packs the
+  results of applying fn to tensors unpacked from elems along the first
+  dimension, from first to last.
+Raises:
+  ValueError: if `elems` a Tensor or a list of Tensors.
+  ValueError: if `fn` does not return a Tensor or list of Tensors
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00185}{185}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parallel\_iterations=32,\ back\_prop=\textcolor{keyword}{True}):}
+\DoxyCodeLine{00187\ \ \ \textcolor{stringliteral}{"{}"{}"{}Runs\ map\_fn\ as\ a\ (static)\ for\ loop\ when\ possible.}}
+\DoxyCodeLine{00188\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00189\ \textcolor{stringliteral}{\ \ This\ function\ rewrites\ the\ map\_fn\ }\textcolor{keyword}{as}\ an\ explicit\ unstack\ input\ -\/>\ \textcolor{keywordflow}{for}\ loop}
+\DoxyCodeLine{00190\ \ \ over\ function\ calls\ -\/>\ stack\ result\ combination.\ \ This\ allows\ our\ graphs\ to}
+\DoxyCodeLine{00191\ \ \ be\ acyclic\ when\ the\ batch\ size\ \textcolor{keywordflow}{is}\ static.}
+\DoxyCodeLine{00192\ \ \ For\ comparison,\ see\ https://www.tensorflow.org/api\_docs/python/tf/map\_fn.}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ Note\ that\ \`{}static\_or\_dynamic\_map\_fn\`{}\ currently\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ *fully*\ interchangeable}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{with}\ the\ default\ tf.map\_fn\ function\ \textcolor{keyword}{as}\ it\ does\ \textcolor{keywordflow}{not}\ accept\ nested\ inputs\ (only}
+\DoxyCodeLine{00196\ \ \ Tensors\ \textcolor{keywordflow}{or}\ lists\ of\ Tensors).\ \ Likewise,\ the\ output\ of\ \`{}fn\`{}\ can\ only\ be\ a}
+\DoxyCodeLine{00197\ \ \ Tensor\ \textcolor{keywordflow}{or}\ list\ of\ Tensors.}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ TODO(jonathanhuang):\ make\ this\ function\ fully\ interchangeable\ \textcolor{keyword}{with}\ tf.map\_fn.}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ Args:}
+\DoxyCodeLine{00202\ \ \ \ \ fn:\ The\ callable\ to\ be\ performed.\ It\ accepts\ one\ argument,\ which\ will\ have}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ the\ same\ structure\ \textcolor{keyword}{as}\ elems.\ Its\ output\ must\ have\ the}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ same\ structure\ \textcolor{keyword}{as}\ elems.}
+\DoxyCodeLine{00205\ \ \ \ \ elems:\ A\ tensor\ \textcolor{keywordflow}{or}\ list\ of\ tensors,\ each\ of\ which\ will}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ be\ unpacked\ along\ their\ first\ dimension.\ The\ sequence\ of\ the}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ resulting\ slices\ will\ be\ applied\ to\ fn.}
+\DoxyCodeLine{00208\ \ \ \ \ dtype:\ \ (optional)\ The\ output\ type(s)\ of\ fn.\ If\ fn\ returns\ a\ structure\ of}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ Tensors\ differing\ \textcolor{keyword}{from}\ the\ structure\ of\ elems,\ then\ dtype\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ optional}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ must\ have\ the\ same\ structure\ \textcolor{keyword}{as}\ the\ output\ of\ fn.}
+\DoxyCodeLine{00211\ \ \ \ \ parallel\_iterations:\ (optional)\ number\ of\ batch\ items\ to\ process\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ parallel.\ \ This\ flag\ \textcolor{keywordflow}{is}\ only\ used\ \textcolor{keywordflow}{if}\ the\ native\ tf.map\_fn\ \textcolor{keywordflow}{is}\ used}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ defaults\ to\ 32\ instead\ of\ 10\ (unlike\ the\ standard\ tf.map\_fn\ default).}
+\DoxyCodeLine{00214\ \ \ \ \ back\_prop:\ (optional)\ \textcolor{keyword}{True}\ enables\ support\ \textcolor{keywordflow}{for}\ back\ propagation.}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ This\ flag\ \textcolor{keywordflow}{is}\ only\ used\ \textcolor{keywordflow}{if}\ the\ native\ tf.map\_fn\ \textcolor{keywordflow}{is}\ used.}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ Returns:}
+\DoxyCodeLine{00218\ \ \ \ \ A\ tensor\ \textcolor{keywordflow}{or}\ sequence\ of\ tensors.\ Each\ tensor\ packs\ the}
+\DoxyCodeLine{00219\ \ \ \ \ results\ of\ applying\ fn\ to\ tensors\ unpacked\ \textcolor{keyword}{from}\ elems\ along\ the\ first}
+\DoxyCodeLine{00220\ \ \ \ \ dimension,\ \textcolor{keyword}{from}\ first\ to\ last.}
+\DoxyCodeLine{00221\ \ \ Raises:}
+\DoxyCodeLine{00222\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}elems\`{}\ a\ Tensor\ \textcolor{keywordflow}{or}\ a\ list\ of\ Tensors.}
+\DoxyCodeLine{00223\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \`{}fn\`{}\ does\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{return}\ a\ Tensor\ \textcolor{keywordflow}{or}\ list\ of\ Tensors}
+\DoxyCodeLine{00224\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00225\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ isinstance(elems,\ list):}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems:}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(elem,\ tf.Tensor):}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'})}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ elem\_shapes\ =\ [elem.shape.as\_list()\ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems]}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{comment}{\#\ Fall\ back\ on\ tf.map\_fn\ if\ shapes\ of\ each\ entry\ of\ \`{}elems`\ are\ None\ or\ fail}}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{comment}{\#\ to\ all\ be\ the\ same\ size\ along\ the\ batch\ dimension.}}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{for}\ elem\_shape\ \textcolor{keywordflow}{in}\ elem\_shapes:}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ elem\_shape\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ elem\_shape[0]}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{or}\ elem\_shape[0]\ !=\ elem\_shapes[0][0]):}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.map\_fn(fn,\ elems,\ dtype,\ parallel\_iterations,\ back\_prop)}
+\DoxyCodeLine{00237\ \ \ \ \ arg\_tuples\ =\ zip(*[tf.unstack(elem)\ \textcolor{keywordflow}{for}\ elem\ \textcolor{keywordflow}{in}\ elems])}
+\DoxyCodeLine{00238\ \ \ \ \ outputs\ =\ [fn(arg\_tuple)\ \textcolor{keywordflow}{for}\ arg\_tuple\ \textcolor{keywordflow}{in}\ arg\_tuples]}
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(elems,\ tf.Tensor):}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'})}
+\DoxyCodeLine{00242\ \ \ \ \ elems\_shape\ =\ elems.shape.as\_list()}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ elems\_shape\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ elems\_shape[0]:}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.map\_fn(fn,\ elems,\ dtype,\ parallel\_iterations,\ back\_prop)}
+\DoxyCodeLine{00245\ \ \ \ \ outputs\ =\ [fn(arg)\ \textcolor{keywordflow}{for}\ arg\ \textcolor{keywordflow}{in}\ tf.unstack(elems)]}
+\DoxyCodeLine{00246\ \ \ \textcolor{comment}{\#\ Stack\ \`{}outputs`,\ which\ is\ a\ list\ of\ Tensors\ or\ list\ of\ lists\ of\ Tensors}}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordflow}{if}\ all([isinstance(output,\ tf.Tensor)\ \textcolor{keywordflow}{for}\ output\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.stack(outputs)}
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{if}\ all([isinstance(output,\ list)\ \textcolor{keywordflow}{for}\ output\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ all([all(}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ [isinstance(entry,\ tf.Tensor)\ \textcolor{keywordflow}{for}\ entry\ \textcolor{keywordflow}{in}\ output\_list])}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ output\_list\ \textcolor{keywordflow}{in}\ outputs]):}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [tf.stack(output\_tuple)\ \textcolor{keywordflow}{for}\ output\_tuple\ \textcolor{keywordflow}{in}\ zip(*outputs)]}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'\`{}fn`\ should\ return\ a\ Tensor\ or\ a\ list\ of\ Tensors.'})}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1shape__utils_a4242130317b726719d430d77b294373c}\label{namespacedetection__utils_1_1utils_1_1shape__utils_a4242130317b726719d430d77b294373c} 
+\index{detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}!get\_dim\_as\_int@{get\_dim\_as\_int}}
+\index{get\_dim\_as\_int@{get\_dim\_as\_int}!detection\_utils.utils.shape\_utils@{detection\_utils.utils.shape\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_dim\_as\_int}{get\_dim\_as\_int}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils.\+get\+\_\+dim\+\_\+as\+\_\+int = static\+\_\+shape.\+get\+\_\+dim\+\_\+as\+\_\+int}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils_8py_source_l00028}{28}} of file \mbox{\hyperlink{shape__utils_8py_source}{shape\+\_\+utils.\+py}}.
+

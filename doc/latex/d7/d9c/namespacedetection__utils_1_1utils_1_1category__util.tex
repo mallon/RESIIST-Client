@@ -1,0 +1,121 @@
+\doxysection{detection\+\_\+utils.\+utils.\+category\+\_\+util Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1category__util}{}\label{namespacedetection__utils_1_1utils_1_1category__util}\index{detection\_utils.utils.category\_util@{detection\_utils.utils.category\_util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1category__util_a83e1ef716ccc9805c302660445020080}{load\+\_\+categories\+\_\+from\+\_\+csv\+\_\+file}} (csv\+\_\+path)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1category__util_a7a66e1245e1ae1f08f9717a12f75e9c7}{save\+\_\+categories\+\_\+to\+\_\+csv\+\_\+file}} (categories, csv\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Functions for importing/exporting Object Detection categories.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1category__util_a83e1ef716ccc9805c302660445020080}\label{namespacedetection__utils_1_1utils_1_1category__util_a83e1ef716ccc9805c302660445020080} 
+\index{detection\_utils.utils.category\_util@{detection\_utils.utils.category\_util}!load\_categories\_from\_csv\_file@{load\_categories\_from\_csv\_file}}
+\index{load\_categories\_from\_csv\_file@{load\_categories\_from\_csv\_file}!detection\_utils.utils.category\_util@{detection\_utils.utils.category\_util}}
+\doxysubsubsection{\texorpdfstring{load\_categories\_from\_csv\_file()}{load\_categories\_from\_csv\_file()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+category\+\_\+util.\+load\+\_\+categories\+\_\+from\+\_\+csv\+\_\+file (\begin{DoxyParamCaption}\item[{}]{csv\+\_\+path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Loads categories from a csv file.
+
+The CSV file should have one comma delimited numeric category id and string
+category name pair per line. For example:
+
+0,"cat"
+1,"dog"
+2,"bird"
+...
+
+Args:
+  csv_path: Path to the csv file to be parsed into categories.
+Returns:
+  categories: A list of dictionaries representing all possible categories.
+              The categories will contain an integer 'id' field and a string
+              'name' field.
+Raises:
+  ValueError: If the csv file is incorrectly formatted.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{category__util_8py_source_l00027}{27}} of file \mbox{\hyperlink{category__util_8py_source}{category\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \textcolor{keyword}{def\ }load\_categories\_from\_csv\_file(csv\_path):}
+\DoxyCodeLine{00028\ \ \ \textcolor{stringliteral}{"{}"{}"{}Loads\ categories\ from\ a\ csv\ file.}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ The\ CSV\ file\ should\ have\ one\ comma\ delimited\ numeric\ category\ id\ }\textcolor{keywordflow}{and}\ string}
+\DoxyCodeLine{00031\ \ \ category\ name\ pair\ per\ line.\ For\ example:}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ 0,\textcolor{stringliteral}{"{}cat"{}}}
+\DoxyCodeLine{00034\ \ \ 1,\textcolor{stringliteral}{"{}dog"{}}}
+\DoxyCodeLine{00035\ \ \ 2,\textcolor{stringliteral}{"{}bird"{}}}
+\DoxyCodeLine{00036\ \ \ ...}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ Args:}
+\DoxyCodeLine{00039\ \ \ \ \ csv\_path:\ Path\ to\ the\ csv\ file\ to\ be\ parsed\ into\ categories.}
+\DoxyCodeLine{00040\ \ \ Returns:}
+\DoxyCodeLine{00041\ \ \ \ \ categories:\ A\ list\ of\ dictionaries\ representing\ all\ possible\ categories.}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ categories\ will\ contain\ an\ integer\ \textcolor{stringliteral}{'id'}\ field\ \textcolor{keywordflow}{and}\ a\ string}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}\ field.}
+\DoxyCodeLine{00044\ \ \ Raises:}
+\DoxyCodeLine{00045\ \ \ \ \ ValueError:\ If\ the\ csv\ file\ \textcolor{keywordflow}{is}\ incorrectly\ formatted.}
+\DoxyCodeLine{00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ categories\ =\ []}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.Open(csv\_path,\ \textcolor{stringliteral}{'r'})\ \textcolor{keyword}{as}\ csvfile:}
+\DoxyCodeLine{00050\ \ \ \ \ reader\ =\ csv.reader(csvfile,\ delimiter=\textcolor{stringliteral}{','},\ quotechar=\textcolor{stringliteral}{'"{}'})}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ reader:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ row:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ len(row)\ !=\ 2:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Expected\ 2\ fields\ per\ row\ in\ csv:\ \%s'}\ \%\ \textcolor{stringliteral}{','}.join(row))}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ category\_id\ =\ int(row[0])}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ category\_name\ =\ row[1]}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ categories.append(\{\textcolor{stringliteral}{'id'}:\ category\_id,\ \textcolor{stringliteral}{'name'}:\ category\_name\})}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordflow}{return}\ categories}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1category__util_a7a66e1245e1ae1f08f9717a12f75e9c7}\label{namespacedetection__utils_1_1utils_1_1category__util_a7a66e1245e1ae1f08f9717a12f75e9c7} 
+\index{detection\_utils.utils.category\_util@{detection\_utils.utils.category\_util}!save\_categories\_to\_csv\_file@{save\_categories\_to\_csv\_file}}
+\index{save\_categories\_to\_csv\_file@{save\_categories\_to\_csv\_file}!detection\_utils.utils.category\_util@{detection\_utils.utils.category\_util}}
+\doxysubsubsection{\texorpdfstring{save\_categories\_to\_csv\_file()}{save\_categories\_to\_csv\_file()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+category\+\_\+util.\+save\+\_\+categories\+\_\+to\+\_\+csv\+\_\+file (\begin{DoxyParamCaption}\item[{}]{categories,  }\item[{}]{csv\+\_\+path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Saves categories to a csv file.
+
+Args:
+  categories: A list of dictionaries representing categories to save to file.
+              Each category must contain an 'id' and 'name' field.
+  csv_path: Path to the csv file to be parsed into categories.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{category__util_8py_source_l00065}{65}} of file \mbox{\hyperlink{category__util_8py_source}{category\+\_\+util.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \textcolor{keyword}{def\ }save\_categories\_to\_csv\_file(categories,\ csv\_path):}
+\DoxyCodeLine{00066\ \ \ \textcolor{stringliteral}{"{}"{}"{}Saves\ categories\ to\ a\ csv\ file.}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ categories:\ A\ list\ of\ dictionaries\ representing\ categories\ to\ save\ to\ file.}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Each\ category\ must\ contain\ an\ 'id'}\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'name'}\ field.}
+\DoxyCodeLine{00071\ \ \ \ \ csv\_path:\ Path\ to\ the\ csv\ file\ to\ be\ parsed\ into\ categories.}
+\DoxyCodeLine{00072\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ categories.sort(key=}\textcolor{keyword}{lambda}\ x:\ x[\textcolor{stringliteral}{'id'}])}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{with}\ tf.gfile.Open(csv\_path,\ \textcolor{stringliteral}{'w'})\ \textcolor{keyword}{as}\ csvfile:}
+\DoxyCodeLine{00075\ \ \ \ \ writer\ =\ csv.writer(csvfile,\ delimiter=\textcolor{stringliteral}{','},\ quotechar=\textcolor{stringliteral}{'"{}'})}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{for}\ category\ \textcolor{keywordflow}{in}\ categories:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ writer.writerow([category[\textcolor{stringliteral}{'id'}],\ category[\textcolor{stringliteral}{'name'}]])}
+
+\end{DoxyCode}

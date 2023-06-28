@@ -1,0 +1,1198 @@
+\doxysection{detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops}{}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops}\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops_1_1_sort_order}{Sort\+Order}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ad96281cb1d7e01fc526275b67cad0375}{area}} (boxlist)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a48a15dc063dcb4c84a0a8b786e929d0f}{intersection}} (boxlist1, boxlist2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a6e1fb8502b369a1fc5e134cc2442f48f}{iou}} (boxlist1, boxlist2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae54fb4d62e0673102ef7018b06aa067c}{ioa}} (boxlist1, boxlist2)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a9781657d68639dcb6f6e7bc8f9b3ed58}{gather}} (boxlist, indices, fields=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a757076f70d7d4e80ac2e037b2ee96148}{sort\+\_\+by\+\_\+field}} (boxlist, field, order=\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops_1_1_sort_order_aecde42d8b3cc4e57c6279fb9ed8c73de}{Sort\+Order.\+DESCEND}})
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a4207b6b69df4bea40c751c55526f2a4e}{non\+\_\+max\+\_\+suppression}} (boxlist, max\+\_\+output\+\_\+size=10000, iou\+\_\+threshold=1.\+0, score\+\_\+threshold=-\/10.\+0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_adea5b4b7f444ffe29a0f178612f35616}{multi\+\_\+class\+\_\+non\+\_\+max\+\_\+suppression}} (boxlist, score\+\_\+thresh, iou\+\_\+thresh, max\+\_\+output\+\_\+size)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aeadd24ce65397ffcf87a3b25deab131b}{scale}} (boxlist, y\+\_\+scale, x\+\_\+scale)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a3d71b9a07d242a99d093e03dcdf51019}{clip\+\_\+to\+\_\+window}} (boxlist, window, filter\+\_\+nonoverlapping=True)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_abc05c2fdd014bd0d9e9cd9f9af2f32e7}{prune\+\_\+non\+\_\+overlapping\+\_\+boxes}} (boxlist1, boxlist2, minoverlap=0.\+0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a20077b9e955652c979fb86a9ce208a1a}{prune\+\_\+outside\+\_\+window}} (boxlist, window)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae3eb9bfd9f103216ccac1d905843ec8e}{concatenate}} (boxlists, fields=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a11a143796571448227535bd7673f1dd0}{filter\+\_\+scores\+\_\+greater\+\_\+than}} (boxlist, thresh)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a37a0fa083f17a474d1e5c7572b852b56}{change\+\_\+coordinate\+\_\+frame}} (boxlist, window)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aa9ecb3d84d6fd6889ff0382ee5666002}{\+\_\+copy\+\_\+extra\+\_\+fields}} (boxlist\+\_\+to\+\_\+copy\+\_\+to, boxlist\+\_\+to\+\_\+copy\+\_\+from)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a07c67aca2a91478bb76ccd088de8f63a}{\+\_\+update\+\_\+valid\+\_\+indices\+\_\+by\+\_\+removing\+\_\+high\+\_\+iou\+\_\+boxes}} (selected\+\_\+indices, is\+\_\+index\+\_\+valid, intersect\+\_\+over\+\_\+union, threshold)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Bounding Box List operations for Numpy BoxLists.
+
+Example box operations that are supported:
+  * Areas: compute bounding box areas
+  * IOU: pairwise intersection-over-union scores
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aa9ecb3d84d6fd6889ff0382ee5666002}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aa9ecb3d84d6fd6889ff0382ee5666002} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!\_copy\_extra\_fields@{\_copy\_extra\_fields}}
+\index{\_copy\_extra\_fields@{\_copy\_extra\_fields}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{\_copy\_extra\_fields()}{\_copy\_extra\_fields()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+\_\+copy\+\_\+extra\+\_\+fields (\begin{DoxyParamCaption}\item[{}]{boxlist\+\_\+to\+\_\+copy\+\_\+to,  }\item[{}]{boxlist\+\_\+to\+\_\+copy\+\_\+from }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Copies the extra fields of boxlist_to_copy_from to boxlist_to_copy_to.
+
+Args:
+  boxlist_to_copy_to: BoxList to which extra fields are copied.
+  boxlist_to_copy_from: BoxList from which fields are copied.
+
+Returns:
+  boxlist_to_copy_to with extra fields.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00545}{545}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00545\ \textcolor{keyword}{def\ }\_copy\_extra\_fields(boxlist\_to\_copy\_to,\ boxlist\_to\_copy\_from):}
+\DoxyCodeLine{00546\ \ \ \textcolor{stringliteral}{"{}"{}"{}Copies\ the\ extra\ fields\ of\ boxlist\_to\_copy\_from\ to\ boxlist\_to\_copy\_to.}}
+\DoxyCodeLine{00547\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00548\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00549\ \textcolor{stringliteral}{\ \ \ \ boxlist\_to\_copy\_to:\ BoxList\ to\ which\ extra\ fields\ are\ copied.}}
+\DoxyCodeLine{00550\ \textcolor{stringliteral}{\ \ \ \ boxlist\_to\_copy\_from:\ BoxList\ }\textcolor{keyword}{from}\ which\ fields\ are\ copied.}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \ \ Returns:}
+\DoxyCodeLine{00553\ \ \ \ \ boxlist\_to\_copy\_to\ \textcolor{keyword}{with}\ extra\ fields.}
+\DoxyCodeLine{00554\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00555\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ boxlist\_to\_copy\_from.get\_extra\_fields():}
+\DoxyCodeLine{00556\ \ \ \ \ boxlist\_to\_copy\_to.add\_field(field,\ boxlist\_to\_copy\_from.get\_field(field))}
+\DoxyCodeLine{00557\ \ \ \textcolor{keywordflow}{return}\ boxlist\_to\_copy\_to}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_aa9ecb3d84d6fd6889ff0382ee5666002_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a07c67aca2a91478bb76ccd088de8f63a}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a07c67aca2a91478bb76ccd088de8f63a} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes@{\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes}}
+\index{\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes@{\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes()}{\_update\_valid\_indices\_by\_removing\_high\_iou\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+\_\+update\+\_\+valid\+\_\+indices\+\_\+by\+\_\+removing\+\_\+high\+\_\+iou\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{selected\+\_\+indices,  }\item[{}]{is\+\_\+index\+\_\+valid,  }\item[{}]{intersect\+\_\+over\+\_\+union,  }\item[{}]{threshold }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00560}{560}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00561\ \ \ \ \ selected\_indices,\ is\_index\_valid,\ intersect\_over\_union,\ threshold):}
+\DoxyCodeLine{00562\ \ \ max\_iou\ =\ np.max(intersect\_over\_union[:,\ selected\_indices],\ axis=1)}
+\DoxyCodeLine{00563\ \ \ \textcolor{keywordflow}{return}\ np.logical\_and(is\_index\_valid,\ max\_iou\ <=\ threshold)}
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ad96281cb1d7e01fc526275b67cad0375}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ad96281cb1d7e01fc526275b67cad0375} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!area@{area}}
+\index{area@{area}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{area()}{area()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+area (\begin{DoxyParamCaption}\item[{}]{boxlist }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes area of boxes.
+
+Args:
+  boxlist: BoxList holding N boxes
+
+Returns:
+  a numpy array with shape [N*1] representing box areas
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00044}{44}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \textcolor{keyword}{def\ }area(boxlist):}
+\DoxyCodeLine{00045\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ area\ of\ boxes.}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N*1]\ representing\ box\ areas}
+\DoxyCodeLine{00052\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ y\_min,\ x\_min,\ y\_max,\ x\_max\ =\ boxlist.get\_coordinates()}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ (y\_max\ -\/\ y\_min)\ *\ (x\_max\ -\/\ x\_min)}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_ad96281cb1d7e01fc526275b67cad0375_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a37a0fa083f17a474d1e5c7572b852b56}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a37a0fa083f17a474d1e5c7572b852b56} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!change\_coordinate\_frame@{change\_coordinate\_frame}}
+\index{change\_coordinate\_frame@{change\_coordinate\_frame}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{change\_coordinate\_frame()}{change\_coordinate\_frame()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+change\+\_\+coordinate\+\_\+frame (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{window }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Change coordinate frame of the boxlist to be relative to window's frame.
+
+Given a window of the form [ymin, xmin, ymax, xmax],
+changes bounding box coordinates from boxlist to be relative to this window
+(e.g., the min corner maps to (0,0) and the max corner maps to (1,1)).
+
+An example use case is data augmentation: where we are given groundtruth
+boxes (boxlist) and would like to randomly crop the image to some
+window (window). In this case we need to change the coordinate frame of
+each groundtruth box to be relative to this new window.
+
+Args:
+  boxlist: A BoxList object holding N boxes.
+  window: a size 4 1-D numpy array.
+
+Returns:
+  Returns a BoxList object with N boxes.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00515}{515}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00515\ \textcolor{keyword}{def\ }change\_coordinate\_frame(boxlist,\ window):}
+\DoxyCodeLine{00516\ \ \ \textcolor{stringliteral}{"{}"{}"{}Change\ coordinate\ frame\ of\ the\ boxlist\ to\ be\ relative\ to\ window's\ frame.}}
+\DoxyCodeLine{00517\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00518\ \textcolor{stringliteral}{\ \ Given\ a\ window\ of\ the\ form\ [ymin,\ xmin,\ ymax,\ xmax],}}
+\DoxyCodeLine{00519\ \textcolor{stringliteral}{\ \ changes\ bounding\ box\ coordinates\ }\textcolor{keyword}{from}\ boxlist\ to\ be\ relative\ to\ this\ window}
+\DoxyCodeLine{00520\ \ \ (e.g.,\ the\ min\ corner\ maps\ to\ (0,0)\ \textcolor{keywordflow}{and}\ the\ max\ corner\ maps\ to\ (1,1)).}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ An\ example\ use\ case\ \textcolor{keywordflow}{is}\ data\ augmentation:\ where\ we\ are\ given\ groundtruth}
+\DoxyCodeLine{00523\ \ \ boxes\ (boxlist)\ \textcolor{keywordflow}{and}\ would\ like\ to\ randomly\ crop\ the\ image\ to\ some}
+\DoxyCodeLine{00524\ \ \ window\ (window).\ In\ this\ case\ we\ need\ to\ change\ the\ coordinate\ frame\ of}
+\DoxyCodeLine{00525\ \ \ each\ groundtruth\ box\ to\ be\ relative\ to\ this\ new\ window.}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ Args:}
+\DoxyCodeLine{00528\ \ \ \ \ boxlist:\ A\ BoxList\ object\ holding\ N\ boxes.}
+\DoxyCodeLine{00529\ \ \ \ \ window:\ a\ size\ 4\ 1-\/D\ numpy\ array.}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ Returns:}
+\DoxyCodeLine{00532\ \ \ \ \ Returns\ a\ BoxList\ object\ \textcolor{keyword}{with}\ N\ boxes.}
+\DoxyCodeLine{00533\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00534\ \textcolor{stringliteral}{\ \ win\_height\ =\ window[2]\ -\/\ window[0]}}
+\DoxyCodeLine{00535\ \textcolor{stringliteral}{\ \ win\_width\ =\ window[3]\ -\/\ window[1]}}
+\DoxyCodeLine{00536\ \textcolor{stringliteral}{\ \ boxlist\_new\ =\ scale(}}
+\DoxyCodeLine{00537\ \textcolor{stringliteral}{\ \ \ \ \ \ np\_box\_list.BoxList(boxlist.get()\ -\/}}
+\DoxyCodeLine{00538\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [window[0],\ window[1],\ window[0],\ window[1]]),}}
+\DoxyCodeLine{00539\ \textcolor{stringliteral}{\ \ \ \ \ \ 1.0\ /\ win\_height,\ 1.0\ /\ win\_width)}}
+\DoxyCodeLine{00540\ \textcolor{stringliteral}{\ \ \_copy\_extra\_fields(boxlist\_new,\ boxlist)}}
+\DoxyCodeLine{00541\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00542\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ boxlist\_new}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a37a0fa083f17a474d1e5c7572b852b56_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a3d71b9a07d242a99d093e03dcdf51019}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a3d71b9a07d242a99d093e03dcdf51019} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!clip\_to\_window@{clip\_to\_window}}
+\index{clip\_to\_window@{clip\_to\_window}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{clip\_to\_window()}{clip\_to\_window()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+clip\+\_\+to\+\_\+window (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{window,  }\item[{}]{filter\+\_\+nonoverlapping = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Clip bounding boxes to a window.
+
+This op clips input bounding boxes (represented by bounding box
+corners) to a window, optionally filtering out boxes that do not
+overlap at all with the window.
+
+Args:
+  boxlist: BoxList holding M_in boxes
+  window: a numpy array of shape [4] representing the
+          [y_min, x_min, y_max, x_max] window to which the op
+          should clip boxes.
+  filter_nonoverlapping: whether to filter out boxes that do not overlap at
+    all with the window.
+
+Returns:
+  a BoxList holding M_out boxes where M_out <= M_in
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00339}{339}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00339\ \textcolor{keyword}{def\ }clip\_to\_window(boxlist,\ window,\ filter\_nonoverlapping=True):}
+\DoxyCodeLine{00340\ \ \ \textcolor{stringliteral}{"{}"{}"{}Clip\ bounding\ boxes\ to\ a\ window.}}
+\DoxyCodeLine{00341\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00342\ \textcolor{stringliteral}{\ \ This\ op\ clips\ input\ bounding\ boxes\ (represented\ by\ bounding\ box}}
+\DoxyCodeLine{00343\ \textcolor{stringliteral}{\ \ corners)\ to\ a\ window,\ optionally\ filtering\ out\ boxes\ that\ do\ }\textcolor{keywordflow}{not}}
+\DoxyCodeLine{00344\ \ \ overlap\ at\ all\ \textcolor{keyword}{with}\ the\ window.}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ Args:}
+\DoxyCodeLine{00347\ \ \ \ \ boxlist:\ BoxList\ holding\ M\_in\ boxes}
+\DoxyCodeLine{00348\ \ \ \ \ window:\ a\ numpy\ array\ of\ shape\ [4]\ representing\ the}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ [y\_min,\ x\_min,\ y\_max,\ x\_max]\ window\ to\ which\ the\ op}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ should\ clip\ boxes.}
+\DoxyCodeLine{00351\ \ \ \ \ filter\_nonoverlapping:\ whether\ to\ filter\ out\ boxes\ that\ do\ \textcolor{keywordflow}{not}\ overlap\ at}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ all\ \textcolor{keyword}{with}\ the\ window.}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ Returns:}
+\DoxyCodeLine{00355\ \ \ \ \ a\ BoxList\ holding\ M\_out\ boxes\ where\ M\_out\ <=\ M\_in}
+\DoxyCodeLine{00356\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00357\ \textcolor{stringliteral}{\ \ y\_min,\ x\_min,\ y\_max,\ x\_max\ =\ np.array\_split(boxlist.get(),\ 4,\ axis=1)}}
+\DoxyCodeLine{00358\ \textcolor{stringliteral}{\ \ win\_y\_min\ =\ window[0]}}
+\DoxyCodeLine{00359\ \textcolor{stringliteral}{\ \ win\_x\_min\ =\ window[1]}}
+\DoxyCodeLine{00360\ \textcolor{stringliteral}{\ \ win\_y\_max\ =\ window[2]}}
+\DoxyCodeLine{00361\ \textcolor{stringliteral}{\ \ win\_x\_max\ =\ window[3]}}
+\DoxyCodeLine{00362\ \textcolor{stringliteral}{\ \ y\_min\_clipped\ =\ np.fmax(np.fmin(y\_min,\ win\_y\_max),\ win\_y\_min)}}
+\DoxyCodeLine{00363\ \textcolor{stringliteral}{\ \ y\_max\_clipped\ =\ np.fmax(np.fmin(y\_max,\ win\_y\_max),\ win\_y\_min)}}
+\DoxyCodeLine{00364\ \textcolor{stringliteral}{\ \ x\_min\_clipped\ =\ np.fmax(np.fmin(x\_min,\ win\_x\_max),\ win\_x\_min)}}
+\DoxyCodeLine{00365\ \textcolor{stringliteral}{\ \ x\_max\_clipped\ =\ np.fmax(np.fmin(x\_max,\ win\_x\_max),\ win\_x\_min)}}
+\DoxyCodeLine{00366\ \textcolor{stringliteral}{\ \ clipped\ =\ np\_box\_list.BoxList(}}
+\DoxyCodeLine{00367\ \textcolor{stringliteral}{\ \ \ \ \ \ np.hstack([y\_min\_clipped,\ x\_min\_clipped,\ y\_max\_clipped,\ x\_max\_clipped]))}}
+\DoxyCodeLine{00368\ \textcolor{stringliteral}{\ \ clipped\ =\ \_copy\_extra\_fields(clipped,\ boxlist)}}
+\DoxyCodeLine{00369\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ filter\_nonoverlapping:}
+\DoxyCodeLine{00370\ \ \ \ \ areas\ =\ area(clipped)}
+\DoxyCodeLine{00371\ \ \ \ \ nonzero\_area\_indices\ =\ np.reshape(}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ np.nonzero(np.greater(areas,\ 0.0)),\ [-\/1]).astype(np.int32)}
+\DoxyCodeLine{00373\ \ \ \ \ clipped\ =\ gather(clipped,\ nonzero\_area\_indices)}
+\DoxyCodeLine{00374\ \ \ \textcolor{keywordflow}{return}\ clipped}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a3d71b9a07d242a99d093e03dcdf51019_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae3eb9bfd9f103216ccac1d905843ec8e}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae3eb9bfd9f103216ccac1d905843ec8e} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!concatenate@{concatenate}}
+\index{concatenate@{concatenate}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{concatenate()}{concatenate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+concatenate (\begin{DoxyParamCaption}\item[{}]{boxlists,  }\item[{}]{fields = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Concatenate list of BoxLists.
+
+This op concatenates a list of input BoxLists into a larger BoxList.  It also
+handles concatenation of BoxList fields as long as the field tensor shapes
+are equal except for the first dimension.
+
+Args:
+  boxlists: list of BoxList objects
+  fields: optional list of fields to also concatenate.  By default, all
+    fields from the first BoxList in the list are included in the
+    concatenation.
+
+Returns:
+  a BoxList with number of boxes equal to
+    sum([boxlist.num_boxes() for boxlist in BoxList])
+Raises:
+  ValueError: if boxlists is invalid (i.e., is not a list, is empty, or
+    contains non BoxList objects), or if requested fields are not contained in
+    all boxlists
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00433}{433}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00433\ \textcolor{keyword}{def\ }concatenate(boxlists,\ fields=None):}
+\DoxyCodeLine{00434\ \ \ \textcolor{stringliteral}{"{}"{}"{}Concatenate\ list\ of\ BoxLists.}}
+\DoxyCodeLine{00435\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00436\ \textcolor{stringliteral}{\ \ This\ op\ concatenates\ a\ list\ of\ input\ BoxLists\ into\ a\ larger\ BoxList.\ \ It\ also}}
+\DoxyCodeLine{00437\ \textcolor{stringliteral}{\ \ handles\ concatenation\ of\ BoxList\ fields\ }\textcolor{keyword}{as}\ long\ \textcolor{keyword}{as}\ the\ field\ tensor\ shapes}
+\DoxyCodeLine{00438\ \ \ are\ equal\ \textcolor{keywordflow}{except}\ \textcolor{keywordflow}{for}\ the\ first\ dimension.}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ Args:}
+\DoxyCodeLine{00441\ \ \ \ \ boxlists:\ list\ of\ BoxList\ objects}
+\DoxyCodeLine{00442\ \ \ \ \ fields:\ optional\ list\ of\ fields\ to\ also\ concatenate.\ \ By\ default,\ all}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ fields\ \textcolor{keyword}{from}\ the\ first\ BoxList\ \textcolor{keywordflow}{in}\ the\ list\ are\ included\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ concatenation.}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ Returns:}
+\DoxyCodeLine{00447\ \ \ \ \ a\ BoxList\ \textcolor{keyword}{with}\ number\ of\ boxes\ equal\ to}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ sum([boxlist.num\_boxes()\ \textcolor{keywordflow}{for}\ boxlist\ \textcolor{keywordflow}{in}\ BoxList])}
+\DoxyCodeLine{00449\ \ \ Raises:}
+\DoxyCodeLine{00450\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ boxlists\ \textcolor{keywordflow}{is}\ invalid\ (i.e.,\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ list,\ \textcolor{keywordflow}{is}\ empty,\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ contains\ non\ BoxList\ objects),\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ requested\ fields\ are\ \textcolor{keywordflow}{not}\ contained\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ all\ boxlists}
+\DoxyCodeLine{00453\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00454\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(boxlists,\ list):}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlists\ should\ be\ a\ list'})}
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlists:}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlists\ should\ have\ nonzero\ length'})}
+\DoxyCodeLine{00458\ \ \ \textcolor{keywordflow}{for}\ boxlist\ \textcolor{keywordflow}{in}\ boxlists:}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(boxlist,\ np\_box\_list.BoxList):}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'all\ elements\ of\ boxlists\ should\ be\ BoxList\ objects'})}
+\DoxyCodeLine{00461\ \ \ concatenated\ =\ np\_box\_list.BoxList(}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ np.vstack([boxlist.get()\ \textcolor{keywordflow}{for}\ boxlist\ \textcolor{keywordflow}{in}\ boxlists]))}
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00464\ \ \ \ \ fields\ =\ boxlists[0].get\_extra\_fields()}
+\DoxyCodeLine{00465\ \ \ \textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{00466\ \ \ \ \ first\_field\_shape\ =\ boxlists[0].get\_field(field).shape}
+\DoxyCodeLine{00467\ \ \ \ \ first\_field\_shape\ =\ first\_field\_shape[1:]}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordflow}{for}\ boxlist\ \textcolor{keywordflow}{in}\ boxlists:}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(field):}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlist\ must\ contain\ all\ requested\ fields'})}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ field\_shape\ =\ boxlist.get\_field(field).shape}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ field\_shape\ =\ field\_shape[1:]}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ field\_shape\ !=\ first\_field\_shape:}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'field\ \%s\ must\ have\ same\ shape\ for\ all\ boxlists\ '}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'except\ for\ the\ 0th\ dimension.'}\ \%\ field)}
+\DoxyCodeLine{00476\ \ \ \ \ concatenated\_field\ =\ np.concatenate(}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ [boxlist.get\_field(field)\ \textcolor{keywordflow}{for}\ boxlist\ \textcolor{keywordflow}{in}\ boxlists],\ axis=0)}
+\DoxyCodeLine{00478\ \ \ \ \ concatenated.add\_field(field,\ concatenated\_field)}
+\DoxyCodeLine{00479\ \ \ \textcolor{keywordflow}{return}\ concatenated}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae3eb9bfd9f103216ccac1d905843ec8e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a11a143796571448227535bd7673f1dd0}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a11a143796571448227535bd7673f1dd0} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!filter\_scores\_greater\_than@{filter\_scores\_greater\_than}}
+\index{filter\_scores\_greater\_than@{filter\_scores\_greater\_than}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{filter\_scores\_greater\_than()}{filter\_scores\_greater\_than()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+filter\+\_\+scores\+\_\+greater\+\_\+than (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{thresh }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Filter to keep only boxes with score exceeding a given threshold.
+
+This op keeps the collection of boxes whose corresponding scores are
+greater than the input threshold.
+
+Args:
+  boxlist: BoxList holding N boxes.  Must contain a 'scores' field
+    representing detection scores.
+  thresh: scalar threshold
+
+Returns:
+  a BoxList holding M boxes where M <= N
+
+Raises:
+  ValueError: if boxlist not a BoxList object or if it does not
+    have a scores field
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00482}{482}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00482\ \textcolor{keyword}{def\ }filter\_scores\_greater\_than(boxlist,\ thresh):}
+\DoxyCodeLine{00483\ \ \ \textcolor{stringliteral}{"{}"{}"{}Filter\ to\ keep\ only\ boxes\ with\ score\ exceeding\ a\ given\ threshold.}}
+\DoxyCodeLine{00484\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00485\ \textcolor{stringliteral}{\ \ This\ op\ keeps\ the\ collection\ of\ boxes\ whose\ corresponding\ scores\ are}}
+\DoxyCodeLine{00486\ \textcolor{stringliteral}{\ \ greater\ than\ the\ input\ threshold.}}
+\DoxyCodeLine{00487\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00488\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00489\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes.\ \ Must\ contain\ a\ 'scores'}\ field}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ representing\ detection\ scores.}
+\DoxyCodeLine{00491\ \ \ \ \ thresh:\ scalar\ threshold}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ Returns:}
+\DoxyCodeLine{00494\ \ \ \ \ a\ BoxList\ holding\ M\ boxes\ where\ M\ <=\ N}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ Raises:}
+\DoxyCodeLine{00497\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ boxlist\ \textcolor{keywordflow}{not}\ a\ BoxList\ object\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ it\ does\ \textcolor{keywordflow}{not}}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ have\ a\ scores\ field}
+\DoxyCodeLine{00499\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00500\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(boxlist,\ np\_box\_list.BoxList):}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlist\ must\ be\ a\ BoxList'})}
+\DoxyCodeLine{00502\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ boxlist\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{00504\ \ \ scores\ =\ boxlist.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00505\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ >\ 2:}
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{00507\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 2\ \textcolor{keywordflow}{and}\ scores.shape[1]\ !=\ 1:}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Scores\ should\ have\ rank\ 1\ or\ have\ shape\ '}}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'consistent\ with\ [None,\ 1]'})}
+\DoxyCodeLine{00510\ \ \ high\_score\_indices\ =\ np.reshape(np.where(np.greater(scores,\ thresh)),}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/1]).astype(np.int32)}
+\DoxyCodeLine{00512\ \ \ \textcolor{keywordflow}{return}\ gather(boxlist,\ high\_score\_indices)}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a11a143796571448227535bd7673f1dd0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a11a143796571448227535bd7673f1dd0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a9781657d68639dcb6f6e7bc8f9b3ed58}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a9781657d68639dcb6f6e7bc8f9b3ed58} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!gather@{gather}}
+\index{gather@{gather}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{gather()}{gather()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+gather (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{indices,  }\item[{}]{fields = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gather boxes from BoxList according to indices and return new BoxList.
+
+By default, gather returns boxes corresponding to the input index list, as
+well as all additional fields stored in the boxlist (indexing into the
+first dimension).  However one can optionally only gather from a
+subset of fields.
+
+Args:
+  boxlist: BoxList holding N boxes
+  indices: a 1-d numpy array of type int_
+  fields: (optional) list of fields to also gather from.  If None (default),
+      all fields are gathered from.  Pass an empty fields list to only gather
+      the box coordinates.
+
+Returns:
+  subboxlist: a BoxList corresponding to the subset of the input BoxList
+      specified by indices
+
+Raises:
+  ValueError: if specified field is not contained in boxlist or if the
+      indices are not of type int_
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00100}{100}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100\ \textcolor{keyword}{def\ }gather(boxlist,\ indices,\ fields=None):}
+\DoxyCodeLine{00101\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gather\ boxes\ from\ BoxList\ according\ to\ indices\ and\ return\ new\ BoxList.}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ By\ default,\ gather\ returns\ boxes\ corresponding\ to\ the\ input\ index\ list,\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{00104\ \ \ well\ \textcolor{keyword}{as}\ all\ additional\ fields\ stored\ \textcolor{keywordflow}{in}\ the\ boxlist\ (indexing\ into\ the}
+\DoxyCodeLine{00105\ \ \ first\ dimension).\ \ However\ one\ can\ optionally\ only\ gather\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{00106\ \ \ subset\ of\ fields.}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ Args:}
+\DoxyCodeLine{00109\ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes}
+\DoxyCodeLine{00110\ \ \ \ \ indices:\ a\ 1-\/d\ numpy\ array\ of\ type\ int\_}
+\DoxyCodeLine{00111\ \ \ \ \ fields:\ (optional)\ list\ of\ fields\ to\ also\ gather\ \textcolor{keyword}{from}.\ \ If\ \textcolor{keywordtype}{None}\ (default),}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ all\ fields\ are\ gathered\ \textcolor{keyword}{from}.\ \ Pass\ an\ empty\ fields\ list\ to\ only\ gather}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ the\ box\ coordinates.}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ Returns:}
+\DoxyCodeLine{00116\ \ \ \ \ subboxlist:\ a\ BoxList\ corresponding\ to\ the\ subset\ of\ the\ input\ BoxList}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ specified\ by\ indices}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ Raises:}
+\DoxyCodeLine{00120\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ specified\ field\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ contained\ \textcolor{keywordflow}{in}\ boxlist\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ the}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ indices\ are\ \textcolor{keywordflow}{not}\ of\ type\ int\_}
+\DoxyCodeLine{00122\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00123\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ indices.size:}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{if}\ np.amax(indices)\ >=\ boxlist.num\_boxes()\ \textcolor{keywordflow}{or}\ np.amin(indices)\ <\ 0:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'indices\ are\ out\ of\ valid\ range.'})}
+\DoxyCodeLine{00126\ \ \ subboxlist\ =\ np\_box\_list.BoxList(boxlist.get()[indices,\ :])}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordflow}{if}\ fields\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00128\ \ \ \ \ fields\ =\ boxlist.get\_extra\_fields()}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{00130\ \ \ \ \ extra\_field\_data\ =\ boxlist.get\_field(field)}
+\DoxyCodeLine{00131\ \ \ \ \ subboxlist.add\_field(field,\ extra\_field\_data[indices,\ ...])}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ subboxlist}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a9781657d68639dcb6f6e7bc8f9b3ed58_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a48a15dc063dcb4c84a0a8b786e929d0f}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a48a15dc063dcb4c84a0a8b786e929d0f} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!intersection@{intersection}}
+\index{intersection@{intersection}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{intersection()}{intersection()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+intersection (\begin{DoxyParamCaption}\item[{}]{boxlist1,  }\item[{}]{boxlist2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute pairwise intersection areas between boxes.
+
+Args:
+  boxlist1: BoxList holding N boxes
+  boxlist2: BoxList holding M boxes
+
+Returns:
+  a numpy array with shape [N*M] representing pairwise intersection area
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00057}{57}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \textcolor{keyword}{def\ }intersection(boxlist1,\ boxlist2):}
+\DoxyCodeLine{00058\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ pairwise\ intersection\ areas\ between\ boxes.}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N*M]\ representing\ pairwise\ intersection\ area}
+\DoxyCodeLine{00066\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_box\_ops.intersection(boxlist1.get(),\ boxlist2.get())}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae54fb4d62e0673102ef7018b06aa067c}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae54fb4d62e0673102ef7018b06aa067c} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!ioa@{ioa}}
+\index{ioa@{ioa}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{ioa()}{ioa()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+ioa (\begin{DoxyParamCaption}\item[{}]{boxlist1,  }\item[{}]{boxlist2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-area between box collections.
+
+Intersection-over-area (ioa) between two boxes box1 and box2 is defined as
+their intersection area over box2's area. Note that ioa is not symmetric,
+that is, IOA(box1, box2) != IOA(box2, box1).
+
+Args:
+  boxlist1: BoxList holding N boxes
+  boxlist2: BoxList holding M boxes
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise ioa scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00083}{83}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00083\ \textcolor{keyword}{def\ }ioa(boxlist1,\ boxlist2):}
+\DoxyCodeLine{00084\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/area\ between\ box\ collections.}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{\ \ Intersection-\/over-\/area\ (ioa)\ between\ two\ boxes\ box1\ }\textcolor{keywordflow}{and}\ box2\ \textcolor{keywordflow}{is}\ defined\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00087\ \ \ their\ intersection\ area\ over\ box2\textcolor{stringliteral}{'s\ area.\ Note\ that\ ioa\ is\ not\ symmetric,}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{\ \ that\ }\textcolor{keywordflow}{is},\ IOA(box1,\ box2)\ !=\ IOA(box2,\ box1).}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ Args:}
+\DoxyCodeLine{00091\ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes}
+\DoxyCodeLine{00092\ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ Returns:}
+\DoxyCodeLine{00095\ \ \ \ \ a\ numpy\ array\ \textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ ioa\ scores.}
+\DoxyCodeLine{00096\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00097\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_box\_ops.ioa(boxlist1.get(),\ boxlist2.get())}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_ae54fb4d62e0673102ef7018b06aa067c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a6e1fb8502b369a1fc5e134cc2442f48f}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a6e1fb8502b369a1fc5e134cc2442f48f} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!iou@{iou}}
+\index{iou@{iou}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{iou()}{iou()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+iou (\begin{DoxyParamCaption}\item[{}]{boxlist1,  }\item[{}]{boxlist2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes pairwise intersection-over-union between box collections.
+
+Args:
+  boxlist1: BoxList holding N boxes
+  boxlist2: BoxList holding M boxes
+
+Returns:
+  a numpy array with shape [N, M] representing pairwise iou scores.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00070}{70}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \textcolor{keyword}{def\ }iou(boxlist1,\ boxlist2):}
+\DoxyCodeLine{00071\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ pairwise\ intersection-\/over-\/union\ between\ box\ collections.}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes}}
+\DoxyCodeLine{00075\ \textcolor{stringliteral}{\ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes}}
+\DoxyCodeLine{00076\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00078\ \textcolor{stringliteral}{\ \ \ \ a\ numpy\ array\ }\textcolor{keyword}{with}\ shape\ [N,\ M]\ representing\ pairwise\ iou\ scores.}
+\DoxyCodeLine{00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np\_box\_ops.iou(boxlist1.get(),\ boxlist2.get())}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_adea5b4b7f444ffe29a0f178612f35616}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_adea5b4b7f444ffe29a0f178612f35616} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!multi\_class\_non\_max\_suppression@{multi\_class\_non\_max\_suppression}}
+\index{multi\_class\_non\_max\_suppression@{multi\_class\_non\_max\_suppression}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{multi\_class\_non\_max\_suppression()}{multi\_class\_non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+multi\+\_\+class\+\_\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{score\+\_\+thresh,  }\item[{}]{iou\+\_\+thresh,  }\item[{}]{max\+\_\+output\+\_\+size }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Multi-class version of non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes.  It operates independently for each class for
+which scores are provided (via the scores field of the input box_list),
+pruning boxes with score less than a provided threshold prior to
+applying NMS.
+
+Args:
+  boxlist: BoxList holding N boxes.  Must contain a 'scores' field
+    representing detection scores.  This scores field is a tensor that can
+    be 1 dimensional (in the case of a single class) or 2-dimensional, which
+    which case we assume that it takes the shape [num_boxes, num_classes].
+    We further assume that this rank is known statically and that
+    scores.shape[1] is also known (i.e., the number of classes is fixed
+    and known at graph construction time).
+  score_thresh: scalar threshold for score (low scoring boxes are removed).
+  iou_thresh: scalar threshold for IOU (boxes that that high IOU overlap
+    with previously selected boxes are removed).
+  max_output_size: maximum number of retained boxes per class.
+
+Returns:
+  a BoxList holding M boxes with a rank-1 scores field representing
+    corresponding scores for each box with scores sorted in decreasing order
+    and a rank-1 classes field representing a class label for each box.
+Raises:
+  ValueError: if iou_thresh is not in [0, 1] or if input boxlist does not have
+    a valid scores field.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00240}{240}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size):}
+\DoxyCodeLine{00242\ \ \ \textcolor{stringliteral}{"{}"{}"{}Multi-\/class\ version\ of\ non\ maximum\ suppression.}}
+\DoxyCodeLine{00243\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00244\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00245\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00246\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ \ It\ operates\ independently\ \textcolor{keywordflow}{for}\ each\ \textcolor{keyword}{class\ }for}
+\DoxyCodeLine{00247\ \ \ which\ scores\ are\ provided\ (via\ the\ scores\ field\ of\ the\ input\ box\_list),}
+\DoxyCodeLine{00248\ \ \ pruning\ boxes\ \textcolor{keyword}{with}\ score\ less\ than\ a\ provided\ threshold\ prior\ to}
+\DoxyCodeLine{00249\ \ \ applying\ NMS.}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ Args:}
+\DoxyCodeLine{00252\ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes.\ \ Must\ contain\ a\ \textcolor{stringliteral}{'scores'}\ field}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ representing\ detection\ scores.\ \ This\ scores\ field\ \textcolor{keywordflow}{is}\ a\ tensor\ that\ can}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ be\ 1\ dimensional\ (\textcolor{keywordflow}{in}\ the\ case\ of\ a\ single\ \textcolor{keyword}{class})\ \textcolor{keywordflow}{or}\ 2-\/dimensional,\ which}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ which\ case\ we\ assume\ that\ it\ takes\ the\ shape\ [num\_boxes,\ num\_classes].}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ We\ further\ assume\ that\ this\ rank\ \textcolor{keywordflow}{is}\ known\ statically\ \textcolor{keywordflow}{and}\ that}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ scores.shape[1]\ \textcolor{keywordflow}{is}\ also\ known\ (i.e.,\ the\ number\ of\ classes\ \textcolor{keywordflow}{is}\ fixed}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ known\ at\ graph\ construction\ time).}
+\DoxyCodeLine{00259\ \ \ \ \ score\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ score\ (low\ scoring\ boxes\ are\ removed).}
+\DoxyCodeLine{00260\ \ \ \ \ iou\_thresh:\ scalar\ threshold\ \textcolor{keywordflow}{for}\ IOU\ (boxes\ that\ that\ high\ IOU\ overlap}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \textcolor{keyword}{with}\ previously\ selected\ boxes\ are\ removed).}
+\DoxyCodeLine{00262\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes\ per\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ Returns:}
+\DoxyCodeLine{00265\ \ \ \ \ a\ BoxList\ holding\ M\ boxes\ \textcolor{keyword}{with}\ a\ rank-\/1\ scores\ field\ representing}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ corresponding\ scores\ \textcolor{keywordflow}{for}\ each\ box\ \textcolor{keyword}{with}\ scores\ sorted\ \textcolor{keywordflow}{in}\ decreasing\ order}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ a\ rank-\/1\ classes\ field\ representing\ a\ \textcolor{keyword}{class\ }label\ for\ each\ box.}
+\DoxyCodeLine{00268\ \ \ Raises:}
+\DoxyCodeLine{00269\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ iou\_thresh\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ input\ boxlist\ does\ \textcolor{keywordflow}{not}\ have}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ a\ valid\ scores\ field.}
+\DoxyCodeLine{00271\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00272\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ 0\ <=\ iou\_thresh\ <=\ 1.0:}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'thresh\ must\ be\ between\ 0\ and\ 1'})}
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(boxlist,\ np\_box\_list.BoxList):}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'boxlist\ must\ be\ a\ BoxList'})}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'input\ boxlist\ must\ have\ \(\backslash\)'scores\(\backslash\)'\ field'})}
+\DoxyCodeLine{00278\ \ \ scores\ =\ boxlist.get\_field(\textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordflow}{if}\ len(scores.shape)\ ==\ 1:}
+\DoxyCodeLine{00280\ \ \ \ \ scores\ =\ np.reshape(scores,\ [-\/1,\ 1])}
+\DoxyCodeLine{00281\ \ \ \textcolor{keywordflow}{elif}\ len(scores.shape)\ ==\ 2:}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{if}\ scores.shape[1]\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ have\ statically\ defined\ second\ '}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dimension'})}
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'scores\ field\ must\ be\ of\ rank\ 1\ or\ 2'})}
+\DoxyCodeLine{00287\ \ \ num\_boxes\ =\ boxlist.num\_boxes()}
+\DoxyCodeLine{00288\ \ \ num\_scores\ =\ scores.shape[0]}
+\DoxyCodeLine{00289\ \ \ num\_classes\ =\ scores.shape[1]}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \textcolor{keywordflow}{if}\ num\_boxes\ !=\ num\_scores:}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Incorrect\ scores\ field\ length:\ actual\ vs\ expected.'})}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ selected\_boxes\_list\ =\ []}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordflow}{for}\ class\_idx\ \textcolor{keywordflow}{in}\ range(num\_classes):}
+\DoxyCodeLine{00296\ \ \ \ \ boxlist\_and\_class\_scores\ =\ np\_box\_list.BoxList(boxlist.get())}
+\DoxyCodeLine{00297\ \ \ \ \ class\_scores\ =\ np.reshape(scores[0:num\_scores,\ class\_idx],\ [-\/1])}
+\DoxyCodeLine{00298\ \ \ \ \ boxlist\_and\_class\_scores.add\_field(\textcolor{stringliteral}{'scores'},\ class\_scores)}
+\DoxyCodeLine{00299\ \ \ \ \ boxlist\_filt\ =\ filter\_scores\_greater\_than(boxlist\_and\_class\_scores,}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_thresh)}
+\DoxyCodeLine{00301\ \ \ \ \ nms\_result\ =\ non\_max\_suppression(boxlist\_filt,}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_output\_size=max\_output\_size,}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iou\_threshold=iou\_thresh,}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=score\_thresh)}
+\DoxyCodeLine{00305\ \ \ \ \ nms\_result.add\_field(}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'classes'},\ np.zeros\_like(nms\_result.get\_field(\textcolor{stringliteral}{'scores'}))\ +\ class\_idx)}
+\DoxyCodeLine{00307\ \ \ \ \ selected\_boxes\_list.append(nms\_result)}
+\DoxyCodeLine{00308\ \ \ selected\_boxes\ =\ concatenate(selected\_boxes\_list)}
+\DoxyCodeLine{00309\ \ \ sorted\_boxes\ =\ sort\_by\_field(selected\_boxes,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00310\ \ \ \textcolor{keywordflow}{return}\ sorted\_boxes}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_adea5b4b7f444ffe29a0f178612f35616_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a4207b6b69df4bea40c751c55526f2a4e}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a4207b6b69df4bea40c751c55526f2a4e} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!non\_max\_suppression@{non\_max\_suppression}}
+\index{non\_max\_suppression@{non\_max\_suppression}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{non\_max\_suppression()}{non\_max\_suppression()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+non\+\_\+max\+\_\+suppression (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{max\+\_\+output\+\_\+size = {\ttfamily 10000},  }\item[{}]{iou\+\_\+threshold = {\ttfamily 1.0},  }\item[{}]{score\+\_\+threshold = {\ttfamily -\/10.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Non maximum suppression.
+
+This op greedily selects a subset of detection bounding boxes, pruning
+away boxes that have high IOU (intersection over union) overlap (> thresh)
+with already selected boxes. In each iteration, the detected bounding box with
+highest score in the available pool is selected.
+
+Args:
+  boxlist: BoxList holding N boxes.  Must contain a 'scores' field
+    representing detection scores. All scores belong to the same class.
+  max_output_size: maximum number of retained boxes
+  iou_threshold: intersection over union threshold.
+  score_threshold: minimum score threshold. Remove the boxes with scores
+                   less than this value. Default value is set to -10. A very
+                   low threshold to pass pretty much all the boxes, unless
+                   the user sets a different score threshold.
+
+Returns:
+  a BoxList holding M boxes where M <= max_output_size
+Raises:
+  ValueError: if 'scores' field does not exist
+  ValueError: if threshold is not in [0, 1]
+  ValueError: if max_output_size < 0
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00166}{166}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ score\_threshold=-\/10.0):}
+\DoxyCodeLine{00170\ \ \ \textcolor{stringliteral}{"{}"{}"{}Non\ maximum\ suppression.}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00172\ \textcolor{stringliteral}{\ \ This\ op\ greedily\ selects\ a\ subset\ of\ detection\ bounding\ boxes,\ pruning}}
+\DoxyCodeLine{00173\ \textcolor{stringliteral}{\ \ away\ boxes\ that\ have\ high\ IOU\ (intersection\ over\ union)\ overlap\ (>\ thresh)}}
+\DoxyCodeLine{00174\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ already\ selected\ boxes.\ In\ each\ iteration,\ the\ detected\ bounding\ box\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00175\ \ \ highest\ score\ \textcolor{keywordflow}{in}\ the\ available\ pool\ \textcolor{keywordflow}{is}\ selected.}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ Args:}
+\DoxyCodeLine{00178\ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes.\ \ Must\ contain\ a\ \textcolor{stringliteral}{'scores'}\ field}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ representing\ detection\ scores.\ All\ scores\ belong\ to\ the\ same\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00180\ \ \ \ \ max\_output\_size:\ maximum\ number\ of\ retained\ boxes}
+\DoxyCodeLine{00181\ \ \ \ \ iou\_threshold:\ intersection\ over\ union\ threshold.}
+\DoxyCodeLine{00182\ \ \ \ \ score\_threshold:\ minimum\ score\ threshold.\ Remove\ the\ boxes\ \textcolor{keyword}{with}\ scores}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ less\ than\ this\ value.\ Default\ value\ \textcolor{keywordflow}{is}\ set\ to\ -\/10.\ A\ very}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ low\ threshold\ to\ \textcolor{keywordflow}{pass}\ pretty\ much\ all\ the\ boxes,\ unless}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ user\ sets\ a\ different\ score\ threshold.}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ Returns:}
+\DoxyCodeLine{00188\ \ \ \ \ a\ BoxList\ holding\ M\ boxes\ where\ M\ <=\ max\_output\_size}
+\DoxyCodeLine{00189\ \ \ Raises:}
+\DoxyCodeLine{00190\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{'scores'}\ field\ does\ \textcolor{keywordflow}{not}\ exist}
+\DoxyCodeLine{00191\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ threshold\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ [0,\ 1]}
+\DoxyCodeLine{00192\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0}
+\DoxyCodeLine{00193\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00194\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(\textcolor{stringliteral}{'scores'}):}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ scores\ does\ not\ exist'})}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ <\ 0.\ \textcolor{keywordflow}{or}\ iou\_threshold\ >\ 1.0:}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'IOU\ threshold\ must\ be\ in\ [0,\ 1]'})}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordflow}{if}\ max\_output\_size\ <\ 0:}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'max\_output\_size\ must\ be\ bigger\ than\ 0.'})}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ boxlist\ =\ filter\_scores\_greater\_than(boxlist,\ score\_threshold)}
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordflow}{if}\ boxlist.num\_boxes()\ ==\ 0:}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{return}\ boxlist}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ boxlist\ =\ sort\_by\_field(boxlist,\ \textcolor{stringliteral}{'scores'})}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{\#\ Prevent\ further\ computation\ if\ NMS\ is\ disabled.}}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordflow}{if}\ iou\_threshold\ ==\ 1.0:}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{if}\ boxlist.num\_boxes()\ >\ max\_output\_size:}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ selected\_indices\ =\ np.arange(max\_output\_size)}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gather(boxlist,\ selected\_indices)}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ boxlist}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ boxes\ =\ boxlist.get()}
+\DoxyCodeLine{00216\ \ \ num\_boxes\ =\ boxlist.num\_boxes()}
+\DoxyCodeLine{00217\ \ \ \textcolor{comment}{\#\ is\_index\_valid\ is\ True\ only\ for\ all\ remaining\ valid\ boxes,}}
+\DoxyCodeLine{00218\ \ \ is\_index\_valid\ =\ np.full(num\_boxes,\ 1,\ dtype=bool)}
+\DoxyCodeLine{00219\ \ \ selected\_indices\ =\ []}
+\DoxyCodeLine{00220\ \ \ num\_output\ =\ 0}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(num\_boxes):}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_output\ <\ max\_output\_size:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ is\_index\_valid[i]:}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ num\_output\ +=\ 1}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ selected\_indices.append(i)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ is\_index\_valid[i]\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ valid\_indices\ =\ np.where(is\_index\_valid)[0]}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ valid\_indices.size\ ==\ 0:}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np\_box\_ops.iou(}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ np.expand\_dims(boxes[i,\ :],\ axis=0),\ boxes[valid\_indices,\ :])}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ intersect\_over\_union\ =\ np.squeeze(intersect\_over\_union,\ axis=0)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices]\ =\ np.logical\_and(}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ is\_index\_valid[valid\_indices],}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ intersect\_over\_union\ <=\ iou\_threshold)}
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordflow}{return}\ gather(boxlist,\ np.array(selected\_indices))}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a4207b6b69df4bea40c751c55526f2a4e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a4207b6b69df4bea40c751c55526f2a4e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_abc05c2fdd014bd0d9e9cd9f9af2f32e7}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_abc05c2fdd014bd0d9e9cd9f9af2f32e7} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!prune\_non\_overlapping\_boxes@{prune\_non\_overlapping\_boxes}}
+\index{prune\_non\_overlapping\_boxes@{prune\_non\_overlapping\_boxes}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{prune\_non\_overlapping\_boxes()}{prune\_non\_overlapping\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+prune\+\_\+non\+\_\+overlapping\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{boxlist1,  }\item[{}]{boxlist2,  }\item[{}]{minoverlap = {\ttfamily 0.0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Prunes the boxes in boxlist1 that overlap less than thresh with boxlist2.
+
+For each box in boxlist1, we want its IOA to be more than minoverlap with
+at least one of the boxes in boxlist2. If it does not, we remove it.
+
+Args:
+  boxlist1: BoxList holding N boxes.
+  boxlist2: BoxList holding M boxes.
+  minoverlap: Minimum required overlap between boxes, to count them as
+              overlapping.
+
+Returns:
+  A pruned boxlist with size [N', 4].
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00377}{377}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00377\ \textcolor{keyword}{def\ }prune\_non\_overlapping\_boxes(boxlist1,\ boxlist2,\ minoverlap=0.0):}
+\DoxyCodeLine{00378\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ the\ boxes\ in\ boxlist1\ that\ overlap\ less\ than\ thresh\ with\ boxlist2.}}
+\DoxyCodeLine{00379\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00380\ \textcolor{stringliteral}{\ \ For\ each\ box\ }\textcolor{keywordflow}{in}\ boxlist1,\ we\ want\ its\ IOA\ to\ be\ more\ than\ minoverlap\ \textcolor{keyword}{with}}
+\DoxyCodeLine{00381\ \ \ at\ least\ one\ of\ the\ boxes\ \textcolor{keywordflow}{in}\ boxlist2.\ If\ it\ does\ \textcolor{keywordflow}{not},\ we\ remove\ it.}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ Args:}
+\DoxyCodeLine{00384\ \ \ \ \ boxlist1:\ BoxList\ holding\ N\ boxes.}
+\DoxyCodeLine{00385\ \ \ \ \ boxlist2:\ BoxList\ holding\ M\ boxes.}
+\DoxyCodeLine{00386\ \ \ \ \ minoverlap:\ Minimum\ required\ overlap\ between\ boxes,\ to\ count\ them\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ overlapping.}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ Returns:}
+\DoxyCodeLine{00390\ \ \ \ \ A\ pruned\ boxlist\ \textcolor{keyword}{with}\ size\ [N\textcolor{stringliteral}{',\ 4].}}
+\DoxyCodeLine{00391\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00392\ \textcolor{stringliteral}{\ \ intersection\_over\_area\ =\ ioa(boxlist2,\ boxlist1)\ \ }\textcolor{comment}{\#\ [M,\ N]\ tensor}}
+\DoxyCodeLine{00393\ \ \ intersection\_over\_area\ =\ np.amax(intersection\_over\_area,\ axis=0)\ \ \textcolor{comment}{\#\ [N]\ tensor}}
+\DoxyCodeLine{00394\ \ \ keep\_bool\ =\ np.greater\_equal(intersection\_over\_area,\ np.array(minoverlap))}
+\DoxyCodeLine{00395\ \ \ keep\_inds\ =\ np.nonzero(keep\_bool)[0]}
+\DoxyCodeLine{00396\ \ \ new\_boxlist1\ =\ gather(boxlist1,\ keep\_inds)}
+\DoxyCodeLine{00397\ \ \ \textcolor{keywordflow}{return}\ new\_boxlist1}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_abc05c2fdd014bd0d9e9cd9f9af2f32e7_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a20077b9e955652c979fb86a9ce208a1a}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a20077b9e955652c979fb86a9ce208a1a} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!prune\_outside\_window@{prune\_outside\_window}}
+\index{prune\_outside\_window@{prune\_outside\_window}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{prune\_outside\_window()}{prune\_outside\_window()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+prune\+\_\+outside\+\_\+window (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{window }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Prunes bounding boxes that fall outside a given window.
+
+This function prunes bounding boxes that even partially fall outside the given
+window. See also ClipToWindow which only prunes bounding boxes that fall
+completely outside the window, and clips any bounding boxes that partially
+overflow.
+
+Args:
+  boxlist: a BoxList holding M_in boxes.
+  window: a numpy array of size 4, representing [ymin, xmin, ymax, xmax]
+          of the window.
+
+Returns:
+  pruned_corners: a tensor with shape [M_out, 4] where M_out <= M_in.
+  valid_indices: a tensor with shape [M_out] indexing the valid bounding boxes
+   in the input tensor.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00400}{400}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00400\ \textcolor{keyword}{def\ }prune\_outside\_window(boxlist,\ window):}
+\DoxyCodeLine{00401\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ bounding\ boxes\ that\ fall\ outside\ a\ given\ window.}}
+\DoxyCodeLine{00402\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00403\ \textcolor{stringliteral}{\ \ This\ function\ prunes\ bounding\ boxes\ that\ even\ partially\ fall\ outside\ the\ given}}
+\DoxyCodeLine{00404\ \textcolor{stringliteral}{\ \ window.\ See\ also\ ClipToWindow\ which\ only\ prunes\ bounding\ boxes\ that\ fall}}
+\DoxyCodeLine{00405\ \textcolor{stringliteral}{\ \ completely\ outside\ the\ window,\ }\textcolor{keywordflow}{and}\ clips\ any\ bounding\ boxes\ that\ partially}
+\DoxyCodeLine{00406\ \ \ overflow.}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ Args:}
+\DoxyCodeLine{00409\ \ \ \ \ boxlist:\ a\ BoxList\ holding\ M\_in\ boxes.}
+\DoxyCodeLine{00410\ \ \ \ \ window:\ a\ numpy\ array\ of\ size\ 4,\ representing\ [ymin,\ xmin,\ ymax,\ xmax]}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ of\ the\ window.}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ Returns:}
+\DoxyCodeLine{00414\ \ \ \ \ pruned\_corners:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [M\_out,\ 4]\ where\ M\_out\ <=\ M\_in.}
+\DoxyCodeLine{00415\ \ \ \ \ valid\_indices:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [M\_out]\ indexing\ the\ valid\ bounding\ boxes}
+\DoxyCodeLine{00416\ \ \ \ \ \ \textcolor{keywordflow}{in}\ the\ input\ tensor.}
+\DoxyCodeLine{00417\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00418\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00419\ \textcolor{stringliteral}{\ \ y\_min,\ x\_min,\ y\_max,\ x\_max\ =\ np.array\_split(boxlist.get(),\ 4,\ axis=1)}}
+\DoxyCodeLine{00420\ \textcolor{stringliteral}{\ \ win\_y\_min\ =\ window[0]}}
+\DoxyCodeLine{00421\ \textcolor{stringliteral}{\ \ win\_x\_min\ =\ window[1]}}
+\DoxyCodeLine{00422\ \textcolor{stringliteral}{\ \ win\_y\_max\ =\ window[2]}}
+\DoxyCodeLine{00423\ \textcolor{stringliteral}{\ \ win\_x\_max\ =\ window[3]}}
+\DoxyCodeLine{00424\ \textcolor{stringliteral}{\ \ coordinate\_violations\ =\ np.hstack([np.less(y\_min,\ win\_y\_min),}}
+\DoxyCodeLine{00425\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.less(x\_min,\ win\_x\_min),}}
+\DoxyCodeLine{00426\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.greater(y\_max,\ win\_y\_max),}}
+\DoxyCodeLine{00427\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.greater(x\_max,\ win\_x\_max)])}}
+\DoxyCodeLine{00428\ \textcolor{stringliteral}{\ \ valid\_indices\ =\ np.reshape(}}
+\DoxyCodeLine{00429\ \textcolor{stringliteral}{\ \ \ \ \ \ np.where(np.logical\_not(np.max(coordinate\_violations,\ axis=1))),\ [-\/1])}}
+\DoxyCodeLine{00430\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ gather(boxlist,\ valid\_indices),\ valid\_indices}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a20077b9e955652c979fb86a9ce208a1a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aeadd24ce65397ffcf87a3b25deab131b}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_aeadd24ce65397ffcf87a3b25deab131b} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!scale@{scale}}
+\index{scale@{scale}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+scale (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{y\+\_\+scale,  }\item[{}]{x\+\_\+scale }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Scale box coordinates in x and y dimensions.
+
+Args:
+  boxlist: BoxList holding N boxes
+  y_scale: float
+  x_scale: float
+
+Returns:
+  boxlist: BoxList holding N boxes
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00313}{313}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00313\ \textcolor{keyword}{def\ }scale(boxlist,\ y\_scale,\ x\_scale):}
+\DoxyCodeLine{00314\ \ \ \textcolor{stringliteral}{"{}"{}"{}Scale\ box\ coordinates\ in\ x\ and\ y\ dimensions.}}
+\DoxyCodeLine{00315\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00316\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00317\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes}}
+\DoxyCodeLine{00318\ \textcolor{stringliteral}{\ \ \ \ y\_scale:\ float}}
+\DoxyCodeLine{00319\ \textcolor{stringliteral}{\ \ \ \ x\_scale:\ float}}
+\DoxyCodeLine{00320\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00321\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00322\ \textcolor{stringliteral}{\ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes}}
+\DoxyCodeLine{00323\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{00324\ \textcolor{stringliteral}{\ \ y\_min,\ x\_min,\ y\_max,\ x\_max\ =\ np.array\_split(boxlist.get(),\ 4,\ axis=1)}}
+\DoxyCodeLine{00325\ \textcolor{stringliteral}{\ \ y\_min\ =\ y\_scale\ *\ y\_min}}
+\DoxyCodeLine{00326\ \textcolor{stringliteral}{\ \ y\_max\ =\ y\_scale\ *\ y\_max}}
+\DoxyCodeLine{00327\ \textcolor{stringliteral}{\ \ x\_min\ =\ x\_scale\ *\ x\_min}}
+\DoxyCodeLine{00328\ \textcolor{stringliteral}{\ \ x\_max\ =\ x\_scale\ *\ x\_max}}
+\DoxyCodeLine{00329\ \textcolor{stringliteral}{\ \ scaled\_boxlist\ =\ np\_box\_list.BoxList(np.hstack([y\_min,\ x\_min,\ y\_max,\ x\_max]))}}
+\DoxyCodeLine{00330\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00331\ \textcolor{stringliteral}{\ \ fields\ =\ boxlist.get\_extra\_fields()}}
+\DoxyCodeLine{00332\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ field\ \textcolor{keywordflow}{in}\ fields:}
+\DoxyCodeLine{00333\ \ \ \ \ extra\_field\_data\ =\ boxlist.get\_field(field)}
+\DoxyCodeLine{00334\ \ \ \ \ scaled\_boxlist.add\_field(field,\ extra\_field\_data)}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordflow}{return}\ scaled\_boxlist}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_aeadd24ce65397ffcf87a3b25deab131b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a757076f70d7d4e80ac2e037b2ee96148}\label{namespacedetection__utils_1_1utils_1_1np__box__list__ops_a757076f70d7d4e80ac2e037b2ee96148} 
+\index{detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}!sort\_by\_field@{sort\_by\_field}}
+\index{sort\_by\_field@{sort\_by\_field}!detection\_utils.utils.np\_box\_list\_ops@{detection\_utils.utils.np\_box\_list\_ops}}
+\doxysubsubsection{\texorpdfstring{sort\_by\_field()}{sort\_by\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+np\+\_\+box\+\_\+list\+\_\+ops.\+sort\+\_\+by\+\_\+field (\begin{DoxyParamCaption}\item[{}]{boxlist,  }\item[{}]{field,  }\item[{}]{order = {\ttfamily \mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__list__ops_1_1_sort_order_aecde42d8b3cc4e57c6279fb9ed8c73de}{Sort\+Order.\+DESCEND}}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sort boxes and associated fields according to a scalar field.
+
+A common use case is reordering the boxes according to descending scores.
+
+Args:
+  boxlist: BoxList holding N boxes.
+  field: A BoxList field for sorting and reordering the BoxList.
+  order: (Optional) 'descend' or 'ascend'. Default is descend.
+
+Returns:
+  sorted_boxlist: A sorted BoxList with the field in the specified order.
+
+Raises:
+  ValueError: if specified field does not exist or is not of single dimension.
+  ValueError: if the order is not either descend or ascend.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{np__box__list__ops_8py_source_l00135}{135}} of file \mbox{\hyperlink{np__box__list__ops_8py_source}{np\+\_\+box\+\_\+list\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135\ \textcolor{keyword}{def\ }sort\_by\_field(boxlist,\ field,\ order=SortOrder.DESCEND):}
+\DoxyCodeLine{00136\ \ \ \textcolor{stringliteral}{"{}"{}"{}Sort\ boxes\ and\ associated\ fields\ according\ to\ a\ scalar\ field.}}
+\DoxyCodeLine{00137\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00138\ \textcolor{stringliteral}{\ \ A\ common\ use\ case\ }\textcolor{keywordflow}{is}\ reordering\ the\ boxes\ according\ to\ descending\ scores.}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ Args:}
+\DoxyCodeLine{00141\ \ \ \ \ boxlist:\ BoxList\ holding\ N\ boxes.}
+\DoxyCodeLine{00142\ \ \ \ \ field:\ A\ BoxList\ field\ \textcolor{keywordflow}{for}\ sorting\ \textcolor{keywordflow}{and}\ reordering\ the\ BoxList.}
+\DoxyCodeLine{00143\ \ \ \ \ order:\ (Optional)\ \textcolor{stringliteral}{'descend'}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'ascend'}.\ Default\ \textcolor{keywordflow}{is}\ descend.}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ Returns:}
+\DoxyCodeLine{00146\ \ \ \ \ sorted\_boxlist:\ A\ sorted\ BoxList\ \textcolor{keyword}{with}\ the\ field\ \textcolor{keywordflow}{in}\ the\ specified\ order.}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ Raises:}
+\DoxyCodeLine{00149\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ specified\ field\ does\ \textcolor{keywordflow}{not}\ exist\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ of\ single\ dimension.}
+\DoxyCodeLine{00150\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ the\ order\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ either\ descend\ \textcolor{keywordflow}{or}\ ascend.}
+\DoxyCodeLine{00151\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ boxlist.has\_field(field):}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ '}\ +\ field\ +\ \textcolor{stringliteral}{'\ does\ not\ exist'})}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordflow}{if}\ len(boxlist.get\_field(field).shape)\ !=\ 1:}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Field\ '}\ +\ field\ +\ \textcolor{stringliteral}{'should\ be\ single\ dimension.'})}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordflow}{if}\ order\ !=\ SortOrder.DESCEND\ \textcolor{keywordflow}{and}\ order\ !=\ SortOrder.ASCEND:}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'Invalid\ sort\ order'})}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ field\_to\_sort\ =\ boxlist.get\_field(field)}
+\DoxyCodeLine{00160\ \ \ sorted\_indices\ =\ np.argsort(field\_to\_sort)}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordflow}{if}\ order\ ==\ SortOrder.DESCEND:}
+\DoxyCodeLine{00162\ \ \ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordflow}{return}\ gather(boxlist,\ sorted\_indices)}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a757076f70d7d4e80ac2e037b2ee96148_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d07/namespacedetection__utils_1_1utils_1_1np__box__list__ops_a757076f70d7d4e80ac2e037b2ee96148_icgraph}
+\end{center}
+\end{figure}

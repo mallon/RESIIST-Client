@@ -1,0 +1,78 @@
+\doxysection{np\+\_\+box\+\_\+ops\+\_\+test.\+py}
+\hypertarget{np__box__ops__test_8py_source}{}\label{np__box__ops__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_ops\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/np\_box\_ops\_test.py}}
+\mbox{\hyperlink{np__box__ops__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1np__box__ops__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.np\_box\_ops."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00025}00025\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ np\_box\_ops}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00028}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests}{00028}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests}{BoxOpsTests}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00030}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a5546e5b673a30cd53aae8dfa6587ad05}{00030}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a5546e5b673a30cd53aae8dfa6587ad05}{setUp}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00031}00031\ \ \ \ \ boxes1\ =\ np.array([[4.0,\ 3.0,\ 7.0,\ 5.0],\ [5.0,\ 6.0,\ 10.0,\ 7.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00033}00033\ \ \ \ \ boxes2\ =\ np.array([[3.0,\ 4.0,\ 6.0,\ 8.0],\ [14.0,\ 14.0,\ 15.0,\ 15.0],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 20.0,\ 20.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00036}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a020d9df82c5e1265280da0f2b9f25571}{00036}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a020d9df82c5e1265280da0f2b9f25571}{boxes1}}\ =\ boxes1}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a403459078912aedfd3e5674e171e87ab}{00037}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a403459078912aedfd3e5674e171e87ab}{boxes2}}\ =\ boxes2}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00039}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a14f78733d4746cb5a261078e07837543}{00039}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a14f78733d4746cb5a261078e07837543}{testArea}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00040}00040\ \ \ \ \ areas\ =\ np\_box\_ops.area(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a020d9df82c5e1265280da0f2b9f25571}{boxes1}})}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00041}00041\ \ \ \ \ expected\_areas\ =\ np.array([6.0,\ 5.0],\ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00042}00042\ \ \ \ \ self.assertAllClose(expected\_areas,\ areas)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a5bc5784d267ae0f0882f816158bd4beb}{00044}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a5bc5784d267ae0f0882f816158bd4beb}{testIntersection}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00045}00045\ \ \ \ \ intersection\ =\ np\_box\_ops.intersection(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a020d9df82c5e1265280da0f2b9f25571}{boxes1}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a403459078912aedfd3e5674e171e87ab}{boxes2}})}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00046}00046\ \ \ \ \ expected\_intersection\ =\ np.array([[2.0,\ 0.0,\ 6.0],\ [1.0,\ 0.0,\ 5.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00048}00048\ \ \ \ \ self.assertAllClose(intersection,\ expected\_intersection)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00050}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a36a52ce96aff7bf4d61e497d5bf8fef5}{00050}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a36a52ce96aff7bf4d61e497d5bf8fef5}{testIOU}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00051}00051\ \ \ \ \ iou\ =\ np\_box\_ops.iou(self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a020d9df82c5e1265280da0f2b9f25571}{boxes1}},\ self.\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a403459078912aedfd3e5674e171e87ab}{boxes2}})}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00052}00052\ \ \ \ \ expected\_iou\ =\ np.array([[2.0\ /\ 16.0,\ 0.0,\ 6.0\ /\ 400.0],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0\ /\ 16.0,\ 0.0,\ 5.0\ /\ 400.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00055}00055\ \ \ \ \ self.assertAllClose(iou,\ expected\_iou)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a386b0ff72980b089e7b90611127789a8}{00057}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1np__box__ops__test_1_1_box_ops_tests_a386b0ff72980b089e7b90611127789a8}{testIOA}}(self):}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00058}00058\ \ \ \ \ boxes1\ =\ np.array([[0.25,\ 0.25,\ 0.75,\ 0.75],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 0.5,\ 0.75]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00061}00061\ \ \ \ \ boxes2\ =\ np.array([[0.5,\ 0.25,\ 1.0,\ 1.0],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.0,\ 0.0,\ 1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00064}00064\ \ \ \ \ ioa21\ =\ np\_box\_ops.ioa(boxes2,\ boxes1)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00065}00065\ \ \ \ \ expected\_ioa21\ =\ np.array([[0.5,\ 0.0],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1.0,\ 1.0]],}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=np.float32)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00068}00068\ \ \ \ \ self.assertAllClose(ioa21,\ expected\_ioa21)}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00071}00071\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{np__box__ops__test_8py_source_l00072}00072\ \ \ tf.test.main()}
+
+\end{DoxyCode}

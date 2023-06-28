@@ -1,0 +1,152 @@
+\doxysection{detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test}{}\label{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test}\index{detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{d3/df8/classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{db/d8f/classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_ad061783b10906a07abd9febf5aedab71}{test\+\_\+diagonal\+\_\+gradient\+\_\+image}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_a4bf4a8a73b58cafe4d2378acf66045c1}{test\+\_\+random\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_aa22b5e66dbdc16e8a2f0694e48a0f260}{test\+\_\+first\+\_\+rows\+\_\+close\+\_\+as\+\_\+set}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{test__utils__test_8py_source_l00028}{28}} of file \mbox{\hyperlink{test__utils__test_8py_source}{test\+\_\+utils\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_ad061783b10906a07abd9febf5aedab71}\label{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_ad061783b10906a07abd9febf5aedab71} 
+\index{detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}!test\_diagonal\_gradient\_image@{test\_diagonal\_gradient\_image}}
+\index{test\_diagonal\_gradient\_image@{test\_diagonal\_gradient\_image}!detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}}
+\doxysubsubsection{\texorpdfstring{test\_diagonal\_gradient\_image()}{test\_diagonal\_gradient\_image()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test.\+test\+\_\+diagonal\+\_\+gradient\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tests if a good pyramid image is created.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils__test_8py_source_l00030}{30}} of file \mbox{\hyperlink{test__utils__test_8py_source}{test\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{def\ }test\_diagonal\_gradient\_image(self):}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ if\ a\ good\ pyramid\ image\ is\ created."{}"{}"{}}}
+\DoxyCodeLine{00032\ \ \ \ \ pyramid\_image\ =\ test\_utils.create\_diagonal\_gradient\_image(3,\ 4,\ 2)}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{\#\ Test\ which\ is\ easy\ to\ understand.}}
+\DoxyCodeLine{00035\ \ \ \ \ expected\_first\_channel\ =\ np.array([[3,\ 2,\ 1,\ 0],}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [4,\ 3,\ 2,\ 1],}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 4,\ 3,\ 2]],\ dtype=np.float32)}
+\DoxyCodeLine{00038\ \ \ \ \ self.assertAllEqual(np.squeeze(pyramid\_image[:,\ :,\ 0]),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\_first\_channel)}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{\#\ Actual\ test.}}
+\DoxyCodeLine{00042\ \ \ \ \ expected\_image\ =\ np.array([[[3,\ 30],}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 20],}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 10],}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0]],}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[4,\ 40],}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3,\ 30],}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 20],}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 10]],}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ 50],}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [4,\ 40],}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3,\ 30],}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [2,\ 20]]],\ dtype=np.float32)}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ self.assertAllEqual(pyramid\_image,\ expected\_image)}
+\DoxyCodeLine{00056\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_aa22b5e66dbdc16e8a2f0694e48a0f260}\label{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_aa22b5e66dbdc16e8a2f0694e48a0f260} 
+\index{detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}!test\_first\_rows\_close\_as\_set@{test\_first\_rows\_close\_as\_set}}
+\index{test\_first\_rows\_close\_as\_set@{test\_first\_rows\_close\_as\_set}!detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}}
+\doxysubsubsection{\texorpdfstring{test\_first\_rows\_close\_as\_set()}{test\_first\_rows\_close\_as\_set()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test.\+test\+\_\+first\+\_\+rows\+\_\+close\+\_\+as\+\_\+set (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{test__utils__test_8py_source_l00075}{75}} of file \mbox{\hyperlink{test__utils__test_8py_source}{test\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{def\ }test\_first\_rows\_close\_as\_set(self):}
+\DoxyCodeLine{00076\ \ \ \ \ a\ =\ [1,\ 2,\ 3,\ 0,\ 0]}
+\DoxyCodeLine{00077\ \ \ \ \ b\ =\ [3,\ 2,\ 1,\ 0,\ 0]}
+\DoxyCodeLine{00078\ \ \ \ \ k\ =\ 3}
+\DoxyCodeLine{00079\ \ \ \ \ self.assertTrue(test\_utils.first\_rows\_close\_as\_set(a,\ b,\ k))}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ a\ =\ [[1,\ 2],\ [1,\ 4],\ [0,\ 0]]}
+\DoxyCodeLine{00082\ \ \ \ \ b\ =\ [[1,\ 4\ +\ 1e-\/9],\ [1,\ 2],\ [0,\ 0]]}
+\DoxyCodeLine{00083\ \ \ \ \ k\ =\ 2}
+\DoxyCodeLine{00084\ \ \ \ \ self.assertTrue(test\_utils.first\_rows\_close\_as\_set(a,\ b,\ k))}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ a\ =\ [[1,\ 2],\ [1,\ 4],\ [0,\ 0]]}
+\DoxyCodeLine{00087\ \ \ \ \ b\ =\ [[1,\ 4\ +\ 1e-\/9],\ [2,\ 2],\ [0,\ 0]]}
+\DoxyCodeLine{00088\ \ \ \ \ k\ =\ 2}
+\DoxyCodeLine{00089\ \ \ \ \ self.assertFalse(test\_utils.first\_rows\_close\_as\_set(a,\ b,\ k))}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_a4bf4a8a73b58cafe4d2378acf66045c1}\label{classdetection__utils_1_1utils_1_1test__utils__test_1_1_test_utils_test_a4bf4a8a73b58cafe4d2378acf66045c1} 
+\index{detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}!test\_random\_boxes@{test\_random\_boxes}}
+\index{test\_random\_boxes@{test\_random\_boxes}!detection\_utils.utils.test\_utils\_test.TestUtilsTest@{detection\_utils.utils.test\_utils\_test.TestUtilsTest}}
+\doxysubsubsection{\texorpdfstring{test\_random\_boxes()}{test\_random\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+test\+\_\+utils\+\_\+test.\+Test\+Utils\+Test.\+test\+\_\+random\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tests if valid random boxes are created.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{test__utils__test_8py_source_l00057}{57}} of file \mbox{\hyperlink{test__utils__test_8py_source}{test\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{def\ }test\_random\_boxes(self):}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Tests\ if\ valid\ random\ boxes\ are\ created."{}"{}"{}}}
+\DoxyCodeLine{00059\ \ \ \ \ num\_boxes\ =\ 1000}
+\DoxyCodeLine{00060\ \ \ \ \ max\_height\ =\ 3}
+\DoxyCodeLine{00061\ \ \ \ \ max\_width\ =\ 5}
+\DoxyCodeLine{00062\ \ \ \ \ boxes\ =\ test\_utils.create\_random\_boxes(num\_boxes,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_height,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_width)}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ true\_column\ =\ np.ones(shape=(num\_boxes))\ ==\ 1}
+\DoxyCodeLine{00067\ \ \ \ \ self.assertAllEqual(boxes[:,\ 0]\ <\ boxes[:,\ 2],\ true\_column)}
+\DoxyCodeLine{00068\ \ \ \ \ self.assertAllEqual(boxes[:,\ 1]\ <\ boxes[:,\ 3],\ true\_column)}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ self.assertTrue(boxes[:,\ 0].min()\ >=\ 0)}
+\DoxyCodeLine{00071\ \ \ \ \ self.assertTrue(boxes[:,\ 1].min()\ >=\ 0)}
+\DoxyCodeLine{00072\ \ \ \ \ self.assertTrue(boxes[:,\ 2].max()\ <=\ max\_height)}
+\DoxyCodeLine{00073\ \ \ \ \ self.assertTrue(boxes[:,\ 3].max()\ <=\ max\_width)}
+\DoxyCodeLine{00074\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{test__utils__test_8py}{test\+\_\+utils\+\_\+test.\+py}}\end{DoxyCompactItemize}

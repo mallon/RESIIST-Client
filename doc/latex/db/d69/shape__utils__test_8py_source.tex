@@ -1,0 +1,421 @@
+\doxysection{shape\+\_\+utils\+\_\+test.\+py}
+\hypertarget{shape__utils__test_8py_source}{}\label{shape__utils__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/shape\_utils\_test.py@{src/main/resources/processing/video/detections/detection\_utils/utils/shape\_utils\_test.py}}
+\mbox{\hyperlink{shape__utils__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1shape__utils__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.utils.shape\_utils."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00025}00025\ \textcolor{keyword}{from}\ object\_detection.utils\ \textcolor{keyword}{import}\ shape\_utils}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00028}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test}{00028}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test}{UtilTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00030}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_ab037eb90dd113ae716a87f88754a16b7}{00030}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_ab037eb90dd113ae716a87f88754a16b7}{test\_pad\_tensor\_using\_integer\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00031}00031\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00032}00032\ \ \ \ \ pad\_t1\ =\ shape\_utils.pad\_tensor(t1,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00033}00033\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00034}00034\ \ \ \ \ pad\_t2\ =\ shape\_utils.pad\_tensor(t2,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00036}00036\ \ \ \ \ self.assertEqual(2,\ pad\_t1.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00037}00037\ \ \ \ \ self.assertEqual(2,\ pad\_t2.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00040}00040\ \ \ \ \ \ \ pad\_t1\_result,\ pad\_t2\_result\ =\ sess.run([pad\_t1,\ pad\_t2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00041}00041\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ pad\_t1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00042}00042\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ pad\_t2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00044}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3c6c6b06158f71c5905ae70576ade6fd}{00044}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3c6c6b06158f71c5905ae70576ade6fd}{test\_pad\_tensor\_using\_tensor\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00045}00045\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00046}00046\ \ \ \ \ pad\_t1\ =\ shape\_utils.pad\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00047}00047\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00048}00048\ \ \ \ \ pad\_t2\ =\ shape\_utils.pad\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00051}00051\ \ \ \ \ \ \ pad\_t1\_result,\ pad\_t2\_result\ =\ sess.run([pad\_t1,\ pad\_t2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00052}00052\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ pad\_t1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00053}00053\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ pad\_t2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00055}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a02d0a62fbe23f67422ad0cae584a2340}{00055}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a02d0a62fbe23f67422ad0cae584a2340}{test\_clip\_tensor\_using\_integer\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00056}00056\ \ \ \ \ t1\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00057}00057\ \ \ \ \ clip\_t1\ =\ shape\_utils.clip\_tensor(t1,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00058}00058\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00059}00059\ \ \ \ \ clip\_t2\ =\ shape\_utils.clip\_tensor(t2,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00061}00061\ \ \ \ \ self.assertEqual(2,\ clip\_t1.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00062}00062\ \ \ \ \ self.assertEqual(2,\ clip\_t2.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00065}00065\ \ \ \ \ \ \ clip\_t1\_result,\ clip\_t2\_result\ =\ sess.run([clip\_t1,\ clip\_t2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00066}00066\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ clip\_t1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00067}00067\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ clip\_t2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00069}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3244b7ed9c75ef61d6088235fb7ea943}{00069}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a3244b7ed9c75ef61d6088235fb7ea943}{test\_clip\_tensor\_using\_tensor\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00070}00070\ \ \ \ \ t1\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00071}00071\ \ \ \ \ clip\_t1\ =\ shape\_utils.clip\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00072}00072\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00073}00073\ \ \ \ \ clip\_t2\ =\ shape\_utils.clip\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00075}00075\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00076}00076\ \ \ \ \ \ \ clip\_t1\_result,\ clip\_t2\_result\ =\ sess.run([clip\_t1,\ clip\_t2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00077}00077\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ clip\_t1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00078}00078\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ clip\_t2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00080}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a23125a08cdd2c90407de4ab8b06bf9a8}{00080}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a23125a08cdd2c90407de4ab8b06bf9a8}{test\_pad\_or\_clip\_tensor\_using\_integer\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00081}00081\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00082}00082\ \ \ \ \ tt1\ =\ shape\_utils.pad\_or\_clip\_tensor(t1,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00083}00083\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00084}00084\ \ \ \ \ tt2\ =\ shape\_utils.pad\_or\_clip\_tensor(t2,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00086}00086\ \ \ \ \ t3\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00087}00087\ \ \ \ \ tt3\ =\ shape\_utils.clip\_tensor(t3,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00088}00088\ \ \ \ \ t4\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00089}00089\ \ \ \ \ tt4\ =\ shape\_utils.clip\_tensor(t4,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00091}00091\ \ \ \ \ self.assertEqual(2,\ tt1.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00092}00092\ \ \ \ \ self.assertEqual(2,\ tt2.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00093}00093\ \ \ \ \ self.assertEqual(2,\ tt3.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00094}00094\ \ \ \ \ self.assertEqual(2,\ tt4.get\_shape()[0])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00097}00097\ \ \ \ \ \ \ tt1\_result,\ tt2\_result,\ tt3\_result,\ tt4\_result\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ [tt1,\ tt2,\ tt3,\ tt4])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00099}00099\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ tt1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00100}00100\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ tt2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00101}00101\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ tt3\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00102}00102\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ tt4\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00104}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a9e02c0ebf095c5511da0a005bc26db72}{00104}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a9e02c0ebf095c5511da0a005bc26db72}{test\_pad\_or\_clip\_tensor\_using\_tensor\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00105}00105\ \ \ \ \ t1\ =\ tf.constant([1],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00106}00106\ \ \ \ \ tt1\ =\ shape\_utils.pad\_or\_clip\_tensor(t1,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00107}00107\ \ \ \ \ t2\ =\ tf.constant([[0.1,\ 0.2]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00108}00108\ \ \ \ \ tt2\ =\ shape\_utils.pad\_or\_clip\_tensor(t2,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00110}00110\ \ \ \ \ t3\ =\ tf.constant([1,\ 2,\ 3],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00111}00111\ \ \ \ \ tt3\ =\ shape\_utils.clip\_tensor(t3,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00112}00112\ \ \ \ \ t4\ =\ tf.constant([[0.1,\ 0.2],\ [0.2,\ 0.4],\ [0.5,\ 0.8]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00113}00113\ \ \ \ \ tt4\ =\ shape\_utils.clip\_tensor(t4,\ tf.constant(2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00115}00115\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00116}00116\ \ \ \ \ \ \ tt1\_result,\ tt2\_result,\ tt3\_result,\ tt4\_result\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ [tt1,\ tt2,\ tt3,\ tt4])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00118}00118\ \ \ \ \ \ \ self.assertAllEqual([1,\ 0],\ tt1\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00119}00119\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0,\ 0]],\ tt2\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00120}00120\ \ \ \ \ \ \ self.assertAllEqual([1,\ 2],\ tt3\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00121}00121\ \ \ \ \ \ \ self.assertAllClose([[0.1,\ 0.2],\ [0.2,\ 0.4]],\ tt4\_result)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00123}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a4f6ad5c6e8ddfe8737e85c153e975321}{00123}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a4f6ad5c6e8ddfe8737e85c153e975321}{test\_combines\_static\_dynamic\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00124}00124\ \ \ \ \ tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 2,\ 3))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00125}00125\ \ \ \ \ combined\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00127}00127\ \ \ \ \ self.assertTrue(tf.contrib.framework.is\_tensor(combined\_shape[0]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00128}00128\ \ \ \ \ self.assertListEqual(combined\_shape[1:],\ [2,\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00130}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a611134007b5baa22976bb6ad64c74a6f}{00130}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_util_test_a611134007b5baa22976bb6ad64c74a6f}{test\_pad\_or\_clip\_nd\_tensor}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00131}00131\ \ \ \ \ tensor\_placeholder\ =\ tf.placeholder(tf.float32,\ [\textcolor{keywordtype}{None},\ 5,\ 4,\ 7])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00132}00132\ \ \ \ \ output\_tensor\ =\ shape\_utils.pad\_or\_clip\_nd(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ tensor\_placeholder,\ [\textcolor{keywordtype}{None},\ 3,\ 5,\ tf.constant(6)])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00135}00135\ \ \ \ \ self.assertAllEqual(output\_tensor.shape.as\_list(),\ [\textcolor{keywordtype}{None},\ 3,\ 5,\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00137}00137\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00138}00138\ \ \ \ \ \ \ output\_tensor\_np\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ output\_tensor,}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_placeholder:\ np.random.rand(2,\ 5,\ 4,\ 7),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00144}00144\ \ \ \ \ self.assertAllEqual(output\_tensor\_np.shape,\ [2,\ 3,\ 5,\ 6])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00147}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test}{00147}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test}{StaticOrDynamicMapFnTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00149}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_aba570d9ae9a41b0f6b2be53df394f8dd}{00149}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_aba570d9ae9a41b0f6b2be53df394f8dd}{test\_with\_dynamic\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00150}00150\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00151}00151\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00152}00152\ \ \ \ \ input\_tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 2))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00153}00153\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(fn,\ input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00155}00155\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00156}00156\ \ \ \ \ self.assertTrue(any([\textcolor{stringliteral}{'map'}\ ==\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00158}00158\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00159}00159\ \ \ \ \ \ \ result1\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[1,\ 2],\ [3,\ 1],\ [0,\ 4]]\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00162}00162\ \ \ \ \ \ \ result2\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[-\/1,\ 1],\ [0,\ 9]]\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00165}00165\ \ \ \ \ \ \ self.assertAllEqual(result1,\ [3,\ 4,\ 4])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00166}00166\ \ \ \ \ \ \ self.assertAllEqual(result2,\ [0,\ 9])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00168}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a339f1ed51548aafa4760ea0dcc065c7a}{00168}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a339f1ed51548aafa4760ea0dcc065c7a}{test\_with\_static\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00169}00169\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00170}00170\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reduce\_sum(input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00171}00171\ \ \ \ \ input\_tensor\ =\ tf.constant([[1,\ 2],\ [3,\ 1],\ [0,\ 4]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00172}00172\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(fn,\ input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00174}00174\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00175}00175\ \ \ \ \ self.assertTrue(all([\textcolor{stringliteral}{'map'}\ !=\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00177}00177\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00178}00178\ \ \ \ \ \ \ result\ =\ sess.run(map\_fn\_output)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00179}00179\ \ \ \ \ \ \ self.assertAllEqual(result,\ [3,\ 4,\ 4])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00181}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a30567f93cac0228194e1aac148082eaa}{00181}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a30567f93cac0228194e1aac148082eaa}{test\_with\_multiple\_dynamic\_shapes}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00182}00182\ \ \ \ \ \textcolor{keyword}{def\ }fn(elems):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00183}00183\ \ \ \ \ \ \ input\_tensor,\ scalar\_index\_tensor\ =\ elems}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00184}00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(tf.slice(input\_tensor,\ scalar\_index\_tensor,\ [1]),\ [])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00186}00186\ \ \ \ \ input\_tensor\ =\ tf.placeholder(tf.float32,\ shape=(\textcolor{keywordtype}{None},\ 3))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00187}00187\ \ \ \ \ scalar\_index\_tensor\ =\ tf.placeholder(tf.int32,\ shape=(\textcolor{keywordtype}{None},\ 1))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00188}00188\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ fn,\ [input\_tensor,\ scalar\_index\_tensor],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00191}00191\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00192}00192\ \ \ \ \ self.assertTrue(any([\textcolor{stringliteral}{'map'}\ ==\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00194}00194\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00195}00195\ \ \ \ \ \ \ result1\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[1,\ 2,\ 3],\ [4,\ 5,\ -\/1],\ [0,\ 6,\ 9]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalar\_index\_tensor:\ [[0],\ [2],\ [1]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00200}00200\ \ \ \ \ \ \ result2\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ map\_fn\_output,\ feed\_dict=\{}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input\_tensor:\ [[-\/1,\ 1,\ 0],\ [3,\ 9,\ 30]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalar\_index\_tensor:\ [[1],\ [0]]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00205}00205\ \ \ \ \ \ \ self.assertAllEqual(result1,\ [1,\ -\/1,\ 6])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00206}00206\ \ \ \ \ \ \ self.assertAllEqual(result2,\ [1,\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00208}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a177f0fadb8d0018e4cadf68185c6ce76}{00208}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a177f0fadb8d0018e4cadf68185c6ce76}{test\_with\_multiple\_static\_shapes}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00209}00209\ \ \ \ \ \textcolor{keyword}{def\ }fn(elems):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00210}00210\ \ \ \ \ \ \ input\_tensor,\ scalar\_index\_tensor\ =\ elems}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00211}00211\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(tf.slice(input\_tensor,\ scalar\_index\_tensor,\ [1]),\ [])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00213}00213\ \ \ \ \ input\_tensor\ =\ tf.constant([[1,\ 2,\ 3],\ [4,\ 5,\ -\/1],\ [0,\ 6,\ 9]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00215}00215\ \ \ \ \ scalar\_index\_tensor\ =\ tf.constant([[0],\ [2],\ [1]],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00216}00216\ \ \ \ \ map\_fn\_output\ =\ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ fn,\ [input\_tensor,\ scalar\_index\_tensor],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00219}00219\ \ \ \ \ op\_names\ =\ [op.name\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ tf.get\_default\_graph().get\_operations()]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00220}00220\ \ \ \ \ self.assertTrue(all([\textcolor{stringliteral}{'map'}\ !=\ op\_name[:3]\ \textcolor{keywordflow}{for}\ op\_name\ \textcolor{keywordflow}{in}\ op\_names]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00222}00222\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00223}00223\ \ \ \ \ \ \ result\ =\ sess.run(map\_fn\_output)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00224}00224\ \ \ \ \ \ \ self.assertAllEqual(result,\ [1,\ -\/1,\ 6])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00226}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a4d9c0b085da6525a34dfb90c5865bd9c}{00226}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_static_or_dynamic_map_fn_test_a4d9c0b085da6525a34dfb90c5865bd9c}{test\_fails\_with\_nested\_input}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00227}00227\ \ \ \ \ \textcolor{keyword}{def\ }fn(input\_tensor):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00228}00228\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input\_tensor}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00229}00229\ \ \ \ \ input\_tensor1\ =\ tf.constant([1])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00230}00230\ \ \ \ \ input\_tensor2\ =\ tf.constant([2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00231}00231\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'\`{}elems`\ must\ be\ a\ Tensor\ or\ list\ of\ Tensors.'}):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00233}00233\ \ \ \ \ \ \ shape\_utils.static\_or\_dynamic\_map\_fn(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ fn,\ [input\_tensor1,\ [input\_tensor2]],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00237}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test}{00237}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test}{CheckMinImageShapeTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00239}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_ab0ca27894d224e7a08cc33a2dd00c845}{00239}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_ab0ca27894d224e7a08cc33a2dd00c845}{test\_check\_min\_image\_dim\_static\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00240}00240\ \ \ \ \ input\_tensor\ =\ tf.constant(np.zeros([1,\ 42,\ 42,\ 3]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00241}00241\ \ \ \ \ \_\ =\ shape\_utils.check\_min\_image\_dim(33,\ input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00243}00243\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'image\ size\ must\ be\ >=\ 64\ in\ both\ height\ and\ width.'}):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00245}00245\ \ \ \ \ \ \ \_\ =\ shape\_utils.check\_min\_image\_dim(64,\ input\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00247}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_a1d34af3a796c0a9ef105611cd6b6b746}{00247}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_a1d34af3a796c0a9ef105611cd6b6b746}{test\_check\_min\_image\_dim\_dynamic\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00248}00248\ \ \ \ \ input\_placeholder\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00249}00249\ \ \ \ \ image\_tensor\ =\ shape\_utils.check\_min\_image\_dim(33,\ input\_placeholder)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00251}00251\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00252}00252\ \ \ \ \ \ \ sess.run(image\_tensor,}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{input\_placeholder:\ np.zeros([1,\ 42,\ 42,\ 3])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00254}00254\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.InvalidArgumentError):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ sess.run(image\_tensor,}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{input\_placeholder:\ np.zeros([1,\ 32,\ 32,\ 3])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00259}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test}{00259}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test}{AssertShapeEqualTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00261}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_af8bdb3f7ebb34b6244cfd62197c0d497}{00261}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_af8bdb3f7ebb34b6244cfd62197c0d497}{test\_unequal\_static\_shape\_raises\_exception}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00262}00262\ \ \ \ \ shape\_a\ =\ tf.constant(np.zeros([4,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00263}00263\ \ \ \ \ shape\_b\ =\ tf.constant(np.zeros([4,\ 2,\ 3,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00264}00264\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'Unequal\ shapes'}):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00266}00266\ \ \ \ \ \ \ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00270}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_aeea19cc9dc658d0d8e3dc85415a7f8ae}{00270}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_aeea19cc9dc658d0d8e3dc85415a7f8ae}{test\_equal\_static\_shape\_succeeds}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00271}00271\ \ \ \ \ shape\_a\ =\ tf.constant(np.zeros([4,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00272}00272\ \ \ \ \ shape\_b\ =\ tf.constant(np.zeros([4,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00273}00273\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00274}00274\ \ \ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00277}00277\ \ \ \ \ \ \ sess.run(op)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00279}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_af8c26b18c85fdebdb46932796a7a6580}{00279}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_af8c26b18c85fdebdb46932796a7a6580}{test\_unequal\_dynamic\_shape\_raises\_tf\_assert}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00280}00280\ \ \ \ \ tensor\_a\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00281}00281\ \ \ \ \ tensor\_b\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00282}00282\ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00283}00283\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00285}00285\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00286}00286\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.InvalidArgumentError):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ sess.run(op,\ feed\_dict=\{tensor\_a:\ np.zeros([1,\ 2,\ 2,\ 3]),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_b:\ np.zeros([1,\ 4,\ 4,\ 3])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00290}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a49a2551859acce8fa6c0c34a921a99e0}{00290}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a49a2551859acce8fa6c0c34a921a99e0}{test\_equal\_dynamic\_shape\_succeeds}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00291}00291\ \ \ \ \ tensor\_a\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00292}00292\ \ \ \ \ tensor\_b\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00293}00293\ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00296}00296\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00297}00297\ \ \ \ \ \ \ sess.run(op,\ feed\_dict=\{tensor\_a:\ np.zeros([1,\ 2,\ 2,\ 3]),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_b:\ np.zeros([1,\ 2,\ 2,\ 3])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00300}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a7a2fc54a82c9e15b3a5a09e21b1163d6}{00300}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a7a2fc54a82c9e15b3a5a09e21b1163d6}{test\_unequal\_static\_shape\_along\_first\_dim\_raises\_exception}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00301}00301\ \ \ \ \ shape\_a\ =\ tf.constant(np.zeros([4,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00302}00302\ \ \ \ \ shape\_b\ =\ tf.constant(np.zeros([6,\ 2,\ 3,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00303}00303\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'Unequal\ first\ dimension'}):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00305}00305\ \ \ \ \ \ \ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00309}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_ada134d97adc473f96a729caad0bb2cc7}{00309}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_ada134d97adc473f96a729caad0bb2cc7}{test\_equal\_static\_shape\_along\_first\_dim\_succeeds}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00310}00310\ \ \ \ \ shape\_a\ =\ tf.constant(np.zeros([4,\ 2,\ 2,\ 1]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00311}00311\ \ \ \ \ shape\_b\ =\ tf.constant(np.zeros([4,\ 7,\ 2]))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00312}00312\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00313}00313\ \ \ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(shape\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00316}00316\ \ \ \ \ \ \ sess.run(op)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00318}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_ae491cd9cc4df4017aa71cfc6af15ea02}{00318}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_ae491cd9cc4df4017aa71cfc6af15ea02}{test\_unequal\_dynamic\_shape\_along\_first\_dim\_raises\_tf\_assert}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00319}00319\ \ \ \ \ tensor\_a\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00320}00320\ \ \ \ \ tensor\_b\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00321}00321\ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00324}00324\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00325}00325\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.InvalidArgumentError):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ sess.run(op,\ feed\_dict=\{tensor\_a:\ np.zeros([1,\ 2,\ 2,\ 3]),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_b:\ np.zeros([2,\ 4,\ 3])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00329}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a0abfdeb2e07f49dd841cb36742522155}{00329}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_assert_shape_equal_test_a0abfdeb2e07f49dd841cb36742522155}{test\_equal\_dynamic\_shape\_along\_first\_dim\_succeeds}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00330}00330\ \ \ \ \ tensor\_a\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00331}00331\ \ \ \ \ tensor\_b\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None}])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00332}00332\ \ \ \ \ op\ =\ shape\_utils.assert\_shape\_equal\_along\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_a),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(tensor\_b))}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00335}00335\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00336}00336\ \ \ \ \ \ \ sess.run(op,\ feed\_dict=\{tensor\_a:\ np.zeros([5,\ 2,\ 2,\ 3]),}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tensor\_b:\ np.zeros([5])\})}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00340}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test}{00340}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test}{FlattenExpandDimensionTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00342}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a2187f62a14101985756744773d333ac9}{00342}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a2187f62a14101985756744773d333ac9}{test\_flatten\_given\_dims}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00343}00343\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 2,\ 10,\ 10,\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00344}00344\ \ \ \ \ actual\_flattened\ =\ shape\_utils.flatten\_dimensions(inputs,\ first=1,\ last=3)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00345}00345\ \ \ \ \ expected\_flattened\ =\ tf.reshape(inputs,\ [5,\ 20,\ 10,\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00346}00346\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00347}00347\ \ \ \ \ \ \ (actual\_flattened\_np,}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00348}00348\ \ \ \ \ \ \ \ expected\_flattened\_np)\ =\ sess.run([actual\_flattened,\ expected\_flattened])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00349}00349\ \ \ \ \ self.assertAllClose(expected\_flattened\_np,\ actual\_flattened\_np)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00351}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a0e1bfc1e402091595eed050c504db1ca}{00351}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a0e1bfc1e402091595eed050c504db1ca}{test\_raises\_value\_error\_incorrect\_dimensions}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00352}00352\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 2,\ 10,\ 10,\ 3])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00353}00353\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(ValueError):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00354}00354\ \ \ \ \ \ \ shape\_utils.flatten\_dimensions(inputs,\ first=0,\ last=6)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00356}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_abb9dba42b3a71573d5e52a2318c36ed6}{00356}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_abb9dba42b3a71573d5e52a2318c36ed6}{test\_flatten\_first\_two\_dimensions}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00357}00357\ \ \ \ \ inputs\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 2],\ [3,\ 4]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ 6],\ [7,\ 8]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ [[9,\ 10],\ [11,\ 12]]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ ],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00363}00363\ \ \ \ \ flattened\_tensor\ =\ shape\_utils.flatten\_first\_n\_dimensions(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ inputs,\ 2)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00365}00365\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00366}00366\ \ \ \ \ \ \ flattened\_tensor\_out\ =\ sess.run(flattened\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00368}00368\ \ \ \ \ expected\_output\ =\ [[1,\ 2],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [3,\ 4],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 6],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [7,\ 8],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 10],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [11,\ 12]]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00374}00374\ \ \ \ \ self.assertAllEqual(expected\_output,\ flattened\_tensor\_out)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00376}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a60c3f8875259b9700774ea304dabb9cb}{00376}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_a60c3f8875259b9700774ea304dabb9cb}{test\_expand\_first\_dimension}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00377}00377\ \ \ \ \ inputs\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 2],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ [3,\ 4],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ [5,\ 6],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ [7,\ 8],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ [9,\ 10],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ [11,\ 12]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ ],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00386}00386\ \ \ \ \ dims\ =\ [3,\ 2]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00387}00387\ \ \ \ \ expanded\_tensor\ =\ shape\_utils.expand\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ inputs,\ dims)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00389}00389\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00390}00390\ \ \ \ \ \ \ expanded\_tensor\_out\ =\ sess.run(expanded\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00392}00392\ \ \ \ \ expected\_output\ =\ [}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ [[1,\ 2],\ [3,\ 4]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ [[5,\ 6],\ [7,\ 8]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ [[9,\ 10],\ [11,\ 12]]]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00396}00396\ \ \ \ \ self.assertAllEqual(expected\_output,\ expanded\_tensor\_out)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00398}\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_ac1145739035dbe2c84b42322e51bbf43}{00398}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_flatten_expand_dimension_test_ac1145739035dbe2c84b42322e51bbf43}{test\_expand\_first\_dimension\_with\_incompatible\_dims}}(self):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00399}00399\ \ \ \ \ inputs\_default\ =\ tf.constant(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 2]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ [[3,\ 4]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ 6]],}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00404}00404\ \ \ \ \ \ \ \ \ ],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00405}00405\ \ \ \ \ inputs\ =\ tf.placeholder\_with\_default(inputs\_default,\ [\textcolor{keywordtype}{None},\ 1,\ 2])}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00406}00406\ \ \ \ \ dims\ =\ [3,\ 2]}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00407}00407\ \ \ \ \ expanded\_tensor\ =\ shape\_utils.expand\_first\_dimension(}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ inputs,\ dims)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00409}00409\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00410}00410\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.InvalidArgumentError):}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ sess.run(expanded\_tensor)}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00414}00414\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{shape__utils__test_8py_source_l00415}00415\ \ \ tf.test.main()}
+
+\end{DoxyCode}

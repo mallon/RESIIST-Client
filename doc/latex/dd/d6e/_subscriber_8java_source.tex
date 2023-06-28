@@ -1,0 +1,45 @@
+\doxysection{Subscriber.\+java}
+\hypertarget{_subscriber_8java_source}{}\label{_subscriber_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/serveurdist/Subscriber.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/serveurdist/Subscriber.java}}
+\mbox{\hyperlink{_subscriber_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist;}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00003}00003\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttClient;}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00004}00004\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttException;}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00006}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber}{00006}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber}{Subscriber}}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00007}00007\ \{}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00009}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10}{00009}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10}{main}}(String\ chemin,\ String\ topic)\ \textcolor{keywordflow}{throws}\ MqttException}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00010}00010\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00012}00012\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}==\ START\ SUBSCRIBER\ =="{}});}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*String\ clientId\ =\ "{}Client1"{};\ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00014}00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00015}00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00016}00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00017}00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ //Store\ messages\ until\ server\ fetches\ them}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00018}00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00019}00019\ \textcolor{comment}{\ \ \ \ \ \ \ \ MqttDefaultFilePersistence\ dataStore\ =\ new\ MqttDefaultFilePersistence("{}C:\(\backslash\)\(\backslash\)Users\(\backslash\)\(\backslash\)kinta\(\backslash\)\(\backslash\)Documents\(\backslash\)\(\backslash\)StageCerema"{}\ +\ "{}\(\backslash\)\(\backslash\)"{}\ +\ clientId);}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00020}00020\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00021}00021\ \textcolor{comment}{\ \ \ \ \ \ \ \ MqttClient\ client=new\ MqttClient("{}tcp://test.mosquitto.org:1883"{},\ MqttClient.generateClientId(),dataStore);}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00022}00022\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.setCallback(\ new\ SimpleMqttCallBack()\ );}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00023}00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.connect();}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00024}00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00025}00025\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.subscribe("{}iot\_data"{});*/}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ MqttClient\ client\ =}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ MqttClient(\textcolor{stringliteral}{"{}tcp://test.mosquitto.org:1883"{}},\ MqttClient.generateClientId());}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back}{SimpleMqttCallBack}}\ call\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back}{SimpleMqttCallBack}}();}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ call.path\ =\ chemin;}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ client.setCallback(call);}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ client.setCallback(new\ SimpleMqttCallBack());}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ client.connect();}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ client.subscribe(topic);}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_subscriber_8java_source_l00039}00039\ \}}
+
+\end{DoxyCode}

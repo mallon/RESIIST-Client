@@ -1,0 +1,88 @@
+\doxysection{minibatch\+\_\+sampler\+\_\+test.\+py}
+\hypertarget{minibatch__sampler__test_8py_source}{}\label{minibatch__sampler__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/minibatch\_sampler\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/minibatch\_sampler\_test.py}}
+\mbox{\hyperlink{minibatch__sampler__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1minibatch__sampler__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ google3.research.vale.object\_detection.minibatch\_sampler."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00019}00019\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00021}00021\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ minibatch\_sampler}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00024}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test}{00024}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test}{MinibatchSamplerTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00026}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a4f67b011afd2a9b519ee7905a22c4d9d}{00026}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a4f67b011afd2a9b519ee7905a22c4d9d}{test\_subsample\_indicator\_when\_more\_true\_elements\_than\_num\_samples}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00027}00027\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00028}00028\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00029}00029\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ indicator,\ 3)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00032}00032\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00033}00033\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 3)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00034}00034\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00037}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_ada925020ee44e5e534803ce774e349c7}{00037}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_ada925020ee44e5e534803ce774e349c7}{test\_subsample\_when\_more\_true\_elements\_than\_num\_samples\_no\_shape}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00038}00038\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00039}00039\ \ \ \ \ indicator\ =\ tf.placeholder(tf.bool)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00040}00040\ \ \ \ \ feed\_dict\ =\ \{indicator:\ np\_indicator\}}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00042}00042\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ indicator,\ 3)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00044}00044\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00045}00045\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples,\ feed\_dict=feed\_dict)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00046}00046\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 3)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00047}00047\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00050}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a642c768951f59c6a634cb850784615eb}{00050}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a642c768951f59c6a634cb850784615eb}{test\_subsample\_indicator\_when\_less\_true\_elements\_than\_num\_samples}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00051}00051\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00052}00052\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00053}00053\ \ \ \ \ samples\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ indicator,\ 5)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00056}00056\ \ \ \ \ \ \ samples\_out\ =\ sess.run(samples)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00057}00057\ \ \ \ \ \ \ self.assertTrue(np.sum(samples\_out),\ 4)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00058}00058\ \ \ \ \ \ \ self.assertAllEqual(samples\_out,}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.logical\_and(samples\_out,\ np\_indicator))}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00061}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a9f1463d0d60b63f8b50ac7b2fa415528}{00061}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a9f1463d0d60b63f8b50ac7b2fa415528}{test\_subsample\_indicator\_when\_num\_samples\_is\_zero}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00062}00062\ \ \ \ \ np\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00063}00063\ \ \ \ \ indicator\ =\ tf.constant(np\_indicator)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00064}00064\ \ \ \ \ samples\_none\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ indicator,\ 0)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00067}00067\ \ \ \ \ \ \ samples\_none\_out\ =\ sess.run(samples\_none)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00068}00068\ \ \ \ \ \ \ self.assertAllEqual(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ np.zeros\_like(samples\_none\_out,\ dtype=bool),}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ samples\_none\_out)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00072}\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a591bf7c89508ae2b32a831976217a44d}{00072}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test_a591bf7c89508ae2b32a831976217a44d}{test\_subsample\_indicator\_when\_indicator\_all\_false}}(self):}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00073}00073\ \ \ \ \ indicator\_empty\ =\ tf.zeros([0],\ dtype=tf.bool)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00074}00074\ \ \ \ \ samples\_empty\ =\ minibatch\_sampler.MinibatchSampler.subsample\_indicator(}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ indicator\_empty,\ 4)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00076}00076\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00077}00077\ \ \ \ \ \ \ samples\_empty\_out\ =\ sess.run(samples\_empty)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00078}00078\ \ \ \ \ \ \ self.assertEqual(0,\ samples\_empty\_out.size)}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00081}00081\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{minibatch__sampler__test_8py_source_l00082}00082\ \ \ tf.test.main()}
+
+\end{DoxyCode}

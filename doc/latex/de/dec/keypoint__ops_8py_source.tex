@@ -1,0 +1,288 @@
+\doxysection{keypoint\+\_\+ops.\+py}
+\hypertarget{keypoint__ops_8py_source}{}\label{keypoint__ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/keypoint\_ops.py@{src/main/resources/processing/video/detections/detection\_utils/core/keypoint\_ops.py}}
+\mbox{\hyperlink{keypoint__ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Keypoint\ operations.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00018}00018\ \textcolor{stringliteral}{Keypoints\ are\ represented\ as\ tensors\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2],}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00019}00019\ \textcolor{stringliteral}{where\ the\ last\ dimension\ holds\ rank\ 2\ tensors\ of\ the\ form\ [y,\ x]\ representing}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00020}00020\ \textcolor{stringliteral}{the\ coordinates\ of\ the\ keypoint.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00021}00021\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00022}00022\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00023}00023\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00026}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{00026}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{scale}}(keypoints,\ y\_scale,\ x\_scale,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00027}00027\ \ \ \textcolor{stringliteral}{"{}"{}"{}Scales\ keypoint\ coordinates\ in\ x\ and\ y\ dimensions.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00028}00028\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ \ \ y\_scale:\ (float)\ scalar\ tensor}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ \ \ x\_scale:\ (float)\ scalar\ tensor}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00034}00034\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Scale'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00039}00039\ \ \ \ \ y\_scale\ =\ tf.cast(y\_scale,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00040}00040\ \ \ \ \ x\_scale\ =\ tf.cast(x\_scale,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00041}00041\ \ \ \ \ new\_keypoints\ =\ keypoints\ *\ [[[y\_scale,\ x\_scale]]]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00045}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a7218985c1d488a4af34f784620ce2309}{00045}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a7218985c1d488a4af34f784620ce2309}{clip\_to\_window}}(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00046}00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}Clips\ keypoints\ to\ a\ window.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00047}00047\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ This\ op\ clips\ any\ input\ keypoints\ to\ a\ window.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00049}00049\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00053}00053\ \textcolor{stringliteral}{\ \ \ \ \ \ window\ to\ which\ the\ op\ should\ clip\ the\ keypoints.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00055}00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ClipToWindow'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00060}00060\ \ \ \ \ y,\ x\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00061}00061\ \ \ \ \ win\_y\_min,\ win\_x\_min,\ win\_y\_max,\ win\_x\_max\ =\ tf.unstack(window)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00062}00062\ \ \ \ \ y\ =\ tf.maximum(tf.minimum(y,\ win\_y\_max),\ win\_y\_min)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00063}00063\ \ \ \ \ x\ =\ tf.maximum(tf.minimum(x,\ win\_x\_max),\ win\_x\_min)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00064}00064\ \ \ \ \ new\_keypoints\ =\ tf.concat([y,\ x],\ 2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00068}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4a214fb6879d14d53d53660a5099e7f4}{00068}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4a214fb6879d14d53d53660a5099e7f4}{prune\_outside\_window}}(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00069}00069\ \ \ \textcolor{stringliteral}{"{}"{}"{}Prunes\ keypoints\ that\ fall\ outside\ a\ given\ window.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00070}00070\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ This\ function\ replaces\ keypoints\ that\ fall\ outside\ the\ given\ window\ }\textcolor{keyword}{with}\ nan.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00072}00072\ \ \ See\ also\ clip\_to\_window\ which\ clips\ any\ keypoints\ that\ fall\ outside\ the\ given}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00073}00073\ \ \ window.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00075}00075\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00076}00076\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00077}00077\ \ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00078}00078\ \ \ \ \ \ \ window\ outside\ of\ which\ the\ op\ should\ prune\ the\ keypoints.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00079}00079\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00081}00081\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00082}00082\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00083}00083\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00084}00084\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'PruneOutsideWindow'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00085}00085\ \ \ \ \ y,\ x\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00086}00086\ \ \ \ \ win\_y\_min,\ win\_x\_min,\ win\_y\_max,\ win\_x\_max\ =\ tf.unstack(window)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00088}00088\ \ \ \ \ valid\_indices\ =\ tf.logical\_and(}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ tf.logical\_and(y\ >=\ win\_y\_min,\ y\ <=\ win\_y\_max),}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ tf.logical\_and(x\ >=\ win\_x\_min,\ x\ <=\ win\_x\_max))}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00092}00092\ \ \ \ \ new\_y\ =\ tf.where(valid\_indices,\ y,\ np.nan\ *\ tf.ones\_like(y))}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00093}00093\ \ \ \ \ new\_x\ =\ tf.where(valid\_indices,\ x,\ np.nan\ *\ tf.ones\_like(x))}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00094}00094\ \ \ \ \ new\_keypoints\ =\ tf.concat([new\_y,\ new\_x],\ 2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00099}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8}{00099}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a004e0a6d9a4c3741fd8b6d557c4712a8}{change\_coordinate\_frame}}(keypoints,\ window,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00100}00100\ \ \ \textcolor{stringliteral}{"{}"{}"{}Changes\ coordinate\ frame\ of\ the\ keypoints\ to\ be\ relative\ to\ window's\ frame.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00101}00101\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00102}00102\ \textcolor{stringliteral}{\ \ Given\ a\ window\ of\ the\ form\ [y\_min,\ x\_min,\ y\_max,\ x\_max],\ changes\ keypoint}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00103}00103\ \textcolor{stringliteral}{\ \ coordinates\ }\textcolor{keyword}{from}\ keypoints\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00104}00104\ \ \ to\ be\ relative\ to\ this\ window.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00106}00106\ \ \ An\ example\ use\ case\ \textcolor{keywordflow}{is}\ data\ augmentation:\ where\ we\ are\ given\ groundtruth}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00107}00107\ \ \ keypoints\ \textcolor{keywordflow}{and}\ would\ like\ to\ randomly\ crop\ the\ image\ to\ some\ window.\ In\ this}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00108}00108\ \ \ case\ we\ need\ to\ change\ the\ coordinate\ frame\ of\ each\ groundtruth\ keypoint\ to\ be}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00109}00109\ \ \ relative\ to\ this\ new\ window.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00111}00111\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00112}00112\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00113}00113\ \ \ \ \ window:\ a\ tensor\ of\ shape\ [4]\ representing\ the\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00114}00114\ \ \ \ \ \ \ window\ we\ should\ change\ the\ coordinate\ frame\ to.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00115}00115\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00117}00117\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00118}00118\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00119}00119\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ChangeCoordinateFrame'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00121}00121\ \ \ \ \ win\_height\ =\ window[2]\ -\/\ window[0]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00122}00122\ \ \ \ \ win\_width\ =\ window[3]\ -\/\ window[1]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00123}00123\ \ \ \ \ new\_keypoints\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{scale}}(keypoints\ -\/\ [window[0],\ window[1]],\ 1.0\ /\ win\_height,}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.0\ /\ win\_width)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00128}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901}{00128}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a4c2eefb5ebfcdc2ed8a786c82071f901}{to\_normalized\_coordinates}}(keypoints,\ height,\ width,}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ check\_range=True,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00130}00130\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ absolute\ keypoint\ coordinates\ to\ normalized\ coordinates\ in\ [0,\ 1].}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00131}00131\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00132}00132\ \textcolor{stringliteral}{\ \ Usually\ one\ uses\ the\ dynamic\ shape\ of\ the\ image\ }\textcolor{keywordflow}{or}\ conv-\/layer\ tensor:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00133}00133\ \ \ \ \ keypoints\ =\ keypoint\_ops.to\_normalized\_coordinates(keypoints,}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(images)[1],}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(images)[2]),}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00137}00137\ \ \ This\ function\ raises\ an\ assertion\ failed\ error\ at\ graph\ execution\ time\ when}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00138}00138\ \ \ the\ maximum\ coordinate\ \textcolor{keywordflow}{is}\ smaller\ than\ 1.01\ (which\ means\ that\ coordinates\ are}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00139}00139\ \ \ already\ normalized).\ The\ value\ 1.01\ \textcolor{keywordflow}{is}\ to\ deal\ \textcolor{keyword}{with}\ small\ rounding\ errors.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00141}00141\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00142}00142\ \ \ \ \ keypoints:\ A\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2].}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00143}00143\ \ \ \ \ height:\ Maximum\ value\ \textcolor{keywordflow}{for}\ y\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00144}00144\ \ \ \ \ width:\ Maximum\ value\ \textcolor{keywordflow}{for}\ x\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00145}00145\ \ \ \ \ check\_range:\ If\ \textcolor{keyword}{True},\ checks\ \textcolor{keywordflow}{if}\ the\ coordinates\ are\ normalized.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00146}00146\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00148}00148\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00149}00149\ \ \ \ \ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]\ \textcolor{keyword}{with}\ normalized}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00150}00150\ \ \ \ \ coordinates\ \textcolor{keywordflow}{in}\ [0,\ 1].}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00151}00151\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ToNormalizedCoordinates'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00153}00153\ \ \ \ \ height\ =\ tf.cast(height,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00154}00154\ \ \ \ \ width\ =\ tf.cast(width,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{if}\ check\_range:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00157}00157\ \ \ \ \ \ \ max\_val\ =\ tf.reduce\_max(keypoints)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00158}00158\ \ \ \ \ \ \ max\_assert\ =\ tf.Assert(tf.greater(max\_val,\ 1.01),}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'max\ value\ is\ lower\ than\ 1.01:\ '},\ max\_val])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00160}00160\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([max\_assert]):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ width\ =\ tf.identity(width)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{scale}}(keypoints,\ 1.0\ /\ height,\ 1.0\ /\ width)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00166}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874}{00166}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_ad1477cedc19843d1b25c0d149971c874}{to\_absolute\_coordinates}}(keypoints,\ height,\ width,}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ check\_range=True,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00168}00168\ \ \ \textcolor{stringliteral}{"{}"{}"{}Converts\ normalized\ keypoint\ coordinates\ to\ absolute\ pixel\ coordinates.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00169}00169\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00170}00170\ \textcolor{stringliteral}{\ \ This\ function\ raises\ an\ assertion\ failed\ error\ when\ the\ maximum\ keypoint}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00171}00171\ \textcolor{stringliteral}{\ \ coordinate\ value\ }\textcolor{keywordflow}{is}\ larger\ than\ 1.01\ (\textcolor{keywordflow}{in}\ which\ case\ coordinates\ are\ already}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00172}00172\ \ \ absolute).}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00174}00174\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00175}00175\ \ \ \ \ keypoints:\ A\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00176}00176\ \ \ \ \ height:\ Maximum\ value\ \textcolor{keywordflow}{for}\ y\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00177}00177\ \ \ \ \ width:\ Maximum\ value\ \textcolor{keywordflow}{for}\ x\ coordinate\ of\ absolute\ keypoint\ coordinates.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00178}00178\ \ \ \ \ check\_range:\ If\ \textcolor{keyword}{True},\ checks\ \textcolor{keywordflow}{if}\ the\ coordinates\ are\ normalized\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00179}00179\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00181}00181\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00182}00182\ \ \ \ \ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]\ \textcolor{keyword}{with}\ absolute\ coordinates}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{in}\ terms\ of\ the\ image\ size.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00185}00185\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00186}00186\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'ToAbsoluteCoordinates'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00187}00187\ \ \ \ \ height\ =\ tf.cast(height,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00188}00188\ \ \ \ \ width\ =\ tf.cast(width,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00190}00190\ \ \ \ \ \textcolor{comment}{\#\ Ensure\ range\ of\ input\ keypoints\ is\ correct.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{if}\ check\_range:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00192}00192\ \ \ \ \ \ \ max\_val\ =\ tf.reduce\_max(keypoints)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00193}00193\ \ \ \ \ \ \ max\_assert\ =\ tf.Assert(tf.greater\_equal(1.01,\ max\_val),}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\textcolor{stringliteral}{'maximum\ keypoint\ coordinate\ value\ is\ larger\ '}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'than\ 1.01:\ '},\ max\_val])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00196}00196\ \ \ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies([max\_assert]):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00197}00197\ \ \ \ \ \ \ \ \ width\ =\ tf.identity(width)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a12b3c20076781456a0208fa523fad607}{scale}}(keypoints,\ height,\ width)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00202}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a1e930f3eeb48f0c5c9f4308ecb2abf13}{00202}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a1e930f3eeb48f0c5c9f4308ecb2abf13}{flip\_horizontal}}(keypoints,\ flip\_point,\ flip\_permutation,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00203}00203\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flips\ the\ keypoints\ horizontally\ around\ the\ flip\_point.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00204}00204\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00205}00205\ \textcolor{stringliteral}{\ \ This\ operation\ flips\ the\ x\ coordinate\ }\textcolor{keywordflow}{for}\ each\ keypoint\ around\ the\ flip\_point}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00206}00206\ \ \ \textcolor{keywordflow}{and}\ also\ permutes\ the\ keypoints\ \textcolor{keywordflow}{in}\ a\ manner\ specified\ by\ flip\_permutation.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00208}00208\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00209}00209\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00210}00210\ \ \ \ \ flip\_point:\ \ (float)\ scalar\ tensor\ representing\ the\ x\ coordinate\ to\ flip\ the}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00211}00211\ \ \ \ \ \ \ keypoints\ around.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00212}00212\ \ \ \ \ flip\_permutation:\ rank\ 1\ int32\ tensor\ containing\ the\ keypoint\ flip}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00213}00213\ \ \ \ \ \ \ permutation.\ This\ specifies\ the\ mapping\ \textcolor{keyword}{from}\ original\ keypoint\ indices}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00214}00214\ \ \ \ \ \ \ to\ the\ flipped\ keypoint\ indices.\ This\ \textcolor{keywordflow}{is}\ used\ primarily\ \textcolor{keywordflow}{for}\ keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00215}00215\ \ \ \ \ \ \ that\ are\ \textcolor{keywordflow}{not}\ reflection\ invariant.\ E.g.\ Suppose\ there\ are\ 3\ keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00216}00216\ \ \ \ \ \ \ representing\ [\textcolor{stringliteral}{'head'},\ \textcolor{stringliteral}{'right\_eye'},\ \textcolor{stringliteral}{'left\_eye'}],\ then\ a\ logical\ choice\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00217}00217\ \ \ \ \ \ \ flip\_permutation\ might\ be\ [0,\ 2,\ 1]\ since\ we\ want\ to\ swap\ the\ \textcolor{stringliteral}{'left\_eye'}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00218}00218\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'right\_eye'}\ after\ a\ horizontal\ flip.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00219}00219\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00221}00221\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00222}00222\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00223}00223\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00224}00224\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'FlipHorizontal'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00225}00225\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00226}00226\ \ \ \ \ keypoints\ =\ tf.gather(keypoints,\ flip\_permutation)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00227}00227\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00228}00228\ \ \ \ \ u\ =\ flip\_point\ *\ 2.0\ -\/\ u}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00229}00229\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00230}00230\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00231}00231\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00234}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a865ee483b7ace34c0767589838e577b1}{00234}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_a865ee483b7ace34c0767589838e577b1}{flip\_vertical}}(keypoints,\ flip\_point,\ flip\_permutation,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00235}00235\ \ \ \textcolor{stringliteral}{"{}"{}"{}Flips\ the\ keypoints\ vertically\ around\ the\ flip\_point.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00236}00236\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00237}00237\ \textcolor{stringliteral}{\ \ This\ operation\ flips\ the\ y\ coordinate\ }\textcolor{keywordflow}{for}\ each\ keypoint\ around\ the\ flip\_point}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00238}00238\ \ \ \textcolor{keywordflow}{and}\ also\ permutes\ the\ keypoints\ \textcolor{keywordflow}{in}\ a\ manner\ specified\ by\ flip\_permutation.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00240}00240\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00241}00241\ \ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00242}00242\ \ \ \ \ flip\_point:\ \ (float)\ scalar\ tensor\ representing\ the\ y\ coordinate\ to\ flip\ the}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00243}00243\ \ \ \ \ \ \ keypoints\ around.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00244}00244\ \ \ \ \ flip\_permutation:\ rank\ 1\ int32\ tensor\ containing\ the\ keypoint\ flip}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00245}00245\ \ \ \ \ \ \ permutation.\ This\ specifies\ the\ mapping\ \textcolor{keyword}{from}\ original\ keypoint\ indices}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00246}00246\ \ \ \ \ \ \ to\ the\ flipped\ keypoint\ indices.\ This\ \textcolor{keywordflow}{is}\ used\ primarily\ \textcolor{keywordflow}{for}\ keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00247}00247\ \ \ \ \ \ \ that\ are\ \textcolor{keywordflow}{not}\ reflection\ invariant.\ E.g.\ Suppose\ there\ are\ 3\ keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00248}00248\ \ \ \ \ \ \ representing\ [\textcolor{stringliteral}{'head'},\ \textcolor{stringliteral}{'right\_eye'},\ \textcolor{stringliteral}{'left\_eye'}],\ then\ a\ logical\ choice\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00249}00249\ \ \ \ \ \ \ flip\_permutation\ might\ be\ [0,\ 2,\ 1]\ since\ we\ want\ to\ swap\ the\ \textcolor{stringliteral}{'left\_eye'}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00250}00250\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{'right\_eye'}\ after\ a\ horizontal\ flip.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00251}00251\ \ \ \ \ scope:\ name\ scope.}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00253}00253\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00254}00254\ \ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00255}00255\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'FlipVertical'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00257}00257\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00258}00258\ \ \ \ \ keypoints\ =\ tf.gather(keypoints,\ flip\_permutation)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00259}00259\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints,\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00260}00260\ \ \ \ \ v\ =\ flip\_point\ *\ 2.0\ -\/\ v}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00261}00261\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00262}00262\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00263}00263\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00266}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_af33d083020b5f44a58b2de924a1659a9}{00266}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1keypoint__ops_af33d083020b5f44a58b2de924a1659a9}{rot90}}(keypoints,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00267}00267\ \ \ \textcolor{stringliteral}{"{}"{}"{}Rotates\ the\ keypoints\ counter-\/clockwise\ by\ 90\ degrees.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00268}00268\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00269}00269\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00270}00270\ \textcolor{stringliteral}{\ \ \ \ keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00271}00271\ \textcolor{stringliteral}{\ \ \ \ scope:\ name\ scope.}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00272}00272\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00273}00273\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00274}00274\ \textcolor{stringliteral}{\ \ \ \ new\_keypoints:\ a\ tensor\ of\ shape\ [num\_instances,\ num\_keypoints,\ 2]}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00275}00275\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'Rot90'}):}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00277}00277\ \ \ \ \ keypoints\ =\ tf.transpose(keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00278}00278\ \ \ \ \ v,\ u\ =\ tf.split(value=keypoints[:,\ :,\ ::-\/1],\ num\_or\_size\_splits=2,\ axis=2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00279}00279\ \ \ \ \ v\ =\ 1.0\ -\/\ v}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00280}00280\ \ \ \ \ new\_keypoints\ =\ tf.concat([v,\ u],\ 2)}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00281}00281\ \ \ \ \ new\_keypoints\ =\ tf.transpose(new\_keypoints,\ [1,\ 0,\ 2])}
+\DoxyCodeLine{\Hypertarget{keypoint__ops_8py_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{return}\ new\_keypoints}
+
+\end{DoxyCode}

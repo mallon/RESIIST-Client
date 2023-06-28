@@ -1,0 +1,234 @@
+\doxysection{detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test}{}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test}\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{df/d1d/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{d3/d4d/classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_abdb5578e7d9546d3469b779e87d81b54}{test\+\_\+box\+\_\+voting}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a8607875560de2f886101b86013ff624b}{test\+\_\+box\+\_\+voting\+\_\+fails\+\_\+with\+\_\+negative\+\_\+scores}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a349ddd65131639ae5bb50d036221cfd3}{test\+\_\+box\+\_\+voting\+\_\+fails\+\_\+when\+\_\+unmatched}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac73d7d28e95a312bcdf0feb9b9926918}{test\+\_\+refine\+\_\+boxes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ade0ec5deb1c1af02cf7b1a9ce62eb4ac}{test\+\_\+refine\+\_\+boxes\+\_\+multi\+\_\+class}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac2046466abe9686d64a7b478850f4f53}{test\+\_\+sample\+\_\+boxes\+\_\+by\+\_\+jittering}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01007}{1007}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_abdb5578e7d9546d3469b779e87d81b54}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_abdb5578e7d9546d3469b779e87d81b54} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_box\_voting@{test\_box\_voting}}
+\index{test\_box\_voting@{test\_box\_voting}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_box\_voting()}{test\_box\_voting()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+box\+\_\+voting (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01009}{1009}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01009\ \ \ \textcolor{keyword}{def\ }test\_box\_voting(self):}
+\DoxyCodeLine{01010\ \ \ \ \ candidates\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{01012\ \ \ \ \ candidates.add\_field(\textcolor{stringliteral}{'ExtraField'},\ tf.constant([1,\ 2]))}
+\DoxyCodeLine{01013\ \ \ \ \ pool\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{01016\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3]))}
+\DoxyCodeLine{01017\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{01018\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8]]}
+\DoxyCodeLine{01019\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3]}
+\DoxyCodeLine{01020\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ [averaged\_boxes.get(),\ averaged\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ averaged\_boxes.get\_field(\textcolor{stringliteral}{'ExtraField'})])}
+\DoxyCodeLine{01024\ }
+\DoxyCodeLine{01025\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [1,\ 2])}
+\DoxyCodeLine{01028\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a349ddd65131639ae5bb50d036221cfd3}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a349ddd65131639ae5bb50d036221cfd3} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_box\_voting\_fails\_when\_unmatched@{test\_box\_voting\_fails\_when\_unmatched}}
+\index{test\_box\_voting\_fails\_when\_unmatched@{test\_box\_voting\_fails\_when\_unmatched}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_box\_voting\_fails\_when\_unmatched()}{test\_box\_voting\_fails\_when\_unmatched()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+box\+\_\+voting\+\_\+fails\+\_\+when\+\_\+unmatched (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01040}{1040}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01040\ \ \ \textcolor{keyword}{def\ }test\_box\_voting\_fails\_when\_unmatched(self):}
+\DoxyCodeLine{01041\ \ \ \ \ candidates\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{01043\ \ \ \ \ pool\ =\ box\_list.BoxList(tf.constant([[0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{01044\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.2]))}
+\DoxyCodeLine{01045\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{01046\ }
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'Each\ box\ in\ selected\_boxes\ must\ match\ '}}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'with\ at\ least\ one\ box\ in\ pool\_boxes.'}):}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ sess.run([averaged\_boxes.get()])}
+\DoxyCodeLine{01051\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a8607875560de2f886101b86013ff624b}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_a8607875560de2f886101b86013ff624b} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_box\_voting\_fails\_with\_negative\_scores@{test\_box\_voting\_fails\_with\_negative\_scores}}
+\index{test\_box\_voting\_fails\_with\_negative\_scores@{test\_box\_voting\_fails\_with\_negative\_scores}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_box\_voting\_fails\_with\_negative\_scores()}{test\_box\_voting\_fails\_with\_negative\_scores()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+box\+\_\+voting\+\_\+fails\+\_\+with\+\_\+negative\+\_\+scores (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01029}{1029}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01029\ \ \ \textcolor{keyword}{def\ }test\_box\_voting\_fails\_with\_negative\_scores(self):}
+\DoxyCodeLine{01030\ \ \ \ \ candidates\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{01032\ \ \ \ \ pool\ =\ box\_list.BoxList(tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4]],\ tf.float32))}
+\DoxyCodeLine{01033\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([-\/0.2]))}
+\DoxyCodeLine{01034\ \ \ \ \ averaged\_boxes\ =\ box\_list\_ops.box\_voting(candidates,\ pool)}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesOpError(\textcolor{stringliteral}{'Scores\ must\ be\ non\ negative'}):}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ sess.run([averaged\_boxes.get()])}
+\DoxyCodeLine{01039\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac73d7d28e95a312bcdf0feb9b9926918}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac73d7d28e95a312bcdf0feb9b9926918} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_refine\_boxes@{test\_refine\_boxes}}
+\index{test\_refine\_boxes@{test\_refine\_boxes}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_refine\_boxes()}{test\_refine\_boxes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+refine\+\_\+boxes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01052}{1052}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01052\ \ \ \textcolor{keyword}{def\ }test\_refine\_boxes(self):}
+\DoxyCodeLine{01053\ \ \ \ \ pool\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8]],\ tf.float32))}
+\DoxyCodeLine{01056\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'ExtraField'},\ tf.constant([1,\ 2,\ 3]))}
+\DoxyCodeLine{01057\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3]))}
+\DoxyCodeLine{01058\ \ \ \ \ refined\_boxes\ =\ box\_list\_ops.refine\_boxes(pool,\ 0.5,\ 10)}
+\DoxyCodeLine{01059\ }
+\DoxyCodeLine{01060\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8]]}
+\DoxyCodeLine{01061\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3]}
+\DoxyCodeLine{01062\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ [refined\_boxes.get(),\ refined\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ refined\_boxes.get\_field(\textcolor{stringliteral}{'ExtraField'})])}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [1,\ 3])}
+\DoxyCodeLine{01070\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ade0ec5deb1c1af02cf7b1a9ce62eb4ac}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ade0ec5deb1c1af02cf7b1a9ce62eb4ac} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_refine\_boxes\_multi\_class@{test\_refine\_boxes\_multi\_class}}
+\index{test\_refine\_boxes\_multi\_class@{test\_refine\_boxes\_multi\_class}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_refine\_boxes\_multi\_class()}{test\_refine\_boxes\_multi\_class()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+refine\+\_\+boxes\+\_\+multi\+\_\+class (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01071}{1071}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01071\ \ \ \textcolor{keyword}{def\ }test\_refine\_boxes\_multi\_class(self):}
+\DoxyCodeLine{01072\ \ \ \ \ pool\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],\ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8],\ [0.2,\ 0.2,\ 0.3,\ 0.3]],\ tf.float32))}
+\DoxyCodeLine{01075\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'classes'},\ tf.constant([0,\ 0,\ 1,\ 1]))}
+\DoxyCodeLine{01076\ \ \ \ \ pool.add\_field(\textcolor{stringliteral}{'scores'},\ tf.constant([0.75,\ 0.25,\ 0.3,\ 0.2]))}
+\DoxyCodeLine{01077\ \ \ \ \ refined\_boxes\ =\ box\_list\_ops.refine\_boxes\_multi\_class(pool,\ 3,\ 0.5,\ 10)}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01079\ \ \ \ \ expected\_boxes\ =\ [[0.1,\ 0.1,\ 0.425,\ 0.425],\ [0.6,\ 0.6,\ 0.8,\ 0.8],}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.2,\ 0.2,\ 0.3,\ 0.3]]}
+\DoxyCodeLine{01081\ \ \ \ \ expected\_scores\ =\ [0.5,\ 0.3,\ 0.2]}
+\DoxyCodeLine{01082\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ boxes\_out,\ scores\_out,\ extra\_field\_out\ =\ sess.run(}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ [refined\_boxes.get(),\ refined\_boxes.get\_field(\textcolor{stringliteral}{'scores'}),}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ refined\_boxes.get\_field(\textcolor{stringliteral}{'classes'})])}
+\DoxyCodeLine{01086\ }
+\DoxyCodeLine{01087\ \ \ \ \ \ \ self.assertAllClose(expected\_boxes,\ boxes\_out)}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ self.assertAllClose(expected\_scores,\ scores\_out)}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ self.assertAllEqual(extra\_field\_out,\ [0,\ 1,\ 1])}
+\DoxyCodeLine{01090\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac2046466abe9686d64a7b478850f4f53}\label{classdetection__utils_1_1core_1_1box__list__ops__test_1_1_box_refinement_test_ac2046466abe9686d64a7b478850f4f53} 
+\index{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}!test\_sample\_boxes\_by\_jittering@{test\_sample\_boxes\_by\_jittering}}
+\index{test\_sample\_boxes\_by\_jittering@{test\_sample\_boxes\_by\_jittering}!detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest@{detection\_utils.core.box\_list\_ops\_test.BoxRefinementTest}}
+\doxysubsubsection{\texorpdfstring{test\_sample\_boxes\_by\_jittering()}{test\_sample\_boxes\_by\_jittering()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+box\+\_\+list\+\_\+ops\+\_\+test.\+Box\+Refinement\+Test.\+test\+\_\+sample\+\_\+boxes\+\_\+by\+\_\+jittering (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{box__list__ops__test_8py_source_l01091}{1091}} of file \mbox{\hyperlink{box__list__ops__test_8py_source}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01091\ \ \ \textcolor{keyword}{def\ }test\_sample\_boxes\_by\_jittering(self):}
+\DoxyCodeLine{01092\ \ \ \ \ boxes\ =\ box\_list.BoxList(}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ tf.constant([[0.1,\ 0.1,\ 0.4,\ 0.4],}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.1,\ 0.1,\ 0.5,\ 0.5],}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.6,\ 0.6,\ 0.8,\ 0.8],}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.2,\ 0.2,\ 0.3,\ 0.3]],\ tf.float32))}
+\DoxyCodeLine{01097\ \ \ \ \ sampled\_boxes\ =\ box\_list\_ops.sample\_boxes\_by\_jittering(}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ boxlist=boxes,\ num\_boxes\_to\_sample=10)}
+\DoxyCodeLine{01099\ \ \ \ \ iou\ =\ box\_list\_ops.iou(boxes,\ sampled\_boxes)}
+\DoxyCodeLine{01100\ \ \ \ \ iou\_max\ =\ tf.reduce\_max(iou,\ axis=0)}
+\DoxyCodeLine{01101\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ (np\_sampled\_boxes,\ np\_iou\_max)\ =\ sess.run([sampled\_boxes.get(),\ iou\_max])}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ self.assertAllEqual(np\_sampled\_boxes.shape,\ [10,\ 4])}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ self.assertAllGreater(np\_iou\_max,\ 0.5)}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01106\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{box__list__ops__test_8py}{box\+\_\+list\+\_\+ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

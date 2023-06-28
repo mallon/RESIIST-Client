@@ -1,0 +1,99 @@
+\doxysection{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1vrd__evaluation}{}\label{namespacedetection__utils_1_1utils_1_1vrd__evaluation}\index{detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1___v_r_d_detection_evaluation}{\+\_\+\+VRDDetection\+Evaluation}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator}{VRDDetection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_phrase_detection_evaluator}{VRDPhrase\+Detection\+Evaluator}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_relation_detection_evaluator}{VRDRelation\+Detection\+Evaluator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1vrd__evaluation_aefd32b014d296a7000d76e558644b757}{vrd\+\_\+box\+\_\+data\+\_\+type}} = np.\+dtype(\mbox{[}(\textquotesingle{}subject\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,)), (\textquotesingle{}object\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,))\mbox{]})
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a7513ddbbde0291efefb8a71ccdf7036d}{single\+\_\+box\+\_\+data\+\_\+type}} = np.\+dtype(\mbox{[}(\textquotesingle{}box\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,))\mbox{]})
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a312dde5832167f8418c179ed7b4d000b}{label\+\_\+data\+\_\+type}}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a3629e2e1982a193bd19e0139741597ed}{VRDDetection\+Eval\+Metrics}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Evaluator class for Visual Relations Detection.
+
+VRDDetectionEvaluator is a class which manages ground truth information of a
+visual relations detection (vrd) dataset, and computes frequently used detection
+metrics such as Precision, Recall, Recall@k, of the provided vrd detection
+results.
+It supports the following operations:
+1) Adding ground truth information of images sequentially.
+2) Adding detection results of images sequentially.
+3) Evaluating detection metrics on already inserted detection results.
+
+Note1: groundtruth should be inserted before evaluation.
+Note2: This module operates on numpy boxes and box lists.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a312dde5832167f8418c179ed7b4d000b}\label{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a312dde5832167f8418c179ed7b4d000b} 
+\index{detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}!label\_data\_type@{label\_data\_type}}
+\index{label\_data\_type@{label\_data\_type}!detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}}
+\doxysubsubsection{\texorpdfstring{label\_data\_type}{label\_data\_type}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+label\+\_\+data\+\_\+type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ np.dtype([(\textcolor{stringliteral}{'subject'},\ \textcolor{stringliteral}{'i4'}),\ (\textcolor{stringliteral}{'object'},\ \textcolor{stringliteral}{'i4'}),\ (\textcolor{stringliteral}{'relation'},}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'i4'})])}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation_8py_source_l00057}{57}} of file \mbox{\hyperlink{vrd__evaluation_8py_source}{vrd\+\_\+evaluation.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a7513ddbbde0291efefb8a71ccdf7036d}\label{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a7513ddbbde0291efefb8a71ccdf7036d} 
+\index{detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}!single\_box\_data\_type@{single\_box\_data\_type}}
+\index{single\_box\_data\_type@{single\_box\_data\_type}!detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}}
+\doxysubsubsection{\texorpdfstring{single\_box\_data\_type}{single\_box\_data\_type}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+single\+\_\+box\+\_\+data\+\_\+type = np.\+dtype(\mbox{[}(\textquotesingle{}box\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,))\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation_8py_source_l00056}{56}} of file \mbox{\hyperlink{vrd__evaluation_8py_source}{vrd\+\_\+evaluation.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1utils_1_1vrd__evaluation_aefd32b014d296a7000d76e558644b757}\label{namespacedetection__utils_1_1utils_1_1vrd__evaluation_aefd32b014d296a7000d76e558644b757} 
+\index{detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}!vrd\_box\_data\_type@{vrd\_box\_data\_type}}
+\index{vrd\_box\_data\_type@{vrd\_box\_data\_type}!detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}}
+\doxysubsubsection{\texorpdfstring{vrd\_box\_data\_type}{vrd\_box\_data\_type}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+vrd\+\_\+box\+\_\+data\+\_\+type = np.\+dtype(\mbox{[}(\textquotesingle{}subject\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,)), (\textquotesingle{}object\textquotesingle{}, \textquotesingle{}f4\textquotesingle{}, (4,))\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation_8py_source_l00055}{55}} of file \mbox{\hyperlink{vrd__evaluation_8py_source}{vrd\+\_\+evaluation.\+py}}.
+
+\Hypertarget{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a3629e2e1982a193bd19e0139741597ed}\label{namespacedetection__utils_1_1utils_1_1vrd__evaluation_a3629e2e1982a193bd19e0139741597ed} 
+\index{detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}!VRDDetectionEvalMetrics@{VRDDetectionEvalMetrics}}
+\index{VRDDetectionEvalMetrics@{VRDDetectionEvalMetrics}!detection\_utils.utils.vrd\_evaluation@{detection\_utils.utils.vrd\_evaluation}}
+\doxysubsubsection{\texorpdfstring{VRDDetectionEvalMetrics}{VRDDetectionEvalMetrics}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Eval\+Metrics}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ collections.namedtuple(\textcolor{stringliteral}{'VRDDetectionEvalMetrics'},\ [}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'weighted\_average\_precision'},\ \textcolor{stringliteral}{'mean\_average\_precision'},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'average\_precisions'},\ \textcolor{stringliteral}{'precisions'},\ \textcolor{stringliteral}{'recalls'},\ \textcolor{stringliteral}{'recall\_50'},\ \textcolor{stringliteral}{'recall\_100'},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{'median\_rank\_50'},\ \textcolor{stringliteral}{'median\_rank\_100'}}
+\DoxyCodeLine{00005\ ])}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{vrd__evaluation_8py_source_l00414}{414}} of file \mbox{\hyperlink{vrd__evaluation_8py_source}{vrd\+\_\+evaluation.\+py}}.
+

@@ -1,0 +1,96 @@
+\doxysection{dataset\+\_\+util.\+py}
+\hypertarget{dataset__util_8py_source}{}\label{dataset__util_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/dataset\_util.py@{src/main/resources/processing/video/detections/detection\_utils/utils/dataset\_util.py}}
+\mbox{\hyperlink{dataset__util_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Utility\ functions\ for\ creating\ TFRecord\ data\ sets."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00020}00020\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00022}00022\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00025}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a9864671accec627bcbd893da64b9dd59}{00025}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a9864671accec627bcbd893da64b9dd59}{int64\_feature}}(value):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00026}00026\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(int64\_list=tf.train.Int64List(value=[value]))}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00029}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_afd86c5758aab34196ec94dc505272b97}{00029}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_afd86c5758aab34196ec94dc505272b97}{int64\_list\_feature}}(value):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00030}00030\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(int64\_list=tf.train.Int64List(value=value))}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00033}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a18bc707404908a5784d60d8e03793d86}{00033}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a18bc707404908a5784d60d8e03793d86}{bytes\_feature}}(value):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00034}00034\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(bytes\_list=tf.train.BytesList(value=[value]))}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00037}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_aceff65b8bc5431ecc23efc53c3b09c3e}{00037}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_aceff65b8bc5431ecc23efc53c3b09c3e}{bytes\_list\_feature}}(value):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00038}00038\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(bytes\_list=tf.train.BytesList(value=value))}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00041}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a34d6992592ade974f4f1335186c64b32}{00041}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a34d6992592ade974f4f1335186c64b32}{float\_list\_feature}}(value):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00042}00042\ \ \ \textcolor{keywordflow}{return}\ tf.train.Feature(float\_list=tf.train.FloatList(value=value))}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00045}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_abb17c7de257e5fd0f03fdbe7d4c527c3}{00045}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_abb17c7de257e5fd0f03fdbe7d4c527c3}{read\_examples\_list}}(path):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00046}00046\ \ \ \textcolor{stringliteral}{"{}"{}"{}Read\ list\ of\ training\ or\ validation\ examples.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00047}00047\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ The\ file\ }\textcolor{keywordflow}{is}\ assumed\ to\ contain\ a\ single\ example\ per\ line\ where\ the\ first}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00049}00049\ \ \ token\ \textcolor{keywordflow}{in}\ the\ line\ \textcolor{keywordflow}{is}\ an\ identifier\ that\ allows\ us\ to\ find\ the\ image\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00050}00050\ \ \ annotation\ xml\ \textcolor{keywordflow}{for}\ that\ example.}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00052}00052\ \ \ For\ example,\ the\ line:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00053}00053\ \ \ xyz\ 3}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00054}00054\ \ \ would\ allow\ us\ to\ find\ files\ xyz.jpg\ \textcolor{keywordflow}{and}\ xyz.xml\ (the\ 3\ would\ be\ ignored).}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00056}00056\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00057}00057\ \ \ \ \ path:\ absolute\ path\ to\ examples\ list\ file.}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00059}00059\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00060}00060\ \ \ \ \ list\ of\ example\ identifiers\ (strings).}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00061}00061\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00062}00062\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.gfile.GFile(path)\ \textcolor{keyword}{as}\ fid:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00063}00063\ \ \ \ \ lines\ =\ fid.readlines()}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00064}00064\ \ \ \textcolor{keywordflow}{return}\ [line.strip().split(\textcolor{stringliteral}{'\ '})[0]\ \textcolor{keywordflow}{for}\ line\ \textcolor{keywordflow}{in}\ lines]}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00067}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d}{00067}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d}{recursive\_parse\_xml\_to\_dict}}(xml):}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00068}00068\ \ \ \textcolor{stringliteral}{"{}"{}"{}Recursively\ parses\ XML\ contents\ to\ python\ dict.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00069}00069\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ We\ assume\ that\ \`{}object\`{}\ tags\ are\ the\ only\ ones\ that\ can\ appear}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ multiple\ times\ at\ the\ same\ level\ of\ a\ tree.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00072}00072\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ xml:\ xml\ tree\ obtained\ by\ parsing\ XML\ file\ contents\ using\ lxml.etree}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00075}00075\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00076}00076\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ Python\ dictionary\ holding\ XML\ contents.}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00078}00078\ \textcolor{stringliteral}{\ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00079}00079\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ xml:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \{xml.tag:\ xml.text\}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00081}00081\ \ \ result\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00082}00082\ \ \ \textcolor{keywordflow}{for}\ child\ \textcolor{keywordflow}{in}\ xml:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00083}00083\ \ \ \ \ child\_result\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1dataset__util_a707c986b9ae1658a357430bd689dcb2d}{recursive\_parse\_xml\_to\_dict}}(child)}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{if}\ child.tag\ !=\ \textcolor{stringliteral}{'object'}:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00085}00085\ \ \ \ \ \ \ result[child.tag]\ =\ child\_result[child.tag]}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00087}00087\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ child.tag\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ result:}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ result[child.tag]\ =\ []}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00089}00089\ \ \ \ \ \ \ result[child.tag].append(child\_result[child.tag])}
+\DoxyCodeLine{\Hypertarget{dataset__util_8py_source_l00090}00090\ \ \ \textcolor{keywordflow}{return}\ \{xml.tag:\ result\}}
+
+\end{DoxyCode}

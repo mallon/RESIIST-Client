@@ -1,0 +1,160 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test}\index{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{db/d4d/classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{d2/d5b/classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_ae0633e893f9f99e9cb649ba843b71a9d}{test\+Zero\+Image\+On\+Empty\+Mask}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a10130963846b514f8dc1778a4c3c37d8}{test\+Zero\+Box\+Masks}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a5c0f7c4c0824fa9eb913faa8efa19eab}{test\+Mask\+Is\+Centered\+In\+Image\+When\+Box\+Is\+Centered}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_af60d4caa9b516578d45ac76637fc4f79}{test\+Mask\+Off\+Center\+Remains\+Off\+Center\+In\+Image}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01093}{1093}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a5c0f7c4c0824fa9eb913faa8efa19eab}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a5c0f7c4c0824fa9eb913faa8efa19eab} 
+\index{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}!testMaskIsCenteredInImageWhenBoxIsCentered@{testMaskIsCenteredInImageWhenBoxIsCentered}}
+\index{testMaskIsCenteredInImageWhenBoxIsCentered@{testMaskIsCenteredInImageWhenBoxIsCentered}!detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}}
+\doxysubsubsection{\texorpdfstring{testMaskIsCenteredInImageWhenBoxIsCentered()}{testMaskIsCenteredInImageWhenBoxIsCentered()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test.\+test\+Mask\+Is\+Centered\+In\+Image\+When\+Box\+Is\+Centered (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01120}{1120}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01120\ \ \ \textcolor{keyword}{def\ }testMaskIsCenteredInImageWhenBoxIsCentered(self):}
+\DoxyCodeLine{01121\ \ \ \ \ box\_masks\ =\ tf.constant([[[1,\ 1],}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1]]],\ dtype=tf.float32)}
+\DoxyCodeLine{01123\ \ \ \ \ boxes\ =\ tf.constant([[0.25,\ 0.25,\ 0.75,\ 0.75]],\ dtype=tf.float32)}
+\DoxyCodeLine{01124\ \ \ \ \ image\_masks\ =\ ops.reframe\_box\_masks\_to\_image\_masks(box\_masks,\ boxes,}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_height=4,}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_width=4)}
+\DoxyCodeLine{01127\ \ \ \ \ np\_expected\_image\_masks\ =\ np.array([[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01132\ \ \ \ \ \ \ np\_image\_masks\ =\ sess.run(image\_masks)}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ self.assertAllClose(np\_image\_masks,\ np\_expected\_image\_masks)}
+\DoxyCodeLine{01134\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_af60d4caa9b516578d45ac76637fc4f79}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_af60d4caa9b516578d45ac76637fc4f79} 
+\index{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}!testMaskOffCenterRemainsOffCenterInImage@{testMaskOffCenterRemainsOffCenterInImage}}
+\index{testMaskOffCenterRemainsOffCenterInImage@{testMaskOffCenterRemainsOffCenterInImage}!detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}}
+\doxysubsubsection{\texorpdfstring{testMaskOffCenterRemainsOffCenterInImage()}{testMaskOffCenterRemainsOffCenterInImage()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test.\+test\+Mask\+Off\+Center\+Remains\+Off\+Center\+In\+Image (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01135}{1135}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01135\ \ \ \textcolor{keyword}{def\ }testMaskOffCenterRemainsOffCenterInImage(self):}
+\DoxyCodeLine{01136\ \ \ \ \ box\_masks\ =\ tf.constant([[[1,\ 0],}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1]]],\ dtype=tf.float32)}
+\DoxyCodeLine{01138\ \ \ \ \ boxes\ =\ tf.constant([[0.25,\ 0.5,\ 0.75,\ 1.0]],\ dtype=tf.float32)}
+\DoxyCodeLine{01139\ \ \ \ \ image\_masks\ =\ ops.reframe\_box\_masks\_to\_image\_masks(box\_masks,\ boxes,}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_height=4,}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_width=4)}
+\DoxyCodeLine{01142\ \ \ \ \ np\_expected\_image\_masks\ =\ np.array([[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0.6111111,\ 0.16666669],}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0.3888889,\ 0.83333337],}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{01146\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ np\_image\_masks\ =\ sess.run(image\_masks)}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ self.assertAllClose(np\_image\_masks,\ np\_expected\_image\_masks)}
+\DoxyCodeLine{01149\ }
+\DoxyCodeLine{01150\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a10130963846b514f8dc1778a4c3c37d8}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_a10130963846b514f8dc1778a4c3c37d8} 
+\index{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}!testZeroBoxMasks@{testZeroBoxMasks}}
+\index{testZeroBoxMasks@{testZeroBoxMasks}!detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}}
+\doxysubsubsection{\texorpdfstring{testZeroBoxMasks()}{testZeroBoxMasks()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test.\+test\+Zero\+Box\+Masks (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01110}{1110}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01110\ \ \ \textcolor{keyword}{def\ }testZeroBoxMasks(self):}
+\DoxyCodeLine{01111\ \ \ \ \ box\_masks\ =\ tf.zeros([0,\ 3,\ 3],\ dtype=tf.float32)}
+\DoxyCodeLine{01112\ \ \ \ \ boxes\ =\ tf.zeros([0,\ 4],\ dtype=tf.float32)}
+\DoxyCodeLine{01113\ \ \ \ \ image\_masks\ =\ ops.reframe\_box\_masks\_to\_image\_masks(box\_masks,\ boxes,}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_height=4,}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_width=4)}
+\DoxyCodeLine{01116\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ np\_image\_masks\ =\ sess.run(image\_masks)}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ self.assertAllEqual(np\_image\_masks.shape,\ np.array([0,\ 4,\ 4]))}
+\DoxyCodeLine{01119\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_ae0633e893f9f99e9cb649ba843b71a9d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reframe_box_masks_to_image_masks_test_ae0633e893f9f99e9cb649ba843b71a9d} 
+\index{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}!testZeroImageOnEmptyMask@{testZeroImageOnEmptyMask}}
+\index{testZeroImageOnEmptyMask@{testZeroImageOnEmptyMask}!detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest@{detection\_utils.utils.ops\_test.ReframeBoxMasksToImageMasksTest}}
+\doxysubsubsection{\texorpdfstring{testZeroImageOnEmptyMask()}{testZeroImageOnEmptyMask()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reframe\+Box\+Masks\+To\+Image\+Masks\+Test.\+test\+Zero\+Image\+On\+Empty\+Mask (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l01095}{1095}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01095\ \ \ \textcolor{keyword}{def\ }testZeroImageOnEmptyMask(self):}
+\DoxyCodeLine{01096\ \ \ \ \ box\_masks\ =\ tf.constant([[[0,\ 0],}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0]]],\ dtype=tf.float32)}
+\DoxyCodeLine{01098\ \ \ \ \ boxes\ =\ tf.constant([[0.0,\ 0.0,\ 1.0,\ 1.0]],\ dtype=tf.float32)}
+\DoxyCodeLine{01099\ \ \ \ \ image\_masks\ =\ ops.reframe\_box\_masks\_to\_image\_masks(box\_masks,\ boxes,}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_height=4,}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image\_width=4)}
+\DoxyCodeLine{01102\ \ \ \ \ np\_expected\_image\_masks\ =\ np.array([[[0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0]]],\ dtype=np.float32)}
+\DoxyCodeLine{01106\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ np\_image\_masks\ =\ sess.run(image\_masks)}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ self.assertAllClose(np\_image\_masks,\ np\_expected\_image\_masks)}
+\DoxyCodeLine{01109\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

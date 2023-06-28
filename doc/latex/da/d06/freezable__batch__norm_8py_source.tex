@@ -1,0 +1,74 @@
+\doxysection{freezable\+\_\+batch\+\_\+norm.\+py}
+\hypertarget{freezable__batch__norm_8py_source}{}\label{freezable__batch__norm_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/freezable\_batch\_norm.py@{src/main/resources/processing/video/detections/detection\_utils/core/freezable\_batch\_norm.py}}
+\mbox{\hyperlink{freezable__batch__norm_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1freezable__batch__norm}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2018\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}A\ freezable\ batch\ norm\ layer\ that\ uses\ Keras\ batch\ normalization."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00017}00017\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00020}\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm}{00020}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm}{FreezableBatchNorm}}(tf.keras.layers.BatchNormalization):}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00021}00021\ \ \ \textcolor{stringliteral}{"{}"{}"{}Batch\ normalization\ layer\ (Ioffe\ and\ Szegedy,\ 2014).}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ This\ }\textcolor{keywordflow}{is}\ a\ \`{}freezable\`{}\ batch\ norm\ layer\ that\ supports\ setting\ the\ \`{}training\`{}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00024}00024\ \ \ parameter\ \textcolor{keywordflow}{in}\ the\ \_\_init\_\_\ method\ rather\ than\ having\ to\ set\ it\ either\ via}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00025}00025\ \ \ the\ Keras\ learning\ phase\ \textcolor{keywordflow}{or}\ via\ the\ \`{}call\`{}\ method\ parameter.\ This\ layer\ will}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00026}00026\ \ \ forward\ all\ other\ parameters\ to\ the\ default\ Keras\ \`{}BatchNormalization\`{}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00027}00027\ \ \ layer}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00029}00029\ \ \ This\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{class\ }is\ necessary\ because\ Object\ Detection\ model\ training\ sometimes}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00030}00030\ \ \ requires\ batch\ normalization\ layers\ to\ be\ \`{}frozen\`{}\ \textcolor{keywordflow}{and}\ used\ \textcolor{keyword}{as}\ \textcolor{keywordflow}{if}\ it\ was}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00031}00031\ \ \ evaluation\ time,\ despite\ still\ training\ (\textcolor{keywordflow}{and}\ potentially\ using\ dropout\ layers)}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00033}00033\ \ \ Like\ the\ default\ Keras\ BatchNormalization\ layer,\ this\ will\ normalize\ the}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00034}00034\ \ \ activations\ of\ the\ previous\ layer\ at\ each\ batch,}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00035}00035\ \ \ i.e.\ applies\ a\ transformation\ that\ maintains\ the\ mean\ activation}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00036}00036\ \ \ close\ to\ 0\ \textcolor{keywordflow}{and}\ the\ activation\ standard\ deviation\ close\ to\ 1.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00038}00038\ \ \ Arguments:}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00039}00039\ \ \ \ \ training:\ If\ \textcolor{keyword}{False},\ the\ layer\ will\ normalize\ using\ the\ moving\ average\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00040}00040\ \ \ \ \ \ \ std.\ dev,\ without\ updating\ the\ learned\ avg\ \textcolor{keywordflow}{and}\ std.\ dev.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00041}00041\ \ \ \ \ \ \ If\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{or}\ \textcolor{keyword}{True},\ the\ layer\ will\ follow\ the\ keras\ BatchNormalization\ layer}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00042}00042\ \ \ \ \ \ \ strategy\ of\ checking\ the\ Keras\ learning\ phase\ at\ \`{}call\`{}\ time\ to\ decide}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00043}00043\ \ \ \ \ \ \ what\ to\ do.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00044}00044\ \ \ \ \ **kwargs:\ The\ keyword\ arguments\ to\ forward\ to\ the\ keras\ BatchNormalization}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ layer\ constructor.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00047}00047\ \ \ Input\ shape:}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00048}00048\ \ \ \ \ \ \ Arbitrary.\ Use\ the\ keyword\ argument\ \`{}input\_shape\`{}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00049}00049\ \ \ \ \ \ \ (tuple\ of\ integers,\ does\ \textcolor{keywordflow}{not}\ include\ the\ samples\ axis)}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00050}00050\ \ \ \ \ \ \ when\ using\ this\ layer\ \textcolor{keyword}{as}\ the\ first\ layer\ \textcolor{keywordflow}{in}\ a\ model.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00052}00052\ \ \ Output\ shape:}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00053}00053\ \ \ \ \ \ \ Same\ shape\ \textcolor{keyword}{as}\ input.}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00055}00055\ \ \ References:}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00056}00056\ \ \ \ \ \ \ -\/\ [Batch\ Normalization:\ Accelerating\ Deep\ Network\ Training\ by\ Reducing}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ Internal\ Covariate\ Shift](https://arxiv.org/abs/1502.03167)}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00058}00058\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00059}00059\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00060}\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_a6ee9dfa0690007da9532499b147abf02}{00060}}\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_a6ee9dfa0690007da9532499b147abf02}{\_\_init\_\_}}(self,\ training=None,\ **kwargs):}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00061}00061\ \ \ \ \ super(FreezableBatchNorm,\ self).\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_a6ee9dfa0690007da9532499b147abf02}{\_\_init\_\_}}(**kwargs)}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00062}\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_acddfca6f97ab7bf53ba7f124a2297b21}{00062}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_acddfca6f97ab7bf53ba7f124a2297b21}{\_training}}\ =\ training}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00064}\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_ac2e57fddc972ab932ba5795734f485b2}{00064}}\ \ \ \textcolor{keyword}{def\ }call(self,\ inputs,\ training=None):}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00065}00065\ \ \ \ \ \textcolor{comment}{\#\ Override\ the\ call\ arg\ only\ if\ the\ batchnorm\ is\ frozen.\ (Ignore\ None)}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_acddfca6f97ab7bf53ba7f124a2297b21}{\_training}}\ \textcolor{keywordflow}{is}\ \textcolor{keyword}{False}:\ \ \textcolor{comment}{\#\ pylint:\ disable=g-\/bool-\/id-\/comparison}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00067}00067\ \ \ \ \ \ \ training\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1freezable__batch__norm_1_1_freezable_batch_norm_acddfca6f97ab7bf53ba7f124a2297b21}{\_training}}}
+\DoxyCodeLine{\Hypertarget{freezable__batch__norm_8py_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{return}\ super(FreezableBatchNorm,\ self).call(inputs,\ training=training)}
+
+\end{DoxyCode}

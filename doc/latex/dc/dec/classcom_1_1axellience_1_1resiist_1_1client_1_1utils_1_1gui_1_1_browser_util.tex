@@ -1,0 +1,91 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+utils.\+gui.\+Browser\+Util Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util}\index{com.axellience.resiist.client.utils.gui.BrowserUtil@{com.axellience.resiist.client.utils.gui.BrowserUtil}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+utils.\+gui.\+Browser\+Util\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{d8/dfb/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165}{open\+Url\+In\+Browser}} (String url)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_ab8c74a7da9d118a16e2fa74a0224c784}{Browser\+Util}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_browser_util_8java_source_l00007}{7}} of file \mbox{\hyperlink{_browser_util_8java_source}{Browser\+Util.\+java}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_ab8c74a7da9d118a16e2fa74a0224c784}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_ab8c74a7da9d118a16e2fa74a0224c784} 
+\index{com.axellience.resiist.client.utils.gui.BrowserUtil@{com.axellience.resiist.client.utils.gui.BrowserUtil}!BrowserUtil@{BrowserUtil}}
+\index{BrowserUtil@{BrowserUtil}!com.axellience.resiist.client.utils.gui.BrowserUtil@{com.axellience.resiist.client.utils.gui.BrowserUtil}}
+\doxysubsubsection{\texorpdfstring{BrowserUtil()}{BrowserUtil()}}
+{\footnotesize\ttfamily com.\+axellience.\+resiist.\+client.\+utils.\+gui.\+Browser\+Util.\+Browser\+Util (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_browser_util_8java_source_l00009}{9}} of file \mbox{\hyperlink{_browser_util_8java_source}{Browser\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165} 
+\index{com.axellience.resiist.client.utils.gui.BrowserUtil@{com.axellience.resiist.client.utils.gui.BrowserUtil}!openUrlInBrowser@{openUrlInBrowser}}
+\index{openUrlInBrowser@{openUrlInBrowser}!com.axellience.resiist.client.utils.gui.BrowserUtil@{com.axellience.resiist.client.utils.gui.BrowserUtil}}
+\doxysubsubsection{\texorpdfstring{openUrlInBrowser()}{openUrlInBrowser()}}
+{\footnotesize\ttfamily static void com.\+axellience.\+resiist.\+client.\+utils.\+gui.\+Browser\+Util.\+open\+Url\+In\+Browser (\begin{DoxyParamCaption}\item[{String}]{url }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_browser_util_8java_source_l00013}{13}} of file \mbox{\hyperlink{_browser_util_8java_source}{Browser\+Util.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Desktop.isDesktopSupported())\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Desktop\ desktop\ =\ Desktop.getDesktop();}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (desktop.isSupported(Desktop.Action.BROWSE))\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ desktop.browse(URI.create(url));}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ |\ InternalError\ e)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/dec/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1gui_1_1_browser_util_a243f692da943bc94e8741e26acdbe165_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/utils/gui/\mbox{\hyperlink{_browser_util_8java}{Browser\+Util.\+java}}\end{DoxyCompactItemize}

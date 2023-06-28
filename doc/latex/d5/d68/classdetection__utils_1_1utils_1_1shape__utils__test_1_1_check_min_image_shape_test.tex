@@ -1,0 +1,92 @@
+\doxysection{detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Check\+Min\+Image\+Shape\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test}{}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test}\index{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest@{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Check\+Min\+Image\+Shape\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{d7/d1b/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Check\+Min\+Image\+Shape\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{d5/d57/classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_ab0ca27894d224e7a08cc33a2dd00c845}{test\+\_\+check\+\_\+min\+\_\+image\+\_\+dim\+\_\+static\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_a1d34af3a796c0a9ef105611cd6b6b746}{test\+\_\+check\+\_\+min\+\_\+image\+\_\+dim\+\_\+dynamic\+\_\+shape}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00237}{237}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_a1d34af3a796c0a9ef105611cd6b6b746}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_a1d34af3a796c0a9ef105611cd6b6b746} 
+\index{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest@{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest}!test\_check\_min\_image\_dim\_dynamic\_shape@{test\_check\_min\_image\_dim\_dynamic\_shape}}
+\index{test\_check\_min\_image\_dim\_dynamic\_shape@{test\_check\_min\_image\_dim\_dynamic\_shape}!detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest@{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_check\_min\_image\_dim\_dynamic\_shape()}{test\_check\_min\_image\_dim\_dynamic\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Check\+Min\+Image\+Shape\+Test.\+test\+\_\+check\+\_\+min\+\_\+image\+\_\+dim\+\_\+dynamic\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00247}{247}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00247\ \ \ \textcolor{keyword}{def\ }test\_check\_min\_image\_dim\_dynamic\_shape(self):}
+\DoxyCodeLine{00248\ \ \ \ \ input\_placeholder\ =\ tf.placeholder(tf.float32,\ shape=[1,\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ 3])}
+\DoxyCodeLine{00249\ \ \ \ \ image\_tensor\ =\ shape\_utils.check\_min\_image\_dim(33,\ input\_placeholder)}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ sess.run(image\_tensor,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{input\_placeholder:\ np.zeros([1,\ 42,\ 42,\ 3])\})}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.InvalidArgumentError):}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ sess.run(image\_tensor,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{input\_placeholder:\ np.zeros([1,\ 32,\ 32,\ 3])\})}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_ab0ca27894d224e7a08cc33a2dd00c845}\label{classdetection__utils_1_1utils_1_1shape__utils__test_1_1_check_min_image_shape_test_ab0ca27894d224e7a08cc33a2dd00c845} 
+\index{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest@{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest}!test\_check\_min\_image\_dim\_static\_shape@{test\_check\_min\_image\_dim\_static\_shape}}
+\index{test\_check\_min\_image\_dim\_static\_shape@{test\_check\_min\_image\_dim\_static\_shape}!detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest@{detection\_utils.utils.shape\_utils\_test.CheckMinImageShapeTest}}
+\doxysubsubsection{\texorpdfstring{test\_check\_min\_image\_dim\_static\_shape()}{test\_check\_min\_image\_dim\_static\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+shape\+\_\+utils\+\_\+test.\+Check\+Min\+Image\+Shape\+Test.\+test\+\_\+check\+\_\+min\+\_\+image\+\_\+dim\+\_\+static\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{shape__utils__test_8py_source_l00239}{239}} of file \mbox{\hyperlink{shape__utils__test_8py_source}{shape\+\_\+utils\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{def\ }test\_check\_min\_image\_dim\_static\_shape(self):}
+\DoxyCodeLine{00240\ \ \ \ \ input\_tensor\ =\ tf.constant(np.zeros([1,\ 42,\ 42,\ 3]))}
+\DoxyCodeLine{00241\ \ \ \ \ \_\ =\ shape\_utils.check\_min\_image\_dim(33,\ input\_tensor)}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'image\ size\ must\ be\ >=\ 64\ in\ both\ height\ and\ width.'}):}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \_\ =\ shape\_utils.check\_min\_image\_dim(64,\ input\_tensor)}
+\DoxyCodeLine{00246\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{shape__utils__test_8py}{shape\+\_\+utils\+\_\+test.\+py}}\end{DoxyCompactItemize}

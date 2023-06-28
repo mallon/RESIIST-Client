@@ -1,0 +1,199 @@
+\doxysection{metrics.\+py}
+\hypertarget{metrics_8py_source}{}\label{metrics_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/metrics.py@{src/main/resources/processing/video/detections/detection\_utils/utils/metrics.py}}
+\mbox{\hyperlink{metrics_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Functions\ for\ computing\ metrics\ like\ precision,\ recall,\ CorLoc\ and\ etc."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00016}00016\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00020}00020\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00021}00021\ \textcolor{keyword}{from}\ six.moves\ \textcolor{keyword}{import}\ range}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00024}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_aa5958d51e1d62d49fa7cf782d046b674}{00024}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_aa5958d51e1d62d49fa7cf782d046b674}{compute\_precision\_recall}}(scores,\ labels,\ num\_gt):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00025}00025\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ precision\ and\ recall.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ scores:\ A\ float\ numpy\ array\ representing\ detection\ score}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ \ \ labels:\ A\ float\ numpy\ array\ representing\ weighted\ true/false\ positive\ labels}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ num\_gt:\ Number\ of\ ground\ truth\ instances}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00031}00031\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ Raises:}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ ValueError:\ }\textcolor{keywordflow}{if}\ the\ input\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ of\ the\ correct\ format}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00035}00035\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00036}00036\ \ \ \ \ precision:\ Fraction\ of\ positive\ instances\ over\ detected\ ones.\ This\ value\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00037}00037\ \ \ \ \ \ \ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ no\ ground\ truth\ labels\ are\ present.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00038}00038\ \ \ \ \ recall:\ Fraction\ of\ detected\ positive\ instance\ over\ all\ positive\ instances.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00039}00039\ \ \ \ \ \ \ This\ value\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{if}\ no\ ground\ truth\ labels\ are\ present.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00041}00041\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00042}00042\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(labels,\ np.ndarray)\ \textcolor{keywordflow}{or}\ len(labels.shape)\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}labels\ must\ be\ single\ dimension\ numpy\ array"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00045}00045\ \ \ \textcolor{keywordflow}{if}\ labels.dtype\ !=\ np.float\ \textcolor{keywordflow}{and}\ labels.dtype\ !=\ np.bool:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}labels\ type\ must\ be\ either\ bool\ or\ float"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00048}00048\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(scores,\ np.ndarray)\ \textcolor{keywordflow}{or}\ len(scores.shape)\ !=\ 1:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}scores\ must\ be\ single\ dimension\ numpy\ array"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00051}00051\ \ \ \textcolor{keywordflow}{if}\ num\_gt\ <\ np.sum(labels):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Number\ of\ true\ positives\ must\ be\ smaller\ than\ num\_gt."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00054}00054\ \ \ \textcolor{keywordflow}{if}\ len(scores)\ !=\ len(labels):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}scores\ and\ labels\ must\ be\ of\ the\ same\ size."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00057}00057\ \ \ \textcolor{keywordflow}{if}\ num\_gt\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00060}00060\ \ \ sorted\_indices\ =\ np.argsort(scores)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00061}00061\ \ \ sorted\_indices\ =\ sorted\_indices[::-\/1]}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00062}00062\ \ \ true\_positive\_labels\ =\ labels[sorted\_indices]}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00063}00063\ \ \ false\_positive\_labels\ =\ (true\_positive\_labels\ <=\ 0).astype(float)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00064}00064\ \ \ cum\_true\_positives\ =\ np.cumsum(true\_positive\_labels)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00065}00065\ \ \ cum\_false\_positives\ =\ np.cumsum(false\_positive\_labels)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00066}00066\ \ \ precision\ =\ cum\_true\_positives.astype(float)\ /\ (}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00067}00067\ \ \ \ \ \ \ cum\_true\_positives\ +\ cum\_false\_positives)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00068}00068\ \ \ recall\ =\ cum\_true\_positives.astype(float)\ /\ num\_gt}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00069}00069\ \ \ \textcolor{keywordflow}{return}\ precision,\ recall}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00072}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a0f0aef1fb969045b86737668191fde81}{00072}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a0f0aef1fb969045b86737668191fde81}{compute\_average\_precision}}(precision,\ recall):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00073}00073\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ Average\ Precision\ according\ to\ the\ definition\ in\ VOCdevkit.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00074}00074\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00075}00075\ \textcolor{stringliteral}{\ \ Precision\ }\textcolor{keywordflow}{is}\ modified\ to\ ensure\ that\ it\ does\ \textcolor{keywordflow}{not}\ decrease\ \textcolor{keyword}{as}\ recall}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00076}00076\ \ \ decrease.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00078}00078\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00079}00079\ \ \ \ \ precision:\ A\ float\ [N,\ 1]\ numpy\ array\ of\ precisions}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00080}00080\ \ \ \ \ recall:\ A\ float\ [N,\ 1]\ numpy\ array\ of\ recalls}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00082}00082\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00083}00083\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ the\ input\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ of\ the\ correct\ format}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00085}00085\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00086}00086\ \ \ \ \ average\_precison:\ The\ area\ under\ the\ precision\ recall\ curve.\ NaN\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00087}00087\ \ \ \ \ \ \ precision\ \textcolor{keywordflow}{and}\ recall\ are\ \textcolor{keywordtype}{None}.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00089}00089\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00090}00090\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ precision\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{if}\ recall\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00092}00092\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}If\ precision\ is\ None,\ recall\ must\ also\ be\ None"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{return}\ np.NAN}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00095}00095\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(precision,\ np.ndarray)\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ isinstance(}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00096}00096\ \ \ \ \ \ \ recall,\ np.ndarray):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}precision\ and\ recall\ must\ be\ numpy\ array"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00098}00098\ \ \ \textcolor{keywordflow}{if}\ precision.dtype\ !=\ np.float\ \textcolor{keywordflow}{or}\ recall.dtype\ !=\ np.float:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}input\ must\ be\ float\ numpy\ array."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00100}00100\ \ \ \textcolor{keywordflow}{if}\ len(precision)\ !=\ len(recall):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}precision\ and\ recall\ must\ be\ of\ the\ same\ size."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00102}00102\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ precision.size:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00104}00104\ \ \ \textcolor{keywordflow}{if}\ np.amin(precision)\ <\ 0\ \textcolor{keywordflow}{or}\ np.amax(precision)\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}Precision\ must\ be\ in\ the\ range\ of\ [0,\ 1]."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00106}00106\ \ \ \textcolor{keywordflow}{if}\ np.amin(recall)\ <\ 0\ \textcolor{keywordflow}{or}\ np.amax(recall)\ >\ 1:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}recall\ must\ be\ in\ the\ range\ of\ [0,\ 1]."{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00108}00108\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(recall[i]\ <=\ recall[i\ +\ 1]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(recall)\ -\/\ 1)):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{"{}recall\ must\ be\ a\ non-\/decreasing\ array"{}})}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00111}00111\ \ \ recall\ =\ np.concatenate([[0],\ recall,\ [1]])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00112}00112\ \ \ precision\ =\ np.concatenate([[0],\ precision,\ [0]])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00114}00114\ \ \ \textcolor{comment}{\#\ Preprocess\ precision\ to\ be\ a\ non-\/decreasing\ array}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00115}00115\ \ \ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(precision)\ -\/\ 2,\ -\/1,\ -\/1):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00116}00116\ \ \ \ \ precision[i]\ =\ np.maximum(precision[i],\ precision[i\ +\ 1])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00118}00118\ \ \ indices\ =\ np.where(recall[1:]\ !=\ recall[:-\/1])[0]\ +\ 1}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00119}00119\ \ \ average\_precision\ =\ np.sum(}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00120}00120\ \ \ \ \ \ \ (recall[indices]\ -\/\ recall[indices\ -\/\ 1])\ *\ precision[indices])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00121}00121\ \ \ \textcolor{keywordflow}{return}\ average\_precision}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00124}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a7c2abf31157d3c5d95e47a1b8f2d3af3}{00124}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a7c2abf31157d3c5d95e47a1b8f2d3af3}{compute\_cor\_loc}}(num\_gt\_imgs\_per\_class,}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00126}00126\ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ CorLoc\ according\ to\ the\ definition\ in\ the\ following\ paper.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00127}00127\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ https://www.robots.ox.ac.uk/\string~vgg/rg/papers/deselaers-\/eccv10.pdf}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00129}00129\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00130}00130\ \textcolor{stringliteral}{\ \ Returns\ nans\ }\textcolor{keywordflow}{if}\ there\ are\ no\ ground\ truth\ images\ \textcolor{keywordflow}{for}\ a\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00132}00132\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00133}00133\ \ \ \ \ num\_gt\_imgs\_per\_class:\ 1D\ array,\ representing\ number\ of\ images\ containing}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ at\ least\ one\ object\ instance\ of\ a\ particular\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00135}00135\ \ \ \ \ num\_images\_correctly\_detected\_per\_class:\ 1D\ array,\ representing\ number\ of}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ images\ that\ are\ correctly\ detected\ at\ least\ one\ object\ instance\ of\ a}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ particular\ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00139}00139\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00140}00140\ \ \ \ \ corloc\_per\_class:\ A\ float\ numpy\ array\ represents\ the\ corloc\ score\ of\ each}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00141}00141\ \ \ \ \ \ \ \textcolor{keyword}{class}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00142}00142\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ np.where(}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00144}00144\ \ \ \ \ \ \ num\_gt\_imgs\_per\_class\ ==\ 0,\ np.nan,}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00145}00145\ \ \ \ \ \ \ num\_images\_correctly\_detected\_per\_class\ /\ num\_gt\_imgs\_per\_class)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00148}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_aea6346c967800d2ec215d698fbf39082}{00148}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_aea6346c967800d2ec215d698fbf39082}{compute\_median\_rank\_at\_k}}(tp\_fp\_list,\ k):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00149}00149\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ MedianRank@k,\ where\ k\ is\ the\ top-\/scoring\ labels.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00150}00150\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ tp\_fp\_list:\ a\ list\ of\ numpy\ arrays;\ each\ numpy\ array\ corresponds\ to\ the\ all}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00153}00153\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detection\ on\ a\ single\ image,\ where\ the\ detections\ are\ sorted\ by\ score\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ descending\ order.\ Further,\ each\ numpy\ array\ element\ can\ have\ boolean\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ float\ values.\ \textcolor{keyword}{True}\ positive\ elements\ have\ either\ value\ >0.0\ \textcolor{keywordflow}{or}\ \textcolor{keyword}{True};}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ any\ other\ value\ \textcolor{keywordflow}{is}\ considered\ false\ positive.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00157}00157\ \ \ \ \ k:\ number\ of\ top-\/scoring\ proposals\ to\ take.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00159}00159\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00160}00160\ \ \ \ \ median\_rank:\ median\ rank\ of\ all\ true\ positive\ proposals\ among\ top\ k\ by}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00161}00161\ \ \ \ \ \ \ score.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00162}00162\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00163}00163\ \textcolor{stringliteral}{\ \ ranks\ =\ []}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00164}00164\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(tp\_fp\_list)):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00165}00165\ \ \ \ \ ranks.append(}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ np.where(tp\_fp\_list[i][0:min(k,\ tp\_fp\_list[i].shape[0])]\ >\ 0)[0])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00167}00167\ \ \ concatenated\_ranks\ =\ np.concatenate(ranks)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00168}00168\ \ \ \textcolor{keywordflow}{return}\ np.median(concatenated\_ranks)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00171}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a27dea25701e731a64eb95c6244ca5bc0}{00171}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1metrics_a27dea25701e731a64eb95c6244ca5bc0}{compute\_recall\_at\_k}}(tp\_fp\_list,\ num\_gt,\ k):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00172}00172\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ Recall@k,\ MedianRank@k,\ where\ k\ is\ the\ top-\/scoring\ labels.}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00173}00173\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00174}00174\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00175}00175\ \textcolor{stringliteral}{\ \ \ \ tp\_fp\_list:\ a\ list\ of\ numpy\ arrays;\ each\ numpy\ array\ corresponds\ to\ the\ all}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00176}00176\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ detection\ on\ a\ single\ image,\ where\ the\ detections\ are\ sorted\ by\ score\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ descending\ order.\ Further,\ each\ numpy\ array\ element\ can\ have\ boolean\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ float\ values.\ \textcolor{keyword}{True}\ positive\ elements\ have\ either\ value\ >0.0\ \textcolor{keywordflow}{or}\ \textcolor{keyword}{True};}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ any\ other\ value\ \textcolor{keywordflow}{is}\ considered\ false\ positive.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00180}00180\ \ \ \ \ num\_gt:\ number\ of\ groundtruth\ anotations.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00181}00181\ \ \ \ \ k:\ number\ of\ top-\/scoring\ proposals\ to\ take.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00183}00183\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00184}00184\ \ \ \ \ recall:\ recall\ evaluated\ on\ the\ top\ k\ by\ score\ detections.}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00185}00185\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00186}00186\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00187}00187\ \textcolor{stringliteral}{\ \ tp\_fp\_eval\ =\ []}}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00188}00188\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(len(tp\_fp\_list)):}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00189}00189\ \ \ \ \ tp\_fp\_eval.append(tp\_fp\_list[i][0:min(k,\ tp\_fp\_list[i].shape[0])])}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00191}00191\ \ \ tp\_fp\_eval\ =\ np.concatenate(tp\_fp\_eval)}
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{metrics_8py_source_l00193}00193\ \ \ \textcolor{keywordflow}{return}\ np.sum(tp\_fp\_eval)\ /\ num\_gt}
+
+\end{DoxyCode}

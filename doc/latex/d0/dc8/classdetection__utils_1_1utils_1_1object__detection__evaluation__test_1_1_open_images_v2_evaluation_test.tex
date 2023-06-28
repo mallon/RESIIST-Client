@@ -1,0 +1,132 @@
+\doxysection{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+V2\+Evaluation\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test}{}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test}\index{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+V2\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d8/d73/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+V2\+Evaluation\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{db/de3/classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test_a635597274a0bf32c46cd821fa5f2c823}{test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test_a635597274a0bf32c46cd821fa5f2c823}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation__test_1_1_open_images_v2_evaluation_test_a635597274a0bf32c46cd821fa5f2c823} 
+\index{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest}!test\_returns\_correct\_metric\_values@{test\_returns\_correct\_metric\_values}}
+\index{test\_returns\_correct\_metric\_values@{test\_returns\_correct\_metric\_values}!detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest@{detection\_utils.utils.object\_detection\_evaluation\_test.OpenImagesV2EvaluationTest}}
+\doxysubsubsection{\texorpdfstring{test\_returns\_correct\_metric\_values()}{test\_returns\_correct\_metric\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation\+\_\+test.\+Open\+Images\+V2\+Evaluation\+Test.\+test\+\_\+returns\+\_\+correct\+\_\+metric\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation__test_8py_source_l00033}{33}} of file \mbox{\hyperlink{object__detection__evaluation__test_8py_source}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{def\ }test\_returns\_correct\_metric\_values(self):}
+\DoxyCodeLine{00034\ \ \ \ \ categories\ =\ [\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 1,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'cat'}}
+\DoxyCodeLine{00037\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 2,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'dog'}}
+\DoxyCodeLine{00040\ \ \ \ \ \},\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}:\ 3,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ \textcolor{stringliteral}{'elephant'}}
+\DoxyCodeLine{00043\ \ \ \ \ \}]}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ oiv2\_evaluator\ =\ object\_detection\_evaluation.OpenImagesDetectionEvaluator(}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ categories)}
+\DoxyCodeLine{00047\ \ \ \ \ image\_key1\ =\ \textcolor{stringliteral}{'img1'}}
+\DoxyCodeLine{00048\ \ \ \ \ groundtruth\_boxes1\ =\ np.array(}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1,\ 1],\ [0,\ 0,\ 2,\ 2],\ [0,\ 0,\ 3,\ 3]],\ dtype=float)}
+\DoxyCodeLine{00050\ \ \ \ \ groundtruth\_class\_labels1\ =\ np.array([1,\ 3,\ 1],\ dtype=int)}
+\DoxyCodeLine{00051\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key1,\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes1,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels1,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ np.array([],\ dtype=bool)}
+\DoxyCodeLine{00058\ \ \ \ \ \})}
+\DoxyCodeLine{00059\ \ \ \ \ image\_key2\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00060\ \ \ \ \ groundtruth\_boxes2\ =\ np.array(}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [500,\ 500,\ 510,\ 510],\ [10,\ 10,\ 12,\ 12]],\ dtype=float)}
+\DoxyCodeLine{00062\ \ \ \ \ groundtruth\_class\_labels2\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00063\ \ \ \ \ groundtruth\_is\_group\_of\_list2\ =\ np.array([\textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ dtype=bool)}
+\DoxyCodeLine{00064\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key2,\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes2,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels2,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_group\_of:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_is\_group\_of\_list2}
+\DoxyCodeLine{00071\ \ \ \ \ \})}
+\DoxyCodeLine{00072\ \ \ \ \ image\_key3\ =\ \textcolor{stringliteral}{'img3'}}
+\DoxyCodeLine{00073\ \ \ \ \ groundtruth\_boxes3\ =\ np.array([[0,\ 0,\ 1,\ 1]],\ dtype=float)}
+\DoxyCodeLine{00074\ \ \ \ \ groundtruth\_class\_labels3\ =\ np.array([2],\ dtype=int)}
+\DoxyCodeLine{00075\ \ \ \ \ oiv2\_evaluator.add\_single\_ground\_truth\_image\_info(image\_key3,\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_boxes:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes3,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ standard\_fields.InputDataFields.groundtruth\_classes:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_class\_labels3}
+\DoxyCodeLine{00080\ \ \ \ \ \})}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{\#\ Add\ detections}}
+\DoxyCodeLine{00082\ \ \ \ \ image\_key\ =\ \textcolor{stringliteral}{'img2'}}
+\DoxyCodeLine{00083\ \ \ \ \ detected\_boxes\ =\ np.array(}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ [[10,\ 10,\ 11,\ 11],\ [100,\ 100,\ 120,\ 120],\ [100,\ 100,\ 220,\ 220]],}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ dtype=float)}
+\DoxyCodeLine{00086\ \ \ \ \ detected\_class\_labels\ =\ np.array([1,\ 1,\ 3],\ dtype=int)}
+\DoxyCodeLine{00087\ \ \ \ \ detected\_scores\ =\ np.array([0.7,\ 0.8,\ 0.9],\ dtype=float)}
+\DoxyCodeLine{00088\ \ \ \ \ oiv2\_evaluator.add\_single\_detected\_image\_info(image\_key,\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_boxes:}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_boxes,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_scores:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_scores,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ standard\_fields.DetectionResultFields.detection\_classes:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ detected\_class\_labels}
+\DoxyCodeLine{00095\ \ \ \ \ \})}
+\DoxyCodeLine{00096\ \ \ \ \ metrics\ =\ oiv2\_evaluator.evaluate()}
+\DoxyCodeLine{00097\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/dog'}],\ 0.0)}
+\DoxyCodeLine{00099\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/elephant'}],\ 0.0)}
+\DoxyCodeLine{00101\ \ \ \ \ self.assertAlmostEqual(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ metrics[\textcolor{stringliteral}{'OpenImagesV2\_PerformanceByCategory/AP@0.5IOU/cat'}],\ 0.16666666)}
+\DoxyCodeLine{00103\ \ \ \ \ self.assertAlmostEqual(metrics[\textcolor{stringliteral}{'OpenImagesV2\_Precision/mAP@0.5IOU'}],}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.05555555)}
+\DoxyCodeLine{00105\ \ \ \ \ oiv2\_evaluator.clear()}
+\DoxyCodeLine{00106\ \ \ \ \ self.assertFalse(oiv2\_evaluator.\_image\_ids)}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{object__detection__evaluation__test_8py}{object\+\_\+detection\+\_\+evaluation\+\_\+test.\+py}}\end{DoxyCompactItemize}

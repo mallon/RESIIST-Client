@@ -1,0 +1,31 @@
+\doxysection{detection\+\_\+utils.\+core.\+matcher Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1core_1_1matcher}{}\label{namespacedetection__utils_1_1core_1_1matcher}\index{detection\_utils.core.matcher@{detection\_utils.core.matcher}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{Match}}
+\item 
+class \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_matcher}{Matcher}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Matcher interface and Match class.
+
+This module defines the Matcher interface and the Match object. The job of the
+matcher is to match row and column indices based on the similarity matrix and
+other optional parameters. Each column is matched to at most one row. There
+are three possibilities for the matching:
+
+1) match: A column matches a row.
+2) no_match: A column does not match any row.
+3) ignore: A column that is neither 'match' nor no_match.
+
+The ignore case is regularly encountered in object detection: when an anchor has
+a relatively small overlap with a ground-truth box, one neither wants to
+consider this box a positive example (match) nor a negative example (no match).
+
+The Match class is used to store the match results and it provides simple apis
+to query the results.
+\end{DoxyVerb}
+ 

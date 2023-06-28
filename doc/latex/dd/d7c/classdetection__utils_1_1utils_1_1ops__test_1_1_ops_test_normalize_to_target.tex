@@ -1,0 +1,201 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target}\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{da/d03/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{d9/d02/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aacd440a36aacf64a67f99d9d915c2b3f}{test\+\_\+create\+\_\+normalize\+\_\+to\+\_\+target}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a3448eae5faf9a6f2f9adef907292e2b1}{test\+\_\+invalid\+\_\+dim}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a5af98e3ddc51027d2b7426847e9126f6}{test\+\_\+invalid\+\_\+target\+\_\+norm\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4cb06e7042031e85ea2c7d4fe93777e4}{test\+\_\+correct\+\_\+output\+\_\+shape}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4f6225b86db854ed988bbea4b39cc022}{test\+\_\+correct\+\_\+initial\+\_\+output\+\_\+values}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aeb10a03b0fb07dc26e7bebdda6ac8f0c}{test\+\_\+multiple\+\_\+target\+\_\+norm\+\_\+values}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00754}{754}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4f6225b86db854ed988bbea4b39cc022}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4f6225b86db854ed988bbea4b39cc022} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_correct\_initial\_output\_values@{test\_correct\_initial\_output\_values}}
+\index{test\_correct\_initial\_output\_values@{test\_correct\_initial\_output\_values}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_correct\_initial\_output\_values()}{test\_correct\_initial\_output\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+correct\+\_\+initial\+\_\+output\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00792}{792}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00792\ \ \ \textcolor{keyword}{def\ }test\_correct\_initial\_output\_values(self):}
+\DoxyCodeLine{00793\ \ \ \ \ inputs\ =\ tf.constant([[[[3,\ 4],\ [7,\ 24]],}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ -\/12],\ [-\/1,\ 0]]]],\ tf.float32)}
+\DoxyCodeLine{00795\ \ \ \ \ target\_norm\_value\ =\ 10.0}
+\DoxyCodeLine{00796\ \ \ \ \ dim\ =\ 3}
+\DoxyCodeLine{00797\ \ \ \ \ expected\_output\ =\ [[[[30/5.0,\ 40/5.0],\ [70/25.0,\ 240/25.0]],}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[50/13.0,\ -\/120/13.0],\ [-\/10,\ 0]]]]}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ normalized\_inputs\ =\ ops.normalize\_to\_target(inputs,\ target\_norm\_value,}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim)}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ sess.run(tf.global\_variables\_initializer())}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ output\ =\ normalized\_inputs.eval()}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ self.assertAllClose(output,\ expected\_output)}
+\DoxyCodeLine{00805\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4cb06e7042031e85ea2c7d4fe93777e4}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a4cb06e7042031e85ea2c7d4fe93777e4} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_correct\_output\_shape@{test\_correct\_output\_shape}}
+\index{test\_correct\_output\_shape@{test\_correct\_output\_shape}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_correct\_output\_shape()}{test\_correct\_output\_shape()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+correct\+\_\+output\+\_\+shape (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00783}{783}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00783\ \ \ \textcolor{keyword}{def\ }test\_correct\_output\_shape(self):}
+\DoxyCodeLine{00784\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 10,\ 12,\ 3])}
+\DoxyCodeLine{00785\ \ \ \ \ target\_norm\_value\ =\ 4.0}
+\DoxyCodeLine{00786\ \ \ \ \ dim\ =\ 3}
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ output\ =\ ops.normalize\_to\_target(inputs,\ target\_norm\_value,\ dim)}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ self.assertEqual(output.get\_shape().as\_list(),}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs.get\_shape().as\_list())}
+\DoxyCodeLine{00791\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aacd440a36aacf64a67f99d9d915c2b3f}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aacd440a36aacf64a67f99d9d915c2b3f} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_create\_normalize\_to\_target@{test\_create\_normalize\_to\_target}}
+\index{test\_create\_normalize\_to\_target@{test\_create\_normalize\_to\_target}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_create\_normalize\_to\_target()}{test\_create\_normalize\_to\_target()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+create\+\_\+normalize\+\_\+to\+\_\+target (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00756}{756}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00756\ \ \ \textcolor{keyword}{def\ }test\_create\_normalize\_to\_target(self):}
+\DoxyCodeLine{00757\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 10,\ 12,\ 3])}
+\DoxyCodeLine{00758\ \ \ \ \ target\_norm\_value\ =\ 4.0}
+\DoxyCodeLine{00759\ \ \ \ \ dim\ =\ 3}
+\DoxyCodeLine{00760\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ output\ =\ ops.normalize\_to\_target(inputs,\ target\_norm\_value,\ dim)}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ self.assertEqual(output.op.name,\ \textcolor{stringliteral}{'NormalizeToTarget/mul'})}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ var\_name\ =\ tf.contrib.framework.get\_variables()[0].name}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ self.assertEqual(var\_name,\ \textcolor{stringliteral}{'NormalizeToTarget/weights:0'})}
+\DoxyCodeLine{00765\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a3448eae5faf9a6f2f9adef907292e2b1}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a3448eae5faf9a6f2f9adef907292e2b1} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_invalid\_dim@{test\_invalid\_dim}}
+\index{test\_invalid\_dim@{test\_invalid\_dim}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_invalid\_dim()}{test\_invalid\_dim()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+invalid\+\_\+dim (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00766}{766}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00766\ \ \ \textcolor{keyword}{def\ }test\_invalid\_dim(self):}
+\DoxyCodeLine{00767\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 10,\ 12,\ 3])}
+\DoxyCodeLine{00768\ \ \ \ \ target\_norm\_value\ =\ 4.0}
+\DoxyCodeLine{00769\ \ \ \ \ dim\ =\ 10}
+\DoxyCodeLine{00770\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ ValueError,}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'dim\ must\ be\ non-\/negative\ but\ smaller\ than\ the\ input\ rank.'}):}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ ops.normalize\_to\_target(inputs,\ target\_norm\_value,\ dim)}
+\DoxyCodeLine{00774\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a5af98e3ddc51027d2b7426847e9126f6}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_a5af98e3ddc51027d2b7426847e9126f6} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_invalid\_target\_norm\_values@{test\_invalid\_target\_norm\_values}}
+\index{test\_invalid\_target\_norm\_values@{test\_invalid\_target\_norm\_values}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_invalid\_target\_norm\_values()}{test\_invalid\_target\_norm\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+invalid\+\_\+target\+\_\+norm\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00775}{775}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00775\ \ \ \textcolor{keyword}{def\ }test\_invalid\_target\_norm\_values(self):}
+\DoxyCodeLine{00776\ \ \ \ \ inputs\ =\ tf.random\_uniform([5,\ 10,\ 12,\ 3])}
+\DoxyCodeLine{00777\ \ \ \ \ target\_norm\_value\ =\ [4.0,\ 4.0]}
+\DoxyCodeLine{00778\ \ \ \ \ dim\ =\ 3}
+\DoxyCodeLine{00779\ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaisesRegexp(}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ ValueError,\ \textcolor{stringliteral}{'target\_norm\_value\ must\ be\ a\ float\ or\ a\ list\ of\ floats'}):}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ ops.normalize\_to\_target(inputs,\ target\_norm\_value,\ dim)}
+\DoxyCodeLine{00782\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aeb10a03b0fb07dc26e7bebdda6ac8f0c}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_normalize_to_target_aeb10a03b0fb07dc26e7bebdda6ac8f0c} 
+\index{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}!test\_multiple\_target\_norm\_values@{test\_multiple\_target\_norm\_values}}
+\index{test\_multiple\_target\_norm\_values@{test\_multiple\_target\_norm\_values}!detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget@{detection\_utils.utils.ops\_test.OpsTestNormalizeToTarget}}
+\doxysubsubsection{\texorpdfstring{test\_multiple\_target\_norm\_values()}{test\_multiple\_target\_norm\_values()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Normalize\+To\+Target.\+test\+\_\+multiple\+\_\+target\+\_\+norm\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00806}{806}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00806\ \ \ \textcolor{keyword}{def\ }test\_multiple\_target\_norm\_values(self):}
+\DoxyCodeLine{00807\ \ \ \ \ inputs\ =\ tf.constant([[[[3,\ 4],\ [7,\ 24]],}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[5,\ -\/12],\ [-\/1,\ 0]]]],\ tf.float32)}
+\DoxyCodeLine{00809\ \ \ \ \ target\_norm\_value\ =\ [10.0,\ 20.0]}
+\DoxyCodeLine{00810\ \ \ \ \ dim\ =\ 3}
+\DoxyCodeLine{00811\ \ \ \ \ expected\_output\ =\ [[[[30/5.0,\ 80/5.0],\ [70/25.0,\ 480/25.0]],}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[50/13.0,\ -\/240/13.0],\ [-\/10,\ 0]]]]}
+\DoxyCodeLine{00813\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ normalized\_inputs\ =\ ops.normalize\_to\_target(inputs,\ target\_norm\_value,}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim)}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ sess.run(tf.global\_variables\_initializer())}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ output\ =\ normalized\_inputs.eval()}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ self.assertAllClose(output,\ expected\_output)}
+\DoxyCodeLine{00819\ }
+\DoxyCodeLine{00820\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

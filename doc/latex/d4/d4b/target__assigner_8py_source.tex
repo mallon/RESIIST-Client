@@ -1,0 +1,710 @@
+\doxysection{target\+\_\+assigner.\+py}
+\hypertarget{target__assigner_8py_source}{}\label{target__assigner_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/target\_assigner.py@{src/main/resources/processing/video/detections/detection\_utils/core/target\_assigner.py}}
+\mbox{\hyperlink{target__assigner_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Base\ target\ assigner\ module.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00017}00017\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00018}00018\ \textcolor{stringliteral}{The\ job\ of\ a\ TargetAssigner\ is,\ for\ a\ given\ set\ of\ anchors\ (bounding\ boxes)\ and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00019}00019\ \textcolor{stringliteral}{groundtruth\ detections\ (bounding\ boxes),\ to\ assign\ classification\ and\ regression}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00020}00020\ \textcolor{stringliteral}{targets\ to\ each\ anchor\ as\ well\ as\ weights\ to\ each\ anchor\ (specifying,\ e.g.,}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00021}00021\ \textcolor{stringliteral}{which\ anchors\ should\ not\ contribute\ to\ training\ loss).}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00022}00022\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00023}00023\ \textcolor{stringliteral}{It\ assigns\ classification/regression\ targets\ by\ performing\ the\ following\ steps:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00024}00024\ \textcolor{stringliteral}{1)\ Computing\ pairwise\ similarity\ between\ anchors\ and\ groundtruth\ boxes\ using\ a}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00025}00025\ \textcolor{stringliteral}{\ \ provided\ RegionSimilarity\ Calculator}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00026}00026\ \textcolor{stringliteral}{2)\ Computing\ a\ matching\ based\ on\ the\ similarity\ matrix\ using\ a\ provided\ Matcher}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00027}00027\ \textcolor{stringliteral}{3)\ Assigning\ regression\ targets\ based\ on\ the\ matching\ }\textcolor{keywordflow}{and}\ a\ provided\ BoxCoder}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00028}00028\ 4)\ Assigning\ classification\ targets\ based\ on\ the\ matching\ \textcolor{keywordflow}{and}\ groundtruth\ labels}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00030}00030\ Note\ that\ TargetAssigners\ only\ operate\ on\ detections\ \textcolor{keyword}{from}\ a\ single}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00031}00031\ image\ at\ a\ time,\ so\ any\ logic\ \textcolor{keywordflow}{for}\ applying\ a\ TargetAssigner\ to\ multiple}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00032}00032\ images\ must\ be\ handled\ externally.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00033}00033\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00034}00034\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ absolute\_import}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00035}00035\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ division}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00036}00036\ \textcolor{stringliteral}{from\ \_\_future\_\_\ import\ print\_function}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00037}00037\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00038}00038\ \textcolor{stringliteral}{from\ six.moves\ import\ range}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00039}00039\ \textcolor{stringliteral}{from\ six.moves\ import\ zip}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00040}00040\ \textcolor{stringliteral}{import\ tensorflow\ as\ tf}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00041}00041\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00042}00042\ \textcolor{stringliteral}{from\ object\_detection.box\_coders\ import\ faster\_rcnn\_box\_coder}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00043}00043\ \textcolor{stringliteral}{from\ object\_detection.box\_coders\ import\ mean\_stddev\_box\_coder}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00044}00044\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ box\_coder\ as\ bcoder}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00045}00045\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ box\_list}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00046}00046\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ matcher\ as\ mat}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00047}00047\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ region\_similarity\_calculator\ as\ sim\_calc}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00048}00048\ \textcolor{stringliteral}{from\ object\_detection.core\ import\ standard\_fields\ as\ fields}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00049}00049\ \textcolor{stringliteral}{from\ object\_detection.matchers\ import\ argmax\_matcher}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00050}00050\ \textcolor{stringliteral}{from\ object\_detection.matchers\ import\ bipartite\_matcher}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00051}00051\ \textcolor{stringliteral}{from\ object\_detection.utils\ import\ shape\_utils}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00052}00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00053}00053\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00054}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner}{00054}}\ \textcolor{stringliteral}{class\ TargetAssigner(object):}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ "{}"{}"{}Target\ assigner\ to\ compute\ classification\ and\ regression\ targets."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00057}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8a1ceea1c86bd4a5da2c052faa736d32}{00057}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8a1ceea1c86bd4a5da2c052faa736d32}{\_\_init\_\_}}(self,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ similarity\_calc,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matcher,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_coder,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negative\_class\_weight=1.0):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00062}00062\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Construct\ Object\ Detection\ Target\ Assigner.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00063}00063\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00064}00064\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00065}00065\ \textcolor{stringliteral}{\ \ \ \ \ \ similarity\_calc:\ a\ RegionSimilarityCalculator}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ \ \ matcher:\ an\ object\_detection.core.Matcher\ used\ to\ match\ groundtruth\ to}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ anchors.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00068}00068\ \textcolor{stringliteral}{\ \ \ \ \ \ box\_coder:\ an\ object\_detection.core.BoxCoder\ used\ to\ encode\ matching}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00069}00069\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\ boxes\ }\textcolor{keyword}{with}\ respect\ to\ anchors.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00070}00070\ \ \ \ \ \ \ negative\_class\_weight:\ classification\ weight\ to\ be\ associated\ to\ negative}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ anchors\ (default:\ 1.0).\ The\ weight\ must\ be\ \textcolor{keywordflow}{in}\ [0.,\ 1.].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00073}00073\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00074}00074\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ similarity\_calc\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ RegionSimilarityCalculator\ \textcolor{keywordflow}{or}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ matcher\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ Matcher\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ box\_coder\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ a\ BoxCoder}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00076}00076\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00077}00077\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(similarity\_calc,\ sim\_calc.RegionSimilarityCalculator):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00078}00078\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'similarity\_calc\ must\ be\ a\ RegionSimilarityCalculator'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(matcher,\ mat.Matcher):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00080}00080\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'matcher\ must\ be\ a\ Matcher'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(box\_coder,\ bcoder.BoxCoder):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00082}00082\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'box\_coder\ must\ be\ a\ BoxCoder'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00083}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e}{00083}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e}{\_similarity\_calc}}\ =\ similarity\_calc}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00084}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d}{00084}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d}{\_matcher}}\ =\ matcher}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00085}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{00085}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\_box\_coder}}\ =\ box\_coder}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00086}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db}{00086}}\ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db}{\_negative\_class\_weight}}\ =\ negative\_class\_weight}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00088}00088\ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00089}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aba5655fc6bb850dddc28f733d0e14737}{00089}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacebox__coder}{box\_coder}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\_box\_coder}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00092}00092\ \ \ \textcolor{comment}{\#\ TODO(rathodv):\ move\ labels,\ scores,\ and\ weights\ to\ groundtruth\_boxes\ fields.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00093}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc}{00093}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa80703dd201eafe98e23eb84c81a25cc}{assign}}(self,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights=None):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00099}00099\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Assign\ classification\ and\ regression\ targets\ to\ each\ anchor.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00100}00100\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00101}00101\ \textcolor{stringliteral}{\ \ \ \ For\ a\ given\ set\ of\ anchors\ }\textcolor{keywordflow}{and}\ groundtruth\ detections,\ match\ anchors}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00102}00102\ \ \ \ \ to\ groundtruth\_boxes\ \textcolor{keywordflow}{and}\ assign\ classification\ \textcolor{keywordflow}{and}\ regression\ targets\ to}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00103}00103\ \ \ \ \ each\ anchor\ \textcolor{keyword}{as}\ well\ \textcolor{keyword}{as}\ weights\ based\ on\ the\ resulting\ match\ (specifying,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00104}00104\ \ \ \ \ e.g.,\ which\ anchors\ should\ \textcolor{keywordflow}{not}\ contribute\ to\ training\ loss).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00106}00106\ \ \ \ \ Anchors\ that\ are\ \textcolor{keywordflow}{not}\ matched\ to\ anything\ are\ given\ a\ classification\ target}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00107}00107\ \ \ \ \ of\ self.\_unmatched\_cls\_target\ which\ can\ be\ specified\ via\ the\ constructor.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00109}00109\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00110}00110\ \ \ \ \ \ \ anchors:\ a\ BoxList\ representing\ N\ anchors}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00111}00111\ \ \ \ \ \ \ groundtruth\_boxes:\ a\ BoxList\ representing\ M\ groundtruth\ boxes}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00112}00112\ \ \ \ \ \ \ groundtruth\_labels:\ \ a\ tensor\ of\ shape\ [M,\ d\_1,\ ...\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ labels\ \textcolor{keywordflow}{for}\ each\ of\ the\ ground\_truth\ boxes.\ The\ subshape}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ [d\_1,\ ...\ d\_k]\ can\ be\ empty\ (corresponding\ to\ scalar\ inputs).\ \ When\ set}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ to\ \textcolor{keywordtype}{None},\ groundtruth\_labels\ assumes\ a\ binary\ problem\ where\ all}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ ground\_truth\ boxes\ get\ a\ positive\ label\ (of\ 1).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00117}00117\ \ \ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ If\ set\ to\ \textcolor{keywordtype}{None},\ unmatched\_cls\_target\ \textcolor{keywordflow}{is}\ set\ to\ be\ [0]\ \textcolor{keywordflow}{for}\ each\ anchor.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00123}00123\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.\ The\ weights}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ must\ be\ \textcolor{keywordflow}{in}\ [0.,\ 1.].\ If\ \textcolor{keywordtype}{None},\ all\ weights\ are\ set\ to\ 1.\ Generally\ no}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ groundtruth\ boxes\ \textcolor{keyword}{with}\ zero\ weight\ match\ to\ any\ anchors\ \textcolor{keyword}{as}\ matchers\ are}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ aware\ of\ groundtruth\ weights.\ Additionally,\ \`{}cls\_weights\`{}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \`{}reg\_weights\`{}\ are\ calculated\ using\ groundtruth\ weights\ \textcolor{keyword}{as}\ an\ added}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ safety.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00131}00131\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00132}00132\ \ \ \ \ \ \ cls\_targets:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ where\ the\ subshape\ [d\_1,\ ...,\ d\_k]\ \textcolor{keywordflow}{is}\ compatible\ \textcolor{keyword}{with}\ groundtruth\_labels}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ which\ has\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...\ d\_k].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00135}00135\ \ \ \ \ \ \ cls\_weights:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ representing\ weights\ \textcolor{keywordflow}{for}\ each\ element\ \textcolor{keywordflow}{in}\ cls\_targets.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00137}00137\ \ \ \ \ \ \ reg\_targets:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ box\_code\_dimension]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00138}00138\ \ \ \ \ \ \ reg\_weights:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00139}00139\ \ \ \ \ \ \ match:\ an\ int32\ tensor\ of\ shape\ [num\_anchors]\ containing\ result\ of\ anchor}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ groundtruth\ matching.\ Each\ position\ \textcolor{keywordflow}{in}\ the\ tensor\ indicates\ an\ anchor}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ holds\ the\ following\ meaning:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ (1)\ \textcolor{keywordflow}{if}\ match[i]\ >=\ 0,\ anchor\ i\ \textcolor{keywordflow}{is}\ matched\ \textcolor{keyword}{with}\ groundtruth\ match[i].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ (2)\ \textcolor{keywordflow}{if}\ match[i]=-\/1,\ anchor\ i\ \textcolor{keywordflow}{is}\ marked\ to\ be\ background\ .}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00144}00144\ \ \ \ \ \ \ \ \ (3)\ \textcolor{keywordflow}{if}\ match[i]=-\/2,\ anchor\ i\ \textcolor{keywordflow}{is}\ ignored\ since\ it\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ background\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ does\ \textcolor{keywordflow}{not}\ have\ sufficient\ overlap\ to\ call\ it\ a\ foreground.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00147}00147\ \ \ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00148}00148\ \ \ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ anchors\ \textcolor{keywordflow}{or}\ groundtruth\_boxes\ are\ \textcolor{keywordflow}{not}\ of\ type}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00150}00150\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(anchors,\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00152}00152\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'anchors\ must\ be\ an\ BoxList'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(groundtruth\_boxes,\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00154}00154\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'groundtruth\_boxes\ must\ be\ an\ BoxList'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{if}\ unmatched\_class\_label\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00157}00157\ \ \ \ \ \ \ unmatched\_class\_label\ =\ tf.constant([0],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_labels\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00160}00160\ \ \ \ \ \ \ groundtruth\_labels\ =\ tf.ones(tf.expand\_dims(groundtruth\_boxes.num\_boxes(),}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00162}00162\ \ \ \ \ \ \ groundtruth\_labels\ =\ tf.expand\_dims(groundtruth\_labels,\ -\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00164}00164\ \ \ \ \ unmatched\_shape\_assert\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(groundtruth\_labels)[1:],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(unmatched\_class\_label))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00167}00167\ \ \ \ \ labels\_and\_box\_shapes\_assert\ =\ shape\_utils.assert\_shape\_equal(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_labels)[:1],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes.get())[:1])}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_weights\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00174}00174\ \ \ \ \ \ \ num\_gt\_boxes\ =\ groundtruth\_boxes.num\_boxes\_static()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00175}00175\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ num\_gt\_boxes:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ num\_gt\_boxes\ =\ groundtruth\_boxes.num\_boxes()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00177}00177\ \ \ \ \ \ \ groundtruth\_weights\ =\ tf.ones([num\_gt\_boxes],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00179}00179\ \ \ \ \ \textcolor{comment}{\#\ set\ scores\ on\ the\ gt\ boxes}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00180}00180\ \ \ \ \ scores\ =\ 1\ -\/\ groundtruth\_labels[:,\ 0]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00181}00181\ \ \ \ \ groundtruth\_boxes.add\_field(fields.BoxListFields.scores,\ scores)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00183}00183\ \ \ \ \ \textcolor{keyword}{with}\ tf.control\_dependencies(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ [unmatched\_shape\_assert,\ labels\_and\_box\_shapes\_assert]):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00185}00185\ \ \ \ \ \ \ match\_quality\_matrix\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a8f23d4b36a5315deb3b3d7aa1730509e}{\_similarity\_calc}}.compare(groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00187}00187\ \ \ \ \ \ \ match\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a3991ae175584cf83f92e64c06e74032d}{\_matcher}}.match(match\_quality\_matrix,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valid\_rows=tf.greater(groundtruth\_weights,\ 0))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00189}00189\ \ \ \ \ \ \ reg\_targets\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52}{\_create\_regression\_targets}}(anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_boxes,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00192}00192\ \ \ \ \ \ \ cls\_targets\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710}{\_create\_classification\_targets}}(groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00195}00195\ \ \ \ \ \ \ reg\_weights\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b}{\_create\_regression\_weights}}(match,\ groundtruth\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00197}00197\ \ \ \ \ \ \ cls\_weights\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905}{\_create\_classification\_weights}}(match,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00199}00199\ \ \ \ \ \ \ \textcolor{comment}{\#\ convert\ cls\_weights\ from\ per-\/anchor\ to\ per-\/class.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00200}00200\ \ \ \ \ \ \ class\_label\_shape\ =\ tf.shape(cls\_targets)[1:]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00201}00201\ \ \ \ \ \ \ weights\_shape\ =\ tf.shape(cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00202}00202\ \ \ \ \ \ \ weights\_multiple\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ [tf.ones\_like(weights\_shape),\ class\_label\_shape],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ axis=0)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00205}00205\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(len(cls\_targets.get\_shape()[1:])):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ cls\_weights\ =\ tf.expand\_dims(cls\_weights,\ -\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00207}00207\ \ \ \ \ \ \ cls\_weights\ =\ tf.tile(cls\_weights,\ weights\_multiple)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00209}00209\ \ \ \ \ num\_anchors\ =\ anchors.num\_boxes\_static()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{if}\ num\_anchors\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00211}00211\ \ \ \ \ \ \ reg\_targets\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\_reset\_target\_shape}}(reg\_targets,\ num\_anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00212}00212\ \ \ \ \ \ \ cls\_targets\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\_reset\_target\_shape}}(cls\_targets,\ num\_anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00213}00213\ \ \ \ \ \ \ reg\_weights\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\_reset\_target\_shape}}(reg\_weights,\ num\_anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00214}00214\ \ \ \ \ \ \ cls\_weights\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\_reset\_target\_shape}}(cls\_weights,\ num\_anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{return}\ (cls\_targets,\ cls\_weights,\ reg\_targets,\ reg\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ match.match\_results)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00219}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{00219}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_aa78d60ebbdfc66bd30abaacc40fbb862}{\_reset\_target\_shape}}(self,\ target,\ num\_anchors):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00220}00220\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Sets\ the\ static\ shape\ of\ the\ target.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00221}00221\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00222}00222\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00223}00223\ \textcolor{stringliteral}{\ \ \ \ \ \ target:\ the\ target\ tensor.\ Its\ first\ dimension\ will\ be\ overwritten.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00224}00224\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_anchors:\ the\ number\ of\ anchors,\ which\ }\textcolor{keywordflow}{is}\ used\ to\ override\ the\ target\textcolor{stringliteral}{'s}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00225}00225\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ first\ dimension.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00226}00226\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00227}00227\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00228}00228\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ tensor\ }\textcolor{keyword}{with}\ the\ shape\ info\ filled\ \textcolor{keywordflow}{in}.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00229}00229\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00230}00230\ \textcolor{stringliteral}{\ \ \ \ target\_shape\ =\ target.get\_shape().as\_list()}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00231}00231\ \textcolor{stringliteral}{\ \ \ \ target\_shape[0]\ =\ num\_anchors}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00232}00232\ \textcolor{stringliteral}{\ \ \ \ target.set\_shape(target\_shape)}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00233}00233\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ target}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00235}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52}{00235}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a016ef142db31cd5480bcc27d34257e52}{\_create\_regression\_targets}}(self,\ anchors,\ groundtruth\_boxes,\ match):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00236}00236\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ regression\ target\ for\ each\ anchor.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00237}00237\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00239}00239\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors:\ a\ BoxList\ representing\ N\ anchors}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00240}00240\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes:\ a\ BoxList\ representing\ M\ groundtruth\_boxes}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00241}00241\ \textcolor{stringliteral}{\ \ \ \ \ \ match:\ a\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ object}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00242}00242\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00243}00243\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00244}00244\ \textcolor{stringliteral}{\ \ \ \ \ \ reg\_targets:\ a\ float32\ tensor\ }\textcolor{keyword}{with}\ shape\ [N,\ box\_code\_dimension]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00245}00245\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00246}00246\ \textcolor{stringliteral}{\ \ \ \ matched\_gt\_boxes\ =\ match.gather\_based\_on\_match(}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00247}00247\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ groundtruth\_boxes.get(),}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00248}00248\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(4),}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00249}00249\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ignored\_value=tf.zeros(4))}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00250}00250\ \textcolor{stringliteral}{\ \ \ \ matched\_gt\_boxlist\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}}(matched\_gt\_boxes)}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00251}00251\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ groundtruth\_boxes.has\_field(fields.BoxListFields.keypoints):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00252}00252\ \ \ \ \ \ \ groundtruth\_keypoints\ =\ groundtruth\_boxes.get\_field(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.keypoints)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00254}00254\ \ \ \ \ \ \ matched\_keypoints\ =\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ groundtruth\_keypoints,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(groundtruth\_keypoints.get\_shape()[1:]),}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ ignored\_value=tf.zeros(groundtruth\_keypoints.get\_shape()[1:]))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00258}00258\ \ \ \ \ \ \ matched\_gt\_boxlist.add\_field(fields.BoxListFields.keypoints,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matched\_keypoints)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00260}00260\ \ \ \ \ matched\_reg\_targets\ =\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\_box\_coder}}.encode(matched\_gt\_boxlist,\ anchors)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00261}00261\ \ \ \ \ match\_results\_shape\ =\ shape\_utils.combined\_static\_and\_dynamic\_shape(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ match.match\_results)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00264}00264\ \ \ \ \ \textcolor{comment}{\#\ Zero\ out\ the\ unmatched\ and\ ignored\ regression\ targets.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00265}00265\ \ \ \ \ unmatched\_ignored\_reg\_targets\ =\ tf.tile(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864}{\_default\_regression\_target}}(),\ [match\_results\_shape[0],\ 1])}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00267}00267\ \ \ \ \ matched\_anchors\_mask\ =\ match.matched\_column\_indicator()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00268}00268\ \ \ \ \ reg\_targets\ =\ tf.where(matched\_anchors\_mask,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matched\_reg\_targets,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_ignored\_reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00271}00271\ \ \ \ \ \textcolor{keywordflow}{return}\ reg\_targets}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00273}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864}{00273}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_ae23b0df4f870baf8084bfd8cf6b06864}{\_default\_regression\_target}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00274}00274\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ the\ default\ target\ for\ anchors\ to\ regress\ to.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00275}00275\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00276}00276\ \textcolor{stringliteral}{\ \ \ \ Default\ regression\ targets\ are\ set\ to\ zero\ (though\ }\textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00277}00277\ \ \ \ \ this\ implementation\ what\ these\ targets\ are\ set\ to\ should}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{not}\ matter\ \textcolor{keyword}{as}\ the\ regression\ weight\ of\ any\ box\ set\ to}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00279}00279\ \ \ \ \ regress\ to\ the\ default\ target\ \textcolor{keywordflow}{is}\ zero).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00281}00281\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00282}00282\ \ \ \ \ \ \ default\_target:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [1,\ box\_code\_dimension]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00283}00283\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00284}00284\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ tf.constant([self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\_box\_coder}}.code\_size*[0]],\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00286}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710}{00286}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a7982f9b90978822c9d33ab953a642710}{\_create\_classification\_targets}}(self,\ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label,\ match):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00288}00288\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Create\ classification\ targets\ for\ each\ anchor.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00289}00289\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00290}00290\ \textcolor{stringliteral}{\ \ \ \ Assign\ a\ classification\ target\ of\ }\textcolor{keywordflow}{for}\ each\ anchor\ to\ the\ matching}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00291}00291\ \ \ \ \ groundtruth\ label\ that\ \textcolor{keywordflow}{is}\ provided\ by\ match.\ \ Anchors\ that\ are\ \textcolor{keywordflow}{not}\ matched}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00292}00292\ \ \ \ \ to\ anything\ are\ given\ the\ target\ self.\_unmatched\_cls\_target}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00294}00294\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00295}00295\ \ \ \ \ \ \ groundtruth\_labels:\ \ a\ tensor\ of\ shape\ [num\_gt\_boxes,\ d\_1,\ ...\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ labels\ \textcolor{keywordflow}{for}\ each\ of\ the\ ground\_truth\ boxes.\ The\ subshape}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ [d\_1,\ ...\ d\_k]\ can\ be\ empty\ (corresponding\ to\ scalar\ labels).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00298}00298\ \ \ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00302}00302\ \ \ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00303}00303\ \ \ \ \ \ \ match:\ a\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00304}00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00306}00306\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00307}00307\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors,\ d\_1,\ d\_2\ ...\ d\_k],\ where\ the}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00308}00308\ \ \ \ \ \ \ subshape\ [d\_1,\ ...,\ d\_k]\ \textcolor{keywordflow}{is}\ compatible\ \textcolor{keyword}{with}\ groundtruth\_labels\ which\ has}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00309}00309\ \ \ \ \ \ \ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...\ d\_k].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00310}00310\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00311}00311\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ groundtruth\_labels,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ unmatched\_value=unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ ignored\_value=unmatched\_class\_label)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00316}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b}{00316}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a2cbf259274342a627ef7ab28fdeed92b}{\_create\_regression\_weights}}(self,\ match,\ groundtruth\_weights):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00317}00317\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Set\ regression\ weight\ for\ each\ anchor.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00318}00318\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00319}00319\ \textcolor{stringliteral}{\ \ \ \ Only\ positive\ anchors\ are\ set\ to\ contribute\ to\ the\ regression\ loss,\ so\ this}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00320}00320\ \textcolor{stringliteral}{\ \ \ \ method\ returns\ a\ weight\ of\ 1\ }\textcolor{keywordflow}{for}\ every\ positive\ anchor\ \textcolor{keywordflow}{and}\ 0\ \textcolor{keywordflow}{for}\ every}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00321}00321\ \ \ \ \ negative\ anchor.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00323}00323\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00324}00324\ \ \ \ \ \ \ match:\ a\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00325}00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00326}00326\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00329}00329\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00330}00330\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]\ representing\ regression\ weights.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00331}00331\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00332}00332\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ groundtruth\_weights,\ ignored\_value=0.,\ unmatched\_value=0.)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00335}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905}{00335}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1d8790c2c9892744fcc5c8280be39905}{\_create\_classification\_weights}}(self,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00338}00338\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Create\ classification\ weights\ for\ each\ anchor.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00339}00339\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00340}00340\ \textcolor{stringliteral}{\ \ \ \ Positive\ (matched)\ anchors\ are\ associated\ }\textcolor{keyword}{with}\ a\ weight\ of}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00341}00341\ \ \ \ \ positive\_class\_weight\ \textcolor{keywordflow}{and}\ negative\ (unmatched)\ anchors\ are\ associated\ \textcolor{keyword}{with}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00342}00342\ \ \ \ \ a\ weight\ of\ negative\_class\_weight.\ When\ anchors\ are\ ignored,\ weights\ are\ set}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00343}00343\ \ \ \ \ to\ zero.\ By\ default,\ both\ positive/negative\ weights\ are\ set\ to\ 1.0,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00344}00344\ \ \ \ \ but\ they\ can\ be\ adjusted\ to\ handle\ \textcolor{keyword}{class\ }imbalance\ (which\ is\ almost\ always}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00345}00345\ \ \ \ \ the\ case\ \textcolor{keywordflow}{in}\ object\ detection).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00347}00347\ \ \ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00348}00348\ \ \ \ \ \ \ match:\ a\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}\ object\ that\ provides\ a\ matching\ between\ anchors}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00350}00350\ \ \ \ \ \ \ groundtruth\_weights:\ a\ float\ tensor\ of\ shape\ [M]\ indicating\ the\ weight\ to}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ assign\ to\ all\ anchors\ match\ to\ a\ particular\ groundtruth\ box.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00353}00353\ \ \ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00354}00354\ \ \ \ \ \ \ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [num\_anchors]\ representing\ classification}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00355}00355\ \ \ \ \ \ \ weights.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00356}00356\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00357}00357\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ match.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ groundtruth\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ ignored\_value=0.,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ unmatched\_value=self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a48a3b327c36174ef156bb835520d26db}{\_negative\_class\_weight}})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00362}\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a458e6bab7f3aa2a797f45d1c71d51d61}{00362}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a458e6bab7f3aa2a797f45d1c71d51d61}{get\_box\_coder}}(self):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00363}00363\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Get\ BoxCoder\ of\ this\ TargetAssigner.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00364}00364\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00365}00365\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00366}00366\ \textcolor{stringliteral}{\ \ \ \ \ \ BoxCoder\ object.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00367}00367\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00368}00368\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner_a1ff2854b0fb78bf9dfd57a9be5c79038}{\_box\_coder}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00370}00370\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00371}00371\ \textcolor{comment}{\#\ TODO(rathodv):\ This\ method\ pulls\ in\ all\ the\ implementation\ dependencies\ into}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00372}00372\ \textcolor{comment}{\#\ core.\ Therefore\ its\ best\ to\ have\ this\ factory\ method\ outside\ of\ core.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00373}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_ad5169f5aa5c502e10c38cc5663dbafd4}{00373}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_ad5169f5aa5c502e10c38cc5663dbafd4}{create\_target\_assigner}}(reference,\ stage=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negative\_class\_weight=1.0,\ use\_matmul\_gather=False):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00375}00375\ \ \ \textcolor{stringliteral}{"{}"{}"{}Factory\ function\ for\ creating\ standard\ target\ assigners.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00376}00376\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00377}00377\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00378}00378\ \textcolor{stringliteral}{\ \ \ \ reference:\ string\ referencing\ the\ type\ of\ TargetAssigner.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00379}00379\ \textcolor{stringliteral}{\ \ \ \ stage:\ string\ denoting\ stage:\ \{proposal,\ detection\}.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00380}00380\ \textcolor{stringliteral}{\ \ \ \ negative\_class\_weight:\ classification\ weight\ to\ be\ associated\ to\ negative}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00381}00381\ \textcolor{stringliteral}{\ \ \ \ \ \ anchors\ (default:\ 1.0)}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00382}00382\ \textcolor{stringliteral}{\ \ \ \ use\_matmul\_gather:\ whether\ to\ use\ matrix\ multiplication\ based\ gather\ which}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00383}00383\ \textcolor{stringliteral}{\ \ \ \ \ \ are\ better\ suited\ }\textcolor{keywordflow}{for}\ TPUs.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00385}00385\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00386}00386\ \ \ \ \ TargetAssigner:\ desired\ target\ assigner.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00388}00388\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00389}00389\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ combination\ reference+stage\ \textcolor{keywordflow}{is}\ invalid.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00390}00390\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00391}00391\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ reference\ ==\ \textcolor{stringliteral}{'Multibox'}\ \textcolor{keywordflow}{and}\ stage\ ==\ \textcolor{stringliteral}{'proposal'}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00392}00392\ \ \ \ \ similarity\_calc\ =\ sim\_calc.NegSqDistSimilarity()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00393}00393\ \ \ \ \ matcher\ =\ bipartite\_matcher.GreedyBipartiteMatcher()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00394}00394\ \ \ \ \ box\_coder\ =\ mean\_stddev\_box\_coder.MeanStddevBoxCoder()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00396}00396\ \ \ \textcolor{keywordflow}{elif}\ reference\ ==\ \textcolor{stringliteral}{'FasterRCNN'}\ \textcolor{keywordflow}{and}\ stage\ ==\ \textcolor{stringliteral}{'proposal'}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00397}00397\ \ \ \ \ similarity\_calc\ =\ sim\_calc.IouSimilarity()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00398}00398\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.7,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.3,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ force\_match\_for\_each\_row=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_matmul\_gather=use\_matmul\_gather)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00402}00402\ \ \ \ \ box\_coder\ =\ faster\_rcnn\_box\_coder.FasterRcnnBoxCoder(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ scale\_factors=[10.0,\ 10.0,\ 5.0,\ 5.0])}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00405}00405\ \ \ \textcolor{keywordflow}{elif}\ reference\ ==\ \textcolor{stringliteral}{'FasterRCNN'}\ \textcolor{keywordflow}{and}\ stage\ ==\ \textcolor{stringliteral}{'detection'}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00406}00406\ \ \ \ \ similarity\_calc\ =\ sim\_calc.IouSimilarity()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00407}00407\ \ \ \ \ \textcolor{comment}{\#\ Uses\ all\ proposals\ with\ IOU\ <\ 0.5\ as\ candidate\ negatives.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00408}00408\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negatives\_lower\_than\_unmatched=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_matmul\_gather=use\_matmul\_gather)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00411}00411\ \ \ \ \ box\_coder\ =\ faster\_rcnn\_box\_coder.FasterRcnnBoxCoder(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ scale\_factors=[10.0,\ 10.0,\ 5.0,\ 5.0])}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00414}00414\ \ \ \textcolor{keywordflow}{elif}\ reference\ ==\ \textcolor{stringliteral}{'FastRCNN'}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00415}00415\ \ \ \ \ similarity\_calc\ =\ sim\_calc.IouSimilarity()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00416}00416\ \ \ \ \ matcher\ =\ argmax\_matcher.ArgMaxMatcher(matched\_threshold=0.5,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_threshold=0.1,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ force\_match\_for\_each\_row=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negatives\_lower\_than\_unmatched=\textcolor{keyword}{False},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ use\_matmul\_gather=use\_matmul\_gather)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00421}00421\ \ \ \ \ box\_coder\ =\ faster\_rcnn\_box\_coder.FasterRcnnBoxCoder()}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00423}00423\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00424}00424\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'No\ valid\ combination\ of\ reference\ and\ stage.'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00426}00426\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1target__assigner_1_1_target_assigner}{TargetAssigner}}(similarity\_calc,\ matcher,\ box\_coder,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ negative\_class\_weight=negative\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00430}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a8d3571d24057b74962a5e08c912d8145}{00430}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a8d3571d24057b74962a5e08c912d8145}{batch\_assign}}(target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_targets\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_weights\_batch=None):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00436}00436\ \ \ \textcolor{stringliteral}{"{}"{}"{}Batched\ assignment\ of\ classification\ and\ regression\ targets.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00437}00437\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00438}00438\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00439}00439\ \textcolor{stringliteral}{\ \ \ \ target\_assigner:\ a\ target\ assigner.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00440}00440\ \textcolor{stringliteral}{\ \ \ \ anchors\_batch:\ BoxList\ representing\ N\ box\ anchors\ }\textcolor{keywordflow}{or}\ list\ of\ BoxList\ objects}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00441}00441\ \ \ \ \ \ \ \textcolor{keyword}{with}\ length\ batch\_size\ representing\ anchor\ sets.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00442}00442\ \ \ \ \ gt\_box\_batch:\ a\ list\ of\ BoxList\ objects\ \textcolor{keyword}{with}\ length\ batch\_size}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00443}00443\ \ \ \ \ \ \ representing\ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the\ batch}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00444}00444\ \ \ \ \ gt\_class\_targets\_batch:\ a\ list\ of\ tensors\ \textcolor{keyword}{with}\ length\ batch\_size,\ where}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00445}00445\ \ \ \ \ \ \ each\ tensor\ has\ shape\ [num\_gt\_boxes\_i,\ classification\_target\_size]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00446}00446\ \ \ \ \ \ \ num\_gt\_boxes\_i\ \textcolor{keywordflow}{is}\ the\ number\ of\ boxes\ \textcolor{keywordflow}{in}\ the\ ith\ boxlist\ of}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00447}00447\ \ \ \ \ \ \ gt\_box\_batch.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00448}00448\ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00449}00449\ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00450}00450\ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00451}00451\ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00452}00452\ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00453}00453\ \ \ \ \ gt\_weights\_batch:\ A\ list\ of\ 1-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00454}00454\ \ \ \ \ \ \ [num\_boxes]\ containing\ weights\ \textcolor{keywordflow}{for}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00455}00455\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00456}00456\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00457}00457\ \ \ \ \ batch\_cls\_targets:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00458}00458\ \ \ \ \ \ \ num\_classes],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00459}00459\ \ \ \ \ batch\_cls\_weights:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00460}00460\ \ \ \ \ \ \ num\_classes],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00461}00461\ \ \ \ \ batch\_reg\_targets:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00462}00462\ \ \ \ \ \ \ box\_code\_dimension]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00463}00463\ \ \ \ \ batch\_reg\_weights:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00464}00464\ \ \ \ \ match:\ an\ int32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ containing\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00465}00465\ \ \ \ \ \ \ of\ anchor\ groundtruth\ matching.\ Each\ position\ \textcolor{keywordflow}{in}\ the\ tensor\ indicates\ an}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00466}00466\ \ \ \ \ \ \ anchor\ \textcolor{keywordflow}{and}\ holds\ the\ following\ meaning:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00467}00467\ \ \ \ \ \ \ (1)\ \textcolor{keywordflow}{if}\ match[x,\ i]\ >=\ 0,\ anchor\ i\ \textcolor{keywordflow}{is}\ matched\ \textcolor{keyword}{with}\ groundtruth\ match[x,\ i].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00468}00468\ \ \ \ \ \ \ (2)\ \textcolor{keywordflow}{if}\ match[x,\ i]=-\/1,\ anchor\ i\ \textcolor{keywordflow}{is}\ marked\ to\ be\ background\ .}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00469}00469\ \ \ \ \ \ \ (3)\ \textcolor{keywordflow}{if}\ match[x,\ i]=-\/2,\ anchor\ i\ \textcolor{keywordflow}{is}\ ignored\ since\ it\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ background\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ does\ \textcolor{keywordflow}{not}\ have\ sufficient\ overlap\ to\ call\ it\ a\ foreground.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00472}00472\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00473}00473\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ input\ list\ lengths\ are\ inconsistent,\ i.e.,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00474}00474\ \ \ \ \ \ \ batch\_size\ ==\ len(gt\_box\_batch)\ ==\ len(gt\_class\_targets\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ batch\_size\ ==\ len(anchors\_batch)\ unless\ anchors\_batch\ \textcolor{keywordflow}{is}\ a\ single}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ BoxList.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00477}00477\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00478}00478\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(anchors\_batch,\ list):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00479}00479\ \ \ \ \ anchors\_batch\ =\ len(gt\_box\_batch)\ *\ [anchors\_batch]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00480}00480\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00481}00481\ \ \ \ \ \ \ isinstance(anchors,\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}})\ \textcolor{keywordflow}{for}\ anchors\ \textcolor{keywordflow}{in}\ anchors\_batch):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00482}00482\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'anchors\_batch\ must\ be\ a\ BoxList\ or\ list\ of\ BoxLists.'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00483}00483\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (len(anchors\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ ==\ len(gt\_box\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ ==\ len(gt\_class\_targets\_batch)):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00486}00486\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'batch\ size\ incompatible\ with\ lengths\ of\ anchors\_batch,\ '}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'gt\_box\_batch\ and\ gt\_class\_targets\_batch.'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00488}00488\ \ \ cls\_targets\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00489}00489\ \ \ cls\_weights\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00490}00490\ \ \ reg\_targets\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00491}00491\ \ \ reg\_weights\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00492}00492\ \ \ match\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00493}00493\ \ \ \textcolor{keywordflow}{if}\ gt\_weights\_batch\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00494}00494\ \ \ \ \ gt\_weights\_batch\ =\ [\textcolor{keywordtype}{None}]\ *\ len(gt\_class\_targets\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00495}00495\ \ \ \textcolor{keywordflow}{for}\ anchors,\ gt\_boxes,\ gt\_class\_targets,\ gt\_weights\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00496}00496\ \ \ \ \ \ \ anchors\_batch,\ gt\_box\_batch,\ gt\_class\_targets\_batch,\ gt\_weights\_batch):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00497}00497\ \ \ \ \ (cls\_targets,\ cls\_weights,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00498}00498\ \ \ \ \ \ reg\_targets,\ reg\_weights,\ match)\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00499}00499\ \ \ \ \ \ \ \ \ \ anchors,\ gt\_boxes,\ gt\_class\_targets,\ unmatched\_class\_label,\ gt\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00500}00500\ \ \ \ \ cls\_targets\_list.append(cls\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00501}00501\ \ \ \ \ cls\_weights\_list.append(cls\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00502}00502\ \ \ \ \ reg\_targets\_list.append(reg\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00503}00503\ \ \ \ \ reg\_weights\_list.append(reg\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00504}00504\ \ \ \ \ match\_list.append(match)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00505}00505\ \ \ batch\_cls\_targets\ =\ tf.stack(cls\_targets\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00506}00506\ \ \ batch\_cls\_weights\ =\ tf.stack(cls\_weights\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00507}00507\ \ \ batch\_reg\_targets\ =\ tf.stack(reg\_targets\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00508}00508\ \ \ batch\_reg\_weights\ =\ tf.stack(reg\_weights\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00509}00509\ \ \ batch\_match\ =\ tf.stack(match\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00510}00510\ \ \ \textcolor{keywordflow}{return}\ (batch\_cls\_targets,\ batch\_cls\_weights,\ batch\_reg\_targets,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ batch\_reg\_weights,\ batch\_match)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00514}00514\ \textcolor{comment}{\#\ Assign\ an\ alias\ to\ avoid\ large\ refactor\ of\ existing\ users.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00515}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a5c6f3a5416c9c7d7eee481724034c9be}{00515}}\ batch\_assign\_targets\ =\ batch\_assign}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00516}00516\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00518}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a4c9aabceffa66cd1fe527afe829b768b}{00518}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a4c9aabceffa66cd1fe527afe829b768b}{batch\_get\_targets}}(batch\_match,\ groundtruth\_tensor\_list,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ groundtruth\_weights\_list,\ unmatched\_value,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_weight):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00521}00521\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ targets\ based\ on\ anchor-\/groundtruth\ box\ matching\ results.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00522}00522\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00523}00523\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00524}00524\ \textcolor{stringliteral}{\ \ \ \ batch\_match:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_anchors]\ containing\ the}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00525}00525\ \textcolor{stringliteral}{\ \ \ \ \ \ result\ of\ target\ assignment\ returned\ by\ TargetAssigner.assign(..).}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00526}00526\ \textcolor{stringliteral}{\ \ \ \ groundtruth\_tensor\_list:\ A\ list\ of\ groundtruth\ tensors\ of\ shape}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00527}00527\ \textcolor{stringliteral}{\ \ \ \ \ \ [num\_groundtruth,\ d\_1,\ d\_2,\ ...,\ d\_k].\ The\ tensors\ can\ be\ of\ any\ type.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00528}00528\ \textcolor{stringliteral}{\ \ \ \ groundtruth\_weights\_list:\ A\ list\ of\ weights,\ one\ per\ groundtruth\ tensor,\ of}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00529}00529\ \textcolor{stringliteral}{\ \ \ \ \ \ shape\ [num\_groundtruth].}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00530}00530\ \textcolor{stringliteral}{\ \ \ \ unmatched\_value:\ A\ tensor\ of\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]\ of\ the\ same\ type\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00531}00531\ \ \ \ \ \ \ groundtruth\ tensor\ containing\ target\ value\ \textcolor{keywordflow}{for}\ anchors\ that\ remain}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00532}00532\ \ \ \ \ \ \ unmatched.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00533}00533\ \ \ \ \ unmatched\_weight:\ Scalar\ weight\ to\ assign\ to\ anchors\ that\ remain\ unmatched.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00535}00535\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00536}00536\ \ \ \ \ targets:\ A\ tensor\ of\ shape\ [batch,\ num\_anchors,\ d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00537}00537\ \ \ \ \ \ \ containing\ targets\ \textcolor{keywordflow}{for}\ anchors.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00538}00538\ \ \ \ \ weights:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_anchors]\ containing\ the\ weights}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00539}00539\ \ \ \ \ \ \ to\ assign\ to\ each\ target.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00540}00540\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00541}00541\ \textcolor{stringliteral}{\ \ match\_list\ =\ tf.unstack(batch\_match)}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00542}00542\ \textcolor{stringliteral}{\ \ targets\_list\ =\ []}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00543}00543\ \textcolor{stringliteral}{\ \ weights\_list\ =\ []}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00544}00544\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{for}\ match\_tensor,\ groundtruth\_tensor,\ groundtruth\_weight\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00545}00545\ \ \ \ \ \ \ match\_list,\ groundtruth\_tensor\_list,\ groundtruth\_weights\_list):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00546}00546\ \ \ \ \ match\_object\ =\ mat.Match(match\_tensor)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00547}00547\ \ \ \ \ targets\ =\ match\_object.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00548}00548\ \ \ \ \ \ \ \ \ groundtruth\_tensor,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00549}00549\ \ \ \ \ \ \ \ \ unmatched\_value=unmatched\_value,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ ignored\_value=unmatched\_value)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00551}00551\ \ \ \ \ targets\_list.append(targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00552}00552\ \ \ \ \ weights\ =\ match\_object.gather\_based\_on\_match(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ groundtruth\_weight,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00554}00554\ \ \ \ \ \ \ \ \ unmatched\_value=unmatched\_weight,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00555}00555\ \ \ \ \ \ \ \ \ ignored\_value=tf.zeros\_like(unmatched\_weight))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00556}00556\ \ \ \ \ weights\_list.append(weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00557}00557\ \ \ \textcolor{keywordflow}{return}\ tf.stack(targets\_list),\ tf.stack(weights\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00558}00558\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00560}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a38051cc741fa2198a014d46f8c5d7e87}{00560}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1target__assigner_a38051cc741fa2198a014d46f8c5d7e87}{batch\_assign\_confidences}}(target\_assigner,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ anchors\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_box\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_weights\_batch=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_class\_label=None,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ include\_background\_class=True,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00567}00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ implicit\_class\_weight=1.0):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00568}00568\ \ \ \textcolor{stringliteral}{"{}"{}"{}Batched\ assignment\ of\ classification\ and\ regression\ targets.}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00569}00569\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00570}00570\ \textcolor{stringliteral}{\ \ This\ differences\ between\ batch\_assign\_confidences\ }\textcolor{keywordflow}{and}\ batch\_assign\_targets:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00571}00571\ \ \ \ -\/\ \textcolor{stringliteral}{'batch\_assign\_targets'}\ supports\ scalar\ (agnostic),\ vector\ (multiclass)\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00572}00572\ \ \ \ \ \ tensor\ (high-\/dimensional)\ targets.\ \textcolor{stringliteral}{'batch\_assign\_confidences'}\ only\ support}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00573}00573\ \ \ \ \ \ scalar\ (agnostic)\ \textcolor{keywordflow}{and}\ vector\ (multiclass)\ targets.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00574}00574\ \ \ \ -\/\ \textcolor{stringliteral}{'batch\_assign\_targets'}\ assumes\ the\ input\ \textcolor{keyword}{class\ }tensor\ using\ the\ binary}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00575}00575\ \ \ \ \ \ one/K-\/hot\ encoding.\ \textcolor{stringliteral}{'batch\_assign\_confidences'}\ takes\ the\ \textcolor{keyword}{class\ }confidence}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00576}00576\ \ \ \ \ \ scores\ \textcolor{keyword}{as}\ the\ input,\ where\ 1\ means\ positive\ classes,\ 0\ means\ implicit}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00577}00577\ \ \ \ \ \ negative\ classes,\ \textcolor{keywordflow}{and}\ -\/1\ means\ explicit\ negative\ classes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00578}00578\ \ \ \ -\/\ \textcolor{stringliteral}{'batch\_assign\_confidences'}\ assigns\ the\ targets\ \textcolor{keywordflow}{in}\ the\ similar\ way\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00579}00579\ \ \ \ \ \ \textcolor{stringliteral}{'batch\_assign\_targets'}\ \textcolor{keywordflow}{except}\ that\ it\ gives\ different\ weights\ \textcolor{keywordflow}{for}\ implicit}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00580}00580\ \ \ \ \ \ \textcolor{keywordflow}{and}\ explicit\ classes.\ This\ allows\ user\ to\ control\ the\ negative\ gradients}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00581}00581\ \ \ \ \ \ pushed\ differently\ \textcolor{keywordflow}{for}\ implicit\ \textcolor{keywordflow}{and}\ explicit\ examples\ during\ the\ training.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00583}00583\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00584}00584\ \ \ \ \ target\_assigner:\ a\ target\ assigner.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00585}00585\ \ \ \ \ anchors\_batch:\ BoxList\ representing\ N\ box\ anchors\ \textcolor{keywordflow}{or}\ list\ of\ BoxList\ objects}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00586}00586\ \ \ \ \ \ \ \textcolor{keyword}{with}\ length\ batch\_size\ representing\ anchor\ sets.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00587}00587\ \ \ \ \ gt\_box\_batch:\ a\ list\ of\ BoxList\ objects\ \textcolor{keyword}{with}\ length\ batch\_size}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00588}00588\ \ \ \ \ \ \ representing\ groundtruth\ boxes\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the\ batch}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00589}00589\ \ \ \ \ gt\_class\_confidences\_batch:\ a\ list\ of\ tensors\ \textcolor{keyword}{with}\ length\ batch\_size,\ where}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00590}00590\ \ \ \ \ \ \ each\ tensor\ has\ shape\ [num\_gt\_boxes\_i,\ classification\_target\_size]\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00591}00591\ \ \ \ \ \ \ num\_gt\_boxes\_i\ \textcolor{keywordflow}{is}\ the\ number\ of\ boxes\ \textcolor{keywordflow}{in}\ the\ ith\ boxlist\ of}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00592}00592\ \ \ \ \ \ \ gt\_box\_batch.\ Note\ that\ \textcolor{keywordflow}{in}\ this\ tensor,\ 1\ means\ explicit\ positive\ \textcolor{keyword}{class},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00593}00593\ \ \ \ \ \ \ -\/1\ means\ explicit\ negative\ \textcolor{keyword}{class},\ \textcolor{keywordflow}{and}\ 0\ means\ implicit\ negative\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00594}00594\ \ \ \ \ gt\_weights\_batch:\ A\ list\ of\ 1-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00595}00595\ \ \ \ \ \ \ [num\_gt\_boxes\_i]\ containing\ weights\ \textcolor{keywordflow}{for}\ groundtruth\ boxes.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00596}00596\ \ \ \ \ unmatched\_class\_label:\ a\ float32\ tensor\ \textcolor{keyword}{with}\ shape\ [d\_1,\ d\_2,\ ...,\ d\_k]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00597}00597\ \ \ \ \ \ \ which\ \textcolor{keywordflow}{is}\ consistent\ \textcolor{keyword}{with}\ the\ classification\ target\ \textcolor{keywordflow}{for}\ each}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00598}00598\ \ \ \ \ \ \ anchor\ (\textcolor{keywordflow}{and}\ can\ be\ empty\ \textcolor{keywordflow}{for}\ scalar\ targets).\ \ This\ shape\ must\ thus\ be}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00599}00599\ \ \ \ \ \ \ compatible\ \textcolor{keyword}{with}\ the\ groundtruth\ labels\ that\ are\ passed\ to\ the\ \textcolor{stringliteral}{"{}assign"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00600}00600\ \ \ \ \ \ \ function\ (which\ have\ shape\ [num\_gt\_boxes,\ d\_1,\ d\_2,\ ...,\ d\_k]).}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00601}00601\ \ \ \ \ include\_background\_class:\ whether\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}\ gt\_class\_confidences\_batch\ includes}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00602}00602\ \ \ \ \ \ \ the\ background\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00603}00603\ \ \ \ \ implicit\_class\_weight:\ the\ weight\ assigned\ to\ implicit\ examples.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00604}00604\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00605}00605\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00606}00606\ \ \ \ \ batch\_cls\_targets:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00607}00607\ \ \ \ \ \ \ num\_classes],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00608}00608\ \ \ \ \ batch\_cls\_weights:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00609}00609\ \ \ \ \ \ \ num\_classes],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00610}00610\ \ \ \ \ batch\_reg\_targets:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00611}00611\ \ \ \ \ \ \ box\_code\_dimension]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00612}00612\ \ \ \ \ batch\_reg\_weights:\ a\ tensor\ \textcolor{keyword}{with}\ shape\ [batch\_size,\ num\_anchors],}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00613}00613\ \ \ \ \ match:\ an\ int32\ tensor\ of\ shape\ [batch\_size,\ num\_anchors]\ containing\ result}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00614}00614\ \ \ \ \ \ \ of\ anchor\ groundtruth\ matching.\ Each\ position\ \textcolor{keywordflow}{in}\ the\ tensor\ indicates\ an}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00615}00615\ \ \ \ \ \ \ anchor\ \textcolor{keywordflow}{and}\ holds\ the\ following\ meaning:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00616}00616\ \ \ \ \ \ \ (1)\ \textcolor{keywordflow}{if}\ match[x,\ i]\ >=\ 0,\ anchor\ i\ \textcolor{keywordflow}{is}\ matched\ \textcolor{keyword}{with}\ groundtruth\ match[x,\ i].}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00617}00617\ \ \ \ \ \ \ (2)\ \textcolor{keywordflow}{if}\ match[x,\ i]=-\/1,\ anchor\ i\ \textcolor{keywordflow}{is}\ marked\ to\ be\ background\ .}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00618}00618\ \ \ \ \ \ \ (3)\ \textcolor{keywordflow}{if}\ match[x,\ i]=-\/2,\ anchor\ i\ \textcolor{keywordflow}{is}\ ignored\ since\ it\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ background\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ does\ \textcolor{keywordflow}{not}\ have\ sufficient\ overlap\ to\ call\ it\ a\ foreground.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00620}00620\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00621}00621\ \ \ Raises:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00622}00622\ \ \ \ \ ValueError:\ \textcolor{keywordflow}{if}\ input\ list\ lengths\ are\ inconsistent,\ i.e.,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00623}00623\ \ \ \ \ \ \ batch\_size\ ==\ len(gt\_box\_batch)\ ==\ len(gt\_class\_targets\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00624}00624\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ batch\_size\ ==\ len(anchors\_batch)\ unless\ anchors\_batch\ \textcolor{keywordflow}{is}\ a\ single}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00625}00625\ \ \ \ \ \ \ BoxList,\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{if}\ any\ element\ \textcolor{keywordflow}{in}\ gt\_class\_confidences\_batch\ has\ rank\ >\ 2.}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00626}00626\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00627}00627\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ isinstance(anchors\_batch,\ list):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00628}00628\ \ \ \ \ anchors\_batch\ =\ len(gt\_box\_batch)\ *\ [anchors\_batch]}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00629}00629\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ all(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00630}00630\ \ \ \ \ \ \ isinstance(anchors,\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1box__list_1_1_box_list}{box\_list.BoxList}})\ \textcolor{keywordflow}{for}\ anchors\ \textcolor{keywordflow}{in}\ anchors\_batch):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00631}00631\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'anchors\_batch\ must\ be\ a\ BoxList\ or\ list\ of\ BoxLists.'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00632}00632\ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ (len(anchors\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ ==\ len(gt\_box\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ ==\ len(gt\_class\_confidences\_batch)):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00635}00635\ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'batch\ size\ incompatible\ with\ lengths\ of\ anchors\_batch,\ '}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'gt\_box\_batch\ and\ gt\_class\_confidences\_batch.'})}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00637}00637\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00638}00638\ \ \ cls\_targets\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00639}00639\ \ \ cls\_weights\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00640}00640\ \ \ reg\_targets\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00641}00641\ \ \ reg\_weights\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00642}00642\ \ \ match\_list\ =\ []}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00643}00643\ \ \ \textcolor{keywordflow}{if}\ gt\_weights\_batch\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00644}00644\ \ \ \ \ gt\_weights\_batch\ =\ [\textcolor{keywordtype}{None}]\ *\ len(gt\_class\_confidences\_batch)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00645}00645\ \ \ \textcolor{keywordflow}{for}\ anchors,\ gt\_boxes,\ gt\_class\_confidences,\ gt\_weights\ \textcolor{keywordflow}{in}\ zip(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00646}00646\ \ \ \ \ \ \ anchors\_batch,\ gt\_box\_batch,\ gt\_class\_confidences\_batch,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00647}00647\ \ \ \ \ \ \ gt\_weights\_batch):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00648}00648\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00649}00649\ \ \ \ \ \textcolor{keywordflow}{if}\ (gt\_class\_confidences\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00650}00650\ \ \ \ \ \ \ \ \ len(gt\_class\_confidences.get\_shape().as\_list())\ >\ 2):}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00651}00651\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ ValueError(\textcolor{stringliteral}{'The\ shape\ of\ the\ class\ target\ is\ not\ supported.\ '},}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00652}00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gt\_class\_confidences.get\_shape())}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00653}00653\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00654}00654\ \ \ \ \ cls\_targets,\ \_,\ reg\_targets,\ \_,\ match\ =\ target\_assigner.assign(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00655}00655\ \ \ \ \ \ \ \ \ anchors,\ gt\_boxes,\ gt\_class\_confidences,\ unmatched\_class\_label,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00656}00656\ \ \ \ \ \ \ \ \ groundtruth\_weights=gt\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00657}00657\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00658}00658\ \ \ \ \ \textcolor{keywordflow}{if}\ include\_background\_class:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00659}00659\ \ \ \ \ \ \ cls\_targets\_without\_background\ =\ tf.slice(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00660}00660\ \ \ \ \ \ \ \ \ \ \ cls\_targets,\ [0,\ 1],\ [-\/1,\ -\/1])}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00661}00661\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00662}00662\ \ \ \ \ \ \ cls\_targets\_without\_background\ =\ cls\_targets}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00663}00663\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00664}00664\ \ \ \ \ positive\_mask\ =\ tf.greater(cls\_targets\_without\_background,\ 0.0)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00665}00665\ \ \ \ \ negative\_mask\ =\ tf.less(cls\_targets\_without\_background,\ 0.0)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00666}00666\ \ \ \ \ explicit\_example\_mask\ =\ tf.logical\_or(positive\_mask,\ negative\_mask)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00667}00667\ \ \ \ \ positive\_anchors\ =\ tf.reduce\_any(positive\_mask,\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00668}00668\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00669}00669\ \ \ \ \ regression\_weights\ =\ tf.cast(positive\_anchors,\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00670}00670\ \ \ \ \ regression\_targets\ =\ (}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00671}00671\ \ \ \ \ \ \ \ \ reg\_targets\ *\ tf.expand\_dims(regression\_weights,\ axis=-\/1))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00672}00672\ \ \ \ \ regression\_weights\_expanded\ =\ tf.expand\_dims(regression\_weights,\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00673}00673\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00674}00674\ \ \ \ \ cls\_targets\_without\_background\ =\ (}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00675}00675\ \ \ \ \ \ \ \ \ cls\_targets\_without\_background\ *}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00676}00676\ \ \ \ \ \ \ \ \ (1\ -\/\ tf.cast(negative\_mask,\ dtype=tf.float32)))}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00677}00677\ \ \ \ \ cls\_weights\_without\_background\ =\ ((1\ -\/\ implicit\_class\_weight)\ *\ tf.cast(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ explicit\_example\_mask,\ dtype=tf.float32)\ +\ implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00679}00679\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00680}00680\ \ \ \ \ \textcolor{keywordflow}{if}\ include\_background\_class:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00681}00681\ \ \ \ \ \ \ cls\_weights\_background\ =\ (}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ (1\ -\/\ implicit\_class\_weight)\ *\ regression\_weights\_expanded}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00683}00683\ \ \ \ \ \ \ \ \ \ \ +\ implicit\_class\_weight)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00684}00684\ \ \ \ \ \ \ classification\_weights\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00685}00685\ \ \ \ \ \ \ \ \ \ \ [cls\_weights\_background,\ cls\_weights\_without\_background],\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00686}00686\ \ \ \ \ \ \ cls\_targets\_background\ =\ 1\ -\/\ regression\_weights\_expanded}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00687}00687\ \ \ \ \ \ \ classification\_targets\ =\ tf.concat(}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ [cls\_targets\_background,\ cls\_targets\_without\_background],\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00689}00689\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00690}00690\ \ \ \ \ \ \ classification\_targets\ =\ cls\_targets\_without\_background}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00691}00691\ \ \ \ \ \ \ classification\_weights\ =\ cls\_weights\_without\_background}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00692}00692\ }
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00693}00693\ \ \ \ \ cls\_targets\_list.append(classification\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00694}00694\ \ \ \ \ cls\_weights\_list.append(classification\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00695}00695\ \ \ \ \ reg\_targets\_list.append(regression\_targets)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00696}00696\ \ \ \ \ reg\_weights\_list.append(regression\_weights)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00697}00697\ \ \ \ \ match\_list.append(match)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00698}00698\ \ \ batch\_cls\_targets\ =\ tf.stack(cls\_targets\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00699}00699\ \ \ batch\_cls\_weights\ =\ tf.stack(cls\_weights\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00700}00700\ \ \ batch\_reg\_targets\ =\ tf.stack(reg\_targets\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00701}00701\ \ \ batch\_reg\_weights\ =\ tf.stack(reg\_weights\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00702}00702\ \ \ batch\_match\ =\ tf.stack(match\_list)}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00703}00703\ \ \ \textcolor{keywordflow}{return}\ (batch\_cls\_targets,\ batch\_cls\_weights,\ batch\_reg\_targets,}
+\DoxyCodeLine{\Hypertarget{target__assigner_8py_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ batch\_reg\_weights,\ batch\_match)}
+
+\end{DoxyCode}

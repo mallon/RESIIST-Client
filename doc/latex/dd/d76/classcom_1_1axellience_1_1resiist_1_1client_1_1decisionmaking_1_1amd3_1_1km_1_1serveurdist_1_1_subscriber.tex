@@ -1,0 +1,82 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+decisionmaking.\+amd3.\+km.\+serveurdist.\+Subscriber Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber}\index{com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber@{com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+decisionmaking.\+amd3.\+km.\+serveurdist.\+Subscriber\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/da5/classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10}{main}} (String chemin, String topic)  throws Mqtt\+Exception     
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_subscriber_8java_source_l00006}{6}} of file \mbox{\hyperlink{_subscriber_8java_source}{Subscriber.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10} 
+\index{com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber@{com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber}!main@{main}}
+\index{main@{main}!com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber@{com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist.Subscriber}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily static void com.\+axellience.\+resiist.\+client.\+decisionmaking.\+amd3.\+km.\+serveurdist.\+Subscriber.\+main (\begin{DoxyParamCaption}\item[{String}]{chemin,  }\item[{String}]{topic }\end{DoxyParamCaption}) throws Mqtt\+Exception\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_subscriber_8java_source_l00009}{9}} of file \mbox{\hyperlink{_subscriber_8java_source}{Subscriber.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}==\ START\ SUBSCRIBER\ =="{}});}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*String\ clientId\ =\ "{}Client1"{};\  }}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ //Store\ messages\ until\ server\ fetches\ them }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ \ \ \ \ MqttDefaultFilePersistence\ dataStore\ =\ new\ MqttDefaultFilePersistence("{}C:\(\backslash\)\(\backslash\)Users\(\backslash\)\(\backslash\)kinta\(\backslash\)\(\backslash\)Documents\(\backslash\)\(\backslash\)StageCerema"{}\ +\ "{}\(\backslash\)\(\backslash\)"{}\ +\ clientId); }}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ \ \ \ \ \ MqttClient\ client=new\ MqttClient("{}tcp://test.mosquitto.org:1883"{},\ MqttClient.generateClientId(),dataStore); }}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.setCallback(\ new\ SimpleMqttCallBack()\ ); }}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.connect(); }}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ \ \ \  }}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \ \ \ \ client.subscribe("{}iot\_data"{});*/}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ MqttClient\ client\ =}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ MqttClient(\textcolor{stringliteral}{"{}tcp://test.mosquitto.org:1883"{}},\ MqttClient.generateClientId());}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ SimpleMqttCallBack\ call\ =\ \textcolor{keyword}{new}\ SimpleMqttCallBack();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ call.path\ =\ chemin;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ client.setCallback(call);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ client.setCallback(new\ SimpleMqttCallBack());}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ client.connect();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ client.subscribe(topic);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d76/classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_subscriber_a0af7c6ba350ddd15c5cd6b7a99e83e10_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/serveurdist/\mbox{\hyperlink{_subscriber_8java}{Subscriber.\+java}}\end{DoxyCompactItemize}

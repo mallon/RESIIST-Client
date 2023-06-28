@@ -1,0 +1,112 @@
+\doxysection{Fonc\+Pref.\+java}
+\hypertarget{promethee_2_fonc_pref_8java_source}{}\label{promethee_2_fonc_pref_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/promethee/FoncPref.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/promethee/FoncPref.java}}
+\mbox{\hyperlink{promethee_2_fonc_pref_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee}{00001}}\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.promethee;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00003}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref}{00003}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref}{FoncPref}}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00006}00006\ \ \ \ \ \textcolor{comment}{//\ La\ fonction\ de\ preference\ P(a,b)\ est\ definie\ donnant\ le\ degre\ de}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00007}00007\ \ \ \ \ \textcolor{comment}{//\ preference\ de\ a\ sur\ b\ pour\ un\ critere.}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00009}00009\ \ \ \ \ \textcolor{comment}{//\ Fonction\ de\ preference\ Forme\ en\ U\ (avec\ seuil\ d'indiff{\ucr}rence)}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00011}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_abacfaa33e5db28b488eadc4936c96281}{00011}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_abacfaa33e5db28b488eadc4936c96281}{UShape}}(\textcolor{keywordtype}{double}\ ecart,\ \textcolor{keywordtype}{double}\ indseuil)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ <=\ indseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00019}00019\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ Fonction\ Level\ (avec\ seuil\ d'indifference\ et\ seuil\ de\ preference)}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00025}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa280fce9ac755c0a45a38b78509f2700}{00025}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa280fce9ac755c0a45a38b78509f2700}{Level}}(\textcolor{keywordtype}{double}\ ecart,\ \textcolor{keywordtype}{double}\ prefseuil,\ \textcolor{keywordtype}{double}\ indseuil)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00026}00026\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ <=\ indseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((ecart)\ >\ indseuil)\ \&\&\ ((ecart)\ <=\ prefseuil))\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0.5;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ >\ prefseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00042}00042\ \ \ \ \ \textcolor{comment}{//\ Fonction\ Forme\ en\ V\ (avec\ seuil\ de\ preference)}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00044}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_afd957256d68a1e7f23b973bd735c083a}{00044}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_afd957256d68a1e7f23b973bd735c083a}{VShape}}(\textcolor{keywordtype}{double}\ ecart,\ \textcolor{keywordtype}{double}\ prefseuil)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((ecart)\ <=\ prefseuil)\ \&\&\ (((ecart)\ >=\ 0)))\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ (ecart)\ /\ prefseuil;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ecart\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ecart\ >\ prefseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ Fonction\ Lineaire\ (avec\ seuil\ d'indifference\ et\ seuil\ de\ preference)}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00062}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa13c70bab1556b3297346778a2bd30c9}{00062}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa13c70bab1556b3297346778a2bd30c9}{VShapeInd}}(\textcolor{keywordtype}{double}\ ecart,\ \textcolor{keywordtype}{double}\ prefseuil,\ \textcolor{keywordtype}{double}\ indseuil)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00063}00063\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ <=\ indseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((ecart)\ >\ prefseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (((ecart)\ <=\ prefseuil)\ \&\&\ ((ecart)\ >\ indseuil))\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ ((ecart)\ -\/\ indseuil)\ /\ (prefseuil\ -\/\ indseuil);}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//\ Fonction\ Usuelle}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00078}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa99647915ecc66e655a8936aa629f08c}{00078}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_aa99647915ecc66e655a8936aa629f08c}{Usual}}(\textcolor{keywordtype}{double}\ ecart)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00079}00079\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00084}00084\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00086}00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00088}00088\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ Fonction\ Gaussian}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00092}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_abf7e8cd629d0bd601db92214ddfcd630}{00092}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1promethee_1_1_fonc_pref_abf7e8cd629d0bd601db92214ddfcd630}{Gaussian}}(\textcolor{keywordtype}{double}\ ecart,\ \textcolor{keywordtype}{double}\ s)}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((ecart)\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1\ -\/\ Math.exp(-\/(Math.pow(ecart,\ 2)\ /\ (2\ *\ Math.pow(s,\ 2))));}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{promethee_2_fonc_pref_8java_source_l00106}00106\ \}}
+
+\end{DoxyCode}

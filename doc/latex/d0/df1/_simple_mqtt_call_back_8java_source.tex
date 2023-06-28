@@ -1,0 +1,67 @@
+\doxysection{Simple\+Mqtt\+Call\+Back.\+java}
+\hypertarget{_simple_mqtt_call_back_8java_source}{}\label{_simple_mqtt_call_back_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/serveurdist/SimpleMqttCallBack.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/serveurdist/SimpleMqttCallBack.java}}
+\mbox{\hyperlink{_simple_mqtt_call_back_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist}{00001}}\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.serveurdist;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00003}00003\ \textcolor{keyword}{import}\ java.io.FileWriter;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00004}00004\ \textcolor{keyword}{import}\ java.io.IOException;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00005}00005\ \textcolor{keyword}{import}\ java.nio.charset.StandardCharsets;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00007}00007\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00008}00008\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttCallback;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00009}00009\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttException;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00010}00010\ \textcolor{keyword}{import}\ org.eclipse.paho.client.mqttv3.MqttMessage;}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00012}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back}{00012}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back}{SimpleMqttCallBack}}\ \textcolor{keyword}{implements}\ MqttCallback}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00014}00014\ \ \ \ \ \textcolor{comment}{/*Map<String,String>\ myMap\ =\ new\ HashMap<String,String>();\ }}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00015}00015\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00016}00016\ \textcolor{comment}{\ \ \ \ LocalDateTime\ time\ =\ LocalDateTime.now();\ }}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00017}00017\ \textcolor{comment}{\ \ \ \ static\ DateTimeFormatter\ formatter\ =\ DateTimeFormatter.ISO\_DATE\_TIME;}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00018}00018\ \textcolor{comment}{\ \ \ \ String\ formattedDateTime\ =\ time.format(formatter);*/}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00020}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a7dfa96dd39dc01845e801a1bfe248e89}{00020}}\ \ \ \ \ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a7dfa96dd39dc01845e801a1bfe248e89}{path}};}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00022}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_afdacda87094219ef5fd590f1a9871507}{00022}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_afdacda87094219ef5fd590f1a9871507}{connectionLost}}(Throwable\ throwable)}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00023}00023\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00024}00024\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}Connection\ to\ MQTT\ broker\ lost!"{}});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00025}00025\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00027}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a22d3f235bb007c2863a9fb7135fe1871}{00027}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a22d3f235bb007c2863a9fb7135fe1871}{messageArrived}}(String\ topic,\ MqttMessage\ mqttMessage)\ \textcolor{keywordflow}{throws}\ Exception}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00028}00028\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}Message\ received:\(\backslash\)t"{}}\ +\ \textcolor{keyword}{new}\ String(mqttMessage.getPayload()));}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ String\ mess\ =\ \textcolor{keyword}{new}\ String(mqttMessage.getPayload(),\ StandardCharsets.UTF\_8);}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ FileWriter\ myWriter\ =\ \textcolor{keyword}{new}\ FileWriter(\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a7dfa96dd39dc01845e801a1bfe248e89}{path}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ myWriter.write(mess\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ myWriter.close();}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}Successfully\ wrote\ to\ the\ file."{}});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}Writer\ file:\ "{}}\ +\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_a7dfa96dd39dc01845e801a1bfe248e89}{path}});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (IOException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}An\ error\ occurred."{}});}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00050}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_aa52bf20b1effd3668b4e06c00260199e}{00050}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1serveurdist_1_1_simple_mqtt_call_back_aa52bf20b1effd3668b4e06c00260199e}{deliveryComplete}}(IMqttDeliveryToken\ iMqttDeliveryToken)}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00051}00051\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ iMqttDeliveryToken.getMessage();}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (MqttException\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO\ Auto-\/generated\ catch\ block}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ e.printStackTrace();}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_simple_mqtt_call_back_8java_source_l00061}00061\ \}}
+
+\end{DoxyCode}

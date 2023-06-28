@@ -1,0 +1,131 @@
+\doxysection{Fuzzy\+Ahp\+Topsis.\+java}
+\hypertarget{_fuzzy_ahp_topsis_8java_source}{}\label{_fuzzy_ahp_topsis_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/topsis/FuzzyAhpTopsis.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/topsis/FuzzyAhpTopsis.java}}
+\mbox{\hyperlink{_fuzzy_ahp_topsis_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00001}\mbox{\hyperlink{namespacecom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis}{00001}}\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.topsis;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00003}00003\ \textcolor{keyword}{import}\ com.axellience.resiist.client.decisionmaking.amd3.km.fuzzy.Fuzzification;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00005}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis}{00005}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis}{FuzzyAhpTopsis}}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00006}00006\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00008}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a0c376014f0a23f10486ea01df93b1882}{00008}}\ \ \ \ \ \textcolor{keyword}{final}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}[]\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a0c376014f0a23f10486ea01df93b1882}{IA}}\ =}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00009}00009\ \ \ \ \ \ \ \ \ \ \ \ \ \{0,\ 0,\ 0.58,\ 0.90,\ 1.12,\ 1.24,\ 1.32,\ 1.41,\ 1.45,\ 1.49,\ 1.51,\ 1.48,\ 1.56,\ 1.57,\ 1.59\};}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00011}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a7e98f4dd28ee8a6bd94d7f0fc650fa62}{00011}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a7e98f4dd28ee8a6bd94d7f0fc650fa62}{getIA}}(\textcolor{keywordtype}{int}\ N)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a0c376014f0a23f10486ea01df93b1882}{IA}}[N\ -\/\ 1];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00014}00014\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00016}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_ac44bedf78fb1d8bde75b9e6686d455fc}{00016}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}[]\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_ac44bedf78fb1d8bde75b9e6686d455fc}{FuzzCalcWeights}}(\textcolor{keywordtype}{double}[][][]\ tablefuzzy)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00017}00017\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TEST\ OK}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ resultat\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[tablefuzzy.length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ on\ rempli\ la\ matrice\ par\ symtrie\ et\ on\ calcule\ RI}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[][][]\ matFuzzy\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_a65301e5b90413bfc5c8a20b02d265284}{remplirFuzzy}}(tablefuzzy);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[][]\ ricalc\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_a853df6ebb71b29277b469f587e956ae8}{RICalcul}}(matFuzzy);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ inter\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_a22cad7cd4a2922ff6a560e77086dc197}{RISum}}(ricalc);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ invers\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_a0a61dcbf48a5fcb469b74623f7d07c68}{invRIsum}}(inter);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[][]\ tableRI\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_a956619afce190d5241543949b21466d8}{finalTableRI}}(ricalc,\ invers);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ vecteurNormal\ =\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification}{Fuzzification}}.\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1fuzzy_1_1_fuzzification_aee014c243db3e053b264df9e7d9c7507}{poidsFinal}}(tableRI);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ resultat\ =\ vecteurNormal;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resultat;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00033}00033\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00035}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a661e6eb3eb4e29a2368984cd8705083c}{00035}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a661e6eb3eb4e29a2368984cd8705083c}{verifCoherenc}}(\textcolor{keywordtype}{double}[][]\ tableau,\ \textcolor{keywordtype}{double}[]\ vecteurNorm)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ vecteurNorm.length;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00038}00038\ \ \ \ \ \ \ \ \ String\ resultat;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ lambda\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[vecteurNorm.length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ somme\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ tableau.length;\ i++)\ \{\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ fait\ le\ calcul}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ligne\ par\ ligne}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ du\ tableau}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ n;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lambda[i]\ +=\ tableau[i][j]\ *\ vecteurNorm[j];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ lambda[i]\ =\ lambda[i]\ /\ vecteurNorm[i];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ somme\ +=\ lambda[i];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lambdaMax\ =\ somme\ /\ (double)\ n;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ IC\ =\ (lambdaMax\ -\/\ n)\ /\ (n\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ RC\ =\ IC\ /\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a7e98f4dd28ee8a6bd94d7f0fc650fa62}{getIA}}(n);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (RC\ <=\ 0.10\ \&\&\ RC\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ resultat\ =\ \textcolor{stringliteral}{"{}True"{}};}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00056}00056\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ resultat\ =\ \textcolor{stringliteral}{"{}False"{}};}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00058}00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resultat;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00062}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_aeb65941b203342799d30ff5e0ce55c10}{00062}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_aeb65941b203342799d30ff5e0ce55c10}{getRC}}(\textcolor{keywordtype}{double}[][]\ tableau,\ \textcolor{keywordtype}{double}[]\ vecteurNorm)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00063}00063\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ vecteurNorm.length;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ lambda\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[vecteurNorm.length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ somme\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ tableau.length;\ i++)\ \{\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ fait\ le\ calcul}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ligne\ par\ ligne}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ du\ tableau}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ n;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lambda[i]\ +=\ tableau[i][j]\ *\ vecteurNorm[j];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ lambda[i]\ =\ lambda[i]\ /\ vecteurNorm[i];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ somme\ +=\ lambda[i];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00076}00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lambdaMax\ =\ somme\ /\ (double)\ n;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ IC\ =\ (lambdaMax\ -\/\ n)\ /\ (n\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ RC\ =\ IC\ /\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a7e98f4dd28ee8a6bd94d7f0fc650fa62}{getIA}}(n);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ RC;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00085}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a181fee7ea1f8a04a1cd9a08bc2f305eb}{00085}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}[][]\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_a181fee7ea1f8a04a1cd9a08bc2f305eb}{FuzAhptabUn}}(\textcolor{keywordtype}{double}[][][]\ tablefuzzy)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Creation\ du\ tableau[][]}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TEST\ OK}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[][]\ tablesUn\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[tablefuzzy.length][tablefuzzy[0].length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ tablefuzzy[0].length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ tablefuzzy[0].length;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tablesUn[i][j]\ =}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (tablefuzzy[i][j][0]\ +\ 2\ *\ tablefuzzy[i][j][1]\ +\ tablefuzzy[i][j][2])\ /\ 4;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00096}00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tablesUn;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00102}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_aca2450a504d9ee26995779891bd8355f}{00102}}\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}[]\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1topsis_1_1_fuzzy_ahp_topsis_aca2450a504d9ee26995779891bd8355f}{ConsistentWeights}}(\textcolor{keywordtype}{double}[]\ listRC,\ \textcolor{keywordtype}{double}[][]\ listofWeights)}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00103}00103\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ resultat\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[listofWeights[0].length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ listP\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[listRC.length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}[]\ listWp\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[listRC.length];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ somme\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ listRC.length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ listP[i]\ =\ 1\ /\ (1\ +\ 10\ *\ listRC[i]);}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ somme\ +=\ listP[i];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00111}00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ listRC.length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ listWp[i]\ =\ listP[i]\ /\ somme;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00115}00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ listofWeights[0].length;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ listRC.length;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resultat[j]\ +=\ listWp[i]\ *\ listofWeights[i][j];}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00122}00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resultat;}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fuzzy_ahp_topsis_8java_source_l00125}00125\ \}}
+
+\end{DoxyCode}

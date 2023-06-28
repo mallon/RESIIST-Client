@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['manuelcontroller_0',['ManuelController',['../d1/d84/classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1struct_1_1controller_1_1_manuel_controller.html',1,'com::axellience::resiist::client::decisionmaking::amd3::struct::controller']]],
+  ['maskopstests_1',['MaskOpsTests',['../dd/d70/classdetection__utils_1_1utils_1_1np__mask__ops__test_1_1_mask_ops_tests.html',1,'detection_utils::utils::np_mask_ops_test']]],
+  ['match_2',['Match',['../db/d24/classdetection__utils_1_1core_1_1matcher_1_1_match.html',1,'detection_utils::core::matcher']]],
+  ['matcher_3',['Matcher',['../de/d72/classdetection__utils_1_1core_1_1matcher_1_1_matcher.html',1,'detection_utils::core::matcher']]],
+  ['matchtest_4',['MatchTest',['../d5/ded/classdetection__utils_1_1core_1_1matcher__test_1_1_match_test.html',1,'detection_utils::core::matcher_test']]],
+  ['matmulcropandresizetest_5',['MatMulCropAndResizeTest',['../df/d02/classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_mat_mul_crop_and_resize_test.html',1,'detection_utils::utils::spatial_transform_ops_test']]],
+  ['matmulgatheronzerothaxis_6',['MatmulGatherOnZerothAxis',['../df/db9/classdetection__utils_1_1utils_1_1ops__test_1_1_matmul_gather_on_zeroth_axis.html',1,'detection_utils::utils::ops_test']]],
+  ['matrixsym_7',['MatrixSym',['../dd/d67/classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_matrix_sym.html',1,'com::axellience::resiist::client::decisionmaking::amd3::km::basicfunction']]],
+  ['mergeboxeswithmultiplelabelstest_8',['MergeBoxesWithMultipleLabelsTest',['../d8/dcb/classdetection__utils_1_1utils_1_1ops__test_1_1_merge_boxes_with_multiple_labels_test.html',1,'detection_utils::utils::ops_test']]],
+  ['meshgridtest_9',['MeshgridTest',['../dc/dad/classdetection__utils_1_1utils_1_1ops__test_1_1_meshgrid_test.html',1,'detection_utils::utils::ops_test']]],
+  ['metricstest_10',['MetricsTest',['../d7/d25/classdetection__utils_1_1utils_1_1metrics__test_1_1_metrics_test.html',1,'detection_utils::utils::metrics_test']]],
+  ['minibatchsampler_11',['MinibatchSampler',['../dd/dc4/classdetection__utils_1_1core_1_1minibatch__sampler_1_1_minibatch_sampler.html',1,'detection_utils::core::minibatch_sampler']]],
+  ['minibatchsamplertest_12',['MinibatchSamplerTest',['../de/d69/classdetection__utils_1_1core_1_1minibatch__sampler__test_1_1_minibatch_sampler_test.html',1,'detection_utils::core::minibatch_sampler_test']]],
+  ['mockanchorgenerator_13',['MockAnchorGenerator',['../d9/d2b/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_anchor_generator.html',1,'detection_utils::utils::test_utils']]],
+  ['mockboxcoder_14',['MockBoxCoder',['../d3/dae/classdetection__utils_1_1core_1_1box__coder__test_1_1_mock_box_coder.html',1,'detection_utils.core.box_coder_test.MockBoxCoder'],['../da/de9/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_coder.html',1,'detection_utils.utils.test_utils.MockBoxCoder']]],
+  ['mockboxpredictor_15',['MockBoxPredictor',['../d3/d3d/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_box_predictor.html',1,'detection_utils::utils::test_utils']]],
+  ['mockkerasboxpredictor_16',['MockKerasBoxPredictor',['../d4/d03/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_keras_box_predictor.html',1,'detection_utils::utils::test_utils']]],
+  ['mockmaskhead_17',['MockMaskHead',['../d5/dce/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_mask_head.html',1,'detection_utils::utils::test_utils']]],
+  ['mockmatcher_18',['MockMatcher',['../d2/dba/classdetection__utils_1_1utils_1_1test__utils_1_1_mock_matcher.html',1,'detection_utils::utils::test_utils']]],
+  ['modelutils_19',['ModelUtils',['../df/d9c/classcom_1_1axellience_1_1resiist_1_1client_1_1utils_1_1_model_utils.html',1,'com::axellience::resiist::client::utils']]],
+  ['multiclassestpfptest_20',['MultiClassesTpFpTest',['../d3/d99/classdetection__utils_1_1utils_1_1per__image__evaluation__test_1_1_multi_classes_tp_fp_test.html',1,'detection_utils::utils::per_image_evaluation_test']]],
+  ['multiclassnonmaxsuppressiontest_21',['MulticlassNonMaxSuppressionTest',['../d3/df3/classdetection__utils_1_1core_1_1multiclass__nms__test_1_1_multiclass_non_max_suppression_test.html',1,'detection_utils::core::multiclass_nms_test']]],
+  ['multiclassperimagevrdevaluationtest_22',['MultiClassPerImageVrdEvaluationTest',['../d5/d24/classdetection__utils_1_1utils_1_1per__image__vrd__evaluation__test_1_1_multi_class_per_image_vrd_evaluation_test.html',1,'detection_utils::utils::per_image_vrd_evaluation_test']]],
+  ['multilevelroialigntest_23',['MultiLevelRoIAlignTest',['../d2/d05/classdetection__utils_1_1utils_1_1spatial__transform__ops__test_1_1_multi_level_ro_i_align_test.html',1,'detection_utils::utils::spatial_transform_ops_test']]],
+  ['multiplygradientsmatchingregextest_24',['MultiplyGradientsMatchingRegexTest',['../d5/dd7/classdetection__utils_1_1utils_1_1variables__helper__test_1_1_multiply_gradients_matching_regex_test.html',1,'detection_utils::utils::variables_helper_test']]]
+];

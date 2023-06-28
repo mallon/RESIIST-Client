@@ -1,0 +1,260 @@
+\doxysection{detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test}{}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test}\index{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{da/d9e/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{d1/d71/classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a0921f394ac7c096e2f460226b97fad5b}{test\+Returns\+Correct\+Loss}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a5b467056c14eb68d838c82e5974968a2}{test\+Returns\+Correct\+Anchor\+Wise\+Loss}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_abda0d418a3478d5baf483d1248065b97}{test\+Returns\+Correct\+Anchor\+Wise\+Loss\+With\+High\+Logit\+Scale\+Setting}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_ae42cd918e407a2e521fb6bebf15b2339}{test\+Returns\+Correct\+Loss\+With\+Losses\+Mask}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00708}{708}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a5b467056c14eb68d838c82e5974968a2}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a5b467056c14eb68d838c82e5974968a2} 
+\index{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}!testReturnsCorrectAnchorWiseLoss@{testReturnsCorrectAnchorWiseLoss}}
+\index{testReturnsCorrectAnchorWiseLoss@{testReturnsCorrectAnchorWiseLoss}!detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectAnchorWiseLoss()}{testReturnsCorrectAnchorWiseLoss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test.\+test\+Returns\+Correct\+Anchor\+Wise\+Loss (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00744}{744}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00744\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectAnchorWiseLoss(self):}
+\DoxyCodeLine{00745\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100],}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/100],}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ -\/100,\ 100]],}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[-\/100,\ 0,\ 0],}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100]]],\ tf.float32)}
+\DoxyCodeLine{00753\ \ \ \ \ target\_tensor\ =\ tf.constant([[[0,\ 1,\ 0],}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]],}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00761\ \ \ \ \ weights\ =\ tf.constant([[[1,\ 1,\ 1],}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]],}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1],}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00769\ \ \ \ \ loss\_op\ =\ losses.WeightedSoftmaxClassificationLoss()}
+\DoxyCodeLine{00770\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights)}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00772\ \ \ \ \ exp\_loss\ =\ np.matrix([[0,\ 0,\ -\/\ 0.5\ *\ math.log(.5),\ 0],}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/math.log(.5),\ 0,\ 0,\ 0]])}
+\DoxyCodeLine{00774\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00777\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_abda0d418a3478d5baf483d1248065b97}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_abda0d418a3478d5baf483d1248065b97} 
+\index{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}!testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting@{testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting}}
+\index{testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting@{testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting}!detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting()}{testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test.\+test\+Returns\+Correct\+Anchor\+Wise\+Loss\+With\+High\+Logit\+Scale\+Setting (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}At very high logit_scale, all predictions will be ~0.33.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00778}{778}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00778\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectAnchorWiseLossWithHighLogitScaleSetting(self):}
+\DoxyCodeLine{00779\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}At\ very\ high\ logit\_scale,\ all\ predictions\ will\ be\ \string~0.33."{}"{}"{}}}
+\DoxyCodeLine{00780\ \ \ \ \ \textcolor{comment}{\#\ TODO(yonib):\ Also\ test\ logit\_scale\ with\ anchorwise=False.}}
+\DoxyCodeLine{00781\ \ \ \ \ logit\_scale\ =\ 10e16}
+\DoxyCodeLine{00782\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100],}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/100],}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ -\/100,\ 100]],}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[-\/100,\ 0,\ 0],}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100]]],\ tf.float32)}
+\DoxyCodeLine{00790\ \ \ \ \ target\_tensor\ =\ tf.constant([[[0,\ 1,\ 0],}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]],}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00798\ \ \ \ \ weights\ =\ tf.constant([[[1,\ 1,\ 1],}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]],}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1],}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]]],\ tf.float32)}
+\DoxyCodeLine{00806\ \ \ \ \ loss\_op\ =\ losses.WeightedSoftmaxClassificationLoss(logit\_scale=logit\_scale)}
+\DoxyCodeLine{00807\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights)}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \ \ \ \ uniform\_distribution\_loss\ =\ -\/\ math.log(.33333333333)}
+\DoxyCodeLine{00810\ \ \ \ \ exp\_loss\ =\ np.matrix([[uniform\_distribution\_loss]\ *\ 4,}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [uniform\_distribution\_loss]\ *\ 4])}
+\DoxyCodeLine{00812\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00815\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a0921f394ac7c096e2f460226b97fad5b}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_a0921f394ac7c096e2f460226b97fad5b} 
+\index{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}!testReturnsCorrectLoss@{testReturnsCorrectLoss}}
+\index{testReturnsCorrectLoss@{testReturnsCorrectLoss}!detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLoss()}{testReturnsCorrectLoss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test.\+test\+Returns\+Correct\+Loss (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00710}{710}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00710\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLoss(self):}
+\DoxyCodeLine{00711\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100],}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/100],}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ -\/100,\ 100]],}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[-\/100,\ 0,\ 0],}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100]]],\ tf.float32)}
+\DoxyCodeLine{00719\ \ \ \ \ target\_tensor\ =\ tf.constant([[[0,\ 1,\ 0],}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]],}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00727\ \ \ \ \ weights\ =\ tf.constant([[[1,\ 1,\ 1],}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]],}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1],}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00735\ \ \ \ \ loss\_op\ =\ losses.WeightedSoftmaxClassificationLoss()}
+\DoxyCodeLine{00736\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights)}
+\DoxyCodeLine{00737\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \ \ \ \ exp\_loss\ =\ -\/\ 1.5\ *\ math.log(.5)}
+\DoxyCodeLine{00740\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00743\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_ae42cd918e407a2e521fb6bebf15b2339}\label{classdetection__utils_1_1core_1_1losses__test_1_1_weighted_softmax_classification_loss_test_ae42cd918e407a2e521fb6bebf15b2339} 
+\index{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}!testReturnsCorrectLossWithLossesMask@{testReturnsCorrectLossWithLossesMask}}
+\index{testReturnsCorrectLossWithLossesMask@{testReturnsCorrectLossWithLossesMask}!detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest@{detection\_utils.core.losses\_test.WeightedSoftmaxClassificationLossTest}}
+\doxysubsubsection{\texorpdfstring{testReturnsCorrectLossWithLossesMask()}{testReturnsCorrectLossWithLossesMask()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+losses\+\_\+test.\+Weighted\+Softmax\+Classification\+Loss\+Test.\+test\+Returns\+Correct\+Loss\+With\+Losses\+Mask (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{losses__test_8py_source_l00816}{816}} of file \mbox{\hyperlink{losses__test_8py_source}{losses\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00816\ \ \ \textcolor{keyword}{def\ }testReturnsCorrectLossWithLossesMask(self):}
+\DoxyCodeLine{00817\ \ \ \ \ prediction\_tensor\ =\ tf.constant([[[-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100],}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/100],}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ -\/100,\ 100]],}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[-\/100,\ 0,\ 0],}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100]],}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[-\/100,\ 0,\ 0],}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [-\/100,\ 100,\ -\/100],}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [100,\ -\/100,\ -\/100]]],\ tf.float32)}
+\DoxyCodeLine{00829\ \ \ \ \ target\_tensor\ =\ tf.constant([[[0,\ 1,\ 0],}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 1]],}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[0,\ 0,\ 1],}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 1,\ 0],}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0]],}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 0,\ 0],}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0],}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 0,\ 0]]],\ tf.float32)}
+\DoxyCodeLine{00841\ \ \ \ \ weights\ =\ tf.constant([[[1,\ 1,\ 1],}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0.5,\ 0.5,\ 0.5],}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]],}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1],}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [0,\ 0,\ 0]],}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[1,\ 1,\ 1],}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1],}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [1,\ 1,\ 1]]],\ tf.float32)}
+\DoxyCodeLine{00853\ \ \ \ \ losses\_mask\ =\ tf.constant([\textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}],\ tf.bool)}
+\DoxyCodeLine{00854\ \ \ \ \ loss\_op\ =\ losses.WeightedSoftmaxClassificationLoss()}
+\DoxyCodeLine{00855\ \ \ \ \ loss\ =\ loss\_op(prediction\_tensor,\ target\_tensor,\ weights=weights,}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ losses\_mask=losses\_mask)}
+\DoxyCodeLine{00857\ \ \ \ \ loss\ =\ tf.reduce\_sum(loss)}
+\DoxyCodeLine{00858\ }
+\DoxyCodeLine{00859\ \ \ \ \ exp\_loss\ =\ -\/\ 1.5\ *\ math.log(.5)}
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ loss\_output\ =\ sess.run(loss)}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ self.assertAllClose(loss\_output,\ exp\_loss)}
+\DoxyCodeLine{00863\ }
+\DoxyCodeLine{00864\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{losses__test_8py}{losses\+\_\+test.\+py}}\end{DoxyCompactItemize}

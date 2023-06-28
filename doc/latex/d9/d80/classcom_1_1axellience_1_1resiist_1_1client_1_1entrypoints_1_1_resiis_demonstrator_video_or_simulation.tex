@@ -1,0 +1,85 @@
+\doxysection{com.\+axellience.\+resiist.\+client.\+entrypoints.\+Resiis\+Demonstrator\+Video\+Or\+Simulation Class Reference}
+\hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation}{}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation}\index{com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation@{com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation}}
+
+
+Collaboration diagram for com.\+axellience.\+resiist.\+client.\+entrypoints.\+Resiis\+Demonstrator\+Video\+Or\+Simulation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{d2/d64/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52}{main}} (String\mbox{[}$\,$\mbox{]} args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java_source_l00012}{12}} of file \mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java_source}{Resiis\+Demonstrator\+Video\+Or\+Simulation.\+java}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52}\label{classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52} 
+\index{com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation@{com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation}!main@{main}}
+\index{main@{main}!com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation@{com.axellience.resiist.client.entrypoints.ResiisDemonstratorVideoOrSimulation}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily static void com.\+axellience.\+resiist.\+client.\+entrypoints.\+Resiis\+Demonstrator\+Video\+Or\+Simulation.\+main (\begin{DoxyParamCaption}\item[{String\mbox{[}$\,$\mbox{]}}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+By default, Spring boot set a property -\/ headless -\/ to false, blocking swing components (more precisely rising an headless exception). One need to set it to \textquotesingle{}true\textquotesingle{} to be able to use swing
+
+Video and simulation data source
+
+Definition at line \mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java_source_l00014}{14}} of file \mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java_source}{Resiis\+Demonstrator\+Video\+Or\+Simulation.\+java}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ SpringApplicationBuilder\ builder\ =}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ SpringApplicationBuilder(ResiisDemonstratorVideoOrSimulation.class);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ builder.headless(\textcolor{keyword}{false});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ builder.run(args);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ AcquisitionToIntegration\ extractionToIntegrationAsVideo\ =}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ AcquisitionToIntegration(InterpretationRuleGenerator.getInstance(),}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ResilienceRuleDefiner.getInstance());}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.connexionToModelingPlatform(\textcolor{stringliteral}{"{}indicator"{}},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}password"{}},}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\_VosXMFzJEeuFdrwv9XdLnA"{}});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.getModelFromServerAsBinary();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.integrationConfiguration();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.interpretationConfiguration();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.connexionToDataSourcesAsRealTypeSimulation();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ extractionToIntegrationAsVideo.connexionToDataSourceAsVideo();}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ extractionToIntegrationAsVideo.start();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ VideoSource().start();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ System.out.println(\textcolor{stringliteral}{"{}-\/-\/\ TEST\ -\/-\/"{}});}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d80/classcom_1_1axellience_1_1resiist_1_1client_1_1entrypoints_1_1_resiis_demonstrator_video_or_simulation_a2789eefc20c873537da8825f777ced52_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/com/axellience/resiist/client/entrypoints/\mbox{\hyperlink{_resiis_demonstrator_video_or_simulation_8java}{Resiis\+Demonstrator\+Video\+Or\+Simulation.\+java}}\end{DoxyCompactItemize}

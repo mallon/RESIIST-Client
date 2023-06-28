@@ -1,0 +1,133 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple}\index{detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{d7/d50/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{d0/d54/classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a519504256266e199f8dc704da951a5d2}{test\+\_\+zero\+\_\+padding}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1fee3faa1e307184e8d7b446496d74aa}{test\+\_\+no\+\_\+padding}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a9018c73b05f278a5f48a3ba6fd38c630}{test\+\_\+non\+\_\+square\+\_\+padding}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1f077c5878f68742c08f11269f562c98}{test\+\_\+padding}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00131}{131}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1fee3faa1e307184e8d7b446496d74aa}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1fee3faa1e307184e8d7b446496d74aa} 
+\index{detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}!test\_no\_padding@{test\_no\_padding}}
+\index{test\_no\_padding@{test\_no\_padding}!detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}}
+\doxysubsubsection{\texorpdfstring{test\_no\_padding()}{test\_no\_padding()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple.\+test\+\_\+no\+\_\+padding (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00140}{140}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{def\ }test\_no\_padding(self):}
+\DoxyCodeLine{00141\ \ \ \ \ tensor\ =\ tf.constant([[[[0.],\ [0.]],\ [[0.],\ [0.]]]])}
+\DoxyCodeLine{00142\ \ \ \ \ padded\_tensor\ =\ ops.pad\_to\_multiple(tensor,\ 2)}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ padded\_tensor\_out\ =\ sess.run(padded\_tensor)}
+\DoxyCodeLine{00145\ \ \ \ \ self.assertEqual((1,\ 2,\ 2,\ 1),\ padded\_tensor\_out.shape)}
+\DoxyCodeLine{00146\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a9018c73b05f278a5f48a3ba6fd38c630}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a9018c73b05f278a5f48a3ba6fd38c630} 
+\index{detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}!test\_non\_square\_padding@{test\_non\_square\_padding}}
+\index{test\_non\_square\_padding@{test\_non\_square\_padding}!detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}}
+\doxysubsubsection{\texorpdfstring{test\_non\_square\_padding()}{test\_non\_square\_padding()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple.\+test\+\_\+non\+\_\+square\+\_\+padding (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00147}{147}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{def\ }test\_non\_square\_padding(self):}
+\DoxyCodeLine{00148\ \ \ \ \ tensor\ =\ tf.constant([[[[0.],\ [0.]]]])}
+\DoxyCodeLine{00149\ \ \ \ \ padded\_tensor\ =\ ops.pad\_to\_multiple(tensor,\ 2)}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ padded\_tensor\_out\ =\ sess.run(padded\_tensor)}
+\DoxyCodeLine{00152\ \ \ \ \ self.assertEqual((1,\ 2,\ 2,\ 1),\ padded\_tensor\_out.shape)}
+\DoxyCodeLine{00153\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1f077c5878f68742c08f11269f562c98}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a1f077c5878f68742c08f11269f562c98} 
+\index{detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}!test\_padding@{test\_padding}}
+\index{test\_padding@{test\_padding}!detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}}
+\doxysubsubsection{\texorpdfstring{test\_padding()}{test\_padding()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple.\+test\+\_\+padding (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00154}{154}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{def\ }test\_padding(self):}
+\DoxyCodeLine{00155\ \ \ \ \ tensor\ =\ tf.constant([[[[0.],\ [0.]],\ [[0.],\ [0.]]]])}
+\DoxyCodeLine{00156\ \ \ \ \ padded\_tensor\ =\ ops.pad\_to\_multiple(tensor,\ 4)}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ padded\_tensor\_out\ =\ sess.run(padded\_tensor)}
+\DoxyCodeLine{00159\ \ \ \ \ self.assertEqual((1,\ 4,\ 4,\ 1),\ padded\_tensor\_out.shape)}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a519504256266e199f8dc704da951a5d2}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_ops_test_pad_to_multiple_a519504256266e199f8dc704da951a5d2} 
+\index{detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}!test\_zero\_padding@{test\_zero\_padding}}
+\index{test\_zero\_padding@{test\_zero\_padding}!detection\_utils.utils.ops\_test.OpsTestPadToMultiple@{detection\_utils.utils.ops\_test.OpsTestPadToMultiple}}
+\doxysubsubsection{\texorpdfstring{test\_zero\_padding()}{test\_zero\_padding()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Ops\+Test\+Pad\+To\+Multiple.\+test\+\_\+zero\+\_\+padding (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00133}{133}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{def\ }test\_zero\_padding(self):}
+\DoxyCodeLine{00134\ \ \ \ \ tensor\ =\ tf.constant([[[[0.],\ [0.]],\ [[0.],\ [0.]]]])}
+\DoxyCodeLine{00135\ \ \ \ \ padded\_tensor\ =\ ops.pad\_to\_multiple(tensor,\ 1)}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ padded\_tensor\_out\ =\ sess.run(padded\_tensor)}
+\DoxyCodeLine{00138\ \ \ \ \ self.assertEqual((1,\ 2,\ 2,\ 1),\ padded\_tensor\_out.shape)}
+\DoxyCodeLine{00139\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

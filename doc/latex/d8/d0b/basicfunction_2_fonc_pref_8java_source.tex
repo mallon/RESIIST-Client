@@ -1,0 +1,60 @@
+\doxysection{Fonc\+Pref.\+java}
+\hypertarget{basicfunction_2_fonc_pref_8java_source}{}\label{basicfunction_2_fonc_pref_8java_source}\index{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/FoncPref.java@{src/main/java/com/axellience/resiist/client/decisionmaking/amd3/km/basicfunction/FoncPref.java}}
+\mbox{\hyperlink{basicfunction_2_fonc_pref_8java}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00001}00001\ \textcolor{keyword}{package\ }com.axellience.resiist.client.decisionmaking.amd3.km.basicfunction;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00003}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref}{00003}}\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref}{FoncPref}}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00006}00006\ \ \ \ \ \textcolor{comment}{//\ La\ fonction\ de\ preference\ P(a,b)\ est\ definie\ donnant\ le\ degre\ de}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00007}00007\ \ \ \ \ \textcolor{comment}{//\ preference\ de\ a\ sur\ b\ pour\ un\ critere.}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00009}00009\ \ \ \ \ \textcolor{comment}{//\ Fonction\ de\ preference\ Forme\ en\ U\ (avec\ seuil\ d'indifference)}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00011}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a98a8df947a7ee523064f280f8cda66a6}{00011}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a98a8df947a7ee523064f280f8cda66a6}{Fpr1}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b,\ \textcolor{keywordtype}{double}\ indseuil)}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ecart\ =\ a\ -\/\ b;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Math.abs(ecart)\ <=\ indseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;\ \textcolor{comment}{//\ Pas\ de\ pr{\ucr}f{\ucr}rence\ entre\ a\ et\ b}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00017}00017\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00019}00019\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ Fonction\ de\ preference\ Forme\ en\ V\ (avec\ seuil\ depreference)}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00025}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a5069e65cb143f00b16c1b2f0f51ff008}{00025}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a5069e65cb143f00b16c1b2f0f51ff008}{Fpr2}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b,\ \textcolor{keywordtype}{double}\ prefseuil)}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00026}00026\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ecart\ =\ a\ -\/\ b;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Math.abs(ecart)\ <=\ prefseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ Math.abs(ecart)\ /\ prefseuil;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00031}00031\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ Fonction\ de\ preference\ Lineaire\ (avec\ seuil\ d'indiff{\ucr}rence\ et\ seuil\ de}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ preference)}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00040}\mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a2495a389e61d264147d6caed80c5f7f9}{00040}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classcom_1_1axellience_1_1resiist_1_1client_1_1decisionmaking_1_1amd3_1_1km_1_1basicfunction_1_1_fonc_pref_a2495a389e61d264147d6caed80c5f7f9}{Frp3}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b,\ \textcolor{keywordtype}{double}\ prefseuil,\ \textcolor{keywordtype}{double}\ indseuil)}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ecart\ =\ a\ -\/\ b;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Math.abs(ecart)\ <=\ indseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00046}00046\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Math.abs(ecart)\ >\ prefseuil)\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00048}00048\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ (Math.abs(ecart)\ -\/\ indseuil)\ /\ (prefseuil\ -\/\ indseuil);}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00050}00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{basicfunction_2_fonc_pref_8java_source_l00054}00054\ \}}
+
+\end{DoxyCode}

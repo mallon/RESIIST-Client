@@ -1,0 +1,203 @@
+\doxysection{matcher\+\_\+test.\+py}
+\hypertarget{matcher__test_8py_source}{}\label{matcher__test_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/core/matcher\_test.py@{src/main/resources/processing/video/detections/detection\_utils/core/matcher\_test.py}}
+\mbox{\hyperlink{matcher__test_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1core_1_1matcher__test}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2017\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00016}00016\ \textcolor{stringliteral}{"{}"{}"{}Tests\ for\ object\_detection.core.matcher."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00017}00017\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00018}00018\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00020}00020\ \textcolor{keyword}{from}\ object\_detection.core\ \textcolor{keyword}{import}\ matcher}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00023}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test}{MatchTest}}(tf.test.TestCase):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00025}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_abf1247715c4ef8526e132a058d6c6966}{00025}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_abf1247715c4ef8526e132a058d6c6966}{test\_get\_correct\_matched\_columnIndices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00026}00026\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00027}00027\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00028}00028\ \ \ \ \ expected\_column\_indices\ =\ [0,\ 1,\ 3,\ 5]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00029}00029\ \ \ \ \ matched\_column\_indices\ =\ match.matched\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00030}00030\ \ \ \ \ self.assertEqual(matched\_column\_indices.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00032}00032\ \ \ \ \ \ \ matched\_column\_indices\ =\ sess.run(matched\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00033}00033\ \ \ \ \ \ \ self.assertAllEqual(matched\_column\_indices,\ expected\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00035}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a90ba9c17b548196ec1c47fcdce71827e}{00035}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a90ba9c17b548196ec1c47fcdce71827e}{test\_get\_correct\_counts}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00036}00036\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 1,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00037}00037\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00038}00038\ \ \ \ \ exp\_num\_matched\_columns\ =\ 4}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00039}00039\ \ \ \ \ exp\_num\_unmatched\_columns\ =\ 2}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00040}00040\ \ \ \ \ exp\_num\_ignored\_columns\ =\ 1}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00041}00041\ \ \ \ \ exp\_num\_matched\_rows\ =\ 3}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00042}00042\ \ \ \ \ num\_matched\_columns\ =\ match.num\_matched\_columns()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00043}00043\ \ \ \ \ num\_unmatched\_columns\ =\ match.num\_unmatched\_columns()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00044}00044\ \ \ \ \ num\_ignored\_columns\ =\ match.num\_ignored\_columns()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00045}00045\ \ \ \ \ num\_matched\_rows\ =\ match.num\_matched\_rows()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00046}00046\ \ \ \ \ self.assertEqual(num\_matched\_columns.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00047}00047\ \ \ \ \ self.assertEqual(num\_unmatched\_columns.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00048}00048\ \ \ \ \ self.assertEqual(num\_ignored\_columns.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00049}00049\ \ \ \ \ self.assertEqual(num\_matched\_rows.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00051}00051\ \ \ \ \ \ \ (num\_matched\_columns\_out,\ num\_unmatched\_columns\_out,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00052}00052\ \ \ \ \ \ \ \ num\_ignored\_columns\_out,\ num\_matched\_rows\_out)\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ [num\_matched\_columns,\ num\_unmatched\_columns,\ num\_ignored\_columns,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ num\_matched\_rows])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00055}00055\ \ \ \ \ \ \ self.assertAllEqual(num\_matched\_columns\_out,\ exp\_num\_matched\_columns)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00056}00056\ \ \ \ \ \ \ self.assertAllEqual(num\_unmatched\_columns\_out,\ exp\_num\_unmatched\_columns)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00057}00057\ \ \ \ \ \ \ self.assertAllEqual(num\_ignored\_columns\_out,\ exp\_num\_ignored\_columns)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00058}00058\ \ \ \ \ \ \ self.assertAllEqual(num\_matched\_rows\_out,\ exp\_num\_matched\_rows)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00060}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a368d93678ab72da28fc3046dc9675cec}{00060}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a368d93678ab72da28fc3046dc9675cec}{testGetCorrectUnmatchedColumnIndices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00061}00061\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00062}00062\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00063}00063\ \ \ \ \ expected\_column\_indices\ =\ [2,\ 4]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00064}00064\ \ \ \ \ unmatched\_column\_indices\ =\ match.unmatched\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00065}00065\ \ \ \ \ self.assertEqual(unmatched\_column\_indices.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00067}00067\ \ \ \ \ \ \ unmatched\_column\_indices\ =\ sess.run(unmatched\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00068}00068\ \ \ \ \ \ \ self.assertAllEqual(unmatched\_column\_indices,\ expected\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00070}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_add5e5d23b5c8746dbfb37986f3db1fd8}{00070}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_add5e5d23b5c8746dbfb37986f3db1fd8}{testGetCorrectMatchedRowIndices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00071}00071\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00072}00072\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00073}00073\ \ \ \ \ expected\_row\_indices\ =\ [3,\ 1,\ 0,\ 5]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00074}00074\ \ \ \ \ matched\_row\_indices\ =\ match.matched\_row\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00075}00075\ \ \ \ \ self.assertEqual(matched\_row\_indices.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00076}00076\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00077}00077\ \ \ \ \ \ \ matched\_row\_inds\ =\ sess.run(matched\_row\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00078}00078\ \ \ \ \ \ \ self.assertAllEqual(matched\_row\_inds,\ expected\_row\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00080}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a4fc9339b357b6a8cf66518b3b8472674}{00080}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a4fc9339b357b6a8cf66518b3b8472674}{test\_get\_correct\_ignored\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00081}00081\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00082}00082\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00083}00083\ \ \ \ \ expected\_column\_indices\ =\ [6]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00084}00084\ \ \ \ \ ignored\_column\_indices\ =\ match.ignored\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00085}00085\ \ \ \ \ self.assertEqual(ignored\_column\_indices.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00087}00087\ \ \ \ \ \ \ ignored\_column\_indices\ =\ sess.run(ignored\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00088}00088\ \ \ \ \ \ \ self.assertAllEqual(ignored\_column\_indices,\ expected\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00090}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_af5e79cbd14096c780c2d1c1128d0f6c0}{00090}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_af5e79cbd14096c780c2d1c1128d0f6c0}{test\_get\_correct\_matched\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00091}00091\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00092}00092\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00093}00093\ \ \ \ \ expected\_column\_indicator\ =\ [\textcolor{keyword}{True},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00094}00094\ \ \ \ \ matched\_column\_indicator\ =\ match.matched\_column\_indicator()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00095}00095\ \ \ \ \ self.assertEqual(matched\_column\_indicator.dtype,\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00097}00097\ \ \ \ \ \ \ matched\_column\_indicator\ =\ sess.run(matched\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00098}00098\ \ \ \ \ \ \ self.assertAllEqual(matched\_column\_indicator,\ expected\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00100}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a3f6343aec45a302363df1e94c0467342}{00100}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a3f6343aec45a302363df1e94c0467342}{test\_get\_correct\_unmatched\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00101}00101\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00102}00102\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00103}00103\ \ \ \ \ expected\_column\_indicator\ =\ [\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False}]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00104}00104\ \ \ \ \ unmatched\_column\_indicator\ =\ match.unmatched\_column\_indicator()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00105}00105\ \ \ \ \ self.assertEqual(unmatched\_column\_indicator.dtype,\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00106}00106\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00107}00107\ \ \ \ \ \ \ unmatched\_column\_indicator\ =\ sess.run(unmatched\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00108}00108\ \ \ \ \ \ \ self.assertAllEqual(unmatched\_column\_indicator,\ expected\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00110}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_ad93d8ee78cb5437fd821c5ffc41a84b5}{00110}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_ad93d8ee78cb5437fd821c5ffc41a84b5}{test\_get\_correct\_ignored\_column\_indicator}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00111}00111\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00112}00112\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00113}00113\ \ \ \ \ expected\_column\_indicator\ =\ [\textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{False},\ \textcolor{keyword}{True}]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00114}00114\ \ \ \ \ ignored\_column\_indicator\ =\ match.ignored\_column\_indicator()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00115}00115\ \ \ \ \ self.assertEqual(ignored\_column\_indicator.dtype,\ tf.bool)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00116}00116\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00117}00117\ \ \ \ \ \ \ ignored\_column\_indicator\ =\ sess.run(ignored\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00118}00118\ \ \ \ \ \ \ self.assertAllEqual(ignored\_column\_indicator,\ expected\_column\_indicator)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00120}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_aa81d8b4e7389b3710893c54ce8ebaca3}{00120}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_aa81d8b4e7389b3710893c54ce8ebaca3}{test\_get\_correct\_unmatched\_ignored\_column\_indices}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00121}00121\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00122}00122\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00123}00123\ \ \ \ \ expected\_column\_indices\ =\ [2,\ 4,\ 6]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00124}00124\ \ \ \ \ unmatched\_ignored\_column\_indices\ =\ (match.}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_or\_ignored\_column\_indices())}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00126}00126\ \ \ \ \ self.assertEqual(unmatched\_ignored\_column\_indices.dtype,\ tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00127}00127\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00128}00128\ \ \ \ \ \ \ unmatched\_ignored\_column\_indices\ =\ sess.run(}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ unmatched\_ignored\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00130}00130\ \ \ \ \ \ \ self.assertAllEqual(unmatched\_ignored\_column\_indices,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\_column\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00133}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_aed0e8789cb2c8530f5c3170f5d36ef4d}{00133}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_aed0e8789cb2c8530f5c3170f5d36ef4d}{test\_all\_columns\_accounted\_for}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00134}00134\ \ \ \ \ \textcolor{comment}{\#\ Note:\ deliberately\ setting\ to\ small\ number\ so\ not\ always}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00135}00135\ \ \ \ \ \textcolor{comment}{\#\ all\ possibilities\ appear\ (matched,\ unmatched,\ ignored)}}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00136}00136\ \ \ \ \ num\_matches\ =\ 10}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00137}00137\ \ \ \ \ match\_results\ =\ tf.random\_uniform(}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ [num\_matches],\ minval=-\/2,\ maxval=5,\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00139}00139\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00140}00140\ \ \ \ \ matched\_column\_indices\ =\ match.matched\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00141}00141\ \ \ \ \ unmatched\_column\_indices\ =\ match.unmatched\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00142}00142\ \ \ \ \ ignored\_column\_indices\ =\ match.ignored\_column\_indices()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00143}00143\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00144}00144\ \ \ \ \ \ \ matched,\ unmatched,\ ignored\ =\ sess.run([}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ matched\_column\_indices,\ unmatched\_column\_indices,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ ignored\_column\_indices}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00147}00147\ \ \ \ \ \ \ ])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00148}00148\ \ \ \ \ \ \ all\_indices\ =\ np.hstack((matched,\ unmatched,\ ignored))}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00149}00149\ \ \ \ \ \ \ all\_indices\_sorted\ =\ np.sort(all\_indices)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00150}00150\ \ \ \ \ \ \ self.assertAllEqual(all\_indices\_sorted,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.arange(num\_matches,\ dtype=np.int32))}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00153}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a1ae30d8f3b8d66a33be623f4f7a43f49}{00153}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a1ae30d8f3b8d66a33be623f4f7a43f49}{test\_scalar\_gather\_based\_on\_match}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00154}00154\ \ \ \ \ match\_results\ =\ tf.constant([3,\ 1,\ -\/1,\ 0,\ -\/1,\ 5,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00155}00155\ \ \ \ \ input\_tensor\ =\ tf.constant([0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7],\ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00156}00156\ \ \ \ \ expected\_gathered\_tensor\ =\ [3,\ 1,\ 100,\ 0,\ 100,\ 5,\ 200]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00157}00157\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00158}00158\ \ \ \ \ gathered\_tensor\ =\ match.gather\_based\_on\_match(input\_tensor,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_value=100.,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ignored\_value=200.)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00161}00161\ \ \ \ \ self.assertEqual(gathered\_tensor.dtype,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00162}00162\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00163}00163\ \ \ \ \ \ \ gathered\_tensor\_out\ =\ gathered\_tensor.eval()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00164}00164\ \ \ \ \ self.assertAllEqual(expected\_gathered\_tensor,\ gathered\_tensor\_out)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00166}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a5abd26f76cea3e3e8d3a0db9fc7c804b}{00166}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_a5abd26f76cea3e3e8d3a0db9fc7c804b}{test\_multidimensional\_gather\_based\_on\_match}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00167}00167\ \ \ \ \ match\_results\ =\ tf.constant([1,\ -\/1,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00168}00168\ \ \ \ \ input\_tensor\ =\ tf.constant([[0,\ 0.5,\ 0,\ 0.5],\ [0,\ 0,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00170}00170\ \ \ \ \ expected\_gathered\_tensor\ =\ [[0,\ 0,\ 0.5,\ 0.5],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00171}00171\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00172}00172\ \ \ \ \ gathered\_tensor\ =\ match.gather\_based\_on\_match(input\_tensor,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(4),}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ignored\_value=tf.zeros(4))}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00175}00175\ \ \ \ \ self.assertEqual(gathered\_tensor.dtype,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00176}00176\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session():}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00177}00177\ \ \ \ \ \ \ gathered\_tensor\_out\ =\ gathered\_tensor.eval()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00178}00178\ \ \ \ \ self.assertAllEqual(expected\_gathered\_tensor,\ gathered\_tensor\_out)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00180}\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_ace38dcd74d635cf898f5ab8b24c57f75}{00180}}\ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher__test_1_1_match_test_ace38dcd74d635cf898f5ab8b24c57f75}{test\_multidimensional\_gather\_based\_on\_match\_with\_matmul\_gather\_op}}(self):}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00181}00181\ \ \ \ \ match\_results\ =\ tf.constant([1,\ -\/1,\ -\/2])}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00182}00182\ \ \ \ \ input\_tensor\ =\ tf.constant([[0,\ 0.5,\ 0,\ 0.5],\ [0,\ 0,\ 0.5,\ 0.5]],}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dtype=tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00184}00184\ \ \ \ \ expected\_gathered\_tensor\ =\ [[0,\ 0,\ 0.5,\ 0.5],\ [0,\ 0,\ 0,\ 0],\ [0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00185}00185\ \ \ \ \ match\ =\ \mbox{\hyperlink{classdetection__utils_1_1core_1_1matcher_1_1_match}{matcher.Match}}(match\_results,\ use\_matmul\_gather=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00186}00186\ \ \ \ \ gathered\_tensor\ =\ match.gather\_based\_on\_match(input\_tensor,}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unmatched\_value=tf.zeros(4),}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ignored\_value=tf.zeros(4))}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00189}00189\ \ \ \ \ self.assertEqual(gathered\_tensor.dtype,\ tf.float32)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00190}00190\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00191}00191\ \ \ \ \ \ \ self.assertTrue(}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ all([op.name\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{stringliteral}{'Gather'}\ \textcolor{keywordflow}{for}\ op\ \textcolor{keywordflow}{in}\ sess.graph.get\_operations()]))}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00193}00193\ \ \ \ \ \ \ gathered\_tensor\_out\ =\ gathered\_tensor.eval()}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00194}00194\ \ \ \ \ self.assertAllEqual(expected\_gathered\_tensor,\ gathered\_tensor\_out)}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00196}00196\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{'\_\_main\_\_'}:}
+\DoxyCodeLine{\Hypertarget{matcher__test_8py_source_l00197}00197\ \ \ tf.test.main()}
+
+\end{DoxyCode}

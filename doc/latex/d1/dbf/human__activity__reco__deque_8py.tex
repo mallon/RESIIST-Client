@@ -1,0 +1,48 @@
+\doxysection{src/main/resources/processing/video/detections/behavior\+\_\+detection/human-\/activity-\/recognition/human\+\_\+activity\+\_\+reco\+\_\+deque.py File Reference}
+\hypertarget{human__activity__reco__deque_8py}{}\label{human__activity__reco__deque_8py}\index{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco\_deque.py@{src/main/resources/processing/video/detections/behavior\_detection/human-\/activity-\/recognition/human\_activity\_reco\_deque.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehuman__activity__reco__deque}{human\+\_\+activity\+\_\+reco\+\_\+deque}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a87264f88d7f9d2f454738dc81c525751}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+ap}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_adfb21d026906c99861af302ce9f1c4b8}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+required}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a628c7fb731b7f24664d847e52458ef98}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+help}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_ae7e04e034845070da841aaf4cf13245e}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+type}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a9ae7813b2d9d9e5fe37b597e2e976001}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+str}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a91d6d736b166e52830ca1b9f5c46b8b3}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+default}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+args}} = vars(ap.\+parse\+\_\+args())
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_ae7cb4a2072841616460cb466a2b76fa8}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+CLASSES}} = open(\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{args}}\mbox{[}\"{}classes\"{}\mbox{]}).read().strip().split(\"{}\textbackslash{}n\"{})
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco__deque_a411d454734c10d574ea388f721f5d3a7}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+SAMPLE\+\_\+\+DURATION}} = 16
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco__deque_a45cf13b4f3a2db7e5e8cb8f1da7dac6a}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+SAMPLE\+\_\+\+SIZE}} = 112
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab22c593de30575d506fc34595c2c98b}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+frames}} = deque(maxlen=\mbox{\hyperlink{namespacehuman__activity__reco__deque_a411d454734c10d574ea388f721f5d3a7}{SAMPLE\+\_\+\+DURATION}})
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a3505d6a716e8583807bf6bcbec914514}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+net}} = cv2.\+dnn.\+read\+Net(\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{args}}\mbox{[}\"{}model\"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a63971a6946b80c5c4b85dce80dc5691d}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+vs}} = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacehuman__activity__reco__deque_aab284cf1f5a877096b07ee4f5c6efc23}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a6afccb12b2a72414de3524d7d439b846}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+grabbed}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_ac8781c36ebe4d315a4fef10dae5cde28}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+frame}} = imutils.\+resize(frame, width=400)
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_ae43a7ca761645a41d4edcc21bf0dd81e}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+blob}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_ac7e539dcbc26d54a55a5757d91621247}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+outputs}} = net.\+forward()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco__deque_a31bd5a1b30ba3c475e092304088bdfe7}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+label}} = \mbox{\hyperlink{namespacehuman__activity__reco__deque_ae7cb4a2072841616460cb466a2b76fa8}{CLASSES}}\mbox{[}np.\+argmax(\mbox{\hyperlink{namespacehuman__activity__reco__deque_ac7e539dcbc26d54a55a5757d91621247}{outputs}})\mbox{]}
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco__deque_abf59ee9ff790db943aa481b2e8e16f12}{human\+\_\+activity\+\_\+reco\+\_\+deque.\+key}} = cv2.\+wait\+Key(1) \& 0x\+FF
+\end{DoxyCompactItemize}

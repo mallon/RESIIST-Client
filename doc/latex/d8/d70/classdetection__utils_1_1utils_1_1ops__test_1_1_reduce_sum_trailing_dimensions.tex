@@ -1,0 +1,66 @@
+\doxysection{detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reduce\+Sum\+Trailing\+Dimensions Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions}{}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions}\index{detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions@{detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reduce\+Sum\+Trailing\+Dimensions\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{d6/d21/classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reduce\+Sum\+Trailing\+Dimensions\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{d3/d6c/classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions_abb22c23f26a151b156f9ea284fa3937d}{test\+\_\+reduce\+\_\+sum\+\_\+trailing\+\_\+dimensions}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00054}{54}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions_abb22c23f26a151b156f9ea284fa3937d}\label{classdetection__utils_1_1utils_1_1ops__test_1_1_reduce_sum_trailing_dimensions_abb22c23f26a151b156f9ea284fa3937d} 
+\index{detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions@{detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions}!test\_reduce\_sum\_trailing\_dimensions@{test\_reduce\_sum\_trailing\_dimensions}}
+\index{test\_reduce\_sum\_trailing\_dimensions@{test\_reduce\_sum\_trailing\_dimensions}!detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions@{detection\_utils.utils.ops\_test.ReduceSumTrailingDimensions}}
+\doxysubsubsection{\texorpdfstring{test\_reduce\_sum\_trailing\_dimensions()}{test\_reduce\_sum\_trailing\_dimensions()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+ops\+\_\+test.\+Reduce\+Sum\+Trailing\+Dimensions.\+test\+\_\+reduce\+\_\+sum\+\_\+trailing\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ops__test_8py_source_l00056}{56}} of file \mbox{\hyperlink{ops__test_8py_source}{ops\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{def\ }test\_reduce\_sum\_trailing\_dimensions(self):}
+\DoxyCodeLine{00057\ \ \ \ \ input\_tensor\ =\ tf.placeholder(tf.float32,\ shape=[\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}])}
+\DoxyCodeLine{00058\ \ \ \ \ reduced\_tensor\ =\ ops.reduce\_sum\_trailing\_dimensions(input\_tensor,\ ndims=2)}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ reduced\_np\ =\ sess.run(reduced\_tensor,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feed\_dict=\{input\_tensor:\ np.ones((2,\ 2,\ 2),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ np.float32)\})}
+\DoxyCodeLine{00063\ \ \ \ \ self.assertAllClose(reduced\_np,\ 2\ *\ np.ones((2,\ 2),\ np.float32))}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{ops__test_8py}{ops\+\_\+test.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,934 @@
+\doxysection{detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops Namespace Reference}
+\hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops}{}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops}\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}{\+\_\+coordinate\+\_\+vector\+\_\+1d}} (start, end, size, align\+\_\+endpoints)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4}{box\+\_\+grid\+\_\+coordinate\+\_\+vectors}} (boxes, size\+\_\+y, size\+\_\+x, align\+\_\+corners=False)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28}{feature\+\_\+grid\+\_\+coordinate\+\_\+vectors}} (box\+\_\+grid\+\_\+y, box\+\_\+grid\+\_\+x)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729}{\+\_\+valid\+\_\+indicator}} (feature\+\_\+grid\+\_\+y, feature\+\_\+grid\+\_\+x, true\+\_\+feature\+\_\+shapes)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569}{ravel\+\_\+indices}} (feature\+\_\+grid\+\_\+y, feature\+\_\+grid\+\_\+x, num\+\_\+levels, height, width, box\+\_\+levels)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337}{pad\+\_\+to\+\_\+max\+\_\+size}} (features)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c}{\+\_\+gather\+\_\+valid\+\_\+indices}} (tensor, indices, padding\+\_\+value=0.\+0)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967}{multilevel\+\_\+roi\+\_\+align}} (features, boxes, box\+\_\+levels, output\+\_\+size, num\+\_\+samples\+\_\+per\+\_\+cell\+\_\+y=1, num\+\_\+samples\+\_\+per\+\_\+cell\+\_\+x=1, align\+\_\+corners=False, extrapolation\+\_\+value=0.\+0, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a2a40d33cf1473f2a41b951a05f2576f5}{native\+\_\+crop\+\_\+and\+\_\+resize}} (image, boxes, crop\+\_\+size, scope=None)
+\item 
+\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b}{matmul\+\_\+crop\+\_\+and\+\_\+resize}} (image, boxes, crop\+\_\+size, extrapolation\+\_\+value=0.\+0, scope=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Spatial transformation ops like RoIAlign, CropAndResize.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!\_coordinate\_vector\_1d@{\_coordinate\_vector\_1d}}
+\index{\_coordinate\_vector\_1d@{\_coordinate\_vector\_1d}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{\_coordinate\_vector\_1d()}{\_coordinate\_vector\_1d()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+\_\+coordinate\+\_\+vector\+\_\+1d (\begin{DoxyParamCaption}\item[{}]{start,  }\item[{}]{end,  }\item[{}]{size,  }\item[{}]{align\+\_\+endpoints }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Generates uniformly spaced coordinate vector.
+
+Args:
+  start: A float tensor of shape [batch, num_boxes] indicating start values.
+  end: A float tensor of shape [batch, num_boxes] indicating end values.
+  size: Number of points in coordinate vector.
+  align_endpoints: Whether to align first and last points exactly to
+    endpoints.
+
+Returns:
+  A 3D float tensor of shape [batch, num_boxes, size] containing grid
+  coordinates.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00024}{24}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \textcolor{keyword}{def\ }\_coordinate\_vector\_1d(start,\ end,\ size,\ align\_endpoints):}
+\DoxyCodeLine{00025\ \ \ \textcolor{stringliteral}{"{}"{}"{}Generates\ uniformly\ spaced\ coordinate\ vector.}}
+\DoxyCodeLine{00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ start:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating\ start\ values.}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ \ \ end:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating\ end\ values.}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ size:\ Number\ of\ points\ }\textcolor{keywordflow}{in}\ coordinate\ vector.}
+\DoxyCodeLine{00031\ \ \ \ \ align\_endpoints:\ Whether\ to\ align\ first\ \textcolor{keywordflow}{and}\ last\ points\ exactly\ to}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ endpoints.}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ Returns:}
+\DoxyCodeLine{00035\ \ \ \ \ A\ 3D\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ grid}
+\DoxyCodeLine{00036\ \ \ \ \ coordinates.}
+\DoxyCodeLine{00037\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ start\ =\ tf.expand\_dims(start,\ -\/1)}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ end\ =\ tf.expand\_dims(end,\ -\/1)}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ length\ =\ end\ -\/\ start}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ align\_endpoints:}
+\DoxyCodeLine{00042\ \ \ \ \ relative\_grid\_spacing\ =\ tf.linspace(0.0,\ 1.0,\ size)}
+\DoxyCodeLine{00043\ \ \ \ \ offset\ =\ 0\ \textcolor{keywordflow}{if}\ size\ >\ 1\ \textcolor{keywordflow}{else}\ length\ /\ 2}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{00045\ \ \ \ \ relative\_grid\_spacing\ =\ tf.linspace(0.0,\ 1.0,\ size\ +\ 1)[:-\/1]}
+\DoxyCodeLine{00046\ \ \ \ \ offset\ =\ length\ /\ (2\ *\ size)}
+\DoxyCodeLine{00047\ \ \ relative\_grid\_spacing\ =\ tf.reshape(relative\_grid\_spacing,\ [1,\ 1,\ size])}
+\DoxyCodeLine{00048\ \ \ relative\_grid\_spacing\ =\ tf.cast(relative\_grid\_spacing,\ dtype=start.dtype)}
+\DoxyCodeLine{00049\ \ \ absolute\_grid\ =\ start\ +\ offset\ +\ relative\_grid\_spacing\ *\ length}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{return}\ absolute\_grid}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!\_gather\_valid\_indices@{\_gather\_valid\_indices}}
+\index{\_gather\_valid\_indices@{\_gather\_valid\_indices}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{\_gather\_valid\_indices()}{\_gather\_valid\_indices()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+\_\+gather\+\_\+valid\+\_\+indices (\begin{DoxyParamCaption}\item[{}]{tensor,  }\item[{}]{indices,  }\item[{}]{padding\+\_\+value = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Gather values for valid indices.
+
+TODO(rathodv): We can't use ops.gather_with_padding_values due to cyclic
+dependency. Start using it after migrating all users of spatial ops to import
+this module directly rather than util/ops.py
+
+Args:
+  tensor: A tensor to gather valid values from.
+  indices: A 1-D int32 tensor containing indices along axis 0 of `tensor`.
+    Invalid indices must be marked with -1.
+  padding_value: Value to return for invalid indices.
+
+Returns:
+  A tensor sliced based on indices. For indices that are equal to -1, returns
+  rows of padding value.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00235}{235}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00235\ \textcolor{keyword}{def\ }\_gather\_valid\_indices(tensor,\ indices,\ padding\_value=0.0):}
+\DoxyCodeLine{00236\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gather\ values\ for\ valid\ indices.}}
+\DoxyCodeLine{00237\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00238\ \textcolor{stringliteral}{\ \ TODO(rathodv):\ We\ can't\ use\ ops.gather\_with\_padding\_values\ due\ to\ cyclic}}
+\DoxyCodeLine{00239\ \textcolor{stringliteral}{\ \ dependency.\ Start\ using\ it\ after\ migrating\ all\ users\ of\ spatial\ ops\ to\ }\textcolor{keyword}{import}}
+\DoxyCodeLine{00240\ \ \ this\ module\ directly\ rather\ than\ util/ops.py}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ Args:}
+\DoxyCodeLine{00243\ \ \ \ \ tensor:\ A\ tensor\ to\ gather\ valid\ values\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{00244\ \ \ \ \ indices:\ A\ 1-\/D\ int32\ tensor\ containing\ indices\ along\ axis\ 0\ of\ \`{}tensor\`{}.}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ Invalid\ indices\ must\ be\ marked\ \textcolor{keyword}{with}\ -\/1.}
+\DoxyCodeLine{00246\ \ \ \ \ padding\_value:\ Value\ to\ \textcolor{keywordflow}{return}\ \textcolor{keywordflow}{for}\ invalid\ indices.}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ Returns:}
+\DoxyCodeLine{00249\ \ \ \ \ A\ tensor\ sliced\ based\ on\ indices.\ For\ indices\ that\ are\ equal\ to\ -\/1,\ returns}
+\DoxyCodeLine{00250\ \ \ \ \ rows\ of\ padding\ value.}
+\DoxyCodeLine{00251\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00252\ \textcolor{stringliteral}{\ \ padded\_tensor\ =\ tf.concat(}}
+\DoxyCodeLine{00253\ \textcolor{stringliteral}{\ \ \ \ \ \ [}}
+\DoxyCodeLine{00254\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ padding\_value\ *}}
+\DoxyCodeLine{00255\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.ones([1,\ tf.shape(tensor)[-\/1]],\ dtype=tensor.dtype),\ tensor}}
+\DoxyCodeLine{00256\ \textcolor{stringliteral}{\ \ \ \ \ \ ],}}
+\DoxyCodeLine{00257\ \textcolor{stringliteral}{\ \ \ \ \ \ axis=0,}}
+\DoxyCodeLine{00258\ \textcolor{stringliteral}{\ \ )}}
+\DoxyCodeLine{00259\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ tf.concat\ gradient\ op\ uses\ tf.where(condition)\ (which\ is\ not}}
+\DoxyCodeLine{00260\ \ \ \textcolor{comment}{\#\ supported\ on\ TPU)\ when\ the\ inputs\ to\ it\ are\ tf.IndexedSlices\ instead\ of}}
+\DoxyCodeLine{00261\ \ \ \textcolor{comment}{\#\ tf.Tensor.\ Since\ gradient\ op\ for\ tf.gather\ returns\ tf.IndexedSlices,}}
+\DoxyCodeLine{00262\ \ \ \textcolor{comment}{\#\ we\ add\ a\ dummy\ op\ inbetween\ tf.concat\ and\ tf.gather\ to\ ensure\ tf.concat}}
+\DoxyCodeLine{00263\ \ \ \textcolor{comment}{\#\ gradient\ function\ gets\ tf.Tensor\ inputs\ and\ not\ tf.IndexedSlices.}}
+\DoxyCodeLine{00264\ \ \ padded\_tensor\ *=\ 1.0}
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordflow}{return}\ tf.gather(padded\_tensor,\ indices\ +\ 1)}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!\_valid\_indicator@{\_valid\_indicator}}
+\index{\_valid\_indicator@{\_valid\_indicator}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{\_valid\_indicator()}{\_valid\_indicator()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+\_\+valid\+\_\+indicator (\begin{DoxyParamCaption}\item[{}]{feature\+\_\+grid\+\_\+y,  }\item[{}]{feature\+\_\+grid\+\_\+x,  }\item[{}]{true\+\_\+feature\+\_\+shapes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Computes a indicator vector for valid indices.
+
+Computes an indicator vector which is true for points on feature map and
+false for points off feature map.
+
+Args:
+  feature_grid_y: An int32 tensor of shape [batch, num_boxes, size_y]
+    containing y coordinate vector.
+  feature_grid_x: An int32 tensor of shape [batch, num_boxes, size_x]
+    containing x coordinate vector.
+  true_feature_shapes: A int32 tensor of shape [batch, num_boxes, 2]
+    containing valid height and width of feature maps. Feature maps are
+    assumed to be aligned to the left top corner.
+
+Returns:
+  indices: A 1D bool tensor indicating valid feature indices.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00125}{125}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00125\ \textcolor{keyword}{def\ }\_valid\_indicator(feature\_grid\_y,\ feature\_grid\_x,\ true\_feature\_shapes):}
+\DoxyCodeLine{00126\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ a\ indicator\ vector\ for\ valid\ indices.}}
+\DoxyCodeLine{00127\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00128\ \textcolor{stringliteral}{\ \ Computes\ an\ indicator\ vector\ which\ }\textcolor{keywordflow}{is}\ true\ \textcolor{keywordflow}{for}\ points\ on\ feature\ map\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00129\ \ \ false\ \textcolor{keywordflow}{for}\ points\ off\ feature\ map.}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ Args:}
+\DoxyCodeLine{00132\ \ \ \ \ feature\_grid\_y:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ containing\ y\ coordinate\ vector.}
+\DoxyCodeLine{00134\ \ \ \ \ feature\_grid\_x:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ containing\ x\ coordinate\ vector.}
+\DoxyCodeLine{00136\ \ \ \ \ true\_feature\_shapes:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ 2]}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ containing\ valid\ height\ \textcolor{keywordflow}{and}\ width\ of\ feature\ maps.\ Feature\ maps\ are}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ assumed\ to\ be\ aligned\ to\ the\ left\ top\ corner.}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ Returns:}
+\DoxyCodeLine{00141\ \ \ \ \ indices:\ A\ 1D\ bool\ tensor\ indicating\ valid\ feature\ indices.}
+\DoxyCodeLine{00142\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00143\ \textcolor{stringliteral}{\ \ height\ =\ tf.cast(true\_feature\_shapes[:,\ :,\ 0:1],\ dtype=feature\_grid\_y.dtype)}}
+\DoxyCodeLine{00144\ \textcolor{stringliteral}{\ \ width\ =\ tf.cast(true\_feature\_shapes[:,\ :,\ 1:2],\ dtype=feature\_grid\_x.dtype)}}
+\DoxyCodeLine{00145\ \textcolor{stringliteral}{\ \ valid\_indicator\ =\ tf.logical\_and(}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.expand\_dims(}}
+\DoxyCodeLine{00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.logical\_and(feature\_grid\_y\ >=\ 0,\ tf.less(feature\_grid\_y,\ height)),}}
+\DoxyCodeLine{00148\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ 3),}}
+\DoxyCodeLine{00149\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.expand\_dims(}}
+\DoxyCodeLine{00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.logical\_and(feature\_grid\_x\ >=\ 0,\ tf.less(feature\_grid\_x,\ width)),}}
+\DoxyCodeLine{00151\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ 2))}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.reshape(valid\_indicator,\ [-\/1])}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!box\_grid\_coordinate\_vectors@{box\_grid\_coordinate\_vectors}}
+\index{box\_grid\_coordinate\_vectors@{box\_grid\_coordinate\_vectors}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{box\_grid\_coordinate\_vectors()}{box\_grid\_coordinate\_vectors()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+box\+\_\+grid\+\_\+coordinate\+\_\+vectors (\begin{DoxyParamCaption}\item[{}]{boxes,  }\item[{}]{size\+\_\+y,  }\item[{}]{size\+\_\+x,  }\item[{}]{align\+\_\+corners = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generates coordinate vectors for a `size x size` grid in boxes.
+
+Each box is subdivided uniformly into a grid consisting of size x size
+rectangular cells. This function returns coordinate vectors describing
+the center of each cell.
+
+If `align_corners` is true, grid points are uniformly spread such that the
+corner points on the grid exactly overlap corners of the boxes.
+
+Note that output coordinates are expressed in the same coordinate frame as
+input boxes.
+
+Args:
+  boxes: A float tensor of shape [batch, num_boxes, 4] containing boxes of the
+    form [ymin, xmin, ymax, xmax].
+  size_y: Size of the grid in y axis.
+  size_x: Size of the grid in x axis.
+  align_corners: Whether to align the corner grid points exactly with box
+    corners.
+
+Returns:
+  box_grid_y: A float tensor of shape [batch, num_boxes, size_y] containing y
+    coordinates for grid points.
+  box_grid_x: A float tensor of shape [batch, num_boxes, size_x] containing x
+    coordinates for grid points.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00053}{53}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \textcolor{keyword}{def\ }box\_grid\_coordinate\_vectors(boxes,\ size\_y,\ size\_x,\ align\_corners=False):}
+\DoxyCodeLine{00054\ \ \ \textcolor{stringliteral}{"{}"{}"{}Generates\ coordinate\ vectors\ for\ a\ \`{}size\ x\ size\`{}\ grid\ in\ boxes.}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ Each\ box\ }\textcolor{keywordflow}{is}\ subdivided\ uniformly\ into\ a\ grid\ consisting\ of\ size\ x\ size}
+\DoxyCodeLine{00057\ \ \ rectangular\ cells.\ This\ function\ returns\ coordinate\ vectors\ describing}
+\DoxyCodeLine{00058\ \ \ the\ center\ of\ each\ cell.}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ If\ \`{}align\_corners\`{}\ \textcolor{keywordflow}{is}\ true,\ grid\ points\ are\ uniformly\ spread\ such\ that\ the}
+\DoxyCodeLine{00061\ \ \ corner\ points\ on\ the\ grid\ exactly\ overlap\ corners\ of\ the\ boxes.}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ Note\ that\ output\ coordinates\ are\ expressed\ \textcolor{keywordflow}{in}\ the\ same\ coordinate\ frame\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00064\ \ \ input\ boxes.}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ Args:}
+\DoxyCodeLine{00067\ \ \ \ \ boxes:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ 4]\ containing\ boxes\ of\ the}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ form\ [ymin,\ xmin,\ ymax,\ xmax].}
+\DoxyCodeLine{00069\ \ \ \ \ size\_y:\ Size\ of\ the\ grid\ \textcolor{keywordflow}{in}\ y\ axis.}
+\DoxyCodeLine{00070\ \ \ \ \ size\_x:\ Size\ of\ the\ grid\ \textcolor{keywordflow}{in}\ x\ axis.}
+\DoxyCodeLine{00071\ \ \ \ \ align\_corners:\ Whether\ to\ align\ the\ corner\ grid\ points\ exactly\ \textcolor{keyword}{with}\ box}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ corners.}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ Returns:}
+\DoxyCodeLine{00075\ \ \ \ \ box\_grid\_y:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]\ containing\ y}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{for}\ grid\ points.}
+\DoxyCodeLine{00077\ \ \ \ \ box\_grid\_x:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]\ containing\ x}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{for}\ grid\ points.}
+\DoxyCodeLine{00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00080\ \textcolor{stringliteral}{\ \ ymin,\ xmin,\ ymax,\ xmax\ =\ tf.unstack(boxes,\ axis=-\/1)}}
+\DoxyCodeLine{00081\ \textcolor{stringliteral}{\ \ box\_grid\_y\ =\ \_coordinate\_vector\_1d(ymin,\ ymax,\ size\_y,\ align\_corners)}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{\ \ box\_grid\_x\ =\ \_coordinate\_vector\_1d(xmin,\ xmax,\ size\_x,\ align\_corners)}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ box\_grid\_y,\ box\_grid\_x}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!feature\_grid\_coordinate\_vectors@{feature\_grid\_coordinate\_vectors}}
+\index{feature\_grid\_coordinate\_vectors@{feature\_grid\_coordinate\_vectors}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{feature\_grid\_coordinate\_vectors()}{feature\_grid\_coordinate\_vectors()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+feature\+\_\+grid\+\_\+coordinate\+\_\+vectors (\begin{DoxyParamCaption}\item[{}]{box\+\_\+grid\+\_\+y,  }\item[{}]{box\+\_\+grid\+\_\+x }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns feature grid point coordinate vectors for bilinear interpolation.
+
+Box grid is specified in absolute coordinate system with origin at left top
+(0, 0). The returned coordinate vectors contain 0-based feature point indices.
+
+This function snaps each point in the box grid to nearest 4 points on the
+feature map.
+
+In this function we also follow the convention of treating feature pixels as
+point objects with no spatial extent.
+
+Args:
+  box_grid_y: A float tensor of shape [batch, num_boxes, size] containing y
+    coordinate vector of the box grid.
+  box_grid_x: A float tensor of shape [batch, num_boxes, size] containing x
+    coordinate vector of the box grid.
+
+Returns:
+  feature_grid_y0: An int32 tensor of shape [batch, num_boxes, size]
+    containing y coordinate vector for the top neighbors.
+  feature_grid_x0: A int32 tensor of shape [batch, num_boxes, size]
+    containing x coordinate vector for the left neighbors.
+  feature_grid_y1: A int32 tensor of shape [batch, num_boxes, size]
+    containing y coordinate vector for the bottom neighbors.
+  feature_grid_x1: A int32 tensor of shape [batch, num_boxes, size]
+    containing x coordinate vector for the right neighbors.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00086}{86}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \textcolor{keyword}{def\ }feature\_grid\_coordinate\_vectors(box\_grid\_y,\ box\_grid\_x):}
+\DoxyCodeLine{00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ feature\ grid\ point\ coordinate\ vectors\ for\ bilinear\ interpolation.}}
+\DoxyCodeLine{00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00089\ \textcolor{stringliteral}{\ \ Box\ grid\ }\textcolor{keywordflow}{is}\ specified\ \textcolor{keywordflow}{in}\ absolute\ coordinate\ system\ \textcolor{keyword}{with}\ origin\ at\ left\ top}
+\DoxyCodeLine{00090\ \ \ (0,\ 0).\ The\ returned\ coordinate\ vectors\ contain\ 0-\/based\ feature\ point\ indices.}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ This\ function\ snaps\ each\ point\ \textcolor{keywordflow}{in}\ the\ box\ grid\ to\ nearest\ 4\ points\ on\ the}
+\DoxyCodeLine{00093\ \ \ feature\ map.}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ In\ this\ function\ we\ also\ follow\ the\ convention\ of\ treating\ feature\ pixels\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00096\ \ \ point\ objects\ \textcolor{keyword}{with}\ no\ spatial\ extent.}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ Args:}
+\DoxyCodeLine{00099\ \ \ \ \ box\_grid\_y:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ y}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ coordinate\ vector\ of\ the\ box\ grid.}
+\DoxyCodeLine{00101\ \ \ \ \ box\_grid\_x:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ x}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ coordinate\ vector\ of\ the\ box\ grid.}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ Returns:}
+\DoxyCodeLine{00105\ \ \ \ \ feature\_grid\_y0:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ containing\ y\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ top\ neighbors.}
+\DoxyCodeLine{00107\ \ \ \ \ feature\_grid\_x0:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ containing\ x\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ left\ neighbors.}
+\DoxyCodeLine{00109\ \ \ \ \ feature\_grid\_y1:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ containing\ y\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ bottom\ neighbors.}
+\DoxyCodeLine{00111\ \ \ \ \ feature\_grid\_x1:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ containing\ x\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ right\ neighbors.}
+\DoxyCodeLine{00113\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{\ \ feature\_grid\_y0\ =\ tf.floor(box\_grid\_y)}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ feature\_grid\_x0\ =\ tf.floor(box\_grid\_x)}}
+\DoxyCodeLine{00116\ \textcolor{stringliteral}{\ \ feature\_grid\_y1\ =\ tf.floor(box\_grid\_y\ +\ 1)}}
+\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ feature\_grid\_x1\ =\ tf.floor(box\_grid\_x\ +\ 1)}}
+\DoxyCodeLine{00118\ \textcolor{stringliteral}{\ \ feature\_grid\_y0\ =\ tf.cast(feature\_grid\_y0,\ dtype=tf.int32)}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ feature\_grid\_y1\ =\ tf.cast(feature\_grid\_y1,\ dtype=tf.int32)}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ feature\_grid\_x0\ =\ tf.cast(feature\_grid\_x0,\ dtype=tf.int32)}}
+\DoxyCodeLine{00121\ \textcolor{stringliteral}{\ \ feature\_grid\_x1\ =\ tf.cast(feature\_grid\_x1,\ dtype=tf.int32)}}
+\DoxyCodeLine{00122\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ (feature\_grid\_y0,\ feature\_grid\_x0,\ feature\_grid\_y1,\ feature\_grid\_x1)}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!matmul\_crop\_and\_resize@{matmul\_crop\_and\_resize}}
+\index{matmul\_crop\_and\_resize@{matmul\_crop\_and\_resize}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{matmul\_crop\_and\_resize()}{matmul\_crop\_and\_resize()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+matmul\+\_\+crop\+\_\+and\+\_\+resize (\begin{DoxyParamCaption}\item[{}]{image,  }\item[{}]{boxes,  }\item[{}]{crop\+\_\+size,  }\item[{}]{extrapolation\+\_\+value = {\ttfamily 0.0},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Matrix multiplication based implementation of the crop and resize op.
+
+Extracts crops from the input image tensor and bilinearly resizes them
+(possibly with aspect ratio change) to a common output size specified by
+crop_size. This is more general than the crop_to_bounding_box op which
+extracts a fixed size slice from the input image and does not allow
+resizing or aspect ratio change.
+
+Returns a tensor with crops from the input image at positions defined at
+the bounding box locations in boxes. The cropped boxes are all resized
+(with bilinear interpolation) to a fixed size = `[crop_height, crop_width]`.
+The result is a 5-D tensor `[batch, num_boxes, crop_height, crop_width,
+depth]`.
+
+Note that this operation is meant to replicate the behavior of the standard
+tf.image.crop_and_resize operation but there are a few differences.
+Specifically:
+  1) There is no `box_indices` argument --- to run this op on multiple images,
+    one must currently call this op independently on each image.
+  2) The `crop_size` parameter is assumed to be statically defined.
+    Moreover, the number of boxes must be strictly nonzero.
+
+Args:
+  image: A `Tensor`. Must be one of the following types: `uint8`, `int8`,
+    `int16`, `int32`, `int64`, `half`, 'bfloat16', `float32`, `float64`.
+    A 4-D tensor of shape `[batch, image_height, image_width, depth]`.
+    Both `image_height` and `image_width` need to be positive.
+  boxes: A `Tensor` of type `float32` or 'bfloat16'.
+    A 3-D tensor of shape `[batch, num_boxes, 4]`. The boxes are specified in
+    normalized coordinates and are of the form `[y1, x1, y2, x2]`. A
+    normalized coordinate value of `y` is mapped to the image coordinate at
+    `y * (image_height - 1)`, so as the `[0, 1]` interval of normalized image
+    height is mapped to `[0, image_height - 1] in image height coordinates.
+    We do allow y1 > y2, in which case the sampled crop is an up-down flipped
+    version of the original image. The width dimension is treated similarly.
+    Normalized coordinates outside the `[0, 1]` range are allowed, in which
+    case we use `extrapolation_value` to extrapolate the input image values.
+  crop_size: A list of two integers `[crop_height, crop_width]`. All
+    cropped image patches are resized to this size. The aspect ratio of the
+    image content is not preserved. Both `crop_height` and `crop_width` need
+    to be positive.
+  extrapolation_value: a float value to use for extrapolation.
+  scope: A name for the operation (optional).
+
+Returns:
+  A 5-D tensor of shape `[batch, num_boxes, crop_height, crop_width, depth]`
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00424}{424}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00426\ \ \ \textcolor{stringliteral}{"{}"{}"{}Matrix\ multiplication\ based\ implementation\ of\ the\ crop\ and\ resize\ op.}}
+\DoxyCodeLine{00427\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00428\ \textcolor{stringliteral}{\ \ Extracts\ crops\ }\textcolor{keyword}{from}\ the\ input\ image\ tensor\ \textcolor{keywordflow}{and}\ bilinearly\ resizes\ them}
+\DoxyCodeLine{00429\ \ \ (possibly\ \textcolor{keyword}{with}\ aspect\ ratio\ change)\ to\ a\ common\ output\ size\ specified\ by}
+\DoxyCodeLine{00430\ \ \ crop\_size.\ This\ \textcolor{keywordflow}{is}\ more\ general\ than\ the\ crop\_to\_bounding\_box\ op\ which}
+\DoxyCodeLine{00431\ \ \ extracts\ a\ fixed\ size\ slice\ \textcolor{keyword}{from}\ the\ input\ image\ \textcolor{keywordflow}{and}\ does\ \textcolor{keywordflow}{not}\ allow}
+\DoxyCodeLine{00432\ \ \ resizing\ \textcolor{keywordflow}{or}\ aspect\ ratio\ change.}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ Returns\ a\ tensor\ \textcolor{keyword}{with}\ crops\ \textcolor{keyword}{from}\ the\ input\ image\ at\ positions\ defined\ at}
+\DoxyCodeLine{00435\ \ \ the\ bounding\ box\ locations\ \textcolor{keywordflow}{in}\ boxes.\ The\ cropped\ boxes\ are\ all\ resized}
+\DoxyCodeLine{00436\ \ \ (\textcolor{keyword}{with}\ bilinear\ interpolation)\ to\ a\ fixed\ size\ =\ \`{}[crop\_height,\ crop\_width]\`{}.}
+\DoxyCodeLine{00437\ \ \ The\ result\ \textcolor{keywordflow}{is}\ a\ 5-\/D\ tensor\ \`{}[batch,\ num\_boxes,\ crop\_height,\ crop\_width,}
+\DoxyCodeLine{00438\ \ \ depth]\`{}.}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ Note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ meant\ to\ replicate\ the\ behavior\ of\ the\ standard}
+\DoxyCodeLine{00441\ \ \ tf.image.crop\_and\_resize\ operation\ but\ there\ are\ a\ few\ differences.}
+\DoxyCodeLine{00442\ \ \ Specifically:}
+\DoxyCodeLine{00443\ \ \ \ \ 1)\ There\ \textcolor{keywordflow}{is}\ no\ \`{}box\_indices\`{}\ argument\ -\/-\/-\/\ to\ run\ this\ op\ on\ multiple\ images,}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ one\ must\ currently\ call\ this\ op\ independently\ on\ each\ image.}
+\DoxyCodeLine{00445\ \ \ \ \ 2)\ The\ \`{}crop\_size\`{}\ parameter\ \textcolor{keywordflow}{is}\ assumed\ to\ be\ statically\ defined.}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ Moreover,\ the\ number\ of\ boxes\ must\ be\ strictly\ nonzero.}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ Args:}
+\DoxyCodeLine{00449\ \ \ \ \ image:\ A\ \`{}Tensor\`{}.\ Must\ be\ one\ of\ the\ following\ types:\ \`{}uint8\`{},\ \`{}int8\`{},}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \`{}int16\`{},\ \`{}int32\`{},\ \`{}int64\`{},\ \`{}half\`{},\ \textcolor{stringliteral}{'bfloat16'},\ \`{}float32\`{},\ \`{}float64\`{}.}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ A\ 4-\/D\ tensor\ of\ shape\ \`{}[batch,\ image\_height,\ image\_width,\ depth]\`{}.}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ Both\ \`{}image\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}image\_width\`{}\ need\ to\ be\ positive.}
+\DoxyCodeLine{00453\ \ \ \ \ boxes:\ A\ \`{}Tensor\`{}\ of\ type\ \`{}float32\`{}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'bfloat16'}.}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ A\ 3-\/D\ tensor\ of\ shape\ \`{}[batch,\ num\_boxes,\ 4]\`{}.\ The\ boxes\ are\ specified\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ normalized\ coordinates\ \textcolor{keywordflow}{and}\ are\ of\ the\ form\ \`{}[y1,\ x1,\ y2,\ x2]\`{}.\ A}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ normalized\ coordinate\ value\ of\ \`{}y\`{}\ \textcolor{keywordflow}{is}\ mapped\ to\ the\ image\ coordinate\ at}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \`{}y\ *\ (image\_height\ -\/\ 1)\`{},\ so\ \textcolor{keyword}{as}\ the\ \`{}[0,\ 1]\`{}\ interval\ of\ normalized\ image}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ height\ \textcolor{keywordflow}{is}\ mapped\ to\ \`{}[0,\ image\_height\ -\/\ 1]\ \textcolor{keywordflow}{in}\ image\ height\ coordinates.}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ We\ do\ allow\ y1\ >\ y2,\ \textcolor{keywordflow}{in}\ which\ case\ the\ sampled\ crop\ \textcolor{keywordflow}{is}\ an\ up-\/down\ flipped}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ version\ of\ the\ original\ image.\ The\ width\ dimension\ \textcolor{keywordflow}{is}\ treated\ similarly.}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ Normalized\ coordinates\ outside\ the\ \`{}[0,\ 1]\`{}\ range\ are\ allowed,\ \textcolor{keywordflow}{in}\ which}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ case\ we\ use\ \`{}extrapolation\_value\`{}\ to\ extrapolate\ the\ input\ image\ values.}
+\DoxyCodeLine{00463\ \ \ \ \ crop\_size:\ A\ list\ of\ two\ integers\ \`{}[crop\_height,\ crop\_width]\`{}.\ All}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ cropped\ image\ patches\ are\ resized\ to\ this\ size.\ The\ aspect\ ratio\ of\ the}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ image\ content\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ preserved.\ Both\ \`{}crop\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}crop\_width\`{}\ need}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ to\ be\ positive.}
+\DoxyCodeLine{00467\ \ \ \ \ extrapolation\_value:\ a\ float\ value\ to\ use\ \textcolor{keywordflow}{for}\ extrapolation.}
+\DoxyCodeLine{00468\ \ \ \ \ scope:\ A\ name\ \textcolor{keywordflow}{for}\ the\ operation\ (optional).}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ Returns:}
+\DoxyCodeLine{00471\ \ \ \ \ A\ 5-\/D\ tensor\ of\ shape\ \`{}[batch,\ num\_boxes,\ crop\_height,\ crop\_width,\ depth]\`{}}
+\DoxyCodeLine{00472\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00473\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MatMulCropAndResize'}):}
+\DoxyCodeLine{00474\ \ \ \ \ box\_levels\ =\ tf.zeros(tf.shape(boxes)[:2],\ dtype=tf.int32)}
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keywordflow}{return}\ multilevel\_roi\_align([image],}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_levels,}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size,}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align\_corners=\textcolor{keyword}{True},}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extrapolation\_value=extrapolation\_value)}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!multilevel\_roi\_align@{multilevel\_roi\_align}}
+\index{multilevel\_roi\_align@{multilevel\_roi\_align}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{multilevel\_roi\_align()}{multilevel\_roi\_align()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+multilevel\+\_\+roi\+\_\+align (\begin{DoxyParamCaption}\item[{}]{features,  }\item[{}]{boxes,  }\item[{}]{box\+\_\+levels,  }\item[{}]{output\+\_\+size,  }\item[{}]{num\+\_\+samples\+\_\+per\+\_\+cell\+\_\+y = {\ttfamily 1},  }\item[{}]{num\+\_\+samples\+\_\+per\+\_\+cell\+\_\+x = {\ttfamily 1},  }\item[{}]{align\+\_\+corners = {\ttfamily False},  }\item[{}]{extrapolation\+\_\+value = {\ttfamily 0.0},  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Applies RoI Align op and returns feature for boxes.
+
+Given multiple features maps indexed by different levels, and a set of boxes
+where each box is mapped to a certain level, this function selectively crops
+and resizes boxes from the corresponding feature maps.
+
+We follow the RoI Align technique in https://arxiv.org/pdf/1703.06870.pdf
+figure 3. Specifically, each box is subdivided uniformly into a grid
+consisting of output_size[0] x output_size[1] rectangular cells. Within each
+cell we select `num_points` points uniformly and compute feature values using
+bilinear interpolation. Finally, we average pool the interpolated values in
+each cell to obtain a [output_size[0], output_size[1], channels] feature.
+
+If `align_corners` is true, sampling points are uniformly spread such that
+corner points exactly overlap corners of the boxes.
+
+In this function we also follow the convention of treating feature pixels as
+point objects with no spatial extent.
+
+Args:
+  features: A list of 4D float tensors of shape [batch_size, max_height,
+    max_width, channels] containing features.
+  boxes: A 3D float tensor of shape [batch_size, num_boxes, 4] containing
+    boxes of the form [ymin, xmin, ymax, xmax] in normalized coordinates.
+  box_levels: A 3D int32 tensor of shape [batch_size, num_boxes, 1]
+    representing the feature level index for each box.
+  output_size: An list of two integers [size_y, size_x] indicating the output
+    feature size for each box.
+  num_samples_per_cell_y: Number of grid points to sample along y axis in each
+    cell.
+  num_samples_per_cell_x: Number of grid points to sample along x axis in each
+    cell.
+  align_corners: Whether to align the corner grid points exactly with box
+    corners.
+  extrapolation_value: a float value to use for extrapolation.
+  scope: Scope name to use for this op.
+
+Returns:
+  A 5D float tensor of shape [batch_size, num_boxes, output_size[0],
+  output_size[1], channels] representing the cropped features.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00268}{268}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00272\ \ \ \textcolor{stringliteral}{"{}"{}"{}Applies\ RoI\ Align\ op\ and\ returns\ feature\ for\ boxes.}}
+\DoxyCodeLine{00273\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00274\ \textcolor{stringliteral}{\ \ Given\ multiple\ features\ maps\ indexed\ by\ different\ levels,\ }\textcolor{keywordflow}{and}\ a\ set\ of\ boxes}
+\DoxyCodeLine{00275\ \ \ where\ each\ box\ \textcolor{keywordflow}{is}\ mapped\ to\ a\ certain\ level,\ this\ function\ selectively\ crops}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordflow}{and}\ resizes\ boxes\ \textcolor{keyword}{from}\ the\ corresponding\ feature\ maps.}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ We\ follow\ the\ RoI\ Align\ technique\ \textcolor{keywordflow}{in}\ https://arxiv.org/pdf/1703.06870.pdf}
+\DoxyCodeLine{00279\ \ \ figure\ 3.\ Specifically,\ each\ box\ \textcolor{keywordflow}{is}\ subdivided\ uniformly\ into\ a\ grid}
+\DoxyCodeLine{00280\ \ \ consisting\ of\ output\_size[0]\ x\ output\_size[1]\ rectangular\ cells.\ Within\ each}
+\DoxyCodeLine{00281\ \ \ cell\ we\ select\ \`{}num\_points\`{}\ points\ uniformly\ \textcolor{keywordflow}{and}\ compute\ feature\ values\ using}
+\DoxyCodeLine{00282\ \ \ bilinear\ interpolation.\ Finally,\ we\ average\ pool\ the\ interpolated\ values\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00283\ \ \ each\ cell\ to\ obtain\ a\ [output\_size[0],\ output\_size[1],\ channels]\ feature.}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ If\ \`{}align\_corners\`{}\ \textcolor{keywordflow}{is}\ true,\ sampling\ points\ are\ uniformly\ spread\ such\ that}
+\DoxyCodeLine{00286\ \ \ corner\ points\ exactly\ overlap\ corners\ of\ the\ boxes.}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ In\ this\ function\ we\ also\ follow\ the\ convention\ of\ treating\ feature\ pixels\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00289\ \ \ point\ objects\ \textcolor{keyword}{with}\ no\ spatial\ extent.}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ Args:}
+\DoxyCodeLine{00292\ \ \ \ \ features:\ A\ list\ of\ 4D\ float\ tensors\ of\ shape\ [batch\_size,\ max\_height,}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ max\_width,\ channels]\ containing\ features.}
+\DoxyCodeLine{00294\ \ \ \ \ boxes:\ A\ 3D\ float\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ 4]\ containing}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ boxes\ of\ the\ form\ [ymin,\ xmin,\ ymax,\ xmax]\ \textcolor{keywordflow}{in}\ normalized\ coordinates.}
+\DoxyCodeLine{00296\ \ \ \ \ box\_levels:\ A\ 3D\ int32\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ 1]}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ representing\ the\ feature\ level\ index\ \textcolor{keywordflow}{for}\ each\ box.}
+\DoxyCodeLine{00298\ \ \ \ \ output\_size:\ An\ list\ of\ two\ integers\ [size\_y,\ size\_x]\ indicating\ the\ output}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ feature\ size\ \textcolor{keywordflow}{for}\ each\ box.}
+\DoxyCodeLine{00300\ \ \ \ \ num\_samples\_per\_cell\_y:\ Number\ of\ grid\ points\ to\ sample\ along\ y\ axis\ \textcolor{keywordflow}{in}\ each}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ cell.}
+\DoxyCodeLine{00302\ \ \ \ \ num\_samples\_per\_cell\_x:\ Number\ of\ grid\ points\ to\ sample\ along\ x\ axis\ \textcolor{keywordflow}{in}\ each}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ cell.}
+\DoxyCodeLine{00304\ \ \ \ \ align\_corners:\ Whether\ to\ align\ the\ corner\ grid\ points\ exactly\ \textcolor{keyword}{with}\ box}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ corners.}
+\DoxyCodeLine{00306\ \ \ \ \ extrapolation\_value:\ a\ float\ value\ to\ use\ \textcolor{keywordflow}{for}\ extrapolation.}
+\DoxyCodeLine{00307\ \ \ \ \ scope:\ Scope\ name\ to\ use\ \textcolor{keywordflow}{for}\ this\ op.}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ Returns:}
+\DoxyCodeLine{00310\ \ \ \ \ A\ 5D\ float\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ output\_size[0],}
+\DoxyCodeLine{00311\ \ \ \ \ output\_size[1],\ channels]\ representing\ the\ cropped\ features.}
+\DoxyCodeLine{00312\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00313\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MultiLevelRoIAlign'}):}
+\DoxyCodeLine{00314\ \ \ \ \ features,\ true\_feature\_shapes\ =\ pad\_to\_max\_size(features)}
+\DoxyCodeLine{00315\ \ \ \ \ batch\_size\ =\ tf.shape(features)[0]}
+\DoxyCodeLine{00316\ \ \ \ \ num\_levels\ =\ features.get\_shape().as\_list()[1]}
+\DoxyCodeLine{00317\ \ \ \ \ max\_feature\_height\ =\ tf.shape(features)[2]}
+\DoxyCodeLine{00318\ \ \ \ \ max\_feature\_width\ =\ tf.shape(features)[3]}
+\DoxyCodeLine{00319\ \ \ \ \ num\_filters\ =\ features.get\_shape().as\_list()[4]}
+\DoxyCodeLine{00320\ \ \ \ \ num\_boxes\ =\ tf.shape(boxes)[1]}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{comment}{\#\ Convert\ boxes\ to\ absolute\ co-\/ordinates.}}
+\DoxyCodeLine{00323\ \ \ \ \ true\_feature\_shapes\ =\ tf.cast(true\_feature\_shapes,\ dtype=boxes.dtype)}
+\DoxyCodeLine{00324\ \ \ \ \ true\_feature\_shapes\ =\ tf.gather(true\_feature\_shapes,\ box\_levels)}
+\DoxyCodeLine{00325\ \ \ \ \ boxes\ *=\ tf.concat([true\_feature\_shapes\ -\/\ 1]\ *\ 2,\ axis=-\/1)}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ size\_y\ =\ output\_size[0]\ *\ num\_samples\_per\_cell\_y}
+\DoxyCodeLine{00328\ \ \ \ \ size\_x\ =\ output\_size[1]\ *\ num\_samples\_per\_cell\_x}
+\DoxyCodeLine{00329\ \ \ \ \ box\_grid\_y,\ box\_grid\_x\ =\ box\_grid\_coordinate\_vectors(}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ boxes,\ size\_y=size\_y,\ size\_x=size\_x,\ align\_corners=align\_corners)}
+\DoxyCodeLine{00331\ \ \ \ \ (feature\_grid\_y0,\ feature\_grid\_x0,\ feature\_grid\_y1,}
+\DoxyCodeLine{00332\ \ \ \ \ \ feature\_grid\_x1)\ =\ feature\_grid\_coordinate\_vectors(box\_grid\_y,\ box\_grid\_x)}
+\DoxyCodeLine{00333\ \ \ \ \ feature\_grid\_y\ =\ tf.reshape(}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ tf.stack([feature\_grid\_y0,\ feature\_grid\_y1],\ axis=3),}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ -\/1])}
+\DoxyCodeLine{00336\ \ \ \ \ feature\_grid\_x\ =\ tf.reshape(}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ tf.stack([feature\_grid\_x0,\ feature\_grid\_x1],\ axis=3),}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ -\/1])}
+\DoxyCodeLine{00339\ \ \ \ \ feature\_coordinates\ =\ ravel\_indices(feature\_grid\_y,\ feature\_grid\_x,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_levels,\ max\_feature\_height,}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_feature\_width,\ box\_levels)}
+\DoxyCodeLine{00342\ \ \ \ \ valid\_indices\ =\ \_valid\_indicator(feature\_grid\_y,\ feature\_grid\_x,}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ true\_feature\_shapes)}
+\DoxyCodeLine{00344\ \ \ \ \ feature\_coordinates\ =\ tf.where(valid\_indices,\ feature\_coordinates,}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1\ *\ tf.ones\_like(feature\_coordinates))}
+\DoxyCodeLine{00346\ \ \ \ \ flattened\_features\ =\ tf.reshape(features,\ [-\/1,\ num\_filters])}
+\DoxyCodeLine{00347\ \ \ \ \ flattened\_feature\_values\ =\ \_gather\_valid\_indices(flattened\_features,}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feature\_coordinates,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extrapolation\_value)}
+\DoxyCodeLine{00350\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ flattened\_feature\_values,}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ size\_y\ *\ 2,\ size\_x\ *\ 2,\ num\_filters])}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{\#\ Cast\ tensors\ into\ dtype\ of\ features.}}
+\DoxyCodeLine{00355\ \ \ \ \ box\_grid\_y\ =\ tf.cast(box\_grid\_y,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{00356\ \ \ \ \ box\_grid\_x\ =\ tf.cast(box\_grid\_x,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{00357\ \ \ \ \ feature\_grid\_y0\ =\ tf.cast(feature\_grid\_y0,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{00358\ \ \ \ \ feature\_grid\_x0\ =\ tf.cast(feature\_grid\_x0,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{comment}{\#\ RoI\ Align\ operation\ is\ a\ bilinear\ interpolation\ of\ four}}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{comment}{\#\ neighboring\ feature\ points\ f0,\ f1,\ f2,\ and\ f3\ onto\ point\ y,\ x\ given\ by}}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ [hy,\ ly]\ *\ [[f00,\ f01],\ *\ [hx,\ lx]\string^T}}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [f10,\ f11]]}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{comment}{\#\ Unrolling\ the\ matrix\ multiplies\ gives\ us:}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ (hy\ *\ hx)\ f00\ +\ (hy\ *\ lx)\ f01\ +\ (ly\ *\ hx)\ f10\ +\ (lx\ *\ ly)\ f11}}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ w00\ *\ f00\ +\ w01\ *\ f01\ +\ w10\ *\ f10\ +\ w11\ *\ f11}}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{\#\ This\ can\ be\ computed\ by\ applying\ pointwise\ multiplication\ and\ sum\_pool\ in}}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{\#\ a\ 2x2\ window.}}
+\DoxyCodeLine{00371\ \ \ \ \ ly\ =\ box\_grid\_y\ -\/\ feature\_grid\_y0}
+\DoxyCodeLine{00372\ \ \ \ \ lx\ =\ box\_grid\_x\ -\/\ feature\_grid\_x0}
+\DoxyCodeLine{00373\ \ \ \ \ hy\ =\ 1.0\ -\/\ ly}
+\DoxyCodeLine{00374\ \ \ \ \ hx\ =\ 1.0\ -\/\ lx}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ kernel\_y\ =\ tf.reshape(}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ tf.stack([hy,\ ly],\ axis=3),\ [batch\_size,\ num\_boxes,\ size\_y\ *\ 2,\ 1])}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ kernel\_x\ =\ tf.reshape(}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ tf.stack([hx,\ lx],\ axis=3),\ [batch\_size,\ num\_boxes,\ 1,\ size\_x\ *\ 2])}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{comment}{\#\ Multiplier\ 4\ is\ to\ make\ tf.nn.avg\_pool\ behave\ like\ sum\_pool.}}
+\DoxyCodeLine{00383\ \ \ \ \ interpolation\_kernel\ =\ kernel\_y\ *\ kernel\_x\ *\ 4}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{comment}{\#\ Interpolate\ the\ gathered\ features\ with\ computed\ interpolation\ kernels.}}
+\DoxyCodeLine{00386\ \ \ \ \ features\_per\_box\ *=\ tf.expand\_dims(interpolation\_kernel,\ axis=4),}
+\DoxyCodeLine{00387\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ [batch\_size\ *\ num\_boxes,\ size\_y\ *\ 2,\ size\_x\ *\ 2,\ num\_filters])}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{comment}{\#\ This\ combines\ the\ two\ pooling\ operations\ -\/\ sum\_pool\ to\ perform\ bilinear}}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{comment}{\#\ interpolation\ and\ avg\_pool\ to\ pool\ the\ values\ in\ each\ bin.}}
+\DoxyCodeLine{00393\ \ \ \ \ features\_per\_box\ =\ tf.nn.avg\_pool(}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ [1,\ num\_samples\_per\_cell\_y\ *\ 2,\ num\_samples\_per\_cell\_x\ *\ 2,\ 1],}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ [1,\ num\_samples\_per\_cell\_y\ *\ 2,\ num\_samples\_per\_cell\_x\ *\ 2,\ 1],\ \textcolor{stringliteral}{'VALID'})}
+\DoxyCodeLine{00397\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ output\_size[0],\ output\_size[1],\ num\_filters])}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{return}\ features\_per\_box}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a2a40d33cf1473f2a41b951a05f2576f5}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a2a40d33cf1473f2a41b951a05f2576f5} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!native\_crop\_and\_resize@{native\_crop\_and\_resize}}
+\index{native\_crop\_and\_resize@{native\_crop\_and\_resize}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{native\_crop\_and\_resize()}{native\_crop\_and\_resize()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+native\+\_\+crop\+\_\+and\+\_\+resize (\begin{DoxyParamCaption}\item[{}]{image,  }\item[{}]{boxes,  }\item[{}]{crop\+\_\+size,  }\item[{}]{scope = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Same as `matmul_crop_and_resize` but uses tf.image.crop_and_resize.\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00404}{404}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00404\ \textcolor{keyword}{def\ }native\_crop\_and\_resize(image,\ boxes,\ crop\_size,\ scope=None):}
+\DoxyCodeLine{00405\ \ \ \textcolor{stringliteral}{"{}"{}"{}Same\ as\ \`{}matmul\_crop\_and\_resize\`{}\ but\ uses\ tf.image.crop\_and\_resize."{}"{}"{}}}
+\DoxyCodeLine{00406\ \ \ \textcolor{keyword}{def\ }get\_box\_inds(proposals):}
+\DoxyCodeLine{00407\ \ \ \ \ proposals\_shape\ =\ proposals.get\_shape().as\_list()}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordflow}{if}\ any(dim\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ proposals\_shape):}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ proposals\_shape\ =\ tf.shape(proposals)}
+\DoxyCodeLine{00410\ \ \ \ \ ones\_mat\ =\ tf.ones(proposals\_shape[:2],\ dtype=tf.int32)}
+\DoxyCodeLine{00411\ \ \ \ \ multiplier\ =\ tf.expand\_dims(}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ tf.range(start=0,\ limit=proposals\_shape[0]),\ 1)}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(ones\_mat\ *\ multiplier,\ [-\/1])}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'CropAndResize'}):}
+\DoxyCodeLine{00416\ \ \ \ \ cropped\_regions\ =\ tf.image.crop\_and\_resize(}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ image,\ tf.reshape(boxes,\ [-\/1]\ +\ boxes.shape.as\_list()[2:]),}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ get\_box\_inds(boxes),\ crop\_size)}
+\DoxyCodeLine{00419\ \ \ \ \ final\_shape\ =\ tf.concat([tf.shape(boxes)[:2],}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(cropped\_regions)[1:]],\ axis=0)}
+\DoxyCodeLine{00421\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(cropped\_regions,\ final\_shape)}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ }
+
+\end{DoxyCode}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!pad\_to\_max\_size@{pad\_to\_max\_size}}
+\index{pad\_to\_max\_size@{pad\_to\_max\_size}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{pad\_to\_max\_size()}{pad\_to\_max\_size()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+pad\+\_\+to\+\_\+max\+\_\+size (\begin{DoxyParamCaption}\item[{}]{features }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pads features to max height and max width and stacks them up.
+
+Args:
+  features: A list of num_levels 4D float tensors of shape [batch, height_i,
+    width_i, channels] containing feature maps.
+
+Returns:
+  stacked_features: A 5D float tensor of shape [batch, num_levels, max_height,
+    max_width, channels] containing stacked features.
+  true_feature_shapes: A 2D int32 tensor of shape [num_levels, 2] containing
+    height and width of the feature maps before padding.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00207}{207}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00207\ \textcolor{keyword}{def\ }pad\_to\_max\_size(features):}
+\DoxyCodeLine{00208\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pads\ features\ to\ max\ height\ and\ max\ width\ and\ stacks\ them\ up.}}
+\DoxyCodeLine{00209\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00210\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{00211\ \textcolor{stringliteral}{\ \ \ \ features:\ A\ list\ of\ num\_levels\ 4D\ float\ tensors\ of\ shape\ [batch,\ height\_i,}}
+\DoxyCodeLine{00212\ \textcolor{stringliteral}{\ \ \ \ \ \ width\_i,\ channels]\ containing\ feature\ maps.}}
+\DoxyCodeLine{00213\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00214\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{00215\ \textcolor{stringliteral}{\ \ \ \ stacked\_features:\ A\ 5D\ float\ tensor\ of\ shape\ [batch,\ num\_levels,\ max\_height,}}
+\DoxyCodeLine{00216\ \textcolor{stringliteral}{\ \ \ \ \ \ max\_width,\ channels]\ containing\ stacked\ features.}}
+\DoxyCodeLine{00217\ \textcolor{stringliteral}{\ \ \ \ true\_feature\_shapes:\ A\ 2D\ int32\ tensor\ of\ shape\ [num\_levels,\ 2]\ containing}}
+\DoxyCodeLine{00218\ \textcolor{stringliteral}{\ \ \ \ \ \ height\ }\textcolor{keywordflow}{and}\ width\ of\ the\ feature\ maps\ before\ padding.}
+\DoxyCodeLine{00219\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00220\ \textcolor{stringliteral}{\ \ heights\ =\ [tf.shape(feature)[1]\ }\textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features]}
+\DoxyCodeLine{00221\ \ \ widths\ =\ [tf.shape(feature)[2]\ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features]}
+\DoxyCodeLine{00222\ \ \ max\_height\ =\ tf.reduce\_max(heights)}
+\DoxyCodeLine{00223\ \ \ max\_width\ =\ tf.reduce\_max(widths)}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ features\_all\ =\ [}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ tf.image.pad\_to\_bounding\_box(feature,\ 0,\ 0,\ max\_height,}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_width)\ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features}
+\DoxyCodeLine{00228\ \ \ ]}
+\DoxyCodeLine{00229\ \ \ features\_all\ =\ tf.stack(features\_all,\ axis=1)}
+\DoxyCodeLine{00230\ \ \ true\_feature\_shapes\ =\ tf.stack([tf.shape(feature)[1:3]}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features])}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordflow}{return}\ features\_all,\ true\_feature\_shapes}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569}\label{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569} 
+\index{detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}!ravel\_indices@{ravel\_indices}}
+\index{ravel\_indices@{ravel\_indices}!detection\_utils.utils.spatial\_transform\_ops@{detection\_utils.utils.spatial\_transform\_ops}}
+\doxysubsubsection{\texorpdfstring{ravel\_indices()}{ravel\_indices()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+spatial\+\_\+transform\+\_\+ops.\+ravel\+\_\+indices (\begin{DoxyParamCaption}\item[{}]{feature\+\_\+grid\+\_\+y,  }\item[{}]{feature\+\_\+grid\+\_\+x,  }\item[{}]{num\+\_\+levels,  }\item[{}]{height,  }\item[{}]{width,  }\item[{}]{box\+\_\+levels }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns grid indices in a flattened feature map of shape [-1, channels].
+
+The returned 1-D array can be used to gather feature grid points from a
+feature map that has been flattened from [batch, num_levels, max_height,
+max_width, channels] to [batch * num_levels * max_height * max_width,
+channels].
+
+Args:
+  feature_grid_y: An int32 tensor of shape [batch, num_boxes, size_y]
+    containing y coordinate vector.
+  feature_grid_x: An int32 tensor of shape [batch, num_boxes, size_x]
+    containing x coordinate vector.
+  num_levels: Number of feature levels.
+  height: An integer indicating the padded height of feature maps.
+  width: An integer indicating the padded width of feature maps.
+  box_levels: An int32 tensor of shape [batch, num_boxes] indicating
+    feature level assigned to each box.
+
+Returns:
+  indices: A 1D int32 tensor containing feature point indices in a flattened
+    feature grid.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{spatial__transform__ops_8py_source_l00155}{155}} of file \mbox{\hyperlink{spatial__transform__ops_8py_source}{spatial\+\_\+transform\+\_\+ops.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_levels):}
+\DoxyCodeLine{00157\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ grid\ indices\ in\ a\ flattened\ feature\ map\ of\ shape\ [-\/1,\ channels].}}
+\DoxyCodeLine{00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00159\ \textcolor{stringliteral}{\ \ The\ returned\ 1-\/D\ array\ can\ be\ used\ to\ gather\ feature\ grid\ points\ }\textcolor{keyword}{from}\ a}
+\DoxyCodeLine{00160\ \ \ feature\ map\ that\ has\ been\ flattened\ \textcolor{keyword}{from}\ [batch,\ num\_levels,\ max\_height,}
+\DoxyCodeLine{00161\ \ \ max\_width,\ channels]\ to\ [batch\ *\ num\_levels\ *\ max\_height\ *\ max\_width,}
+\DoxyCodeLine{00162\ \ \ channels].}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ Args:}
+\DoxyCodeLine{00165\ \ \ \ \ feature\_grid\_y:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ containing\ y\ coordinate\ vector.}
+\DoxyCodeLine{00167\ \ \ \ \ feature\_grid\_x:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ containing\ x\ coordinate\ vector.}
+\DoxyCodeLine{00169\ \ \ \ \ num\_levels:\ Number\ of\ feature\ levels.}
+\DoxyCodeLine{00170\ \ \ \ \ height:\ An\ integer\ indicating\ the\ padded\ height\ of\ feature\ maps.}
+\DoxyCodeLine{00171\ \ \ \ \ width:\ An\ integer\ indicating\ the\ padded\ width\ of\ feature\ maps.}
+\DoxyCodeLine{00172\ \ \ \ \ box\_levels:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ feature\ level\ assigned\ to\ each\ box.}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ Returns:}
+\DoxyCodeLine{00176\ \ \ \ \ indices:\ A\ 1D\ int32\ tensor\ containing\ feature\ point\ indices\ \textcolor{keywordflow}{in}\ a\ flattened}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ feature\ grid.}
+\DoxyCodeLine{00178\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00179\ \textcolor{stringliteral}{\ \ num\_boxes\ =\ tf.shape(feature\_grid\_y)[1]}}
+\DoxyCodeLine{00180\ \textcolor{stringliteral}{\ \ batch\_size\ =\ tf.shape(feature\_grid\_y)[0]}}
+\DoxyCodeLine{00181\ \textcolor{stringliteral}{\ \ size\_y\ =\ tf.shape(feature\_grid\_y)[2]}}
+\DoxyCodeLine{00182\ \textcolor{stringliteral}{\ \ size\_x\ =\ tf.shape(feature\_grid\_x)[2]}}
+\DoxyCodeLine{00183\ \textcolor{stringliteral}{\ \ height\_dim\_offset\ =\ width}}
+\DoxyCodeLine{00184\ \textcolor{stringliteral}{\ \ level\_dim\_offset\ =\ height\ *\ height\_dim\_offset}}
+\DoxyCodeLine{00185\ \textcolor{stringliteral}{\ \ batch\_dim\_offset\ =\ num\_levels\ *\ level\_dim\_offset}}
+\DoxyCodeLine{00186\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00187\ \textcolor{stringliteral}{\ \ batch\_dim\_indices\ =\ (}}
+\DoxyCodeLine{00188\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(}}
+\DoxyCodeLine{00189\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.range(batch\_size)\ *\ batch\_dim\_offset,\ [batch\_size,\ 1,\ 1,\ 1])\ *}}
+\DoxyCodeLine{00190\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ num\_boxes,\ size\_y,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{00191\ \textcolor{stringliteral}{\ \ box\_level\_indices\ =\ (}}
+\DoxyCodeLine{00192\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(box\_levels\ *\ level\_dim\_offset,\ [batch\_size,\ num\_boxes,\ 1,\ 1])\ *}}
+\DoxyCodeLine{00193\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ 1,\ size\_y,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{00194\ \textcolor{stringliteral}{\ \ height\_indices\ =\ (}}
+\DoxyCodeLine{00195\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(feature\_grid\_y\ *\ height\_dim\_offset,}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ size\_y,\ 1])\ *}}
+\DoxyCodeLine{00197\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ 1,\ 1,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{00198\ \textcolor{stringliteral}{\ \ width\_indices\ =\ (}}
+\DoxyCodeLine{00199\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(feature\_grid\_x,\ [batch\_size,\ num\_boxes,\ 1,\ size\_x])}}
+\DoxyCodeLine{00200\ \textcolor{stringliteral}{\ \ \ \ \ \ *\ tf.ones([1,\ 1,\ size\_y,\ 1],\ dtype=tf.int32))}}
+\DoxyCodeLine{00201\ \textcolor{stringliteral}{\ \ indices\ =\ (}}
+\DoxyCodeLine{00202\ \textcolor{stringliteral}{\ \ \ \ \ \ batch\_dim\_indices\ +\ box\_level\_indices\ +\ height\_indices\ +\ width\_indices)}}
+\DoxyCodeLine{00203\ \textcolor{stringliteral}{\ \ flattened\_indices\ =\ tf.reshape(indices,\ [-\/1])}}
+\DoxyCodeLine{00204\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ flattened\_indices}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddc/namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569_icgraph}
+\end{center}
+\end{figure}

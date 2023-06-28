@@ -1,0 +1,232 @@
+\doxysection{detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test}{}\label{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test}\index{detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{db/d16/classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{d9/d69/classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_ae22ace9de648bcbb42928ad6cd3767c2}{test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+different\+\_\+sizes\+\_\+in\+\_\+1st\+\_\+dimension}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a288d2a7af275bd49c2923aacf201f611}{test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+different\+\_\+sizes\+\_\+in\+\_\+all\+\_\+dimensions}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a5d867d137fd5397b4586b6878671af95}{test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+same\+\_\+size\+\_\+in\+\_\+all\+\_\+dimensions}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a21f6b5c3ee4e7144bede3e5b81811d0e}{test\+\_\+batcher\+\_\+when\+\_\+batch\+\_\+size\+\_\+is\+\_\+one}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{batcher__test_8py_source_l00031}{31}} of file \mbox{\hyperlink{batcher__test_8py_source}{batcher\+\_\+test.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_ae22ace9de648bcbb42928ad6cd3767c2}\label{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_ae22ace9de648bcbb42928ad6cd3767c2} 
+\index{detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}!test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension@{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension}}
+\index{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension@{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension}!detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension()}{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test.\+test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+different\+\_\+sizes\+\_\+in\+\_\+1st\+\_\+dimension (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{batcher__test_8py_source_l00033}{33}} of file \mbox{\hyperlink{batcher__test_8py_source}{batcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{def\ }test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_1st\_dimension(self):}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ batch\_size\ =\ 3}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ num\_batches\ =\ 2}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(2,\ dtype=tf.int32))}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches\ *\ batch\_size\ +\ 2)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ boxes\ =\ tf.tile(}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ tf.reshape(tf.range(4),\ [1,\ 4]),\ tf.stack([counter,\ tf.constant(1)]))}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ batch\_queue\ =\ batcher.BatchQueue(}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ tensor\_dict=\{\textcolor{stringliteral}{'boxes'}:\ boxes\},}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ batch\_size=batch\_size,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ batch\_queue\_capacity=100,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ num\_batch\_queue\_threads=1,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ prefetch\_queue\_capacity=100)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ batch\ =\ batch\_queue.dequeue()}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual([\textcolor{keywordtype}{None},\ 4],\ tensor.get\_shape().as\_list())}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ i\ =\ 2}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ batch\_np\ =\ sess.run(batch)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch\_np:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual(tensor,\ np.tile(np.arange(4),\ (i,\ 1)))}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ sess.run(batch)}
+\DoxyCodeLine{00064\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a288d2a7af275bd49c2923aacf201f611}\label{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a288d2a7af275bd49c2923aacf201f611} 
+\index{detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}!test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions@{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions}}
+\index{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions@{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions}!detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions()}{test\_batch\_and\_unpad\_2d\_tensors\_of\_different\_sizes\_in\_all\_dimensions()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test.\+test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+different\+\_\+sizes\+\_\+in\+\_\+all\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{batcher__test_8py_source_l00065}{65}} of file \mbox{\hyperlink{batcher__test_8py_source}{batcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ self):}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ batch\_size\ =\ 3}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ num\_batches\ =\ 2}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(2,\ dtype=tf.int32))}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches\ *\ batch\_size\ +\ 2)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ image\ =\ tf.reshape(}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ tf.range(counter\ *\ counter),\ tf.stack([counter,\ counter]))}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ batch\_queue\ =\ batcher.BatchQueue(}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ tensor\_dict=\{\textcolor{stringliteral}{'image'}:\ image\},}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ batch\_size=batch\_size,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ batch\_queue\_capacity=100,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ num\_batch\_queue\_threads=1,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ prefetch\_queue\_capacity=100)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ batch\ =\ batch\_queue.dequeue()}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual([\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}],\ tensor.get\_shape().as\_list())}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ i\ =\ 2}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ batch\_np\ =\ sess.run(batch)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch\_np:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual(tensor,\ np.arange(i\ *\ i).reshape((i,\ i)))}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ sess.run(batch)}
+\DoxyCodeLine{00097\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a5d867d137fd5397b4586b6878671af95}\label{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a5d867d137fd5397b4586b6878671af95} 
+\index{detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}!test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions@{test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions}}
+\index{test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions@{test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions}!detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions()}{test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test.\+test\+\_\+batch\+\_\+and\+\_\+unpad\+\_\+2d\+\_\+tensors\+\_\+of\+\_\+same\+\_\+size\+\_\+in\+\_\+all\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{batcher__test_8py_source_l00098}{98}} of file \mbox{\hyperlink{batcher__test_8py_source}{batcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{def\ }test\_batch\_and\_unpad\_2d\_tensors\_of\_same\_size\_in\_all\_dimensions(self):}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ batch\_size\ =\ 3}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ num\_batches\ =\ 2}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(1,\ dtype=tf.int32))}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches\ *\ batch\_size\ +\ 1)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ image\ =\ tf.reshape(tf.range(1,\ 13),\ [4,\ 3])\ *\ counter}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ batch\_queue\ =\ batcher.BatchQueue(}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ tensor\_dict=\{\textcolor{stringliteral}{'image'}:\ image\},}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ batch\_size=batch\_size,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ batch\_queue\_capacity=100,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ num\_batch\_queue\_threads=1,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ prefetch\_queue\_capacity=100)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ batch\ =\ batch\_queue.dequeue()}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch:}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual([4,\ 3],\ tensor.get\_shape().as\_list())}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ i\ =\ 1}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ batch\_np\ =\ sess.run(batch)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch\_np:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual(tensor,\ np.arange(1,\ 13).reshape((4,\ 3))\ *\ i)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ sess.run(batch)}
+\DoxyCodeLine{00128\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a21f6b5c3ee4e7144bede3e5b81811d0e}\label{classdetection__utils_1_1core_1_1batcher__test_1_1_batcher_test_a21f6b5c3ee4e7144bede3e5b81811d0e} 
+\index{detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}!test\_batcher\_when\_batch\_size\_is\_one@{test\_batcher\_when\_batch\_size\_is\_one}}
+\index{test\_batcher\_when\_batch\_size\_is\_one@{test\_batcher\_when\_batch\_size\_is\_one}!detection\_utils.core.batcher\_test.BatcherTest@{detection\_utils.core.batcher\_test.BatcherTest}}
+\doxysubsubsection{\texorpdfstring{test\_batcher\_when\_batch\_size\_is\_one()}{test\_batcher\_when\_batch\_size\_is\_one()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+batcher\+\_\+test.\+Batcher\+Test.\+test\+\_\+batcher\+\_\+when\+\_\+batch\+\_\+size\+\_\+is\+\_\+one (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{batcher__test_8py_source_l00129}{129}} of file \mbox{\hyperlink{batcher__test_8py_source}{batcher\+\_\+test.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{def\ }test\_batcher\_when\_batch\_size\_is\_one(self):}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{with}\ self.test\_session()\ \textcolor{keyword}{as}\ sess:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ batch\_size\ =\ 1}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ num\_batches\ =\ 2}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ examples\ =\ tf.Variable(tf.constant(2,\ dtype=tf.int32))}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ counter\ =\ examples.count\_up\_to(num\_batches\ *\ batch\_size\ +\ 2)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ image\ =\ tf.reshape(}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ tf.range(counter\ *\ counter),\ tf.stack([counter,\ counter]))}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ batch\_queue\ =\ batcher.BatchQueue(}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ tensor\_dict=\{\textcolor{stringliteral}{'image'}:\ image\},}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ batch\_size=batch\_size,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ batch\_queue\_capacity=100,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ num\_batch\_queue\_threads=1,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ prefetch\_queue\_capacity=100)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ batch\ =\ batch\_queue.dequeue()}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual([\textcolor{keywordtype}{None},\ \textcolor{keywordtype}{None}],\ tensor.get\_shape().as\_list())}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ tf.initialize\_all\_variables().run()}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \textcolor{keyword}{with}\ slim.queues.QueueRunners(sess):}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ i\ =\ 2}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ \_\ \textcolor{keywordflow}{in}\ range(num\_batches):}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ batch\_np\ =\ sess.run(batch)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\_dict\ \textcolor{keywordflow}{in}\ batch\_np:}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ tensor\ \textcolor{keywordflow}{in}\ tensor\_dict.values():}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.assertAllEqual(tensor,\ np.arange(i\ *\ i).reshape((i,\ i)))}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ 1}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ self.assertRaises(tf.errors.OutOfRangeError):}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ sess.run(batch)}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{batcher__test_8py}{batcher\+\_\+test.\+py}}\end{DoxyCompactItemize}

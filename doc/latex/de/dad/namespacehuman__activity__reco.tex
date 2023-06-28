@@ -1,0 +1,243 @@
+\doxysection{human\+\_\+activity\+\_\+reco Namespace Reference}
+\hypertarget{namespacehuman__activity__reco}{}\label{namespacehuman__activity__reco}\index{human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4f7892f4d930a84bc3b58401c499f2fc}{ap}} = argparse.\+Argument\+Parser()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a8c74acac80e00fcf80273bdd77cc4a68}{required}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a98bbb4e580341d1cc59b3627a4acd7ab}{help}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a2ea2ff5afca7082f03b68aac2485e0e6}{type}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a190f3d6745a63cb6b8f664a4fffdec53}{str}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_aed21c739bf8d6863390b918d2111a0fa}{default}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}} = vars(ap.\+parse\+\_\+args())
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}{CLASSES}} = open(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}classes\"{}\mbox{]}).read().strip().split(\"{}\textbackslash{}n\"{})
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_a31660bec2442e4cda7ec34a929a31200}{SAMPLE\+\_\+\+DURATION}} = 16
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_a1fe1b8078b4e0593b086d45007a95013}{SAMPLE\+\_\+\+SIZE}} = 112
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_af7476f6ecce29d30f57012d7d93e57c6}{net}} = cv2.\+dnn.\+read\+Net(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}model\"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4ec38f8a561ea70176772dcfc016f9ce}{vs}} = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)
+\item 
+list \mbox{\hyperlink{namespacehuman__activity__reco_a3c0f8fe119b7d8e1dd5610b05d290043}{frames}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a4f45635761355260c1888fb9af93e986}{grabbed}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a49dbaf951ff34a236ed076fb86e5bdca}{frame}} = imutils.\+resize(frame, width=400)
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a195b3a63ffd85ad87d5eb0aa41e36c00}{blob}}
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}{outputs}} = net.\+forward()
+\item 
+\mbox{\hyperlink{namespacehuman__activity__reco_a27764ab58a5f9791071262c4392ebb02}{label}} = \mbox{\hyperlink{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}{CLASSES}}\mbox{[}np.\+argmax(\mbox{\hyperlink{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}{outputs}})\mbox{]}
+\item 
+int \mbox{\hyperlink{namespacehuman__activity__reco_ad6a21fa3154b10da8c4de8db3c4320f9}{key}} = cv2.\+wait\+Key(1) \& 0x\+FF
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacehuman__activity__reco_a4f7892f4d930a84bc3b58401c499f2fc}\label{namespacehuman__activity__reco_a4f7892f4d930a84bc3b58401c499f2fc} 
+\index{human\_activity\_reco@{human\_activity\_reco}!ap@{ap}}
+\index{ap@{ap}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{ap}{ap}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+ap = argparse.\+Argument\+Parser()}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00013}{13}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}\label{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e} 
+\index{human\_activity\_reco@{human\_activity\_reco}!args@{args}}
+\index{args@{args}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+args = vars(ap.\+parse\+\_\+args())}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00020}{20}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a195b3a63ffd85ad87d5eb0aa41e36c00}\label{namespacehuman__activity__reco_a195b3a63ffd85ad87d5eb0aa41e36c00} 
+\index{human\_activity\_reco@{human\_activity\_reco}!blob@{blob}}
+\index{blob@{blob}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{blob}{blob}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+blob}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ cv2.dnn.blobFromImages(frames,\ 1.0,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ (SAMPLE\_SIZE,\ SAMPLE\_SIZE),\ (114.7748,\ 107.7354,\ 99.4750),}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ swapRB=\textcolor{keyword}{True},\ crop=\textcolor{keyword}{True})}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00060}{60}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}\label{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da} 
+\index{human\_activity\_reco@{human\_activity\_reco}!CLASSES@{CLASSES}}
+\index{CLASSES@{CLASSES}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{CLASSES}{CLASSES}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+CLASSES = open(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}classes\"{}\mbox{]}).read().strip().split(\"{}\textbackslash{}n\"{})}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00025}{25}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_aed21c739bf8d6863390b918d2111a0fa}\label{namespacehuman__activity__reco_aed21c739bf8d6863390b918d2111a0fa} 
+\index{human\_activity\_reco@{human\_activity\_reco}!default@{default}}
+\index{default@{default}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+default}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00018}{18}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a49dbaf951ff34a236ed076fb86e5bdca}\label{namespacehuman__activity__reco_a49dbaf951ff34a236ed076fb86e5bdca} 
+\index{human\_activity\_reco@{human\_activity\_reco}!frame@{frame}}
+\index{frame@{frame}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{frame}{frame}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+frame = imutils.\+resize(frame, width=400)}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00046}{46}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a3c0f8fe119b7d8e1dd5610b05d290043}\label{namespacehuman__activity__reco_a3c0f8fe119b7d8e1dd5610b05d290043} 
+\index{human\_activity\_reco@{human\_activity\_reco}!frames@{frames}}
+\index{frames@{frames}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{frames}{frames}}
+{\footnotesize\ttfamily list human\+\_\+activity\+\_\+reco.\+frames = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00041}{41}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a4f45635761355260c1888fb9af93e986}\label{namespacehuman__activity__reco_a4f45635761355260c1888fb9af93e986} 
+\index{human\_activity\_reco@{human\_activity\_reco}!grabbed@{grabbed}}
+\index{grabbed@{grabbed}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{grabbed}{grabbed}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+grabbed}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00046}{46}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a98bbb4e580341d1cc59b3627a4acd7ab}\label{namespacehuman__activity__reco_a98bbb4e580341d1cc59b3627a4acd7ab} 
+\index{human\_activity\_reco@{human\_activity\_reco}!help@{help}}
+\index{help@{help}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{help}{help}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+help}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00015}{15}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_ad6a21fa3154b10da8c4de8db3c4320f9}\label{namespacehuman__activity__reco_ad6a21fa3154b10da8c4de8db3c4320f9} 
+\index{human\_activity\_reco@{human\_activity\_reco}!key@{key}}
+\index{key@{key}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily int human\+\_\+activity\+\_\+reco.\+key = cv2.\+wait\+Key(1) \& 0x\+FF}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00081}{81}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a27764ab58a5f9791071262c4392ebb02}\label{namespacehuman__activity__reco_a27764ab58a5f9791071262c4392ebb02} 
+\index{human\_activity\_reco@{human\_activity\_reco}!label@{label}}
+\index{label@{label}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{label}{label}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+label = \mbox{\hyperlink{namespacehuman__activity__reco_ab255a7999cce1563e7baec9e8ac746da}{CLASSES}}\mbox{[}np.\+argmax(\mbox{\hyperlink{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}{outputs}})\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00070}{70}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_af7476f6ecce29d30f57012d7d93e57c6}\label{namespacehuman__activity__reco_af7476f6ecce29d30f57012d7d93e57c6} 
+\index{human\_activity\_reco@{human\_activity\_reco}!net@{net}}
+\index{net@{net}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{net}{net}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+net = cv2.\+dnn.\+read\+Net(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}model\"{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00031}{31}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268}\label{namespacehuman__activity__reco_aa219322fca4bd6cc4d5bae9b9c432268} 
+\index{human\_activity\_reco@{human\_activity\_reco}!outputs@{outputs}}
+\index{outputs@{outputs}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{outputs}{outputs}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+outputs = net.\+forward()}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00069}{69}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a8c74acac80e00fcf80273bdd77cc4a68}\label{namespacehuman__activity__reco_a8c74acac80e00fcf80273bdd77cc4a68} 
+\index{human\_activity\_reco@{human\_activity\_reco}!required@{required}}
+\index{required@{required}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{required}{required}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+required}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00014}{14}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a31660bec2442e4cda7ec34a929a31200}\label{namespacehuman__activity__reco_a31660bec2442e4cda7ec34a929a31200} 
+\index{human\_activity\_reco@{human\_activity\_reco}!SAMPLE\_DURATION@{SAMPLE\_DURATION}}
+\index{SAMPLE\_DURATION@{SAMPLE\_DURATION}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_DURATION}{SAMPLE\_DURATION}}
+{\footnotesize\ttfamily int human\+\_\+activity\+\_\+reco.\+SAMPLE\+\_\+\+DURATION = 16}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00026}{26}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a1fe1b8078b4e0593b086d45007a95013}\label{namespacehuman__activity__reco_a1fe1b8078b4e0593b086d45007a95013} 
+\index{human\_activity\_reco@{human\_activity\_reco}!SAMPLE\_SIZE@{SAMPLE\_SIZE}}
+\index{SAMPLE\_SIZE@{SAMPLE\_SIZE}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_SIZE}{SAMPLE\_SIZE}}
+{\footnotesize\ttfamily int human\+\_\+activity\+\_\+reco.\+SAMPLE\+\_\+\+SIZE = 112}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00027}{27}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a190f3d6745a63cb6b8f664a4fffdec53}\label{namespacehuman__activity__reco_a190f3d6745a63cb6b8f664a4fffdec53} 
+\index{human\_activity\_reco@{human\_activity\_reco}!str@{str}}
+\index{str@{str}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+str}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00018}{18}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a2ea2ff5afca7082f03b68aac2485e0e6}\label{namespacehuman__activity__reco_a2ea2ff5afca7082f03b68aac2485e0e6} 
+\index{human\_activity\_reco@{human\_activity\_reco}!type@{type}}
+\index{type@{type}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00018}{18}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+
+\Hypertarget{namespacehuman__activity__reco_a4ec38f8a561ea70176772dcfc016f9ce}\label{namespacehuman__activity__reco_a4ec38f8a561ea70176772dcfc016f9ce} 
+\index{human\_activity\_reco@{human\_activity\_reco}!vs@{vs}}
+\index{vs@{vs}!human\_activity\_reco@{human\_activity\_reco}}
+\doxysubsubsection{\texorpdfstring{vs}{vs}}
+{\footnotesize\ttfamily human\+\_\+activity\+\_\+reco.\+vs = cv2.\+Video\+Capture(\mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} if \mbox{\hyperlink{namespacehuman__activity__reco_acb275c7aa5de95dd0c4dd6163ba88d3e}{args}}\mbox{[}\"{}input\"{}\mbox{]} else 0)}
+
+
+
+Definition at line \mbox{\hyperlink{human__activity__reco_8py_source_l00035}{35}} of file \mbox{\hyperlink{human__activity__reco_8py_source}{human\+\_\+activity\+\_\+reco.\+py}}.
+

@@ -1,0 +1,486 @@
+\doxysection{spatial\+\_\+transform\+\_\+ops.\+py}
+\hypertarget{spatial__transform__ops_8py_source}{}\label{spatial__transform__ops_8py_source}\index{src/main/resources/processing/video/detections/detection\_utils/utils/spatial\_transform\_ops.py@{src/main/resources/processing/video/detections/detection\_utils/utils/spatial\_transform\_ops.py}}
+\mbox{\hyperlink{spatial__transform__ops_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00001}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops}{00001}}\ \textcolor{comment}{\#\ Copyright\ 2019\ The\ TensorFlow\ Authors.\ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00002}00002\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00003}00003\ \textcolor{comment}{\#\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00004}00004\ \textcolor{comment}{\#\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00005}00005\ \textcolor{comment}{\#\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00006}00006\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00008}00008\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00009}00009\ \textcolor{comment}{\#\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00010}00010\ \textcolor{comment}{\#\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00011}00011\ \textcolor{comment}{\#\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00012}00012\ \textcolor{comment}{\#\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00013}00013\ \textcolor{comment}{\#\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00014}00014\ \textcolor{comment}{\#\ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}Spatial\ transformation\ ops\ like\ RoIAlign,\ CropAndResize."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00017}00017\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ absolute\_import}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00018}00018\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ division}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00019}00019\ \textcolor{keyword}{from}\ \_\_future\_\_\ \textcolor{keyword}{import}\ print\_function}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00021}00021\ \textcolor{keyword}{import}\ tensorflow\ \textcolor{keyword}{as}\ tf}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00024}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}{00024}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}{\_coordinate\_vector\_1d}}(start,\ end,\ size,\ align\_endpoints):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00025}00025\ \ \ \textcolor{stringliteral}{"{}"{}"{}Generates\ uniformly\ spaced\ coordinate\ vector.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00026}00026\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ start:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating\ start\ values.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ \ \ end:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating\ end\ values.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ \ \ size:\ Number\ of\ points\ }\textcolor{keywordflow}{in}\ coordinate\ vector.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00031}00031\ \ \ \ \ align\_endpoints:\ Whether\ to\ align\ first\ \textcolor{keywordflow}{and}\ last\ points\ exactly\ to}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00032}00032\ \ \ \ \ \ \ endpoints.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00034}00034\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00035}00035\ \ \ \ \ A\ 3D\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ grid}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00036}00036\ \ \ \ \ coordinates.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00037}00037\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ start\ =\ tf.expand\_dims(start,\ -\/1)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ end\ =\ tf.expand\_dims(end,\ -\/1)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00040}00040\ \textcolor{stringliteral}{\ \ length\ =\ end\ -\/\ start}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00041}00041\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{if}\ align\_endpoints:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00042}00042\ \ \ \ \ relative\_grid\_spacing\ =\ tf.linspace(0.0,\ 1.0,\ size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00043}00043\ \ \ \ \ offset\ =\ 0\ \textcolor{keywordflow}{if}\ size\ >\ 1\ \textcolor{keywordflow}{else}\ length\ /\ 2}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00044}00044\ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00045}00045\ \ \ \ \ relative\_grid\_spacing\ =\ tf.linspace(0.0,\ 1.0,\ size\ +\ 1)[:-\/1]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00046}00046\ \ \ \ \ offset\ =\ length\ /\ (2\ *\ size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00047}00047\ \ \ relative\_grid\_spacing\ =\ tf.reshape(relative\_grid\_spacing,\ [1,\ 1,\ size])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00048}00048\ \ \ relative\_grid\_spacing\ =\ tf.cast(relative\_grid\_spacing,\ dtype=start.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00049}00049\ \ \ absolute\_grid\ =\ start\ +\ offset\ +\ relative\_grid\_spacing\ *\ length}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00050}00050\ \ \ \textcolor{keywordflow}{return}\ absolute\_grid}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00053}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4}{00053}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4}{box\_grid\_coordinate\_vectors}}(boxes,\ size\_y,\ size\_x,\ align\_corners=False):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00054}00054\ \ \ \textcolor{stringliteral}{"{}"{}"{}Generates\ coordinate\ vectors\ for\ a\ \`{}size\ x\ size\`{}\ grid\ in\ boxes.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00055}00055\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ Each\ box\ }\textcolor{keywordflow}{is}\ subdivided\ uniformly\ into\ a\ grid\ consisting\ of\ size\ x\ size}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00057}00057\ \ \ rectangular\ cells.\ This\ function\ returns\ coordinate\ vectors\ describing}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00058}00058\ \ \ the\ center\ of\ each\ cell.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00060}00060\ \ \ If\ \`{}align\_corners\`{}\ \textcolor{keywordflow}{is}\ true,\ grid\ points\ are\ uniformly\ spread\ such\ that\ the}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00061}00061\ \ \ corner\ points\ on\ the\ grid\ exactly\ overlap\ corners\ of\ the\ boxes.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00063}00063\ \ \ Note\ that\ output\ coordinates\ are\ expressed\ \textcolor{keywordflow}{in}\ the\ same\ coordinate\ frame\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00064}00064\ \ \ input\ boxes.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00066}00066\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00067}00067\ \ \ \ \ boxes:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ 4]\ containing\ boxes\ of\ the}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00068}00068\ \ \ \ \ \ \ form\ [ymin,\ xmin,\ ymax,\ xmax].}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00069}00069\ \ \ \ \ size\_y:\ Size\ of\ the\ grid\ \textcolor{keywordflow}{in}\ y\ axis.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00070}00070\ \ \ \ \ size\_x:\ Size\ of\ the\ grid\ \textcolor{keywordflow}{in}\ x\ axis.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00071}00071\ \ \ \ \ align\_corners:\ Whether\ to\ align\ the\ corner\ grid\ points\ exactly\ \textcolor{keyword}{with}\ box}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00072}00072\ \ \ \ \ \ \ corners.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00074}00074\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00075}00075\ \ \ \ \ box\_grid\_y:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]\ containing\ y}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00076}00076\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{for}\ grid\ points.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00077}00077\ \ \ \ \ box\_grid\_x:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]\ containing\ x}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00078}00078\ \ \ \ \ \ \ coordinates\ \textcolor{keywordflow}{for}\ grid\ points.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00079}00079\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00080}00080\ \textcolor{stringliteral}{\ \ ymin,\ xmin,\ ymax,\ xmax\ =\ tf.unstack(boxes,\ axis=-\/1)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00081}00081\ \textcolor{stringliteral}{\ \ box\_grid\_y\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}{\_coordinate\_vector\_1d}}(ymin,\ ymax,\ size\_y,\ align\_corners)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00082}00082\ \textcolor{stringliteral}{\ \ box\_grid\_x\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_abe997a2270fa0be3f0b735de66b75f0a}{\_coordinate\_vector\_1d}}(xmin,\ xmax,\ size\_x,\ align\_corners)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00083}00083\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ box\_grid\_y,\ box\_grid\_x}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00086}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28}{00086}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28}{feature\_grid\_coordinate\_vectors}}(box\_grid\_y,\ box\_grid\_x):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00087}00087\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ feature\ grid\ point\ coordinate\ vectors\ for\ bilinear\ interpolation.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00088}00088\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00089}00089\ \textcolor{stringliteral}{\ \ Box\ grid\ }\textcolor{keywordflow}{is}\ specified\ \textcolor{keywordflow}{in}\ absolute\ coordinate\ system\ \textcolor{keyword}{with}\ origin\ at\ left\ top}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00090}00090\ \ \ (0,\ 0).\ The\ returned\ coordinate\ vectors\ contain\ 0-\/based\ feature\ point\ indices.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00092}00092\ \ \ This\ function\ snaps\ each\ point\ \textcolor{keywordflow}{in}\ the\ box\ grid\ to\ nearest\ 4\ points\ on\ the}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00093}00093\ \ \ feature\ map.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00095}00095\ \ \ In\ this\ function\ we\ also\ follow\ the\ convention\ of\ treating\ feature\ pixels\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00096}00096\ \ \ point\ objects\ \textcolor{keyword}{with}\ no\ spatial\ extent.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00098}00098\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00099}00099\ \ \ \ \ box\_grid\_y:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ y}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00100}00100\ \ \ \ \ \ \ coordinate\ vector\ of\ the\ box\ grid.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00101}00101\ \ \ \ \ box\_grid\_x:\ A\ float\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]\ containing\ x}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00102}00102\ \ \ \ \ \ \ coordinate\ vector\ of\ the\ box\ grid.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00104}00104\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00105}00105\ \ \ \ \ feature\_grid\_y0:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00106}00106\ \ \ \ \ \ \ containing\ y\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ top\ neighbors.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00107}00107\ \ \ \ \ feature\_grid\_x0:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00108}00108\ \ \ \ \ \ \ containing\ x\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ left\ neighbors.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00109}00109\ \ \ \ \ feature\_grid\_y1:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00110}00110\ \ \ \ \ \ \ containing\ y\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ bottom\ neighbors.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00111}00111\ \ \ \ \ feature\_grid\_x1:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00112}00112\ \ \ \ \ \ \ containing\ x\ coordinate\ vector\ \textcolor{keywordflow}{for}\ the\ right\ neighbors.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00113}00113\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00114}00114\ \textcolor{stringliteral}{\ \ feature\_grid\_y0\ =\ tf.floor(box\_grid\_y)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00115}00115\ \textcolor{stringliteral}{\ \ feature\_grid\_x0\ =\ tf.floor(box\_grid\_x)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00116}00116\ \textcolor{stringliteral}{\ \ feature\_grid\_y1\ =\ tf.floor(box\_grid\_y\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ feature\_grid\_x1\ =\ tf.floor(box\_grid\_x\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ feature\_grid\_y0\ =\ tf.cast(feature\_grid\_y0,\ dtype=tf.int32)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00119}00119\ \textcolor{stringliteral}{\ \ feature\_grid\_y1\ =\ tf.cast(feature\_grid\_y1,\ dtype=tf.int32)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00120}00120\ \textcolor{stringliteral}{\ \ feature\_grid\_x0\ =\ tf.cast(feature\_grid\_x0,\ dtype=tf.int32)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00121}00121\ \textcolor{stringliteral}{\ \ feature\_grid\_x1\ =\ tf.cast(feature\_grid\_x1,\ dtype=tf.int32)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00122}00122\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ (feature\_grid\_y0,\ feature\_grid\_x0,\ feature\_grid\_y1,\ feature\_grid\_x1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00125}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729}{00125}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729}{\_valid\_indicator}}(feature\_grid\_y,\ feature\_grid\_x,\ true\_feature\_shapes):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00126}00126\ \ \ \textcolor{stringliteral}{"{}"{}"{}Computes\ a\ indicator\ vector\ for\ valid\ indices.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00127}00127\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00128}00128\ \textcolor{stringliteral}{\ \ Computes\ an\ indicator\ vector\ which\ }\textcolor{keywordflow}{is}\ true\ \textcolor{keywordflow}{for}\ points\ on\ feature\ map\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00129}00129\ \ \ false\ \textcolor{keywordflow}{for}\ points\ off\ feature\ map.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00131}00131\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00132}00132\ \ \ \ \ feature\_grid\_y:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00133}00133\ \ \ \ \ \ \ containing\ y\ coordinate\ vector.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00134}00134\ \ \ \ \ feature\_grid\_x:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00135}00135\ \ \ \ \ \ \ containing\ x\ coordinate\ vector.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00136}00136\ \ \ \ \ true\_feature\_shapes:\ A\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ 2]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00137}00137\ \ \ \ \ \ \ containing\ valid\ height\ \textcolor{keywordflow}{and}\ width\ of\ feature\ maps.\ Feature\ maps\ are}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00138}00138\ \ \ \ \ \ \ assumed\ to\ be\ aligned\ to\ the\ left\ top\ corner.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00140}00140\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00141}00141\ \ \ \ \ indices:\ A\ 1D\ bool\ tensor\ indicating\ valid\ feature\ indices.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00142}00142\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ height\ =\ tf.cast(true\_feature\_shapes[:,\ :,\ 0:1],\ dtype=feature\_grid\_y.dtype)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ width\ =\ tf.cast(true\_feature\_shapes[:,\ :,\ 1:2],\ dtype=feature\_grid\_x.dtype)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ valid\_indicator\ =\ tf.logical\_and(}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.expand\_dims(}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.logical\_and(feature\_grid\_y\ >=\ 0,\ tf.less(feature\_grid\_y,\ height)),}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00148}00148\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ 3),}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.expand\_dims(}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.logical\_and(feature\_grid\_x\ >=\ 0,\ tf.less(feature\_grid\_x,\ width)),}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00151}00151\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ 2))}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ tf.reshape(valid\_indicator,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00155}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569}{00155}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569}{ravel\_indices}}(feature\_grid\_y,\ feature\_grid\_x,\ num\_levels,\ height,\ width,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_levels):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00157}00157\ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ grid\ indices\ in\ a\ flattened\ feature\ map\ of\ shape\ [-\/1,\ channels].}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00158}00158\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00159}00159\ \textcolor{stringliteral}{\ \ The\ returned\ 1-\/D\ array\ can\ be\ used\ to\ gather\ feature\ grid\ points\ }\textcolor{keyword}{from}\ a}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00160}00160\ \ \ feature\ map\ that\ has\ been\ flattened\ \textcolor{keyword}{from}\ [batch,\ num\_levels,\ max\_height,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00161}00161\ \ \ max\_width,\ channels]\ to\ [batch\ *\ num\_levels\ *\ max\_height\ *\ max\_width,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00162}00162\ \ \ channels].}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00164}00164\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00165}00165\ \ \ \ \ feature\_grid\_y:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_y]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00166}00166\ \ \ \ \ \ \ containing\ y\ coordinate\ vector.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00167}00167\ \ \ \ \ feature\_grid\_x:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes,\ size\_x]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00168}00168\ \ \ \ \ \ \ containing\ x\ coordinate\ vector.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00169}00169\ \ \ \ \ num\_levels:\ Number\ of\ feature\ levels.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00170}00170\ \ \ \ \ height:\ An\ integer\ indicating\ the\ padded\ height\ of\ feature\ maps.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00171}00171\ \ \ \ \ width:\ An\ integer\ indicating\ the\ padded\ width\ of\ feature\ maps.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00172}00172\ \ \ \ \ box\_levels:\ An\ int32\ tensor\ of\ shape\ [batch,\ num\_boxes]\ indicating}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00173}00173\ \ \ \ \ \ \ feature\ level\ assigned\ to\ each\ box.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00175}00175\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00176}00176\ \ \ \ \ indices:\ A\ 1D\ int32\ tensor\ containing\ feature\ point\ indices\ \textcolor{keywordflow}{in}\ a\ flattened}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00177}00177\ \ \ \ \ \ \ feature\ grid.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00178}00178\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00179}00179\ \textcolor{stringliteral}{\ \ num\_boxes\ =\ tf.shape(feature\_grid\_y)[1]}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00180}00180\ \textcolor{stringliteral}{\ \ batch\_size\ =\ tf.shape(feature\_grid\_y)[0]}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00181}00181\ \textcolor{stringliteral}{\ \ size\_y\ =\ tf.shape(feature\_grid\_y)[2]}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00182}00182\ \textcolor{stringliteral}{\ \ size\_x\ =\ tf.shape(feature\_grid\_x)[2]}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00183}00183\ \textcolor{stringliteral}{\ \ height\_dim\_offset\ =\ width}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00184}00184\ \textcolor{stringliteral}{\ \ level\_dim\_offset\ =\ height\ *\ height\_dim\_offset}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00185}00185\ \textcolor{stringliteral}{\ \ batch\_dim\_offset\ =\ num\_levels\ *\ level\_dim\_offset}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00186}00186\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00187}00187\ \textcolor{stringliteral}{\ \ batch\_dim\_indices\ =\ (}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00188}00188\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00189}00189\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.range(batch\_size)\ *\ batch\_dim\_offset,\ [batch\_size,\ 1,\ 1,\ 1])\ *}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00190}00190\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ num\_boxes,\ size\_y,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00191}00191\ \textcolor{stringliteral}{\ \ box\_level\_indices\ =\ (}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00192}00192\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(box\_levels\ *\ level\_dim\_offset,\ [batch\_size,\ num\_boxes,\ 1,\ 1])\ *}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00193}00193\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ 1,\ size\_y,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00194}00194\ \textcolor{stringliteral}{\ \ height\_indices\ =\ (}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00195}00195\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(feature\_grid\_y\ *\ height\_dim\_offset,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00196}00196\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ size\_y,\ 1])\ *}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00197}00197\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.ones([1,\ 1,\ 1,\ size\_x],\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00198}00198\ \textcolor{stringliteral}{\ \ width\_indices\ =\ (}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00199}00199\ \textcolor{stringliteral}{\ \ \ \ \ \ tf.reshape(feature\_grid\_x,\ [batch\_size,\ num\_boxes,\ 1,\ size\_x])}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00200}00200\ \textcolor{stringliteral}{\ \ \ \ \ \ *\ tf.ones([1,\ 1,\ size\_y,\ 1],\ dtype=tf.int32))}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00201}00201\ \textcolor{stringliteral}{\ \ indices\ =\ (}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00202}00202\ \textcolor{stringliteral}{\ \ \ \ \ \ batch\_dim\_indices\ +\ box\_level\_indices\ +\ height\_indices\ +\ width\_indices)}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00203}00203\ \textcolor{stringliteral}{\ \ flattened\_indices\ =\ tf.reshape(indices,\ [-\/1])}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00204}00204\ \textcolor{stringliteral}{\ \ }\textcolor{keywordflow}{return}\ flattened\_indices}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00207}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337}{00207}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337}{pad\_to\_max\_size}}(features):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00208}00208\ \ \ \textcolor{stringliteral}{"{}"{}"{}Pads\ features\ to\ max\ height\ and\ max\ width\ and\ stacks\ them\ up.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00209}00209\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00210}00210\ \textcolor{stringliteral}{\ \ Args:}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00211}00211\ \textcolor{stringliteral}{\ \ \ \ features:\ A\ list\ of\ num\_levels\ 4D\ float\ tensors\ of\ shape\ [batch,\ height\_i,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00212}00212\ \textcolor{stringliteral}{\ \ \ \ \ \ width\_i,\ channels]\ containing\ feature\ maps.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00213}00213\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00214}00214\ \textcolor{stringliteral}{\ \ Returns:}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00215}00215\ \textcolor{stringliteral}{\ \ \ \ stacked\_features:\ A\ 5D\ float\ tensor\ of\ shape\ [batch,\ num\_levels,\ max\_height,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00216}00216\ \textcolor{stringliteral}{\ \ \ \ \ \ max\_width,\ channels]\ containing\ stacked\ features.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00217}00217\ \textcolor{stringliteral}{\ \ \ \ true\_feature\_shapes:\ A\ 2D\ int32\ tensor\ of\ shape\ [num\_levels,\ 2]\ containing}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00218}00218\ \textcolor{stringliteral}{\ \ \ \ \ \ height\ }\textcolor{keywordflow}{and}\ width\ of\ the\ feature\ maps\ before\ padding.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00219}00219\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00220}00220\ \textcolor{stringliteral}{\ \ heights\ =\ [tf.shape(feature)[1]\ }\textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00221}00221\ \ \ widths\ =\ [tf.shape(feature)[2]\ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00222}00222\ \ \ max\_height\ =\ tf.reduce\_max(heights)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00223}00223\ \ \ max\_width\ =\ tf.reduce\_max(widths)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00225}00225\ \ \ features\_all\ =\ [}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00226}00226\ \ \ \ \ \ \ tf.image.pad\_to\_bounding\_box(feature,\ 0,\ 0,\ max\_height,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_width)\ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00228}00228\ \ \ ]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00229}00229\ \ \ features\_all\ =\ tf.stack(features\_all,\ axis=1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00230}00230\ \ \ true\_feature\_shapes\ =\ tf.stack([tf.shape(feature)[1:3]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ feature\ \textcolor{keywordflow}{in}\ features])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00232}00232\ \ \ \textcolor{keywordflow}{return}\ features\_all,\ true\_feature\_shapes}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00235}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c}{00235}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c}{\_gather\_valid\_indices}}(tensor,\ indices,\ padding\_value=0.0):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00236}00236\ \ \ \textcolor{stringliteral}{"{}"{}"{}Gather\ values\ for\ valid\ indices.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00237}00237\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00238}00238\ \textcolor{stringliteral}{\ \ TODO(rathodv):\ We\ can't\ use\ ops.gather\_with\_padding\_values\ due\ to\ cyclic}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00239}00239\ \textcolor{stringliteral}{\ \ dependency.\ Start\ using\ it\ after\ migrating\ all\ users\ of\ spatial\ ops\ to\ }\textcolor{keyword}{import}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00240}00240\ \ \ this\ module\ directly\ rather\ than\ util/ops.py}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00242}00242\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00243}00243\ \ \ \ \ tensor:\ A\ tensor\ to\ gather\ valid\ values\ \textcolor{keyword}{from}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00244}00244\ \ \ \ \ indices:\ A\ 1-\/D\ int32\ tensor\ containing\ indices\ along\ axis\ 0\ of\ \`{}tensor\`{}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00245}00245\ \ \ \ \ \ \ Invalid\ indices\ must\ be\ marked\ \textcolor{keyword}{with}\ -\/1.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00246}00246\ \ \ \ \ padding\_value:\ Value\ to\ \textcolor{keywordflow}{return}\ \textcolor{keywordflow}{for}\ invalid\ indices.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00248}00248\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00249}00249\ \ \ \ \ A\ tensor\ sliced\ based\ on\ indices.\ For\ indices\ that\ are\ equal\ to\ -\/1,\ returns}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00250}00250\ \ \ \ \ rows\ of\ padding\ value.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00251}00251\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00252}00252\ \textcolor{stringliteral}{\ \ padded\_tensor\ =\ tf.concat(}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00253}00253\ \textcolor{stringliteral}{\ \ \ \ \ \ [}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00254}00254\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ padding\_value\ *}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00255}00255\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ tf.ones([1,\ tf.shape(tensor)[-\/1]],\ dtype=tensor.dtype),\ tensor}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00256}00256\ \textcolor{stringliteral}{\ \ \ \ \ \ ],}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00257}00257\ \textcolor{stringliteral}{\ \ \ \ \ \ axis=0,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00258}00258\ \textcolor{stringliteral}{\ \ )}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00259}00259\ \textcolor{stringliteral}{\ \ }\textcolor{comment}{\#\ tf.concat\ gradient\ op\ uses\ tf.where(condition)\ (which\ is\ not}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00260}00260\ \ \ \textcolor{comment}{\#\ supported\ on\ TPU)\ when\ the\ inputs\ to\ it\ are\ tf.IndexedSlices\ instead\ of}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00261}00261\ \ \ \textcolor{comment}{\#\ tf.Tensor.\ Since\ gradient\ op\ for\ tf.gather\ returns\ tf.IndexedSlices,}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00262}00262\ \ \ \textcolor{comment}{\#\ we\ add\ a\ dummy\ op\ inbetween\ tf.concat\ and\ tf.gather\ to\ ensure\ tf.concat}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00263}00263\ \ \ \textcolor{comment}{\#\ gradient\ function\ gets\ tf.Tensor\ inputs\ and\ not\ tf.IndexedSlices.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00264}00264\ \ \ padded\_tensor\ *=\ 1.0}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00265}00265\ \ \ \textcolor{keywordflow}{return}\ tf.gather(padded\_tensor,\ indices\ +\ 1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00268}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967}{00268}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967}{multilevel\_roi\_align}}(features,\ boxes,\ box\_levels,\ output\_size,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_samples\_per\_cell\_y=1,\ num\_samples\_per\_cell\_x=1,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align\_corners=False,\ extrapolation\_value=0.0,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00272}00272\ \ \ \textcolor{stringliteral}{"{}"{}"{}Applies\ RoI\ Align\ op\ and\ returns\ feature\ for\ boxes.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00273}00273\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00274}00274\ \textcolor{stringliteral}{\ \ Given\ multiple\ features\ maps\ indexed\ by\ different\ levels,\ }\textcolor{keywordflow}{and}\ a\ set\ of\ boxes}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00275}00275\ \ \ where\ each\ box\ \textcolor{keywordflow}{is}\ mapped\ to\ a\ certain\ level,\ this\ function\ selectively\ crops}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00276}00276\ \ \ \textcolor{keywordflow}{and}\ resizes\ boxes\ \textcolor{keyword}{from}\ the\ corresponding\ feature\ maps.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00278}00278\ \ \ We\ follow\ the\ RoI\ Align\ technique\ \textcolor{keywordflow}{in}\ https://arxiv.org/pdf/1703.06870.pdf}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00279}00279\ \ \ figure\ 3.\ Specifically,\ each\ box\ \textcolor{keywordflow}{is}\ subdivided\ uniformly\ into\ a\ grid}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00280}00280\ \ \ consisting\ of\ output\_size[0]\ x\ output\_size[1]\ rectangular\ cells.\ Within\ each}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00281}00281\ \ \ cell\ we\ select\ \`{}num\_points\`{}\ points\ uniformly\ \textcolor{keywordflow}{and}\ compute\ feature\ values\ using}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00282}00282\ \ \ bilinear\ interpolation.\ Finally,\ we\ average\ pool\ the\ interpolated\ values\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00283}00283\ \ \ each\ cell\ to\ obtain\ a\ [output\_size[0],\ output\_size[1],\ channels]\ feature.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00285}00285\ \ \ If\ \`{}align\_corners\`{}\ \textcolor{keywordflow}{is}\ true,\ sampling\ points\ are\ uniformly\ spread\ such\ that}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00286}00286\ \ \ corner\ points\ exactly\ overlap\ corners\ of\ the\ boxes.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00288}00288\ \ \ In\ this\ function\ we\ also\ follow\ the\ convention\ of\ treating\ feature\ pixels\ \textcolor{keyword}{as}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00289}00289\ \ \ point\ objects\ \textcolor{keyword}{with}\ no\ spatial\ extent.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00291}00291\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00292}00292\ \ \ \ \ features:\ A\ list\ of\ 4D\ float\ tensors\ of\ shape\ [batch\_size,\ max\_height,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00293}00293\ \ \ \ \ \ \ max\_width,\ channels]\ containing\ features.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00294}00294\ \ \ \ \ boxes:\ A\ 3D\ float\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ 4]\ containing}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00295}00295\ \ \ \ \ \ \ boxes\ of\ the\ form\ [ymin,\ xmin,\ ymax,\ xmax]\ \textcolor{keywordflow}{in}\ normalized\ coordinates.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00296}00296\ \ \ \ \ box\_levels:\ A\ 3D\ int32\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ 1]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00297}00297\ \ \ \ \ \ \ representing\ the\ feature\ level\ index\ \textcolor{keywordflow}{for}\ each\ box.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00298}00298\ \ \ \ \ output\_size:\ An\ list\ of\ two\ integers\ [size\_y,\ size\_x]\ indicating\ the\ output}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00299}00299\ \ \ \ \ \ \ feature\ size\ \textcolor{keywordflow}{for}\ each\ box.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00300}00300\ \ \ \ \ num\_samples\_per\_cell\_y:\ Number\ of\ grid\ points\ to\ sample\ along\ y\ axis\ \textcolor{keywordflow}{in}\ each}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00301}00301\ \ \ \ \ \ \ cell.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00302}00302\ \ \ \ \ num\_samples\_per\_cell\_x:\ Number\ of\ grid\ points\ to\ sample\ along\ x\ axis\ \textcolor{keywordflow}{in}\ each}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00303}00303\ \ \ \ \ \ \ cell.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00304}00304\ \ \ \ \ align\_corners:\ Whether\ to\ align\ the\ corner\ grid\ points\ exactly\ \textcolor{keyword}{with}\ box}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00305}00305\ \ \ \ \ \ \ corners.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00306}00306\ \ \ \ \ extrapolation\_value:\ a\ float\ value\ to\ use\ \textcolor{keywordflow}{for}\ extrapolation.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00307}00307\ \ \ \ \ scope:\ Scope\ name\ to\ use\ \textcolor{keywordflow}{for}\ this\ op.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00309}00309\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00310}00310\ \ \ \ \ A\ 5D\ float\ tensor\ of\ shape\ [batch\_size,\ num\_boxes,\ output\_size[0],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00311}00311\ \ \ \ \ output\_size[1],\ channels]\ representing\ the\ cropped\ features.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00312}00312\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00313}00313\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MultiLevelRoIAlign'}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00314}00314\ \ \ \ \ features,\ true\_feature\_shapes\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a0b2fa444b108acb7b4b0941ff26e5337}{pad\_to\_max\_size}}(features)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00315}00315\ \ \ \ \ batch\_size\ =\ tf.shape(features)[0]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00316}00316\ \ \ \ \ num\_levels\ =\ features.get\_shape().as\_list()[1]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00317}00317\ \ \ \ \ max\_feature\_height\ =\ tf.shape(features)[2]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00318}00318\ \ \ \ \ max\_feature\_width\ =\ tf.shape(features)[3]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00319}00319\ \ \ \ \ num\_filters\ =\ features.get\_shape().as\_list()[4]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00320}00320\ \ \ \ \ num\_boxes\ =\ tf.shape(boxes)[1]}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00322}00322\ \ \ \ \ \textcolor{comment}{\#\ Convert\ boxes\ to\ absolute\ co-\/ordinates.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00323}00323\ \ \ \ \ true\_feature\_shapes\ =\ tf.cast(true\_feature\_shapes,\ dtype=boxes.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00324}00324\ \ \ \ \ true\_feature\_shapes\ =\ tf.gather(true\_feature\_shapes,\ box\_levels)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00325}00325\ \ \ \ \ boxes\ *=\ tf.concat([true\_feature\_shapes\ -\/\ 1]\ *\ 2,\ axis=-\/1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00327}00327\ \ \ \ \ size\_y\ =\ output\_size[0]\ *\ num\_samples\_per\_cell\_y}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00328}00328\ \ \ \ \ size\_x\ =\ output\_size[1]\ *\ num\_samples\_per\_cell\_x}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00329}00329\ \ \ \ \ box\_grid\_y,\ box\_grid\_x\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a5b3b992126c8aa180645bbdc91ab2ab4}{box\_grid\_coordinate\_vectors}}(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ boxes,\ size\_y=size\_y,\ size\_x=size\_x,\ align\_corners=align\_corners)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00331}00331\ \ \ \ \ (feature\_grid\_y0,\ feature\_grid\_x0,\ feature\_grid\_y1,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00332}00332\ \ \ \ \ \ feature\_grid\_x1)\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a6a6d6d840fa93e0b16a80e70305e1a28}{feature\_grid\_coordinate\_vectors}}(box\_grid\_y,\ box\_grid\_x)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00333}00333\ \ \ \ \ feature\_grid\_y\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ tf.stack([feature\_grid\_y0,\ feature\_grid\_y1],\ axis=3),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00335}00335\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ -\/1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00336}00336\ \ \ \ \ feature\_grid\_x\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ tf.stack([feature\_grid\_x0,\ feature\_grid\_x1],\ axis=3),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00338}00338\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ -\/1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00339}00339\ \ \ \ \ feature\_coordinates\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3a4d6db5a345f555ce10b6302410b569}{ravel\_indices}}(feature\_grid\_y,\ feature\_grid\_x,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_levels,\ max\_feature\_height,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_feature\_width,\ box\_levels)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00342}00342\ \ \ \ \ valid\_indices\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a3291d38759256f56082ba68c15ee3729}{\_valid\_indicator}}(feature\_grid\_y,\ feature\_grid\_x,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ true\_feature\_shapes)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00344}00344\ \ \ \ \ feature\_coordinates\ =\ tf.where(valid\_indices,\ feature\_coordinates,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1\ *\ tf.ones\_like(feature\_coordinates))}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00346}00346\ \ \ \ \ flattened\_features\ =\ tf.reshape(features,\ [-\/1,\ num\_filters])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00347}00347\ \ \ \ \ flattened\_feature\_values\ =\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae1bc7d27a65ee67f70cac9d685069f3c}{\_gather\_valid\_indices}}(flattened\_features,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ feature\_coordinates,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extrapolation\_value)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00350}00350\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ flattened\_feature\_values,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ size\_y\ *\ 2,\ size\_x\ *\ 2,\ num\_filters])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00354}00354\ \ \ \ \ \textcolor{comment}{\#\ Cast\ tensors\ into\ dtype\ of\ features.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00355}00355\ \ \ \ \ box\_grid\_y\ =\ tf.cast(box\_grid\_y,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00356}00356\ \ \ \ \ box\_grid\_x\ =\ tf.cast(box\_grid\_x,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00357}00357\ \ \ \ \ feature\_grid\_y0\ =\ tf.cast(feature\_grid\_y0,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00358}00358\ \ \ \ \ feature\_grid\_x0\ =\ tf.cast(feature\_grid\_x0,\ dtype=features\_per\_box.dtype)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00360}00360\ \ \ \ \ \textcolor{comment}{\#\ RoI\ Align\ operation\ is\ a\ bilinear\ interpolation\ of\ four}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00361}00361\ \ \ \ \ \textcolor{comment}{\#\ neighboring\ feature\ points\ f0,\ f1,\ f2,\ and\ f3\ onto\ point\ y,\ x\ given\ by}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00362}00362\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ [hy,\ ly]\ *\ [[f00,\ f01],\ *\ [hx,\ lx]\string^T}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00363}00363\ \ \ \ \ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [f10,\ f11]]}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00364}00364\ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00365}00365\ \ \ \ \ \textcolor{comment}{\#\ Unrolling\ the\ matrix\ multiplies\ gives\ us:}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00366}00366\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ (hy\ *\ hx)\ f00\ +\ (hy\ *\ lx)\ f01\ +\ (ly\ *\ hx)\ f10\ +\ (lx\ *\ ly)\ f11}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00367}00367\ \ \ \ \ \textcolor{comment}{\#\ f(y,\ x)\ =\ w00\ *\ f00\ +\ w01\ *\ f01\ +\ w10\ *\ f10\ +\ w11\ *\ f11}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00368}00368\ \ \ \ \ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00369}00369\ \ \ \ \ \textcolor{comment}{\#\ This\ can\ be\ computed\ by\ applying\ pointwise\ multiplication\ and\ sum\_pool\ in}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00370}00370\ \ \ \ \ \textcolor{comment}{\#\ a\ 2x2\ window.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00371}00371\ \ \ \ \ ly\ =\ box\_grid\_y\ -\/\ feature\_grid\_y0}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00372}00372\ \ \ \ \ lx\ =\ box\_grid\_x\ -\/\ feature\_grid\_x0}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00373}00373\ \ \ \ \ hy\ =\ 1.0\ -\/\ ly}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00374}00374\ \ \ \ \ hx\ =\ 1.0\ -\/\ lx}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00376}00376\ \ \ \ \ kernel\_y\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00377}00377\ \ \ \ \ \ \ \ \ tf.stack([hy,\ ly],\ axis=3),\ [batch\_size,\ num\_boxes,\ size\_y\ *\ 2,\ 1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00379}00379\ \ \ \ \ kernel\_x\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ tf.stack([hx,\ lx],\ axis=3),\ [batch\_size,\ num\_boxes,\ 1,\ size\_x\ *\ 2])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00382}00382\ \ \ \ \ \textcolor{comment}{\#\ Multiplier\ 4\ is\ to\ make\ tf.nn.avg\_pool\ behave\ like\ sum\_pool.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00383}00383\ \ \ \ \ interpolation\_kernel\ =\ kernel\_y\ *\ kernel\_x\ *\ 4}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00385}00385\ \ \ \ \ \textcolor{comment}{\#\ Interpolate\ the\ gathered\ features\ with\ computed\ interpolation\ kernels.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00386}00386\ \ \ \ \ features\_per\_box\ *=\ tf.expand\_dims(interpolation\_kernel,\ axis=4),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00387}00387\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00389}00389\ \ \ \ \ \ \ \ \ [batch\_size\ *\ num\_boxes,\ size\_y\ *\ 2,\ size\_x\ *\ 2,\ num\_filters])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00391}00391\ \ \ \ \ \textcolor{comment}{\#\ This\ combines\ the\ two\ pooling\ operations\ -\/\ sum\_pool\ to\ perform\ bilinear}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00392}00392\ \ \ \ \ \textcolor{comment}{\#\ interpolation\ and\ avg\_pool\ to\ pool\ the\ values\ in\ each\ bin.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00393}00393\ \ \ \ \ features\_per\_box\ =\ tf.nn.avg\_pool(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00395}00395\ \ \ \ \ \ \ \ \ [1,\ num\_samples\_per\_cell\_y\ *\ 2,\ num\_samples\_per\_cell\_x\ *\ 2,\ 1],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ [1,\ num\_samples\_per\_cell\_y\ *\ 2,\ num\_samples\_per\_cell\_x\ *\ 2,\ 1],\ \textcolor{stringliteral}{'VALID'})}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00397}00397\ \ \ \ \ features\_per\_box\ =\ tf.reshape(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ features\_per\_box,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00399}00399\ \ \ \ \ \ \ \ \ [batch\_size,\ num\_boxes,\ output\_size[0],\ output\_size[1],\ num\_filters])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00400}00400\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00401}00401\ \ \ \ \ \textcolor{keywordflow}{return}\ features\_per\_box}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00403}00403\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00404}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a2a40d33cf1473f2a41b951a05f2576f5}{00404}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a2a40d33cf1473f2a41b951a05f2576f5}{native\_crop\_and\_resize}}(image,\ boxes,\ crop\_size,\ scope=None):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00405}00405\ \ \ \textcolor{stringliteral}{"{}"{}"{}Same\ as\ \`{}matmul\_crop\_and\_resize\`{}\ but\ uses\ tf.image.crop\_and\_resize."{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00406}00406\ \ \ \textcolor{keyword}{def\ }get\_box\_inds(proposals):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00407}00407\ \ \ \ \ proposals\_shape\ =\ proposals.get\_shape().as\_list()}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00408}00408\ \ \ \ \ \textcolor{keywordflow}{if}\ any(dim\ \textcolor{keywordflow}{is}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{for}\ dim\ \textcolor{keywordflow}{in}\ proposals\_shape):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00409}00409\ \ \ \ \ \ \ proposals\_shape\ =\ tf.shape(proposals)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00410}00410\ \ \ \ \ ones\_mat\ =\ tf.ones(proposals\_shape[:2],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00411}00411\ \ \ \ \ multiplier\ =\ tf.expand\_dims(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00412}00412\ \ \ \ \ \ \ \ \ tf.range(start=0,\ limit=proposals\_shape[0]),\ 1)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00413}00413\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(ones\_mat\ *\ multiplier,\ [-\/1])}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00415}00415\ \ \ \textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'CropAndResize'}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00416}00416\ \ \ \ \ cropped\_regions\ =\ tf.image.crop\_and\_resize(}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ image,\ tf.reshape(boxes,\ [-\/1]\ +\ boxes.shape.as\_list()[2:]),}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ get\_box\_inds(boxes),\ crop\_size)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00419}00419\ \ \ \ \ final\_shape\ =\ tf.concat([tf.shape(boxes)[:2],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tf.shape(cropped\_regions)[1:]],\ axis=0)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00421}00421\ \ \ \ \ \textcolor{keywordflow}{return}\ tf.reshape(cropped\_regions,\ final\_shape)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00424}\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b}{00424}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_a58306e39931ae17ac983f67617fcd07b}{matmul\_crop\_and\_resize}}(image,\ boxes,\ crop\_size,\ extrapolation\_value=0.0,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scope=None):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00426}00426\ \ \ \textcolor{stringliteral}{"{}"{}"{}Matrix\ multiplication\ based\ implementation\ of\ the\ crop\ and\ resize\ op.}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00427}00427\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00428}00428\ \textcolor{stringliteral}{\ \ Extracts\ crops\ }\textcolor{keyword}{from}\ the\ input\ image\ tensor\ \textcolor{keywordflow}{and}\ bilinearly\ resizes\ them}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00429}00429\ \ \ (possibly\ \textcolor{keyword}{with}\ aspect\ ratio\ change)\ to\ a\ common\ output\ size\ specified\ by}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00430}00430\ \ \ crop\_size.\ This\ \textcolor{keywordflow}{is}\ more\ general\ than\ the\ crop\_to\_bounding\_box\ op\ which}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00431}00431\ \ \ extracts\ a\ fixed\ size\ slice\ \textcolor{keyword}{from}\ the\ input\ image\ \textcolor{keywordflow}{and}\ does\ \textcolor{keywordflow}{not}\ allow}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00432}00432\ \ \ resizing\ \textcolor{keywordflow}{or}\ aspect\ ratio\ change.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00434}00434\ \ \ Returns\ a\ tensor\ \textcolor{keyword}{with}\ crops\ \textcolor{keyword}{from}\ the\ input\ image\ at\ positions\ defined\ at}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00435}00435\ \ \ the\ bounding\ box\ locations\ \textcolor{keywordflow}{in}\ boxes.\ The\ cropped\ boxes\ are\ all\ resized}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00436}00436\ \ \ (\textcolor{keyword}{with}\ bilinear\ interpolation)\ to\ a\ fixed\ size\ =\ \`{}[crop\_height,\ crop\_width]\`{}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00437}00437\ \ \ The\ result\ \textcolor{keywordflow}{is}\ a\ 5-\/D\ tensor\ \`{}[batch,\ num\_boxes,\ crop\_height,\ crop\_width,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00438}00438\ \ \ depth]\`{}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00440}00440\ \ \ Note\ that\ this\ operation\ \textcolor{keywordflow}{is}\ meant\ to\ replicate\ the\ behavior\ of\ the\ standard}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00441}00441\ \ \ tf.image.crop\_and\_resize\ operation\ but\ there\ are\ a\ few\ differences.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00442}00442\ \ \ Specifically:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00443}00443\ \ \ \ \ 1)\ There\ \textcolor{keywordflow}{is}\ no\ \`{}box\_indices\`{}\ argument\ -\/-\/-\/\ to\ run\ this\ op\ on\ multiple\ images,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00444}00444\ \ \ \ \ \ \ one\ must\ currently\ call\ this\ op\ independently\ on\ each\ image.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00445}00445\ \ \ \ \ 2)\ The\ \`{}crop\_size\`{}\ parameter\ \textcolor{keywordflow}{is}\ assumed\ to\ be\ statically\ defined.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00446}00446\ \ \ \ \ \ \ Moreover,\ the\ number\ of\ boxes\ must\ be\ strictly\ nonzero.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00448}00448\ \ \ Args:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00449}00449\ \ \ \ \ image:\ A\ \`{}Tensor\`{}.\ Must\ be\ one\ of\ the\ following\ types:\ \`{}uint8\`{},\ \`{}int8\`{},}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00450}00450\ \ \ \ \ \ \ \`{}int16\`{},\ \`{}int32\`{},\ \`{}int64\`{},\ \`{}half\`{},\ \textcolor{stringliteral}{'bfloat16'},\ \`{}float32\`{},\ \`{}float64\`{}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00451}00451\ \ \ \ \ \ \ A\ 4-\/D\ tensor\ of\ shape\ \`{}[batch,\ image\_height,\ image\_width,\ depth]\`{}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00452}00452\ \ \ \ \ \ \ Both\ \`{}image\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}image\_width\`{}\ need\ to\ be\ positive.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00453}00453\ \ \ \ \ boxes:\ A\ \`{}Tensor\`{}\ of\ type\ \`{}float32\`{}\ \textcolor{keywordflow}{or}\ \textcolor{stringliteral}{'bfloat16'}.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00454}00454\ \ \ \ \ \ \ A\ 3-\/D\ tensor\ of\ shape\ \`{}[batch,\ num\_boxes,\ 4]\`{}.\ The\ boxes\ are\ specified\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00455}00455\ \ \ \ \ \ \ normalized\ coordinates\ \textcolor{keywordflow}{and}\ are\ of\ the\ form\ \`{}[y1,\ x1,\ y2,\ x2]\`{}.\ A}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00456}00456\ \ \ \ \ \ \ normalized\ coordinate\ value\ of\ \`{}y\`{}\ \textcolor{keywordflow}{is}\ mapped\ to\ the\ image\ coordinate\ at}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00457}00457\ \ \ \ \ \ \ \`{}y\ *\ (image\_height\ -\/\ 1)\`{},\ so\ \textcolor{keyword}{as}\ the\ \`{}[0,\ 1]\`{}\ interval\ of\ normalized\ image}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00458}00458\ \ \ \ \ \ \ height\ \textcolor{keywordflow}{is}\ mapped\ to\ \`{}[0,\ image\_height\ -\/\ 1]\ \textcolor{keywordflow}{in}\ image\ height\ coordinates.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00459}00459\ \ \ \ \ \ \ We\ do\ allow\ y1\ >\ y2,\ \textcolor{keywordflow}{in}\ which\ case\ the\ sampled\ crop\ \textcolor{keywordflow}{is}\ an\ up-\/down\ flipped}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00460}00460\ \ \ \ \ \ \ version\ of\ the\ original\ image.\ The\ width\ dimension\ \textcolor{keywordflow}{is}\ treated\ similarly.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00461}00461\ \ \ \ \ \ \ Normalized\ coordinates\ outside\ the\ \`{}[0,\ 1]\`{}\ range\ are\ allowed,\ \textcolor{keywordflow}{in}\ which}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00462}00462\ \ \ \ \ \ \ case\ we\ use\ \`{}extrapolation\_value\`{}\ to\ extrapolate\ the\ input\ image\ values.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00463}00463\ \ \ \ \ crop\_size:\ A\ list\ of\ two\ integers\ \`{}[crop\_height,\ crop\_width]\`{}.\ All}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00464}00464\ \ \ \ \ \ \ cropped\ image\ patches\ are\ resized\ to\ this\ size.\ The\ aspect\ ratio\ of\ the}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00465}00465\ \ \ \ \ \ \ image\ content\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ preserved.\ Both\ \`{}crop\_height\`{}\ \textcolor{keywordflow}{and}\ \`{}crop\_width\`{}\ need}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00466}00466\ \ \ \ \ \ \ to\ be\ positive.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00467}00467\ \ \ \ \ extrapolation\_value:\ a\ float\ value\ to\ use\ \textcolor{keywordflow}{for}\ extrapolation.}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00468}00468\ \ \ \ \ scope:\ A\ name\ \textcolor{keywordflow}{for}\ the\ operation\ (optional).}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00470}00470\ \ \ Returns:}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00471}00471\ \ \ \ \ A\ 5-\/D\ tensor\ of\ shape\ \`{}[batch,\ num\_boxes,\ crop\_height,\ crop\_width,\ depth]\`{}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00472}00472\ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00473}00473\ \textcolor{stringliteral}{\ \ }\textcolor{keyword}{with}\ tf.name\_scope(scope,\ \textcolor{stringliteral}{'MatMulCropAndResize'}):}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00474}00474\ \ \ \ \ box\_levels\ =\ tf.zeros(tf.shape(boxes)[:2],\ dtype=tf.int32)}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00475}00475\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedetection__utils_1_1utils_1_1spatial__transform__ops_ae321d4963245a9cc5577f5f7870fd967}{multilevel\_roi\_align}}([image],}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxes,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box\_levels,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crop\_size,}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ align\_corners=\textcolor{keyword}{True},}
+\DoxyCodeLine{\Hypertarget{spatial__transform__ops_8py_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ extrapolation\_value=extrapolation\_value)}
+
+\end{DoxyCode}

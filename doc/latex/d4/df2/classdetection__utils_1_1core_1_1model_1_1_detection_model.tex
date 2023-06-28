@@ -1,0 +1,774 @@
+\doxysection{detection\+\_\+utils.\+core.\+model.\+Detection\+Model Class Reference}
+\hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model}{}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model}\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+core.\+model.\+Detection\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{dc/d63/classdetection__utils_1_1core_1_1model_1_1_detection_model__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+core.\+model.\+Detection\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{dc/d15/classdetection__utils_1_1core_1_1model_1_1_detection_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ab10992ad5e898a16d27ddd5b809faee5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b}{num\+\_\+classes}})
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b}{num\+\_\+classes}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a759b5cf4e13319f98ed13aa74f6671a4}{groundtruth\+\_\+lists}} (self, field)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac95a060842fa8ce3ccabf7f2d98b54ef}{groundtruth\+\_\+has\+\_\+field}} (self, field)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_aa9b65d22e193818e75df46a3a7b264c4}{preprocess}} (self, inputs)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ae647e2a9e493d01d2c54c9aeaa72050c}{predict}} (self, preprocessed\+\_\+inputs, true\+\_\+image\+\_\+shapes)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a0602750e218163cc6898056ee4666394}{postprocess}} (self, prediction\+\_\+dict, true\+\_\+image\+\_\+shapes, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}params)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a4a3c58003dcb9dfbbb498cfaaffe1f3a}{loss}} (self, prediction\+\_\+dict, true\+\_\+image\+\_\+shapes)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a064598d25a6d0deb83e257969f23c9f6}{provide\+\_\+groundtruth}} (self, groundtruth\+\_\+boxes\+\_\+list, groundtruth\+\_\+classes\+\_\+list, groundtruth\+\_\+masks\+\_\+list=None, groundtruth\+\_\+keypoints\+\_\+list=None, groundtruth\+\_\+weights\+\_\+list=None, groundtruth\+\_\+confidences\+\_\+list=None, groundtruth\+\_\+is\+\_\+crowd\+\_\+list=None, is\+\_\+annotated\+\_\+list=None)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a85265bb7b71f082a833fefd28a47fe55}{regularization\+\_\+losses}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a64aba744ec1c5495784e42fe041d71a0}{restore\+\_\+map}} (self, fine\+\_\+tune\+\_\+checkpoint\+\_\+type=\textquotesingle{}detection\textquotesingle{})
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a61ccd8a44ce48eb27c970254188f452d}{updates}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175}{\+\_\+num\+\_\+classes}}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}{\+\_\+groundtruth\+\_\+lists}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract base class for detection models.
+
+Extends tf.Module to guarantee variable tracking.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00076}{76}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_ab10992ad5e898a16d27ddd5b809faee5}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_ab10992ad5e898a16d27ddd5b809faee5} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{num\+\_\+classes }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  num_classes: number of classes.  Note that num_classes *does not* include
+  background categories that might be implicitly predicted in various
+  implementations.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00082}{82}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ num\_classes):}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00086\ \textcolor{stringliteral}{\ \ \ \ \ \ num\_classes:\ number\ of\ classes.\ \ Note\ that\ num\_classes\ *does\ }\textcolor{keywordflow}{not}*\ include}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ background\ categories\ that\ might\ be\ implicitly\ predicted\ \textcolor{keywordflow}{in}\ various}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ implementations.}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00090\ \textcolor{stringliteral}{\ \ \ \ self.\_num\_classes\ =\ num\_classes}}
+\DoxyCodeLine{00091\ \textcolor{stringliteral}{\ \ \ \ self.\_groundtruth\_lists\ =\ \{\}}}
+\DoxyCodeLine{00092\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac95a060842fa8ce3ccabf7f2d98b54ef}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac95a060842fa8ce3ccabf7f2d98b54ef} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!groundtruth\_has\_field@{groundtruth\_has\_field}}
+\index{groundtruth\_has\_field@{groundtruth\_has\_field}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{groundtruth\_has\_field()}{groundtruth\_has\_field()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+groundtruth\+\_\+has\+\_\+field (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{field }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Determines whether the groundtruth includes the given field.
+
+Args:
+  field: a string key, options are
+    fields.BoxListFields.{boxes,classes,masks,keypoints} or
+    fields.InputDataFields.is_annotated.
+
+Returns:
+  True if the groundtruth includes the given field, False otherwise.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00117}{117}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{def\ }groundtruth\_has\_field(self,\ field):}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Determines\ whether\ the\ groundtruth\ includes\ the\ given\ field.}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00120\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00121\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ key,\ options\ are}}
+\DoxyCodeLine{00122\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.\{boxes,classes,masks,keypoints\}\ }\textcolor{keywordflow}{or}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated.}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ Returns:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \textcolor{keyword}{True}\ \textcolor{keywordflow}{if}\ the\ groundtruth\ includes\ the\ given\ field,\ \textcolor{keyword}{False}\ otherwise.}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00128\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{return}\ field\ \textcolor{keywordflow}{in}\ self.\_groundtruth\_lists}
+\DoxyCodeLine{00129\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a759b5cf4e13319f98ed13aa74f6671a4}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a759b5cf4e13319f98ed13aa74f6671a4} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!groundtruth\_lists@{groundtruth\_lists}}
+\index{groundtruth\_lists@{groundtruth\_lists}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{groundtruth\_lists()}{groundtruth\_lists()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+groundtruth\+\_\+lists (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{field }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Access list of groundtruth tensors.
+
+Args:
+  field: a string key, options are
+    fields.BoxListFields.{boxes,classes,masks,keypoints} or
+    fields.InputDataFields.is_annotated.
+
+Returns:
+  a list of tensors holding groundtruth information (see also
+  provide_groundtruth function below), with one entry for each image in the
+  batch.
+Raises:
+  RuntimeError: if the field has not been provided via provide_groundtruth.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00097}{97}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{def\ }groundtruth\_lists(self,\ field):}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Access\ list\ of\ groundtruth\ tensors.}}
+\DoxyCodeLine{00099\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00100\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00101\ \textcolor{stringliteral}{\ \ \ \ \ \ field:\ a\ string\ key,\ options\ are}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.\{boxes,classes,masks,keypoints\}\ }\textcolor{keywordflow}{or}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated.}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ Returns:}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ a\ list\ of\ tensors\ holding\ groundtruth\ information\ (see\ also}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ provide\_groundtruth\ function\ below),\ \textcolor{keyword}{with}\ one\ entry\ \textcolor{keywordflow}{for}\ each\ image\ \textcolor{keywordflow}{in}\ the}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ batch.}
+\DoxyCodeLine{00109\ \ \ \ \ Raises:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ RuntimeError:\ \textcolor{keywordflow}{if}\ the\ field\ has\ \textcolor{keywordflow}{not}\ been\ provided\ via\ provide\_groundtruth.}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00112\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ field\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ self.\_groundtruth\_lists:}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ RuntimeError(\textcolor{stringliteral}{'Groundtruth\ tensor\ \{\}\ has\ not\ been\ provided'}.format(}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ field))}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_groundtruth\_lists[field]}
+\DoxyCodeLine{00116\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a4a3c58003dcb9dfbbb498cfaaffe1f3a}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a4a3c58003dcb9dfbbb498cfaaffe1f3a} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!loss@{loss}}
+\index{loss@{loss}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{loss()}{loss()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+loss (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+dict,  }\item[{}]{true\+\_\+image\+\_\+shapes }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute scalar loss tensors with respect to provided groundtruth.
+
+Calling this function requires that groundtruth tensors have been
+provided via the provide_groundtruth function.
+
+Args:
+  prediction_dict: a dictionary holding predicted tensors
+  true_image_shapes: int32 tensor of shape [batch, 3] where each row is
+    of the form [height, width, channels] indicating the shapes
+    of true images in the resized images, as resized images can be padded
+    with zeros.
+
+Returns:
+  a dictionary mapping strings (loss names) to scalar tensors representing
+    loss values.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00248}{248}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{def\ }loss(self,\ prediction\_dict,\ true\_image\_shapes):}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Compute\ scalar\ loss\ tensors\ with\ respect\ to\ provided\ groundtruth.}}
+\DoxyCodeLine{00250\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00251\ \textcolor{stringliteral}{\ \ \ \ Calling\ this\ function\ requires\ that\ groundtruth\ tensors\ have\ been}}
+\DoxyCodeLine{00252\ \textcolor{stringliteral}{\ \ \ \ provided\ via\ the\ provide\_groundtruth\ function.}}
+\DoxyCodeLine{00253\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00254\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00255\ \textcolor{stringliteral}{\ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ predicted\ tensors}}
+\DoxyCodeLine{00256\ \textcolor{stringliteral}{\ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ }\textcolor{keywordflow}{is}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ Returns:}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ a\ dictionary\ mapping\ strings\ (loss\ names)\ to\ scalar\ tensors\ representing}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ loss\ values.}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00265\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00266\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!num\_classes@{num\_classes}}
+\index{num\_classes@{num\_classes}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{num\_classes()}{num\_classes()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+num\+\_\+classes (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00094}{94}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{def\ }num\_classes(self):}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ self.\_num\_classes}
+\DoxyCodeLine{00096\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/df2/classdetection__utils_1_1core_1_1model_1_1_detection_model_adcde54ff40e213e89fa3995b07e8b81b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a0602750e218163cc6898056ee4666394}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a0602750e218163cc6898056ee4666394} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!postprocess@{postprocess}}
+\index{postprocess@{postprocess}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{postprocess()}{postprocess()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+postprocess (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{prediction\+\_\+dict,  }\item[{}]{true\+\_\+image\+\_\+shapes,  }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert predicted output tensors to final detections.
+
+This stage typically performs a few things such as
+* Non-Max Suppression to remove overlapping detection boxes.
+* Score conversion and background class removal.
+
+Outputs adhere to the following conventions:
+* Classes are integers in [0, num_classes); background classes are removed
+  and the first non-background class is mapped to 0. If the model produces
+  class-agnostic detections, then no output is produced for classes.
+* Boxes are to be interpreted as being in [y_min, x_min, y_max, x_max]
+  format and normalized relative to the image window.
+* `num_detections` is provided for settings where detections are padded to a
+  fixed number of boxes.
+* We do not specifically assume any kind of probabilistic interpretation
+  of the scores --- the only important thing is their relative ordering.
+  Thus implementations of the postprocess function are free to output
+  logits, probabilities, calibrated probabilities, or anything else.
+
+Args:
+  prediction_dict: a dictionary holding prediction tensors.
+  true_image_shapes: int32 tensor of shape [batch, 3] where each row is
+    of the form [height, width, channels] indicating the shapes
+    of true images in the resized images, as resized images can be padded
+    with zeros.
+  **params: Additional keyword arguments for specific implementations of
+    DetectionModel.
+
+Returns:
+  detections: a dictionary containing the following fields
+    detection_boxes: [batch, max_detections, 4]
+    detection_scores: [batch, max_detections]
+    detection_classes: [batch, max_detections]
+      (If a model is producing class-agnostic detections, this field may be
+      missing)
+    instance_masks: [batch, max_detections, image_height, image_width]
+      (optional)
+    keypoints: [batch, max_detections, num_keypoints, 2] (optional)
+    num_detections: [batch]
+
+    In addition to the above fields this stage also outputs the following
+    raw tensors:
+
+    raw_detection_boxes: [batch, total_detections, 4] tensor containing
+      all detection boxes from `prediction_dict` in the format
+      [ymin, xmin, ymax, xmax] and normalized co-ordinates.
+    raw_detection_scores: [batch, total_detections,
+      num_classes_with_background] tensor of class score logits for
+      raw detection boxes.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00194}{194}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{def\ }postprocess(self,\ prediction\_dict,\ true\_image\_shapes,\ **params):}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Convert\ predicted\ output\ tensors\ to\ final\ detections.}}
+\DoxyCodeLine{00196\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00197\ \textcolor{stringliteral}{\ \ \ \ This\ stage\ typically\ performs\ a\ few\ things\ such\ }\textcolor{keyword}{as}}
+\DoxyCodeLine{00198\ \ \ \ \ *\ Non-\/Max\ Suppression\ to\ remove\ overlapping\ detection\ boxes.}
+\DoxyCodeLine{00199\ \ \ \ \ *\ Score\ conversion\ \textcolor{keywordflow}{and}\ background\ \textcolor{keyword}{class\ }removal.}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ Outputs\ adhere\ to\ the\ following\ conventions:}
+\DoxyCodeLine{00202\ \ \ \ \ *\ Classes\ are\ integers\ \textcolor{keywordflow}{in}\ [0,\ num\_classes);\ background\ classes\ are\ removed}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \textcolor{keywordflow}{and}\ the\ first\ non-\/background\ \textcolor{keyword}{class\ }is\ mapped\ to\ 0.\ If\ the\ model\ produces}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \textcolor{keyword}{class}-\/agnostic\ detections,\ then\ no\ output\ \textcolor{keywordflow}{is}\ produced\ \textcolor{keywordflow}{for}\ classes.}
+\DoxyCodeLine{00205\ \ \ \ \ *\ Boxes\ are\ to\ be\ interpreted\ \textcolor{keyword}{as}\ being\ \textcolor{keywordflow}{in}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ format\ \textcolor{keywordflow}{and}\ normalized\ relative\ to\ the\ image\ window.}
+\DoxyCodeLine{00207\ \ \ \ \ *\ \`{}num\_detections\`{}\ \textcolor{keywordflow}{is}\ provided\ \textcolor{keywordflow}{for}\ settings\ where\ detections\ are\ padded\ to\ a}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ fixed\ number\ of\ boxes.}
+\DoxyCodeLine{00209\ \ \ \ \ *\ We\ do\ \textcolor{keywordflow}{not}\ specifically\ assume\ any\ kind\ of\ probabilistic\ interpretation}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ of\ the\ scores\ -\/-\/-\/\ the\ only\ important\ thing\ \textcolor{keywordflow}{is}\ their\ relative\ ordering.}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ Thus\ implementations\ of\ the\ postprocess\ function\ are\ free\ to\ output}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ logits,\ probabilities,\ calibrated\ probabilities,\ \textcolor{keywordflow}{or}\ anything\ \textcolor{keywordflow}{else}.}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ Args:}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ prediction\ tensors.}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ **params:\ Additional\ keyword\ arguments\ \textcolor{keywordflow}{for}\ specific\ implementations\ of}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ DetectionModel.}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ Returns:}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ detections:\ a\ dictionary\ containing\ the\ following\ fields}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ detection\_boxes:\ [batch,\ max\_detections,\ 4]}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ detection\_scores:\ [batch,\ max\_detections]}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ detection\_classes:\ [batch,\ max\_detections]}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ (If\ a\ model\ \textcolor{keywordflow}{is}\ producing\ \textcolor{keyword}{class}-\/agnostic\ detections,\ this\ field\ may\ be}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ missing)}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ instance\_masks:\ [batch,\ max\_detections,\ image\_height,\ image\_width]}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ (optional)}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ keypoints:\ [batch,\ max\_detections,\ num\_keypoints,\ 2]\ (optional)}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ num\_detections:\ [batch]}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ In\ addition\ to\ the\ above\ fields\ this\ stage\ also\ outputs\ the\ following}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ raw\ tensors:}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ raw\_detection\_boxes:\ [batch,\ total\_detections,\ 4]\ tensor\ containing}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ all\ detection\ boxes\ \textcolor{keyword}{from}\ \`{}prediction\_dict\`{}\ \textcolor{keywordflow}{in}\ the\ format}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ [ymin,\ xmin,\ ymax,\ xmax]\ \textcolor{keywordflow}{and}\ normalized\ co-\/ordinates.}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ raw\_detection\_scores:\ [batch,\ total\_detections,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ num\_classes\_with\_background]\ tensor\ of\ \textcolor{keyword}{class\ }score\ logits\ for}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ raw\ detection\ boxes.}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00245\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00246\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_ae647e2a9e493d01d2c54c9aeaa72050c}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_ae647e2a9e493d01d2c54c9aeaa72050c} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!predict@{predict}}
+\index{predict@{predict}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+predict (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{preprocessed\+\_\+inputs,  }\item[{}]{true\+\_\+image\+\_\+shapes }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Predict prediction tensors from inputs tensor.
+
+Outputs of this function can be passed to loss or postprocess functions.
+
+Args:
+  preprocessed_inputs: a [batch, height, width, channels] float32 tensor
+    representing a batch of images.
+  true_image_shapes: int32 tensor of shape [batch, 3] where each row is
+    of the form [height, width, channels] indicating the shapes
+    of true images in the resized images, as resized images can be padded
+    with zeros.
+
+Returns:
+  prediction_dict: a dictionary holding prediction tensors to be
+    passed to the Loss or Postprocess functions.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00174}{174}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00174\ \ \ \textcolor{keyword}{def\ }predict(self,\ preprocessed\_inputs,\ true\_image\_shapes):}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Predict\ prediction\ tensors\ from\ inputs\ tensor.}}
+\DoxyCodeLine{00176\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00177\ \textcolor{stringliteral}{\ \ \ \ Outputs\ of\ this\ function\ can\ be\ passed\ to\ loss\ }\textcolor{keywordflow}{or}\ postprocess\ functions.}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ Args:}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ preprocessed\_inputs:\ a\ [batch,\ height,\ width,\ channels]\ float32\ tensor}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ representing\ a\ batch\ of\ images.}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ Returns:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ prediction\_dict:\ a\ dictionary\ holding\ prediction\ tensors\ to\ be}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ passed\ to\ the\ Loss\ \textcolor{keywordflow}{or}\ Postprocess\ functions.}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00191\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00192\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_aa9b65d22e193818e75df46a3a7b264c4}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_aa9b65d22e193818e75df46a3a7b264c4} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!preprocess@{preprocess}}
+\index{preprocess@{preprocess}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{preprocess()}{preprocess()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+preprocess (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{inputs }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Input preprocessing.
+
+To be overridden by implementations.
+
+This function is responsible for any scaling/shifting of input values that
+is necessary prior to running the detector on an input image.
+It is also responsible for any resizing, padding that might be necessary
+as images are assumed to arrive in arbitrary sizes.  While this function
+could conceivably be part of the predict method (below), it is often
+convenient to keep these separate --- for example, we may want to preprocess
+on one device, place onto a queue, and let another device (e.g., the GPU)
+handle prediction.
+
+A few important notes about the preprocess function:
++ We assume that this operation does not have any trainable variables nor
+does it affect the groundtruth annotations in any way (thus data
+augmentation operations such as random cropping should be performed
+externally).
++ There is no assumption that the batchsize in this function is the same as
+the batch size in the predict function.  In fact, we recommend calling the
+preprocess function prior to calling any batching operations (which should
+happen outside of the model) and thus assuming that batch sizes are equal
+to 1 in the preprocess function.
++ There is also no explicit assumption that the output resolutions
+must be fixed across inputs --- this is to support "fully convolutional"
+settings in which input images can have different shapes/resolutions.
+
+Args:
+  inputs: a [batch, height_in, width_in, channels] float32 tensor
+    representing a batch of images with values between 0 and 255.0.
+
+Returns:
+  preprocessed_inputs: a [batch, height_out, width_out, channels] float32
+    tensor representing a batch of images.
+  true_image_shapes: int32 tensor of shape [batch, 3] where each row is
+    of the form [height, width, channels] indicating the shapes
+    of true images in the resized images, as resized images can be padded
+    with zeros.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00131}{131}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{def\ }preprocess(self,\ inputs):}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Input\ preprocessing.}}
+\DoxyCodeLine{00133\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ To\ be\ overridden\ by\ implementations.}}
+\DoxyCodeLine{00135\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00136\ \textcolor{stringliteral}{\ \ \ \ This\ function\ }\textcolor{keywordflow}{is}\ responsible\ \textcolor{keywordflow}{for}\ any\ scaling/shifting\ of\ input\ values\ that}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{is}\ necessary\ prior\ to\ running\ the\ detector\ on\ an\ input\ image.}
+\DoxyCodeLine{00138\ \ \ \ \ It\ \textcolor{keywordflow}{is}\ also\ responsible\ \textcolor{keywordflow}{for}\ any\ resizing,\ padding\ that\ might\ be\ necessary}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{as}\ images\ are\ assumed\ to\ arrive\ \textcolor{keywordflow}{in}\ arbitrary\ sizes.\ \ While\ this\ function}
+\DoxyCodeLine{00140\ \ \ \ \ could\ conceivably\ be\ part\ of\ the\ predict\ method\ (below),\ it\ \textcolor{keywordflow}{is}\ often}
+\DoxyCodeLine{00141\ \ \ \ \ convenient\ to\ keep\ these\ separate\ -\/-\/-\/\ \textcolor{keywordflow}{for}\ example,\ we\ may\ want\ to\ preprocess}
+\DoxyCodeLine{00142\ \ \ \ \ on\ one\ device,\ place\ onto\ a\ queue,\ \textcolor{keywordflow}{and}\ let\ another\ device\ (e.g.,\ the\ GPU)}
+\DoxyCodeLine{00143\ \ \ \ \ handle\ prediction.}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ A\ few\ important\ notes\ about\ the\ preprocess\ function:}
+\DoxyCodeLine{00146\ \ \ \ \ +\ We\ assume\ that\ this\ operation\ does\ \textcolor{keywordflow}{not}\ have\ any\ trainable\ variables\ nor}
+\DoxyCodeLine{00147\ \ \ \ \ does\ it\ affect\ the\ groundtruth\ annotations\ \textcolor{keywordflow}{in}\ any\ way\ (thus\ data}
+\DoxyCodeLine{00148\ \ \ \ \ augmentation\ operations\ such\ \textcolor{keyword}{as}\ random\ cropping\ should\ be\ performed}
+\DoxyCodeLine{00149\ \ \ \ \ externally).}
+\DoxyCodeLine{00150\ \ \ \ \ +\ There\ \textcolor{keywordflow}{is}\ no\ assumption\ that\ the\ batchsize\ \textcolor{keywordflow}{in}\ this\ function\ \textcolor{keywordflow}{is}\ the\ same\ \textcolor{keyword}{as}}
+\DoxyCodeLine{00151\ \ \ \ \ the\ batch\ size\ \textcolor{keywordflow}{in}\ the\ predict\ function.\ \ In\ fact,\ we\ recommend\ calling\ the}
+\DoxyCodeLine{00152\ \ \ \ \ preprocess\ function\ prior\ to\ calling\ any\ batching\ operations\ (which\ should}
+\DoxyCodeLine{00153\ \ \ \ \ happen\ outside\ of\ the\ model)\ \textcolor{keywordflow}{and}\ thus\ assuming\ that\ batch\ sizes\ are\ equal}
+\DoxyCodeLine{00154\ \ \ \ \ to\ 1\ \textcolor{keywordflow}{in}\ the\ preprocess\ function.}
+\DoxyCodeLine{00155\ \ \ \ \ +\ There\ \textcolor{keywordflow}{is}\ also\ no\ explicit\ assumption\ that\ the\ output\ resolutions}
+\DoxyCodeLine{00156\ \ \ \ \ must\ be\ fixed\ across\ inputs\ -\/-\/-\/\ this\ \textcolor{keywordflow}{is}\ to\ support\ \textcolor{stringliteral}{"{}fully\ convolutional"{}}}
+\DoxyCodeLine{00157\ \ \ \ \ settings\ \textcolor{keywordflow}{in}\ which\ input\ images\ can\ have\ different\ shapes/resolutions.}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ Args:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ inputs:\ a\ [batch,\ height\_in,\ width\_in,\ channels]\ float32\ tensor}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ representing\ a\ batch\ of\ images\ \textcolor{keyword}{with}\ values\ between\ 0\ \textcolor{keywordflow}{and}\ 255.0.}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ Returns:}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ preprocessed\_inputs:\ a\ [batch,\ height\_out,\ width\_out,\ channels]\ float32}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ tensor\ representing\ a\ batch\ of\ images.}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ true\_image\_shapes:\ int32\ tensor\ of\ shape\ [batch,\ 3]\ where\ each\ row\ \textcolor{keywordflow}{is}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ of\ the\ form\ [height,\ width,\ channels]\ indicating\ the\ shapes}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ of\ true\ images\ \textcolor{keywordflow}{in}\ the\ resized\ images,\ \textcolor{keyword}{as}\ resized\ images\ can\ be\ padded}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ zeros.}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00171\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00172\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a064598d25a6d0deb83e257969f23c9f6}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a064598d25a6d0deb83e257969f23c9f6} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!provide\_groundtruth@{provide\_groundtruth}}
+\index{provide\_groundtruth@{provide\_groundtruth}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{provide\_groundtruth()}{provide\_groundtruth()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+provide\+\_\+groundtruth (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{groundtruth\+\_\+boxes\+\_\+list,  }\item[{}]{groundtruth\+\_\+classes\+\_\+list,  }\item[{}]{groundtruth\+\_\+masks\+\_\+list = {\ttfamily None},  }\item[{}]{groundtruth\+\_\+keypoints\+\_\+list = {\ttfamily None},  }\item[{}]{groundtruth\+\_\+weights\+\_\+list = {\ttfamily None},  }\item[{}]{groundtruth\+\_\+confidences\+\_\+list = {\ttfamily None},  }\item[{}]{groundtruth\+\_\+is\+\_\+crowd\+\_\+list = {\ttfamily None},  }\item[{}]{is\+\_\+annotated\+\_\+list = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Provide groundtruth tensors.
+
+Args:
+  groundtruth_boxes_list: a list of 2-D tf.float32 tensors of shape
+    [num_boxes, 4] containing coordinates of the groundtruth boxes.
+      Groundtruth boxes are provided in [y_min, x_min, y_max, x_max]
+      format and assumed to be normalized and clipped
+      relative to the image window with y_min <= y_max and x_min <= x_max.
+  groundtruth_classes_list: a list of 2-D tf.float32 one-hot (or k-hot)
+    tensors of shape [num_boxes, num_classes] containing the class targets
+    with the 0th index assumed to map to the first non-background class.
+  groundtruth_masks_list: a list of 3-D tf.float32 tensors of
+    shape [num_boxes, height_in, width_in] containing instance
+    masks with values in {0, 1}.  If None, no masks are provided.
+    Mask resolution `height_in`x`width_in` must agree with the resolution
+    of the input image tensor provided to the `preprocess` function.
+  groundtruth_keypoints_list: a list of 3-D tf.float32 tensors of
+    shape [num_boxes, num_keypoints, 2] containing keypoints.
+    Keypoints are assumed to be provided in normalized coordinates and
+    missing keypoints should be encoded as NaN.
+  groundtruth_weights_list: A list of 1-D tf.float32 tensors of shape
+    [num_boxes] containing weights for groundtruth boxes.
+  groundtruth_confidences_list: A list of 2-D tf.float32 tensors of shape
+    [num_boxes, num_classes] containing class confidences for groundtruth
+    boxes.
+  groundtruth_is_crowd_list: A list of 1-D tf.bool tensors of shape
+    [num_boxes] containing is_crowd annotations
+  is_annotated_list: A list of scalar tf.bool tensors indicating whether
+    images have been labeled or not.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00267}{267}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_annotated\_list=\textcolor{keywordtype}{None}):}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Provide\ groundtruth\ tensors.}}
+\DoxyCodeLine{00277\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00278\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00279\ \textcolor{stringliteral}{\ \ \ \ \ \ groundtruth\_boxes\_list:\ a\ list\ of\ 2-\/D\ tf.float32\ tensors\ of\ shape}}
+\DoxyCodeLine{00280\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ [num\_boxes,\ 4]\ containing\ coordinates\ of\ the\ groundtruth\ boxes.}}
+\DoxyCodeLine{00281\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ Groundtruth\ boxes\ are\ provided\ }\textcolor{keywordflow}{in}\ [y\_min,\ x\_min,\ y\_max,\ x\_max]}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ format\ \textcolor{keywordflow}{and}\ assumed\ to\ be\ normalized\ \textcolor{keywordflow}{and}\ clipped}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ relative\ to\ the\ image\ window\ \textcolor{keyword}{with}\ y\_min\ <=\ y\_max\ \textcolor{keywordflow}{and}\ x\_min\ <=\ x\_max.}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ groundtruth\_classes\_list:\ a\ list\ of\ 2-\/D\ tf.float32\ one-\/hot\ (\textcolor{keywordflow}{or}\ k-\/hot)}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ tensors\ of\ shape\ [num\_boxes,\ num\_classes]\ containing\ the\ \textcolor{keyword}{class\ }targets}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ the\ 0th\ index\ assumed\ to\ map\ to\ the\ first\ non-\/background\ \textcolor{keyword}{class}.}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ groundtruth\_masks\_list:\ a\ list\ of\ 3-\/D\ tf.float32\ tensors\ of}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ shape\ [num\_boxes,\ height\_in,\ width\_in]\ containing\ instance}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ masks\ \textcolor{keyword}{with}\ values\ \textcolor{keywordflow}{in}\ \{0,\ 1\}.\ \ If\ \textcolor{keywordtype}{None},\ no\ masks\ are\ provided.}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ Mask\ resolution\ \`{}height\_in\`{}x\`{}width\_in\`{}\ must\ agree\ \textcolor{keyword}{with}\ the\ resolution}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ of\ the\ input\ image\ tensor\ provided\ to\ the\ \`{}preprocess\`{}\ function.}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ groundtruth\_keypoints\_list:\ a\ list\ of\ 3-\/D\ tf.float32\ tensors\ of}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ shape\ [num\_boxes,\ num\_keypoints,\ 2]\ containing\ keypoints.}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ Keypoints\ are\ assumed\ to\ be\ provided\ \textcolor{keywordflow}{in}\ normalized\ coordinates\ \textcolor{keywordflow}{and}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ missing\ keypoints\ should\ be\ encoded\ \textcolor{keyword}{as}\ NaN.}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ groundtruth\_weights\_list:\ A\ list\ of\ 1-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ [num\_boxes]\ containing\ weights\ \textcolor{keywordflow}{for}\ groundtruth\ boxes.}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ groundtruth\_confidences\_list:\ A\ list\ of\ 2-\/D\ tf.float32\ tensors\ of\ shape}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ [num\_boxes,\ num\_classes]\ containing\ \textcolor{keyword}{class\ }confidences\ for\ groundtruth}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ boxes.}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ groundtruth\_is\_crowd\_list:\ A\ list\ of\ 1-\/D\ tf.bool\ tensors\ of\ shape}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ [num\_boxes]\ containing\ is\_crowd\ annotations}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ is\_annotated\_list:\ A\ list\ of\ scalar\ tf.bool\ tensors\ indicating\ whether}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ images\ have\ been\ labeled\ \textcolor{keywordflow}{or}\ \textcolor{keywordflow}{not}.}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00306\ \textcolor{stringliteral}{\ \ \ \ self.\_groundtruth\_lists[fields.BoxListFields.boxes]\ =\ groundtruth\_boxes\_list}}
+\DoxyCodeLine{00307\ \textcolor{stringliteral}{\ \ \ \ self.\_groundtruth\_lists[}}
+\DoxyCodeLine{00308\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ fields.BoxListFields.classes]\ =\ groundtruth\_classes\_list}}
+\DoxyCodeLine{00309\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{if}\ groundtruth\_weights\_list:}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ self.\_groundtruth\_lists[fields.BoxListFields.}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights]\ =\ groundtruth\_weights\_list}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_confidences\_list:}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ self.\_groundtruth\_lists[fields.BoxListFields.}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ confidences]\ =\ groundtruth\_confidences\_list}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_masks\_list:}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ self.\_groundtruth\_lists[}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.masks]\ =\ groundtruth\_masks\_list}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_keypoints\_list:}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ self.\_groundtruth\_lists[}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.keypoints]\ =\ groundtruth\_keypoints\_list}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{if}\ groundtruth\_is\_crowd\_list:}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ self.\_groundtruth\_lists[}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ fields.BoxListFields.is\_crowd]\ =\ groundtruth\_is\_crowd\_list}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{if}\ is\_annotated\_list:}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ self.\_groundtruth\_lists[}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ fields.InputDataFields.is\_annotated]\ =\ is\_annotated\_list}
+\DoxyCodeLine{00327\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a85265bb7b71f082a833fefd28a47fe55}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a85265bb7b71f082a833fefd28a47fe55} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!regularization\_losses@{regularization\_losses}}
+\index{regularization\_losses@{regularization\_losses}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{regularization\_losses()}{regularization\_losses()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+regularization\+\_\+losses (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a list of regularization losses for this model.
+
+Returns a list of regularization losses for this model that the estimator
+needs to use during training/optimization.
+
+Returns:
+  A list of regularization loss tensors.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00329}{329}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{def\ }regularization\_losses(self):}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ regularization\ losses\ for\ this\ model.}}
+\DoxyCodeLine{00331\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00332\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ list\ of\ regularization\ losses\ }\textcolor{keywordflow}{for}\ this\ model\ that\ the\ estimator}
+\DoxyCodeLine{00333\ \ \ \ \ needs\ to\ use\ during\ training/optimization.}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ Returns:}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ A\ list\ of\ regularization\ loss\ tensors.}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00338\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00339\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a64aba744ec1c5495784e42fe041d71a0}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a64aba744ec1c5495784e42fe041d71a0} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!restore\_map@{restore\_map}}
+\index{restore\_map@{restore\_map}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{restore\_map()}{restore\_map()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+restore\+\_\+map (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{fine\+\_\+tune\+\_\+checkpoint\+\_\+type = {\ttfamily \textquotesingle{}detection\textquotesingle{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a map of variables to load from a foreign checkpoint.
+
+Returns a map of variable names to load from a checkpoint to variables in
+the model graph. This enables the model to initialize based on weights from
+another task. For example, the feature extractor variables from a
+classification model can be used to bootstrap training of an object
+detector. When loading from an object detection model, the checkpoint model
+should have the same parameters as this detection model with exception of
+the num_classes parameter.
+
+Args:
+  fine_tune_checkpoint_type: whether to restore from a full detection
+    checkpoint (with compatible variable names) or to restore from a
+    classification checkpoint for initialization prior to training.
+    Valid values: `detection`, `classification`. Default 'detection'.
+
+Returns:
+  A dict mapping variable names (to load from a checkpoint) to variables in
+  the model graph.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00341}{341}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00341\ \ \ \textcolor{keyword}{def\ }restore\_map(self,\ fine\_tune\_checkpoint\_type='detection'):}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ map\ of\ variables\ to\ load\ from\ a\ foreign\ checkpoint.}}
+\DoxyCodeLine{00343\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00344\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ map\ of\ variable\ names\ to\ load\ }\textcolor{keyword}{from}\ a\ checkpoint\ to\ variables\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00345\ \ \ \ \ the\ model\ graph.\ This\ enables\ the\ model\ to\ initialize\ based\ on\ weights\ \textcolor{keyword}{from}}
+\DoxyCodeLine{00346\ \ \ \ \ another\ task.\ For\ example,\ the\ feature\ extractor\ variables\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{00347\ \ \ \ \ classification\ model\ can\ be\ used\ to\ bootstrap\ training\ of\ an\ object}
+\DoxyCodeLine{00348\ \ \ \ \ detector.\ When\ loading\ \textcolor{keyword}{from}\ an\ object\ detection\ model,\ the\ checkpoint\ model}
+\DoxyCodeLine{00349\ \ \ \ \ should\ have\ the\ same\ parameters\ \textcolor{keyword}{as}\ this\ detection\ model\ \textcolor{keyword}{with}\ exception\ of}
+\DoxyCodeLine{00350\ \ \ \ \ the\ num\_classes\ parameter.}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ Args:}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ fine\_tune\_checkpoint\_type:\ whether\ to\ restore\ \textcolor{keyword}{from}\ a\ full\ detection}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ checkpoint\ (\textcolor{keyword}{with}\ compatible\ variable\ names)\ \textcolor{keywordflow}{or}\ to\ restore\ \textcolor{keyword}{from}\ a}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ classification\ checkpoint\ \textcolor{keywordflow}{for}\ initialization\ prior\ to\ training.}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ Valid\ values:\ \`{}detection\`{},\ \`{}classification\`{}.\ Default\ \textcolor{stringliteral}{'detection'}.}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ Returns:}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ A\ dict\ mapping\ variable\ names\ (to\ load\ \textcolor{keyword}{from}\ a\ checkpoint)\ to\ variables\ \textcolor{keywordflow}{in}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ the\ model\ graph.}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00362\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00363\ }
+
+\end{DoxyCode}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a61ccd8a44ce48eb27c970254188f452d}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a61ccd8a44ce48eb27c970254188f452d} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!updates@{updates}}
+\index{updates@{updates}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{updates()}{updates()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+updates (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a list of update operators for this model.
+
+Returns a list of update operators for this model that must be executed at
+each training step. The estimator's train op needs to have a control
+dependency on these updates.
+
+Returns:
+  A list of update operators.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00365}{365}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00365\ \ \ \textcolor{keyword}{def\ }updates(self):}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ a\ list\ of\ update\ operators\ for\ this\ model.}}
+\DoxyCodeLine{00367\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00368\ \textcolor{stringliteral}{\ \ \ \ Returns\ a\ list\ of\ update\ operators\ }\textcolor{keywordflow}{for}\ this\ model\ that\ must\ be\ executed\ at}
+\DoxyCodeLine{00369\ \ \ \ \ each\ training\ step.\ The\ estimator\textcolor{stringliteral}{'s\ train\ op\ needs\ to\ have\ a\ control}}
+\DoxyCodeLine{00370\ \textcolor{stringliteral}{\ \ \ \ dependency\ on\ these\ updates.}}
+\DoxyCodeLine{00371\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00372\ \textcolor{stringliteral}{\ \ \ \ Returns:}}
+\DoxyCodeLine{00373\ \textcolor{stringliteral}{\ \ \ \ \ \ A\ list\ of\ update\ operators.}}
+\DoxyCodeLine{00374\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{00375\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_ac1cc42899a4cf92fa21013b49b306306} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!\_groundtruth\_lists@{\_groundtruth\_lists}}
+\index{\_groundtruth\_lists@{\_groundtruth\_lists}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{\_groundtruth\_lists}{\_groundtruth\_lists}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+\_\+groundtruth\+\_\+lists\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00091}{91}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+\Hypertarget{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175}\label{classdetection__utils_1_1core_1_1model_1_1_detection_model_a869c41a90a24a165b111045373852175} 
+\index{detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}!\_num\_classes@{\_num\_classes}}
+\index{\_num\_classes@{\_num\_classes}!detection\_utils.core.model.DetectionModel@{detection\_utils.core.model.DetectionModel}}
+\doxysubsubsection{\texorpdfstring{\_num\_classes}{\_num\_classes}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+core.\+model.\+Detection\+Model.\+\_\+num\+\_\+classes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{model_8py_source_l00090}{90}} of file \mbox{\hyperlink{model_8py_source}{model.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/core/\mbox{\hyperlink{model_8py}{model.\+py}}\end{DoxyCompactItemize}

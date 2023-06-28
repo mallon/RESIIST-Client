@@ -1,0 +1,391 @@
+\doxysection{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator Class Reference}
+\hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator}{}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator}\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+
+
+Inheritance diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/dfc/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{da/df8/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a0ee7027b706833c21e6c6826173119f8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, categories)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_aa7d589b3b6a873db82fab018c9745899}{observe\+\_\+result\+\_\+dict\+\_\+for\+\_\+single\+\_\+example}} (self, eval\+\_\+dict)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a989e90572d5b120dde5247d1655c198a}{add\+\_\+single\+\_\+ground\+\_\+truth\+\_\+image\+\_\+info}} (self, image\+\_\+id, groundtruth\+\_\+dict)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_af0db7261aa7c44cdc75c34dbd97db97f}{add\+\_\+single\+\_\+detected\+\_\+image\+\_\+info}} (self, image\+\_\+id, detections\+\_\+dict)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_adf40cdb418eaf8a25be78bda885c391c}{get\+\_\+estimator\+\_\+eval\+\_\+metric\+\_\+ops}} (self, eval\+\_\+dict)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a397409af8c3ae8773fcfd489564a9a25}{evaluate}} (self)
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a52d729c8179d678a7afa9868df8ddcf6}{clear}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a5d6398d376d23f05ba0d1bbbcec46a6e}{\+\_\+categories}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Interface for object detection evalution classes.
+
+Example usage of the Evaluator:
+------------------------------
+evaluator = DetectionEvaluator(categories)
+
+# Detections and groundtruth for image 1.
+evaluator.add_single_groundtruth_image_info(...)
+evaluator.add_single_detected_image_info(...)
+
+# Detections and groundtruth for image 2.
+evaluator.add_single_groundtruth_image_info(...)
+evaluator.add_single_detected_image_info(...)
+
+metrics_dict = evaluator.evaluate()
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00051}{51}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a0ee7027b706833c21e6c6826173119f8}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a0ee7027b706833c21e6c6826173119f8} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{categories }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructor.
+
+Args:
+  categories: A list of dicts, each of which has the following keys -
+    'id': (required) an integer id uniquely identifying this category.
+    'name': (required) string representing category name e.g., 'cat', 'dog'.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator_a1b9ccec8b60be25851d90bf11ea4c977}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Challenge\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_detection_evaluator_a67db37288a070f64e0d7e6eeb81ada2d}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Pascal\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_detection_evaluator_a0c4f3ee906506611b1173468094ce3c5}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Weighted\+Pascal\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_pascal_instance_segmentation_evaluator_ad5b9a4cf5cbaf049c8152d435ff46082}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Pascal\+Instance\+Segmentation\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_weighted_pascal_instance_segmentation_evaluator_aed85f2486387d20925d170954e122c11}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Weighted\+Pascal\+Instance\+Segmentation\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_challenge_evaluator_afad29464662063e68ca6f31bcdc36fc2}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Detection\+Challenge\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_instance_segmentation_challenge_evaluator_a078f2cd3ca025b81ae0cf845859faf62}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Instance\+Segmentation\+Challenge\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_evaluator_a3c28eece590f6276205b5495c9ca57e0}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_precision_at_recall_detection_evaluator_a84eff68d1a78314cf22ab613ffa3c11f}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Precision\+At\+Recall\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_aed44cfdf4a749af49681d344b6bdb9ac}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_relation_detection_evaluator_a1c41009e26835b207780340cf863e159}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDRelation\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_phrase_detection_evaluator_a8137bd46ee6b38de3e6c7d3459808f31}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDPhrase\+Detection\+Evaluator}}, and \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator_a81cca32c368adb275e5689d0492a66f8}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00069}{69}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{def\ }\_\_init\_\_(self,\ categories):}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Constructor.}}
+\DoxyCodeLine{00071\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00072\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00073\ \textcolor{stringliteral}{\ \ \ \ \ \ categories:\ A\ list\ of\ dicts,\ each\ of\ which\ has\ the\ following\ keys\ -\/}}
+\DoxyCodeLine{00074\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ 'id'}:\ (required)\ an\ integer\ id\ uniquely\ identifying\ this\ category.}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}:\ (required)\ string\ representing\ category\ name\ e.g.,\ \textcolor{stringliteral}{'cat'},\ \textcolor{stringliteral}{'dog'}.}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00077\ \textcolor{stringliteral}{\ \ \ \ self.\_categories\ =\ categories}}
+\DoxyCodeLine{00078\ \textcolor{stringliteral}{}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_af0db7261aa7c44cdc75c34dbd97db97f}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_af0db7261aa7c44cdc75c34dbd97db97f} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!add\_single\_detected\_image\_info@{add\_single\_detected\_image\_info}}
+\index{add\_single\_detected\_image\_info@{add\_single\_detected\_image\_info}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{add\_single\_detected\_image\_info()}{add\_single\_detected\_image\_info()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+add\+\_\+single\+\_\+detected\+\_\+image\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image\+\_\+id,  }\item[{}]{detections\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Adds detections for a single image to be used for evaluation.
+
+Args:
+  image_id: A unique string/integer identifier for the image.
+  detections_dict: A dictionary of detection numpy arrays required for
+    evaluation.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_a1adbf45798e36dd8fda9322d8ffea47e}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator_a9985e8acd02f5a87a8a5aeea53cccbd1}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Challenge\+Evaluator}}, and \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator_a9f783f9bc882a3b9b3738f1c35ea8933}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00111}{111}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{def\ }add\_single\_detected\_image\_info(self,\ image\_id,\ detections\_dict):}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ detections\ for\ a\ single\ image\ to\ be\ used\ for\ evaluation.}}
+\DoxyCodeLine{00113\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00114\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00115\ \textcolor{stringliteral}{\ \ \ \ \ \ image\_id:\ A\ unique\ string/integer\ identifier\ }\textcolor{keywordflow}{for}\ the\ image.}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ detections\_dict:\ A\ dictionary\ of\ detection\ numpy\ arrays\ required\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ evaluation.}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00119\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00120\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_af0db7261aa7c44cdc75c34dbd97db97f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a989e90572d5b120dde5247d1655c198a}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a989e90572d5b120dde5247d1655c198a} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!add\_single\_ground\_truth\_image\_info@{add\_single\_ground\_truth\_image\_info}}
+\index{add\_single\_ground\_truth\_image\_info@{add\_single\_ground\_truth\_image\_info}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{add\_single\_ground\_truth\_image\_info()}{add\_single\_ground\_truth\_image\_info()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+add\+\_\+single\+\_\+ground\+\_\+truth\+\_\+image\+\_\+info (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image\+\_\+id,  }\item[{}]{groundtruth\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Adds groundtruth for a single image to be used for evaluation.
+
+Args:
+  image_id: A unique string/integer identifier for the image.
+  groundtruth_dict: A dictionary of groundtruth numpy arrays required for
+    evaluations.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_a58fa4552263a7d7af84da8611245c526}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_detection_evaluator_ae2f2597094561add3e696c7dd8c119b4}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator_a04c39f47814705050fc88a071b8ff5bd}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Challenge\+Evaluator}}, and \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator_a08f0f27e498b04ef6099058affd3c347}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00100}{100}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{def\ }add\_single\_ground\_truth\_image\_info(self,\ image\_id,\ groundtruth\_dict):}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Adds\ groundtruth\ for\ a\ single\ image\ to\ be\ used\ for\ evaluation.}}
+\DoxyCodeLine{00102\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00103\ \textcolor{stringliteral}{\ \ \ \ Args:}}
+\DoxyCodeLine{00104\ \textcolor{stringliteral}{\ \ \ \ \ \ image\_id:\ A\ unique\ string/integer\ identifier\ }\textcolor{keywordflow}{for}\ the\ image.}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ groundtruth\_dict:\ A\ dictionary\ of\ groundtruth\ numpy\ arrays\ required\ \textcolor{keywordflow}{for}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ evaluations.}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00108\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00109\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a989e90572d5b120dde5247d1655c198a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a52d729c8179d678a7afa9868df8ddcf6}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a52d729c8179d678a7afa9868df8ddcf6} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!clear@{clear}}
+\index{clear@{clear}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+clear (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Clears the state to prepare for a fresh evaluation.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_a2e5e1a607bea165b140d173263957a92}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}, \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_open_images_challenge_evaluator_a179fe390faaf1f80eed5683155b59c76}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Open\+Images\+Challenge\+Evaluator}}, and \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator_ae60f02db5bc93cc6fa0f200253b13253}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00144}{144}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{def\ }clear(self):}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Clears\ the\ state\ to\ prepare\ for\ a\ fresh\ evaluation."{}"{}"{}}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a52d729c8179d678a7afa9868df8ddcf6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a397409af8c3ae8773fcfd489564a9a25}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a397409af8c3ae8773fcfd489564a9a25} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+evaluate (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Evaluates detections and returns a dictionary of metrics.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_acb7bec77c34786be0eee176d14a2d8b0}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}, and \mbox{\hyperlink{classdetection__utils_1_1utils_1_1vrd__evaluation_1_1_v_r_d_detection_evaluator_aa8eddac80b55fdbddc1957f28ffe2c57}{detection\+\_\+utils.\+utils.\+vrd\+\_\+evaluation.\+VRDDetection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00139}{139}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{def\ }evaluate(self):}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Evaluates\ detections\ and\ returns\ a\ dictionary\ of\ metrics."{}"{}"{}}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00142\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a397409af8c3ae8773fcfd489564a9a25_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_adf40cdb418eaf8a25be78bda885c391c}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_adf40cdb418eaf8a25be78bda885c391c} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!get\_estimator\_eval\_metric\_ops@{get\_estimator\_eval\_metric\_ops}}
+\index{get\_estimator\_eval\_metric\_ops@{get\_estimator\_eval\_metric\_ops}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{get\_estimator\_eval\_metric\_ops()}{get\_estimator\_eval\_metric\_ops()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+get\+\_\+estimator\+\_\+eval\+\_\+metric\+\_\+ops (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{eval\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns dict of metrics to use with `tf.estimator.EstimatorSpec`.
+
+Note that this must only be implemented if performing evaluation with a
+`tf.estimator.Estimator`.
+
+Args:
+  eval_dict: A dictionary that holds tensors for evaluating an object
+    detection model, returned from
+    eval_util.result_dict_for_single_example().
+
+Returns:
+  A dictionary of metric names to tuple of value_op and update_op that can
+  be used as eval metric ops in `tf.estimator.EstimatorSpec`.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_object_detection_evaluator_a67a6b24091a76ab0e1d22a8310a4c58e}{detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Object\+Detection\+Evaluator}}.
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00121}{121}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{def\ }get\_estimator\_eval\_metric\_ops(self,\ eval\_dict):}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Returns\ dict\ of\ metrics\ to\ use\ with\ \`{}tf.estimator.EstimatorSpec\`{}.}}
+\DoxyCodeLine{00123\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{\ \ \ \ Note\ that\ this\ must\ only\ be\ implemented\ }\textcolor{keywordflow}{if}\ performing\ evaluation\ \textcolor{keyword}{with}\ a}
+\DoxyCodeLine{00125\ \ \ \ \ \`{}tf.estimator.Estimator\`{}.}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ Args:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ eval\_dict:\ A\ dictionary\ that\ holds\ tensors\ \textcolor{keywordflow}{for}\ evaluating\ an\ object}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ detection\ model,\ returned\ \textcolor{keyword}{from}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ eval\_util.result\_dict\_for\_single\_example().}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ Returns:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ A\ dictionary\ of\ metric\ names\ to\ tuple\ of\ value\_op\ \textcolor{keywordflow}{and}\ update\_op\ that\ can}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ be\ used\ \textcolor{keyword}{as}\ eval\ metric\ ops\ \textcolor{keywordflow}{in}\ \`{}tf.estimator.EstimatorSpec\`{}.}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00136\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{pass}}
+\DoxyCodeLine{00137\ }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_adf40cdb418eaf8a25be78bda885c391c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_aa7d589b3b6a873db82fab018c9745899}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_aa7d589b3b6a873db82fab018c9745899} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!observe\_result\_dict\_for\_single\_example@{observe\_result\_dict\_for\_single\_example}}
+\index{observe\_result\_dict\_for\_single\_example@{observe\_result\_dict\_for\_single\_example}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{observe\_result\_dict\_for\_single\_example()}{observe\_result\_dict\_for\_single\_example()}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+observe\+\_\+result\+\_\+dict\+\_\+for\+\_\+single\+\_\+example (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{eval\+\_\+dict }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Observes an evaluation result dict for a single example.
+
+When executing eagerly, once all observations have been observed by this
+method you can use `.evaluate()` to get the final metrics.
+
+When using `tf.estimator.Estimator` for evaluation this function is used by
+`get_estimator_eval_metric_ops()` to construct the metric update op.
+
+Args:
+  eval_dict: A dictionary that holds tensors for evaluating an object
+    detection model, returned from
+    eval_util.result_dict_for_single_example().
+
+Returns:
+  None when executing eagerly, or an update_op that can be used to update
+  the eval metrics in `tf.estimator.EstimatorSpec`.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00079}{79}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{def\ }observe\_result\_dict\_for\_single\_example(self,\ eval\_dict):}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Observes\ an\ evaluation\ result\ dict\ for\ a\ single\ example.}}
+\DoxyCodeLine{00081\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00082\ \textcolor{stringliteral}{\ \ \ \ When\ executing\ eagerly,\ once\ all\ observations\ have\ been\ observed\ by\ this}}
+\DoxyCodeLine{00083\ \textcolor{stringliteral}{\ \ \ \ method\ you\ can\ use\ \`{}.evaluate()\`{}\ to\ get\ the\ final\ metrics.}}
+\DoxyCodeLine{00084\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00085\ \textcolor{stringliteral}{\ \ \ \ When\ using\ \`{}tf.estimator.Estimator\`{}\ }\textcolor{keywordflow}{for}\ evaluation\ this\ function\ \textcolor{keywordflow}{is}\ used\ by}
+\DoxyCodeLine{00086\ \ \ \ \ \`{}get\_estimator\_eval\_metric\_ops()\`{}\ to\ construct\ the\ metric\ update\ op.}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ Args:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ eval\_dict:\ A\ dictionary\ that\ holds\ tensors\ \textcolor{keywordflow}{for}\ evaluating\ an\ object}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ detection\ model,\ returned\ \textcolor{keyword}{from}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ eval\_util.result\_dict\_for\_single\_example().}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ Returns:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keywordtype}{None}\ when\ executing\ eagerly,\ \textcolor{keywordflow}{or}\ an\ update\_op\ that\ can\ be\ used\ to\ update}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ the\ eval\ metrics\ \textcolor{keywordflow}{in}\ \`{}tf.estimator.EstimatorSpec\`{}.}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{00097\ \textcolor{stringliteral}{\ \ \ \ }\textcolor{keywordflow}{raise}\ NotImplementedError(\textcolor{stringliteral}{'Not\ implemented\ for\ this\ evaluator!'})}
+\DoxyCodeLine{00098\ }
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d0c/classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_aa7d589b3b6a873db82fab018c9745899_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a5d6398d376d23f05ba0d1bbbcec46a6e}\label{classdetection__utils_1_1utils_1_1object__detection__evaluation_1_1_detection_evaluator_a5d6398d376d23f05ba0d1bbbcec46a6e} 
+\index{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}!\_categories@{\_categories}}
+\index{\_categories@{\_categories}!detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator@{detection\_utils.utils.object\_detection\_evaluation.DetectionEvaluator}}
+\doxysubsubsection{\texorpdfstring{\_categories}{\_categories}}
+{\footnotesize\ttfamily detection\+\_\+utils.\+utils.\+object\+\_\+detection\+\_\+evaluation.\+Detection\+Evaluator.\+\_\+categories\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{object__detection__evaluation_8py_source_l00077}{77}} of file \mbox{\hyperlink{object__detection__evaluation_8py_source}{object\+\_\+detection\+\_\+evaluation.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/resources/processing/video/detections/detection\+\_\+utils/utils/\mbox{\hyperlink{object__detection__evaluation_8py}{object\+\_\+detection\+\_\+evaluation.\+py}}\end{DoxyCompactItemize}
