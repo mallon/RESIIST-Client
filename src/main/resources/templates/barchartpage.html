@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <meta http-equiv="refresh" content="10" /> -->
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'bar' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {	
+		var dataArray = [];
+		var hAxisTitleAndCpNames = ['Evaluation date'];
+		dataArray.push(hAxisTitleAndCpNames);
+		/*<![CDATA[*/
+		/*[# th:each="entry : ${dateAndCustomProperties}"]*/
+			var dateAndValues = [];
+			dateAndValues.push(new Date(/*${entry.key}*/));
+			/*[# th:each="data : ${entry.value}"]*/
+				if (!dataArray[0].includes(/*${data.name}*/)){
+					dataArray[0].push(/*${data.name}*/);
+				}
+			
+				dateAndValues.push(Number(/*${data.value}*/));
+				dataArray.push(dateAndValues);
+			/*[/]*/
+		/*[/]*/
+		/*]]>*/
+		
+		var data = google.visualization.arrayToDataTable([ dataArray ]);
+		// 		var data = google.visualization.arrayToDataTable([
+		// 				[ 'tn', 'CustomPropOne',
+		// 						'CustomPropTwo', 'CustomPropTwo' ],
+		// 				[ 't0', 1000, 400, 200 ], [ 't1', 1170, 460, 250 ],
+		// 				[ 't2', 660, 1120, 300 ], [ 't3', 1030, 540, 350 ] ]);
+
+		var options = {
+			chart : {
+				title : 'Decision ordering evolution',
+				subtitle : '',
+			}
+		};
+
+		var chart = new google.charts.Bar(document
+				.getElementById('columnchart_material'));
+
+		chart.draw(data, google.charts.Bar.convertOptions(options));
+	}
+</script>
+</head>
+<body>
+	<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+</body>
+</html>

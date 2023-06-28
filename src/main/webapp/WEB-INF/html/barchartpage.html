@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="10" />
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script th:inline="javascript">
+	google.charts.load('current', {
+		'packages' : [ 'bar' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	var titles = [];
+	titles.push("Evaluation dates");
+	
+	var allData = [titles];
+	console.log("First All data : " + allData);
+		
+	/*<![CDATA[*/
+		/*[# th:each="entry : ${dateAndCustomProperties}"]*/
+			console.log("Entry : ");
+			var allTimeData = [];
+			allTimeData.push(/*[[${entry.key}]]*/);
+
+			/*[# th:each="data : ${entry.value}"]*/
+				console.log("Entry value");
+				if (!titles.includes(/*[[${data.name}]]*/)){
+					titles.push(/*[[${data.name}]]*/);
+				}
+				allTimeData.push(Number(/*[[${data.value}]]*/));
+			/*[/]*/
+			
+			console.log("allTimeData : " + allTimeData);
+	
+			allData.push(allTimeData);
+	
+			console.log("allData : " + allData);
+			
+		/*[/]*/
+	/*]]>*/
+	
+
+	console.log("titles : " + titles);
+	console.log("allData : " + allData);
+	function drawChart() {
+		if (titles.length > 1){ 
+			var data = google.visualization.arrayToDataTable(allData);
+			
+// 			var data = google.visualization.arrayToDataTable([ titles,
+// 					[ 't0', -2.333333, 1.666666], [ 't1', 2.8888, -2.556565],
+// 					[ 't2', -6.12222, -3.96589], [ 't3', 2.8, -5.6663] ]);
+			// 		var data = google.visualization.arrayToDataTable([
+			// 				[ 'tn', 'CustomPropOne',
+			// 						'CustomPropTwo', 'CustomPropTwo' ],
+			// 				[ 't0', 1000, 400, 200 ], [ 't1', 1170, 460, 250 ],
+			// 				[ 't2', 660, 1120, 300 ], [ 't3', 1030, 540, 350 ] ]);
+
+			var options = {
+				chart : {
+					title : 'Decision ordering evolution',
+					subtitle : '',
+				},
+				bars: 'vertical',
+			    vAxis: {format: 'decimal'}
+			};
+
+			var chart = new google.charts.Bar(document
+					.getElementById('columnchart_material'));
+
+			chart.draw(data, google.charts.Bar.convertOptions(options));
+		}
+	}
+
+</script>
+</head>
+<body>
+	<div id="columnchart_material"></div>
+</body>
+</html>

@@ -69,7 +69,7 @@ def startDetection(frameToAnalyse, algoNameToExecute, allObjToDetects, allElemen
     method_to_call(copiedFrame, allObjToDetects, allElementIds)
         
 def sendFramesToBehaviorAlgorithm(framesForActivityDetection):
-    limitProc = 4
+    limitProc = 3
     terminateProcesses(limitProc)
     elementObjectMap = args["algoElementsObjects"].get("behaviorDetection")
     allElementIds = elementObjectMap.get("ELEMENT_IDENTIFIERS")
@@ -80,7 +80,7 @@ def sendFramesToBehaviorAlgorithm(framesForActivityDetection):
     gc.collect()
             
 def sendOneFrameToAllDetectionAlgorithms(frameToAnalyse):
-    limitProc = 4
+    limitProc = 3
     terminateProcesses(limitProc)
     for algoNameToExecute in args["algoElementsObjects"].keys():
         #if (algoNameToExecute == "eventDetection"):
@@ -110,16 +110,12 @@ def isSendingTime(currentTime, lastRecordedTime):
 cap = cv2.VideoCapture(args["input"] if args["input"] else 0)
 delay = int(1000/cap.get(cv2.CAP_PROP_FPS))
 
-print("FPS : " + str(cap.get(cv2.CAP_PROP_FPS)))
-
-print("Delay : " + str(delay))
-
 framesForActivityDetection=[]
 lastRecordedTime = time.time()
 
 while True:
   currenTime = time.time()
-  limitProc = 4
+  limitProc = 3
   terminateProcesses(limitProc)
   
   ret, frameToAnalyse = cap.read()

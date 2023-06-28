@@ -3,6 +3,7 @@ package com.axellience.resiist.client.analysis.evaluation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BinaryOperator;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.eclipse.emf.common.util.EMap;
@@ -10,7 +11,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
-import com.axellience.resiist.client.integration.IntegrationPlatform;
+import com.axellience.resiist.client.acquisitiontointegration.integration.IntegrationPlatform;
 import com.axellience.resiist.client.utils.ResiistConstants;
 import com.genmymodel.ecoreonline.graphic.GMMUtil;
 
@@ -18,13 +19,28 @@ public class ResilienceRuleDefiner
 {
     private static ResilienceRuleDefiner instance = null;
 
-    private Map<String, Float> indicatorIdsAndValues = new HashMap<>();
+    private Map<String, Float>                 indicatorIdsAndValues = new HashMap<>();
+    private Map<String, BinaryOperator<Float>> aggregationFunctions;
 
     private IntegrationPlatform integrationPlatform;
 
     private ResilienceRuleDefiner()
     {
         integrationPlatform = IntegrationPlatform.getInstance();
+        initAggregationFonctions();
+    }
+
+    private void initAggregationFonctions()
+    {
+        aggregationFunctions = new HashMap<>();
+        aggregationFunctions.put("SUM", (x, y) -> x + y);
+        aggregationFunctions.put("SUB", (x, y) -> x - y);
+        aggregationFunctions.put("PROD", (x, y) -> x * y);
+        aggregationFunctions.put("DIV", (x, y) -> x / y);
+        aggregationFunctions.put("MOD", (x, y) -> x % y);
+        aggregationFunctions.put("MIN", Math::min);
+        aggregationFunctions.put("MAX", Math::max);
+        aggregationFunctions.put("POW", (x, y) -> Float.valueOf((float) Math.pow(x, y)));
     }
 
     public static ResilienceRuleDefiner getInstance()
@@ -90,6 +106,17 @@ public class ResilienceRuleDefiner
         return resilience;
     }
 
+    public Float evaluateModelResilience(String indicatorId, Float indicatorResilience,
+                                         BinaryOperator<Float> aggregationFct)
+    {
+        indicatorIdsAndValues.put(indicatorId, indicatorResilience);
+        Float resilience = 1.0f;
+        for (Float value : indicatorIdsAndValues.values()) {
+            resilience = aggregationFct.apply(resilience, value);
+        }
+        return resilience;
+    }
+
     public String getResilienceAlertColor(String elementId, Float elementResilience)
     {
         Resource projectResource = integrationPlatform.getModelResource();
@@ -107,5 +134,21 @@ public class ResilienceRuleDefiner
             return details.get(ResiistConstants.COLOR_UNACCEPTABLE);
 
         return details.get(ResiistConstants.COLOR_ACCEPTABLE);
+    }
+
+    public BinaryOperator<Float> getAggregationFunction(String elementId)
+    {
+        Resource projectResource = integrationPlatform.getModelResource();
+        EObject eObject = projectResource.getEObject(elementId);
+        Optional<EAnnotation> gmmAnnotation = GMMUtil.getGmmAnnotation(eObject);
+        if (!gmmAnnotation.isPresent())
+            throw new ResourceNotFoundException("Element not found: " + elementId);
+
+        EMap<String, String> details = gmmAnnotation.get().getDetails();
+
+        if (!details.containsKey(ResiistConstants.AGG_FCT))
+            throw new ResourceNotFoundException("Aggregation function not found in: " + elementId);
+
+        return aggregationFunctions.get(details.get(ResiistConstants.AGG_FCT));
     }
 }

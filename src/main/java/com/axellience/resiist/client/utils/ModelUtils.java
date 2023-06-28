@@ -4,7 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.eclipse.emf.common.util.EList;
@@ -16,11 +18,14 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.genmymodel.gmmf.common.GenMyModelBinaryResourceImpl;
+import org.opengroup.archimate.Referenceable;
 import org.opengroup.archimate.impl.ArchimatePackageImpl;
 
 import com.genmymodel.archimatediag.impl.ArchimatediagPackageImpl;
 import com.genmymodel.ecoreonline.graphic.GMMUtil;
+import com.genmymodel.ecoreonline.graphic.crossreferencedatapter.GmmCrossReferenceAdapter;
 
 public class ModelUtils
 {
@@ -42,6 +47,9 @@ public class ModelUtils
         InputStream inputStream = new ByteArrayInputStream(data);
         resource.load(inputStream, Collections.emptyMap());
 
+        GmmCrossReferenceAdapter crossReferenceAdapter = new GmmCrossReferenceAdapter();
+        resource.eAdapters().add(crossReferenceAdapter);
+
         return resource;
     }
 
@@ -57,8 +65,6 @@ public class ModelUtils
     public static String getObjectsToDetect(EModelElement modelElement)
     {
         EMap<String, String> details = getElementDetails(modelElement);
-        if (!details.containsKey(ResiistConstants.OBJECTS_TO_DETECT))
-            throw new ResourceNotFoundException("ResiistConstants.OBJECTS_TO_DETECT not found");
 
         return details.get(ResiistConstants.OBJECTS_TO_DETECT);
     }
@@ -93,6 +99,16 @@ public class ModelUtils
         return false;
     }
 
+    public static boolean hasGAMASimulationPath(EModelElement modelElement)
+    {
+        if (hasAnnotation(modelElement)) {
+            EMap<String, String> details = getElementDetails(modelElement);
+            return details.containsKey(ResiistConstants.GAMA_SIMULATION_FILE_PATH)
+                   && !details.get(ResiistConstants.GAMA_SIMULATION_FILE_PATH).isEmpty();
+        }
+        return false;
+    }
+
     public static boolean hasVideoSimulationPath(EModelElement modelElement)
     {
         if (hasAnnotation(modelElement)) {
@@ -104,7 +120,7 @@ public class ModelUtils
         return false;
     }
 
-    private static EMap<String, String> getElementDetails(EModelElement modelElement)
+    public static EMap<String, String> getElementDetails(EModelElement modelElement)
     {
         Optional<EAnnotation> gmmAnnotation = GMMUtil.getGmmAnnotation(modelElement);
         if (!gmmAnnotation.isPresent())
@@ -125,6 +141,12 @@ public class ModelUtils
             throw new ResourceNotFoundException("Simulation file path not found");
 
         return details.get(ResiistConstants.SIMULATION_FILE_PATH);
+    }
+
+    public static String getGAMASimulationFilePath(EModelElement modelElement)
+    {
+        EMap<String, String> details = getElementDetails(modelElement);
+        return details.get(ResiistConstants.GAMA_SIMULATION_FILE_PATH);
     }
 
     public static String getElementName(EModelElement modelElement)
@@ -160,5 +182,29 @@ public class ModelUtils
         }
 
         return Optional.ofNullable((String) nameValue);
+    }
+
+    public static String getArchimateName(Referenceable referenceable)
+    {
+        if (referenceable != null && !referenceable.getName().isEmpty()) {
+            return referenceable.getName().get(0).getValue();
+        }
+        return null;
+    }
+
+    public static void setName(EObject eObject, String name)
+    {
+        EStructuralFeature nameFeature = eObject.eClass().getEStructuralFeature("name");
+        if (nameFeature != null)
+            eObject.eSet(nameFeature, name);
+    }
+
+    public static <T> List<T> getAllElements(ResourceImpl modelResource, Class<T> targetedType)
+    {
+        if (modelResource != null)
+            return GMMUtil.allContentOfType(modelResource.getContents().get(0), targetedType)
+                          .collect(Collectors.toList());
+
+        return Collections.emptyList();
     }
 }

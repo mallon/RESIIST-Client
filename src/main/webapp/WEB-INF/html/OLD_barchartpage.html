@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="10" />
+<title th:text='${customproperty}'></title>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+       var content = new Map();
+        /*<![CDATA[*/
+        /*[# th:each="entry : ${customproperties}"]*/
+        	var cpConcent = [];
+        	/*[# th:each="data : ${entry.value}"]*/
+        		cpConcent.push(new Array(new Date(/*[[${data.date}]]*/), 
+        				Number(/*[[${data.value}]]*/)));
+        	/*[/]*/
+        	content.set(/*[[${entry.key}]]*/, cpConcent);
+        /*[/]*/
+     	/*]]>*/
+
+      function drawChart() {
+    	  content.forEach(addChart);
+      }
+     
+      function addChart(values, customproperty) {
+    	  var data = new google.visualization.DataTable();
+          data.addColumn('date', 'date');
+          data.addColumn('number', customproperty);
+          data.addRows(values);
+
+          var options = {
+            hAxis: {
+              title: 'Time'
+            },
+            vAxis: {
+              title: customproperty +'(t)'
+            },
+            curveType: 'function'
+          };
+
+          var newDiv = document.createElement("div"); 
+          document.body.appendChild(newDiv);
+          var chart = new google.visualization.LineChart(newDiv);
+          chart.draw(data, options);
+      }
+     	
+    </script>
+</head>
+<body>
+	<div id="chart_div"></div>
+</body>
+</html>
